@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				<form id="addCategory" th:action="@{k3AddCategory}" method="post">
+					<table border="1">
+							<tr>
+								<td>
+									<label for="largeCategoryInput" class="textColor">카테고리 대분류</label>
+								</td>
+								<td>
+									<input type="text" id="largeCategoryInput" name="largeCategory">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="mediumCategoryInput" >카테고리 중분류</label>
+								</td>
+								<td>
+									<input type="text" id="mediumCategoryInput" name="mediumCategory">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="smallCategoryInput" >카테고리 소분류</label>
+								</td>
+								<td>
+									<input type="text" id="smallCategoryInput" name="smallCategory">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input id="addBtn" type="submit" value="확인">
+								</td>
+							</tr>														
+					</table>
+				</form> 
+			</div>
+		</div>		
+	</th:block>
+</head>

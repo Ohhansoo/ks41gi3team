@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.shipping.ahs.mapper.K3ShippingMapper">
+
+<select id="getShippingList" resultType="K3Shipping">
+		SELECT
+			s.shippingCode,
+			s.vehicleCheckpointCode,
+			s.areaCode,
+			s.releaseMergeCode,
+			s.shippingAddress,
+			s.memberId,
+			s.memberPhone,
+			s.shippingDetail,
+			s.driverId,
+			s.shippingTracking
+		FROM
+			k3_tb_shipping AS s;
+	</select>
+
+</mapper>

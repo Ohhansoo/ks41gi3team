@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div class="content-header" th:fragment="locationFragment">
+		<div class="container-fluid">
+			<div class="bd-example">			
+			<nav aria-label="breadcrumb" class="d-flex justify-content-end">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+			    <li class="breadcrumb-item active" aria-current="page" th:text="${subtitle}"></li>
+			    <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
+			  </ol>
+			</nav>
+			</div>			
+         </div><!-- /.row -->
+	</div>
+	<!-- /.container-fluid -->
+</html> 	

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>addContract</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+	<div class=" card card-body container-fluid" id="modifyContract">
+	<h4>계약 정보 수정</h4>
+
+			<div id="contractorId">
+   				<label for="contractorId">거래처아이디</label>
+   					<input type="text" id="contractorId" name="contractorId"/>
+   					<button type="button" id="btn">중복확인 </button> 
+   			</div>
+   			<div id="contractorCode">
+   				<label for="contractorCode">거래처사업장코드</label>
+   					<input type="text" id="contractorCode" name="contractorCode"/>
+   			</div>
+   			<div id="mainBusinessCode">
+   				<label for="mainBusinessCode">사업장별 대표코드</label>
+   					<input type="text" id="mainBusinessCode" name="mainBusinessCode"/>
+   			</div>
+   			<div id="contractorPw">
+   				<label for="contractorPw">거래처 비밀번호</label>
+   					<input type="text" id="contractorPw" name="contractorPw"/>
+   			</div>
+   			<div id="memberId">
+   				<label for="memberId">거래처 등록직원 아이디</label>
+   					<input type="text" id="memberId" name="memberId"/>
+   			</div>
+   			<div id="levelCode">
+   				<label for="levelCode">거래처 권한번호</label>
+   					<input type="text" id="levelCode" name="levelCode"/>
+   			</div>
+   			<div id="contractorType">
+   				<label for="contractorType">거래처 유형</label>
+   					<input type="text" id="contractorType" name="contractorType"/>
+   			</div>
+   			<div id="contractorName">
+   				<label for="contractorName">거래처 상호명</label>
+   					<input type="text" id="contractorName" name="contractorName"/>
+   			</div>
+   			<div id="contractorPhone">
+   				<label for="contractorPhone">거래처 전화번호</label>
+   					<input type="text" id="contractorPhone" name="contractorPhone"/>
+   			</div>
+
+   			</tr>
+   			</tr>
+	</table>
+	<button class="ahsbtn3" type="submit">수정완료</button>
+	</div>

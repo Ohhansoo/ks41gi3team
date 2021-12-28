@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">차량기사 등록</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">차량기사 삭제</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">차량기사 출력</button>					
+					</div>
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<!-- <div class="card-header">
+							검색
+						</div> -->
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<!-- <div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">기사 아이디</span>
+										</div>
+										<input type="text" class="form-control" placeholder="기사 아이디">
+									</div>
+								</div> -->
+								<!--End inputbox 1 -->
+								<!--inputbox 2 -->
+								<!-- <div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">차량기사 이름</span>
+										</div>
+										<input type="text" class="form-control" placeholder="배송기사 이름">
+	                    			</div>
+								</div> -->
+								<!--End inputbox 2 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							기사 조회
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<table class="table table-head-fixed text-nowrap">
+								<thead>
+									<tr>
+										<th>선택</th>
+										<th>기사 아이디</th>
+										<th>기사 이름</th>
+										<th>기사 주소</th>
+										<th>기사 전화번호</th>
+										<th>등록일자</th>
+										<th>성과 등급</th>
+										<th>자격 유형</th>
+										<th>계약 유형</th>
+										<th>수정</th>					
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(driverList)}" th:each="l : ${driverList}">
+										<td>
+											<input type="checkbox" value="선택">
+										</td>
+										<td th:text="${l.driverId}"></td>
+										<td th:text="${l.driverName}"></td>
+										<td th:text="${l.driverAddr}"></td>
+										<td th:text="${l.driverPhone}"></td>
+										<td th:text="${l.driverRegDate}"></td>
+										<td th:text="${l.driverPerformanceGrade}"></td>
+										<td th:text="${l.driverLicenseType}"></td>
+										<td th:text="${l.driverQualificationType}"></td>
+										<td>
+											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info" onclick = "location.href='k3ModifyDriver?driverId=${l.driverId}'">
+
+										</td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>
