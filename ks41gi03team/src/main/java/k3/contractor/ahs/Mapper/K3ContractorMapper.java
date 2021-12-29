@@ -1,4 +1,4 @@
-package k3.contractor.ahs.Mapper;
+package k3.contractor.ahs.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
