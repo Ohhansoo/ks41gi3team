@@ -17,7 +17,7 @@ import k3.category.ahs.dto.K3Category;
 import k3.category.ahs.service.K3CategoryService;
 
 @Controller
-@RequestMapping(value="/team03/category")
+@RequestMapping(value="/team03/goodsManagement/category")
 public class K3CategoryController {
 	
 	private static final Logger log = LoggerFactory.getLogger(K3CategoryController.class);
@@ -45,7 +45,7 @@ public class K3CategoryController {
 		model.addAttribute("subtitle", "카테고리 현황");
 		model.addAttribute("categoryList", categoryList);
 		
-		return "team03/category/k3CategoryList";
+		return "team03/goodsManagement/category/k3CategoryList";
 	}
 	//카테고리 삭제처리
 	@PostMapping("/k3DeleteCategory")
@@ -54,7 +54,7 @@ public class K3CategoryController {
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
 		map.put("deleteList", deleteList);
 		log.info("DeleteCategory 전송결과 : " + map.values());
-		return "redirect:/team03/category/k3CategoryList";
+		return "redirect:/team03/goodsManagement/category/k3CategoryList";
 	}
 
 		
@@ -63,7 +63,7 @@ public class K3CategoryController {
 	public String k3ModifyLabel(K3Category k3Category) {
 		int result = k3CategoryService.K3ModifyLabel(k3Category);
 		log.info("AddCategory 메서드 인서트 결과 : " + k3Category);
-		return "redirect:/team03/category/k3CategoryList";
+		return "redirect:/team03/goodsManagement/category/k3CategoryList";
 	}
 	
 	
@@ -76,7 +76,7 @@ public class K3CategoryController {
 		model.addAttribute("title", "카테고리관리");
 		model.addAttribute("subtitle", "카테고리 수정");
 		model.addAttribute("k3Category", k3Category);
-		return "team03/category/k3ModifyCategory";
+		return "team03/goodsManagement/category/k3ModifyCategory";
 	}
 		
 	
@@ -86,7 +86,7 @@ public class K3CategoryController {
 		int result = k3CategoryService.AddCategory(k3Category);
 		log.info("AddCategory 메서드 인서트 결과 : " + result);
 		log.info("AddCategory 메서드 인서트 결과 : " + k3Category);
-		return "redirect:/team03/category/k3CategoryList";
+		return "redirect:/team03/goodsManagement/category/k3CategoryList";
 	}
 	
 	//카테고리 등록화면(이동)
@@ -94,7 +94,7 @@ public class K3CategoryController {
 	public String k3MoveToAddCategoryForm(Model model) {
 		model.addAttribute("title", "카테고리 관리");
 		model.addAttribute("subtitle", "카테고리 등록");
-		return "team03/category/k3AddCategory";
+		return "team03/goodsManagement/category/k3AddCategory";
 	}
 	
 	//카테고리 현황(초기화면)
@@ -105,7 +105,7 @@ public class K3CategoryController {
 		model.addAttribute("subtitle", "카테고리 현황");
 		model.addAttribute("categoryList", categoryList);
 		
-		return "team03/category/k3CategoryList";
+		return "team03/goodsManagement/category/k3CategoryList";
 	}
 	
 }
