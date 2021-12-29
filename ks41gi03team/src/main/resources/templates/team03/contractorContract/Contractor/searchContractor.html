@@ -6,133 +6,138 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
-		<div class="container-fluid" id="ContractList">
-				<!-- 계약처 검색 -->
-				<div  id="contractList" class=" card card-body" style="margin:0px; margin-bottom:15px" >
-					<div class="row input-group">
-						<!-- 계약처 조건 검색 -->
-	         			<div class="input-group-prepend col-sm-6" id="contractSearch">
-							<button type="button" class=" btn btn-secondary btn-sm" for="searchContract">거래처 조회</button>
-							<input type="text" id="searchContract" >
-							<select id="searchContract" class=" btn-outline-info" style="margin-right:150px">
-								<option disabled="true" selected>거래처 정보선택</option>
-								<option>계약번호</option>
-								<option>계약업체</option>
-								<option>계약담당자</option>
-								<option>계약유형</option>
-								<option>계약상태</option>             
-								<option>배송옵션</option>
-								<option>계약직원아이디</option>
-	         				</select>
-	         			</div>
-	         			<!-- 계약처 등록날짜 검색 -->
-						<div class="input-group-prepend col-sm-6">
-							<div>
-								<button type="button" class="btn btn-secondary btn-sm">등록날짜조회</button>
-								<div class=" date" id="reservationdate" data-target-input="nearest">
-									<input type="text" class=" datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-									<divdata-target="#reservationdate" data-toggle="datetimepicker">
-										<div><i class="fa fa-calendar"></i></div>
-							</div>
-							</div>
-							<div class=" date" id="reservationdate2" data-target-input="nearest">
-								<input type="text" class=" datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-								<div data-target="#reservationdate2" data-toggle="datetimepicker">
-									<div><i class="fa fa-calendar"></i></div>
-								</div>
-							</div>
-						</div>
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">출력</button>					
 					</div>
-				</div>
-				
-  				<!-- 조회된 계약정보 테이블 -->
-				<div class="card" style="padding:30px">
-   					<label for="contractList">거래처 목록</label>
-					<div class="card-body" style="overflow:scroll; height:500px">
-						<table class="table text-nowrap">
-							<thead>
+					<!--End 버튼 영역 -->
+					<!--거래처 검색 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							거래처 검색
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<div class="col-sm-6" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select class="form-control">
+												<option disabled="true" selected>거래처정보선택</option>
+												<option>거래처 사업장 코드</option>
+												<option>거래처 상호명</option>
+												<option>거래처 종목</option>
+												<option>거래처 업태</option>
+												<option>거래 구분</option>             
+												<option>거래처 전화번호</option>
+												<option>거래처아이디</option>
+												<option>거래처 계정상태</option>
+												<option>등록직원</option>
+	         								</select>
+	         							</div>
+										<input type="text" class="form-control" placeholder="거래처정보입력">
+										<div class=" input-group-append">
+											<button type="button" class="ahsbtn2 btn btn-outline-info" for="searchContract">거래처 조회</button>
+										</div>
+									</div>
+								</div>
+								<!--End inputbox 1 -->
+								<!--inputbox 2 -->
+								<div class="col-sm-6" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+											<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+											</div>
+										</div>
+										<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+											<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+											</div>
+										</div>
+										<button type="button" class="ahsbtn3 btn btn-outline-info">거래처등록날짜조회</button>
+	                    			</div>
+								</div>
+								<!--End inputbox 2 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 거래처 검색 카드 영역 -->
+					<!--조회 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							거래처 목록
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<table class="table table-head-fixed text-nowrap">
+								<thead>
 								<tr>
 						            <th>선택</th>
-						            <th>계약번호</th>
-						            <th>계약업체</th>
-						            <th>계약담당자</th>
-						            <th>계약체결날짜</th>
-						            <th>총 계약기간</th>
-						            <th>계약상태</th>
-						            <th>계약직원 아이디</th>
+						            <th>거래처 사업장 코드</th>
+						            <th>거래처 상호명</th>
+						            <th>거래처 종목</th>
+						            <th>거래처 업태</th>
+						            <th>거래 구분</th>
+						            <th>거래처 전화번호</th>
+						            <th>등록일자</th>
+						            <th>거래처 아이디</th>
+						            <th>거래처 계정 상태</th>
+						            <th>등록직원아이디</th>
 									<th>수정</th>
+									<th>상세정보</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr scope="row">
-									<th>
-											<label>
-												<input id="removeContract" type="checkbox"></button>&nbsp; &nbsp;
-											</label>
-									</th>
-									<th>1</th>
-									<th>a공장</th>
-									<th>김사장</th>
-									<th>2021-11-01</th>
-									<th>1년</th>
-									<th>계약중</th>
-									<th>id001</th>
-									<th>
-											<label class="form-group">
-												<button id="modifyContract" type="button" class="ahsbtn1 form-control btn-outline-info" style="width: 90px; height:38px;">
-													<a th:href="@{/team03/contractorContract/Contractor/modifyContractor}">
-														수정
-													</a>
-												</button>&nbsp; &nbsp;
-											</label>
-									</th>
-								</tr>
-							</tbody>
-						</table>
-								<!-- 테이블 넘김 번호 -->
-								<ul class="pagination" style="margin:auto">
-									<li class="paginate_button page-item previous disabled" id="example1_previous">
-										<a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">
-										Previous
-										</a>
-									</li>
-									<li class="paginate_button page-item active">
-										<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">
-										1
-										</a>
-									</li>
-									<li class="paginate_button page-item ">
-										<a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">
-										2
-										</a>
-									</li>
-									<li class="paginate_button page-item ">
-										<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">
-										3
-										</a>
-									</li>
-									<li class="paginate_button page-item ">
-										<a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">
-										4
-										</a>
-									</li>
-									<li class="paginate_button page-item ">
-										<a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">
-									     5
-										</a>
-									</li>
-									<li class="paginate_button page-item ">
-										<a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">
-										6
-										</a>
-									</li>
-									<li class="paginate_button page-item next" id="example1_next">
-										<a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">
-										Next	
-										</a>
-									</li>
-								</ul>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
+										<td>
+												<label>
+													<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
+												</label>
+										</td>
+										<td  th:text="${c.contractorCode}"></td>
+										<td  th:text="${c.contractorName}"></td>
+										<td  th:text="${c.contractorItem}"></td>
+										<td  th:text="${c.contractorStatus}"></td>
+										<td  th:text="${c.contractorDevision}"></td>
+										<td  th:text="${c.contractorPhone}"></td>
+										<td  th:text="${c.contractorRegistrationDate}"></td>
+										<td  th:text="${c.contractorId}"></td>
+										<td  th:text="${c.contractorState}"></td>
+										<td  th:text="${c.memberId}"></td>
+										<td>
+											<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/modifyContractor}">
+												수정
+											</a>
+										</td>
+										<td>
+											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/detailContractor}">
+												상세조회
+											</a>
+										</td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!--End card body -->
 					</div>
+					<!--End 조회 카드 영역 -->
 				</div>
-	</div>
-</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

@@ -13,22 +13,24 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
-	<select id="k3GetContractList" resultType="K3Contract">
+	<select id="k3GetContractorList" resultType="K3Contractor">
 		SELECT
-			cs.contractCode as contractCode,
-			csf.contractorName as contractorName,
-			cs.contractorCode as contractorCode,
-			cs.contractorDevision as contractorDevision,
-			cs.contractState as contractState,
-			cs.contractSingningDate as contractSingningDate,
-			cs.contractorId as contractorId,
-			cs.memberId as memberId
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
 		FROM
-			k3_tb_contract_simple AS cs
-			Inner join
-			k3_tb_contractor_staff AS csf
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
 			on
-			cs.contractorId = csf.contractorId;
+			c.contractorId = cs.contractorId;
 	</select>
 
 </mapper>
