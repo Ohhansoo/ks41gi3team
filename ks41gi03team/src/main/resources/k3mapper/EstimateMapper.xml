@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
+<mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
 <!-- 	<resultMap type="K3Contract" id="contractResultMap">
 		<result column="contractCode"     property="contractCode"/>
 		<result column="contraactorCode"     property="contraactorCode"/>
@@ -13,22 +13,20 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
-	<select id="k3GetContractList" resultType="K3Contract">
+	<select id="k3GetEstimateList" resultType="K3Estimate">
 		SELECT
-			cs.contractCode as contractCode,
-			csf.contractorName as contractorName,
-			cs.contractorCode as contractorCode,
-			cs.contractorDevision as contractorDevision,
-			cs.contractState as contractState,
-			cs.contractSingningDate as contractSingningDate,
-			cs.contractorId as contractorId,
-			cs.memberId as memberId
+			e.estimateNum
+			,e.contractorCode
+			,cs.contractorName
+			,cs.contractorPhone
+			,cs.contractorId
+			,e.memberId
 		FROM
-			k3_tb_contract_simple AS cs
-			Inner join
-			k3_tb_contractor_staff AS csf
+			k3_tb_estimate AS e
+			INNER join
+			k3_tb_contractor_staff AS cs
 			on
-			cs.contractorId = csf.contractorId;
+			e.memberId = cs.memberId;
 	</select>
 
 </mapper>
