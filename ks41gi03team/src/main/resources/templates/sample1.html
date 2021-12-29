@@ -10,43 +10,31 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							검색영역 -> 이쪽은 삭제 가능
+							000 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
+								<form class="col-lg-6" th:action="@{#}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
+											<select name="categoryKey" class="input-group-text">
+												<option value="large">대분류</option>
+												<option value="medium">중분류</option>
+												<option value="small">소분류</option>
+											</select>
 										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
+										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
-								</div>
+								</form>
 								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div>
-								<!--End inputbox 2 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
@@ -56,7 +44,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							본문영역  -> 이쪽은 삭제 가능
+							000 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -89,6 +77,12 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
+						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
