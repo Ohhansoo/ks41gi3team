@@ -6,20 +6,7 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
-	<form th:action="@{/team03/delivery/k3AddCheckpoint}" method="post">
-		<script>
-			$(function(){
-				$('#sample1').on('click', function(){
-					location.href = 'sample1.html';
-				});
-				$('#sample2').on('click', function(){
-					location.href = 'sample2.html';
-				});
-			
-				
-			});
-		</script>
-	 
+
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -42,6 +29,7 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
+							<form id="userInfo" th:action="@{/team03/delivery/k3AddCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
@@ -62,7 +50,8 @@
 									<div class="inputwrap col-md-12">
 										<label for="vehicleShipmentDate" class="inputName">출하 일시</label>
 										<input class="inputBox" type="text" id="vehicleShipmentDate" name="vehicleShipmentDate"/>
-									</div>								
+									</div>	
+									</form>							
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
@@ -77,6 +66,5 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-		</form>
 	</th:block>
 </head>
