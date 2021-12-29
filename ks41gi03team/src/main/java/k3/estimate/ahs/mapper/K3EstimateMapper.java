@@ -1,4 +1,4 @@
-package k3.estimate.ahs.Mapper;
+package k3.estimate.ahs.mapper;
 
 public class K3EstimateMapper {
 
