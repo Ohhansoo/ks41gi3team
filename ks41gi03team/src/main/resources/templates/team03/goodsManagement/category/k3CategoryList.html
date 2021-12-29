@@ -9,7 +9,7 @@
 			<script>
 			$(function(){				
 				$('#categoryBtn').on('click', function(){
-					location.href = '/team03/category/k3AddCategory';
+					location.href = '/team03/goodsManagement/category/k3AddCategory';
 				});
 				
 				$(document).on('click', '#deleteCategoryBtn', function(){
@@ -54,7 +54,7 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/category/k3CategoryList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
@@ -82,7 +82,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/category/k3DeleteCategory}" method="post">
+							<form id="searchForm" th:action="@{/team03/goodsManagement/category/k3DeleteCategory}" method="post">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
