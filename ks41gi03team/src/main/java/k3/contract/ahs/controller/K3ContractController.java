@@ -43,11 +43,6 @@ public class K3ContractController {
 		
 		return "/team03/contractorContract/Contract/searchContract";
 	}
-	@GetMapping("/driver/checkpointList")
-	public String getDriver() {
-
-		return "team03/driver/checkpointList";
-	}	
 	
 	//수정
 	@GetMapping("/modifyContract")
