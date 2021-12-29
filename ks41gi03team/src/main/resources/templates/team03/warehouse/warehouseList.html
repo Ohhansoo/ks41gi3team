@@ -3,94 +3,72 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+		<title th:text="${title}"></title>
 	</th:block>
+	
+	
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
-				<!-- 콘텐츠 콘테이너 시작 -->
+					<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							검색영역 -> 이쪽은 삭제 가능
-						</div>
-						<!--End card header -->
-						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h2 class="card-title">창고 현황</h2>
+									<div class="card-tools">
+										<div class="input-group input-group-sm" style="width: 150px;">
+											<input type="text" name="table_search" class="form-control float-right" placeholder="Search"/>
+											<div class="input-group-append">
+												<button type="button" class="btn btn-default">
+													<i class="fas fa-search"></i>	
+												</button>									
+											</div>
 										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
 									</div>
 								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
+								<div class="card-body table-responsive p-0" style="heght:300px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>	
+											<tr>
+												<td>창고이름</td>
+												<td>층</td>
+												<td>창고번호</td>
+												<td>창고면적</td>
+												<td>평</td>
+												<td>창고유형</td>
+												<td>운영여부</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
+												<td th:text="${w.bildingName}"></td>
+												<td th:text="${w.floorNumber}"></td>
+												<td th:text="${w.warehouseNumber}"></td>
+												<td th:text="${w.warehouseArea}"></td>
+												<td th:text="${w.warehouseFlat}"></td>
+												<td th:text="${w.warehouseType}"></td>
+												<td th:text="${w.warehouseOperation}">
+													<span class="tag tag-warning"></span>
+												</td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(K3Warehouses)}">
+												<td></td>
+											</tr>	
+										</tbody>
+									</table>
 								</div>
-								<!--End inputbox 2 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
+								<div class="card-footer">
+									<button  type="button"class="btn btn-outline-lg">
+										<i class="fas fa-puls"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
 					</div>
-					<!--End 상위 카드 영역 -->
-					<!--하위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							본문영역  -> 이쪽은 삭제 가능
-						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
-								<thead>
-									<tr>
-										<th>선택</th>
-										<th>이름</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>수정</th>					
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<input type="checkbox" value="선택">
-										</td>
-										<td>오한수</td>
-										<td>남</td>
-										<td>010-1111-1111</td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
-									</tr>
-								</tbody>						
-							</table>
-						</div>
-						<!--End card body -->
-					</div>
-					<!--End 하위 카드 영역 -->
-				</div>
-				<!-- End 콘텐츠 콘테이너 -->
+				</div>	
+					<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
 	</th:block>
