@@ -12,11 +12,11 @@ public interface K3WarehouseMapper {
 	/**
 	 * 창고등록처리
 	 */
-	public int addWarehouse(K3Warehouses k3Warehouses);
+	public int k3AddWarehouse(K3Warehouses k3Warehouses);
 	
 	/**
 	 * 창고전체조회
 	 */
-	public List<K3Warehouses> getWarehouseList();
+	public List<K3Warehouses> getK3WarehouseList();
 
 }
