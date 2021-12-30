@@ -12,9 +12,8 @@ public class K3LaydownCheck {
 	private String laydownDate;
 	private String laydownCheckResult;
 	private String laydownCheckManager;
-	private String laydownCheck;
+	private String laydownCheckDate;
 	private String dockName;
-	private String memberId;
 	private String memberName;
 	public String getLaydownCheckCode() {
 		return laydownCheckCode;
@@ -82,23 +81,17 @@ public class K3LaydownCheck {
 	public void setLaydownCheckManager(String laydownCheckManager) {
 		this.laydownCheckManager = laydownCheckManager;
 	}
-	public String getLaydownCheck() {
-		return laydownCheck;
+	public String getLaydownCheckDate() {
+		return laydownCheckDate;
 	}
-	public void setLaydownCheck(String laydownCheck) {
-		this.laydownCheck = laydownCheck;
+	public void setLaydownCheckDate(String laydownCheckDate) {
+		this.laydownCheckDate = laydownCheckDate;
 	}
 	public String getDockName() {
 		return dockName;
 	}
 	public void setDockName(String dockName) {
 		this.dockName = dockName;
-	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -107,15 +100,114 @@ public class K3LaydownCheck {
 		this.memberName = memberName;
 	}
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
+		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
+		result = prime * result + ((dockName == null) ? 0 : dockName.hashCode());
+		result = prime * result + ((expiratonDate == null) ? 0 : expiratonDate.hashCode());
+		result = prime * result + ((laydownCheckCode == null) ? 0 : laydownCheckCode.hashCode());
+		result = prime * result + ((laydownCheckDate == null) ? 0 : laydownCheckDate.hashCode());
+		result = prime * result + ((laydownCheckManager == null) ? 0 : laydownCheckManager.hashCode());
+		result = prime * result + ((laydownCheckResult == null) ? 0 : laydownCheckResult.hashCode());
+		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
+		result = prime * result + laydownGoodsCount;
+		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
+		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
+		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		K3LaydownCheck other = (K3LaydownCheck) obj;
+		if (contractorId == null) {
+			if (other.contractorId != null)
+				return false;
+		} else if (!contractorId.equals(other.contractorId))
+			return false;
+		if (contractorName == null) {
+			if (other.contractorName != null)
+				return false;
+		} else if (!contractorName.equals(other.contractorName))
+			return false;
+		if (dockName == null) {
+			if (other.dockName != null)
+				return false;
+		} else if (!dockName.equals(other.dockName))
+			return false;
+		if (expiratonDate == null) {
+			if (other.expiratonDate != null)
+				return false;
+		} else if (!expiratonDate.equals(other.expiratonDate))
+			return false;
+		if (laydownCheckCode == null) {
+			if (other.laydownCheckCode != null)
+				return false;
+		} else if (!laydownCheckCode.equals(other.laydownCheckCode))
+			return false;
+		if (laydownCheckDate == null) {
+			if (other.laydownCheckDate != null)
+				return false;
+		} else if (!laydownCheckDate.equals(other.laydownCheckDate))
+			return false;
+		if (laydownCheckManager == null) {
+			if (other.laydownCheckManager != null)
+				return false;
+		} else if (!laydownCheckManager.equals(other.laydownCheckManager))
+			return false;
+		if (laydownCheckResult == null) {
+			if (other.laydownCheckResult != null)
+				return false;
+		} else if (!laydownCheckResult.equals(other.laydownCheckResult))
+			return false;
+		if (laydownDate == null) {
+			if (other.laydownDate != null)
+				return false;
+		} else if (!laydownDate.equals(other.laydownDate))
+			return false;
+		if (laydownGoodsCount != other.laydownGoodsCount)
+			return false;
+		if (laydownGoodsName == null) {
+			if (other.laydownGoodsName != null)
+				return false;
+		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
+			return false;
+		if (mainBusinessCode == null) {
+			if (other.mainBusinessCode != null)
+				return false;
+		} else if (!mainBusinessCode.equals(other.mainBusinessCode))
+			return false;
+		if (manufacturedDate == null) {
+			if (other.manufacturedDate != null)
+				return false;
+		} else if (!manufacturedDate.equals(other.manufacturedDate))
+			return false;
+		if (memberName == null) {
+			if (other.memberName != null)
+				return false;
+		} else if (!memberName.equals(other.memberName))
+			return false;
+		return true;
+	}
+	@Override
 	public String toString() {
 		return "K3LaydownCheck [laydownCheckCode=" + laydownCheckCode + ", mainBusinessCode=" + mainBusinessCode
 				+ ", contractorName=" + contractorName + ", contractorId=" + contractorId + ", laydownGoodsName="
 				+ laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount + ", manufacturedDate="
 				+ manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate=" + laydownDate
 				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
-				+ ", laydownCheck=" + laydownCheck + ", dockName=" + dockName + ", memberId=" + memberId
-				+ ", memberName=" + memberName + "]";
+				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
+				+ "]";
 	}
+	
 	
 	
 
