@@ -11,6 +11,7 @@ import k3.contractor.ahs.mapper.K3ContractorMapper;
 @Service
 @Transactional
 public class K3ContractorService {
+
 	private K3ContractorMapper k3ContractorMapper;
 	
 	public K3ContractorService(K3ContractorMapper k3ContractorMapper) {
