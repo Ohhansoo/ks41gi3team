@@ -37,10 +37,22 @@ public class K3OurcompanyController {
 	 * 
 	 * return "team03/ourcompany/k3OurCompanyList"; }
 	 */
+	//자사 등록처리
+	@PostMapping("/k3AddOurCompanyList")
+	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {
+		ourcompanyService.AddOurCompany(k3ourcompany);
+		return "redirect:/team03/ourcompany/k3OurCompanyList";
+	}
 	
-	@PostMapping("/ourcompany/k3AddOurCompanyList")
-	public String AddOurCompany(K3OurCompany k3ourcompany) {
-		return "redirect:/ourcompany/k3OurCompanyList";
+	
+	
+	//자사 등록화면(이동)
+	@GetMapping("/k3AddOurCompanyList")
+	public String AddOurCompany(Model model) {
+		model.addAttribute("title", "자사정보관리");
+		model.addAttribute("subtitle", "자사정보등록");
+		//return "redirect:/team03/ourcompany/k3OurCompanyList";
+		return "team03/ourcompany/k3AddOurCompanyList";
 	}
 	
 	@GetMapping("/k3OurCompanyList")

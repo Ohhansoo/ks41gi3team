@@ -4,6 +4,7 @@ public class K3MemberUser {
 	private String memberId;
 	private String memberPassword;
 	private String mainBusinessCode;
+	private String levelMemberCode;
 	private String memberName;
 	private String memberGender;
 	private String memberAddr;
@@ -29,6 +30,12 @@ public class K3MemberUser {
 	}
 	public void setMainBusinessCode(String mainBusinessCode) {
 		this.mainBusinessCode = mainBusinessCode;
+	}
+	public String getLevelMemberCode() {
+		return levelMemberCode;
+	}
+	public void setLevelMemberCode(String levelMemberCode) {
+		this.levelMemberCode = levelMemberCode;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -81,11 +88,12 @@ public class K3MemberUser {
 	@Override
 	public String toString() {
 		return "K3MemberUser [memberId=" + memberId + ", memberPassword=" + memberPassword + ", mainBusinessCode="
-				+ mainBusinessCode + ", memberName=" + memberName + ", memberGender=" + memberGender + ", memberAddr="
-				+ memberAddr + ", memberPhone=" + memberPhone + ", memberResidentRegistrationNumber="
-				+ memberResidentRegistrationNumber + ", memberState=" + memberState + ", memberRegDate=" + memberRegDate
-				+ ", memberHiredDate=" + memberHiredDate + "]";
+				+ mainBusinessCode + ", levelMemberCode=" + levelMemberCode + ", memberName=" + memberName
+				+ ", memberGender=" + memberGender + ", memberAddr=" + memberAddr + ", memberPhone=" + memberPhone
+				+ ", memberResidentRegistrationNumber=" + memberResidentRegistrationNumber + ", memberState="
+				+ memberState + ", memberRegDate=" + memberRegDate + ", memberHiredDate=" + memberHiredDate + "]";
 	}
+	
 	
 
 }
