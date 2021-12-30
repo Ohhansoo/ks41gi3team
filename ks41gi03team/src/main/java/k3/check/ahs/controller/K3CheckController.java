@@ -43,8 +43,8 @@ public class K3CheckController {
 	public String k3GetLaydownCheckList(Model model) {
 		
 		List<K3LaydownCheck> K3LaydownCheck = k3CheckService.k3GetLaydownCheckList();
-		model.addAttribute("title", "입출하검수관리");
-		model.addAttribute("subtitle", "입하검수현황");
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고관리현황");
 		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
 		
 		return "team03/goodsManagement/check/k3LaydownCheckList";
