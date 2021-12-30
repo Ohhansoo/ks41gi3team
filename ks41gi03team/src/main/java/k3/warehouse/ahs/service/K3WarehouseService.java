@@ -16,7 +16,6 @@ public class K3WarehouseService {
 	public K3WarehouseService(K3WarehouseMapper k3WarehouseMapper) {
 		this.k3WarehouseMapper = k3WarehouseMapper;
 	}
-	
 	/**
 	 * 창고 등록처리
 	 */
@@ -32,11 +31,4 @@ public class K3WarehouseService {
 		return K3Warehouses;
 	}
 	
-	/**
-	 * 창고전체 분할조회
-	 */
-	public List<K3Warehouses> getWarehouseListSample(){
-		List<K3Warehouses> K3WarehousesSample = k3WarehouseMapper.getWarehouseListSample();
-		return K3WarehousesSample;
-	}
 }

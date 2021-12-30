@@ -3,15 +3,69 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title th:text="title"></title>
+		<title th:text="${title}"></title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-		
+	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 					<!-- 콘텐츠 콘테이너 시작 -->
-				
-					
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h2 class="card-title">창고 현황</h2>
+									<div class="card-tools">
+										<div class="input-group input-group-sm" style="width: 150px;">
+											<input type="text" name="table_search" class="form-control float-right" placeholder="Search"/>
+											<div class="input-group-append">
+												<button type="button" class="btn btn-default">
+													<i class="fas fa-search"></i>	
+												</button>									
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body table-responsive p-0" style="heght:300px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>	
+											<tr>
+												<td>창고이름</td>
+												<td>층</td>
+												<td>창고번호</td>
+												<td>창고면적</td>
+												<td>평</td>
+												<td>창고유형</td>
+												<td>운영여부</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
+												<td th:text="${w.bildingName}"></td>
+												<td th:text="${w.floorNumber}"></td>
+												<td th:text="${w.warehouseNumber}"></td>
+												<td th:text="${w.warehouseArea}"></td>
+												<td th:text="${w.warehouseFlat}"></td>
+												<td th:text="${w.warehouseType}"></td>
+												<td th:text="${w.warehouseOperation}">
+													<span class="tag tag-warning"></span>
+												</td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(K3Warehouses)}">
+												<td></td>
+											</tr>	
+										</tbody>
+									</table>
+								</div>
+								<div class="card-footer">
+									<button  type="button"class="btn btn-outline-lg">
+										<i class="fas fa-puls"></i>
+									</button>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>	
 					<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>

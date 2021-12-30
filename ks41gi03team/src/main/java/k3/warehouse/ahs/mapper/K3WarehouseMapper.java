@@ -14,6 +14,9 @@ public interface K3WarehouseMapper {
 	 */
 	public int addWarehouse(K3Warehouses k3Warehouses);
 	
+	/**
+	 * 창고전체조회
+	 */
 	public List<K3Warehouses> getWarehouseList();
-	public List<K3Warehouses> getWarehouseListSample();
+
 }
