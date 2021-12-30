@@ -25,14 +25,14 @@
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
-												<option value="large">대분류</option>
-												<option value="medium">중분류</option>
+												<option value="large">거래처명</option>
+												<option value="medium">검수자</option>
 												<option value="small">소분류</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-										
+										<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
+										<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -49,7 +49,7 @@
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
 							<table class="table table-head-fixed text-nowrap">
 								<thead>
 									<tr>
@@ -63,7 +63,7 @@
 										<th>검수자</th>					
 										<th>입하날짜</th>					
 										<th>검수일자</th>					
-										<th>거래명세서</th>					
+										<th>검수결과</th>					
 										<th>수정</th>					
 									</tr>
 								</thead>
@@ -73,17 +73,17 @@
 											<input type="checkbox" value="선택">
 										</td>
 										<td th:text="${l.laydownCheckCode}"></td>
-										<td th:text="${l.laydownGoodsName}">입하물품명</td>
-										<td th:text="${l.laydownGoodsCount}">입하물품개수</td>
-										<td th:text="${l.manufacturedDate}">제조일자</td>
-										<td th:text="${l.expiratonDate}">유통기한</td>
-										<td th:text="${l.contractorName}">거래처명</td>
-										<td th:text="${l.memberName}">검수자</td>
-										<td th:text="${l.laydownDate}">입하날짜</td>
-										<td th:text="${l.laydownCheck}">검수일자</td>
-										<td th:text="${l.laydownCheckResult}">검사결과</td>
+										<td th:text="${l.laydownGoodsName}"></td>
+										<td th:text="${l.laydownGoodsCount}"></td>
+										<td th:text="${l.manufacturedDate}"></td>
+										<td th:text="${l.expiratonDate}"></td>
+										<td th:text="${l.contractorName}"></td>
+										<td th:text="${l.memberName}"></td>
+										<td th:text="${l.laydownDate}"></td>
+										<td th:text="${l.laydownCheckDate}"></td>
+										<td th:text="${l.laydownCheckResult}"></td>
 										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
+											<a th:href="@{#}">수정</a>
 										</td>
 									</tr>
 									<tr th:unless="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
