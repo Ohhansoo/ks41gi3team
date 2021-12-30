@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				<form id="outAdd" th:action="@{K3OutAdd}" method="post">
+					<table border="1">
+							<tr>
+								<td>
+									<label for="subjectCodeInput">계정과목 코드</label>
+								</td>
+								<td>
+									<input type="text" id="subjectCodeInput" name="subjectCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectNameInput">계정과목 이름</label>
+								</td>
+								<td>
+									<input type="text" id="subjectNameInput" name="subjectName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectGCodeInput">통합계정과목 코드</label>
+								</td>
+								<td>
+									<input type="text" id="subjectGCodeInput" name="subjectGCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectUseInput">계정과목 사용여부</label>
+								</td>
+								<td>
+									<input type="text" id="subjectUseInput" name="isUse">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectCorrectInput">계정과목 수정여부</label>
+								</td>
+								<td>
+									<input type="text" id="subjectCorrectInput" name="isCorrect">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectMemberId">등록자아이디</label>
+								</td>
+								<td>
+									<input type="text" id="subjectMemberInput" name="regName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectRegDateInput">등록날짜</label>
+								</td>
+								<td>
+									<input type="text" id="subjectRegDateInput" name="regDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="subjectApplyDateInput">적용연도</label>
+								</td>
+								<td>
+									<input type="text" id="subjectApplyDateInput" name="applyYear">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input id="addBtn" type="submit" value="확인">
+								</td>
+							</tr>														
+					</table>
+				</form> 
+			</div>
+		</div>		
+	</th:block>
+</head>
