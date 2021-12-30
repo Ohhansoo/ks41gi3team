@@ -21,7 +21,9 @@ public class K3WarehouseController {
 	public K3WarehouseController(K3WarehouseService k3WarehouseService) {
 		this.k3WarehouseService = k3WarehouseService;
 	}
-	
+	/**
+	 * 창고등록(처리)
+	 */
 	@PostMapping("/addWarehouse")
 	public String addWarehouse(K3Warehouses k3Warehouses) {
 		int result = k3WarehouseService.addWarehouse(k3Warehouses);
@@ -43,7 +45,7 @@ public class K3WarehouseController {
 		List<K3Warehouses> K3Warehouses = k3WarehouseService.getWarehouseList();
 		model.addAttribute("title","창고조회");
 		model.addAttribute("K3Warehouses",K3Warehouses);
-		return "team03/warehouse/warehouseList";
+		return "team03/spaceBusiness/warehouse/warehouseList";
 	}
 	
 }
