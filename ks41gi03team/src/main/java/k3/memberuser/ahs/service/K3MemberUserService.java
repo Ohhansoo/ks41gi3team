@@ -18,7 +18,7 @@ public class K3MemberUserService {
 	
 	public List<K3MemberUser> getMemberUserList() {
 		List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserList();
-		return null;
+		return memberuserList;
 	}
 	
 

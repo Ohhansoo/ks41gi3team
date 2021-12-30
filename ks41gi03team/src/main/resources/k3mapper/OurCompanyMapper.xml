@@ -15,6 +15,30 @@
 		<result column="ourCompanyEmail" property="ourCompanyEmail" />
 	</resultMap> 
    -->
+   
+   <insert id="AddOurCompany" parameterType="K3OurCompany">
+   	INSERT INTO 
+   		k3_tb_our_company
+		(
+		 ourCompanyCode
+		,ourCompanyBusinessPlaceCode
+		,ourCompanyBusinessName
+		,ourCompanyBusinessCheifName
+		,ourCompanyWorkPlaceAddr
+		,ourCompanyStatus
+		,ourCompanyWorkType
+		,ourCompanyEmail
+	)VALUES(
+		 #{ourCompanyCode}
+		,#{ourCompanyBusinessPlaceCode}
+		,#{ourCompanyBusinessName}
+		,#{ourCompanyBusinessCheifName}
+		,#{ourCompanyWorkPlaceAddr}
+		,#{ourCompanyWorkType}
+		,#{ourCompanyEmail}
+	);
+	
+   </insert>
 	
 	
 	<select id="getOurCompanyList"  resultType="K3OurCompany">

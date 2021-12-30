@@ -12,7 +12,7 @@
 
 	<select id="getMemberUserList" resultType="K3MemberUser">
 		SELECT 
-			m.memberId									AS memberId
+			 m.memberId									AS memberId
 			,m.memberPassword							AS memberPassword
 			,m.mainBusinessCode							AS mainBusinessCode
 			,m.levelMemberCode							AS levelMemberCode
@@ -25,7 +25,6 @@
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
 	FROM k3_tb_member	AS m
-	ORDER BY memberId ASC;
 	
 	</select>
 
