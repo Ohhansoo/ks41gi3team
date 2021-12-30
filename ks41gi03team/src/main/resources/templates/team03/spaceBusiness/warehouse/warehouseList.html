@@ -37,13 +37,15 @@
 												<td>평</td>
 												<td>창고유형</td>
 												<td>운영여부</td>
+												<td>수정</td>
+												<td>삭제</td>
 											</tr>
 										</thead>
 										<tbody>
 											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
 												<td th:text="${w.bildingName}"></td>
 												<td th:text="${w.floorNumber}"></td>
-												<td th:text="${w.warehouseNumber}"></td>
+												<td th:text="${w.warehouseName}"></td>
 												<td th:text="${w.warehouseArea}"></td>
 												<td th:text="${w.warehouseFlat}"></td>
 												<td th:text="${w.warehouseType}"></td>

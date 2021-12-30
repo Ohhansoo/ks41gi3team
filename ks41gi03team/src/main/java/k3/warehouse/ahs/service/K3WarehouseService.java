@@ -28,6 +28,7 @@ public class K3WarehouseService {
 	 */
 	public List<K3Warehouses> getWarehouseList(){
 		List<K3Warehouses> K3Warehouses = k3WarehouseMapper.getWarehouseList();
+		System.out.println("K3WarehouseService: "+K3Warehouses);
 		return K3Warehouses;
 	}
 	

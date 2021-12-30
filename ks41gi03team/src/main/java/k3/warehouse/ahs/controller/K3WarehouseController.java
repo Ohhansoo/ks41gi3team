@@ -25,8 +25,8 @@ public class K3WarehouseController {
 	 * 창고등록(처리)
 	 */
 	@PostMapping("/addWarehouse")
-	public String addWarehouse(K3Warehouses k3Warehouses) {
-		int result = k3WarehouseService.addWarehouse(k3Warehouses);
+	public String addWarehouse(K3Warehouses k3Warehouses,Model model) {
+		k3WarehouseService.addWarehouse(k3Warehouses);
 		return "redirect:/team03/spaceBusiness/warehouse/warehouseList";
 	}
 	/**
@@ -43,6 +43,7 @@ public class K3WarehouseController {
 	@GetMapping("/warehouseList")
 	public String warehouseList(Model model) {
 		List<K3Warehouses> K3Warehouses = k3WarehouseService.getWarehouseList();
+		System.out.println("K3WarehouseController: "+K3Warehouses);
 		model.addAttribute("title","창고조회");
 		model.addAttribute("K3Warehouses",K3Warehouses);
 		return "team03/spaceBusiness/warehouse/warehouseList";
