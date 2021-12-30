@@ -49,12 +49,13 @@
 												<td th:text="${w.warehouseArea}"></td>
 												<td th:text="${w.warehouseFlat}"></td>
 												<td th:text="${w.warehouseType}"></td>
-												<td th:text="${w.warehouseOperation}">
-													<span class="tag tag-warning"></span>
+												<td th:text="${w.warehouseOperation}"></td>
+												<td>
+													<a th:href="@{/team03/spaceBusiness/warehouse/updateWarehouse}">수정</a>		
 												</td>
-											</tr>
-											<tr th:unless="${not #lists.isEmpty(K3Warehouses)}">
-												<td></td>
+												<td>
+													<a th:href="@{/team03/spaceBusiness/warehouse/removeWarehouse}">삭제</a>		
+												</td>
 											</tr>	
 										</tbody>
 									</table>
