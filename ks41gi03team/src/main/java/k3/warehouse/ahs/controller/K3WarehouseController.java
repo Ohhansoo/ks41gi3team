@@ -26,58 +26,58 @@ public class K3WarehouseController {
 	/**
 	 * 창고등록(처리)
 	 */
-	@PostMapping("/addWarehouse")
-	public String addWarehouse(K3Warehouses k3Warehouses,Model model) {
-		k3WarehouseService.addWarehouse(k3Warehouses);
-		return "redirect:/team03/spaceBusiness/warehouse/warehouseList";
+	@PostMapping("/k3AddWarehouse")
+	public String getK3AddWarehouse(K3Warehouses k3Warehouses,Model model) {
+		k3WarehouseService.k3AddWarehouse(k3Warehouses);
+		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 	/**
 	 * 창고등록(페이지이동)
 	 */
-	@GetMapping("/addWarehouse")
-	public String addWarehouse(Model model) {
+	@GetMapping("/k3AddWarehouse")
+	public String k3AddWarehouse(Model model) {
 		model.addAttribute("title","창고등록");
-		return "team03/spaceBusiness/warehouse/addWarehouse";
+		return "team03/spaceBusiness/warehouse/k3AddWarehouse";
 	}
 	/**
 	 * 창고 전체 조회
 	 */
-	@GetMapping("/warehouseList")
+	@GetMapping("/k3WarehouseList")
 	public String warehouseList(Model model) {
-		List<K3Warehouses> K3Warehouses = k3WarehouseService.getWarehouseList();
+		List<K3Warehouses> K3Warehouses = k3WarehouseService.getK3WarehouseList();
 		System.out.println("K3WarehouseController: "+K3Warehouses);
 		model.addAttribute("title","창고조회");
 		model.addAttribute("K3Warehouses",K3Warehouses);
-		return "team03/spaceBusiness/warehouse/warehouseList";
+		return "team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 	/**
 	 * 창고수정(페이지이동)
 	 */
-	@GetMapping("/updateWarehouse")
-	public String updateWarehouse(Model	model) {
+	@GetMapping("/k3ModifyWarehouse")
+	public String k3ModifyWarehouse(Model	model) {
 		model.addAttribute("title","창고수정");
-		return "team03/spaceBusiness/warehouse/updateWarehouse";
+		return "team03/spaceBusiness/warehouse/k3ModifyWarehouse";
 	}
 	/**
 	 * 창고수정(처리)
 	 */
-	@PostMapping("/updateWarehouse")
-	public String getUpdateWarehouseName(K3Warehouses k3Warehouses) {
-		return "redirect:/team03/spaceBusiness/warehouse/warehouseList";
+	@PostMapping("/k3ModifyWarehouse")
+	public String getK3ModifyWarehouse(K3Warehouses k3Warehouses) {
+		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 	/**
 	 * 창고삭제(페이지이동
 	 */
-	@GetMapping("/removeWarehouse")
-	public String removeWarehouse(Model model) {
+	@GetMapping("/k3DeleteWarehouse")
+	public String k3DeleteWarehouse(Model model) {
 		model.addAttribute("title", "창고삭제");
-		return "team03/spaceBusiness/warehouse/removeWarehouse";
+		return "team03/spaceBusiness/warehouse/k3DeleteWarehouse";
 	}
 	/**
 	 * 창고삭제(처리)
 	 */
-	@PostMapping("/removeWarehouse")
-	public String removeWarehouse(K3Warehouses k3Warehouses) {
-		return "redirect:/team03/spaceBusiness/warehouse/removeWarehouse";
+	@PostMapping("/k3DeleteWarehouse")
+	public String getK3DeleteWarehouse(K3Warehouses k3Warehouses) {
+		return "redirect:/team03/spaceBusiness/warehouse/k3DeleteWarehouse";
 	}
 }

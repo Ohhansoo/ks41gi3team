@@ -16,7 +16,7 @@
 -->
 	
 	<!-- 창고등록처리 -->
-	<insert id="addWarehouse" parameterType="K3Warehouses">
+	<insert id="k3AddWarehouse" parameterType="K3Warehouses">
 		INSERT INTO k3_tb_warehouse
 			(bildingName
 			,floorNumber
@@ -35,7 +35,7 @@
 			,#{warehouseOperation});
 	</insert>
 	<!-- 창고전체조회 -->
-	<select id="getWarehouseList" resultType="K3Warehouses">
+	<select id="getK3WarehouseList" resultType="K3Warehouses">
 		SELECT
 			bildingName
 			,floorNumber		
