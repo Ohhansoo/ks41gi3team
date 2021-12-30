@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.check.ahs.mapper.K3CheckMapper">
-	<resultMap type="K3LaydownCheck" id="categResultMap">
+<mapper namespace="k3.warehousing.ahs.mapper.K3WarehousingMapper">
+	<resultMap type="K3Warehousing" id="warehousingResultMap">
  		<result column="warehousingCode" property="warehousingCode" />
  		<result column="laydownCheckCode" property="laydownCheckCode" />
 		<result column="mainBusinessCode" property="mainBusinessCode" />
@@ -20,7 +20,7 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
-	<select id="k3GetLaydownCheckList" resultType="K3LaydownCheck">
+	<select id="k3GetWarehousingList" resultType="K3Warehousing">
 		SELECT
 		   w.laydownCheckCode,
 		   w.mainBusinessCode,

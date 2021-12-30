@@ -32,7 +32,10 @@ body{
 /* 사이드 바 아래 부분*/
 .os-content{
 	background-color: #286273;
-
+}
+/* 사이드 바 레벨 아이콘 */
+.nav-icon{
+	color: white;
 }
 
 /* 브랜드 이름*/
