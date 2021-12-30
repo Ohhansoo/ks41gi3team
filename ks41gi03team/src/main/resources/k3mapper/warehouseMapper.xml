@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.category.ahs.mapper.K3CategoryMapper">
+<mapper namespace="k3.warehouse.ahs.mapper.K3WarehouseMapper">
 <!-- 
 	<resultMap type="K3Warehouses" id="WarehouseResultMap">
  		<result column="bildingName" property="bildingName" />
@@ -16,7 +16,7 @@
 -->
 	
 	<!-- 창고등록처리 -->
-	<insert id="addWarehouse">
+	<insert id="addWarehouse" parameterType="K3Warehouses">
 		INSERT INTO k3_tb_warehouse
 			(bildingName
 			,floorNumber
@@ -34,6 +34,7 @@
 			,#{warehouseType}
 			,#{warehouseOperation});
 	</insert>
+	<!-- 창고전체조회 -->
 	<select id="getWarehouseList" resultType="K3Warehouses">
 		SELECT
 			bildingName
