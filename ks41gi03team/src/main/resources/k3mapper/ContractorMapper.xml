@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.contractor.ahs.mapper.K3ContractorMapper">
+<!-- 	<resultMap type="K3Contract" id="contractResultMap">
+		<result column="contractCode"     property="contractCode"/>
+		<result column="contraactorCode"     property="contraactorCode"/>
+		<result column="contractorDevision"     property="contractorDevision"/>
+		<result column="contractState"     property="contractState"/>
+		<result column="contractSingningDate"     property="contractSingningDate"/>
+		<result column="contractorId"     property="contractorId"/>
+		<result column="memberId"     property="memberId"/>
+	</resultMap> -->
+	
+	<select id="K3GetContractorList" resultType="K3Contractor">
+		SELECT
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId;
+	</select>
+
+</mapper>

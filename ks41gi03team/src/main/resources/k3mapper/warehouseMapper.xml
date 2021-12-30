@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.category.ahs.mapper.K3CategoryMapper">
+<mapper namespace="k3.warehouse.ahs.mapper.K3WarehouseMapper">
+<!-- 
 	<resultMap type="K3Warehouses" id="WarehouseResultMap">
  		<result column="bildingName" property="bildingName" />
 		<result column="floorNumber" property="floorNumber" />
@@ -11,10 +12,11 @@
 		<result column="warehouseFlat" property="warehouseFlat" />
 		<result column="warehouseType" property="warehouseType" />
 		<result column="warehouseOperation" property="warehouseOperation" />
-	</resultMap>
+	</resultMap> 
+-->
 	
 	<!-- 창고등록처리 -->
-	<insert id="addWarehouse">
+	<insert id="addWarehouse" parameterType="K3Warehouses">
 		INSERT INTO k3_tb_warehouse
 			(bildingName
 			,floorNumber
@@ -31,5 +33,18 @@
 			,#{warehouseFlat}
 			,#{warehouseType}
 			,#{warehouseOperation});
-	</insert>	
+	</insert>
+	<!-- 창고전체조회 -->
+	<select id="getWarehouseList" resultType="K3Warehouses">
+		SELECT
+			bildingName
+			,floorNumber		
+			,warehouseName
+			,warehouseArea
+			,warehouseFlat
+			,warehouseType
+			,warehouseOperation
+		FROM	
+			k3_tb_warehouse
+	</select>	
 </mapper>

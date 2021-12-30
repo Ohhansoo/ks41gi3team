@@ -30,28 +30,27 @@
 								<div class="col-sm-6" style="padding-left: 0px">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<button type="button" class="ahsbtn2 btn btn-outline-info" for="searchContract">계약조회</button>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
-										<div class="input-group-append">
 											<select class="form-control">
 												<option disabled="true" selected>계약정보선택</option>
-												<option>계약번호</option>
-												<option>계약업체</option>
-												<option>계약담당자</option>
-												<option>계약유형</option>
+												<option>계약 대표코드</option>
+												<option>거래처 상호명</option>
+												<option>거래처 사업장 코드</option>
+												<option>거래구분</option>
 												<option>계약상태</option>             
-												<option>배송옵션</option>
-												<option>계약직원아이디</option>
+												<option>거래처 아이디</option>
+												<option>등록직원</option>
 	         								</select>
 	         							</div>
+										<input type="text" class="form-control" placeholder="계약정보입력">
+										<div class=" input-group-append ">
+											<button type="button" class="form-control ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
+										</div>
 									</div>
 								</div>
 								<!--End inputbox 1 -->
 								<!--inputbox 2 -->
 								<div class="col-sm-6" style="padding-left: 0px">
 									<div class="input-group">
-										<button type="button" class="ahsbtn3 btn btn-outline-info">계약체결날짜조회</button>
 										<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
 											<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
 											<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
@@ -64,6 +63,7 @@
 												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 											</div>
 										</div>
+										<button type="button" class="ahsbtn3 btn btn-outline-info">체결날짜조회</button>
 	                    			</div>
 								</div>
 								<!--End inputbox 2 -->
@@ -86,10 +86,11 @@
 								<tr>
 						            <th>선택</th>
 						            <th>계약 대표코드</th>
+						            <th>거래처 상호명</th>
 						            <th>거래처 사업장 코드</th>
 						            <th>거래구분</th>
 						            <th>계약상태</th>
-						            <th>체결날짜</th>
+						            <th>계약체결날짜</th>
 						            <th>거래처 아이디</th>
 						            <th>등록직원</th>
 									<th>수정</th>
@@ -104,6 +105,7 @@
 												</label>
 										</td>
 										<td  th:text="${c.contractCode}"></td>
+										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorCode}"></td>
 										<td  th:text="${c.contractorDevision}"></td>
 										<td  th:text="${c.contractState}"></td>
@@ -116,7 +118,7 @@
 											</a>
 										</td>
 										<td>
-											<a id="modifyContract" th:href="@{/team03/contractorContract/Contract/detailContract3}">
+											<a id="searchDetailContract" th:href="@{/team03/contractorContract/Contract/detailContract}">
 												상세조회
 											</a>
 										</td>

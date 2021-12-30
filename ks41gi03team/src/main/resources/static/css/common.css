@@ -161,3 +161,9 @@ body{
 .inputBox{
 	width: 400px;
 }
+/* add 이동 a태그 */
+#moveAddPage {
+	text-align: end;
+	text-decoration: underline;
+	width: 80%;
+}
