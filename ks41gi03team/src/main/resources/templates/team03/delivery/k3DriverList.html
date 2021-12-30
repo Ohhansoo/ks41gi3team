@@ -90,8 +90,7 @@
 										<td th:text="${l.driverLicenseType}"></td>
 										<td th:text="${l.driverQualificationType}"></td>
 										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info" onclick = "location.href='k3ModifyDriver?driverId=${l.driverId}'">
-
+											<a th:href="@{/team03/delivery/k3ModifyDriver(driverId=${l.driverId})}">수정</a>
 										</td>
 									</tr>
 								</tbody>						
