@@ -2,6 +2,8 @@ package k3.warehouse.ahs.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +50,34 @@ public class K3WarehouseController {
 		model.addAttribute("K3Warehouses",K3Warehouses);
 		return "team03/spaceBusiness/warehouse/warehouseList";
 	}
-	
+	/**
+	 * 창고수정(페이지이동)
+	 */
+	@GetMapping("/updateWarehouse")
+	public String updateWarehouse(Model	model) {
+		model.addAttribute("title","창고수정");
+		return "team03/spaceBusiness/warehouse/updateWarehouse";
+	}
+	/**
+	 * 창고수정(처리)
+	 */
+	@PostMapping("/updateWarehouse")
+	public String getUpdateWarehouseName(K3Warehouses k3Warehouses) {
+		return "redirect:/team03/spaceBusiness/warehouse/warehouseList";
+	}
+	/**
+	 * 창고삭제(페이지이동
+	 */
+	@GetMapping("/removeWarehouse")
+	public String removeWarehouse(Model model) {
+		model.addAttribute("title", "창고삭제");
+		return "team03/spaceBusiness/warehouse/removeWarehouse";
+	}
+	/**
+	 * 창고삭제(처리)
+	 */
+	@PostMapping("/removeWarehouse")
+	public String removeWarehouse(K3Warehouses k3Warehouses) {
+		return "redirect:/team03/spaceBusiness/warehouse/removeWarehouse";
+	}
 }
