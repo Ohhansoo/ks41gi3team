@@ -16,7 +16,7 @@ import k3.ourcompany.ahs.dto.K3OurCompany;
 import k3.ourcompany.ahs.service.K3OurcompanyService;
 
 @Controller
-@RequestMapping(value="/team03/ourcompany")
+@RequestMapping(value="/team03/companymanagement/ourcompany")
 public class K3OurcompanyController {
 	
 	private K3OurcompanyService ourcompanyService;
@@ -41,7 +41,7 @@ public class K3OurcompanyController {
 	@PostMapping("/k3AddOurCompanyList")
 	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {
 		ourcompanyService.AddOurCompany(k3ourcompany);
-		return "redirect:/team03/ourcompany/k3OurCompanyList";
+		return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
 	
 	
@@ -52,7 +52,7 @@ public class K3OurcompanyController {
 		model.addAttribute("title", "자사정보관리");
 		model.addAttribute("subtitle", "자사정보등록");
 		//return "redirect:/team03/ourcompany/k3OurCompanyList";
-		return "team03/ourcompany/k3AddOurCompanyList";
+		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
 	}
 	
 	@GetMapping("/k3OurCompanyList")
@@ -61,7 +61,7 @@ public class K3OurcompanyController {
 		
 		model.addAttribute("title","자사정보 조회");
 		model.addAttribute("ourcompanyList",ourcompanyList);
-		return "team03/ourcompany/k3OurCompanyList";
+		return "team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
 
 	
