@@ -31,5 +31,9 @@
 			,#{warehouseFlat}
 			,#{warehouseType}
 			,#{warehouseOperation});
-	</insert>	
+	</insert>
+	<select id="getWarehouseList" resultType="WarehouseResultMap">
+	
+	
+	</select>	
 </mapper>
