@@ -13,14 +13,14 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
-	<select id="k3GetEstimateList" resultType="K3Estimate">
+	<select id="K3GetEstimateList" resultType="K3Estimate">
 		SELECT
-			e.estimateNum
-			,e.contractorCode
-			,cs.contractorName
-			,cs.contractorPhone
-			,cs.contractorId
-			,e.memberId
+			e.estimateNum as estimateNum
+			,e.contractorCode as contractorCode
+			,cs.contractorName as contractorName
+			,cs.contractorPhone as contractorPhone
+			,cs.contractorId as contractorId
+			,e.memberId as memberId
 		FROM
 			k3_tb_estimate AS e
 			INNER join

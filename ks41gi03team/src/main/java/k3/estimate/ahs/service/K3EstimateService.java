@@ -19,7 +19,6 @@ public class K3EstimateService {
 	}
 	
 	public List<K3Estimate> K3GetEstimateList(){
-	
 		List<K3Estimate> estimateList = k3EstimateMapper.K3GetEstimateList();
 
 		return estimateList;

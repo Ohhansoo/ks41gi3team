@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
+<mapper namespace="k3.contractor.ahs.mapper.K3ContractorMapper">
 <!-- 	<resultMap type="K3Contract" id="contractResultMap">
 		<result column="contractCode"     property="contractCode"/>
 		<result column="contraactorCode"     property="contraactorCode"/>
@@ -13,7 +13,7 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
-	<select id="k3GetContractorList" resultType="K3Contractor">
+	<select id="K3GetContractorList" resultType="K3Contractor">
 		SELECT
 			c.contractorCode
 			,cs.contractorName
