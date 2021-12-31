@@ -15,7 +15,7 @@ import k3.vehicle.ahs.service.K3VehicleService;
 
 
 @Controller
-@RequestMapping(value="/team03")
+@RequestMapping(value="/team03/delivery/vehicle")
 public class K3VehicleController {
 	
 	private static final Logger log = LoggerFactory.getLogger(K3VehicleController.class);
@@ -26,21 +26,21 @@ public class K3VehicleController {
 		this.k3VehicleService = k3VehicleService;
 	}
 	
-	@GetMapping("/delivery/k3AddVehicle")
+	@GetMapping("/k3AddVehicle")
 	public String addVehicle(Model model) {
-		return "team03/delivery/k3AddVehicle";
+		return "team03/delivery/vehicle/k3AddVehicle";
 	}
 
-	@GetMapping("/delivery/k3VehicleList")
+	@GetMapping("/k3VehicleList")
 	public String getVehicleList(Model model) {
 		List<K3Vehicle> vehicleList = k3VehicleService.getVehicleList();
 		model.addAttribute("title", "입출하 기록 관리");
 		model.addAttribute("vehicleList", vehicleList);
 		
-		return "team03/delivery/k3VehicleList";
+		return "team03/delivery/vehicle/k3VehicleList";
 	}
 	
-	@GetMapping("/delivery/k3ModifyVehicle")
+	@GetMapping("/k3ModifyVehicle")
 	public String k3ModifyVehicle(@RequestParam(value="vehicleCode", required = false) String vehicleCode, Model model) {
 		
 		log.info("k3ModifyVehicle vehicleCode:{}", vehicleCode);
@@ -51,7 +51,7 @@ public class K3VehicleController {
 		}
 		model.addAttribute("title", "차량수정화면");
 	
-		return "team03/delivery/k3ModifyVehicle";
+		return "team03/delivery/vehicle/k3ModifyVehicle";
 
 	}
 }
