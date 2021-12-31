@@ -14,7 +14,18 @@
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap> -->
 	
-	<insert id="subjectAdd">
+	
+	<select id="getSubjectInfoBySubjectCode" parameterType="String" resultType="int">
+		SELECT 
+			COUNT(1)
+		FROM
+			k3_tb_as AS c
+		WHERE
+			c.asCode = #{subjectCode};
+	</select>
+
+	
+	<insert id="addSubject">
 	INSERT INTO k3_tb_as
 	(
 		asCode,
