@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.checkpoint.ahs.mapper.K3CheckpointMapper">
-<!--  	<resultMap type="K3Checkpoint" id="checkpointResultMap">
+ 	<resultMap type="K3Checkpoint" id="checkpointResultMap">
 		<result column="vehicleCheckpointCode" property="vehicleCheckpointCode" />
 		<result column="driverId" property="driverId" />
 		<result column="vehicleCode" property="vehicleCode" />
 		<result column="vehicleArrivalDate" property="vehicleArrivalDate" />
 		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
-	</resultMap> -->
+	</resultMap>
 	
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
@@ -36,7 +36,7 @@
 			#{vehicleCode},
 			#{vehicleArrivalDate},
 			#{vehicleShipmentDate}
-		)
+		);
 		
 	
 	</insert>

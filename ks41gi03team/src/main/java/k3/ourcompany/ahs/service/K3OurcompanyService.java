@@ -15,6 +15,13 @@ public class K3OurcompanyService {
 	public K3OurcompanyService(K3OurcompanyMapper ourcompanyMapper) {
 		this.ourcompanyMapper = ourcompanyMapper;
 	}
+	//자사정보 등록처리
+	public int AddOurCompany(K3OurCompany k3OurCompany) {
+		int result = ourcompanyMapper.AddOurCompany(k3OurCompany);
+		return result;
+	}
+	
+	//자사정보현황(초기화면)
 	public List<K3OurCompany> getOurCompanyList(){
 		List<K3OurCompany> ourcompanyList = ourcompanyMapper.getOurCompanyList();
 			return ourcompanyList;

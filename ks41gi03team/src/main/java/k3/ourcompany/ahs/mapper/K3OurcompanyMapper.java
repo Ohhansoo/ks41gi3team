@@ -9,11 +9,12 @@ import k3.ourcompany.ahs.dto.K3OurCompany;
 @Mapper
 public interface K3OurcompanyMapper {
 
-	//자사정보조회
-	List<K3OurCompany> getOurCompanyList();
-	
 	//자사정보등록
 	public int AddOurCompany(K3OurCompany k3ourcompany);
+
+	//자사정보현황(초기화면)
+	public List<K3OurCompany> getOurCompanyList();
+	
 	
 	//
 	/*
