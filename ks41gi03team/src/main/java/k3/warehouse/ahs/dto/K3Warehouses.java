@@ -1,6 +1,7 @@
 package k3.warehouse.ahs.dto;
 
 public class K3Warehouses {
+	private int warehouseCode;
 	private String bildingName;
 	private String floorNumber;
 	private String warehouseName;
@@ -8,6 +9,12 @@ public class K3Warehouses {
 	private int warehouseFlat;
 	private String warehouseType;
 	private String warehouseOperation;
+	public int getWarehouseCode() {
+		return warehouseCode;
+	}
+	public void setWarehouseCode(int warehouseCode) {
+		this.warehouseCode = warehouseCode;
+	}
 	public String getBildingName() {
 		return bildingName;
 	}
@@ -53,7 +60,9 @@ public class K3Warehouses {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Warehouses [bildingName=");
+		builder.append("K3Warehouses [warehouseCode=");
+		builder.append(warehouseCode);
+		builder.append(", bildingName=");
 		builder.append(bildingName);
 		builder.append(", floorNumber=");
 		builder.append(floorNumber);
@@ -70,5 +79,5 @@ public class K3Warehouses {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }
