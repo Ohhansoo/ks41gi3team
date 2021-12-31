@@ -18,5 +18,13 @@ public interface K3WarehouseMapper {
 	 * 창고전체조회
 	 */
 	public List<K3Warehouses> getK3WarehouseList();
+	
+	/**
+	 * 창고수정
+	 */
+	//창고코드로 조회
+	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode);
+	//창고수정처리
+	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses);
 
 }

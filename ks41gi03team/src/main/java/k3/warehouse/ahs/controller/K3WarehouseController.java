@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.warehouse.ahs.dto.K3Warehouses;
 import k3.warehouse.ahs.service.K3WarehouseService;
@@ -54,15 +55,20 @@ public class K3WarehouseController {
 	 * 창고수정(페이지이동)
 	 */
 	@GetMapping("/k3ModifyWarehouse")
-	public String k3ModifyWarehouse(Model	model) {
+	public String k3ModifyWarehouse(@RequestParam(value="warehouseCode", required = false) int warehouseCode, Model model) {
+		K3Warehouses k3Warehouses = k3WarehouseService.getK3ModifyWarehouseInfoByWarehouseCode(warehouseCode);
+		System.out.println(warehouseCode + "< --- ----K3WarehouseController");
 		model.addAttribute("title","창고수정");
+		model.addAttribute("k3Warehouses",k3Warehouses);
 		return "team03/spaceBusiness/warehouse/k3ModifyWarehouse";
 	}
 	/**
 	 * 창고수정(처리)
 	 */
 	@PostMapping("/k3ModifyWarehouse")
-	public String getK3ModifyWarehouse(K3Warehouses k3Warehouses) {
+	public String k3ModifyWarehouseInfo(K3Warehouses k3Warehouses) {
+		k3WarehouseService.k3ModifyWarehouseInfo(k3Warehouses);
+		System.out.println(k3Warehouses +"<<<<<<<<Controller!!@!@!@");
 		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 	/**
