@@ -14,7 +14,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							입하검수 조회
+							입고 결과
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -45,7 +45,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							입하검수 현황
+							입고 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -54,17 +54,13 @@
 								<thead>
 									<tr>
 										<th>삭제</th>
-										<th>입하검수코드</th>
-										<th>입하물품명</th>
-										<th>입하물품개수</th>
+										<th>수정</th>	
+										<th>입고물품명</th>
+										<th>입고물품개수</th>
 										<th>제조일자</th>
 										<th>유통기한</th>					
-										<th>거래처명</th>					
-										<th>검수자</th>					
-										<th>입하날짜</th>					
-										<th>검수일자</th>					
-										<th>검수결과</th>					
-										<th>수정</th>					
+										<th>거래처명</th>									
+										<th>입하날짜</th>													
 									</tr>
 								</thead>
 								<tbody>
@@ -72,19 +68,15 @@
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
-										<td th:text="${l.laydownCheckCode}"></td>
+										<td>
+											<a th:href="@{#}">수정</a>
+										</td>
 										<td th:text="${l.laydownGoodsName}"></td>
 										<td th:text="${l.laydownGoodsCount}"></td>
 										<td th:text="${l.manufacturedDate}"></td>
 										<td th:text="${l.expiratonDate}"></td>
 										<td th:text="${l.contractorName}"></td>
-										<td th:text="${l.memberName}"></td>
 										<td th:text="${l.laydownDate}"></td>
-										<td th:text="${l.laydownCheckDate}"></td>
-										<td th:text="${l.laydownCheckResult}"></td>
-										<td>
-											<a th:href="@{#}">수정</a>
-										</td>
 									</tr>
 									<tr th:unless="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
 										<td> 입하검수 목록이 없습니다. </td>
