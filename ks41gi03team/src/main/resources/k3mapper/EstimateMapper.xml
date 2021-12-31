@@ -15,12 +15,12 @@
 	
 	<select id="K3GetEstimateList" resultType="K3Estimate">
 		SELECT
-			e.estimateNum as estimateNum
-			,e.contractorCode as contractorCode
-			,cs.contractorName as contractorName
-			,cs.contractorPhone as contractorPhone
-			,cs.contractorId as contractorId
-			,e.memberId as memberId
+			e.estimateNum
+			,e.contractorCode
+			,cs.contractorName
+			,e.estimatePrice
+			,e.estimateMeasureDate
+			,e.memberId as memberIds
 		FROM
 			k3_tb_estimate AS e
 			INNER join

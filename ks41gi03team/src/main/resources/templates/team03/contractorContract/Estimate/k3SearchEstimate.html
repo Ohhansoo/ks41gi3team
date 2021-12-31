@@ -87,9 +87,9 @@
 						            <th>견적번호</th>
 						            <th>거래처 사업장 코드</th>
 						            <th>거래처 상호명</th>
-						            <th>거래처 전화번호</th>
-						            <th>거래처 아이디</th>
-						            <th>등록직원</th>
+						            <th>견적합계(세금포함)</th>
+						            <th>견적측정날짜</th>
+						            <th>등록직원 </th>
 									<th>수정</th>
 									<th>상세정보</th>
 								</tr>
@@ -104,8 +104,8 @@
 										<td  th:text="${e.estimateNum}"></td>
 										<td  th:text="${e.contractorCode}"></td>
 										<td  th:text="${e.contractorName}"></td>
-										<td  th:text="${e.contractorPhone}"></td>
-										<td  th:text="${e.contractorId}"></td>
+										<td  th:text="${e.estimatePrice}"></td>
+										<td  th:text="${e.estimateMeasureDate}"></td>
 										<td  th:text="${e.memberId}"></td>
 										<td>
 											<a id="modifyEstimate" th:href="@{/team03/contractorContract/Estimate/modifyEstimate}">
