@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.driver.ahs.mapper.K3DriverMapper">
+
+<select id="getDriverList" resultType="K3Driver">
+		SELECT
+				d.driverId AS driverId,
+				d.driverName AS driverName,
+				d.driverAddr AS driverAddr,
+				d.driverPhone AS driverPhone,
+				d.driverRegDate AS driverRegDate,
+				d.driverPerformanceGrade AS driverPerformanceGrade,
+				d.driverLicenseType AS driverLicenseType,
+				d.driverQualificationType AS driverQualificationType
+		FROM
+				k3_tb_driver AS d;
+	</select>
+	
+	<select id="getModifyDriver" resultType="K3Driver">
+		SELECT
+				d.driverId AS driverId,
+				d.driverName AS driverName,
+				d.driverAddr AS driverAddr,
+				d.driverPhone AS driverPhone,
+				d.driverRegDate AS driverRegDate,
+				d.driverPerformanceGrade AS driverPerformanceGrade,
+				d.driverLicenseType AS driverLicenseType,
+				d.driverQualificationType AS driverQualificationType
+		FROM
+				k3_tb_driver AS d
+		WHERE
+				driverId = #{driverId};
+	</select>
+
+</mapper>

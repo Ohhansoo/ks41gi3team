@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.category.ahs.mapper.K3CategoryMapper">
+	<resultMap type="K3Category" id="categoryResultMap">
+ 		<result column="categoryCode" property="categoryCode" />
+		<result column="largeCategory" property="largeCategory" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="mediumCategory" property="mediumCategory" />
+		<result column="smallCategory" property="smallCategory" />
+	</resultMap>
+	
+	<select id="k3GetCategorySearchList" resultType="K3Category">
+		SELECT
+			*
+		FROM
+			k3_tb_total_category as c
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="categoryValue != null and categoryValue != ''.toString()">
+				${categoryKey} LIKE CONCAT('%', #{categoryValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
+	<delete id="k3DeleteCategory" parameterType="int">
+		DELETE
+			c
+		FROM
+			k3_tb_total_category AS c
+			<foreach collection="list" item="deleteList" open= "WHERE 1=1">
+				 or categoryCode = #{deleteList}
+			</foreach>
+	</delete>
+	
+	<update id="K3ModifyLabel">
+		UPDATE
+			k3_tb_total_category AS c
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="largeCategory != null and largeCategory != ''.toString()">
+				c.largeCategory = #{largeCategory},
+			</if>
+			<if test="mediumCategory != null and mediumCategory != ''.toString()">
+				c.mediumCategory = #{mediumCategory}, 
+			</if>
+			<if test="smallCategory != null and smallCategory != ''.toString()">
+				c.smallCategory = #{smallCategory}		
+			</if>			
+		</trim>
+		WHERE
+			c.categoryCode = #{categoryCode};
+	</update>
+	
+	
+	<select id="K3GetCategoryInfoBycode" resultType="K3Category">
+		SELECT
+			*
+		FROM
+			k3_tb_total_category AS c
+		WHERE
+			c.categoryCode = #{categoryCode};
+	</select>
+	
+	<insert id="AddCategory">
+		INSERT INTO
+		   k3_tb_total_category
+		SELECT 
+		   CONCAT(MAX(SUBSTRING(categoryCode,1,12)), MAX(CAST(SUBSTRING(categoryCode,13,2)AS DECIMAL))+ 1),
+		   "물류센터A물류센터_전북_1",
+		   #{largeCategory},
+		   #{mediumCategory},
+		   #{smallCategory}
+		FROM 
+		   k3_tb_total_category;
+	</insert>
+	
+	
+	<select id="getCategoryList" resultType="K3Category">
+		SELECT
+				c.categoryCode AS categoryCode,
+				c.mainBusinessCode AS mainBusinessCode,
+				c.largeCategory AS largeCategory,
+				c.mediumCategory AS mediumCategory, 
+				c.smallCategory AS smallCategory
+		FROM
+				k3_tb_total_category AS c;
+	</select>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.ourcompany.ahs.mapper.K3OurcompanyMapper">
+ <!-- 
+  <resultMap type="K3OurCompany" id="ourCompanyResultMap">
+		<result column="ourCompanyCode" property="ourCompanyCode" />
+		<result column="ourCompanyBusinessPlaceCode" property="ourCompanyBusinessPlaceCode" />
+		<result column="ourCompanyBusinessName" property="ourCompanyBusinessName" />
+		<result column="ourCompanyBusinessCheifName" property="ourCompanyBusinessCheifName" />
+		<result column="ourCompanyWorkPlaceAddr" property="ourCompanyWorkPlaceAddr" />
+		<result column="ourCompanyStatus" property="ourCompanyStatus" />
+		<result column="ourCompanyWorkType" property="ourCompanyWorkType" />
+		<result column="ourCompanyEmail" property="ourCompanyEmail" />
+	</resultMap> 
+   -->
+   
+   <insert id="AddOurCompany" parameterType="K3OurCompany">
+   	INSERT INTO 
+   		k3_tb_our_company
+		(
+		 ourCompanyCode
+		,ourCompanyBusinessPlaceCode
+		,ourCompanyBusinessName
+		,ourCompanyBusinessCheifName
+		,ourCompanyWorkPlaceAddr
+		,ourCompanyStatus
+		,ourCompanyWorkType
+		,ourCompanyEmail
+	)VALUES(
+		 #{ourCompanyCode}
+		,#{ourCompanyBusinessPlaceCode}
+		,#{ourCompanyBusinessName}
+		,#{ourCompanyBusinessCheifName}
+		,#{ourCompanyWorkPlaceAddr}
+		,#{ourCompanyStatus}
+		,#{ourCompanyWorkType}
+		,#{ourCompanyEmail}
+	);
+   </insert>
+	
+	
+	<select id="getOurCompanyList"  resultType="K3OurCompany">
+	SELECT
+			oc.ourCompanyCode 					AS ourCompanyCode,
+			oc.ourCompanyBusinessPlaceCode		AS ourCompanyBusinessPlaceCode,
+			oc.ourCompanyBusinessName			AS ourCompanyBusinessName,
+			oc.ourCompanyBusinessCheifName		AS ourCompanyBusinessCheifName,
+			oc.ourCompanyWorkPlaceAddr			AS ourCompanyWorkPlaceAddr,
+			oc.ourCompanyStatus					AS ourCompanyStatus,
+			oc.ourCompanyWorkType				AS ourCompanyWorkType,
+			oc.ourCompanyEmail					AS ourCompanyEmail
+		FROM
+			k3_tb_our_company AS oc
+		ORDER BY ourCompanyBusinessPlaceCode ASC;
+	</select>
+</mapper>

@@ -1,0 +1,43 @@
+@charset "EUC-KR";
+
+/*메인 페이지 */
+.container-fluid{
+	max-width: 1300px;
+}
+
+/* 재고등록,수정,삭제,액셀출력버튼 */
+#representative-button{
+	margin-bottom : 15px;
+	margin-left : 10px;
+	margin-right : 10px;
+}
+.input-group-prepend{
+	margin-left : 10px;
+}
+.input-group-text{
+	width: 90px;
+}
+
+/* 전체 폼 */
+.form-control {
+	margin-right : 10px;
+	height: calc(2.25rem + 4px);
+	max-width: 150px;
+}
+.card-select{
+	padding-left: 0px;
+}
+
+.btn{
+	width: 90px;
+}
+
+.btnSelect{
+	width: 95px;
+}
+
+/* table update & delete checkbox */
+.whole-checkbox{
+	margin-top : 8px;
+	margin-bottom : 0;	
+}

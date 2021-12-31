@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	
+	<th:block layout:fragment="customContents"> 
+		<script>
+			$(function(){
+				//거래처 사업장코드 중복확인 스크립트
+				$(document).on('click', "#addContractorBtn", function(){
+					var submitCheck = true;
+					var inputObj = $("#addContractorForm").find('input');
+					$.each(inputObj, function(){
+						var inputData = $(this).val();
+						var inputId = $(this.).attr('id');
+						var labelText = $('label[for=]' + inputId + ']').text();
+						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){
+							alert(labelText + '입력해주세요');
+							$(this.)focus();
+							submitCehck = false;
+							return false;
+						}
+					});
+					
+					if(submitCheck) $('#addContractorForm').submit();
+				});
+				$('#contractorCodeCheckBtn').click(function(){
+					var contractorCode = $('#contractorCode').val();
+					console.log("거래처사업장코드 중복체크 버튼");
+					if(typeof contractorCode != 'undefined' && contractorCode != null && contractorCode != ''){
+						//ajax호출
+						var request = $.ajax({
+							url: '/contractorContract/Check/k3AddContractorCheck',
+							method : 'POST',
+							data: { 'contractorCode' : contractorCode},
+							dataType: 'json'
+						});
+						request.done(function(data){
+							//중복여부 체크(true: 중복, false: 등록가능)
+							var CodeConfirm = data;
+							
+							if(CodeConfirm){
+								alert('중복된 거래처사업장코드입니다.');		
+								$('#addContractorBtn').prop('disabled', true);
+								$('#contractorCodeAlert').prop('type', false);
+							}else{
+								alert('등록이 가능한 거래처사업장코드입니다.');
+								$('#addContractorForm input').prop('disabled', false);
+								$('#addContractorForm select').prop('disabled', false);
+								$('#addContractorForm button').prop('disabled', false);
+							}
+						});
+						request.fail(function(jqXHR, textStatus){
+							alert("Request failed: " + textStatus);
+							
+						});
+					}else{
+						alert('거래처사업장 코드를 입력해주세요')
+						return false;
+					}
+				});
+			})
+		</script>
+	<div class=" card cardColor card-body container-fluid" id="addContractorForm">
+	<h4>거래처 정보입력</h4>
+
+   			<div id="contractorCode">
+   				<label for="contractorCode">거래처사업장코드</label>
+   				<input type="text" id="contractorCode" value="거래처사업장코드"/>
+   				<button type="button" id="contractorCodeCheckBtn">중복확인 </button> 
+   				<label id="contractorCodeAlert" style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    
+   			</div>
+   			<div id="contractorName">
+   				<label for="contractorName">거래처 상호명</label>
+   				<input type="text" id="contractorName" value="거래처 상호명"/>
+   			</div>
+   			<div id="contractorBusinessNum">
+   				<label for="contractorBusinessNum">거래처 사업자등록번호</label>
+   				<input type="text" id="contractorBusinessNum" value="거래처 사업자등록번호"/>
+   				<button type="button" id="contractorBusinessNumCheckBtn">중복확인 </button>
+   				<label style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    				
+   			</div>
+   			<div id="mainBusinessCode">
+   				<label for="mainBusinessCode">사업장별 대표코드</label>
+   				<input type="text" id="mainBusinessCode" value="사업장별 대표코드" readonly style="background-color:#BDBDBD"/>
+   			</div>
+   			<div id="contractorDevision">
+   				<label for="contractorDevision">거래 구분</label>
+   				<input type="text" id="contractorDevision" value="거래 구분"/>
+   			</div>
+   			<div id="contractorType">
+   				<label for="contractorType">거래처 유형</label>
+   				<input type="text" id="contractorType" value="거래처 유형"/>
+   			</div>
+   			<div id="contractorItem">
+   				<label for="contractorItem">거래처 종목</label>
+   				<input type="text" id="contractorItem" value="거래처 종목"/>
+   			</div>
+   			<div id="contractorStatus">
+   				<label for="contractorStatus">거래처 업태</label>
+   				<input type="text" id="contractorStatus" value="거래처 업태"/>
+   			</div>
+   			<div id="contractorRepresentative">
+   				<label for="contractorRepresentative">거래처 대표자명</label>
+   				<input type="text" id="contractorRepresentative" value="거래처 대표자명"/>
+   			</div>
+   			<div id="contractorBusinessClientNum">
+   				<label for="contractorBusinessClientNum">거래처 종사업장번호</label>
+   				<input type="text" id="contractorBusinessClientNum" value="거래처 종사업장번호"/>
+   			</div>
+   			<div id="contractorAddr">
+   				<label for="contractorAddr">거래처 주소</label>
+   				<input type="text" id="contractorAddr" value="거래처 주소"/>
+   			</div>
+  			<div id="contractorPhone">
+   				<label for="contractorPhone">거래처 전화번호</label>
+   				<input type="text" id="contractorPhone" value="contractorPhone"/>
+   			</div>
+   			<div id=contractorEmail>
+   				<label for="contractorEmail">거래처 이메일</label>
+   				<input type="text" id="contractorEmail" value="거래처 이메일"/>
+   			</div>
+   			<div id="contractorSuperviser">
+   				<label for="contractorSuperviser">거래처 담당자</label>
+   				<input type="text" id="contractorSuperviser" value="거래처 담당자"/>
+   			</div>
+   			<div id="contractorSuperviserPhone">
+   				<label for="contractorSuperviserPhone">담당자 연락처</label>
+   				<input type="text" id="contractorSuperviserPhone" value="담당자 연락처"/>
+   			</div>
+   			<div id="contractorSuperviserEmail">
+   				<label for="contractorSuperviserEmail">담당자 이메일</label>
+   				<input type="text" id="contractorSuperviserEmail" value="담당자 이메일"/>
+   			</div>
+   			<div id="contractorFax">
+   				<label for="contractorFax">거래처 Fax</label>
+   				<input type="text" id="contractorFax" value="거래처 Fax"/>
+   			</div>
+   			<div id="contractorProfitBank">
+   				<label for="contractorProfitBank">거래처 은행명</label>
+   				<input type="text" id="contractorProfitBank" value="거래처 은행명"/>
+   			</div>
+   			<div id="contractorProfitAccount">
+   				<label for="contractorProfitAccount">거래처 계좌번호</label>
+   				<input type="text" id="contractorProfitAccount" value="거래처 계좌번호"/>
+   			</div>
+   			<div id="contractorAccountHolder">
+   				<label for="contractorAccountHolder">거래처 예금주</label>
+   				<input type="text" id="contractorAccountHolder" value="거래처 예금주"/>
+   			</div>
+ 			<div id="contractorId">
+   				<label for="contractorId">거래처아이디</label>
+   				<input type="text" id="contractorId" value="거래처아이디"/>
+   				<button type="button" id="btn">중복확인 </button> 
+   			</div>
+   			<div id="contractorPw">
+   				<label for="contractorPw">거래처 비밀번호</label>
+   				<input type="text" id="contractorPw" value="거래처 비밀번호"/>
+   			</div>
+   			<div id="levelCode">
+   				<label for="levelCode">거래처 권한번호</label>
+   				<input type="text" id="levelCode" value="거래처 권한번호" readonly style="background-color:#BDBDBD"/>
+   			</div>
+   			<div id="contractorState">
+   				<label for="contractorState">거래처 계정 상태</label>
+   				<input type="text" id="contractorState" value="거래처 계정 상태"/>
+   			</div>
+   			<div id="memberId">
+   				<label for="memberId">등록직원 아이디</label>
+   				<input type="text" id="memberId" value="등록직원"/>
+   			</div>
+   			<div id="contractorRegistrationDate">
+   				<label for="contractorRegistrationDate">등록일자</label>
+   				<input type="text" id="contractorRegistrationDate" value="등록일자" readonly/>
+   			</div>
+
+	</table>
+	<button  class="ahsbtn3" id="addContractorBtn" type="submit" disabled="disabled">등록</button>
+	</div>

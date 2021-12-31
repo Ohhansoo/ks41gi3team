@@ -56,7 +56,7 @@ public class K3SubjectController {
 	}
 	
 	//계정과목 등록처리
-	@PostMapping("/k3addSubject")
+	@PostMapping("/k3SubjectList")
 	public String addSubject(K3Subject k3Subject) {
 		int result = k3SubjectService.addSubject(k3Subject);
 		log.info("addSubject 메서드 인서트 결과 : " + result);
@@ -79,7 +79,6 @@ public class K3SubjectController {
 		model.addAttribute("title", "계정과목 관리");
 		model.addAttribute("subtitle", "계정과목 현황");
 		model.addAttribute("subjectList", subjectList);
-		
 		return "/team03/finance/subject/k3SubjectList";
 	}
 }
