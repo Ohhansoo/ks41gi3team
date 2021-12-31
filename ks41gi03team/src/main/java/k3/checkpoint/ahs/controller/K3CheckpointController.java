@@ -2,6 +2,8 @@ package k3.checkpoint.ahs.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import k3.checkpoint.ahs.service.K3CheckpointService;
 @Controller
 @RequestMapping(value="/team03")
 public class K3CheckpointController {
+	
+	private static final Logger log = LoggerFactory.getLogger(K3CheckpointController.class);
 	
 	private K3CheckpointService k3CheckpointService;
 	

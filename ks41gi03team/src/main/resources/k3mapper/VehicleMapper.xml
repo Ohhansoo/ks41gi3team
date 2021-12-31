@@ -17,4 +17,19 @@
 			k3_tb_vehicle AS v;
 	</select>
 
+<select id="getModifyVehicle" resultType="K3Vehicle">
+		SELECT
+			v.vehicleCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
+		FROM
+			k3_tb_vehicle AS v
+		WHERE
+			v.vehicleCode = #{vehicleCode};
+
+</select>
 </mapper>
