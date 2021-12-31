@@ -14,7 +14,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							000 조회
+							조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -31,7 +31,8 @@
 											</select>
 										</div>
 										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<button id="categorySearcch" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
+										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -41,10 +42,10 @@
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
-					<div class="card cardColor">
+					<div class="card underCard">
 						<!--card header -->
-						<div class="card-header">
-							000 현황
+						<div class="card-header deprbtn">
+							현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -52,24 +53,34 @@
 							<table class="table table-head-fixed text-nowrap">
 								<thead>
 									<tr>
-										<th>선택</th>
+										<th>삭제</th>
+										<th>수정</th>	
 										<th>이름</th>
 										<th>성별</th>
 										<th>번호</th>
-										<th>수정</th>					
+										<th>번호</th>	
+										<th>번호</th>	
+										<th>번호</th>	
+										<th>번호</th>					
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td>
 											<input type="checkbox" value="선택">
+										</td>	
+										<td>
+										<a href="#" >수정</a>
 										</td>
 										<td>오한수</td>
 										<td>남</td>
 										<td>010-1111-1111</td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
+										<td>010-1111-1111</td>
+										<td>010-1111-1111</td>
+										<td>010-1111-1111</td>
+										<td>010-1111-1111</td>
+   											
+										
 									</tr>
 								</tbody>						
 							</table>
@@ -79,7 +90,8 @@
 					<!--End 하위 카드 영역 -->
 					<!--버튼 영역 -->
 					<div class="row" style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
 						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 버튼 영역 -->
