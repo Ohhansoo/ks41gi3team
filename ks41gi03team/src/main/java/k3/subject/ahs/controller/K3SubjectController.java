@@ -79,7 +79,6 @@ public class K3SubjectController {
 		model.addAttribute("title", "계정과목 관리");
 		model.addAttribute("subtitle", "계정과목 현황");
 		model.addAttribute("subjectList", subjectList);
-		
 		return "/team03/finance/subject/k3SubjectList";
 	}
 }
