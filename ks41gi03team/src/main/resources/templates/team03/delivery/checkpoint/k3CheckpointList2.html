@@ -10,40 +10,34 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn3 btn btn-outline-info">차량기사 등록</button>
-						<button type="button" class="ahsbtn3 btn btn-outline-info">차량기사 삭제</button>
-						<button type="button" class="ahsbtn3 btn btn-outline-info">차량기사 출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
+					
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<!-- <div class="card-header">
+						<div class="card-header">
 							검색
-						</div> -->
+						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<!-- <div class="col-lg-4" style="padding-left: 0px">
+								<div class="col-lg-4" style="padding-left: 0px">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">기사 아이디</span>
+											<span class="input-group-text">배차 코드</span>
 										</div>
-										<input type="text" class="form-control" placeholder="기사 아이디">
+										<input type="text" class="form-control" placeholder="배차 코드">
 									</div>
-								</div> -->
+								</div>
 								<!--End inputbox 1 -->
 								<!--inputbox 2 -->
 								<!-- <div class="col-lg-4" style="padding-left: 0px">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">차량기사 이름</span>
+											<span class="input-group-text">자사 종사업장번호</span>
 										</div>
-										<input type="text" class="form-control" placeholder="배송기사 이름">
+										<input type="text" class="form-control" placeholder="자사 종사업장번호">
 	                    			</div>
 								</div> -->
 								<!--End inputbox 2 -->
@@ -56,7 +50,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							기사 조회
+							입출하 기록
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -64,33 +58,28 @@
 							<table class="table table-head-fixed text-nowrap">
 								<thead>
 									<tr>
-										<th>선택</th>
-										<th>기사 아이디</th>
-										<th>기사 이름</th>
-										<th>기사 주소</th>
-										<th>기사 전화번호</th>
-										<th>등록일자</th>
-										<th>성과 등급</th>
-										<th>자격 유형</th>
-										<th>계약 유형</th>
-										<th>수정</th>					
+										<th>선택</th>	
+										<th>입출하 기록 코드</th>
+										<th>기사아이디</th>
+										<th>차량코드</th>
+										<th>입하일시</th>
+										<th>출하일시</th>
+										<th>수정</th>
+														
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:if="${not #lists.isEmpty(driverList)}" th:each="l : ${driverList}">
+									<tr th:if="${not #lists.isEmpty(checkpointList)}" th:each="l : ${checkpointList}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
+										<td th:text="${l.vehicleCheckpointCode}"></td>
 										<td th:text="${l.driverId}"></td>
-										<td th:text="${l.driverName}"></td>
-										<td th:text="${l.driverAddr}"></td>
-										<td th:text="${l.driverPhone}"></td>
-										<td th:text="${l.driverRegDate}"></td>
-										<td th:text="${l.driverPerformanceGrade}"></td>
-										<td th:text="${l.driverLicenseType}"></td>
-										<td th:text="${l.driverQualificationType}"></td>
+										<td th:text="${l.vehicleCode}"></td>
+										<td th:text="${l.vehicleArrivalDate}"></td>
+										<td th:text="${l.vehicleShipmentDate}"></td>
 										<td>
-											<a th:href="@{/team03/delivery/k3ModifyDriver(driverId=${l.driverId})}">수정</a>
+											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
 										</td>
 									</tr>
 								</tbody>						

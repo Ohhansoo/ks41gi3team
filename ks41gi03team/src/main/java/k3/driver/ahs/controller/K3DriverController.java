@@ -15,7 +15,7 @@ import k3.driver.ahs.service.K3DriverService;
 
 
 @Controller
-@RequestMapping(value="/team03")
+@RequestMapping(value="/team03/delivery/driver")
 public class K3DriverController {
 	
 	
@@ -27,21 +27,21 @@ public class K3DriverController {
 		this.k3DriverService = k3DriverService;
 	}
 	
-	@GetMapping("/delivery/k3AddDriver")
+	@GetMapping("/k3AddDriver")
 	public String driverCheck(Model model) {
-		return "team03/delivery/k3AddDriver";
+		return "team03/delivery/driver/k3AddDriver";
 	}
 
-	@GetMapping("/delivery/k3DriverList")
+	@GetMapping("/k3DriverList")
 	public String getDriverList(Model model) {
 		List<K3Driver> driverList = k3DriverService.getDriverList();
 		model.addAttribute("title", "기사 관리");
 		model.addAttribute("driverList", driverList);
 		
-		return "team03/delivery/k3DriverList";
+		return "team03/delivery/driver/k3DriverList";
 	}
 	
-	@GetMapping("/delivery/k3ModifyDriver")
+	@GetMapping("/k3ModifyDriver")
 	public String k3ModifyDriver(@RequestParam(value="driverId", required = false) String driverId, Model model) {
 		
 		
@@ -53,7 +53,7 @@ public class K3DriverController {
 		}
 		model.addAttribute("title", "기사수정화면");
 		
-		return "team03/delivery/k3ModifyDriver";
+		return "team03/delivery/driver/k3ModifyDriver";
 	}
 
 }

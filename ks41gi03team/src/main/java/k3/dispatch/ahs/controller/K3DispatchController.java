@@ -12,7 +12,7 @@ import k3.dispatch.ahs.service.K3DispatchService;
 
 
 @Controller
-@RequestMapping(value="/team03")
+@RequestMapping(value="/team03/delivery/dispatch")
 public class K3DispatchController {
 	
 	private K3DispatchService k3DispatchService;
@@ -21,17 +21,17 @@ public class K3DispatchController {
 		this.k3DispatchService = k3DispatchService;
 	}
 	
-	@GetMapping("/delivery/k3AddDispatch")
+	@GetMapping("/k3AddDispatch")
 	public String addDispatch(Model model) {
-		return "team03/delivery/k3AddDispatch";
+		return "team03/delivery/dispatch/k3AddDispatch";
 	}
 
-	@GetMapping("/delivery/k3DispatchList")
+	@GetMapping("/k3DispatchList")
 	public String getDispatchList(Model model) {
 		List<K3Dispatch> dispatchList = k3DispatchService.getDispatchList();
 		model.addAttribute("title", "일일 배차 관리");
 		model.addAttribute("dispatchList", dispatchList);
 		
-		return "team03/delivery/k3DispatchList";
+		return "team03/delivery/dispatch/k3DispatchList";
 	}
 }
