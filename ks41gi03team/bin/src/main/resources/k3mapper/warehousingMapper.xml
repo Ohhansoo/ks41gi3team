@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.warehousing.ahs.mapper.K3WarehousingMapper">
+	<resultMap type="K3Warehousing" id="warehousingResultMap">
+ 		<result column="warehousingCode" property="warehousingCode" />
+ 		<result column="laydownCheckCode" property="laydownCheckCode" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorId" property="contractorId" />
+		<result column="laydownGoodsName" property="laydownGoodsName" />
+		<result column="laydownGoodsCount" property="laydownGoodsCount" />
+		<result column="manufacturedDate" property="manufacturedDate" />
+		<result column="expiratonDate" property="expiratonDate" />
+		<result column="laydownDate" property="laydownDate" />
+		<result column="laydownCheckResult" property="laydownCheckResult" />
+		<result column="laydownCheckManager" property="laydownCheckManager" />
+		<result column="laydownCheckDate" property="laydownCheckDate" />
+		<result column="dockName" property="dockName" />
+	</resultMap>
+	
+	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		SELECT
+		   w.laydownCheckCode,
+		   w.mainBusinessCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate,
+		   m.memberName,
+		   w.laydownCheckDate,
+		   w.laydownCheckResult
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		   INNER JOIN
+		   k3_tb_member AS m
+		   ON
+		   w.laydownCheckManager = m.memberId
+	</select>
+
+</mapper>

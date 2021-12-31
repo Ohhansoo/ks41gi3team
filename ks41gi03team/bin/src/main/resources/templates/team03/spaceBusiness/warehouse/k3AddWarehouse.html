@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		
+		<div id="representative-button">
+			<div id="representative-button">
+					
+					<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+								<div class="card-header">
+									<h3 class="card-title">창고등록</h3>
+								</div>
+								<div class="card-body">
+									<form th:action="@{/team03/spaceBusiness/warehouse/k3AddWarehouse}" method="post">
+										<div class="form-group">
+											<label for="bildingName">건물이름</label>
+											<input type="text" class="form-control" id="bildingName" name="bildingName" placeholder="건물이릉을 정해주세요!"/>
+										</div>
+										<div class="form-group">
+											<label for="floorNumber">층</label>
+											<input type="text" class="form-control" id="floorNumber" name="floorNumber"placeholder="몇층이십니까?"/>
+										</div>
+										<div class="form-group">
+											<label for="warehouseName">창고이름</label>
+											<input type="text" class="form-control" id="warehouseName" name="warehouseName" placeholder="원하는 창고이름을 써주세요"/>
+										</div>
+										<div class="form-group">
+											<label for="warehouseArea">면적</label>
+											<input type="text" class="form-control" id="warehouseArea" name="warehouseArea" placeholder="숫자만써주세요"/>㎡
+										</div>
+										<div class="form-group">
+											<label for="warehouseFlat">평수</label>
+											<input type="text" class="form-control" id="warehouseFalt" name="warehouseFalt" placeholder="숫자만써주세요"/>평
+										</div>
+										<div class="form-group">
+											<label>기능</label>
+											<select class="form-group"  name="warehouseType">		
+												<option value="일반">일반</option>
+												<option value="냉장">냉장</option>
+												<option value="냉동">냉동</option>
+												<option value="고급">고급</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>운영여부</label>
+											<select class="form-group" id="warehouseOperation" name="warehouseOperation">
+												<option value="운영가능">운영가능</option>
+												<option value="운영중지">운영중지</option>
+												<option value="내부수리">내부수리</option>
+												<option value="임대완료">임대완료</option>
+												<option value="기타">기타</option>
+											</select>
+										</div>
+										<div class="card-footer">
+											<button type="submit" class="btn btn-block btn-outlin-info">등록</button>
+										</div>															
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>		
+				</div>			
+					<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

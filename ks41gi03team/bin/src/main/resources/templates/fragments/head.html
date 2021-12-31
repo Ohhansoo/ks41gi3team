@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="headFragment">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Google Font: Source Sans Pro -->
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/fontawesome-free/css/all.min.css}">
+	<!-- Ionicons -->
+	<link rel="stylesheet" th:href="@{https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css}">
+	<!-- Tempusdominus Bootstrap 4 -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+	<!-- iCheck -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">   
+	<!-- JQVMap -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/jqvmap/jqvmap.min.css}">   
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/adminLTE/dist/css/adminlte.min.css}">  
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css}">
+	<!-- Daterange picker -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/daterangepicker/daterangepicker.css}">
+	<!-- summernote -->
+	<link rel="stylesheet" th:href="@{/adminLTE/plugins/summernote/summernote-bs4.min.css}">
+
+  
+	<!-- 화면구현 페이지 / 개발자마다 title 삽입 공간 -->
+	<th:block layout:fragment="customTitle">
+   
+	</th:block>
+   
+	<!-- 화면구현 페이지 / 개발자마다 css 삽입 공간 -->
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+   </th:block>
+     
+	<!-- 화면구현 페이지 / 개발자마다 style 삽입 공간 -->
+	<th:block layout:fragment="customStyle"></th:block>
+   
+	<!-- jquery -->
+	<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	
+	<!-- 화면구현 페이지 / 개발자마다 js 삽입 공간 -->
+	<th:block layout:fragment="customJs"></th:block>
+   
+</head>
+
+</html>

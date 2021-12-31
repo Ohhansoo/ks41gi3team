@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.dispatch.ahs.mapper.K3DispatchMapper">
+
+<select id="getDispatchList" resultType="K3Dispatch">
+		SELECT
+			m.dispatchCode,
+			m.releaseCode,
+			m.releaseMergeCode,
+			m.driverId,
+			m.vehicleCode,
+			m.dispatchStartDate,
+			m.dispatchDueDate,
+			m.areaCode,
+			m.dispatchAcceptDate,
+			m.memberId,
+			m.shippingAddress,
+			m.shippingDetailAddress,
+			m.dispatchConsignee,
+			m.dockName
+		FROM
+			k3_tb_dispatch_management AS m;
+	</select>
+
+</mapper>

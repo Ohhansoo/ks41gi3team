@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<form th:action="@{/team03/finance/subject/k3SubjectList}" method="post">
+			<table border="1">	
+				<tr>
+					<td>
+						<label for="subjectCodeInput">계정과목코드</label>
+					</td>
+					<td>
+						<input type="text" id="subjectCodeInput" name="subjectCode" 
+							   readonly="readonly" th:value="${k3Subject.subjectCode}"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="subjectNameInput">계정과목이름</label>
+					</td>
+					<td>
+						<input type="text" id="subjectNameInput" name="subjectName" 
+							   readonly="readonly" th:value="${k3Subject.subjectName}"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						<button type="submit">입력완료</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</th:block>
+</head>

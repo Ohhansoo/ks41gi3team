@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">출고요청 등록</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">출고요청 삭제</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">출고리스트 출력</button>					
+					</div>
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							출고리스트 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">자사 등록번호</span>
+										</div>
+										<input type="text" class="form-control" placeholder="자사 등록번호">
+									</div>
+								</div>
+								<!--End inputbox 1 -->
+								<!--inputbox 2 -->
+								<div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">자사 종사업장번호</span>
+										</div>
+										<input type="text" class="form-control" placeholder="자사 종사업장번호">
+	                    			</div>
+								</div>
+								<!--End inputbox 2 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							출고리스트 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<table class="table table-head-fixed text-nowrap">
+								<thead>
+									<tr>
+										<th>선택</th>
+										<th>이름</th>
+										<th>성별</th>
+										<th>번호</th>
+										<th>수정</th>					
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="checkbox" value="선택">
+										</td>
+										<td>오한수</td>
+										<td>남</td>
+										<td>010-1111-1111</td>
+										<td>
+											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
+										</td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

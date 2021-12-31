@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+	
+	
+		
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">차량기사 등록</button>
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">차량기사 삭제</button>				
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">차량기사 출력</button>				
+					</div>
+					<!--End 버튼 영역 -->
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header cardHeadBorder">
+							<h4>차량기사 등록</h4>
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row">
+	 							<form th:action="@{/team03/delivery/driver/k3ModifyDrvier}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="driverId" class="inputName">기사 아이디</label>
+										<input class="inputBox" type="text" id="driverId" name="driverId" th:value="${driverInfo.driverId}"/>
+										<button type="button" id="btn">중복확인 </button> 
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="driverName" class="inputName">기사 이름</label>
+										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${driverInfo.driverName}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="driverPhone" class="inputName">기사 전화번호</label>
+										<input class="inputBox" type="text" id="driverPhone" name="driverPhone" th:value="${driverInfo.driverPhone}"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="driverRegDate" class="inputName">등록일자</label>
+										<input class="inputBox" type="text" id="driverRegDate" name="driverRegDate" th:value="${driverInfo.driverRegDate}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="driverPerformanceGrade" class="inputName">성과 등급</label>
+										<input class="inputBox" type="text" id="driverPerformanceGrade" name="driverPerformanceGrade" th:value="${driverInfo.driverPerformanceGrade}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="driverLicenseType" class="inputName">자격 유형</label>
+										<input class="inputBox" type="text" id="driverLicenseType" name="driverLicenseType" th:value="${driverInfo.driverLicenseType}"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="driverQualificationType" class="inputName">계약 유형</label>
+										<input class="inputBox" type="text" id="driverQualificationType" name="driverQualificationType" th:value="${driverInfo.driverQualificationType}"/>
+									</div>	
+									<div class="d-flex justify-content-center">					
+										<button class="ahsbtn3 btn btn-outline-info" type="submit">등록</button>			
+										<button class="ahsbtn3 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>											
+								</form>
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 카드 영역 -->
+					
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.contractor.ahs.mapper.K3ContractorMapper">
+<!-- 	<resultMap type="K3Contract" id="contractResultMap">
+		<result column="contractCode"     property="contractCode"/>
+		<result column="contraactorCode"     property="contraactorCode"/>
+		<result column="contractorDevision"     property="contractorDevision"/>
+		<result column="contractState"     property="contractState"/>
+		<result column="contractSingningDate"     property="contractSingningDate"/>
+		<result column="contractorId"     property="contractorId"/>
+		<result column="memberId"     property="memberId"/>
+	</resultMap> -->
+	
+	<insert id="k3AddContractor" parameterType="String">
+		INSERT INTO k3_tb_contractor
+			(contractorCode, mainBusinessCode, contractorBusinessNum, contractorAddr
+			, contractorEmail, contractorSuperviserEmail, contractorItem
+			, contractorStatus, contractorProfitBank, contractorProfitAccount
+			, contractorAccountHolder, contractorId, memberId
+			, contractorRegistrationDate, contractorBusinessClientNum, contractorDevision
+			,contractorFax, contractorState)
+			VALUES
+			(#{contractorCode}, #{mainBusinessCode}, #{contractorBusinessNum}, #{contractorAddr}
+			, #{contractorEmail}, #{contractorSuperviserEmail}, #{contractorItem}
+			, #{contractorStatus}, #{contractorProfitBank}, #{contractorProfitAccount}
+			, #{contractorAccountHolder}, #{contractorId}, #{memberId}
+			, CURDATE(), #{contractorBusinessClientNum}, #{contractorDevision}
+			, #{contractorFax}, #{contractorState});
+		INSERT INTO k3_tb_contractor_staff
+			(contractorId, mainBusinessCode, contractorPw
+			, memberId, levelCode, contractorType
+			, contractorName, contractorRepresentative, contractorPhone
+			, contractorSuperviser, contractorSuperviserPhone)
+			VALUES
+			(#{contractorId}, #{mainBusinessCode}, #{contractorPw}
+			, #{memberId}, #{levelCode}, #{contractorType}
+			, #{contractorName}, #{contractorRepresentative}, #{contractorPhone}
+			, #{contractorSuperviser}, #{contractorSuperviserPhone});
+	</insert>
+	
+	<!-- 거래처 목록 간단 현황으로 불러오기 -->
+	<select id="K3GetContractorList" resultType="K3Contractor">
+		SELECT
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId;
+	</select>
+
+</mapper>

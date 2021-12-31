@@ -56,7 +56,7 @@ public class K3SubjectController {
 	}
 	
 	//계정과목 등록처리
-	@PostMapping("/k3addSubject")
+	@PostMapping("/k3SubjectList")
 	public String addSubject(K3Subject k3Subject) {
 		int result = k3SubjectService.addSubject(k3Subject);
 		log.info("addSubject 메서드 인서트 결과 : " + result);
