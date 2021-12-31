@@ -2,7 +2,7 @@ package k3.warehouse.ahs.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import k3.warehouse.ahs.dto.K3Warehouses;
 import k3.warehouse.ahs.service.K3WarehouseService;
@@ -83,7 +84,8 @@ public class K3WarehouseController {
 	 * 창고삭제(처리)
 	 */
 	@PostMapping("/k3DeleteWarehouse")
-	public String getK3DeleteWarehouse(K3Warehouses k3Warehouses) {
-		return "redirect:/team03/spaceBusiness/warehouse/k3DeleteWarehouse";
+	public String getK3DeleteWarehouse(int warehouseCode) {
+		k3WarehouseService.deleteWarehouseCode(warehouseCode);
+		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 }
