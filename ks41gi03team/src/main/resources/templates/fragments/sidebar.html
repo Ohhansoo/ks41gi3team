@@ -257,7 +257,7 @@
 									</ul>
 									<!-- End 3depth -->										
 								</li>
-								<!-- 입출고관리 -->
+								<!-- 입고관리 -->
 								<li class="nav-item">
 									<a href="#" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
@@ -330,6 +330,43 @@
 										</li>											
 									</ul>
 									<!-- End 3depth -->										
+								</li>
+								<!-- 입/출하검수관리 -->
+								<li class="nav-item">
+									<a href="#" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>입/출하검수관리 !
+											<i class="right fas fa-angle-left"></i>
+										</p>
+									</a>
+									<!-- 3depth -->
+									<ul class="nav nav-treeview">
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3AddlLaydownCheck}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>입하검수 등록 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3LaydownCheckList}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>입하검수 현황 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3AddShipmentCheck}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>출하검수 등록 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3ShipmentCheckList}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>출하검수 현황 #</p>
+											</a>
+										</li>															
+									</ul>
+									<!-- End 3depth -->
 								</li>
 								<!-- 재고관리 -->
 								<li class="nav-item">
