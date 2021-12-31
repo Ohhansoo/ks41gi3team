@@ -40,8 +40,14 @@ public class K3WarehouseService {
 	}
 	//창고수정처리
 	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses) {
-		System.out.println("k3ModifyWarehouseInfo Service >>>>>>> "+k3Warehouses);
+		System.out.println("k3ModifyWarehouseInfo Service >>>>>>> "+ k3Warehouses);
 		return k3WarehouseMapper.k3ModifyWarehouseInfo(k3Warehouses);
+	}
+	/**
+	 * 창고고유고드로 창고삭제
+	 */
+	public int deleteWarehouseCode(int warehouseCode) {
+		return k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
 	}
 	
 }

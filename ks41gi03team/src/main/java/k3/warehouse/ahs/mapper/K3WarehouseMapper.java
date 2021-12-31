@@ -26,5 +26,9 @@ public interface K3WarehouseMapper {
 	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode);
 	//창고수정처리
 	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses);
-
+	
+	/**
+	 * 창고고유코드로 삭제
+	 */
+	public int deleteWarehouseCode(int warehouseCode);
 }

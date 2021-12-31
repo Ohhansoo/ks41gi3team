@@ -13,7 +13,15 @@
 		<result column="warehouseType" property="warehouseType" />
 		<result column="warehouseOperation" property="warehouseOperation" />
 	</resultMap> 
--->
+--> 
+	<delete id="deleteWarehouseCode" parameterType="int">
+		DELETE
+			w
+		from
+			k3_tb_warehouse AS w
+		WHERE
+			w.warehouseCode = #{warehouseCode};
+	</delete>
 		<!-- 창고수정을 위한 코드로 조회 -->
 	<select id="getK3ModifyWarehouseInfoByWarehouseCode" parameterType="int" resultType="K3Warehouses">
 		SELECT
@@ -30,6 +38,7 @@
 		WHERE
 			w.warehouseCode = #{warehouseCode};
 	</select>
+		<!-- 창고수정 처리 -->
 	<update id="k3ModifyWarehouseInfo" parameterType="K3Warehouses">
 		UPDATE
 			k3_tb_warehouse AS w
