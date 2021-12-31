@@ -22,16 +22,16 @@ public class K3EstimateController {
 	}
 	
 	//견적서 등록
-	@GetMapping("/addEstimate")
+	@GetMapping("/k3AddEstimate")
 	public String K3GetAddEstimate(Model model) {
 		
 		model.addAttribute("title", "견적서 관리");
 		model.addAttribute("subtitle", "견적서 등록");
-		return "/team03/contractorContract/Estimate/addEstimate";
+		return "/team03/contractorContract/Estimate/k3AddEstimate";
 	}
 	
 	//견적서 현황
-	@GetMapping("/searchEstimate")
+	@GetMapping("/k3SearchEstimate")
 	public String K3GetEstimateSearch(Model model) {
 		List<K3Estimate> estimateList = k3EstimateService.K3GetEstimateList();
 		
@@ -39,14 +39,14 @@ public class K3EstimateController {
 		model.addAttribute("subtitle", "견적서 현황");
 		model.addAttribute("estimateList", estimateList);
 
-		return "/team03/contractorContract/Estimate/searchEstimate";
+		return "/team03/contractorContract/Estimate/k3SearchEstimate";
 	}
 	//견적서 수정
-	@GetMapping("/modifyEstimate")
+	@GetMapping("/k3ModifyEstimate")
 	public String k3GetModifyEstimate(Model model) {
 		model.addAttribute("title", "견적서 관리");
 		model.addAttribute("subtitle", "견적서 수정");
-		return "/team03/contractorContract/Estimate/modifyEstimate";
+		return "/team03/contractorContract/Estimate/k3ModifyEstimate";
 	}
 
 }

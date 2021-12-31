@@ -3,7 +3,7 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+		<title th:text="${title}"></title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
@@ -119,12 +119,12 @@
 										<td  th:text="${c.contractorState}"></td>
 										<td  th:text="${c.memberId}"></td>
 										<td>
-											<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/modifyContractor}">
+											<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
 												수정
 											</a>
 										</td>
 										<td>
-											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/detailContractor}">
+											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/k3DetailContractor}">
 												상세조회
 											</a>
 										</td>

@@ -24,16 +24,16 @@ public class K3ContractController {
 	}
 	
 	//계약
-	@GetMapping("/addContract")
+	@GetMapping("/k3AddContract")
 	public String K3GetAddContract(Model model) {
 		
 		model.addAttribute("title", "계약 관리");
 		model.addAttribute("subtitle", "계약 등록");
-		return "/team03/contractorContract/Contract/addContract";
+		return "/team03/contractorContract/Contract/k3AddContract";
 	}
 	
 	//계약현황에 계약 리스트가져오기
-	@GetMapping("/searchContract")
+	@GetMapping("/k3SearchContract")
 	public String k3GetSearchContract(Model model) {
 		List<K3Contract> contractList =  k3ContractService.k3GetContractList();
 	
@@ -41,16 +41,16 @@ public class K3ContractController {
 		model.addAttribute("subtitle", "계약 현황");
 		model.addAttribute("contractList", contractList);
 		
-		return "/team03/contractorContract/Contract/searchContract";
+		return "/team03/contractorContract/Contract/k3SearchContract";
 	}
 	
 	//수정
-	@GetMapping("/modifyContract")
+	@GetMapping("/k3ModifyContract")
 	public String k3GetModifyContract(Model model) {
 		
 		model.addAttribute("title", "계약 관리");
 		model.addAttribute("subtitle", "계약 수정");
-		return "/team03/contractorContract/Contract/modifyContract";
+		return "/team03/contractorContract/Contract/k3ModifyContract";
 		
 	}
 	

@@ -7,9 +7,8 @@ public class K3Estimate {
 	private String contractorCode;
 	private String contractorName;
 	private String estimatePrice;
-	private String memberId;
 	private String estimateMeasureDate;
-	
+	private String memberId;
 	public String getEstimateNum() {
 		return estimateNum;
 	}
@@ -34,17 +33,17 @@ public class K3Estimate {
 	public void setEstimatePrice(String estimatePrice) {
 		this.estimatePrice = estimatePrice;
 	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
 	public String getEstimateMeasureDate() {
 		return estimateMeasureDate;
 	}
 	public void setEstimateMeasureDate(String estimateMeasureDate) {
 		this.estimateMeasureDate = estimateMeasureDate;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	@Override
 	public String toString() {
@@ -57,10 +56,10 @@ public class K3Estimate {
 		builder.append(contractorName);
 		builder.append(", estimatePrice=");
 		builder.append(estimatePrice);
-		builder.append(", memberId=");
-		builder.append(memberId);
 		builder.append(", estimateMeasureDate=");
 		builder.append(estimateMeasureDate);
+		builder.append(", memberId=");
+		builder.append(memberId);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -117,6 +116,7 @@ public class K3Estimate {
 			return false;
 		return true;
 	}
+
 	
 	
 	
