@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/****************************** 각 페이지 공통 규칙 ********************/
+
+/* 전체 폰트 */
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* body 전체 */
+body{
+	font-family: 'InfinitySans-RegularA1';
+	background-color: #E0E0E0;
+}
+
+.container-fluid{
+	max-width: 1300px;
+}
+
+
+/**** 사이드 바 ****/
+/* 사이드 바 header*/
+#leftcolumn{
+	background-color: #003366;
+	
+}
+/* 사이드 바 body*/
+.os-content{
+	background-color: #004C99;
+
+}
+/* 사이드바 상단 브랜드 폰트 컬러*/
+.brand-text{
+	color: white;
+	
+}
+/* 사이드바 상단 유저이름 */
+.userName{
+	color: white;
+	
+}
+/* 관리자레벨  */
+.part{
+	height: 10px; 
+	font-size: 15px; 
+	color: white;
+	
+}
+/*로그아웃, 정보변경 링크 */
+.link{
+	color: white;
+	
+}
+/* 사이드바 메뉴 */
+.nav p{
+	color: white;
+	font-size: 16px;
+}
+
+/**** 콘텐츠 영역(right column) 전체 ****/
+.content-wrapper {
+  	background-color: #E0E0E0;
+}
+.card{
+	background-color: #FFFFF;
+}
+.card-header{
+	color: white;
+	background-color: #003366;
+}
+thead{
+	color: white;
+	background-color: #004C99;
+}
+
+
+/**** 헤더 부분  ****/
+.navbar{
+	background-color: #003366; 
+}
+
+.main-header{
+	border-bottom: 1px solid #286273;
+}
+/*메뉴 아이콘*/
+.fas{
+	color: #286273;
+}
+
+/**** 푸터 부분  ****/
+#footer{
+	background-color: #E0E0E0;
+}
+.main-footer{
+	background-color: #E0E0E0;
+}
+
+/****************************** 요소 공통 규칙 ********************/
+
+/* 카드 색상 */
+.underCard}
+	background-color: #E6EADB;
+	height: 450px;
+}
+.cardHeadBorder{
+	border-bottom;
+	border-color: #23a100;
+}
+
+
+/*글씨 색깔 규칙 1 -> 초록색*/
+.textColor{
+	color: #2BAE66;
+}
+
+/*버튼 규칙 1 -> 작은 버튼*/
+.ahsbtn1{
+	size: 10px;
+	width: 70px; 
+	height:38px;
+	margin-left: 10px;
+}
+/*버튼 규칙 2 -> 보통 버튼*/
+.ahsbtn2{
+	size: 15px;
+	width: 100px; 
+	height:38px;
+	margin-left: 10px;
+}
+/*버튼 규칙 3 -> 큰 버튼*/
+.ahsbtn3{
+	size: 20px;
+	width: 150px; 
+	height: 38px;
+	margin-left: 10px;
+}
+/*버튼 규칙 4 -> 등록 / 수정 폼 버튼*/
+.ahsbtn4{
+	size: 20px;
+	width: 150px; 
+	height: 38px;
+	margin-top: 30px;
+	margin-right: 40px;
+
+}
+/*카드 전체*/
+
+
+#userInfo{
+	width: 100%;
+}
+
+
+/* 입력폼 전체 */
+.inputwrap{
+	border-bottom: 1px solid #D8D8D8;
+}
+
+/* 입력폼 제목 */
+.inputName{
+	width: 200px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* 입력폼 인풋박스 */
+.inputBox{
+	width: 400px;
+}
+/* add 이동 a태그 */
+#moveAddPage {
+	text-align: end;
+	text-decoration: underline;
+	width: 80%;
+}
+
