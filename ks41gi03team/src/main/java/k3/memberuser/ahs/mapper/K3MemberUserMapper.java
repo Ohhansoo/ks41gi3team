@@ -9,6 +9,9 @@ import k3.memberuser.ahs.dto.K3MemberUser;
 @Mapper
 public interface K3MemberUserMapper {
 	
+	//직원등록
+	public int AddMemberUser(K3MemberUser k3MemberUser);
+
 	//회원전체 조회
 	public List<K3MemberUser> getMemberUserList();
 	

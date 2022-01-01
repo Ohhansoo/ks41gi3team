@@ -27,16 +27,25 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/category/k3CategoryList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
-												<option value="large">대분류</option>
-												<option value="medium">중분류</option>
-												<option value="small">소분류</option>
+												<option value="large">직원ID</option>
+												<option value="medium">직원PW</option>
+												<option value="small">사업장별대표코드</option>
+												<option value="small">권한번호</option>
+												<option value="small">직원이름</option>
+												<option value="small">성별</option>
+												<option value="small">주소</option>
+												<option value="small">전화번호</option>
+												<option value="small">주민번호</option>
+												<option value="small">직원계정상태</option>
+												<option value="small">등록일자</option>
+												<option value="small">입사일자</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+										<input type="text" name="categoryValue" class="form-control" >
 										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
@@ -55,7 +64,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/category/k3DeleteCategory}" method="post">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
