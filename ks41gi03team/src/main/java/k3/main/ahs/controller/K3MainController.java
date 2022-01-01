@@ -29,5 +29,8 @@ public class K3MainController {
 		
 		return "sample2";
 	}
-	
+	@GetMapping("/sample3")
+	public String sample3Controller() {
+		return "sample3";
+	}
 }
