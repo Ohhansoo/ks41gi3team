@@ -73,7 +73,7 @@ public class K3WarehouseController {
 		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 	/**
-	 * 창고삭제(페이지이동
+	 * 창고삭제(페이지이동)
 	 */
 	@GetMapping("/k3DeleteWarehouse")
 	public String k3DeleteWarehouse(Model model) {
