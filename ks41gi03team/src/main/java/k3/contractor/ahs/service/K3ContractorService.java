@@ -10,7 +10,6 @@ import k3.contractor.ahs.dto.K3ContractorDetail;
 import k3.contractor.ahs.mapper.K3ContractorMapper;
 
 @Service
-@Transactional
 public class K3ContractorService {
 	
 	//생성자 메서드 주입
@@ -32,5 +31,7 @@ public class K3ContractorService {
 		
 		return contractorList;
 	}
+
+
 
 }

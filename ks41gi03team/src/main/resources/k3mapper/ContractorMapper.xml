@@ -13,31 +13,32 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
-	<insert id="k3AddContractor" parameterType="String">
-		INSERT INTO k3_tb_contractor
-			(contractorCode, mainBusinessCode, contractorBusinessNum, contractorAddr
-			, contractorEmail, contractorSuperviserEmail, contractorItem
-			, contractorStatus, contractorProfitBank, contractorProfitAccount
-			, contractorAccountHolder, contractorId, memberId
-			, contractorRegistrationDate, contractorBusinessClientNum, contractorDevision
-			,contractorFax, contractorState)
-			VALUES
-			(#{contractorCode}, #{mainBusinessCode}, #{contractorBusinessNum}, #{contractorAddr}
-			, #{contractorEmail}, #{contractorSuperviserEmail}, #{contractorItem}
-			, #{contractorStatus}, #{contractorProfitBank}, #{contractorProfitAccount}
-			, #{contractorAccountHolder}, #{contractorId}, #{memberId}
-			, CURDATE(), #{contractorBusinessClientNum}, #{contractorDevision}
-			, #{contractorFax}, #{contractorState});
+	<insert id="k3AddContractor" parameterType="K3ContractorDetail">
 		INSERT INTO k3_tb_contractor_staff
-			(contractorId, mainBusinessCode, contractorPw
-			, memberId, levelCode, contractorType
-			, contractorName, contractorRepresentative, contractorPhone
-			, contractorSuperviser, contractorSuperviserPhone)
-			VALUES
-			(#{contractorId}, #{mainBusinessCode}, #{contractorPw}
-			, #{memberId}, #{levelCode}, #{contractorType}
-			, #{contractorName}, #{contractorRepresentative}, #{contractorPhone}
-			, #{contractorSuperviser}, #{contractorSuperviserPhone});
+			(contractorId, mainBusinessCode, contractorPw, 
+			memberId, levelCode, contractorType, 
+			contractorName, contractorRepresentative, contractorPhone, 
+			contractorSuperviser, contractorSuperviserPhone)
+			VALUES 
+			(#{contractorId}, '물류센터A물류센터_고양_1', #{contractorPw}, 
+			'm_c17', #{levelCode}, #{contractorType}, 
+			#{contractorName}, #{contractorRepresentative}, #{contractorPhone}, 
+			#{contractorSuperviser}, #{contractorSuperviserPhone});
+		INSERT INTO k3_tb_contractor
+			(contractorCode, mainBusinessCode, contractorBusinessNum, 
+			contractorAddr, contractorEmail, contractorSuperviserEmail, 
+			contractorItem, contractorStatus, contractorProfitBank, 
+			contractorProfitAccount, contractorAccountHolder, contractorId, 
+			memberId, contractorRegistrationDate, contractorBusinessClientNum, 
+			contractorDevision, contractorFax, contractorState)
+			VALUES 
+			(#{contractorCode}, '물류센터A물류센터_고양_1', #{contractorBusinessNum}, 
+			#{contractorAddr}, #{contractorEmail}, #{contractorSuperviserEmail}, 
+			#{contractorItem}, #{contractorStatus}, #{contractorProfitBank}, 
+			#{contractorProfitAccount}, #{contractorAccountHolder}, #{contractorId}, 
+			'm_c17', #{contractorRegistrationDate}, #{contractorBusinessClientNum}, 
+			#{contractorDevision}, #{contractorFax}, #{contractorState});
+
 	</insert>
 	
 	<!-- 거래처 목록 간단 현황으로 불러오기 -->

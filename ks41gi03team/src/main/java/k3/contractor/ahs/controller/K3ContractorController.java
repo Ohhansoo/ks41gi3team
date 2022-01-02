@@ -2,6 +2,8 @@ package k3.contractor.ahs.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import k3.contractor.ahs.service.K3ContractorService;
 @Controller
 @RequestMapping(value="/team03/contractorContract/Contractor")
 public class K3ContractorController {
+	
+	private static final Logger log = LoggerFactory.getLogger(K3ContractorController.class);
 	
 	private K3ContractorService k3ContractorService;
 	
@@ -35,16 +39,18 @@ public class K3ContractorController {
 	@PostMapping("/k3AddContractor")
 	public String k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		
-		System.out.println("ContractorController 거래처 등록 화면에서 입력받은 값" + k3ContractorDetail);
-		
-		String contractorCode = k3ContractorDetail.getContractorCode();
-		String contractorBusinessNum = k3ContractorDetail.getContractorBusinessNum();
-		
-		if(contractorCode != null && contractorBusinessNum != null 
-			&& !"".equals(contractorCode) && !"".equals(contractorBusinessNum)) {
-			k3ContractorService.k3AddContractor(k3ContractorDetail);
-		}
-		
+		k3ContractorService.k3AddContractor(k3ContractorDetail);
+		/*
+		 * System.out.println("ContractorController 거래처 등록 화면에서 입력받은 값" +
+		 * k3ContractorDetail);
+		 * 
+		 * String contractorCode = k3ContractorDetail.getContractorCode(); String
+		 * contractorBusinessNum = k3ContractorDetail.getContractorBusinessNum();
+		 * 
+		 * if(contractorCode != null && contractorBusinessNum != null &&
+		 * !"".equals(contractorCode) && !"".equals(contractorBusinessNum)) {
+		 * k3ContractorService.k3AddContractor(k3ContractorDetail); }
+		 */		
 		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
 	
