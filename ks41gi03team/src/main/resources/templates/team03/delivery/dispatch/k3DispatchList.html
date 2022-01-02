@@ -10,53 +10,44 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn3 btn btn-outline-info">배차 등록</button>
-						<button type="button" class="ahsbtn3 btn btn-outline-info">배차 삭제</button>
-						<button type="button" class="ahsbtn3 btn btn-outline-info">배차 출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							검색
+							조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
+								<form class="col-lg-6" th:action="@{#}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">배차 코드</span>
+											<select name="dispatchs" class="input-group-text">
+												<option value="dispatch">배차 코드</option>
+												<option value="driver">기사 아이디</option>
+												<option value="vehicle">차량 코드</option>
+												<option value="area">지역 코드</option>
+												<option value="dock">도크명</option>
+											</select>
 										</div>
-										<input type="text" class="form-control" placeholder="배차 코드">
+										<input type="text" name="dispatch" class="form-control" placeholder="">
+										<button id="searchDispatch" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
+										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
-								</div>
+								</form>
 								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<!-- <div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div> -->
-								<!--End inputbox 2 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
-					<div class="card cardColor">
+					<div class="card underCard">
 						<!--card header -->
-						<div class="card-header">
-							입출하 기록
+						<div class="card-header deprbtn">
+							현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -64,7 +55,8 @@
 							<table class="table table-head-fixed text-nowrap">
 								<thead>
 									<tr>
-										<th>선택</th>
+										<th>삭제</th>
+										<th>수정</th>	
 										<th>배차 코드</th>
 										<th>상품출고 코드</th>
 										<th>상품출고 통합코드</th>
@@ -76,16 +68,18 @@
 										<th>담당자 승인 일시</th>
 										<th>배차 지시자</th>
 										<th>배송지</th>
-										<th>배송지	상세주소</th>
+										<th>배송지 상세주소</th>
 										<th>수취인</th>
-										<th>도크명</th>
-										<th>수정</th>					
+										<th>도크명</th>	
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(dispatchList)}" th:each="l : ${dispatchList}">
 										<td>
 											<input type="checkbox" value="선택">
+										</td>	
+										<td>
+										<a th:href="@{/team03/delivery/dispatch/k3ModifyDispatch(dispatchCode=${l.dispatchCode})}">수정</a>
 										</td>
 										<td th:text="${l.dispatchCode}"></td>
 										<td th:text="${l.releaseCode}"></td>
@@ -101,9 +95,8 @@
 										<td th:text="${l.shippingDetailAddress}"></td>
 										<td th:text="${l.dispatchConsignee}"></td>
 										<td th:text="${l.dockName}"></td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
+   											
+										
 									</tr>
 								</tbody>						
 							</table>
@@ -111,6 +104,13 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
+						<a href="@{/team03/delivery/dispatch/k3AddDispatch}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

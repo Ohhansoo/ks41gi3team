@@ -24,16 +24,14 @@
 								<form class="col-lg-6" th:action="@{#}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="categoryKey" class="input-group-text">
+											<select name="checkpoints" class="input-group-text">
 												<option value="checkpoint">입출하 기록 코드</option>
-												<option value="driver">기사아이디</option>
-												<option value="vehicle">차량코드</option>
-												<option value="date1">입하일시</option>
-												<option value="date2">출하일시</option>
+												<option value="driver">기사 아이디</option>
+												<option value="vehicle">차량 코드</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
-										<button id="categorySearcch" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
+										<input type="text" name="checkpoint" class="form-control" placeholder="입력">
+										<button id="searchCheck" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
 										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
 								</form>
@@ -90,7 +88,7 @@
 					<div class="row" style="margin:15px;">
 						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
 						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
-						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+						<a href="@{/team03/delivery/checkpoint/k3AddCheckpoint}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 버튼 영역 -->
 				</div>
