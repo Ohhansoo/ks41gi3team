@@ -26,6 +26,19 @@ public class K3ContractorController {
 		this.k3ContractorService = k3ContractorService;
 	}
 	
+	//거래처 수정
+	
+	//거래처 수정으로 화면전환
+	@GetMapping("/k3ModifyContractor")
+	public String k3GetModifyContractor(Model model) {
+		
+		model.addAttribute("title", "거래처 관리");
+		model.addAttribute("subtitle", "거래처 정보 수정");
+		
+		return "/team03/contractorContract/Contractor/k3ModifyContractor";
+	}
+
+	
 	//거래처 등록으로 화면전환
 	@GetMapping("/k3AddContractor")
 	public String K3GetAddContractor(Model model) {
@@ -67,11 +80,5 @@ public class K3ContractorController {
 		return "/team03/contractorContract/Contractor/k3SearchContractor";
 	}
 	
-	//거래처 수정
-	@GetMapping("/k3ModifyContractor")
-	public String k3GetModifyContractor(Model model) {
-		model.addAttribute("title","거래처 관리");
-		model.addAttribute("subtitle", "거래처 수정");
-		return "/team03/contractorContract/Contractor/k3ModifyContractor";
-	}
+
 }

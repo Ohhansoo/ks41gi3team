@@ -18,13 +18,19 @@ public class K3ContractorService {
 	public K3ContractorService(K3ContractorMapper k3ContractorMapper) {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
+	
+	//거래처 수정
+	public int k3ModifyContractor(K3ContractorDetail k3ContractorDetail) {
+		return K3ContractorMapper.K3ModifyContractorInfo(k3ContractorDetail);
+	}
 
-	//거래처 등록
+	//거래처 등록 k3_tb_contractor_staff
 	public int k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		int result = k3ContractorMapper.k3AddContractor(k3ContractorDetail);
 		
 		return result;
 	}
+	//거래처 등록 k3_tb_contractor
 	public int k3AddContractorDeatail(K3ContractorDetail k3ContractorDetail) {
 		int result = k3ContractorMapper.k3AddContractorDeatail(k3ContractorDetail);
 				
