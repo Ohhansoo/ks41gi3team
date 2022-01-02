@@ -19,36 +19,52 @@
 		<result column="laydownCheckDate" property="laydownCheckDate" />
 		<result column="dockName" property="dockName" />
 	</resultMap>
-	
+	<select id="k3GetWarehousingRequestSort" resultType="K3WarehousingSort">
+		SELECT
+			w.laydownCheckCode,
+			w.laydownGoodsName,
+			w.laydownGoodsCount,
+			w.laydownDate,
+			c.contractorName	
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+		WHERE
+			w.categoryCode IS NULL AND w.laydownCheckResult = 'Y';
+	</select>
 	
 	<select id="k3GetWarehousingSortList" resultType="K3WarehousingSort">
 		SELECT
-			a.assortCode,
+			w.laydownCheckCode,
 			w.laydownGoodsName,
 			w.laydownGoodsCount,
 			c.contractorName,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
-			a.productFrequency,
-			a.locationCode,
-			a.memberId,
-			a.sortingDate
+			w.productFrequency,
+			w.locationCode,
+			m.memberName,
+			w.sortingDate		
 		FROM
-			k3_tb_assort_goods AS a
-			INNER JOIN
 			k3_tb_warehousing AS w
-			ON
-			a.warehousingCode = w.warehousingCode
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			on
-			a.contractorId = c.contractorId
+			w.contractorId = c.contractorId
 			INNER JOIN
 			k3_tb_total_category AS t
 			on
-			a.categoryCode = t.categoryCode;
-	
+			w.categoryCode = t.categoryCode
+			INNER JOIN
+			k3_tb_member AS m
+			on
+			w.sortingManager = m.memberId
+		WHERE
+			w.categoryCode IS NOT NULL AND w.laydownCheckResult = 'Y'	
 	</select>
 	
 	<select id="k3GetWarehousingList" resultType="K3Warehousing">

@@ -41,13 +41,16 @@ public class K3WarehousingController {
 		return "team03/goodsManagement/warehousing/k3AddWarehousing";
 	}
 
+	
 	//입고분류 현황이동
 	@GetMapping("/k3SortList")
 	public String k3GetWarehousingSortList(Model model) {
 		List<K3WarehousingSort> sortList = k3WarehousingService.k3GetWarehousingSortList();
+		List<K3WarehousingSort> requestSort = k3WarehousingService.k3GetWarehousingRequestSort();
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고분류현황");
 		model.addAttribute("sortList", sortList);	
+		model.addAttribute("requestSort", requestSort);	
 		return "team03/goodsManagement/warehousing/k3SortList";
 	}
 	//입고 현황이동
