@@ -17,7 +17,7 @@ public class K3WarehouseService {
 		this.k3WarehouseMapper = k3WarehouseMapper;
 	}
 	/**
-	 * 창고 등록처리
+	 * 창고 등록
 	 */
 	public int k3AddWarehouse(K3Warehouses k3Warehouses) {
 		int result = k3WarehouseMapper.k3AddWarehouse(k3Warehouses);
@@ -30,6 +30,24 @@ public class K3WarehouseService {
 		List<K3Warehouses> K3Warehouses = k3WarehouseMapper.getK3WarehouseList();
 		System.out.println("K3WarehouseService: "+K3Warehouses);
 		return K3Warehouses;
+	}
+	/**
+	 * 창고수정
+	 */
+	//창고코드로 조회
+	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode) {	
+		return k3WarehouseMapper.getK3ModifyWarehouseInfoByWarehouseCode(warehouseCode);
+	}
+	//창고수정처리
+	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses) {
+		System.out.println("k3ModifyWarehouseInfo Service >>>>>>> "+ k3Warehouses);
+		return k3WarehouseMapper.k3ModifyWarehouseInfo(k3Warehouses);
+	}
+	/**
+	 * 창고고유고드로 창고삭제
+	 */
+	public int deleteWarehouseCode(int warehouseCode) {
+		return k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
 	}
 	
 }

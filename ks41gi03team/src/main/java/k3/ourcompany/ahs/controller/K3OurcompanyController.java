@@ -43,9 +43,6 @@ public class K3OurcompanyController {
 		ourcompanyService.AddOurCompany(k3ourcompany);
 		return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
-	
-	
-	
 	//자사 등록화면(이동)
 	@GetMapping("/k3AddOurCompanyList")
 	public String AddOurCompany(Model model) {

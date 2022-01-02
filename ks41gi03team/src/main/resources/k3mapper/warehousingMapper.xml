@@ -20,6 +20,37 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	
+	<select id="k3GetWarehousingSortList" resultType="K3WarehousingSort">
+		SELECT
+			a.assortCode,
+			w.laydownGoodsName,
+			w.laydownGoodsCount,
+			c.contractorName,
+			t.largeCategory,
+			t.mediumCategory,
+			t.smallCategory,
+			a.productFrequency,
+			a.locationCode,
+			a.memberId,
+			a.sortingDate
+		FROM
+			k3_tb_assort_goods AS a
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			a.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			a.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_total_category AS t
+			on
+			a.categoryCode = t.categoryCode;
+	
+	</select>
+	
 	<select id="k3GetWarehousingList" resultType="K3Warehousing">
 		SELECT
 		   w.laydownCheckCode,

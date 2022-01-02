@@ -13,9 +13,48 @@
 		<result column="warehouseType" property="warehouseType" />
 		<result column="warehouseOperation" property="warehouseOperation" />
 	</resultMap> 
--->
-	
-	<!-- 창고등록처리 -->
+--> 
+	<delete id="deleteWarehouseCode" parameterType="int">
+		DELETE
+			w
+		from
+			k3_tb_warehouse AS w
+		WHERE
+			w.warehouseCode = #{warehouseCode};
+	</delete>
+		<!-- 창고수정을 위한 코드로 조회 -->
+	<select id="getK3ModifyWarehouseInfoByWarehouseCode" parameterType="int" resultType="K3Warehouses">
+		SELECT
+			 w.warehouseCode
+			,w.bildingName
+			,w.floorNumber
+			,w.warehouseName
+			,w.warehouseArea
+			,w.warehouseFlat
+			,w.warehouseType
+			,w.warehouseOperation
+		FROM
+			k3_tb_warehouse AS w
+		WHERE
+			w.warehouseCode = #{warehouseCode};
+	</select>
+		<!-- 창고수정 처리 -->
+	<update id="k3ModifyWarehouseInfo" parameterType="K3Warehouses">
+		UPDATE
+			k3_tb_warehouse AS w
+		SET
+			 w.warehouseCode = #{warehouseCode}
+			,w.bildingName = #{bildingName}
+			,w.floorNumber = #{floorNumber}
+			,w.warehouseName = #{warehouseName}
+			,w.warehouseArea = #{warehouseArea}
+			,w.warehouseFlat = #{warehouseFlat}
+			,w.warehouseType = #{warehouseType}
+			,w.warehouseOperation = #{warehouseOperation}
+		WHERE
+			w.warehouseCode = #{warehouseCode};
+	</update>
+		<!-- 창고등록처리 -->
 	<insert id="k3AddWarehouse" parameterType="K3Warehouses">
 		INSERT INTO k3_tb_warehouse
 			(bildingName
@@ -34,10 +73,11 @@
 			,#{warehouseType}
 			,#{warehouseOperation});
 	</insert>
-	<!-- 창고전체조회 -->
+		<!-- 창고전체조회 -->
 	<select id="getK3WarehouseList" resultType="K3Warehouses">
 		SELECT
-			bildingName
+			 warehouseCode
+			,bildingName
 			,floorNumber		
 			,warehouseName
 			,warehouseArea
@@ -45,6 +85,6 @@
 			,warehouseType
 			,warehouseOperation
 		FROM	
-			k3_tb_warehouse
+			k3_tb_warehouse;
 	</select>	
 </mapper>

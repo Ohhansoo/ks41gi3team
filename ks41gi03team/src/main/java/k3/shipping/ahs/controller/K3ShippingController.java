@@ -13,7 +13,7 @@ import k3.shipping.ahs.service.K3ShippingService;
 
 
 @Controller
-@RequestMapping(value="/team03")
+@RequestMapping(value="/team03/delivery/shipping")
 public class K3ShippingController {
 	
 	private K3ShippingService k3ShippingService;
@@ -22,17 +22,17 @@ public class K3ShippingController {
 		this.k3ShippingService = k3ShippingService;
 	}
 	
-	@GetMapping("/delivery/k3AddShipping")
+	@GetMapping("/k3AddShipping")
 	public String addShipping(Model model) {
-		return "team03/delivery/K3AddShipping";
+		return "team03/delivery/shipping/K3AddShipping";
 	}
 
-	@GetMapping("/delivery/k3ShippingList")
+	@GetMapping("/k3ShippingList")
 	public String getShippingList(Model model) {
 		List<K3Shipping> shippingList = k3ShippingService.getShippingList();
 		model.addAttribute("title", "배송 관리");
 		model.addAttribute("shippingList", shippingList);
 		
-		return "team03/delivery/k3ShippingList";
+		return "team03/delivery/shipping/k3ShippingList";
 	}
 }

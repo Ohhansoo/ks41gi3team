@@ -68,7 +68,7 @@
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/member/k3MemberUserList}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>회원 등록 #</p>
 											</a>
@@ -80,25 +80,25 @@
 											</a>
 										</li>											
 										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/member/k3RemoveMemberUserList}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/retiredmemberuser/k3AddRetiredMemberUserList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>퇴사회원 등록 #</p>
 											</a>
 										</li>											
 										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/member/k3RemoveMemberUserList}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>퇴사회원 현황 #</p>
 											</a>
 										</li>											
 										<li class="nav-item">
-											<a th:href="@{/team03/companymanagementmember/k3MemberUserLevelList}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/level/k3AddMemberUserLevelList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>권한 등록 #</p>
 											</a>
 										</li>											
 										<li class="nav-item">
-											<a th:href="@{/team03/member/k3MemberUserLevelList}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/level/k3MemberUserLevelList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>권한 현황 #</p>
 											</a>
@@ -123,7 +123,7 @@
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/login/k3MemberUserLoginState}" class="nav-link">
+											<a th:href="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>로그인 현황 #</p>
 											</a>
@@ -257,7 +257,7 @@
 									</ul>
 									<!-- End 3depth -->										
 								</li>
-								<!-- 입출고관리 -->
+								<!-- 입고관리 -->
 								<li class="nav-item">
 									<a href="#" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
@@ -330,6 +330,43 @@
 										</li>											
 									</ul>
 									<!-- End 3depth -->										
+								</li>
+								<!-- 입/출하검수관리 -->
+								<li class="nav-item">
+									<a href="#" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>입/출하검수관리 !
+											<i class="right fas fa-angle-left"></i>
+										</p>
+									</a>
+									<!-- 3depth -->
+									<ul class="nav nav-treeview">
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3AddlLaydownCheck}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>입하검수 등록 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3LaydownCheckList}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>입하검수 현황 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3AddShipmentCheck}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>출하검수 등록 #</p>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a th:href="@{/team03/goodsManagement/check/k3ShipmentCheckList}" class="nav-link">
+												<i class="far fa-dot-circle nav-icon"></i>
+												<p>출하검수 현황 #</p>
+											</a>
+										</li>															
+									</ul>
+									<!-- End 3depth -->
 								</li>
 								<!-- 재고관리 -->
 								<li class="nav-item">
@@ -513,15 +550,15 @@
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3AddVehicle}" class="nav-link">
+											<a th:href="@{/team03/delivery/vehicle/k3AddVehicle}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
-												<p>차량 등록 !!</p>
+												<p>차량 등록 !</p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3VehicleList}" class="nav-link">
+											<a th:href="@{/team03/delivery/vehicle/k3VehicleList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
-												<p>차량 현황 !!</p>
+												<p>차량 현황 !</p>
 											</a>
 										</li>
 									</ul>
@@ -538,13 +575,13 @@
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3AddDriver}" class="nav-link">
+											<a th:href="@{/team03/delivery/driver/k3AddDriver}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>차량기사 등록 !</p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3DriverList}" class="nav-link">
+											<a th:href="@{/team03/delivery/driver/k3DriverList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>차량기사 현황 !</p>
 											</a>
@@ -564,13 +601,13 @@
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3AddDispatch}" class="nav-link">
+											<a th:href="@{/team03/delivery/dispatch/k3AddDispatch}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>일일배차 등록 !</p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3DispatchList}" class="nav-link">
+											<a th:href="@{/team03/delivery/dispatch/k3DispatchList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>일일배차 현황 !</p>
 											</a>
@@ -590,13 +627,13 @@
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3AddCheckpoint}" class="nav-link">
+											<a th:href="@{/team03/delivery/checkpoint/k3AddCheckpoint}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>입출하차량 등록 ! </p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3CheckpointList}" class="nav-link">
+											<a th:href="@{/team03/delivery/checkpoint/k3CheckpointList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>입출하차량 현황 !</p>
 											</a>
@@ -608,22 +645,22 @@
 								<li class="nav-item">
 									<a th:href="@{#}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>배송상태관리 !!
+										<p>배송상태관리 !
 											<i class="right fas fa-angle-left"></i>
 										</p>
 									</a>
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3AddShipping}" class="nav-link">
+											<a th:href="@{/team03/delivery/shipping/k3AddShipping}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
-												<p>배송상태 등록 !!</p>
+												<p>배송상태 등록 !</p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/delivery/k3ShippingList}" class="nav-link">
+											<a th:href="@{/team03/delivery/shipping/k3ShippingList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
-												<p>배송상태 현황 !!</p>
+												<p>배송상태 현황 !</p>
 											</a>
 										</li>
 																				
@@ -654,13 +691,13 @@
 									<!-- 3depth -->
 									<ul class="nav nav-treeview">
 										<li class="nav-item">
-											<a th:href="@{/team03/subject/k3SubjectList}" class="nav-link">
+											<a th:href="@{/team03/finance/subject/k3SubjectList}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>계정과목 조회</p>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a th:href="@{/team03/subject/k3SubjectAdd}" class="nav-link">
+											<a th:href="@{/team03/finance/subject/k3AddSubject}" class="nav-link">
 												<i class="far fa-dot-circle nav-icon"></i>
 												<p>계정과목 등록</p>
 											</a>

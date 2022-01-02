@@ -10,15 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.service.K3CheckService;
+import k3.warehousing.ahs.dto.K3Warehousing;
+import k3.warehousing.ahs.service.K3WarehousingService;
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/check")
 public class K3CheckController {
 	private K3CheckService k3CheckService;
+	private K3WarehousingService k3WarehousingService;
 	
-	public K3CheckController(K3CheckService k3CheckService) {
+	public K3CheckController(K3CheckService k3CheckService, K3WarehousingService k3WarehousingService) {
 		this.k3CheckService = k3CheckService;
+		this.k3WarehousingService = k3WarehousingService;
 	}
+	
+	
 	
 	//출하검수 등록이동
 	@GetMapping("/k3AddShipmentCheck")
@@ -42,7 +48,7 @@ public class K3CheckController {
 	@GetMapping("/k3LaydownCheckList")
 	public String k3GetWarehousingList(Model model) {
 		
-		List<K3LaydownCheck> K3LaydownCheck = k3CheckService.k3GetLaydownCheckList();
+		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingList();
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고관리현황");
 		model.addAttribute("K3LaydownCheck", K3LaydownCheck);

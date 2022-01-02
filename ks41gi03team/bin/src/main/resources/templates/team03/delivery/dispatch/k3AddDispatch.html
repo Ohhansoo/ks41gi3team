@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script>
+			$(function(){
+				$('#sample1').on('click', function(){
+					location.href = 'sample1.html';
+				});
+				$('#sample2').on('click', function(){
+					location.href = 'sample2.html';
+				});
+			
+				
+			});
+		</script>
+	 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">배차 등록</button>
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">배차 삭제</button>				
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">배차 출력</button>				
+					</div>
+					<!--End 버튼 영역 -->
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header cardHeadBorder">
+							<h4>배차 등록</h4>
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row">
+								<form id="userInfo">
+									<div class="inputwrap col-md-12">
+										<label for="memberId" class="inputName">배차 코드</label>
+										<input class="inputBox" type="text" id="memberId" name="memberId"/>
+										<button type="button" id="btn">중복확인 </button> 
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">상품출고 코드</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">상품출고 통합코드</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">기사 아이디</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">차량 코드</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">배송 시작일</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">배송예정 완료일</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">지역 코드</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">담당자 승인 일시</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">배차 지시자</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberPw" class="inputName">배송지</label>
+										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberName" class="inputName">배송지 상세주소</label>
+										<input class="inputBox" type="text" id="memberName" name="memberName" />
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberEmail" class="inputName">수취인</label>
+										<input class="inputBox" type="text" id="memberEmail" name="memberEmail"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberAddr" class="inputName">도크명</label>
+										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+									</div>								
+								</form>
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 카드 영역 -->
+					<div class="d-flex justify-content-center">					
+						<button class="ahsbtn3 btn btn-outline-info" type="button">등록</button>			
+						<button class="ahsbtn3 btn btn-block bg-gradient-warning" type="button">취소</button>			
+					</div>	
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

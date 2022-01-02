@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import k3.warehousing.ahs.dto.K3Warehousing;
+import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.service.K3WarehousingService;
 
 @Controller
@@ -42,8 +43,11 @@ public class K3WarehousingController {
 
 	//입고분류 현황이동
 	@GetMapping("/k3SortList")
-	public String k3GetWarehousingSortList() {
-		
+	public String k3GetWarehousingSortList(Model model) {
+		List<K3WarehousingSort> sortList = k3WarehousingService.k3GetWarehousingSortList();
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고분류현황");
+		model.addAttribute("sortList", sortList);	
 		return "team03/goodsManagement/warehousing/k3SortList";
 	}
 	//입고 현황이동
@@ -51,7 +55,7 @@ public class K3WarehousingController {
 	public String k3GetWarehousingList(Model model) {
 		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingList();
 		model.addAttribute("title", "입고관리");
-		model.addAttribute("subtitle", "입고관리현황");
+		model.addAttribute("subtitle", "입고현황");
 		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";

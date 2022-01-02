@@ -34,8 +34,10 @@
 							<td th:text="${l.isCorrect}"></td>
 							<td th:text="${l.applyYear}"></td>
 							<td>
-								<a th:href="@{#}">수정</a>
-							</td>
+								<a th:href="@{/team03/finance/subject/k3ModifySubject(subjectCode=${l.subjectCode})}">수정</a>
+							</td>									
+							
+
 							<td>
 								<a th:href="@{#}">삭제</a>
 							</td>			

@@ -21,4 +21,8 @@ public class K3VehicleService {
 		List<K3Vehicle> vehicleList = k3VehicleMapper.getVehicleList();
 		return vehicleList;
 	}
+	
+	public K3Vehicle getModifyVehicle(String vehicleCode) {
+		return k3VehicleMapper.getModifyVehicle(vehicleCode);
+	}
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.tax.ahs.mapper.K3TaxMapper">
+ 	<!-- <resultMap type="K3Subject" id="subjectResultMap">
+		<result column="subjectName" property="subjectName" />
+		<result column="regName" property="subjectRegMember" />
+		<result column="regDate" property="subjectRegDate" />
+		<result column="subjectCode" property="subjectCode" />
+		<result column="subjectGCode" property="subjectGCode" />
+		<result column="isUse" property="subjectIsUse" />
+		<result column="isCorrect" property="subjectIsCorrect" />
+		<result column="applyYear" property="subjectApplyYear" />
+	</resultMap> -->
+	
+	<insert id="taxAdd">
+	INSERT INTO k3_tb_as
+	(
+		asCode,
+		asName,
+		asGCode,
+		asUse,
+		asCorrect,
+		memberId,
+		asRegDate,
+		asYear
+		)
+	VALUES
+	(
+		#{subjectCode},
+		#{subjectName},
+		#{subjectGCode},
+		#{isUse},
+		#{isCorrect},
+		#{regName},
+		#{regDate},
+		#{applyYear}
+	);
+	
+	<!-- (
+		97999,
+		"임의",
+		90000,
+		"Y",
+		"N",
+		"m_c01",
+		"2021-12-22",
+		"2022-01-01"
+	); -->
+
+	</insert>
+	
+		
+	
+	<select id="getTaxList" resultType="K3Tax">
+	select
+		a.asName AS subjectName,
+		a.memberId AS regName,
+		a.asRegDate AS regDate,
+		a.asCode AS subjectCode,
+		a.asGCode AS subjectGCode,
+		a.asUse AS isUse,
+		a.asCorrect AS isCorrect,
+		a.asYear AS applyYear
+	FROM
+		k3_tb_as AS a;
+	</select>
+
+</mapper>

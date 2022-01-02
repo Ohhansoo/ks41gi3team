@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.checkpoint.ahs.mapper.K3CheckpointMapper">
+ 	<resultMap type="K3Checkpoint" id="checkpointResultMap">
+		<result column="vehicleCheckpointCode" property="vehicleCheckpointCode" />
+		<result column="driverId" property="driverId" />
+		<result column="vehicleCode" property="vehicleCode" />
+		<result column="vehicleArrivalDate" property="vehicleArrivalDate" />
+		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
+	</resultMap>
+	
+	<select id="getCheckpointList" resultType="K3Checkpoint">
+		SELECT
+			c.vehicleCheckpointCode AS vehicleCheckpointCode,
+			c.driverId AS driverId, 
+			c.vehicleCode AS vehicleCode,
+			c.vehicleArrivalDate AS vehicleArrivalDate,
+			c.vehicleShipmentDate AS vehicleShipmentDate
+		FROM
+			k3_tb_vehicle_checkpoint as c;
+	</select>
+	
+	<insert id="addCheck" parameterType="K3Checkpoint">
+		INSERT INTO k3_tb_vehicle_checkpoint
+		(
+			vehicleCheckpointCode,
+			driverId,
+			vehicleCode,
+			vehicleArrivalDate,
+			vehicleShipmentDate
+		)VALUES(
+			#{vehicleCheckpointCode},
+			#{driverId},
+			#{vehicleCode},
+			#{vehicleArrivalDate},
+			#{vehicleShipmentDate}
+		);
+		
+	
+	</insert>
+
+</mapper>

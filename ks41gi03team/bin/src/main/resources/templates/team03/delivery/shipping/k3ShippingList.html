@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button type="button" class="ahsbtn3 btn btn-outline-info">배송현황 등록</button>
+						<button type="button" class="ahsbtn3 btn btn-outline-info">배송현황 삭제</button>
+						<button type="button" class="ahsbtn3 btn btn-outline-info">배송현황 출력</button>					
+					</div>
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							검색
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">배송번호</span>
+										</div>
+										<input type="text" class="form-control" placeholder="배송번호">
+									</div>
+								</div>
+								<!--End inputbox 1 -->
+								<!--inputbox 2 -->
+								<!-- <div class="col-lg-4" style="padding-left: 0px">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">자사 종사업장번호</span>
+										</div>
+										<input type="text" class="form-control" placeholder="자사 종사업장번호">
+	                    			</div>
+								</div> -->
+								<!--End inputbox 2 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							입출하 기록
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<table class="table table-head-fixed text-nowrap">
+								<thead>
+									<tr>
+										<th>선택</th>
+										<th>배송번호</th>
+										<th>입출차 기록 코드</th>
+										<th>배송지역 코드</th>
+										<th>상품출고 통합코드</th>
+										<th>배송지</th>
+										<th>확인 담당자</th>
+										<th>담당자 전화번호</th>
+										<th>배송 세부유형</th>
+										<th>차량 기사</th>
+										<th>배송 현황</th>
+										<th>수정</th>					
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(shippingList)}" th:each="l : ${shippingList}">
+										<td>
+											<input type="checkbox" value="선택">
+										</td>
+										<td th:text="${l.shippingCode}"></td>
+										<td th:text="${l.vehicleCheckpointCode}"></td>
+										<td th:text="${l.areaCode}"></td>
+										<td th:text="${l.releaseMergeCode}"></td>
+										<td th:text="${l.shippingAddress}"></td>
+										<td th:text="${l.memberId}"></td>
+										<td th:text="${l.memberPhone}"></td>
+										<td th:text="${l.shippingDetail}"></td>
+										<td th:text="${l.driverId}"></td>
+										<td th:text="${l.shippingTracking}"></td>
+										<td>
+											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
+										</td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>
