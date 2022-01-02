@@ -40,6 +40,7 @@ public class K3ContractorController {
 	public String k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		
 		k3ContractorService.k3AddContractor(k3ContractorDetail);
+		k3ContractorService.k3AddContractorDeatail(k3ContractorDetail);
 		/*
 		 * System.out.println("ContractorController 거래처 등록 화면에서 입력받은 값" +
 		 * k3ContractorDetail);

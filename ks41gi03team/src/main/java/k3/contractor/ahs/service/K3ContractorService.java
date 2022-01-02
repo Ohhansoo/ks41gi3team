@@ -19,9 +19,15 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 
+	//거래처 등록
 	public int k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		int result = k3ContractorMapper.k3AddContractor(k3ContractorDetail);
 		
+		return result;
+	}
+	public int k3AddContractorDeatail(K3ContractorDetail k3ContractorDetail) {
+		int result = k3ContractorMapper.k3AddContractorDeatail(k3ContractorDetail);
+				
 		return result;
 	}
 	
