@@ -1,25 +1,26 @@
-package k3.warehousing.ahs.dto;
+package k3.stock.ahs.dto;
 
-public class K3WarehousingSort {
-	private String warehousingCode;
-	private String laydownGoodsName;
-	private String laydownGoodsCount;
-	private String contractorName;
-	private String largeCategory;
-	private String mediumCategory;
-	private String smallCategory;
-	private String productFrequency;
-	private String locationCode;
-	private String sortingManager;
-	private String sortingDate;
-	private String laydownDate;
-	private String laydownCheckCode;
-	private String memberName;
-	public String getWarehousingCode() {
-		return warehousingCode;
+public class K3Stock {
+	private String laydownCheckCode;  
+	private String laydownGoodsName;  
+	private int COUNT;  
+	private String contractorName;  
+	private String largeCategory;  
+	private String mediumCategory;  
+	private String smallCategory;  
+	private String locationCode;  
+	private String sortingDate;  
+	private String sortingManagerName;  
+	private String warehousingCode;  
+	private String contractorId;  
+	private String assortCode;  
+	private String categoryCode;  
+	private String memberId;
+	public String getLaydownCheckCode() {
+		return laydownCheckCode;
 	}
-	public void setWarehousingCode(String warehousingCode) {
-		this.warehousingCode = warehousingCode;
+	public void setLaydownCheckCode(String laydownCheckCode) {
+		this.laydownCheckCode = laydownCheckCode;
 	}
 	public String getLaydownGoodsName() {
 		return laydownGoodsName;
@@ -27,11 +28,11 @@ public class K3WarehousingSort {
 	public void setLaydownGoodsName(String laydownGoodsName) {
 		this.laydownGoodsName = laydownGoodsName;
 	}
-	public String getLaydownGoodsCount() {
-		return laydownGoodsCount;
+	public int getCOUNT() {
+		return COUNT;
 	}
-	public void setLaydownGoodsCount(String laydownGoodsCount) {
-		this.laydownGoodsCount = laydownGoodsCount;
+	public void setCOUNT(int cOUNT) {
+		COUNT = cOUNT;
 	}
 	public String getContractorName() {
 		return contractorName;
@@ -57,23 +58,11 @@ public class K3WarehousingSort {
 	public void setSmallCategory(String smallCategory) {
 		this.smallCategory = smallCategory;
 	}
-	public String getProductFrequency() {
-		return productFrequency;
-	}
-	public void setProductFrequency(String productFrequency) {
-		this.productFrequency = productFrequency;
-	}
 	public String getLocationCode() {
 		return locationCode;
 	}
 	public void setLocationCode(String locationCode) {
 		this.locationCode = locationCode;
-	}
-	public String getSortingManager() {
-		return sortingManager;
-	}
-	public void setSortingManager(String sortingManager) {
-		this.sortingManager = sortingManager;
 	}
 	public String getSortingDate() {
 		return sortingDate;
@@ -81,41 +70,60 @@ public class K3WarehousingSort {
 	public void setSortingDate(String sortingDate) {
 		this.sortingDate = sortingDate;
 	}
-	public String getLaydownDate() {
-		return laydownDate;
+	public String getSortingManagerName() {
+		return sortingManagerName;
 	}
-	public void setLaydownDate(String laydownDate) {
-		this.laydownDate = laydownDate;
+	public void setSortingManagerName(String sortingManagerName) {
+		this.sortingManagerName = sortingManagerName;
 	}
-	public String getLaydownCheckCode() {
-		return laydownCheckCode;
+	public String getWarehousingCode() {
+		return warehousingCode;
 	}
-	public void setLaydownCheckCode(String laydownCheckCode) {
-		this.laydownCheckCode = laydownCheckCode;
+	public void setWarehousingCode(String warehousingCode) {
+		this.warehousingCode = warehousingCode;
 	}
-	public String getMemberName() {
-		return memberName;
+	public String getContractorId() {
+		return contractorId;
 	}
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
+	public void setContractorId(String contractorId) {
+		this.contractorId = contractorId;
+	}
+	public String getAssortCode() {
+		return assortCode;
+	}
+	public void setAssortCode(String assortCode) {
+		this.assortCode = assortCode;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + COUNT;
+		result = prime * result + ((assortCode == null) ? 0 : assortCode.hashCode());
+		result = prime * result + ((categoryCode == null) ? 0 : categoryCode.hashCode());
+		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
 		result = prime * result + ((largeCategory == null) ? 0 : largeCategory.hashCode());
 		result = prime * result + ((laydownCheckCode == null) ? 0 : laydownCheckCode.hashCode());
-		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
-		result = prime * result + ((laydownGoodsCount == null) ? 0 : laydownGoodsCount.hashCode());
 		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
 		result = prime * result + ((locationCode == null) ? 0 : locationCode.hashCode());
 		result = prime * result + ((mediumCategory == null) ? 0 : mediumCategory.hashCode());
-		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
-		result = prime * result + ((productFrequency == null) ? 0 : productFrequency.hashCode());
+		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + ((smallCategory == null) ? 0 : smallCategory.hashCode());
 		result = prime * result + ((sortingDate == null) ? 0 : sortingDate.hashCode());
-		result = prime * result + ((sortingManager == null) ? 0 : sortingManager.hashCode());
+		result = prime * result + ((sortingManagerName == null) ? 0 : sortingManagerName.hashCode());
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
@@ -127,7 +135,24 @@ public class K3WarehousingSort {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		K3WarehousingSort other = (K3WarehousingSort) obj;
+		K3Stock other = (K3Stock) obj;
+		if (COUNT != other.COUNT)
+			return false;
+		if (assortCode == null) {
+			if (other.assortCode != null)
+				return false;
+		} else if (!assortCode.equals(other.assortCode))
+			return false;
+		if (categoryCode == null) {
+			if (other.categoryCode != null)
+				return false;
+		} else if (!categoryCode.equals(other.categoryCode))
+			return false;
+		if (contractorId == null) {
+			if (other.contractorId != null)
+				return false;
+		} else if (!contractorId.equals(other.contractorId))
+			return false;
 		if (contractorName == null) {
 			if (other.contractorName != null)
 				return false;
@@ -142,16 +167,6 @@ public class K3WarehousingSort {
 			if (other.laydownCheckCode != null)
 				return false;
 		} else if (!laydownCheckCode.equals(other.laydownCheckCode))
-			return false;
-		if (laydownDate == null) {
-			if (other.laydownDate != null)
-				return false;
-		} else if (!laydownDate.equals(other.laydownDate))
-			return false;
-		if (laydownGoodsCount == null) {
-			if (other.laydownGoodsCount != null)
-				return false;
-		} else if (!laydownGoodsCount.equals(other.laydownGoodsCount))
 			return false;
 		if (laydownGoodsName == null) {
 			if (other.laydownGoodsName != null)
@@ -168,15 +183,10 @@ public class K3WarehousingSort {
 				return false;
 		} else if (!mediumCategory.equals(other.mediumCategory))
 			return false;
-		if (memberName == null) {
-			if (other.memberName != null)
+		if (memberId == null) {
+			if (other.memberId != null)
 				return false;
-		} else if (!memberName.equals(other.memberName))
-			return false;
-		if (productFrequency == null) {
-			if (other.productFrequency != null)
-				return false;
-		} else if (!productFrequency.equals(other.productFrequency))
+		} else if (!memberId.equals(other.memberId))
 			return false;
 		if (smallCategory == null) {
 			if (other.smallCategory != null)
@@ -188,10 +198,10 @@ public class K3WarehousingSort {
 				return false;
 		} else if (!sortingDate.equals(other.sortingDate))
 			return false;
-		if (sortingManager == null) {
-			if (other.sortingManager != null)
+		if (sortingManagerName == null) {
+			if (other.sortingManagerName != null)
 				return false;
-		} else if (!sortingManager.equals(other.sortingManager))
+		} else if (!sortingManagerName.equals(other.sortingManagerName))
 			return false;
 		if (warehousingCode == null) {
 			if (other.warehousingCode != null)
@@ -202,15 +212,12 @@ public class K3WarehousingSort {
 	}
 	@Override
 	public String toString() {
-		return "K3WarehousingSort [warehousingCode=" + warehousingCode + ", laydownGoodsName=" + laydownGoodsName
-				+ ", laydownGoodsCount=" + laydownGoodsCount + ", contractorName=" + contractorName + ", largeCategory="
-				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory
-				+ ", productFrequency=" + productFrequency + ", locationCode=" + locationCode + ", sortingManager="
-				+ sortingManager + ", sortingDate=" + sortingDate + ", laydownDate=" + laydownDate
-				+ ", laydownCheckCode=" + laydownCheckCode + ", memberName=" + memberName + "]";
-	}
-	
-	
-	
+		return "K3Stock [laydownCheckCode=" + laydownCheckCode + ", laydownGoodsName=" + laydownGoodsName + ", COUNT="
+				+ COUNT + ", contractorName=" + contractorName + ", largeCategory=" + largeCategory
+				+ ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", locationCode="
+				+ locationCode + ", sortingDate=" + sortingDate + ", sortingManagerName=" + sortingManagerName
+				+ ", warehousingCode=" + warehousingCode + ", contractorId=" + contractorId + ", assortCode="
+				+ assortCode + ", categoryCode=" + categoryCode + ", memberId=" + memberId + "]";
+	} 
 	
 }
