@@ -28,6 +28,7 @@ public class K3ContractorDetail {
 	private String contractorState;
 	private String memberId;
 	private String contractorRegistrationDate;
+	
 	public String getContractorCode() {
 		return contractorCode;
 	}

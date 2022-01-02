@@ -10,7 +10,6 @@ import k3.contractor.ahs.dto.K3ContractorDetail;
 import k3.contractor.ahs.mapper.K3ContractorMapper;
 
 @Service
-@Transactional
 public class K3ContractorService {
 	
 	//생성자 메서드 주입
@@ -20,9 +19,15 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 
+	//거래처 등록
 	public int k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		int result = k3ContractorMapper.k3AddContractor(k3ContractorDetail);
 		
+		return result;
+	}
+	public int k3AddContractorDeatail(K3ContractorDetail k3ContractorDetail) {
+		int result = k3ContractorMapper.k3AddContractorDeatail(k3ContractorDetail);
+				
 		return result;
 	}
 	
@@ -32,5 +37,7 @@ public class K3ContractorService {
 		
 		return contractorList;
 	}
+
+
 
 }
