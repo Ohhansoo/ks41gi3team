@@ -5,17 +5,17 @@ public class K3Subject {
 	private String subjectName;
 	private String regName;
 	private String regDate;
-	private String subjectCode;
-	private String subjectGCode;
+	private int subjectCode;
+	private int subjectGCode;
 	private String isUse;
 	private String isCorrect;
 	private String applyYear;
 	
 	
-	public String getSubjectGCode() {
+	public int getSubjectGCode() {
 		return subjectGCode;
 	}
-	public void setSubjectGCode(String subjectGCode) {
+	public void setSubjectGCode(int subjectGCode) {
 		this.subjectGCode = subjectGCode;
 	}
 	public String getIsUse() {
@@ -51,10 +51,10 @@ public class K3Subject {
 	public String getRegDate() {
 		return regDate;
 	}
-	public String getSubjectCode() {
+	public int getSubjectCode() {
 		return subjectCode;
 	}
-	public void setSubjectCode(String subjectCode) {
+	public void setSubjectCode(int subjectCode) {
 		this.subjectCode = subjectCode;
 	}
 	public void setRegDate(String regDate) {
