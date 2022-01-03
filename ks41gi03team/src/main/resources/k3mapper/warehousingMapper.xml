@@ -19,6 +19,23 @@
 		<result column="laydownCheckDate" property="laydownCheckDate" />
 		<result column="dockName" property="dockName" />
 	</resultMap>
+	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
+		SELECT
+			w.laydownGoodsName,
+			w.laydownGoodsCount,
+			cs.contractorName,
+			w.manufacturedDate,
+			w.expiratonDate
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE w.warehousingAllow = 'N'	
+	</select>
+	
+	
 	<select id="k3GetWarehousingRequestSort" resultType="K3WarehousingSort">
 		SELECT
 			w.laydownCheckCode,

@@ -23,8 +23,11 @@ public class K3WarehousingController {
 	
 	//입고 승인폼 이동
 	@GetMapping("/k3AllowWarehousing")
-	public String k3GetLaydownCheckList(){
-		
+	public String k3AllowWarehousing(Model model){
+		List<K3Warehousing> K3RequestAllow = k3WarehousingService.k3RequestAllowWarehousing();
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고승인");
+		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
 	
@@ -34,7 +37,7 @@ public class K3WarehousingController {
 		
 		return "team03/goodsManagement/warehousing/k3AddSort";
 	}
-	//입고 등록폼 이동
+	//입고 요청폼 이동
 	@GetMapping("/k3AddWarehousing")
 	public String k3AddWarehousing() {
 		

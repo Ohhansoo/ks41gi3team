@@ -16,6 +16,12 @@ public class K3WarehousingService {
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
+	//입고 요청 현황
+	public List<K3Warehousing> k3RequestAllowWarehousing() {
+		List<K3Warehousing> K3RequestAllow = k3WarehousingMapper.k3RequestAllowWarehousing();
+		return K3RequestAllow;
+	}
+	
 	
 	//입고 분류 현황(요청목록)
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
