@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.service.K3SubjectService;
+import k3.vehicle.ahs.dto.K3Vehicle;
 
 @Controller
 @RequestMapping(value="/team03/finance/subject")
@@ -27,31 +28,14 @@ public class K3SubjectController {
 	}
 	
 	
-	
-	//계정과목 수정처리
-	@PostMapping("/modifySubject")
-	public String modifySubject(K3Subject k3Subject) {
-		log.info("수정화면에서 입력 받은 subject정보 : {}", k3Subject );
-		
-		//계정과목 수정
-		k3SubjectService.modifySubjectInfo(k3Subject);
-		
-		return "redirect:/team03/finance/subject/k3SubjectList";
-	}
-	
-	//계정과목 수정화면
-	@GetMapping("/k3modifySubject")
-	public String k3ModifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode
-							   , Model model) {
-		//subjectCode 콘솔에 출력(log4j)
-		log.info("modifySubject subjectCode: {}", subjectCode);
-		
-		//계정과목의 정보
+	//계정과목 수정 폼으로 이동(값 할당해서 넣기)
+	@GetMapping("/k3ModifySubject")
+	public String k3ModifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode, Model model) {
 		if(subjectCode != null && !"".equals(subjectCode)) {
-			K3Subject subjectInfo = k3SubjectService.getSubjectInfoBySubjectCode(subjectCode);
+			K3Subject subjectInfo = k3SubjectService.getModifySubject(subjectCode);
 			model.addAttribute("subjectInfo", subjectInfo);
 		}
-		model.addAttribute("title", "계정과목수정화면");
+		model.addAttribute("title", "계정과목 수정화면");
 		return "team03/finance/subject/k3ModifySubject";
 	}
 	
