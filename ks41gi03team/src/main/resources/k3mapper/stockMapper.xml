@@ -6,7 +6,7 @@
 	<resultMap type="K3Stock" id="warehousingResultMap">
  		<result column="laydownCheckCode" property="laydownCheckCode" />
  		<result column="laydownGoodsName" property="laydownGoodsName" />
-		<result column="COUNT" property="COUNT" />
+		<result column="stockQuantity" property="stockQuantity" />
 		<result column="contractorName" property="contractorName" />
 		<result column="largeCategory" property="largeCategory" />
 		<result column="mediumCategory" property="mediumCategory" />
@@ -16,17 +16,17 @@
 		<result column="sortingManagerName" property="sortingManagerName" />
 	</resultMap>
 
-	<select id="k3GetAllowStock" resultType="K3Stock">
+	<select id="k3GetStockByLocation" resultType="K3Stock">
 		SELECT
 			w.laydownCheckCode,
 			w.laydownGoodsName,
-			g.COUNT,
+			p.stockQuantity,
 			c.contractorName,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
-			w.locationCode,
-			w.sortingDate,
+			p.locationCode,
+			p.sortingDate,
 			m.memberName AS sortingManagerName
 		FROM
 			k3_tb_pileup AS p
@@ -39,17 +39,31 @@
 			ON
 			p.contractorId = c.contractorId
 			INNER JOIN
-			k3_tb_assort_goods AS g
-			ON
-			p.assortCode = g.assortCode
-			INNER JOIN
 			k3_tb_total_category AS t
 			ON
-			w.categoryCode = t.categoryCode
+			p.categoryCode = t.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON
-			w.sortingManager = m.memberId
+			p.sortingManager = m.memberId;
+	</select>
+	
+	<select id="k3GetStockByStockName" resultType="K3Stock">
+		SELECT
+			w.laydownGoodsName,
+			s.contractorName,
+			SUM(p.stockQuantity) AS stockQuantity
+		FROM
+			k3_tb_pileup AS p
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			p.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS s
+			ON
+			p.contractorId = s.contractorId
+			GROUP BY s.contractorName, w.laydownGoodsName;
 	</select>
 
 </mapper>

@@ -13,10 +13,10 @@
 				<div class="container-fluid">
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
-						<!--일반조회 및 상세조회 header-->
+						<!--간단조회 및 상세조회 header-->
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">일반조회</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">간단조회</a>
 								<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">상세조회</a>
 							</div>
 						</nav>
@@ -32,9 +32,8 @@
 											<div class="input-group">
 												<div class="input-group-prepend">
 													<select name="categoryKey" class="input-group-text">
-														<option value="large">회사명</option>
-														<option value="medium">상품명</option>
-														<option value="small">분류코드</option>
+														<option value="large">상품명</option>
+														<option value="medium">회사명</option>
 													</select>
 												</div>
 												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
@@ -56,9 +55,9 @@
 											<div class="input-group">
 												<div class="input-group-prepend">
 													<select name="categoryKey" class="input-group-text">
-														<option value="large">회사명</option>
-														<option value="medium">상품명</option>
-														<option value="small">분류코드</option>
+														<option value="large">상품명</option>
+														<option value="medium">회사명</option>
+														<option value="small">입고코드</option>
 														<option value="small">로케이션코드</option>
 													</select>
 												</div>
@@ -78,16 +77,16 @@
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
-						<!--입고분류 요청 및 완료목록 header-->
+						<!--간단조회 및 상세조회 현황  header-->
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">상품별 재고</a>
-								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">로케이션별 재고</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">간단조회 재고현황</a>
+								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">상세조회 재고현황</a>
 							</div>
 						</nav>
-						<!--입고분류 요청 및 완료목록 body-->
+						<!--간단조회 및 상세조회 재고현황 body-->
 						<div class="tab-content" id="nav-tabContent">
-							<!--입고분류 요청목록-->
+							<!--간단조회 재고현황-->
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
@@ -97,15 +96,13 @@
 												<th>삭제</th>
 												<th>수정</th>	
 												<th>등록</th>	
-												<th>입하검수코드</th>	
 												<th>상품명</th>
-												<th>개수</th>
+												<th>재고</th>
 												<th>회사명</th>																	
-												<th>입하날짜</th>	
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${not #lists.isEmpty(requestSort)}" th:each="l : ${requestSort}">
+											<tr th:if="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
 												<td>
 													<input type="checkbox" value="선택">
 												</td>
@@ -115,13 +112,11 @@
 												<td>
 													<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
 												</td>
-												<td th:text="${l.laydownCheckCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
-												<td th:text="${l.laydownGoodsCount}"></td>
+												<td th:text="${l.stockQuantity}"></td>
 												<td th:text="${l.contractorName}"></td>
-												<td th:text="${l.laydownDate}"></td>
 											</tr>
-											<tr th:unless="${not #lists.isEmpty(requestSort)}" th:each="l : ${requestSort}">
+											<tr th:unless="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
 												<td> 상품을 등록해주세요. </td>
 											</tr>
 										</tbody>						
@@ -129,8 +124,8 @@
 								</div>
 								<!--End card body -->
 							</div>
-							<!--END 입고분류 요청목록-->
-							<!--입고분류 완료목록-->
+							<!--END 간단조회 재고현황-->
+							<!--상세조회 재고현황-->
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
@@ -160,7 +155,7 @@
 												</td>
 												<td th:text="${l.locationCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
-												<td th:text="${l.COUNT}"></td>
+												<td th:text="${l.stockQuantity}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.largeCategory}"></td>
 												<td th:text="${l.mediumCategory}"></td>
@@ -176,7 +171,7 @@
 								</div>
 								<!--End card body -->
 							</div>
-							<!--END 입고분류 완료목록-->
+							<!--END 상세조회 재고현황-->
 						</div>
 					</div>
 					<!--End 하위 카드 영역 -->

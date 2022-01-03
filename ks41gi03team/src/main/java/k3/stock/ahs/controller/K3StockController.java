@@ -30,10 +30,12 @@ public class K3StockController {
 	//재고 현황 이동
 	@GetMapping("/k3StockList")
 	public String k3StockList(Model model) {
-		List<K3Stock> stockList = k3StockService.k3GetAllowStock();
+		List<K3Stock> stockList = k3StockService.k3GetStockByLocation();
+		List<K3Stock> stockList2 = k3StockService.k3GetStockByStockName();
 		model.addAttribute("title", "재고관리");
 		model.addAttribute("subtitle", "재고현황");
 		model.addAttribute("stockList", stockList);
+		model.addAttribute("stockList2", stockList2);
 		return "team03/goodsManagement/stock/k3StockList";
 	}
 

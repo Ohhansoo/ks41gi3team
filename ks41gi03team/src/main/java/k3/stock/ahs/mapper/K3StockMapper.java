@@ -10,6 +10,7 @@ import k3.stock.ahs.dto.K3Stock;
 public interface K3StockMapper {
 	
 	//재고 현황(초기화면)
-	public List<K3Stock> k3GetAllowStock();
+	public List<K3Stock> k3GetStockByLocation();
+	public List<K3Stock> k3GetStockByStockName();
 	
 }

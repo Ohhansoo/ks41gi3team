@@ -15,10 +15,15 @@ public class K3StockService {
 		this.k3StockMapper = k3StockMapper;
 	}
 	
-	//재고 현황(초기화면)
-	public List<K3Stock> k3GetAllowStock() {
-		List<K3Stock> stockList = k3StockMapper.k3GetAllowStock();
+	//재고 현황(초기화면)2
+	public List<K3Stock> k3GetStockByLocation() {
+		List<K3Stock> stockList = k3StockMapper.k3GetStockByLocation();
 		return stockList;
+	}
+	//재고 현황(초기화면)
+	public List<K3Stock> k3GetStockByStockName() {
+		List<K3Stock> stockList2 = k3StockMapper.k3GetStockByStockName();
+		return stockList2;
 	}
 
 }
