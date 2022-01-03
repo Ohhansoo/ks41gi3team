@@ -26,12 +26,16 @@
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="retiredMemberUserKey" class="input-group-text">
-												<option value="memberRetiredCode">퇴사번호</option>
+												<option value="loginCode">로그인 코드</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="memberId">직원ID</option>
-												<option value="memberRetiredReason">퇴사사유</option>
-												<option value="memberRetiredDate">퇴사일자</option>
-												<option value="memberRetirementSignedDate">퇴사처리일자</option>
+												<option value="loginDate">로그인 날짜</option>
+												<option value="loginFailCount">로그인 실패 횟수</option>
+												<option value="loginLatestTryDate">최근접속시도 시각</option>
+												<option value="loginAccessState">접속상태</option>
+												<option value="loginLogoutDate">로그아웃 날짜</option>
+												<option value="loginIpAddress">IPAddress</option>
+												<option value="loginMacAddress">MacAddress</option>
 											</select>
 										</div>
 										<input type="text" name="retiredMemberUserValue" class="form-control" >
@@ -59,30 +63,38 @@
 										<tr>
 											<th>삭제</td>	
 											<th>수정</th>
-											<th>퇴사번호</th>
+											<th>로그인 코드</th>
 						                    <th>사업장별대표코드</th>
 						                    <th>직원ID</th>
-						                    <th>퇴사사유</th>
-						                    <th>퇴사일자</th>
-						                    <th>퇴사처리일자</th>
+						                    <th>로그인 날짜</th>
+						                    <th>로그인 실패 횟수</th>
+						                    <th>최근접속시도 시각</th>
+						                    <th>접속상태</th>
+						                    <th>로그아웃 날짜</th>
+						                    <th>IPAddress</th>
+						                    <th>MacAddress</th>
 										</tr>
 									</thead>
 									<tbody>								
-										<tr th:if="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
+										<tr th:if="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
 						   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberRetiredCode}">
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.loginCode}">
 											</td>
 							   				<td>
-												<a th:href="@{/team03/companymanagement/member/k3ModifyOurCompanyList(memberRetiredCode=${l.memberRetiredCode})}">수정</a>
+												<a th:href="@{/team03/companymanagement/loginstate/k3ModifyOurCompanyList(loginCode=${l.loginCode})}">수정</a>
 											</td>	
-						   				<td th:text="${l.memberRetiredCode}"></td>
+						   				<td th:text="${l.loginCode}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberId}"></td>
-						   				<td th:text="${l.memberRetiredReason}"></td>
-						   				<td th:text="${l.memberRetiredDate}"></td>
-						   				<td th:text="${l.memberRetirementSignedDate}"></td>
+						   				<td th:text="${l.loginDate}"></td>
+						   				<td th:text="${l.loginFailCount}"></td>
+						   				<td th:text="${l.loginLatestTryDate}"></td>
+						   				<td th:text="${l.loginAccessState}"></td>
+						   				<td th:text="${l.loginLogoutDate}"></td>
+						   				<td th:text="${l.loginIpAddress}"></td>
+						   				<td th:text="${l.loginMacAddress}"></td>
 						   			</tr>
-						   			<tr th:unless="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
+						   			<tr th:unless="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
 						   				<td colspan="9">등록된 직원이 없습니다.</td>
 						   			</tr>
 									</tbody>						

@@ -15,6 +15,12 @@ public class K3MemberUserService {
 	public K3MemberUserService(K3MemberUserMapper memberuserMapper) {
 		this.memberuserMapper = memberuserMapper;
 	}
+	//수정폼 이동
+	public K3MemberUser K3MemberUserInfoBycode(String memberId) {
+		K3MemberUser k3MemberUser = memberuserMapper.K3MemberUserInfoBycode(memberId);
+		return k3MemberUser;
+	}
+	
 	//직원등록 등록처리
 	public int AddMemberUser(K3MemberUser k3memberuser) {
 		int result = memberuserMapper.AddMemberUser(k3memberuser);

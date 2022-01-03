@@ -12,6 +12,10 @@ public class K3RetiredMemberUserService {
 	
 	private K3RetiredMemberUserMapper retiredmemberuserMapper;
 	
+	public K3RetiredMemberUserService(K3RetiredMemberUserMapper retiredmemberuserMapper) {
+		this.retiredmemberuserMapper = retiredmemberuserMapper;
+	}
+	
 	
 	  //퇴사회원등록처리 
 	  public int AddRetiredMemberUser(K3RetiredMemberUser k3RetiredMemberUser) { 
