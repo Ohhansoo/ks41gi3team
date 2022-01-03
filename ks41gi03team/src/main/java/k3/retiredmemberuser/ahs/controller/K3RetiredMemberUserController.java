@@ -2,11 +2,14 @@ package k3.retiredmemberuser.ahs.controller;
 
 import java.util.List;
 
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import k3.ourcompany.ahs.controller.K3OurcompanyController;
 import k3.retiredmemberuser.ahs.dto.K3RetiredMemberUser;
 import k3.retiredmemberuser.ahs.service.K3RetiredMemberUserService;
 
@@ -15,6 +18,8 @@ import k3.retiredmemberuser.ahs.service.K3RetiredMemberUserService;
 public class K3RetiredMemberUserController {
 	
 	private K3RetiredMemberUserService retiredmemberuserService;
+	
+	private static final Logger log = LoggerFactory.getLogger(K3OurcompanyController.class);
 	
 	public K3RetiredMemberUserController(K3RetiredMemberUserService retiredmemberuserService) {
 		this.retiredmemberuserService =retiredmemberuserService;
@@ -31,11 +36,10 @@ public class K3RetiredMemberUserController {
 	//퇴사회원 조회
 	@GetMapping("/k3RetiredMemberUserList")
 	public String getRetiredMemberUserList(Model model) {
-		//List<K3RetiredMemberUser> retiredmemberuserList = retiredmemberuserService.getRetiredMemberUserList();
+		List<K3RetiredMemberUser> retiredmemberuserList = retiredmemberuserService.getRetiredMemberUserList();
 		
 		model.addAttribute("title", "퇴사회원 조회");
-		//model.addAttribute("retiredmemberuserList", retiredmemberuserList);
-		
+		model.addAttribute("retiredmemberuserList", retiredmemberuserList);
 		return "team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList";
 		
 	}
