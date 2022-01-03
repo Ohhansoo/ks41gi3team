@@ -7,6 +7,7 @@
 <select id="getDriverList" resultType="K3Driver">
 		SELECT
 				d.driverId AS driverId,
+				d.contractorCode AS contractorCode,
 				d.driverName AS driverName,
 				d.driverAddr AS driverAddr,
 				d.driverPhone AS driverPhone,
@@ -16,6 +17,33 @@
 				d.driverQualificationType AS driverQualificationType
 		FROM
 				k3_tb_driver AS d;
+	</select>
+	
+	<select id="addDriver" parameterType="K3Driver">
+		INSERT INTO 
+	   		k3_tb_driver
+			(
+			driverId,
+			contractorCode,
+			driverName,
+			driverAddr,
+			driverPhone,
+			driverRegDate,
+			driverPerformanceGrade,
+			driverLicenseType,
+			driverQualificationType
+		)VALUES(
+			 #{driverId}
+			,"partners-driver-a"
+			,#{driverName}
+			,#{driverAddr}
+			,#{driverPhone}
+			,#{driverRegDate}
+			,#{driverPerformanceGrade}
+			,#{driverLicenseType}
+			,#{driverQualificationType}
+		);
+	
 	</select>
 	
 	<select id="getModifyDriver" resultType="K3Driver">

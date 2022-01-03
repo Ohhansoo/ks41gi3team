@@ -11,5 +11,7 @@ public interface K3DriverMapper {
 	
 	public List<K3Driver> getDriverList();
 	
+	public int addDriver(K3Driver k3Driver);
+	
 	public K3Driver getModifyDriver(String driverId);
 }
