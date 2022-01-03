@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.release.ahs.mapper.K3ReleaseMapper">
+	<resultMap type="K3Release" id="warehousingResultMap">
+ 		<result column="releaseCode" property="releaseCode" />
+ 		<result column="releaseMergeCode" property="releaseMergeCode" />
+		<result column="releaseGoodsCount" property="releaseGoodsCount" />
+		<result column="contractorName" property="contractorName" />
+		<result column="areaCode" property="areaCode" />
+		<result column="shippingAddress" property="shippingAddress" />
+		<result column="shippingDetailAddress" property="shippingDetailAddress" />
+		<result column="recipientName" property="recipientName" />
+		<result column="recipientPhone" property="recipientPhone" />
+	</resultMap>
+
+	<select id="k3RequestAllowRelease" resultType="K3Release">
+		SELECT
+			r.releaseCode,
+			w.laydownGoodsName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.areaCode,
+			r.shippingAddress,
+			r.shippingDetailAddress,
+			r.recipientName,
+			r.recipientPhone
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_pileup AS p
+			ON
+			r.pileupCode = p.pileupCode
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			p.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			p.contractorId = cs.contractorId
+		WHERE
+			r.releaseAllow = 'N'
+	</select>
+	
+	<select id="k3GetReleaseList" resultType="K3Release">
+		SELECT
+			r.releaseMergeCode,
+			w.laydownGoodsName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.areaCode,
+			r.shippingAddress,
+			r.shippingDetailAddress,
+			r.recipientName,
+			r.recipientPhone
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_pileup AS p
+			ON
+			r.pileupCode = p.pileupCode
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			p.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			p.contractorId = cs.contractorId
+		WHERE
+			r.releaseAllow = 'Y'
+	</select>
+	
+
+</mapper>

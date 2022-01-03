@@ -29,25 +29,34 @@
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>물품명</th>
-										<th>개수</th>
-										<th>회사명</th>				
-										<th>제조일자</th>				
-										<th>유통기한</th>				
+										<th>수정</th>	
+										<th>출고통합코드</th>
+										<th>출고물품명</th>
+										<th>출고개수</th>
+										<th>회사명</th>
+										<th>배송지역</th>
+										<th>배송지</th>					
+										<th>배송지상세주소</th>									
+										<th>받는사람</th>													
+										<th>연락처</th>				
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:if="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
+									<tr th:if="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
+										<td th:text="${l.releaseCode}"></td>
 										<td th:text="${l.laydownGoodsName}"></td>
-										<td th:text="${l.laydownGoodsCount}"></td>
+										<td th:text="${l.releaseGoodsCount}"></td>
 										<td th:text="${l.contractorName}"></td>
-										<td th:text="${l.manufacturedDate}"></td>
-										<td th:text="${l.expiratonDate}"></td>
+										<td th:text="${l.areaCode}"></td>
+										<td th:text="${l.shippingAddress}"></td>
+										<td th:text="${l.shippingDetailAddress}"></td>
+										<td th:text="${l.recipientName}"></td>
+										<td th:text="${l.recipientPhone}"></td>
 									</tr>
-									<tr th:unless="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
+									<tr th:unless="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
 										<td> 요청사항이 없습니다. </td>
 									</tr>
 								</tbody>						

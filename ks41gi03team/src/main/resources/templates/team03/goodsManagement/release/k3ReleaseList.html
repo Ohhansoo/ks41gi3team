@@ -55,30 +55,36 @@
 									<tr>
 										<th>삭제</th>
 										<th>수정</th>	
-										<th>입고물품명</th>
-										<th>입고물품개수</th>
-										<th>제조일자</th>
-										<th>유통기한</th>					
-										<th>거래처명</th>									
-										<th>입하날짜</th>													
+										<th>출고통합코드</th>
+										<th>출고물품명</th>
+										<th>출고개수</th>
+										<th>회사명</th>
+										<th>배송지역</th>
+										<th>배송지</th>					
+										<th>배송지상세주소</th>									
+										<th>받는사람</th>													
+										<th>연락처</th>													
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:if="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
+									<tr th:if="${not #lists.isEmpty(releaseList)}" th:each="l : ${releaseList}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
 										<td>
 											<a th:href="@{#}">수정</a>
 										</td>
+										<td th:text="${l.releaseMergeCode}"></td>
 										<td th:text="${l.laydownGoodsName}"></td>
-										<td th:text="${l.laydownGoodsCount}"></td>
-										<td th:text="${l.manufacturedDate}"></td>
-										<td th:text="${l.expiratonDate}"></td>
+										<td th:text="${l.releaseGoodsCount}"></td>
 										<td th:text="${l.contractorName}"></td>
-										<td th:text="${l.laydownDate}"></td>
+										<td th:text="${l.areaCode}"></td>
+										<td th:text="${l.shippingAddress}"></td>
+										<td th:text="${l.shippingDetailAddress}"></td>
+										<td th:text="${l.recipientName}"></td>
+										<td th:text="${l.recipientPhone}"></td>
 									</tr>
-									<tr th:unless="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
+									<tr th:unless="${not #lists.isEmpty(releaseList)}" th:each="l : ${releaseList}">
 										<td> 출고 목록이 없습니다. </td>
 									</tr>
 								</tbody>						
