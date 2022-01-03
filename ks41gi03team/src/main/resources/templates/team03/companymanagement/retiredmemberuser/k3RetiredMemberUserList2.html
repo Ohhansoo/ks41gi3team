@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button id="categoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">등록</button>
+						<button id="deleteCategoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>			
+					</div>
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="retiredMemberUserKey" class="input-group-text">
+												<option value="memberRetiredCode">퇴사번호</option>
+												<option value="mainBusinessCode">사업장별대표코드</option>
+												<option value="memberId">직원ID</option>
+												<option value="memberRetiredReason">퇴사사유</option>
+												<option value="memberRetiredDate">퇴사일자</option>
+												<option value="memberRetirementSignedDate">퇴사처리일자</option>
+											</select>
+										</div>
+										<input type="text" name="retiredMemberUserValue" class="form-control" >
+										<button id="retiredMemberUserSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>퇴사번호</th>
+						                    <th>사업장별대표코드</th>
+						                    <th>직원ID</th>
+						                    <th>퇴사사유</th>
+						                    <th>퇴사일자</th>
+						                    <th>퇴사처리일자</th>
+										</tr>
+									</thead>
+									<tbody>								
+										<tr th:if="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
+						   				<td th:text="${l.memberId}"></td>
+						   				<td th:text="${l.memberPassword}"></td>
+						   				<td th:text="${l.mainBusinessCode}"></td>
+						   				<td th:text="${l.levelMemberCode}"></td>
+						   				<td th:text="${l.memberName}"></td>
+						   				<td th:text="${l.memberGender}"></td>
+						   				<td th:text="${l.memberAddr}"></td>
+						   				<td th:text="${l.memberPhone}"></td>
+						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
+						   				<td th:text="${l.memberState}"></td>
+						   				<td th:text="${l.memberRegDate}"></td>
+						   				<td th:text="${l.memberHiredDate}"></td>
+						   			</tr>
+						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>
