@@ -18,13 +18,11 @@ public class K3RetiredMemberUserService {
 		  int result = retiredmemberuserMapper.AddRetiredMemberUser(k3RetiredMemberUser); 
 		  
 		  return result; 
-		  }
+	  }
+	  //퇴사회원 현황(초기화면) 
+	  public List<K3RetiredMemberUser> getRetiredMemberUserList(){
+	  List<K3RetiredMemberUser> retiredmemberuserList =retiredmemberuserMapper.getRetiredMemberUserList(); 
+	  return retiredmemberuserList; 
+	  }
 	 
-
-	/*
-	 * //퇴사회원 현황(초기화면) public List<K3RetiredMemberUser> getRetiredMemberUserList(){
-	 * List<K3RetiredMemberUser> retiredmemberuserList =
-	 * retiredmemberuserMapper.getRetiredMemberUserList(); return
-	 * retiredmemberuserList; }
-	 */
 }
