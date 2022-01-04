@@ -37,7 +37,6 @@
 												<td>창고면적</td>
 												<td>평</td>
 												<td>창고유형</td>
-												<td>도크개수</td>
 												<td>운영여부</td>
 												<td>수정</td>
 												<td>삭제</td>
@@ -45,17 +44,16 @@
 										</thead>
 										<tbody>
 											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
-												<td th:text="${w.codeNumber}"></td>
-												<td th:text="${w.warehouseName}"></td>	
+												<td th:text="${w.warehouseCode}"></td>
+												<td th:text="${w.bildingName}"></td>	
 												<td th:text="${w.floorNumber}"></td>
-												<td th:text="${w.warehouseNumber}"></td>
+												<td th:text="${w.warehouseName}"></td>
 												<td th:text="${w.warehouseArea}"></td>
 												<td th:text="${w.warehouseFlat}"></td>
 												<td th:text="${w.warehouseType}"></td>
-												<td th:text="${w.warehouseDockNumber}"></td>
 												<td th:text="${w.warehouseOperation}"></td>
 												<td>
-													<a th:href="@{/team03/spaceBusiness/warehouse/k3ModifyWarehouse(codeNumber=${w.codeNumber})}">수정</a>
+													<a th:href="@{/team03/spaceBusiness/warehouse/k3ModifyWarehouse(warehouseCode=${w.warehouseCode})}">수정</a>
 												</td>
 												<td>
 													<a th:href="@{/team03/spaceBusiness/warehouse/k3DeleteWarehouse}">삭제</a>		
