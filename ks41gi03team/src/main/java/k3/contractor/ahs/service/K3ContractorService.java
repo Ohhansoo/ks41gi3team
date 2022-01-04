@@ -21,7 +21,7 @@ public class K3ContractorService {
 	
 	//거래처 수정으로 화면전환
 	public int k3GetModifyContractor(K3DetailContractor k3DetailContractor) {
-		return K3ContractorMapper.K3ModifyContractorInfo(k3DetailContractor);
+		return k3ContractorMapper.K3ModifyContractorInfo(k3DetailContractor);
 	}
 
 	//거래처 등록 k3_tb_contractor_staff
@@ -31,7 +31,7 @@ public class K3ContractorService {
 		return result;
 	}
 	//거래처 등록 k3_tb_contractor
-	public int k3AddContractorDetail(K3DetailContractor k3DetailContractor) {
+	public int k3AddDetailContractor(K3DetailContractor k3DetailContractor) {
 		int result = k3ContractorMapper.k3AddDetailContractor(k3DetailContractor);
 				
 		return result;

@@ -109,7 +109,7 @@
 											</a>
 										</td>
 										<td>
-											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/k3DetailContractor}">
+											<a id="searchDetailContractor" href="#detailContractorModal" data-toggle="modal" data-target="#detailContractorModal" >
 												상세조회
 											</a>
 										</td>										
@@ -134,7 +134,7 @@
 					<div class="row" style="margin:15px;">
 						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
 						<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>					
-						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+						<a th:href="@{/team03/contractorContract/Contractor/k3AddContractor}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 버튼 영역 -->
 					
@@ -142,5 +142,90 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+	
 	</th:block>
+	<!-- 거래처 상세 정보 모달창 -->
+	<div class="modal" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel"
+     aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">거래처 상세정보</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+		      </div>
+		      <div class="modal-body">
+				<div class=" card card-body container-fluid" id="modifyContractor">
+					<table>
+						<thead>
+							<tr>
+					            <th>거래처 사업장 코드</th>
+					            <th>거래처 상호명</th>
+					            <th>거래처 사업자등록번호</th>
+					            <th>사업장별 대표코드</th>
+					            <th>거래 구분</th>
+					            <th>거래처 유형</th>
+					            <th>거래처 종목</th>
+					            <th>거래처 업태</th>
+					            <th>거래처 대표자명</th>
+					            <th>거래처 종사업장번호</th>
+					            <th>거래처 주소</th>
+					            <th>거래처 전화번호</th>
+					            <th>거래처 이메일</th>
+					            <th>거래처 담당자</th>
+					            <th>담당자 연락처</th>
+					            <th>담당자 이메일</th>
+					            <th>거래처 Fax</th>
+					            <th>거래처 은행명</th>
+					            <th>거래처 계좌번호</th>
+					            <th>거래처 예금주</th>
+					            <th>거래처 아이디</th>
+					            <th>거래처 비밀번호</th>
+					            <th>거래처 권한번호</th>
+					            <th>거래처 계정 상태</th>
+					            <th>등록직원아이디</th>
+					            <th>등록일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td  th:text="${c.contractorCode}"></td>
+								<td  th:text="${c.contractorName}"></td>
+								<td  th:text="${c.contractorBusinessNum}"></td>
+								<td  th:text="${c.mainBusinessCode}"></td>
+								<td  th:text="${c.contractorDevision}"></td>
+								<td  th:text="${c.contractorType}"></td>
+								<td  th:text="${c.contractorItem}"></td>
+								<td  th:text="${c.contractorStatus}"></td>
+								<td  th:text="${c.contractorRepresentative}"></td>
+								<td  th:text="${c.contractorBusinessClientNum}"></td>
+								<td  th:text="${c.contractorAddr}"></td>
+								<td  th:text="${c.contractorPhone}"></td>
+								<td  th:text="${c.contractorEmail}"></td>
+								<td  th:text="${c.contractorSuperviser}"></td>
+								<td  th:text="${c.contractorSuperviserPhone}"></td>
+								<td  th:text="${c.contractorSuperviserEmail}"></td>
+								<td  th:text="${c.contractorFax}"></td>
+								<td  th:text="${c.contractorProfitBank}"></td>
+								<td  th:text="${c.contractorProfitAccount}"></td>
+								<td  th:text="${c.contractorAccountHolder}"></td>
+								<td  th:text="${c.contractorId}"></td>
+								<td  th:text="${c.contractorPw}"></td>
+								<td  th:text="${c.levelCode}"></td>
+								<td  th:text="${c.contractorState}"></td>
+								<td  th:text="${c.memberId}"></td>
+								<td  th:text="${c.contractorRegistrationDate}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		      </div>
+		      <div class="modal-footer">
+				<button type="button" class="ahsbtn1 btn btn-outline-info modifyBtn">수정</button>
+				<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
+				<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>					
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!--END 거래처 상세 정보 모달창 -->
 </head>
