@@ -16,41 +16,6 @@
 						<button type="button" class="ahsbtn2 btn btn-outline-info">취소</button>					
 					</div>
 					<!--End 버튼 영역 -->
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							입고요청 조회
-						</div>
-						<!--End card header -->
-						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
-									</div>
-								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div>
-								<!--End inputbox 2 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
-					</div>
-					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -64,23 +29,26 @@
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>이름</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>수정</th>					
+										<th>물품명</th>
+										<th>개수</th>
+										<th>회사명</th>				
+										<th>제조일자</th>				
+										<th>유통기한</th>				
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr th:if="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
-										<td>오한수</td>
-										<td>남</td>
-										<td>010-1111-1111</td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
+										<td th:text="${l.laydownGoodsName}"></td>
+										<td th:text="${l.laydownGoodsCount}"></td>
+										<td th:text="${l.contractorName}"></td>
+										<td th:text="${l.manufacturedDate}"></td>
+										<td th:text="${l.expiratonDate}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
+										<td> 요청사항이 없습니다. </td>
 									</tr>
 								</tbody>						
 							</table>

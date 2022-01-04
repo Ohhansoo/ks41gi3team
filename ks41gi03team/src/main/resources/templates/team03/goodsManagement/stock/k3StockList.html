@@ -2,93 +2,185 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/k3SortList.css}">
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							재고조회
-						</div>
-						<!--End card header -->
+						<!--간단조회 및 상세조회 header-->
+						<nav>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">간단조회</a>
+								<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">상세조회</a>
+							</div>
+						</nav>
+						<!--End card header -->					
 						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
-									</div>
-								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div>
-								<!--End inputbox 2 -->
-	 						</div>
-						</div>					
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane active" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<!--inputbox 1 -->
+										<form class="col-lg-6" th:action="@{#}" method="post">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<select name="categoryKey" class="input-group-text">
+														<option value="large">상품명</option>
+														<option value="medium">회사명</option>
+													</select>
+												</div>
+												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
+												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
+											</div>
+										</form>
+										<!--End inputbox 1 -->
+			 						</div>
+								</div>					
+			 					<!--End card body 묶음 -->								
+							</div>
+							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<!--inputbox 1 -->
+										<form class="col-lg-6" th:action="@{#}" method="post">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<select name="categoryKey" class="input-group-text">
+														<option value="large">상품명</option>
+														<option value="medium">회사명</option>
+														<option value="small">입고코드</option>
+														<option value="small">로케이션코드</option>
+													</select>
+												</div>
+												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
+												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
+											</div>
+										</form>
+										<!--End inputbox 1 -->
+			 						</div>
+								</div>					
+			 					<!--End card body 묶음 -->								
+							</div>
+						</div>						
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							재고 현황
+						<!--간단조회 및 상세조회 현황  header-->
+						<nav>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">간단조회 재고현황</a>
+								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">상세조회 재고현황</a>
+							</div>
+						</nav>
+						<!--간단조회 및 상세조회 재고현황 body-->
+						<div class="tab-content" id="nav-tabContent">
+							<!--간단조회 재고현황-->
+							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+								<!--card body -->
+								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>삭제</th>
+												<th>수정</th>	
+												<th>등록</th>	
+												<th>상품명</th>
+												<th>재고</th>
+												<th>회사명</th>																	
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
+												<td>
+													<input type="checkbox" value="선택">
+												</td>
+												<td>
+													<a th:href="@{#}">수정</a>
+												</td>
+												<td>
+													<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
+												</td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.stockQuantity}"></td>
+												<td th:text="${l.contractorName}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
+												<td> 상품을 등록해주세요. </td>
+											</tr>
+										</tbody>						
+									</table>
+								</div>
+								<!--End card body -->
+							</div>
+							<!--END 간단조회 재고현황-->
+							<!--상세조회 재고현황-->
+							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+								<!--card body -->
+								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>삭제</th>
+												<th>수정</th>	
+												<th>로케이션코드</th>													
+												<th>상품명</th>
+												<th>개수</th>
+												<th>회사명</th>					
+												<th>대분류</th>
+												<th>중분류</th>
+												<th>소분류</th>																		
+												<th>분류담당자</th>													
+												<th>분류일시</th>													
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+												<td>
+													<input type="checkbox" value="선택">
+												</td>
+												<td>
+													<a th:href="@{#}">수정</a>
+												</td>
+												<td th:text="${l.locationCode}"></td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.stockQuantity}"></td>
+												<td th:text="${l.contractorName}"></td>
+												<td th:text="${l.largeCategory}"></td>
+												<td th:text="${l.mediumCategory}"></td>
+												<td th:text="${l.smallCategory}"></td>
+												<td th:text="${l.sortingManagerName}"></td>
+												<td th:text="${l.sortingDate}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+												<td> 상품을 등록해주세요. </td>
+											</tr>
+										</tbody>						
+									</table>
+								</div>
+								<!--End card body -->
+							</div>
+							<!--END 상세조회 재고현황-->
 						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
-								<thead>
-									<tr>
-										<th>선택</th>
-										<th>이름</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>수정</th>					
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<input type="checkbox" value="선택">
-										</td>
-										<td>오한수</td>
-										<td>남</td>
-										<td>010-1111-1111</td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
-									</tr>
-								</tbody>						
-							</table>
-						</div>
-						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
+						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

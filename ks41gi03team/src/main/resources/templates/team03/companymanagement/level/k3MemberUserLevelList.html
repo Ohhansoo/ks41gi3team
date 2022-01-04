@@ -8,56 +8,89 @@
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
-				<section class="content">
-      <div class="container-fluid ">
-      
-      <div style="margin: 15px">
-          <button type="button" class="btn btn-primary btn-sm">등록</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">수정</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">조회</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">삭제</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">엑셀</button>&nbsp; &nbsp;
-      </div>
-	  
- 	<div class="row" style="text-align: center">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header"></div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>직원명</th>
-                      <th>직원 ID</th>
-                      <th>직원 PW</th>
-                      <th>직원번호</th>
-                      <th>주소</th>
-                      <th>전화번호</th>
-                      <th>메모</th>
-                      <th>수정</th>
-                    </tr>
-                  </thead>
-					<tbody>
-			   			<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-			   				<td th:text="${l.ourCompanyCode}"></td>
-			   				<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>
-			   				<td th:text="${l.ourCompanyBusinessName}"></td>
-			   				<td th:text="${l.ourCompanyBusinessCheifName}"></td>
-			   				<td th:text="${l.ourCompanyWorkPlaceAddr}"></td>
-			   				<td th:text="${l.ourCompanyStatus}"></td>
-			   				<td th:text="${l.ourCompanyWorkType}"></td>
-			   				<td th:text="${l.ourCompanyEmail}"></td>
-			   			</tr>
-			   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-			   				<td colspan="9">등록된 회원이 없습니다.</td>
-			   			</tr>
-		   		</tbody>
-				</table>
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							권한 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="categoryKey" class="input-group-text">
+												<option value="ourCompanyCode">권한조회</option>
+											</select>
+										</div>
+										<input type="text" name="categoryValue" class="form-control" >
+										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							권한 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>삭제</td>	
+											<th>수정</th>
+										</tr>
+									</thead>
+									<tbody>								
+			   							<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
+							   				<td>
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.ourCompanyCode}">
+												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
+											</td>
+							   				<td>
+												<a th:href="@{/team03/companymanagement/member/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">수정</a>
+											</td>	
+							   				<td th:text="${l.ourCompanyCode}"></td>
+							   				<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>
+							   				<td th:text="${l.ourCompanyBusinessName}"></td>
+							   				<td th:text="${l.ourCompanyBusinessCheifName}"></td>
+							   				<td th:text="${l.ourCompanyWorkPlaceAddr}"></td>
+							   				<td th:text="${l.ourCompanyStatus}"></td>
+							   				<td th:text="${l.ourCompanyWorkType}"></td>
+							   				<td th:text="${l.ourCompanyEmail}"></td>
+						   			</tr>
+			   						<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
-		</div>
 		</div>
 	</th:block>
 </head>

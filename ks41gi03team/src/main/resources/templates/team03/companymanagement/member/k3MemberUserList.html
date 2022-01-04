@@ -10,17 +10,11 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button id="categoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">등록</button>
-						<button id="deleteCategoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>			
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							회원 조회
+							직원 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -31,18 +25,18 @@
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
-												<option value="large">직원ID</option>
-												<option value="medium">직원PW</option>
-												<option value="small">사업장별대표코드</option>
-												<option value="small">권한번호</option>
-												<option value="small">직원이름</option>
-												<option value="small">성별</option>
-												<option value="small">주소</option>
-												<option value="small">전화번호</option>
-												<option value="small">주민번호</option>
-												<option value="small">직원계정상태</option>
-												<option value="small">등록일자</option>
-												<option value="small">입사일자</option>
+												<option value="ID">직원ID</option>
+												<option value="PW">직원PW</option>
+												<option value="mainCode">사업장별대표코드</option>
+												<option value="LevelCode">권한번호</option>
+												<option value="memberName">직원이름</option>
+												<option value="Gender">성별</option>
+												<option value="Addr">주소</option>
+												<option value="Phone">전화번호</option>
+												<option value="Restration">주민번호</option>
+												<option value="MemberState">직원계정상태</option>
+												<option value="Regdate">등록일자</option>
+												<option value="Regtiondate">입사일자</option>
 											</select>
 										</div>
 										<input type="text" name="categoryValue" class="form-control" >
@@ -59,7 +53,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							카테고리 현황
+							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -68,22 +62,31 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
+											<th>삭제</td>	
+											<th>수정</th>
 											<th>직원ID</th>
-						                      <th>직원PW</th>
-						                      <th>사업장별대표코드</th>
-						                      <th>권한번호</th>
-						                      <th>직원이름</th>
-						                      <th>성별</th>
-						                      <th>주소</th>
-						                      <th>전화번호</th>
-						                      <th>주민번호</th>
-						                      <th>직원계정상태</th>
-						                      <th>등록일자</th>
-						                      <th>입사일자</th>		
+						                     <th>직원PW</th>
+						                     <th>사업장별대표코드</th>
+						                     <th>권한번호</th>
+						                     <th>직원이름</th>
+						                     <th>성별</th>
+						                     <th>주소</th>
+						                     <th>전화번호</th>
+						                     <th>주민번호</th>
+						                     <th>직원계정상태</th>
+						                     <th>등록일자</th>
+						                     <th>입사일자</th>		
 										</tr>
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
+						   				<td>
+											<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberId}">
+											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
+										</td>
+						   				<td>
+											<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">수정</a>
+										</td>	
 						   				<td th:text="${l.memberId}"></td>
 						   				<td th:text="${l.memberPassword}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
@@ -98,13 +101,18 @@
 						   				<td th:text="${l.memberHiredDate}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
-						   				<td colspan="9">등록된 회원이 없습니다.</td>
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
 						   			</tr>
 									</tbody>						
 								</table>
 							</form>	
 						</div>
 						<!--End card body -->
+					</div>
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>

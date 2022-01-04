@@ -23,8 +23,11 @@ public class K3WarehousingController {
 	
 	//입고 승인폼 이동
 	@GetMapping("/k3AllowWarehousing")
-	public String k3GetLaydownCheckList(){
-		
+	public String k3AllowWarehousing(Model model){
+		List<K3Warehousing> K3RequestAllow = k3WarehousingService.k3RequestAllowWarehousing();
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고승인");
+		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
 	
@@ -34,20 +37,23 @@ public class K3WarehousingController {
 		
 		return "team03/goodsManagement/warehousing/k3AddSort";
 	}
-	//입고 등록폼 이동
+	//입고 요청폼 이동
 	@GetMapping("/k3AddWarehousing")
 	public String k3AddWarehousing() {
 		
 		return "team03/goodsManagement/warehousing/k3AddWarehousing";
 	}
 
+	
 	//입고분류 현황이동
 	@GetMapping("/k3SortList")
 	public String k3GetWarehousingSortList(Model model) {
 		List<K3WarehousingSort> sortList = k3WarehousingService.k3GetWarehousingSortList();
+		List<K3WarehousingSort> requestSort = k3WarehousingService.k3GetWarehousingRequestSort();
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고분류현황");
 		model.addAttribute("sortList", sortList);	
+		model.addAttribute("requestSort", requestSort);	
 		return "team03/goodsManagement/warehousing/k3SortList";
 	}
 	//입고 현황이동

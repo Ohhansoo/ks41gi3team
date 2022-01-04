@@ -1,7 +1,7 @@
 package k3.warehousing.ahs.dto;
 
 public class K3WarehousingSort {
-	private String assortCode;
+	private String warehousingCode;
 	private String laydownGoodsName;
 	private String laydownGoodsCount;
 	private String contractorName;
@@ -10,13 +10,16 @@ public class K3WarehousingSort {
 	private String smallCategory;
 	private String productFrequency;
 	private String locationCode;
-	private String memberId;
+	private String sortingManager;
 	private String sortingDate;
-	public String getAssortCode() {
-		return assortCode;
+	private String laydownDate;
+	private String laydownCheckCode;
+	private String memberName;
+	public String getWarehousingCode() {
+		return warehousingCode;
 	}
-	public void setAssortCode(String assortCode) {
-		this.assortCode = assortCode;
+	public void setWarehousingCode(String warehousingCode) {
+		this.warehousingCode = warehousingCode;
 	}
 	public String getLaydownGoodsName() {
 		return laydownGoodsName;
@@ -66,11 +69,11 @@ public class K3WarehousingSort {
 	public void setLocationCode(String locationCode) {
 		this.locationCode = locationCode;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getSortingManager() {
+		return sortingManager;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setSortingManager(String sortingManager) {
+		this.sortingManager = sortingManager;
 	}
 	public String getSortingDate() {
 		return sortingDate;
@@ -78,21 +81,42 @@ public class K3WarehousingSort {
 	public void setSortingDate(String sortingDate) {
 		this.sortingDate = sortingDate;
 	}
+	public String getLaydownDate() {
+		return laydownDate;
+	}
+	public void setLaydownDate(String laydownDate) {
+		this.laydownDate = laydownDate;
+	}
+	public String getLaydownCheckCode() {
+		return laydownCheckCode;
+	}
+	public void setLaydownCheckCode(String laydownCheckCode) {
+		this.laydownCheckCode = laydownCheckCode;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assortCode == null) ? 0 : assortCode.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
 		result = prime * result + ((largeCategory == null) ? 0 : largeCategory.hashCode());
+		result = prime * result + ((laydownCheckCode == null) ? 0 : laydownCheckCode.hashCode());
+		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
 		result = prime * result + ((laydownGoodsCount == null) ? 0 : laydownGoodsCount.hashCode());
 		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
 		result = prime * result + ((locationCode == null) ? 0 : locationCode.hashCode());
 		result = prime * result + ((mediumCategory == null) ? 0 : mediumCategory.hashCode());
-		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
 		result = prime * result + ((productFrequency == null) ? 0 : productFrequency.hashCode());
 		result = prime * result + ((smallCategory == null) ? 0 : smallCategory.hashCode());
 		result = prime * result + ((sortingDate == null) ? 0 : sortingDate.hashCode());
+		result = prime * result + ((sortingManager == null) ? 0 : sortingManager.hashCode());
+		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
 	@Override
@@ -104,11 +128,6 @@ public class K3WarehousingSort {
 		if (getClass() != obj.getClass())
 			return false;
 		K3WarehousingSort other = (K3WarehousingSort) obj;
-		if (assortCode == null) {
-			if (other.assortCode != null)
-				return false;
-		} else if (!assortCode.equals(other.assortCode))
-			return false;
 		if (contractorName == null) {
 			if (other.contractorName != null)
 				return false;
@@ -118,6 +137,16 @@ public class K3WarehousingSort {
 			if (other.largeCategory != null)
 				return false;
 		} else if (!largeCategory.equals(other.largeCategory))
+			return false;
+		if (laydownCheckCode == null) {
+			if (other.laydownCheckCode != null)
+				return false;
+		} else if (!laydownCheckCode.equals(other.laydownCheckCode))
+			return false;
+		if (laydownDate == null) {
+			if (other.laydownDate != null)
+				return false;
+		} else if (!laydownDate.equals(other.laydownDate))
 			return false;
 		if (laydownGoodsCount == null) {
 			if (other.laydownGoodsCount != null)
@@ -139,10 +168,10 @@ public class K3WarehousingSort {
 				return false;
 		} else if (!mediumCategory.equals(other.mediumCategory))
 			return false;
-		if (memberId == null) {
-			if (other.memberId != null)
+		if (memberName == null) {
+			if (other.memberName != null)
 				return false;
-		} else if (!memberId.equals(other.memberId))
+		} else if (!memberName.equals(other.memberName))
 			return false;
 		if (productFrequency == null) {
 			if (other.productFrequency != null)
@@ -159,15 +188,29 @@ public class K3WarehousingSort {
 				return false;
 		} else if (!sortingDate.equals(other.sortingDate))
 			return false;
+		if (sortingManager == null) {
+			if (other.sortingManager != null)
+				return false;
+		} else if (!sortingManager.equals(other.sortingManager))
+			return false;
+		if (warehousingCode == null) {
+			if (other.warehousingCode != null)
+				return false;
+		} else if (!warehousingCode.equals(other.warehousingCode))
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "K3WarehousingSort [assortCode=" + assortCode + ", laydownGoodsName=" + laydownGoodsName
+		return "K3WarehousingSort [warehousingCode=" + warehousingCode + ", laydownGoodsName=" + laydownGoodsName
 				+ ", laydownGoodsCount=" + laydownGoodsCount + ", contractorName=" + contractorName + ", largeCategory="
 				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory
-				+ ", productFrequency=" + productFrequency + ", locationCode=" + locationCode + ", memberId=" + memberId
-				+ ", sortingDate=" + sortingDate + "]";
+				+ ", productFrequency=" + productFrequency + ", locationCode=" + locationCode + ", sortingManager="
+				+ sortingManager + ", sortingDate=" + sortingDate + ", laydownDate=" + laydownDate
+				+ ", laydownCheckCode=" + laydownCheckCode + ", memberName=" + memberName + "]";
 	}
+	
+	
+	
 	
 }

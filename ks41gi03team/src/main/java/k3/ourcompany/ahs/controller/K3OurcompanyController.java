@@ -51,7 +51,7 @@ public class K3OurcompanyController {
 		//return "redirect:/team03/ourcompany/k3OurCompanyList";
 		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
 	}
-	
+	//자사조회
 	@GetMapping("/k3OurCompanyList")
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();

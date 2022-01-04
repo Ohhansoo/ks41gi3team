@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,8 +28,17 @@ public class K3DriverController {
 		this.k3DriverService = k3DriverService;
 	}
 	
+	@PostMapping("/k3AddDriver")
+	public String addDriver(K3Driver k3Driver) {
+		int result = k3DriverService.addDriver(k3Driver);
+		log.info("AddDriver" + result);
+		log.info("AddDriver" + k3Driver);
+		return "redirect:/team03/delivery/driver/k3Driver";
+	}
+	
 	@GetMapping("/k3AddDriver")
 	public String driverCheck(Model model) {
+		model.addAttribute("title", "차량기사 등록");
 		return "team03/delivery/driver/k3AddDriver";
 	}
 
