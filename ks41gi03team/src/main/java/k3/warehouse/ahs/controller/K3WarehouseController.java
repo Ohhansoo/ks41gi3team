@@ -56,9 +56,9 @@ public class K3WarehouseController {
 	 * 창고수정(페이지이동)
 	 */
 	@GetMapping("/k3ModifyWarehouse")
-	public String k3ModifyWarehouse(@RequestParam(value="warehouseCode", required = false) int warehouseCode, Model model) {
-		K3Warehouses k3Warehouses = k3WarehouseService.getK3ModifyWarehouseInfoByWarehouseCode(warehouseCode);
-		System.out.println(warehouseCode + "< --- ----K3WarehouseController");
+	public String k3ModifyWarehouse(@RequestParam(value="codeNumber", required = false) String codeNumber, Model model) {
+		K3Warehouses k3Warehouses = k3WarehouseService.getK3ModifyWarehouseInfoByWarehouseCode(codeNumber);
+		System.out.println(codeNumber + "< --- ----K3WarehouseController");
 		model.addAttribute("title","창고수정");
 		model.addAttribute("k3Warehouses",k3Warehouses);
 		return "team03/spaceBusiness/warehouse/k3ModifyWarehouse";
@@ -84,8 +84,8 @@ public class K3WarehouseController {
 	 * 창고삭제(처리)
 	 */
 	@PostMapping("/k3DeleteWarehouse")
-	public String getK3DeleteWarehouse(int warehouseCode) {
-		k3WarehouseService.deleteWarehouseCode(warehouseCode);
+	public String getK3DeleteWarehouse(String codeNumber) {
+		k3WarehouseService.deleteCodeNumber(codeNumber);
 		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 }

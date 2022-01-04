@@ -1,7 +1,151 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.location.ahs.mapper.K3LocationMapper">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title th:text="title"></title>
+	</th:block>
+		
+	<th:block layout:fragment="customContents">
+		<script type="text/javascript">
+			$(function(){
+				$('#locationModifyBtn').click(function(){
+					var centerCode = $('#centerCode').val();
+					var brandCode = $('#brandCode').val();
+					var lineCode = $('#lineCode').val();
+					var rackCode = $('#rackCode').val();
+					var cellCode = $('#cellCode').val();
 
-</mapper>
+				})
+			});
+		</script>
+		<div id="representative-button">
+			<div id="representative-button">			
+					<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">	
+						<!-- card header Start -->
+					<div class="card">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card-header">
+									<div class="card-title">로케이션 등록</div>
+								</div>
+								<div>
+									<div class="card-body">
+										<form th:action="@{/team03/spaceBusiness/location/k3AddLocation}" method="post">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label for="centerCode">센터코드</label>
+													<input type="text" class="form-control" id="centerCode" name="centerCode" placeholder="예)A,B,C.."/>
+												</div>
+												<div class="form-group">
+													<label for="brandCode">구역코드</label>
+													<input type="text" class="form-control" id="brandCode" name="brandCode" placeholder="예)1,2,3.."/>
+												</div>
+												<div class="form-group">
+													<label for="lineCode">라인코드</label>
+													<input type="text" class="form-control" id="lineCode" name="lineCode" placeholder="예)A1,B1,C1"/>
+												</div>
+												<div class="form-group">
+													<label for="rackCode">렉 코드</label>
+													<input type="text" class="form-control" id="rackCode" name="rackCode" placeholder="예)1,2,3"/>
+												</div>
+												<div class="form-group">
+													<label for="cellCode">셀 코드</label>
+													<input type="text" class="form-control" id="cellCode" name="cellCode" placeholder="예)11 = 1단1열 11,22,33,44"/>
+												</div>
+												<div class="card-footer">
+													<button type="button" id="locationModifyBtn" class="btn btn-block btn-outlin-info">등록</button>
+												</div>	
+											</div>
+										</form>
+									</div>
+								</div>	
+							</div>
+						</div>					
+					</div>	
+						
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+								<div class="card-header">
+									<div class="card-title">로케이션 현황</div>
+								</div>
+						<!-- card header End -->
+						<!-- card body Start -->	
+								<div class="card-body-p0">
+									<div class="mailbox-controls">
+										<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+											<i class="fas fa-square">전체선택</i>
+											<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+									   <!-- <i class="far fa-check-square"></i> -->												
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-trash">삭제</i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-print">출력</i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-share">등록</i>
+										</button>
+										<div class="float-right">
+											<div class="input-group input-group-sm">
+												<select class="form-control-sm">
+													<option value="">호호</option>
+													<option value="">하하</option>
+													<option value="">흐흐</option>
+													<option value="">히히</option>
+												</select>
+												<input type="text" class="form-control" placeholder="검색">
+												<div class="input-group-append">
+													<div class="btn btn-default">
+														<i class="fas fa-search"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive mailbox-messages">
+										<table class="table table-holder mailbox-messages">
+											<thead>
+												<tr>
+													<th>로케이션 코드</th>
+													<th>비고</th>
+													<th>상태</th>
+												
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="icheck-primary">
+															<input type="checkbox" id="check1"/>
+															<label for="check1"></label>
+														</div>
+													</td>
+													<td>
+														<button type="button" class="btn btn-default btn-sm">
+  															<i class="fas fa-pencil-alt"></i>
+														</button>
+													</td>
+													<td>예얍</td>
+													<td>예얍</td>
+													<td>예얍</td>
+													<td>예얍</td>
+												</tr>
+											</tbody>
+										</table>				
+								</div>
+						<!-- card body End -->								
+							</div>
+						</div>		
+					</div>					
+				</div>
+					
+					
+				</div>
+			</div>
+		</div>	
+	</th:block>
+</head>

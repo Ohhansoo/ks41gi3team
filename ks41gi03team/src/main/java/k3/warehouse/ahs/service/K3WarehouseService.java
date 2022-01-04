@@ -35,8 +35,8 @@ public class K3WarehouseService {
 	 * 창고수정
 	 */
 	//창고코드로 조회
-	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode) {	
-		return k3WarehouseMapper.getK3ModifyWarehouseInfoByWarehouseCode(warehouseCode);
+	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(String codeNumber) {	
+		return k3WarehouseMapper.getK3ModifyWarehouseInfoByWarehouseCode(codeNumber);
 	}
 	//창고수정처리
 	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses) {
@@ -46,8 +46,8 @@ public class K3WarehouseService {
 	/**
 	 * 창고고유고드로 창고삭제
 	 */
-	public int deleteWarehouseCode(int warehouseCode) {
-		return k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
+	public int deleteCodeNumber(String codeNumber) {
+		return k3WarehouseMapper.deleteCodeNumber(codeNumber);
 	}
 	
 }
