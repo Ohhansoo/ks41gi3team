@@ -31,10 +31,7 @@ public class K3SubjectController {
 	@PostMapping("/k3DeleteCategory")
 	public String deleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3SubjectService.deleteSubject(deleteList);
-		//Map<String, List<String>> map = new HashMap<String, List<String>>();
-		//map.put("deleteList", deleteList);
-		//log.info("DeleteCategory 전송결과 : " + map.values());
-		log.info("DeleteCategory 전송결과 : " + result);
+		log.info("DeleteSubject 전송결과 : " + result);
 		return "redirect:/team03/finance/subject/k3SubjectList";
 	}
 	

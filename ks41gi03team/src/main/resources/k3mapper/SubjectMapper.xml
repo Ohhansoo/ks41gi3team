@@ -16,14 +16,12 @@
 	
 	
 	<!--  계정과목 삭제 처리 -->
-	<!-- <delete>
+	<delete id = "deleteSubject" parameterType="int">
 	DELETE FROM 
 		k3_tb_as 
-
-
 	WHERE asCode=#{subjectCode}
 	</delete>
- -->	
+ 	
 	
 	<!--  계정과목 수정 처리 -->
 	<update id ="modifySubject" parameterType="K3Subject">
