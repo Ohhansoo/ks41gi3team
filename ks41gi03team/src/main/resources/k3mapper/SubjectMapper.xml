@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.subject.ahs.mapper.K3SubjectMapper">
- 	<!-- <resultMap type="K3Subject" id="subjectResultMap">
+ 	<resultMap type="K3Subject" id="subjectResultMap">
 		<result column="subjectName" property="subjectName" />
 		<result column="regName" property="subjectRegMember" />
 		<result column="regDate" property="subjectRegDate" />
@@ -12,9 +12,42 @@
 		<result column="isUse" property="subjectIsUse" />
 		<result column="isCorrect" property="subjectIsCorrect" />
 		<result column="applyYear" property="subjectApplyYear" />
-	</resultMap> -->
+	</resultMap>
 	
 	
+	
+	<!--  계정과목 수정 처리 -->
+	<update id ="modifySubject" parameterType="K3Subject">
+			UPDATE k3_tb_as
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="subjectCode != null and subjectCode!= ''.toString()">			
+					 asCode		=#{subjectCode}
+				</if>
+				<if test="subjectName != null and subjectName != ''.toString()">
+					,asName	=#{subjectName}
+				</if>
+				<if test="subjectGCode != null and subjectGCode != ''.toString()">		
+					,asGCode		=#{subjectGCode}
+				</if>
+				<if test="isUse != null and isUse != ''.toString()">
+					,asUse	=#{isUse}
+				</if>
+				<if test="isCorrect != null and isCorrect != ''.toString()">
+					,asCorrect		=#{isCorrect}
+				</if>
+				<if test="regName != null and regName != ''.toString()">
+					,memberId		=#{regName}
+				</if>
+				<if test="regDate != null and regDate != ''.toString()">
+					,asRegDate		=#{regDate}
+				</if>
+				<if test="applyYear != null and applyYear != ''.toString()">
+					,asYear		=#{applyYear}
+				</if>
+			</trim>
+			WHERE
+				asCode =#{subjectCode};
+	</update>
 	
 	<!-- 계정과목 수정 폼 -->
 	<select id="getModifySubject" resultType="K3Subject">
