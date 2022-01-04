@@ -16,10 +16,14 @@
 	
 	
 	<!--  계정과목 삭제 처리 -->
-	<delete id = "deleteSubject" parameterType="int">
-	DELETE FROM 
-		k3_tb_as 
-	WHERE asCode=#{subjectCode}
+	<delete id ="deleteSubject" parameterType="int">
+	DELETE 
+		a
+	FROM
+		k3_tb_as AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or asCode=#{deleteList}
+		</foreach>	
 	</delete>
  	
 	

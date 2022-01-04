@@ -6,11 +6,42 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
+	<script>
+			$(function(){				
+				$('#subjectBtn').on('click', function(){
+					location.href = '/team03/finance/subject/k3AddSubject';
+				});
+				
+				$(document).on('click', '#deleteSubjectBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#subjectForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 		<div id="representative-button">
 			<div id="representative-button">
+			
+			<!-- 계정과목 조회 컨텐츠 시작 -->
+			<form id="subjectForm" th:action="@{/team03/finance/subject/k3DeleteSubject}" method="post">
 				<table border="1">
 					<thead>
 						<tr>
+							<td>선택</td>
 							<td>계정과목</td>
 							<td>작성자id</td>
 							<td>등록시간</td>
@@ -25,6 +56,10 @@
 					</thead>
 					<tbody>
 						<tr th:if="${not #lists.isEmpty(subjectList)}" th:each="l : ${subjectList}">
+							<td>
+								<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.subjectCode}">
+							</td>
+						
 							<td th:text="${l.subjectName}"></td>
 							<td th:text="${l.regName}"></td>
 							<td th:text="${l.regDate}"></td>
@@ -37,16 +72,15 @@
 								<a th:href="@{/team03/finance/subject/k3ModifySubject(subjectCode=${l.subjectCode})}">수정</a>
 							</td>									
 
-							<td>
-								<a th:href="@{/team03/finance/subject/k3DeleteSubject}">삭제</a>
-							</td>			
 						</tr>
 						<tr th:unless="${not #lists.isEmpty(subjectList)}" th:each="l : ${subjectList}">
-							<td>등록된 카테고리가 없습니다.</td>
+							<td>계정과목이 없습니다.</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</form>
+				<button id="deleteSubjectBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
 		</div>
-	</th:block>
+	</div>
+</th:block>
 </head>

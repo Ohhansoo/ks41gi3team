@@ -28,7 +28,7 @@ public class K3SubjectController {
 	
 	
 	//계정과목 삭제처리
-	@PostMapping("/k3DeleteCategory")
+	@PostMapping("/k3DeleteSubject")
 	public String deleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3SubjectService.deleteSubject(deleteList);
 		log.info("DeleteSubject 전송결과 : " + result);
