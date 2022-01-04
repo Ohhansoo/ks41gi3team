@@ -1,6 +1,6 @@
 package k3.contractor.ahs.dto;
 
-public class K3ContractorDetail {
+public class K3DetailContractor {
 	
 	private String contractorCode;
 	private String contractorName;
@@ -283,7 +283,7 @@ public class K3ContractorDetail {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		K3ContractorDetail other = (K3ContractorDetail) obj;
+		K3DetailContractor other = (K3DetailContractor) obj;
 		if (contractorAccountHolder == null) {
 			if (other.contractorAccountHolder != null)
 				return false;

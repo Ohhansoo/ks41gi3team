@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.contractor.ahs.dto.K3Contractor;
-import k3.contractor.ahs.dto.K3ContractorDetail;
+import k3.contractor.ahs.dto.K3DetailContractor;
 import k3.contractor.ahs.service.K3ContractorService;
 
 @Controller
@@ -35,7 +35,7 @@ public class K3ContractorController {
 										, Model model) {
 		//거래처 정보
 		if(contractorCode != null && !"".equals(contractorCode)) {
-			K3ContractorDetail contractorInfo =  (K3ContractorDetail) k3ContractorService.K3GetContractorList();
+			K3DetailContractor contractorInfo =  (K3DetailContractor) k3ContractorService.K3GetContractorList();
 			model.addAttribute("contractorInfo", contractorInfo);
 		}
 		
@@ -58,10 +58,10 @@ public class K3ContractorController {
 	
 	//거래처 등록
 	@PostMapping("/k3AddContractor")
-	public String k3AddContractor(K3ContractorDetail k3ContractorDetail) {
+	public String k3AddContractor(K3DetailContractor k3ContractorDetail) {
 		
 		k3ContractorService.k3AddContractor(k3ContractorDetail);
-		k3ContractorService.k3AddContractorDetail(k3ContractorDetail);
+		k3ContractorService.k3AddDetailContractor(k3ContractorDetail);
 		/*
 		 * System.out.println("ContractorController 거래처 등록 화면에서 입력받은 값" +
 		 * k3ContractorDetail);
@@ -79,9 +79,9 @@ public class K3ContractorController {
 	//거래처 상세정보로 화면 전환+거래처정보 가져오기
 	@GetMapping("/k3DetailContractor")
 	public String k3GetDetailContractor(Model model) {
-		List<K3ContractorDetail> contractorDetailList = k3ContractorService.K3GetContractorDetailList();
+		List<K3DetailContractor> detailContractorList = k3ContractorService.K3GetDetailContractorList();
 		
-		model.addAttribute("contractorDetailList", contractorDetailList);
+		model.addAttribute("detailContractorList", detailContractorList);
 		
 		return "/team03/contractorContract/Contractor/K3ContractorDetail";
 	}
