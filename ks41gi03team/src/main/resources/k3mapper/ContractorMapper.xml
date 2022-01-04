@@ -47,7 +47,40 @@
 
 	<!-- 거래처 상세정보 불러오기 -->
 	<select id="K3GetDetailContractorList" resultType="K3DetailContractor">
-		
+		SELECT	c.contractorCode
+			, cs.contractorName
+			, c.contractorBusinessNum
+			, cs.mainBusinessCode	
+			, c.contractorDevision
+			, cs.contractorType
+			, c.contractorItem
+			, c.contractorStatus
+			, cs.contractorRepresentative
+			, c.contractorBusinessClientNum
+			, c.contractorAddr
+			, cs.contractorPhone
+			, c.contractorEmail
+			, cs.contractorSuperviser
+			, cs.contractorSuperviserPhone
+			, c.contractorSuperviserEmail
+			, c.contractorFax
+			, c.contractorProfitBank
+			, c.contractorProfitAccount
+			, c.contractorAccountHolder
+			, cs.contractorId
+			, cs.contractorPw
+			, cs.levelCode
+			, c.contractorState
+			, cs.memberId
+			, c.contractorRegistrationDate
+		FROM 
+			k3_tb_contractor_staff AS cs
+			INNER join
+			k3_tb_contractor AS c
+			on
+			cs.contractorId = c.contractorId
+		where
+			c.contractorCode = ;
 	</select>
 
 	<!-- 거래처 목록 간단 현황으로 불러오기 -->
