@@ -20,6 +20,10 @@ public class K3MemberUserService {
 		K3MemberUser k3MemberUser = memberuserMapper.K3MemberUserInfoBycode(memberId);
 		return k3MemberUser;
 	}
+	//직원여부체크
+	public int getMemberByMemberId(String memberId) {
+		return memberuserMapper.getMemberInfoByMemberId(memberId);
+	}
 	
 	//직원등록 등록처리
 	public int AddMemberUser(K3MemberUser k3memberuser) {

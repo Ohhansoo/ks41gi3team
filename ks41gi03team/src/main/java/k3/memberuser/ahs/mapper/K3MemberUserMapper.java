@@ -12,6 +12,9 @@ public interface K3MemberUserMapper {
 	//직원 정보 찾기(수정)
 	public K3MemberUser K3MemberUserInfoBycode(String memberId);
 	
+	//직원중복체크
+	public int getMemberInfoByMemberId(String memberId);
+	
 	//직원등록
 	public int AddMemberUser(K3MemberUser k3MemberUser);
 
@@ -19,3 +22,4 @@ public interface K3MemberUserMapper {
 	public List<K3MemberUser> getMemberUserList();
 	
 }
+//K3MemberUser

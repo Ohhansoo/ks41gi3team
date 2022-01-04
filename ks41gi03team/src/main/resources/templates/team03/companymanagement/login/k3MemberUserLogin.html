@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="@{layout/default}">
+   layout:decorate="@{layout/login}">
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
@@ -9,18 +9,18 @@
 	<script>
 			$(function(){
 				$('#loginBtn').on('click', function(){
-					location.href = 'k3MemberUserLoginState';
+					location.href = '/';
 				});
 			});
 		</script>
-	<div class="container-fluid" style="width: 500px; ">
+	<div class="container-fluid" style="width: 500px; height: 500px; margin-bottom: 100px; marign-top: 100px;">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="card cardColor" style="margin-top: 60px; margin-bottom: 30px; background-color:ghostwhite">
+				<div class="card cardColor" style="background-color:ghostwhite; margin-bottom: 100px; marign-top: 100px;">
 					<h1 class="d-flex justify-content-center" style="margin-top: 50px;">AHS</h1>
 					<h6 class="d-flex justify-content-center">로그인</h6>
 					<div class="row" style="margin: 12px">
 				</div>
-					<form class="form" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+					<form class="form" th:action="@{/team03/companymanagement/login/k3MemberUserLogin}" method="post">
 						<div class="justify-content-center">
 							<div class="d-flex form-floating mb-3 justify-content-center">
 								<input type="email" class="form-control" id="floatingInput" placeholder="ID" style="width: 400px;">
@@ -34,7 +34,7 @@
 							<div class="d-flex form-floating mb-3 justify-content-center">
 								<a href={#} style="color: black;">아이디 찾기</a>/
 								<a href={#} style="color: black;">비밀번호 찾기</a>/
-								<a href={#} style="margin-bottom: 50px; color: black;">직원등록</a>
+								<a href={/team03/companymanagement/member/k3AddMemberUserList} style="margin-bottom: 50px; color: black;">직원등록</a>
 							</div>
 						</div>	
 					</form>
