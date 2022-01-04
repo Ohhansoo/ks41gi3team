@@ -3,35 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.checkpoint.ahs.mapper.K3CheckpointMapper">
- 	<resultMap type="K3Checkpoint" id="checkpointResultMap">
+ 	<!-- <resultMap type="K3Checkpoint" id="checkpointResultMap">
 		<result column="vehicleCheckpointCode" property="vehicleCheckpointCode" />
 		<result column="driverId" property="driverId" />
 		<result column="vehicleCode" property="vehicleCode" />
 		<result column="vehicleArrivalDate" property="vehicleArrivalDate" />
 		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
-	</resultMap>
+	</resultMap> -->
+	
 	
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
-			c.vehicleCheckpointCode AS vehicleCheckpointCode,
-			c.driverId AS driverId, 
-			c.vehicleCode AS vehicleCode,
-			c.vehicleArrivalDate AS vehicleArrivalDate,
-			c.vehicleShipmentDate AS vehicleShipmentDate
+			vehicleCheckpointCode,
+			mainBusinessCode,
+			contractorCode,
+			driverId, 
+			vehicleCode,
+			vehicleArrivalDate,
+			vehicleShipmentDate
 		FROM
-			k3_tb_vehicle_checkpoint as c;
+			k3_tb_vehicle_checkpoint;
+	
 	</select>
 	
-	<insert id="addCheck" parameterType="K3Checkpoint">
+	<select id="addCheck" parameterType="K3Checkpoint">
 		INSERT INTO k3_tb_vehicle_checkpoint
 		(
 			vehicleCheckpointCode,
+			mainBusinessCode,
+			contractorCode,
 			driverId,
 			vehicleCode,
 			vehicleArrivalDate,
 			vehicleShipmentDate
 		)VALUES(
 			#{vehicleCheckpointCode},
+			"공장A공장_서울_1",
+			"partners-driver-a",
 			#{driverId},
 			#{vehicleCode},
 			#{vehicleArrivalDate},
@@ -39,6 +47,21 @@
 		);
 		
 	
-	</insert>
+	</select>
+	
+	<select id="getModifyCheckpoint" resultType="K3Checkpoint">
+		SELECT
+			vehicleCheckpointCode,
+			mainBusinessCode,
+			contractorCode,
+			driverId, 
+			vehicleCode,
+			vehicleArrivalDate,
+			vehicleShipmentDate
+		FROM
+			k3_tb_vehicle_checkpoint
+		WHERE
+			vehicleCheckpointCode = #{vehicleCheckpointCode};
+	</select>
 
 </mapper>
