@@ -36,10 +36,9 @@
 							<td>
 								<a th:href="@{/team03/finance/subject/k3ModifySubject(subjectCode=${l.subjectCode})}">수정</a>
 							</td>									
-							
 
 							<td>
-								<a th:href="@{#}">삭제</a>
+								<a th:href="@{/team03/finance/subject/k3DeleteSubject}">삭제</a>
 							</td>			
 						</tr>
 						<tr th:unless="${not #lists.isEmpty(subjectList)}" th:each="l : ${subjectList}">
