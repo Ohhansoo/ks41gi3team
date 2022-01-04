@@ -39,7 +39,7 @@
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
-			p.contractorId = cs.contractorId
+			w.contractorId = cs.contractorId
 		WHERE
 			r.releaseAllow = 'N'
 	</select>
@@ -68,7 +68,7 @@
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
-			p.contractorId = cs.contractorId
+			w.contractorId = cs.contractorId
 		WHERE
 			r.releaseAllow = 'Y'
 	</select>

@@ -75,7 +75,7 @@
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			on
-			p.contractorId = c.contractorId
+			w.contractorId = c.contractorId
 			INNER JOIN
 			k3_tb_member AS m
 			on

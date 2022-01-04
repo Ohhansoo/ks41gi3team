@@ -23,8 +23,8 @@
 					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							console.log(deleteCheckList);
-							//$('#searchForm').submit();
+							$('#deleteCodeList').prop('value', deleteCheckList);
+							$('#searchForm').submit();
 						}
 						
 					}else{
@@ -90,7 +90,8 @@
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
 											<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.categoryCode}">
+												<input id="deleteCodeList" type="hidden" name="deleteCodeList">
+												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
 												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 											</td>
 											<td>
@@ -113,7 +114,7 @@
 					<!--버튼 영역 -->
 					<div class="row" style="margin:15px;">
 						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
+						<button id="deleteCategoryBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
 						<a th:href="@{/team03/goodsManagement/category/k3AddCategory}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 버튼 영역 -->
