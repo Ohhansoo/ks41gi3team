@@ -11,7 +11,7 @@ import k3.subject.ahs.dto.K3Subject;
 public interface K3SubjectMapper {
 	
 	//계정과목 삭제처리
-	public int deleteSubject(List<String> k3Subject);
+	public int deleteSubject(List<String> deleteList);
 	
 	//계정과목 수정처리
 	public int modifySubject(K3Subject k3subject);
