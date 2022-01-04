@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.category.ahs.controller.K3CategoryController;
 import k3.memberuser.ahs.dto.K3MemberUser;
@@ -36,6 +37,18 @@ public class K3MemberUserController {
 		model.addAttribute("subtitle","직원정보 수정");
 		model.addAttribute("k3MemberUser",k3MemberUser);
 		return "team03/companymanagement/member/k3ModifyMemberUserList";
+	}
+	//중복확인 
+	@PostMapping("/k3IdCheck")
+	@ResponseBody
+	public boolean idCheck(@RequestParam(value="memberId", required = false) String memberId) {
+		boolean checkResult = false;
+		
+		int check = memberuserService.getMemberByMemberId(memberId);
+		
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
 	}
 	
 	//직원등록 처리 

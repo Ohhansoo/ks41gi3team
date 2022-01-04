@@ -10,5 +10,19 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
-	
+	<select id="getLoginStateList"  resultType="K3MemberUser">
+	SELECT 
+		 lo.loginCode					AS loginCode 							
+		,lo.mainBusinessCode			AS mainBusinessCode
+		,lo.memberId					AS memberId
+		,lo.loginDate					AS loginDate
+		,lo.loginFailCount				AS loginFailCount
+		,lo.loginLatestTryDate			AS loginLatestTryDate
+		,lo.loginAccessState			AS loginAccessState
+		,lo.loginLogoutDate				AS loginLogoutDate
+		,lo.loginIpAddress				AS loginIpAddress
+		,lo.loginMacAddress				AS loginMacAddress
+	FROM 
+		k3_tb_login AS lo;
+	</select>
 </mapper>
