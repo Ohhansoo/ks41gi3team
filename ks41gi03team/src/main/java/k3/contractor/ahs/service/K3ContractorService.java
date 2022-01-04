@@ -19,8 +19,8 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 	
-	//거래처 수정
-	public int k3ModifyContractor(K3ContractorDetail k3ContractorDetail) {
+	//거래처 수정으로 화면전환
+	public int k3GetModifyContractor(K3ContractorDetail k3ContractorDetail) {
 		return K3ContractorMapper.K3ModifyContractorInfo(k3ContractorDetail);
 	}
 
@@ -31,10 +31,17 @@ public class K3ContractorService {
 		return result;
 	}
 	//거래처 등록 k3_tb_contractor
-	public int k3AddContractorDeatail(K3ContractorDetail k3ContractorDetail) {
+	public int k3AddContractorDetail(K3ContractorDetail k3ContractorDetail) {
 		int result = k3ContractorMapper.k3AddContractorDeatail(k3ContractorDetail);
 				
 		return result;
+	}
+	
+	//거래처 리스트(상세) 모달창
+	public List<K3ContractorDetail> K3GetContractorDetailList(){
+		List<K3ContractorDetail> contractorDetailList = k3ContractorMapper.K3GetContractorDetailList(); 
+		
+		return contractorDetailList;
 	}
 	
 	//거래처 리스트(간단) 현황에 불러오기

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3ContractorDetail;
@@ -26,18 +27,24 @@ public class K3ContractorController {
 		this.k3ContractorService = k3ContractorService;
 	}
 	
-	//거래처 수정
-	
+
 	
 	//거래처 수정으로 화면전환
 	@GetMapping("/k3ModifyContractor")
-	public String k3GetModifyContractor(Model model) {
+	public String k3GetModifyContractor(@RequestParam(value="contractorCode", required = false) String contractorCode
+										, Model model) {
+		//거래처 정보
+		if(contractorCode != null && !"".equals(contractorCode)) {
+			K3ContractorDetail contractorInfo =  (K3ContractorDetail) k3ContractorService.K3GetContractorList();
+			model.addAttribute("contractorInfo", contractorInfo);
+		}
 		
 		model.addAttribute("title", "거래처 관리");
 		model.addAttribute("subtitle", "거래처 정보 수정");
 		
 		return "/team03/contractorContract/Contractor/k3ModifyContractor";
 	}
+	
 
 	
 	//거래처 등록으로 화면전환
@@ -54,7 +61,7 @@ public class K3ContractorController {
 	public String k3AddContractor(K3ContractorDetail k3ContractorDetail) {
 		
 		k3ContractorService.k3AddContractor(k3ContractorDetail);
-		k3ContractorService.k3AddContractorDeatail(k3ContractorDetail);
+		k3ContractorService.k3AddContractorDetail(k3ContractorDetail);
 		/*
 		 * System.out.println("ContractorController 거래처 등록 화면에서 입력받은 값" +
 		 * k3ContractorDetail);
@@ -68,6 +75,17 @@ public class K3ContractorController {
 		 */		
 		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
+	
+	//거래처 상세정보로 화면 전환+거래처정보 가져오기
+	@GetMapping("/k3DetailContractor")
+	public String k3GetDetailContractor(Model model) {
+		List<K3ContractorDetail> contractorDetailList = k3ContractorService.K3GetContractorDetailList();
+		
+		model.addAttribute("contractorDetailList", contractorDetailList);
+		
+		return "/team03/contractorContract/Contractor/K3ContractorDetail";
+	}
+	
 	
 	//거래처 현황에 거래처 가져오기
 	@GetMapping("/k3SearchContractor")

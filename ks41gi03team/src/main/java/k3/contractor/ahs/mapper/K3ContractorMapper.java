@@ -17,6 +17,9 @@ public interface K3ContractorMapper {
 	
 	public int k3AddContractorDeatail(K3ContractorDetail k3ContractorDetail);
 	
+	//거래처 상세정보 받아오기
+	public List<K3ContractorDetail> K3GetContractorDetailList();
+	
 	//거래처 목록 받아오기
 	public List<K3Contractor> K3GetContractorList();
 	
