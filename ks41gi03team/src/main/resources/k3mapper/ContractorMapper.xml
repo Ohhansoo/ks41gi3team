@@ -46,7 +46,7 @@
 	</insert>
 
 	<!-- 거래처 상세정보 불러오기 -->
-	<select id="K3GetDetailContractorList" resultType="K3DetailContractor">
+	<select id="K3GetDetailContractor" parameterType="String" resultType="K3DetailContractor">
 		SELECT	c.contractorCode
 			, cs.contractorName
 			, c.contractorBusinessNum
@@ -80,7 +80,7 @@
 			on
 			cs.contractorId = c.contractorId
 		where
-			c.contractorCode = ;
+			c.contractorCode = #{contractorCode};
 	</select>
 
 	<!-- 거래처 목록 간단 현황으로 불러오기 -->
