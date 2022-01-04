@@ -49,11 +49,12 @@ public class K3CategoryController {
 	}
 	//카테고리 삭제처리
 	@PostMapping("/k3DeleteCategory")
-	public String k3DeleteCategory(@RequestParam(value="deleteList") List<String> deleteList) {
+	public String k3DeleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3CategoryService.k3DeleteCategory(deleteList);
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		map.put("deleteList", deleteList);
-		log.info("DeleteCategory 전송결과 : " + map.values());
+		//Map<String, List<String>> map = new HashMap<String, List<String>>();
+		//map.put("deleteList", deleteList);
+		//log.info("DeleteCategory 전송결과 : " + map.values());
+		log.info("DeleteCategory 전송결과 : " + result);
 		return "redirect:/team03/goodsManagement/category/k3CategoryList";
 	}
 
