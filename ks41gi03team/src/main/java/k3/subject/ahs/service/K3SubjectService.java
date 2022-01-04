@@ -6,10 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import k3.category.ahs.dto.K3Category;
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.mapper.K3SubjectMapper;
-import k3.vehicle.ahs.dto.K3Vehicle;
 
 
 @Service
@@ -20,6 +18,13 @@ public class K3SubjectService {
 	
 	public K3SubjectService(K3SubjectMapper k3SubjectMapper) {
 		this.k3SubjectMapper = k3SubjectMapper;
+	}
+	
+	
+	//계정과목 삭제처리
+	public int deleteSubject(List<String> deleteList) {
+		int result = k3SubjectMapper.deleteSubject(deleteList);
+		return result;
 	}
 	
 	//계정과목 수정 처리
