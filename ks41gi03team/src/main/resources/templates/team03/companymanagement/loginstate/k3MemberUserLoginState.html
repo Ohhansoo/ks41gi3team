@@ -15,7 +15,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							로그인 조회
+							로그인 정보 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -25,7 +25,7 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="retiredMemberUserKey" class="input-group-text">
+											<select name="loginStateKey" class="input-group-text">
 												<option value="loginCode">로그인 코드</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="memberId">직원ID</option>

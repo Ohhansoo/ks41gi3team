@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.service.K3SubjectService;
-import k3.vehicle.ahs.dto.K3Vehicle;
 
 @Controller
 @RequestMapping(value="/team03/finance/subject")
@@ -28,9 +27,30 @@ public class K3SubjectController {
 	}
 	
 	
+	//계정과목 삭제처리
+	@PostMapping("/k3DeleteCategory")
+	public String deleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3SubjectService.deleteSubject(deleteList);
+		//Map<String, List<String>> map = new HashMap<String, List<String>>();
+		//map.put("deleteList", deleteList);
+		//log.info("DeleteCategory 전송결과 : " + map.values());
+		log.info("DeleteCategory 전송결과 : " + result);
+		return "redirect:/team03/finance/subject/k3SubjectList";
+	}
+	
+	
+	//계정과목 수정 처리
+	@PostMapping("/k3ModifySubject")
+	public String modifySubject(K3Subject k3subject) {
+		//계정과목 수정
+		k3SubjectService.modifySubject(k3subject);
+		
+		return "redirect:/team03/finance/subject/k3SubjectList";
+	}
+	
 	//계정과목 수정 폼으로 이동(값 할당해서 넣기)
 	@GetMapping("/k3ModifySubject")
-	public String k3ModifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode, Model model) {
+	public String modifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode, Model model) {
 		if(subjectCode != null && !"".equals(subjectCode)) {
 			K3Subject subjectInfo = k3SubjectService.getModifySubject(subjectCode);
 			model.addAttribute("subjectInfo", subjectInfo);

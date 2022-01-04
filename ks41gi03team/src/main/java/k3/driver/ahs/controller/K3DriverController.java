@@ -30,10 +30,10 @@ public class K3DriverController {
 	
 	@PostMapping("/k3AddDriver")
 	public String addDriver(K3Driver k3Driver) {
-		int result = k3DriverService.addDriver(k3Driver);
+		Integer result = k3DriverService.addDriver(k3Driver);
 		log.info("AddDriver" + result);
 		log.info("AddDriver" + k3Driver);
-		return "redirect:/team03/delivery/driver/k3Driver";
+		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 	
 	@GetMapping("/k3AddDriver")

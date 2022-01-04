@@ -22,21 +22,35 @@ public class K3LoginController {
 	public K3LoginController(K3LoginService loginService) {
 		this.loginService = loginService;
 	}
+	//로그아웃
+	@GetMapping("logout")
+	public String K3logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
+	}
+	
 	//로그인처리
 	@PostMapping("k3MemberUserLogin")
 	public String K3LoginId(@RequestParam(value="loginId", required=false) String memberId,
 							@RequestParam(value="loginPw", required=false) String memberPassword,
 							HttpSession session) {
-		K3MemberUser memberuser = loginService.getMemberInfoByMemberId(memberId);
 		
-		if(memberuser != null && memberuser.getMemberPassword() != null) {
-			
-		}
-		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
-		
-	}
+		 if(memberId !=null && !"".equals(memberId)
+			      && memberPassword!=null && !"".equals(memberPassword)){
+			 		K3MemberUser k3memberuser = loginService.getMemberInfoByMemberId(memberId);
+			         if(k3memberuser != null && k3memberuser.getMemberPassword()!= null 
+			               && memberPassword.equals(k3memberuser.getMemberPassword())) {
+			            //로그인 비밀번호 일치시  세션에 정보값을 넣는다.
+			            session.setAttribute("SID", memberId);
+			            session.setAttribute("SNAME", k3memberuser.getMemberName());
+			            session.setAttribute("SLEVEL", k3memberuser.getLevelMemberCode());
+			            return "redirect:/";
+			         }
+			      }
+			      //로그인 비밀번호 불일치시
+			      return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
+			   }
 	
-
 	//로그인화면
 	@GetMapping("/k3MemberUserLogin")
 	public String K3Login() {

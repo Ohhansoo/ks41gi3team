@@ -9,8 +9,13 @@ import k3.checkpoint.ahs.dto.K3Checkpoint;
 @Mapper
 public interface K3CheckpointMapper {
 	
+	//현황
 	public List<K3Checkpoint> getCheckpointList();
 	
-	public int addCheck(K3Checkpoint k3Checkpoint);
+	//등록
+	public Integer addCheck(K3Checkpoint k3Checkpoint);
+	
+	//수정
+	public K3Checkpoint getModifyCheckpoint(String vehicleCheckpointCode);
 
 }
