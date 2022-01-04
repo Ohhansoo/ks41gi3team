@@ -2,6 +2,8 @@ package k3.contractor.ahs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3DetailContractor;
@@ -26,8 +29,6 @@ public class K3ContractorController {
 	public K3ContractorController(K3ContractorService k3ContractorService) {
 		this.k3ContractorService = k3ContractorService;
 	}
-	
-
 	
 	//거래처 수정으로 화면전환
 	@GetMapping("/k3ModifyContractor")
@@ -77,13 +78,12 @@ public class K3ContractorController {
 	}
 	
 	//거래처 상세정보로 화면 전환+거래처정보 가져오기
-	@GetMapping("/k3DetailContractor")
-	public String k3GetDetailContractor(Model model) {
-		List<K3DetailContractor> detailContractorList = k3ContractorService.K3GetDetailContractorList();
+	@PostMapping("/k3SearchContractor")
+	@ResponseBody
+	public K3DetailContractor k3GetDetailContractor(@RequestParam(value="contractorCode", required = false) String contractorCode) {
+		K3DetailContractor k3DetailContractor = k3ContractorService.K3GetDetailContractor(contractorCode);
 		
-		model.addAttribute("detailContractorList", detailContractorList);
-		
-		return "/team03/contractorContract/Contractor/K3ContractorDetail";
+		return k3DetailContractor;
 	}
 	
 	

@@ -5,6 +5,65 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+				$('.searchDetailContractor').click(function(){
+					var contractorCode = $(this).attr('data-contractorCode');
+					$.ajax({ 
+						url: "/team03/contractorContract/Contractor/k3SearchContractor", 
+						type:"POST", 
+						data: {"contractorCode": contractorCode},
+						dataType:'json', 
+						success:function(response){ 
+							console.log(JSON.stringify(response));
+							console.log(response.contractorCode)
+							showList(response); 
+						} 
+					});
+						console.log(contractorCode);
+				}); 
+				
+				function showList(data){ 
+					var contractorDetail = ''; 
+					$("#modaltBody").empty(); 
+					contractorDetail += '<tr>'
+					contractorDetail += '<td>'+ data.contractorCode +'</td>';
+					contractorDetail += '<td>'+ data.contractorName +'</td>';
+					contractorDetail += '<td>'+ data.contractorBusinessNum +'</td>';
+					contractorDetail += '<td>'+ data.mainBusinessCode +'</td>';
+					contractorDetail += '<td>'+ data.contractorDevision +'</td>';
+					contractorDetail += '<td>'+ data.contractorType +'</td>';
+					contractorDetail += '<td>'+ data.contractorItem +'</td>';
+					contractorDetail += '<td>'+ data.contractorStatus +'</td>';
+					contractorDetail += '<td>'+ data.contractorRepresentative +'</td>';
+					contractorDetail += '<td>'+ data.contractorBusinessClientNum +'</td>';
+					contractorDetail += '<td>'+ data.contractorAddr +'</td>';
+					contractorDetail += '<td>'+ data.contractorPhone +'</td>';
+					contractorDetail += '<td>'+ data.contractorEmail +'</td>';
+					contractorDetail += '<td>'+ data.contractorSuperviser +'</td>';
+					contractorDetail += '<td>'+ data.contractorSuperviserPhone +'</td>';
+					contractorDetail += '<td>'+ data.contractorSuperviserEmail +'</td>';
+					contractorDetail += '<td>'+ data.contractorFax +'</td>';
+					contractorDetail += '<td>'+ data.contractorProfitBank +'</td>';
+					contractorDetail += '<td>'+ data.contractorProfitAccount +'</td>';
+					contractorDetail += '<td>'+ data.contractorAccountHolder +'</td>';
+					contractorDetail += '<td>'+ data.contractorId +'</td>';
+					contractorDetail += '<td>'+ data.contractorPw +'</td>';
+					contractorDetail += '<td>'+ data.levelCode +'</td>';
+					contractorDetail += '<td>'+ data.contractorState +'</td>';
+					contractorDetail += '<td>'+ data.memberId +'</td>';
+					contractorDetail += '<td>'+ data.contractorRegistrationDate +'</td>';
+					contractorDetail += '</tr>';					
+					$("#modaltBody").append(contractorDetail); 
+					console.log(contractorDetail);
+					$('#detailContractorModal').modal('show');
+				}
+			}); 
+	
+		</script>
+	</th:block>
+
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
@@ -109,9 +168,9 @@
 											</a>
 										</td>
 										<td>
-											<a id="searchDetailContractor" href="#detailContractorModal" data-toggle="modal" data-target="#detailContractorModal" >
+											<button class="searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
 												상세조회
-											</a>
+											</button>
 										</td>										
 										<td  th:text="${c.contractorCode}"></td>
 										<td  th:text="${c.contractorName}"></td>
@@ -143,7 +202,6 @@
 			</div>
 		</div>
 	
-	</th:block>
 	<!-- 거래처 상세 정보 모달창 -->
 	<div class="modal" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel"
      aria-hidden="true">
@@ -151,7 +209,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title">거래처 상세정보</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+		        <button type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">x</button>
 		      </div>
 		      <div class="modal-body">
 				<div class=" card card-body container-fluid" id="modifyContractor">
@@ -186,35 +244,8 @@
 					            <th>등록일자</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td  th:text="${c.contractorCode}"></td>
-								<td  th:text="${c.contractorName}"></td>
-								<td  th:text="${c.contractorBusinessNum}"></td>
-								<td  th:text="${c.mainBusinessCode}"></td>
-								<td  th:text="${c.contractorDevision}"></td>
-								<td  th:text="${c.contractorType}"></td>
-								<td  th:text="${c.contractorItem}"></td>
-								<td  th:text="${c.contractorStatus}"></td>
-								<td  th:text="${c.contractorRepresentative}"></td>
-								<td  th:text="${c.contractorBusinessClientNum}"></td>
-								<td  th:text="${c.contractorAddr}"></td>
-								<td  th:text="${c.contractorPhone}"></td>
-								<td  th:text="${c.contractorEmail}"></td>
-								<td  th:text="${c.contractorSuperviser}"></td>
-								<td  th:text="${c.contractorSuperviserPhone}"></td>
-								<td  th:text="${c.contractorSuperviserEmail}"></td>
-								<td  th:text="${c.contractorFax}"></td>
-								<td  th:text="${c.contractorProfitBank}"></td>
-								<td  th:text="${c.contractorProfitAccount}"></td>
-								<td  th:text="${c.contractorAccountHolder}"></td>
-								<td  th:text="${c.contractorId}"></td>
-								<td  th:text="${c.contractorPw}"></td>
-								<td  th:text="${c.levelCode}"></td>
-								<td  th:text="${c.contractorState}"></td>
-								<td  th:text="${c.memberId}"></td>
-								<td  th:text="${c.contractorRegistrationDate}"></td>
-							</tr>
+						<tbody id="modaltBody">
+
 						</tbody>
 					</table>
 				</div>
@@ -228,4 +259,5 @@
 		  </div>
 		</div>
 	<!--END 거래처 상세 정보 모달창 -->
-</head>
+	</th:block>
+</html>
