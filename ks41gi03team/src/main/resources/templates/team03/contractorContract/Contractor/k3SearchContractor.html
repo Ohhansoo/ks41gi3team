@@ -10,12 +10,6 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--거래처 검색 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -31,7 +25,7 @@
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select class="form-control">
-												<option disabled="true" selected>거래처정보선택</option>
+												<option selected>통합검색</option>
 												<option>거래처 사업장 코드</option>
 												<option>거래처 상호명</option>
 												<option>거래처 종목</option>
@@ -87,6 +81,8 @@
 								<thead>
 								<tr>
 						            <th>선택</th>
+									<th>수정</th>
+									<th>상세정보</th>						            
 						            <th>거래처 사업장 코드</th>
 						            <th>거래처 상호명</th>
 						            <th>거래처 종목</th>
@@ -97,8 +93,7 @@
 						            <th>거래처 아이디</th>
 						            <th>거래처 계정 상태</th>
 						            <th>등록직원아이디</th>
-									<th>수정</th>
-									<th>상세정보</th>
+
 								</tr>
 							</thead>
 								<tbody>
@@ -108,6 +103,16 @@
 													<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
 												</label>
 										</td>
+										<td>
+											<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
+												수정
+											</a>
+										</td>
+										<td>
+											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/k3DetailContractor}">
+												상세조회
+											</a>
+										</td>										
 										<td  th:text="${c.contractorCode}"></td>
 										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorItem}"></td>
@@ -118,16 +123,6 @@
 										<td  th:text="${c.contractorId}"></td>
 										<td  th:text="${c.contractorState}"></td>
 										<td  th:text="${c.memberId}"></td>
-										<td>
-											<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
-												수정
-											</a>
-										</td>
-										<td>
-											<a id="searchDetailContractor" th:href="@{/team03/contractorContract/Contractor/k3DetailContractor}">
-												상세조회
-											</a>
-										</td>
 									</tr>
 								</tbody>						
 							</table>
@@ -135,6 +130,14 @@
 						<!--End card body -->
 					</div>
 					<!--End 조회 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
+						<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>					
+						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
+					
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

@@ -14,7 +14,7 @@
 	</resultMap> -->
 	
 	<!-- 거래처 등록하기 -->
-	<insert id="k3AddContractor" parameterType="K3ContractorDetail">
+	<insert id="k3AddContractor" parameterType="K3DetailContractor">
 		INSERT INTO 
 				k3_tb_contractor_staff
 					(contractorId, mainBusinessCode, contractorPw, 
@@ -27,7 +27,7 @@
 					#{contractorName}, #{contractorRepresentative}, #{contractorPhone}, 
 					#{contractorSuperviser}, #{contractorSuperviserPhone});
 	</insert>
- 	<insert id="k3AddContractorDeatail" parameterType="K3ContractorDetail">
+ 	<insert id="k3AddDetailContractor" parameterType="K3DetailContractor">
  		INSERT INTO 
 				k3_tb_contractor
 					(contractorCode, mainBusinessCode, contractorBusinessNum, 
@@ -44,7 +44,12 @@
 					'm_c17', curdate(), #{contractorBusinessClientNum}, 
 					#{contractorDevision}, #{contractorFax}, #{contractorState});
 	</insert>
-	
+
+	<!-- 거래처 상세정보 불러오기 -->
+	<select id="K3GetDetailContractorList" resultType="K3DetailContractor">
+		
+	</select>
+
 	<!-- 거래처 목록 간단 현황으로 불러오기 -->
 	<select id="K3GetContractorList" resultType="K3Contractor">
 		SELECT
