@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import k3.check.ahs.dto.K3LaydownCheck;
+import k3.check.ahs.dto.K3ShipmentCheck;
 import k3.check.ahs.service.K3CheckService;
+import k3.release.ahs.dto.K3Release;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.service.K3WarehousingService;
 
@@ -38,10 +40,13 @@ public class K3CheckController {
 		
 		return "team03/goodsManagement/check/k3AddlLaydownCheck";
 	}
-	//출하검수 현황이동
+	//출하검수 현황이동(초기화면)
 	@GetMapping("/k3ShipmentCheckList")
-	public String k3GetShipmentCheckList() {
-		
+	public String k3GetShipmentCheckList(Model model) {
+		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
+		model.addAttribute("title", "출고관리");
+		model.addAttribute("subtitle", "출하검수");
+		model.addAttribute("K3ShipmentCheck", K3ShipmentCheck);
 		return "team03/goodsManagement/check/k3ShipmentCheckList";
 	}
 	//입하검수 현황이동(초기화면)
