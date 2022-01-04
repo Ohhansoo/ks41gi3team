@@ -6,8 +6,6 @@ public class K3Checkpoint {
 	private String vehicleCode;
 	private String vehicleArrivalDate;
 	private String vehicleShipmentDate;
-	
-	
 	public String getVehicleCheckpointCode() {
 		return vehicleCheckpointCode;
 	}
@@ -38,26 +36,12 @@ public class K3Checkpoint {
 	public void setVehicleShipmentDate(String vehicleShipmentDate) {
 		this.vehicleShipmentDate = vehicleShipmentDate;
 	}
-	
-	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Checkpoint [vehicleCheckpointCode=");
-		builder.append(vehicleCheckpointCode);
-		builder.append(", driverId=");
-		builder.append(driverId);
-		builder.append(", vehicleCode=");
-		builder.append(vehicleCode);
-		builder.append(", vehicleArrivalDate=");
-		builder.append(vehicleArrivalDate);
-		builder.append(", vehicleShipmentDate=");
-		builder.append(vehicleShipmentDate);
-		builder.append("]");
-		return builder.toString();
+		return "K3Checkpoint [vehicleCheckpointCode=" + vehicleCheckpointCode + ", driverId=" + driverId
+				+ ", vehicleCode=" + vehicleCode + ", vehicleArrivalDate=" + vehicleArrivalDate
+				+ ", vehicleShipmentDate=" + vehicleShipmentDate + "]";
 	}
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,8 +53,6 @@ public class K3Checkpoint {
 		result = prime * result + ((vehicleShipmentDate == null) ? 0 : vehicleShipmentDate.hashCode());
 		return result;
 	}
-	
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -107,7 +89,6 @@ public class K3Checkpoint {
 			return false;
 		return true;
 	}
-	
 	
 	
 	

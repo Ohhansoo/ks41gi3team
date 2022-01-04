@@ -12,24 +12,17 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">입출하 등록</button>
-						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">입출하 삭제</button>				
-						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">입출하 출력</button>				
-					</div>
-					<!--End 버튼 영역 -->
 					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
-							<h4>입출하 등록</h4>
+							<h4>입출하 차량 기록 등록</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-							<form id="userInfo" th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
+							<form th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
