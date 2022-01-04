@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" th:src="@{/adminLTE/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+		</div>
+					<th:block layout:fragment="customContents">
+
+					</th:block>
+			<!-- END Contents -->
+		<!-- End Content Wrapper -->
+		
+		<!-- begin footer -->
+		<!-- END footer -->
+
+	<div th:replace="fragments/javascript :: javaScriptFragment"></div>
+</body>
+</html>
