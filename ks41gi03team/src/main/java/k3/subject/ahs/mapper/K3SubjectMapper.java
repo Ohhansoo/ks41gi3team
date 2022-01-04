@@ -12,6 +12,9 @@ import k3.vehicle.ahs.dto.K3Vehicle;
 @Mapper
 public interface K3SubjectMapper {
 	
+	//계정과목 수정처리
+	public int modifySubject(K3Subject k3subject);
+	
 	//계정과목 수정 폼으로 이동
 	public K3Subject getModifySubject(String subjectCode);
 	

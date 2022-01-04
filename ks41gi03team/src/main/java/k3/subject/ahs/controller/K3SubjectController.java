@@ -28,9 +28,19 @@ public class K3SubjectController {
 	}
 	
 	
+	
+	//계정과목 수정 처리
+	@PostMapping("/k3ModifySubject")
+	public String modifySubject(K3Subject k3subject) {
+		//회원수정
+		k3SubjectService.modifySubject(k3subject);
+		
+		return "redirect:/team03/finance/subject/k3SubjectList";
+	}
+	
 	//계정과목 수정 폼으로 이동(값 할당해서 넣기)
 	@GetMapping("/k3ModifySubject")
-	public String k3ModifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode, Model model) {
+	public String modifySubject(@RequestParam(value="subjectCode", required = false) String subjectCode, Model model) {
 		if(subjectCode != null && !"".equals(subjectCode)) {
 			K3Subject subjectInfo = k3SubjectService.getModifySubject(subjectCode);
 			model.addAttribute("subjectInfo", subjectInfo);
