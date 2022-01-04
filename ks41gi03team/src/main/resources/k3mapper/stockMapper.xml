@@ -37,7 +37,7 @@
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			ON
-			p.contractorId = c.contractorId
+			w.contractorId = c.contractorId
 			INNER JOIN
 			k3_tb_total_category AS t
 			ON
@@ -62,7 +62,7 @@
 			INNER JOIN
 			k3_tb_contractor_staff AS s
 			ON
-			p.contractorId = s.contractorId
+			w.contractorId = s.contractorId
 			GROUP BY s.contractorName, w.laydownGoodsName;
 	</select>
 
