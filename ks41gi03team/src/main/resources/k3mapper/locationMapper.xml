@@ -3,5 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.location.ahs.mapper.K3LocationMapper">
-
+	<!-- <insert id="k3AddLocationCode" parameterType="K3Location">
+		INSERT INTO k3_tb_location(locationCode)VALUES(#{locationCode});
+	</insert> -->
+	<insert id="k3AddLocation" parameterType="K3Location">
+		INSERT INTO k3_tb_location(
+			 locationCode
+			,locationNote
+			,locationState
+		)VALUES(
+			 #{locationCode}
+			,#{locationNote}
+			,#{locationState});
+	</insert>
 </mapper>
