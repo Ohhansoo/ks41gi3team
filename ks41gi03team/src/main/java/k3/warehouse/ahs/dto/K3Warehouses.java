@@ -1,25 +1,26 @@
 package k3.warehouse.ahs.dto;
 
 public class K3Warehouses {
-	private int warehouseCode;
-	private String bildingName;
-	private String floorNumber;
+	private String codeNumber;
 	private String warehouseName;
+	private String floorNumber;
+	private String warehouseNumber;
 	private int warehouseArea;
 	private int warehouseFlat;
 	private String warehouseType;
+	private int	warehouseDockNumber;
 	private String warehouseOperation;
-	public int getWarehouseCode() {
-		return warehouseCode;
+	public String getCodeNumber() {
+		return codeNumber;
 	}
-	public void setWarehouseCode(int warehouseCode) {
-		this.warehouseCode = warehouseCode;
+	public void setCodeNumber(String codeNumber) {
+		this.codeNumber = codeNumber;
 	}
-	public String getBildingName() {
-		return bildingName;
+	public String getWarehouseName() {
+		return warehouseName;
 	}
-	public void setBildingName(String bildingName) {
-		this.bildingName = bildingName;
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
 	}
 	public String getFloorNumber() {
 		return floorNumber;
@@ -27,11 +28,11 @@ public class K3Warehouses {
 	public void setFloorNumber(String floorNumber) {
 		this.floorNumber = floorNumber;
 	}
-	public String getWarehouseName() {
-		return warehouseName;
+	public String getWarehouseNumber() {
+		return warehouseNumber;
 	}
-	public void setWarehouseName(String warehouseName) {
-		this.warehouseName = warehouseName;
+	public void setWarehouseNumber(String warehouseNumber) {
+		this.warehouseNumber = warehouseNumber;
 	}
 	public int getWarehouseArea() {
 		return warehouseArea;
@@ -51,6 +52,12 @@ public class K3Warehouses {
 	public void setWarehouseType(String warehouseType) {
 		this.warehouseType = warehouseType;
 	}
+	public int getWarehouseDockNumber() {
+		return warehouseDockNumber;
+	}
+	public void setWarehouseDockNumber(int warehouseDockNumber) {
+		this.warehouseDockNumber = warehouseDockNumber;
+	}
 	public String getWarehouseOperation() {
 		return warehouseOperation;
 	}
@@ -60,24 +67,26 @@ public class K3Warehouses {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Warehouses [warehouseCode=");
-		builder.append(warehouseCode);
-		builder.append(", bildingName=");
-		builder.append(bildingName);
-		builder.append(", floorNumber=");
-		builder.append(floorNumber);
+		builder.append("K3Warehouses [codeNumber=");
+		builder.append(codeNumber);
 		builder.append(", warehouseName=");
 		builder.append(warehouseName);
+		builder.append(", floorNumber=");
+		builder.append(floorNumber);
+		builder.append(", warehouseNumber=");
+		builder.append(warehouseNumber);
 		builder.append(", warehouseArea=");
 		builder.append(warehouseArea);
 		builder.append(", warehouseFlat=");
 		builder.append(warehouseFlat);
 		builder.append(", warehouseType=");
 		builder.append(warehouseType);
+		builder.append(", warehouseDockNumber=");
+		builder.append(warehouseDockNumber);
 		builder.append(", warehouseOperation=");
 		builder.append(warehouseOperation);
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
 }
