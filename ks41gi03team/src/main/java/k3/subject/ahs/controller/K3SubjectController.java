@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.service.K3SubjectService;
-import k3.vehicle.ahs.dto.K3Vehicle;
 
 @Controller
 @RequestMapping(value="/team03/finance/subject")
@@ -28,11 +27,22 @@ public class K3SubjectController {
 	}
 	
 	
+	//계정과목 삭제처리
+	@PostMapping("/k3DeleteCategory")
+	public String deleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3SubjectService.deleteSubject(deleteList);
+		//Map<String, List<String>> map = new HashMap<String, List<String>>();
+		//map.put("deleteList", deleteList);
+		//log.info("DeleteCategory 전송결과 : " + map.values());
+		log.info("DeleteCategory 전송결과 : " + result);
+		return "redirect:/team03/finance/subject/k3SubjectList";
+	}
+	
 	
 	//계정과목 수정 처리
 	@PostMapping("/k3ModifySubject")
 	public String modifySubject(K3Subject k3subject) {
-		//회원수정
+		//계정과목 수정
 		k3SubjectService.modifySubject(k3subject);
 		
 		return "redirect:/team03/finance/subject/k3SubjectList";
