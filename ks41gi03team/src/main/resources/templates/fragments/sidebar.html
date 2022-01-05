@@ -32,147 +32,58 @@
 					<!-- End User Info -->	
 				</div>
 	      		<!-- End Sidebar user panel -->
-	
-	     
+				
 				<!-- Sidebar Menu -->
 				<nav class="mt-2" >
 					<ul class="nav nav-pills nav-sidebar flex-column navTextColor" data-widget="treeview" role="menu" data-accordion="false">
 						<!-- User Management Menu -->
+						
+				<!-- companymanagement Menu -->
 						<li class="nav-item">
 							<a href="#" class="nav-link">
-							<i class="nav-icon fas fa-angle-right"></i>
-							<p>회원관리-아현 </p>
+								<i class="nav-icon fas fa-angle-right"></i>
+								<p>회원관리-아현</p>
 							</a>
 							<!-- 회원관리 depth -->
 							<ul class="nav nav-treeview">
-								<!-- 직원관리 -->
+								<!-- 자사정보 관리 -->
 								<li class="nav-item">
-									<a th:href="@{#}" class="nav-link">
+									<a th:href="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>자사정보 관리 !
-											<i class="right fas fa-angle-left"></i>
-										</p>
-									</a>
-									<!-- 3depth -->	
-									<ul class="nav nav-treeview">
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>자사정보 등록 X</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>자사정보 현황 #</p>
-											</a>
-										</li>
-									</ul>
-									<!--End 3depth -->												
+										<p>자사정보 관리</p>
+									</a>									
 								</li>
-								<!-- 직원관리 -->
+								<!-- 직원 관리 -->
 								<li class="nav-item">
-									<a th:href="@{#}" class="nav-link">
+									<a th:href="@{/team03/companymanagement/member/k3MemberUserList}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>직원 관리 !
-											<i class="right fas fa-angle-left"></i>
-										</p>
+										<p>직원 관리 !</p>
 									</a>
-									<!-- 3depth -->	
-									<ul class="nav nav-treeview">
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>자사정보 등록 X</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>자사정보 현황 #</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>직원 등록 #</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/member/k3MemberUserList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>직원 현황 #</p>
-											</a>
-										</li>											
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/retiredmemberuser/k3AddRetiredMemberUserList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>퇴사직원 등록 #</p>
-											</a>
-										</li>											
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>퇴사직원 현황 #</p>
-											</a>
-										</li>											
-									</ul>
-									<!--End 3depth -->												
 								</li>
-								<!-- 권한 관리 -->
+								<!-- 퇴사직원 관리 -->
 								<li class="nav-item">
-									<a th:href="@{#}" class="nav-link">
+									<a th:href="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>권한 관리 #
-											<i class="right fas fa-angle-left"></i>
-										</p>
-									</a>
-									<!-- 3depth -->	
-									<ul class="nav nav-treeview">
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/level/k3AddMemberUserLevelList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>권한 등록#</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/level/k3MemberUserLevelList}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>권한 현황 #</p>
-											</a>
-										</li>											
-									</ul>
-									<!--End 3depth -->											
+										<p>퇴사직원관리 #</p>
+									</a>										
 								</li>
-								<!-- 로그인 관리 -->
+								<!-- 권한관리 -->
 								<li class="nav-item">
-									<a th:href="@{#}" class="nav-link">
+									<a th:href="@{/team03/companymanagement/level/k3MemberUserLevelList}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>로그인 관리 #
-											<i class="right fas fa-angle-left"></i>
-										</p>
-									</a>
-									<!-- 3depth -->	
-									<ul class="nav nav-treeview">
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/login/k3MemberUserLogin}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>로그인#</p>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a th:href="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" class="nav-link">
-												<i class="far fa-dot-circle nav-icon"></i>
-												<p>로그인 현황 #</p>
-											</a>
-										</li>											
-									</ul>
-									<!--End 3depth -->											
+										<p>권한관리 #</p>
+									</a>										
 								</li>
+								<!-- 로그인관리 -->
+								<li class="nav-item">
+									<a th:href="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>로그인 관리 #</p>
+									</a>									
 							</ul>
-							<!-- End 회원관리 depth -->	
+							<!-- 회원관리 depth-->
 						</li>
-						<!-- End User Management Menu -->
+						<!-- companymanagement Menu -->	
 	          			
 	          			<!-- Contract Management Menu -->
 						<li class="nav-item">

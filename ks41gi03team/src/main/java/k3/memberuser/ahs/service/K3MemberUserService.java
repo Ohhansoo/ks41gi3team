@@ -39,13 +39,19 @@ public class K3MemberUserService {
 			}
 			return memberuserList;
 		}
-	
+	//직원 삭제처리
+	public int k3DeleteMemberUser(List<String> deleteList) {
+		int result = memberuserMapper.k3DeleteMemberUser(deleteList);
+		return result;
+	}
+		
 	//수정폼 이동
-	
 	  public K3MemberUser K3MemberUserInfoBycode(String memberId) { 
 		  K3MemberUser k3MemberUser = memberuserMapper.K3MemberUserInfoBycode(memberId);
 		  return k3MemberUser; 
 	  }
+	  
+	//수정처리
 	 
 	//직원여부체크
 	public int getMemberByMemberId(String memberId) {

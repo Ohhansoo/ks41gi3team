@@ -27,11 +27,31 @@ public class K3MemberUserController {
 	public K3MemberUserController(K3MemberUserService memberuserService) {
 		this.memberuserService = memberuserService;
 	}
-
+	//직원정보 조회
+	@PostMapping("/k3MemberUserList")
+	public String k3GetMemberUSerSearchList(@RequestParam(value="memberuserKey", required = false) String memberuserKey,
+																	  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
+																	  Model model) {
+		
+		return null;
+	}
 	
-	  //직원정보 수정폼 이동
-	  
-	  @GetMapping("/k3ModifyMemberUserList") 
+	//직원정보 삭제처리
+	@PostMapping("/k3DeleteMemberUser")
+	public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false)List<String>deleteList) {
+		int result = memberuserService.k3DeleteMemberUser(deleteList);
+		log.info("DeleteMemberUser 전송결과 : "  + result);
+		return "redirect:/team03/companymanagement/member/k3MemberUserList";
+	}
+	
+	/*
+	 * //직원정보 수정처리
+	 * 
+	 * @PostMapping("/k3ModifyMemberUserList") public String k3ModifyMemberUser
+	 */
+	
+	//직원정보 수정폼 이동
+	@GetMapping("/k3ModifyMemberUserList") 
 	  public String k3ModifyMemberUser(@RequestParam(value="memberId", required = false) String memberId, Model model) { 
 		  log.info("memberId = {}", memberId);
 	  
@@ -71,7 +91,7 @@ public class K3MemberUserController {
 	}
 	
 	//직원조회
-	@GetMapping("k3MemberUserList")
+	@GetMapping("/k3MemberUserList")
 	public String getMemberUserList(Model model) {
 		List<K3MemberUser> memberuserList = memberuserService.getMemberUserList();
 		
