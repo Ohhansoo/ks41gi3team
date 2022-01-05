@@ -31,4 +31,8 @@ public class K3DriverService {
 	public K3Driver getModifyDriver(String driverId) {
 		return k3DriverMapper.getModifyDriver(driverId);
 	}
+	
+	public Integer modifyDriver(K3Driver k3Driver) {
+		return k3DriverMapper.modifyDriver(k3Driver);
+	}
 }

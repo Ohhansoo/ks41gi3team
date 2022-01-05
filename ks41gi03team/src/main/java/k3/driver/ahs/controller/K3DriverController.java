@@ -28,20 +28,6 @@ public class K3DriverController {
 		this.k3DriverService = k3DriverService;
 	}
 	
-	@PostMapping("/k3AddDriver")
-	public String addDriver(K3Driver k3Driver) {
-		Integer result = k3DriverService.addDriver(k3Driver);
-		log.info("AddDriver" + result);
-		log.info("AddDriver" + k3Driver);
-		return "redirect:/team03/delivery/driver/k3DriverList";
-	}
-	
-	@GetMapping("/k3AddDriver")
-	public String driverCheck(Model model) {
-		model.addAttribute("title", "차량기사 등록");
-		return "team03/delivery/driver/k3AddDriver";
-	}
-
 	@GetMapping("/k3DriverList")
 	public String getDriverList(Model model) {
 		List<K3Driver> driverList = k3DriverService.getDriverList();
@@ -49,6 +35,21 @@ public class K3DriverController {
 		model.addAttribute("driverList", driverList);
 		
 		return "team03/delivery/driver/k3DriverList";
+	}
+	
+	
+	@GetMapping("/k3AddDriver")
+	public String driverCheck(Model model) {
+		model.addAttribute("title", "차량기사 등록");
+		return "team03/delivery/driver/k3AddDriver";
+	}
+
+	@PostMapping("/k3AddDriver")
+	public String addDriver(K3Driver k3Driver) {
+		Integer result = k3DriverService.addDriver(k3Driver);
+		log.info("AddDriver" + result);
+		log.info("AddDriver" + k3Driver);
+		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 	
 	@GetMapping("/k3ModifyDriver")
@@ -63,7 +64,15 @@ public class K3DriverController {
 		}
 		model.addAttribute("title", "기사수정화면");
 		
-		return "team03/delivery/driver/k3ModifyDriver";
+		return "team03/delivery/driver/k3ModifyDriver'";
+	}
+	
+	@PostMapping("/k3ModifyDriver")
+	public String modifyDriver(K3Driver k3Driver) {
+		
+		k3DriverService.modifyDriver(k3Driver);
+		
+		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 
 }
