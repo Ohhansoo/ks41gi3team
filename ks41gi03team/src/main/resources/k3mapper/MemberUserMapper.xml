@@ -10,6 +10,24 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
+	<delete id="">
+		DELETE 
+			m
+		FROM 
+			k3_tb_member AS m 
+		WHERE 
+			memberId = #{memberId};
+	</delete>
+
+	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member AS m
+		WHERE
+			m.memberId = #{memberId};
+	</select>
+
 	<insert id="AddMemberUser">
 		INSERT INTO 
    		k3_tb_member
