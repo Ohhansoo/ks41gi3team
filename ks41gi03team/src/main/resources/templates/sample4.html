@@ -8,20 +8,34 @@
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
-				<!-- 콘텐츠 콘테이너 시작 -->
+		<!-- 메인 컨텐츠 시작-->
 				<div class="container-fluid">
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							조회
-						</div>
-						<!--End card header -->
-						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{#}" method="post">
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+						<!-- card header Start -->
+								<div class="card-header">
+									<div class="card-title">타이틀</div>
+								</div>
+						<!-- card header End -->
+						<!-- card body Start -->	
+								<div class="card-body-p0">
+									<div class="mailbox-controls">
+										<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+											<i class="far fa-square"></i>
+											<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+									   <!-- <i class="far fa-check-square"></i> -->												
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="far fa-trash-alt"></i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-print"></i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-share">등록</i>
+										</button>
+										<div class="float-right">
 											<div class="input-group input-group-sm">
 												<select class="form-control-sm">
 													<option value="">호호</option>
@@ -34,39 +48,15 @@
 													<div class="btn btn-default">
 														<i class="fas fa-search"></i>
 													</div>
-													<button type="button" class="btn btn-default btn-sm">
-														<i class="fas fa-print"></i>
-													</button>
 												</div>
 											</div>
-								</form>
-								<!--End inputbox 1 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
-					</div>
-					<!--End 상위 카드 영역 -->
-					<!--하위 카드 영역 -->
-					<div class="card">
-						<div class="row">
-							<div class="col-12">
-						<!-- card header Start -->
-								<div class="card-header">
-									<div class="card-title">타이틀 제목</div>
-								</div>
-						<!-- card header End -->
-						<!-- card body Start -->	
-								<div class="card-body-p0">
-									
+										</div>
+									</div>
 									<div class="table-responsive mailbox-messages">
 										<table class="table table-holder mailbox-messages">
 											<thead>
 												<tr>
-													<th><button type="button" class="btn btn-default btn-sm checkbox-toggle">
-													<i class="far fa-square"></i>
-													<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
-											  		<!-- <i class="far fa-check-square"></i> -->												
-													</button></th>
+													<th>선택</th>
 													<th>수정</th>
 													<th>무릎</th>
 													<th>발</th>
@@ -184,22 +174,9 @@
 						<!-- card body End -->								
 							</div>
 						</div>		
-					</div>				
-					<!--End 하위 카드 영역 -->
-					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-
-										
-					<div class="d-flex justify-content-center">					
-						<button class="btn btn-outline-info ahsbtn4" type="button">등록</button>			
-						<button class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">삭제</button>			
-					</div>	
-					
-			
-					</div>
-					<!--End 버튼 영역 -->
+					</div>					
 				</div>
-				<!-- End 콘텐츠 콘테이너 -->
+			<!-- 메인 컨텐츠 끝 -->
 			</div>
 		</div>
 	</th:block>

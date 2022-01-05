@@ -18,7 +18,7 @@
 		DELETE
 			w
 		from
-			k3_tb_warehouse AS w
+			k3_tb_mainWarehouse AS w
 		WHERE
 			w.warehouseCode = #{warehouseCode};
 	</delete>
@@ -26,15 +26,16 @@
 	<select id="getK3ModifyWarehouseInfoByWarehouseCode" parameterType="int" resultType="K3Warehouses">
 		SELECT
 			 w.warehouseCode
-			,w.bildingName
-			,w.floorNumber
 			,w.warehouseName
+			,w.floorNumber
+			,w.warehouseNumber
 			,w.warehouseArea
 			,w.warehouseFlat
 			,w.warehouseType
+			,w.warehouseDockNumber
 			,w.warehouseOperation
 		FROM
-			k3_tb_warehouse AS w
+			k3_tb_mainWarehouse AS w
 		WHERE
 			w.warehouseCode = #{warehouseCode};
 	</select>
@@ -44,47 +45,53 @@
 			k3_tb_warehouse AS w
 		SET
 			 w.warehouseCode = #{warehouseCode}
-			,w.bildingName = #{bildingName}
-			,w.floorNumber = #{floorNumber}
 			,w.warehouseName = #{warehouseName}
+			,w.floorNumber = #{floorNumber}
+			,w.warehouseNumber = #{warehouseNumber}
 			,w.warehouseArea = #{warehouseArea}
 			,w.warehouseFlat = #{warehouseFlat}
 			,w.warehouseType = #{warehouseType}
+			,w.warehouseDockNumber = #{warehouseDockNumber}
 			,w.warehouseOperation = #{warehouseOperation}
 		WHERE
 			w.warehouseCode = #{warehouseCode};
 	</update>
 		<!-- 창고등록처리 -->
 	<insert id="k3AddWarehouse" parameterType="K3Warehouses">
-		INSERT INTO k3_tb_warehouse
-			(bildingName
+		INSERT INTO k3_tb_mainWarehouse
+			(warehouseName
 			,floorNumber
-			,warehouseName
+			,warehouseNumber
 			,warehouseArea
 			,warehouseFlat
 			,warehouseType
+			,warehouseDockNumber
 			,warehouseOperation)
 		VALUES
-			(#{bildingName}
+			(#{warehouseName}
 			,#{floorNumber}
-			,#{warehouseName}
+			,#{warehouseNumber}
 			,#{warehouseArea}
 			,#{warehouseFlat}
 			,#{warehouseType}
+			,#{warehouseDockNumber}
 			,#{warehouseOperation});
 	</insert>
 		<!-- 창고전체조회 -->
 	<select id="getK3WarehouseList" resultType="K3Warehouses">
 		SELECT
 			 warehouseCode
-			,bildingName
-			,floorNumber		
 			,warehouseName
+			,floorNumber		
+			,warehouseNumber
 			,warehouseArea
 			,warehouseFlat
 			,warehouseType
+			,warehouseDockNumber
 			,warehouseOperation
 		FROM	
-			k3_tb_warehouse;
+			k3_tb_mainWarehouse
+		ORDER bY
+			warehouseCode;	
 	</select>	
 </mapper>

@@ -29,7 +29,7 @@ public class K3WarehouseController {
 	 * 창고등록(처리)
 	 */
 	@PostMapping("/k3AddWarehouse")
-	public String getK3AddWarehouse(K3Warehouses k3Warehouses,Model model) {
+	public String getK3AddWarehouse(K3Warehouses k3Warehouses) {
 		k3WarehouseService.k3AddWarehouse(k3Warehouses);
 		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
 	}

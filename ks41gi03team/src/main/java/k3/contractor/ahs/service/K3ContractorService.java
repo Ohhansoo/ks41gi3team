@@ -38,10 +38,10 @@ public class K3ContractorService {
 	}
 	
 	//거래처 리스트(상세) 모달창
-	public List<K3DetailContractor> K3GetDetailContractorList(){
-		List<K3DetailContractor> detailContractorList = k3ContractorMapper.K3GetDetailContractorList(); 
+	public K3DetailContractor K3GetDetailContractor(String contractorCode){
+		K3DetailContractor k3DetailContractor = k3ContractorMapper.K3GetDetailContractor(contractorCode); 
 		
-		return detailContractorList;
+		return k3DetailContractor;
 	}
 	
 	//거래처 리스트(간단) 현황에 불러오기
