@@ -60,22 +60,21 @@
 						}
 					}
 					if(centerCodeList == null && brandCodeList == null && lineCodeList != null && rackCodeList != null && cellCode != null){
-						for (var l = 0; l < rackCodeList.length; l++) {
-							for (var g = 0; g < cellCodeList.length; g++) {
-								var allCode =  lineCodeList[k] + "-" + rackCodeList[l] + "-" + cellCodeList[g];	
-								var jsonObj = {};
-								jsonObj['locationCode'] = allCode;
-								jsonObj['locationNote'] = locationNote;
-								jsonObj['locationState'] = locationState;
-								locationCode.push(jsonObj);
+						for (var k = 0; k < lineCodeList.length; k++) {
+							for (var l = 0; l < rackCodeList.length; l++) {
+								for (var g = 0; g < cellCodeList.length; g++) {
+									var allCode =  lineCodeList[k] + "-" + rackCodeList[l] + "-" + cellCodeList[g];	
+									var jsonObj = {};
+									jsonObj['locationCode'] = allCode;
+									jsonObj['locationNote'] = locationNote;
+									jsonObj['locationState'] = locationState;
+									locationCode.push(jsonObj);
+								}
 							}
 						}	
 					}
-					console.log(JSON.stringify(locationCode));
-					//var addLocationFormObj =  $('#addLocationForm');
-					//addLocationFormObj.append('locationCodeList',	JSON.stringify(locationCode));
-					//addLocationFormObj.submit();
-					
+					/* console.log(JSON.stringify(locationCode)); */
+		
 					$.ajax({
 						type : 'POST',
 						url : '/team03/spaceBusiness/location/k3AddLocation',
@@ -83,8 +82,8 @@
 						contentType : 'application/json; charset=utf-8',
 						dataType : 'json'
 					}).done(function(data) {
-						
-						location.href = '/team03/spaceBusiness/location/k3LocationList';
+						console.log(data);
+						 
 						
 					}).fail(function(r) {
 						var message = JSON.parse(r.responseText);
@@ -92,7 +91,7 @@
 						alert('서버 오류');
 					});
 					
-				/* $('#addLocationForm').submit();	 */
+					/* 	 */
 					
 				});
 				
@@ -152,6 +151,87 @@
 								</div>	
 							</div>
 						</div>					
+					</div>
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+						<!-- card header Start -->
+								<div class="card-header">
+									<div class="card-title">타이틀</div>
+								</div>
+						<!-- card header End -->
+						<!-- card body Start -->	
+								<div class="card-body-p0">
+									<div class="mailbox-controls">
+										<!-- <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+											<i class="far fa-square"></i> -->
+											<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+									   <!-- <i class="far fa-check-square"></i> -->												
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-trash">삭제</i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-print">출력</i>
+										</button>
+										<button type="button" class="btn btn-default btn-sm">
+											<i class="fas fa-share">등록</i>
+										</button>
+										<div class="float-right">
+											<div class="input-group input-group-sm">
+												<select class="form-control-sm">
+													<option value="">호호</option>
+													<option value="">하하</option>
+													<option value="">흐흐</option>
+													<option value="">히히</option>
+												</select>
+												<input type="text" class="form-control" placeholder="검색">
+												<div class="input-group-append">
+													<div class="btn btn-default">
+														<i class="fas fa-search"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive mailbox-messages">
+										<table class="table table-holder mailbox-messages">
+											<thead>
+												<tr>
+													<th>
+														<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+															<i class="far fa-square"></i>
+														</button>
+													</th>	
+													<th>수정</th>
+													<th>로케이션코드</th>
+													<th>비고</th>
+													<th>상태</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:if="${not #lists.isEmpty(locationData)}" th:each="ld :${locationData}">
+													<td>
+														<div class="icheck-primary">
+															<input type="checkbox" id="check1"/>
+															<label for="check1"></label>
+														</div>
+													</td>
+													<td>
+														<button type="button" class="btn btn-default btn-sm">
+  															<i class="fas fa-pencil-alt">수정</i>
+														</button>
+													</td>
+													<td th:text="${ld.locationCode}"></td>
+													<td th:text="${ld.locationNote}"></td>
+													<td th:text="${ld.locationState}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>		
+								</div>
+						<!-- card body End -->								
+							</div>
+						</div>		
 					</div>	
 				</div>
 			</div>

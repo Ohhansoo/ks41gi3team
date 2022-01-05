@@ -1,6 +1,7 @@
 package k3.location.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,5 +13,5 @@ public interface K3LocationMapper {
 	/* public int k3AddLocationCode(String allCode); */
 	
 	/* public int k3AddLocationCode(String allCode); */
-	public int k3AddLocation(List<K3Location> k3LocationList);
+	public int k3AddLocation(Map<String,Object> insertMap);
 }

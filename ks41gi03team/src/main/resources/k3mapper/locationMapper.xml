@@ -10,17 +10,16 @@
 			#{locationCode}
 		);
 	</insert> -->
-	<insert id="k3AddLocation" parameterType="K3Location">
+	<insert id="k3AddLocation" parameterType="java.util.Map">
 		INSERT INTO k3_tb_location(
 			 locationCode
 			,locationNote
 			,locationState
 		)VALUES
-		<foreach collection="List" item="item" separator=",">
-		(
-			 ${item.locationCode}
-			,${item.locationNote}
-			,${item.locationState});
+		<foreach collection="list" item="item" separator=",">
+		(#{item.locationCode}
+		,#{item.locationNote}
+		,#{item.locationState});
 		</foreach>	
 	</insert>
 </mapper>
