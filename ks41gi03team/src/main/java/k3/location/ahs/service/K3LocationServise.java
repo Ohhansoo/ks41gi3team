@@ -1,5 +1,7 @@
 package k3.location.ahs.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import k3.location.ahs.dto.K3Location;
@@ -13,11 +15,8 @@ public class K3LocationServise {
 		this.k3LocationMapper = k3LocationMapper;
 	}
 
-	/*
-	 * public int k3AddLocationCode(String allCode) { return
-	 * k3LocationMapper.k3AddLocationCode(allCode); }
-	 */
-	public int k3AddLocation(String allCode) {
-		return k3LocationMapper.k3AddLocation(allCode);
+	
+	public int k3AddLocation(List<K3Location> k3LocationList) { 
+		return k3LocationMapper.k3AddLocation(k3LocationList); 
 	}
 }

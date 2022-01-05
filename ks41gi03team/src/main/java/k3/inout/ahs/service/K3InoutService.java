@@ -14,15 +14,15 @@ public class K3InoutService {
 			
 	
 	//매퍼에게 의존성 주입
-	private K3InoutMapper k3InoutMapper;
+	private final K3InoutMapper k3InoutMapper;
 	
 	public K3InoutService(K3InoutMapper k3InoutMapper) {
 		this.k3InoutMapper = k3InoutMapper;
 	}
 	
 	//입출금 내역 등록
-	public int inoutAdd(K3Inout k3Inout) {
-		int result = k3InoutMapper.inoutAdd(k3Inout);
+	public int addInout(K3Inout k3Inout) {
+		int result = k3InoutMapper.addInout(k3Inout);
 		return result;
 	}
 	

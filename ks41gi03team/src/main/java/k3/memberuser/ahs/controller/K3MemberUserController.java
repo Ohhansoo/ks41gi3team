@@ -27,17 +27,21 @@ public class K3MemberUserController {
 	public K3MemberUserController(K3MemberUserService memberuserService) {
 		this.memberuserService = memberuserService;
 	}
-	//직원정보 수정폼 이동
-	@GetMapping("/k3ModifyMemberUserList")
-	public String k3ModifyMemberUser(@RequestParam(value="memberId", required = false) String memberId, Model model) {
-		log.info("memberId = {}", memberId);
-		
-		K3MemberUser k3MemberUser = memberuserService.K3MemberUserInfoBycode(memberId);
-		model.addAttribute("title","직원정보 관리");
-		model.addAttribute("subtitle","직원정보 수정");
-		model.addAttribute("k3MemberUser",k3MemberUser);
-		return "team03/companymanagement/member/k3ModifyMemberUserList";
-	}
+
+	/*
+	 * //직원정보 수정폼 이동
+	 * 
+	 * @GetMapping("/k3ModifyMemberUserList") public String
+	 * k3ModifyMemberUser(@RequestParam(value="memberId", required = false) String
+	 * memberId, Model model) { log.info("memberId = {}", memberId);
+	 * 
+	 * K3MemberUser k3MemberUser =
+	 * memberuserService.K3MemberUserInfoBycode(memberId);
+	 * model.addAttribute("title","직원정보 관리");
+	 * model.addAttribute("subtitle","직원정보 수정");
+	 * model.addAttribute("k3MemberUser",k3MemberUser); return
+	 * "team03/companymanagement/member/k3ModifyMemberUserList"; }
+	 */
 	//중복확인 
 	@PostMapping("/k3IdCheck")
 	@ResponseBody

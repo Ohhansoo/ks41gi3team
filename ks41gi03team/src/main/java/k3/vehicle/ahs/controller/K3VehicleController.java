@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +25,14 @@ public class K3VehicleController {
 	
 	public K3VehicleController(K3VehicleService k3VehicleService) {
 		this.k3VehicleService = k3VehicleService;
+	}
+	
+	@PostMapping("/k3AddVehicle")
+	public String addVehicle(K3Vehicle k3Vehicle) {
+		Integer result = k3VehicleService.addVehicle(k3Vehicle);
+		log.info("AddVehicle" + result);
+		log.info("AddVehicle" + k3Vehicle);
+		return "redirect:/team03/delivery/vehicle/k3VehicleList";
 	}
 	
 	@GetMapping("/k3AddVehicle")
