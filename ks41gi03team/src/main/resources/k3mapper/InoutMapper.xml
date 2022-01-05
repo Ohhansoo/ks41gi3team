@@ -4,29 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.inout.ahs.mapper.K3InoutMapper">
 	
-	<insert id="inoutAdd">
+	<insert id="addInout">
 	INSERT INTO k3_tb_as
 	(
-		asCode,
-		asName,
-		asGCode,
-		asUse,
-		asCorrect,
-		memberId,
-		asRegDate,
-		asYear
+		inoutRec,
+		mainBusinessCode,
+		memberId
+		
 		)
 	VALUES
 	(
-		#{subjectCode},
-		#{subjectName},
-		#{subjectGCode},
-		#{isUse},
-		#{isCorrect},
-		#{regName},
-		#{regDate},
-		#{applyYear}
-	);
+		#{inoutRec},
+		#{mainBusinessCode},
+		#{memberId},
+		
+	); 
 	
 	<!-- (
 		97999,
@@ -44,17 +36,23 @@
 		
 	
 	<select id="getInoutList" resultType="K3Inout">
-	select
-		a.asName AS subjectName,
-		a.memberId AS regName,
-		a.asRegDate AS regDate,
-		a.asCode AS subjectCode,
-		a.asGCode AS subjectGCode,
-		a.asUse AS isUse,
-		a.asCorrect AS isCorrect,
-		a.asYear AS applyYear
-	FROM
-		k3_tb_as AS a;
+	SELECT
+		 inoutRec
+		,mainBusinessCode
+		,memberId
+		,memberName
+		,inoutRegDate
+		,contractorDevision
+		,inoutTradeDate
+		,inoutName
+		,inoutPrice
+		,inoutPreDate
+		,inoutCategory
+		,inoutMemo
+		,inoutCheck
+		,inoutLast
+		,inoutResult
+	FROM k3_tb_inout;
 	</select>
 
 </mapper>
