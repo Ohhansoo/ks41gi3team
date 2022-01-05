@@ -21,13 +21,13 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
 		
 		if(sessionId == null) {
-			response.sendRedirect("/login");
+			response.sendRedirect("/k3MemberUserLogin");
 			
 			return false;
 		}else {
 			requestUri = requestUri.trim();
 			
-			//관리자 GM
+			//관리자 GM 모든 사이드바 보기 가능
 			//memberList, modifyMember, deleteMember 
 			if("GM".equals(sessionLevel)) {
 				if(requestUri.indexOf("memberList") > -1 ||
@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 					return false;
 				}
 			}
-			//팀장 TM
+			//팀장 TM 모든 사이드바 보기 가능
 			if("TM".equals(sessionLevel)) {
 				if(requestUri.indexOf("memberList") > -1 ||
 				   requestUri.indexOf("Modifymember") > -1 ||
@@ -48,7 +48,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 					return false;
 			}
 		}		
-			//사원 ST
+			//사원 ST 현황만보기 가능
 			if("ST".equals(sessionLevel)) {
 				if(requestUri.indexOf("memberList") > -1 ||
 						requestUri.indexOf("Modifymember") > -1 ||
@@ -58,7 +58,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 					return false;
 				}
 			}		
-			//거래처 CT
+			//거래처 CT 거래처 현황만 보기 가능
 			if("CT".equals(sessionLevel)) {
 				if(requestUri.indexOf("memberList") > -1 ||
 						requestUri.indexOf("Modifymember") > -1 ||
