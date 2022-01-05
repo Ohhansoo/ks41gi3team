@@ -4,9 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.dispatch.ahs.mapper.K3DispatchMapper">
 
-<select id="getDispatchList" resultType="K3Dispatch">
+	<select id="getDispatchList" resultType="K3Dispatch">
 		SELECT
 			m.dispatchCode,
+			m.mainBusinessCode,
+			m.contractorCode,
 			m.releaseCode,
 			m.releaseMergeCode,
 			m.driverId,
@@ -23,5 +25,122 @@
 		FROM
 			k3_tb_dispatch_management AS m;
 	</select>
+	
+	<select id="addDispatch" parameterType="K3Dispatch">
+		INSERT INTO k3_tb_dispatch_management
+		(
+			dispatchCode,
+			mainBusinessCode,
+			contractorCode,
+			releaseCode,
+			releaseMergeCode,
+			driverId,
+			vehicleCode,
+			dispatchStartDate,
+			dispatchDueDate,
+			areaCode,
+			dispatchAcceptDate,
+			memberId,
+			shippingAddress,
+			shippingDetailAddress,
+			dispatchConsignee,
+			dockName
+		)VALUES(
+			#{dispatchCode},
+			"공장A공장_서울_1",
+			"partners-driver-a",
+			#{releaseCode},
+			#{releaseMergeCode},
+			#{driverId},
+			#{vehicleCode},
+			#{dispatchStartDate},
+			#{dispatchDueDate},
+			#{areaCode},
+			#{dispatchAcceptDate},
+			#{memberId},
+			#{shippingAddress},
+			#{shippingDetailAddress},
+			#{dispatchConsignee},
+			#{dockName}
+		);
+	</select>
+	
+	<select id="getModifyDispatch" resultType="K3Dispatch">
+		SELECT
+			dispatchCode,
+			mainBusinessCode,
+			contractorCode,
+			releaseCode,
+			releaseMergeCode,
+			driverId,
+			vehicleCode,
+			dispatchStartDate,
+			dispatchDueDate,
+			areaCode,
+			dispatchAcceptDate,
+			memberId,
+			shippingAddress,
+			shippingDetailAddress,
+			dispatchConsignee,
+			dockName
+		FROM
+			k3_tb_dispatch_management
+		WHERE
+			dispatchCode = #{dispatchCode};
+	</select>
+	
+	<update id="modifyDispatch" parameterType="K3Dispatch">
+		UPDATE k3_tb_dispatch_management
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dispatchCode = #{dispatchCode},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				mainBusinessCode = "공장A공장_서울_1",
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				contractorCode = "partners-driver-a",
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				releaseCode = #{releaseCode},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				releaseMergeCode = #{releaseMergeCode},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				driverId = #{driverId},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				vehicleCode = #{vehicleCode},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dispatchStartDate = #{dispatchStartDate},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dispatchDueDate = #{dispatchDueDate},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				areaCode = #{areaCode},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dispatchAcceptDate = #{dispatchAcceptDate},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				memberId = #{memberId},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				shippingAddress = #{shippingAddress},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				shippingDetailAddress = #{shippingDetailAddress},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dispatchConsignee = #{dispatchConsignee},
+			</if>
+			<if test="dispatchCode != null and dispatchCode != ''.toString()">
+				dockName = #{dockName}
+			</if>
+		</trim>
+	</update>
 
 </mapper>

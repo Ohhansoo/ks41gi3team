@@ -30,6 +30,7 @@ public class K3CheckpointService {
 		return result;
 	}
 	
+	//수정
 	public K3Checkpoint getModifyCheckpoint(String vehicleCheckpointCode) {
 		return k3CheckpointMapper.getModifyCheckpoint(vehicleCheckpointCode);
 	}

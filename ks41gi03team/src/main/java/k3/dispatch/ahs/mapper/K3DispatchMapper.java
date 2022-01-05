@@ -9,5 +9,12 @@ import k3.dispatch.ahs.dto.K3Dispatch;
 
 @Mapper
 public interface K3DispatchMapper {
-	List<K3Dispatch> getDispatchList();
+	
+	public List<K3Dispatch> getDispatchList();
+	
+	public Integer addDispatch(K3Dispatch k3Dispatch);
+	
+	public K3Dispatch getModifyDispatch(String dispatchCode);
+	
+	public Integer modifyDispatch(K3Dispatch k3Dispatch);
 }
