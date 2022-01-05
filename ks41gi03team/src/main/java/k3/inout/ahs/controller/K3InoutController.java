@@ -21,7 +21,7 @@ public class K3InoutController {
 	private static final Logger log = LoggerFactory.getLogger(K3InoutController.class);
 	
 	//의존성 주입
-	private K3InoutService k3InoutService;
+	private final K3InoutService k3InoutService;
 	
 	
 	public K3InoutController(K3InoutService k3InoutService) {
@@ -29,21 +29,19 @@ public class K3InoutController {
 	}
 	
 	//입출금  내역 등록처리(이동)
-	@PostMapping("/k3InoutAdd")
-	public String inoutAdd(K3Inout k3Inout) {
-		int result = k3InoutService.inoutAdd(k3Inout);
+	@PostMapping("/k3AddInout")
+	public String addInout(K3Inout k3Inout) {
+		int result = k3InoutService.addInout(k3Inout);
 		log.info("inoutAdd 메서드 인서트 결과 : " + result);
 		log.info("inoutAdd 메서드 인서트 결과 : " + k3Inout);
-		return "redirect:/team03/finance/inout/k3InList";
+		return "redirect:/team03/finance/inout/k3InoutList";
 	}
-
 	
 	//입출금 내역 등록화면(이동)
-	@GetMapping("/k3InoutAdd")
+	@GetMapping("/k3AddInout")
 	public String goToInoutAddForm(Model model) {
-		return "/team03/finance/inout/k3InoutAdd";
+		return "/team03/finance/inout/k3AddInout";
 	}
-	
 	
 	//입출금 내역 조회
 	@GetMapping("/k3InoutList")
