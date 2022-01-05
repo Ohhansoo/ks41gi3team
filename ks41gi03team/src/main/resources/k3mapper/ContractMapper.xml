@@ -16,6 +16,7 @@
 	<select id="k3GetContractList" resultType="K3Contract">
 		SELECT
 			cs.contractCode as contractCode,
+			csf.contractorName as contractorName,
 			cs.contractorCode as contractorCode,
 			cs.contractorDevision as contractorDevision,
 			cs.contractState as contractState,
@@ -23,7 +24,11 @@
 			cs.contractorId as contractorId,
 			cs.memberId as memberId
 		FROM
-			k3_tb_contract_simple AS cs;
+			k3_tb_contract_simple AS cs
+			Inner join
+			k3_tb_contractor_staff AS csf
+			on
+			cs.contractorId = csf.contractorId;
 	</select>
 
 </mapper>

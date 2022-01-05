@@ -12,50 +12,15 @@
 				<div class="container-fluid">
 					<!--버튼 영역 -->
 					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">출고요청 등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">출고요청 삭제</button>				
+						<button type="button" class="ahsbtn2 btn btn-outline-info">승인</button>
+						<button type="button" class="ahsbtn2 btn btn-outline-info">취소</button>					
 					</div>
 					<!--End 버튼 영역 -->
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							검색영역 -> 이쪽은 삭제 가능
-						</div>
-						<!--End card header -->
-						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
-									</div>
-								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div>
-								<!--End inputbox 2 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
-					</div>
-					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							본문영역  -> 이쪽은 삭제 가능
+							출고요청 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -64,23 +29,34 @@
 								<thead>
 									<tr>
 										<th>선택</th>
-										<th>이름</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>수정</th>					
+										<th>출고통합코드</th>
+										<th>출고물품명</th>
+										<th>출고개수</th>
+										<th>회사명</th>
+										<th>배송지역</th>
+										<th>배송지</th>					
+										<th>배송지상세주소</th>									
+										<th>받는사람</th>													
+										<th>연락처</th>				
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr th:if="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
-										<td>오한수</td>
-										<td>남</td>
-										<td>010-1111-1111</td>
-										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
-										</td>
+										<td th:text="${l.releaseCode}"></td>
+										<td th:text="${l.laydownGoodsName}"></td>
+										<td th:text="${l.releaseGoodsCount}"></td>
+										<td th:text="${l.contractorName}"></td>
+										<td th:text="${l.areaCode}"></td>
+										<td th:text="${l.shippingAddress}"></td>
+										<td th:text="${l.shippingDetailAddress}"></td>
+										<td th:text="${l.recipientName}"></td>
+										<td th:text="${l.recipientPhone}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
+										<td> 요청사항이 없습니다. </td>
 									</tr>
 								</tbody>						
 							</table>

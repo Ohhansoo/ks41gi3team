@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.vehicle.ahs.mapper.K3VehicleMapper">
+
+<select id="getVehicleList" resultType="K3Vehicle">
+		SELECT
+			v.vehicleCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
+		FROM
+			k3_tb_vehicle AS v;
+	</select>
+
+<select id="getModifyVehicle" resultType="K3Vehicle">
+		SELECT
+			v.vehicleCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
+		FROM
+			k3_tb_vehicle AS v
+		WHERE
+			v.vehicleCode = #{vehicleCode};
+
+</select>
+</mapper>

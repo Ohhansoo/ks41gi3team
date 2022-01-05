@@ -10,13 +10,6 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">00출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -89,6 +82,12 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
+						<a th:href="@{/team03/goodsManagement/returns/k3AddReturns}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

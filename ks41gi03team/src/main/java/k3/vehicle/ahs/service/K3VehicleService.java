@@ -11,7 +11,9 @@ import k3.vehicle.ahs.mapper.K3VehicleMapper;
 
 @Service
 public class K3VehicleService {
+	
 	private K3VehicleMapper k3VehicleMapper;
+	
 	
 	public K3VehicleService(K3VehicleMapper k3VehicleMapper) {
 		this.k3VehicleMapper = k3VehicleMapper;
@@ -20,5 +22,14 @@ public class K3VehicleService {
 	public List<K3Vehicle> getVehicleList(){
 		List<K3Vehicle> vehicleList = k3VehicleMapper.getVehicleList();
 		return vehicleList;
+	}
+	
+	public Integer addVehicle(K3Vehicle k3Vehicle) {
+		Integer result = k3VehicleMapper.addVehicle(k3Vehicle);
+		return result;
+	}
+	
+	public K3Vehicle getModifyVehicle(String vehicleCode) {
+		return k3VehicleMapper.getModifyVehicle(vehicleCode);
 	}
 }

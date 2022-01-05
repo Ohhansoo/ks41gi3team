@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title th:text="title"></title>
+	</th:block>
+		
+	<th:block layout:fragment="customContents">
+		<script type="text/javascript">
+			$(function(){
+				$(document).on('click','#addLocationBtn',function(){
+					var centerCode = $('input:text[name=centerCode]').val();
+					var brandCode = $('input:text[name=brandCode]').val();
+					var lineCode = $('input:text[name=lineCode]').val();
+					var	rackCode = $('input:text[name=rackCode]').val();
+					var cellCode = $('input:text[name=cellCode]').val();
+					var locationNote = $('input:hidden[name=locationNote]').val();
+					var locationState = $('input:hidden[name=locationState]').val();
+					var centerCodeList = centerCode.split(",");
+					var brandCodeList = brandCode.split(",");
+					var lineCodeList = lineCode.split(",");
+					var rackCodeList = rackCode.split(",");
+					var cellCodeList = cellCode.split(",");
+					var locationCode = [];
+					if(centerCodeList != null && brandCodeList != null && lineCodeList != null && rackCodeList != null && cellCode != null){
+						for (var i = 0; i < centerCodeList.length; i++) {
+							for (var j = 0; j < brandCodeList.length; j++) {
+								for (var k = 0; k < lineCodeList.length; k++) {
+									for (var l = 0; l < rackCodeList.length; l++) {
+										for (var g = 0; g < cellCodeList.length; g++) {
+											var allCode = centerCodeList[i] + brandCodeList[j] + "-" + lineCodeList[k] + "-"
+														  + rackCodeList[l] + "-" + cellCodeList[g];
+											var jsonObj = {};
+											jsonObj['locationCode'] = allCode;
+											jsonObj['locationNote'] = locationNote;
+											jsonObj['locationState'] = locationState;
+											locationCode.push(jsonObj);
+										}
+									}
+								}
+							}
+						}	
+					}
+					if(centerCodeList == null && brandCodeList != null && lineCodeList != null && rackCodeList != null && cellCode != null){
+						for (var j = 0; j < brandCodeList.length; j++) {
+							for (var k = 0; k < lineCodeList.length; k++) {
+								for (var l = 0; l < rackCodeList.length; l++) {
+									for (var g = 0; g < cellCodeList.length; g++) {
+										var allCode = brandCodeList[j] + "-" + lineCodeList[k] + "-"
+														  + rackCodeList[l] + "-" + cellCodeList[g];
+										var jsonObj = {};
+										jsonObj['locationCode'] = allCode;
+										jsonObj['locationNote'] = locationNote;
+										jsonObj['locationState'] = locationState;
+										locationCode.push(jsonObj);	
+									}
+								}
+							}
+						}
+					}
+					if(centerCodeList == null && brandCodeList == null && lineCodeList != null && rackCodeList != null && cellCode != null){
+						for (var l = 0; l < rackCodeList.length; l++) {
+							for (var g = 0; g < cellCodeList.length; g++) {
+								var allCode =  lineCodeList[k] + "-" + rackCodeList[l] + "-" + cellCodeList[g];	
+								var jsonObj = {};
+								jsonObj['locationCode'] = allCode;
+								jsonObj['locationNote'] = locationNote;
+								jsonObj['locationState'] = locationState;
+								locationCode.push(jsonObj);
+							}
+						}	
+					}
+					console.log(JSON.stringify(locationCode));
+					//var addLocationFormObj =  $('#addLocationForm');
+					//addLocationFormObj.append('locationCodeList',	JSON.stringify(locationCode));
+					//addLocationFormObj.submit();
+					
+					$.ajax({
+						type : 'POST',
+						url : '/team03/spaceBusiness/location/k3AddLocation',
+						data : JSON.stringify(locationCode),
+						contentType : 'application/json; charset=utf-8',
+						dataType : 'json'
+					}).done(function(data) {
+						
+						location.href = '/team03/spaceBusiness/location/k3LocationList';
+						
+					}).fail(function(r) {
+						var message = JSON.parse(r.responseText);
+						console.log((message));
+						alert('서버 오류');
+					});
+					
+				/* $('#addLocationForm').submit();	 */
+					
+				});
+				
+				
+			});
+			 
+		</script>
+		<div id="representative-button">
+			<div id="representative-button">			
+					<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">	
+						<!-- card header Start -->
+					<div class="card">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card-header">
+									<div class="card-title">로케이션 등록</div>
+								</div>
+								<div>
+									<div class="card-body">
+										<form id="addLocationForm"th:action="@{/team03/spaceBusiness/location/k3AddLocation}" method="post">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label for="centerCode">센터코드</label>
+													<input type="text" class="form-control" id="centerCode" name="centerCode" placeholder="예)A,B,C.."/>
+												</div>
+												<div class="form-group">
+													<label for="brandCode">구역코드</label>
+													<input type="text" class="form-control" id="brandCode" name="brandCode" placeholder="예)1,2,3.."/>
+												</div>
+												<div class="form-group">
+													<label for="lineCode">라인코드</label>
+													<input type="text" class="form-control" id="lineCode" name="lineCode" placeholder="예)A1,B1,C1"/>
+												</div>
+												<div class="form-group">
+													<label for="rackCode">렉 코드</label>
+													<input type="text" class="form-control" id="rackCode" name="rackCode" placeholder="예)1,2,3"/>
+												</div>
+												<div class="form-group">
+													<label for="cellCode">셀 코드</label>
+													<input type="text" class="form-control" id="cellCode" name="cellCode" placeholder="예)11 = 1단1열 11,22,33,44"/>
+												</div>
+												<div class="form-group">
+													<label for="locationNote"></label>
+													<input type="hidden" class="form-control" id="locationNote" name="locationNote" value="없음"/>
+												</div>
+												<div class="form-group">
+													<label for="locationState"></label>
+													<input type="hidden" class="form-control" id="locationState" name="locationState" value="비었음"/>
+												</div>
+												<div class="card-footer">
+													<button type="button" id="addLocationBtn" class="btn btn-block btn-outlin-info">등록</button>
+												</div>	
+											</div>
+										</form>
+									</div>
+								</div>	
+							</div>
+						</div>					
+					</div>	
+				</div>
+			</div>
+		</div>	
+	</th:block>
+</head>

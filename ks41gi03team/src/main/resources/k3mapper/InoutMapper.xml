@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.inout.ahs.mapper.K3InoutMapper">
+	
+	<insert id="addInout">
+	INSERT INTO k3_tb_as
+	(
+		inoutRec,
+		mainBusinessCode,
+		memberId
+		
+		)
+	VALUES
+	(
+		#{inoutRec},
+		#{mainBusinessCode},
+		#{memberId},
+		
+	); 
+	
+	<!-- (
+		97999,
+		"임의",
+		90000,
+		"Y",
+		"N",
+		"m_c01",
+		"2021-12-22",
+		"2022-01-01"
+	); -->
+
+	</insert>
+	
+		
+	
+	<select id="getInoutList" resultType="K3Inout">
+	SELECT
+		 inoutRec
+		,mainBusinessCode
+		,memberId
+		,memberName
+		,inoutRegDate
+		,contractorDevision
+		,inoutTradeDate
+		,inoutName
+		,inoutPrice
+		,inoutPreDate
+		,inoutCategory
+		,inoutMemo
+		,inoutCheck
+		,inoutLast
+		,inoutResult
+	FROM k3_tb_inout;
+	</select>
+
+</mapper>

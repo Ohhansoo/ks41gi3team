@@ -1,18 +1,26 @@
 package k3.warehouse.ahs.dto;
 
 public class K3Warehouses {
-	private String bildingName;
+	private String warehouseCode;
+	private String warehouseName;
 	private String floorNumber;
 	private String warehouseNumber;
 	private int warehouseArea;
 	private int warehouseFlat;
 	private String warehouseType;
+	private String warehouseDockNumber;
 	private String warehouseOperation;
-	public String getBildingName() {
-		return bildingName;
+	public String getWarehouseCode() {
+		return warehouseCode;
 	}
-	public void setBildingName(String bildingName) {
-		this.bildingName = bildingName;
+	public void setWarehouseCode(String warehouseCode) {
+		this.warehouseCode = warehouseCode;
+	}
+	public String getWarehouseName() {
+		return warehouseName;
+	}
+	public void setWarehouseName(String warehouseName) {
+		this.warehouseName = warehouseName;
 	}
 	public String getFloorNumber() {
 		return floorNumber;
@@ -44,6 +52,12 @@ public class K3Warehouses {
 	public void setWarehouseType(String warehouseType) {
 		this.warehouseType = warehouseType;
 	}
+	public String getWarehouseDockNumber() {
+		return warehouseDockNumber;
+	}
+	public void setWarehouseDockNumber(String warehouseDockNumber) {
+		this.warehouseDockNumber = warehouseDockNumber;
+	}
 	public String getWarehouseOperation() {
 		return warehouseOperation;
 	}
@@ -53,8 +67,10 @@ public class K3Warehouses {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Warehouses [bildingName=");
-		builder.append(bildingName);
+		builder.append("K3Warehouses [warehouseCode=");
+		builder.append(warehouseCode);
+		builder.append(", warehouseName=");
+		builder.append(warehouseName);
 		builder.append(", floorNumber=");
 		builder.append(floorNumber);
 		builder.append(", warehouseNumber=");
@@ -65,10 +81,12 @@ public class K3Warehouses {
 		builder.append(warehouseFlat);
 		builder.append(", warehouseType=");
 		builder.append(warehouseType);
+		builder.append(", warehouseDockNumber=");
+		builder.append(warehouseDockNumber);
 		builder.append(", warehouseOperation=");
 		builder.append(warehouseOperation);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

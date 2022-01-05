@@ -16,7 +16,7 @@ import k3.ourcompany.ahs.dto.K3OurCompany;
 import k3.ourcompany.ahs.service.K3OurcompanyService;
 
 @Controller
-@RequestMapping(value="/team03/ourcompany")
+@RequestMapping(value="/team03/companymanagement/ourcompany")
 public class K3OurcompanyController {
 	
 	private K3OurcompanyService ourcompanyService;
@@ -37,19 +37,28 @@ public class K3OurcompanyController {
 	 * 
 	 * return "team03/ourcompany/k3OurCompanyList"; }
 	 */
-	
-	@PostMapping("/ourcompany/k3AddOurCompanyList")
-	public String AddOurCompany(K3OurCompany k3ourcompany) {
-		return "redirect:/ourcompany/k3OurCompanyList";
+	//자사 등록처리
+	@PostMapping("/k3AddOurCompanyList")
+	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {
+		ourcompanyService.AddOurCompany(k3ourcompany);
+		return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
-	
+	//자사 등록화면(이동)
+	@GetMapping("/k3AddOurCompanyList")
+	public String AddOurCompany(Model model) {
+		model.addAttribute("title", "자사정보관리");
+		model.addAttribute("subtitle", "자사정보등록");
+		//return "redirect:/team03/ourcompany/k3OurCompanyList";
+		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
+	}
+	//자사조회
 	@GetMapping("/k3OurCompanyList")
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();
 		
 		model.addAttribute("title","자사정보 조회");
 		model.addAttribute("ourcompanyList",ourcompanyList);
-		return "team03/ourcompany/k3OurCompanyList";
+		return "team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
 
 	

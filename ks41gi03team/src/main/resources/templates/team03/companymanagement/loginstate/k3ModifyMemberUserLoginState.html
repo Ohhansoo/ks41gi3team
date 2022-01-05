@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="retiredMemberUserKey" class="input-group-text">
+												<option value="loginCode">로그인 코드</option>
+												<option value="mainBusinessCode">사업장별대표코드</option>
+												<option value="memberId">직원ID</option>
+												<option value="loginDate">로그인 날짜</option>
+												<option value="loginFailCount">로그인 실패 횟수</option>
+												<option value="loginLatestTryDate">최근접속시도 시각</option>
+												<option value="loginAccessState">접속상태</option>
+												<option value="loginLogoutDate">로그아웃 날짜</option>
+												<option value="loginIpAddress">IPAddress</option>
+												<option value="loginMacAddress">MacAddress</option>
+											</select>
+										</div>
+										<input type="text" name="retiredMemberUserValue" class="form-control" >
+										<button id="retiredMemberUserSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>삭제</td>	
+											<th>수정</th>
+											<th>로그인 코드</th>
+						                    <th>사업장별대표코드</th>
+						                    <th>직원ID</th>
+						                    <th>로그인 날짜</th>
+						                    <th>로그인 실패 횟수</th>
+						                    <th>최근접속시도 시각</th>
+						                    <th>접속상태</th>
+						                    <th>로그아웃 날짜</th>
+						                    <th>IPAddress</th>
+						                    <th>MacAddress</th>
+										</tr>
+									</thead>
+									<tbody>								
+										<tr th:if="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
+						   				<td>
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.loginCode}">
+											</td>
+							   				<td>
+												<a th:href="@{/team03/companymanagement/loginstate/k3ModifyOurCompanyList(loginCode=${l.loginCode})}">수정</a>
+											</td>	
+						   				<td th:text="${l.loginCode}"></td>
+						   				<td th:text="${l.mainBusinessCode}"></td>
+						   				<td th:text="${l.memberId}"></td>
+						   				<td th:text="${l.loginDate}"></td>
+						   				<td th:text="${l.loginFailCount}"></td>
+						   				<td th:text="${l.loginLatestTryDate}"></td>
+						   				<td th:text="${l.loginAccessState}"></td>
+						   				<td th:text="${l.loginLogoutDate}"></td>
+						   				<td th:text="${l.loginIpAddress}"></td>
+						   				<td th:text="${l.loginMacAddress}"></td>
+						   			</tr>
+						   			<tr th:unless="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:href="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

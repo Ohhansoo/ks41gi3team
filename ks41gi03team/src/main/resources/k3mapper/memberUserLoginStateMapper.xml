@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.loginstate.ahs.mapper.K3LoginStateMapper">
+<!-- 	<resultMap type="K3Category" id="categoryResultMap">
+		<result column="largeCategory" property="largeCategory" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="mediumCategory" property="mediumCategory" />
+		<result column="smallCategory" property="smallCategory" />
+	</resultMap> -->
+
+	<select id="getLoginStateList"  resultType="K3MemberUser">
+	SELECT 
+		 lo.loginCode					AS loginCode 							
+		,lo.mainBusinessCode			AS mainBusinessCode
+		,lo.memberId					AS memberId
+		,lo.loginDate					AS loginDate
+		,lo.loginFailCount				AS loginFailCount
+		,lo.loginLatestTryDate			AS loginLatestTryDate
+		,lo.loginAccessState			AS loginAccessState
+		,lo.loginLogoutDate				AS loginLogoutDate
+		,lo.loginIpAddress				AS loginIpAddress
+		,lo.loginMacAddress				AS loginMacAddress
+	FROM 
+		k3_tb_login AS lo;
+	</select>
+</mapper>

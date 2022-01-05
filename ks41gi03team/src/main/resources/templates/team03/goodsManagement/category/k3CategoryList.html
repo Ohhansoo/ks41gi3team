@@ -6,7 +6,7 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
-			<script>
+		<script>
 			$(function(){				
 				$('#categoryBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/category/k3AddCategory';
@@ -23,8 +23,8 @@
 					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							console.log(deleteCheckList);
-							//$('#searchForm').submit();
+							
+							$('#searchForm').submit();
 						}
 						
 					}else{
@@ -37,12 +37,6 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button id="categoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">등록</button>
-						<button id="deleteCategoryBtn" type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>			
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -86,25 +80,25 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<td>삭제</td>										
-											<td>카테고리 대분류</td>
-											<td>카테고리 중분류</td>
-											<td>카테고리 소분류</td>
-											<td>수정</td>			
+											<th>삭제</td>	
+											<th>수정</th>										
+											<th>카테고리 대분류</th>
+											<th>카테고리 중분류</th>
+											<th>카테고리 소분류</th>										
 										</tr>
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
 											<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.categoryCode}">
+												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
 												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
-											</td>	
+											</td>
+											<td>
+												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>
+											</td>		
 											<td th:text="${l.largeCategory}"></td>
 											<td th:text="${l.mediumCategory}"></td>
-											<td th:text="${l.smallCategory}"></td>
-											<td>
-												<a th:href="@{/team03/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>
-											</td>		
+											<td th:text="${l.smallCategory}"></td>	
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
 											<td>등록된 카테고리가 없습니다.</td>
@@ -116,6 +110,13 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button id="deleteCategoryBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
+						<a th:href="@{/team03/goodsManagement/category/k3AddCategory}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

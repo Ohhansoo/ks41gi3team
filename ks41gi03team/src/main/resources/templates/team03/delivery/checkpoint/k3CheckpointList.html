@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{#}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="checkpoints" class="input-group-text">
+												<option value="checkpoint">입출하 기록 코드</option>
+												<option value="driver">기사 아이디</option>
+												<option value="vehicle">차량 코드</option>
+											</select>
+										</div>
+										<input type="text" name="checkpoint" class="form-control" placeholder="입력">
+										<button id="searchCheck" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
+										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card underCard">
+						<!--card header -->
+						<div class="card-header deprbtn">
+							현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<table class="table table-head-fixed text-nowrap">
+								<thead>
+									<tr>
+										<th>삭제</th>
+										<th>수정</th>	
+										<th>입출하 기록 코드</th>
+										<th>기사아이디</th>
+										<th>차량코드</th>
+										<th>입하일시</th>
+										<th>출하일시</th>			
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(checkpointList)}" th:each="l : ${checkpointList}">
+										<td>
+											<input type="checkbox" value="선택">
+										</td>	
+										<td>
+										<a th:href="@{/team03/delivery/checkpoint/k3ModifyCheckpoint(vehicleCheckpointCode=${l.vehicleCheckpointCode})}">수정</a>
+										</td>
+										<td th:text="${l.vehicleCheckpointCode}"></td>
+										<td th:text="${l.driverId}"></td>
+										<td th:text="${l.vehicleCode}"></td>
+										<td th:text="${l.vehicleArrivalDate}"></td>
+										<td th:text="${l.vehicleShipmentDate}"></td>
+   											
+										
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
+						<a th:href="@{/team03/delivery/checkpoint/k3AddCheckpoint}" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

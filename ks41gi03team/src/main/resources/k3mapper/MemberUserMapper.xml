@@ -10,9 +10,41 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
+	<insert id="AddMemberUser">
+		INSERT INTO 
+   		k3_tb_member
+		(
+		 memberId
+		,memberPassword
+		,mainBusinessCode
+		,levelMemberCode
+		,memberName
+		,memberGender
+		,memberAddr
+		,memberPhone
+		,memberResidentRegistrationNumber
+		,memberState
+		,memberRegDate
+		,memberHiredDate
+	)VALUES(
+		 #{memberId}
+		,#{memberPassword}
+		,"물류센터A물류센터_전북_1"
+		,#{levelMemberCode}
+		,#{memberName}
+		,#{memberGender}
+		,#{memberAddr}
+		,#{memberPhone}
+		,#{memberResidentRegistrationNumber}
+		,"일반"
+		,#{memberRegDate}
+		,#{memberHiredDate}
+	);
+	</insert>
+	
 	<select id="getMemberUserList" resultType="K3MemberUser">
 		SELECT 
-			m.memberId									AS memberId
+			 m.memberId									AS memberId
 			,m.memberPassword							AS memberPassword
 			,m.mainBusinessCode							AS mainBusinessCode
 			,m.levelMemberCode							AS levelMemberCode
@@ -25,7 +57,6 @@
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
 	FROM k3_tb_member	AS m
-	ORDER BY memberId ASC;
 	
 	</select>
 

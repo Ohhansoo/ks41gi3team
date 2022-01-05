@@ -28,7 +28,7 @@
 			c
 		FROM
 			k3_tb_total_category AS c
-			<foreach collection="list" item="deleteList" open= "WHERE 1=1">
+			<foreach collection="list" item="deleteList" open= "WHERE 1=2">
 				 or categoryCode = #{deleteList}
 			</foreach>
 	</delete>

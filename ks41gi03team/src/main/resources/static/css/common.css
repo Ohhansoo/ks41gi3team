@@ -13,7 +13,7 @@
 /* body 전체 */
 body{
 	font-family: 'InfinitySans-RegularA1';
-	background-color: #E6EADB;
+	background-color: #F9F7F7;
 }
 
 .container-fluid{
@@ -24,85 +24,117 @@ body{
 /**** 사이드 바 ****/
 /* 사이드 바 전체 */
 #leftcolumn{
-	background-color: #286273;
+	background-color: #3F72AF;
 	
 }
 
 
 /* 사이드 바 아래 부분*/
 .os-content{
-	background-color: #286273;
+	background-color: #3F72AF;
+	padding-right: 0;
 
 }
 
 /* 브랜드 이름*/
 .brand-text{
-	color: white;
+	color: #F9F7F7;
 }
 
 /* 유저명  */
 .userName{
-	color: white;
+	color: #F9F7F7;
 }
 
 /* 관리자레벨  */
 .part{
 	height: 10px; 
 	font-size: 15px; 
-	color: white;
+	color: #F9F7F7;
 }
 
 /*로그아웃, 정보변경 링크 */
 .link{
-	color: white;
+	color: #F9F7F7;
 }
 
-/* 댑스  */
+/* 댑스 글자 */
 .nav p{
-	color: white;
+	color: #F9F7F7;
 	font-size: 18px;
 }
+/* 동그라미 댑스 아이콘 */
+.fa-circle{
+	color: #F9F7F7;
+}
+/* 댑스 호버 */
+.mt-2 ul li ul li:hover{
+	background-color: #F9F7F7;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+}
+.mt-2 ul li ul li:hover p{
+	color: #3F72AF;
+}
+.mt-2 ul li ul li:hover .fa-circle{
+	color: #3F72AF;
+}
+
 
 /**** 콘텐츠 영역(right column) 전체 ****/
+/* 전체(로케이션, 로고 밑 사이드바 포함) */
 .content-wrapper {
-  	background-color: #E6EADB;
+  	background-color: #F9F7F7;
 }
+/* 전체(로케이션 미포함) */
+#rightcolumn{
+	
+}
+
+/* 카드 */
 .card{
-	background-color: #E6EADB;
+	background-color: white;
+
+	border-radius: 7px;
 }
 
 
 /**** 헤더 부분  ****/
+/* 헤더전체 */
+#header{
+	background-color: #3F72AF; 
+}
 .navbar{
-	background-color: #E6EADB; 
+	background-color: #3F72AF; 
 }
 
 .main-header{
-	border-bottom: 1px solid #286273;
+	border-bottom: 1px solid #3F72AF;
 }
-/*메뉴 아이콘*/
+/*fas 메뉴 아이콘*/
 .fas{
-	color: #286273;
+	color: white;
 }
+/* 등록,수정,프린트 아이콘 */
+.icon{
+	color: black;
+}
+
+/**** 로케이션 부분 ****/
+.content-header{
+	padding: 0px;
+}
+
 
 /**** 푸터 부분  ****/
 #footer{
-	background-color: #E6EADB;
+	background-color: #F9F7F7;
 }
 .main-footer{
-	background-color: #E6EADB;
+	background-color: #F9F7F7;
 }
 
 /****************************** 요소 공통 규칙 ********************/
-
-/* 카드 색상 */
-.cardColor{
-	background-color: #E6EADB;
-}
-.cardHeadBorder{
-	border-bottom;
-	border-color: #23a100;
-}
 
 
 /*글씨 색깔 규칙 1 -> 초록색*/
@@ -110,36 +142,40 @@ body{
 	color: #2BAE66;
 }
 
-/*버튼 규칙 2 -> 작은 버튼*/
+/*버튼 규칙 1 -> 작은 버튼*/
 .ahsbtn1{
 	size: 10px;
 	width: 70px; 
 	height:38px;
 	margin-left: 10px;
 }
-/*버튼 규칙 1 -> 보통 버튼*/
+/*버튼 규칙 2 -> 보통 버튼*/
 .ahsbtn2{
 	size: 15px;
 	width: 100px; 
 	height:38px;
 	margin-left: 10px;
 }
-/*버튼 규칙 3 -> 큰 버튼*/
-.ahsbtn3{
-	size: 20px;
-	width: 150px; 
-	height: 38px;
-	margin-left: 10px;
-}
-/*버튼 규칙 4 -> 등록 / 수정 폼 버튼*/
+
+/*버튼 규칙 3 -> 등록 / 수정 폼 버튼*/
 .ahsbtn4{
 	size: 20px;
-	width: 150px; 
+	width: 110px; 
 	height: 38px;
-	margin-top: 30px;
-	margin-right: 40px;
+	margin-right: 20px;
+	margin-bottom: 10px;
 
 }
+/* 테스트용 버튼 sample1 */
+.ahsbtn5{
+	size: 20px;
+	width: 150px; 
+	height: 38px;
+	margin-top: 0;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+/*카드 전체*/
 #userInfo{
 	width: 100%;
 }
@@ -161,3 +197,10 @@ body{
 .inputBox{
 	width: 400px;
 }
+/* add 이동 a태그 */
+#moveAddPage {
+	text-align: end;
+	text-decoration: underline;
+	width: 80%;
+}
+

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.warehousing.ahs.mapper.K3WarehousingMapper">
+	<resultMap type="K3Warehousing" id="warehousingResultMap">
+ 		<result column="warehousingCode" property="warehousingCode" />
+ 		<result column="laydownCheckCode" property="laydownCheckCode" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorId" property="contractorId" />
+		<result column="laydownGoodsName" property="laydownGoodsName" />
+		<result column="laydownGoodsCount" property="laydownGoodsCount" />
+		<result column="manufacturedDate" property="manufacturedDate" />
+		<result column="expiratonDate" property="expiratonDate" />
+		<result column="laydownDate" property="laydownDate" />
+		<result column="laydownCheckResult" property="laydownCheckResult" />
+		<result column="laydownCheckManager" property="laydownCheckManager" />
+		<result column="laydownCheckDate" property="laydownCheckDate" />
+		<result column="dockName" property="dockName" />
+	</resultMap>
+	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
+		SELECT
+			w.laydownGoodsName,
+			w.laydownGoodsCount,
+			cs.contractorName,
+			w.manufacturedDate,
+			w.expiratonDate
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE w.warehousingAllow = 'N'	
+	</select>
+	
+	
+	<select id="k3GetWarehousingRequestSort" resultType="K3WarehousingSort">
+		SELECT
+			w.laydownCheckCode,
+			w.laydownGoodsName,
+			w.laydownGoodsCount,
+			w.laydownDate,
+			c.contractorName	
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+		WHERE
+			w.sorting = 'N' AND w.laydownCheckResult = 'Y';
+	</select>
+	
+	<select id="k3GetWarehousingSortList" resultType="K3WarehousingSort">
+		SELECT
+			w.laydownCheckCode,
+			w.laydownGoodsName,
+			p.stockQuantity,
+			c.contractorName,
+			t.largeCategory,
+			t.mediumCategory,
+			t.smallCategory,
+			p.productFrequency,
+			p.locationCode,
+			m.memberName,
+			p.sortingDate		
+		FROM
+			k3_tb_pileup AS p
+			INNER JOIN
+			k3_tb_warehousing AS w
+			on
+			w.warehousingCode = p.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_member AS m
+			on
+			p.sortingManager = m.memberId			
+			INNER JOIN
+			k3_tb_total_category AS t
+			on
+			p.categoryCode = t.categoryCode
+		WHERE
+			w.sorting = 'Y' AND w.laydownCheckResult = 'Y'	
+	</select>
+	
+	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		SELECT
+		   w.laydownCheckCode,
+		   w.mainBusinessCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate,
+		   m.memberName,
+		   w.laydownCheckDate,
+		   w.laydownCheckResult
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		   INNER JOIN
+		   k3_tb_member AS m
+		   ON
+		   w.laydownCheckManager = m.memberId
+	</select>
+
+</mapper>

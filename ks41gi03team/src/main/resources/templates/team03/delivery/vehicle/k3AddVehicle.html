@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script>
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					history.back();
+				});
+			});
+		</script>	
+	 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header cardHeadBorder">
+							<h4>차량 등록</h4>
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row">
+								<form id="userInfo" th:action="@{/team03/delivery/vehicle/k3AddVehicle}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="vehicleCode" class="inputName">차량 코드</label>
+										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode"/>
+										<button type="button" id="btn">중복확인 </button> 
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="vehicleTonage" class="inputName">톤수</label>
+										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="vehicleType" class="inputName">차종</label>
+										<input class="inputBox" type="text" id="vehicleType" name="vehicleType" />
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="vehicleInspectionDate" class="inputName">점검일시</label>
+										<input class="inputBox" type="text" id="vehicleInspectionDate" name="vehicleInspectionDate"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberId" class="inputName">점검 담당자</label>
+										<input class="inputBox" type="text" id="memberId" name="memberId"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
+										<input class="inputBox" type="text" id="vehicleManufacturer" name="vehicleManufacturer"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="vehicleDriveAvailability" class="inputName">운행 가능 여부</label>
+										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability"/>
+									</div>							
+									<div class="d-flex justify-content-center">					
+										<button class="ahsbtn3 btn btn-outline-info" type="submit">등록</button>			
+										<button class="ahsbtn3 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>	
+								</form>
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

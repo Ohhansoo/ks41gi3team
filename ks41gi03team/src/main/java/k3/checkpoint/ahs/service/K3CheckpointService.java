@@ -18,13 +18,20 @@ public class K3CheckpointService {
 		this.k3CheckpointMapper = k3CheckpointMapper;
 	}
 	
-	public int addCheck(K3Checkpoint k3Checkpoint) {
-		int result = k3CheckpointMapper.addCheck(k3Checkpoint);
-		return result;
-	}
-	
+	//현황
 	public List<K3Checkpoint> getCheckpointList(){
 		List<K3Checkpoint> checkpointList = k3CheckpointMapper.getCheckpointList();
 		return checkpointList;
 	}
+	
+	//등록
+	public Integer addCheck(K3Checkpoint k3Checkpoint) {
+		Integer result = k3CheckpointMapper.addCheck(k3Checkpoint);
+		return result;
+	}
+	
+	public K3Checkpoint getModifyCheckpoint(String vehicleCheckpointCode) {
+		return k3CheckpointMapper.getModifyCheckpoint(vehicleCheckpointCode);
+	}
+	
 }

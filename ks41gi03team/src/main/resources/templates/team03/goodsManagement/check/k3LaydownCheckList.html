@@ -10,53 +10,42 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">입하검수 등록</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">입하검수 삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">입하검수 출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							입하검수 조회
+							입하검수 내역조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<div class="col-lg-4" style="padding-left: 0px">
+								<form class="col-lg-6" th:action="@{#}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<span class="input-group-text">자사 등록번호</span>
+											<select name="categoryKey" class="input-group-text">
+												<option value="large">대분류</option>
+												<option value="medium">중분류</option>
+												<option value="small">소분류</option>
+											</select>
 										</div>
-										<input type="text" class="form-control" placeholder="자사 등록번호">
+										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+										<button id="categorySearcch" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
+										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
-								</div>
+								</form>
 								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-lg-4" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text">자사 종사업장번호</span>
-										</div>
-										<input type="text" class="form-control" placeholder="자사 종사업장번호">
-	                    			</div>
-								</div>
-								<!--End inputbox 2 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
-					<div class="card cardColor">
+					<div class="card underCard">
 						<!--card header -->
-						<div class="card-header">
-							입하검수 현황
+						<div class="card-header deprbtn">
+							검수결과
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -64,24 +53,41 @@
 							<table class="table table-head-fixed text-nowrap">
 								<thead>
 									<tr>
-										<th>선택</th>
-										<th>이름</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>수정</th>					
+										<th>삭제</th>
+										<th>수정</th>	
+										<th>입하검수코드</th>
+										<th>입하물품명</th>
+										<th>입하물품개수</th>
+										<th>제조일자</th>
+										<th>유통기한</th>					
+										<th>거래처명</th>					
+										<th>검수자</th>					
+										<th>입하날짜</th>					
+										<th>검수일자</th>					
+										<th>검수결과</th>									
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr th:if="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
 										<td>
 											<input type="checkbox" value="선택">
 										</td>
-										<td>오한수</td>
-										<td>남</td>
-										<td>010-1111-1111</td>
 										<td>
-											<input type="button" value="수정" class="ahsbtn2 btn btn-outline-info">
+											<a th:href="@{#}">수정</a>
 										</td>
+										<td th:text="${l.laydownCheckCode}"></td>
+										<td th:text="${l.laydownGoodsName}"></td>
+										<td th:text="${l.laydownGoodsCount}"></td>
+										<td th:text="${l.manufacturedDate}"></td>
+										<td th:text="${l.expiratonDate}"></td>
+										<td th:text="${l.contractorName}"></td>
+										<td th:text="${l.memberName}"></td>
+										<td th:text="${l.laydownDate}"></td>
+										<td th:text="${l.laydownCheckDate}"></td>
+										<td th:text="${l.laydownCheckResult}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
+										<td> 입하검수 목록이 없습니다. </td>
 									</tr>
 								</tbody>						
 							</table>
@@ -89,6 +95,13 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
+					<!--버튼 영역 -->
+					<div class="row" style="margin:15px;">
+						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
+						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
+						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+					</div>
+					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

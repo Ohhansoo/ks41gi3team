@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.subject.ahs.mapper.K3SubjectMapper">
+ 	<resultMap type="K3Subject" id="subjectResultMap">
+		<result column="subjectName" property="subjectName" />
+		<result column="regName" property="subjectRegMember" />
+		<result column="regDate" property="subjectRegDate" />
+		<result column="subjectCode" property="subjectCode" />
+		<result column="subjectGCode" property="subjectGCode" />
+		<result column="isUse" property="subjectIsUse" />
+		<result column="isCorrect" property="subjectIsCorrect" />
+		<result column="applyYear" property="subjectApplyYear" />
+	</resultMap>
+	
+	
+	<!--  계정과목 삭제 처리 -->
+	<delete id ="deleteSubject" parameterType="int">
+	DELETE 
+		a
+	FROM
+		k3_tb_as AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or asCode=#{deleteList}
+		</foreach>	
+	</delete>
+ 	
+	
+	<!--  계정과목 수정 처리 -->
+	<update id ="modifySubject" parameterType="K3Subject">
+			UPDATE k3_tb_as
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="subjectCode != null and subjectCode!= ''.toString()">			
+					 asCode		=#{subjectCode}
+				</if>
+				<if test="subjectName != null and subjectName != ''.toString()">
+					,asName	=#{subjectName}
+				</if>
+				<if test="subjectGCode != null and subjectGCode != ''.toString()">		
+					,asGCode		=#{subjectGCode}
+				</if>
+				<if test="isUse != null and isUse != ''.toString()">
+					,asUse	=#{isUse}
+				</if>
+				<if test="isCorrect != null and isCorrect != ''.toString()">
+					,asCorrect		=#{isCorrect}
+				</if>
+				<if test="regName != null and regName != ''.toString()">
+					,memberId		=#{regName}
+				</if>
+				<if test="regDate != null and regDate != ''.toString()">
+					,asRegDate		=#{regDate}
+				</if>
+				<if test="applyYear != null and applyYear != ''.toString()">
+					,asYear		=#{applyYear}
+				</if>
+			</trim>
+			WHERE
+				asCode =#{subjectCode};
+	</update>
+	
+	<!-- 계정과목 수정 폼 -->
+	<select id="getModifySubject" resultType="K3Subject">
+		select
+			a.asName AS subjectName,
+			a.memberId AS regName,
+			a.asRegDate AS regDate,
+			a.asCode AS subjectCode,
+			a.asGCode AS subjectGCode,
+			a.asUse AS isUse,
+			a.asCorrect AS isCorrect,
+			a.asYear AS applyYear
+		FROM
+			k3_tb_as AS a
+		where
+			asCode = #{subjectCode};
+	</select>
+
+	
+	<!--  계정과목 등록 -->
+	<insert id="addSubject">
+	INSERT INTO k3_tb_as
+	(
+		asCode,
+		asName,
+		asGCode,
+		asUse,
+		asCorrect,
+		memberId,
+		asRegDate,
+		asYear
+		)
+	VALUES
+	(
+		#{subjectCode},
+		#{subjectName},
+		#{subjectGCode},
+		#{isUse},
+		#{isCorrect},
+		#{regName},
+		#{regDate},
+		#{applyYear}
+	);
+	
+	<!-- (
+		97999,
+		"임의",
+		90000,
+		"Y",
+		"N",
+		"m_c01",
+		"2021-12-22",
+		"2022-01-01"
+	); -->
+	</insert>
+	
+	<!-- 계정과목 목록 조회 (시작화면) -->
+	<select id="getSubjectList" resultType="K3Subject">
+	select
+		a.asName AS subjectName,
+		a.memberId AS regName,
+		a.asRegDate AS regDate,
+		a.asCode AS subjectCode,
+		a.asGCode AS subjectGCode,
+		a.asUse AS isUse,
+		a.asCorrect AS isCorrect,
+		a.asYear AS applyYear
+	FROM
+		k3_tb_as AS a;
+	</select>
+
+</mapper>
