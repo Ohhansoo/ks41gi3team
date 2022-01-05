@@ -5,7 +5,34 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	<script>
+			$(function(){				
+				$('#categoryBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
+				});
+				
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -21,7 +48,7 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3DeleteMemberUser}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
@@ -111,7 +138,7 @@
 					</div>
 					<div class="row" style="margin:15px;">
 						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="deleteMemberUserBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 하위 카드 영역 -->
