@@ -24,16 +24,16 @@
 											<input type="hidden" class="form-control" id="warehouseCode" name="warehouseCode" th:value="${k3Warehouses.warehouseCode}"/>
 										</div>
 										<div class="form-group">
-											<label for="bildingName">건물이름</label>
-											<input type="text" class="form-control" id="bildingName" name="bildingName" th:value="${k3Warehouses.bildingName}"/>
+											<label for="warehouseName">건물이름</label>
+											<input type="text" class="form-control" id="warehouseName" name="warehouseName" th:value="${k3Warehouses.warehouseName}"/>
 										</div>
 										<div class="form-group">
 											<label for="floorNumber">층</label>
 											<input type="text" class="form-control" id="floorNumber" name="floorNumber" th:value="${k3Warehouses.floorNumber}"/>
 										</div>
 										<div class="form-group">
-											<label for="warehouseName">창고이름</label>
-											<input type="text" class="form-control" id="warehouseName" name="warehouseName" th:value="${k3Warehouses.warehouseName}"/>
+											<label for="warehouseNumber">창고이름</label>
+											<input type="text" class="form-control" id="warehouseNumber" name="warehouseNumber" th:value="${k3Warehouses.warehouseNumber}"/>
 										</div>
 										<div class="form-group">
 											<label for="warehouseArea">면적</label>
@@ -52,6 +52,10 @@
 												<option value="냉동">냉동</option>
 												<option value="고급">고급</option>
 											</select>
+										</div>
+										<div class="form-group">
+											<label for="warehouseDockNumber">도크개수</label>
+											<input type="text" class="form-control" id="warehouseDockNumber" name="warehouseDockNumber" th:value="${k3Warehouses.warehouseDockNumber}"/>평
 										</div>
 										<div class="form-group">
 											<label>운영여부</label>
