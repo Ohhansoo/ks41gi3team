@@ -166,6 +166,15 @@ body{
 	margin-bottom: 10px;
 
 }
+/* 테스트용 버튼 sample1 */
+.ahsbtn5{
+	size: 20px;
+	width: 150px; 
+	height: 38px;
+	margin-top: 0;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
 /*카드 전체*/
 #userInfo{
 	width: 100%;

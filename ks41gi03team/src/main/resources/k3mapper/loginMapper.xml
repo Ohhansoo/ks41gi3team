@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.login.ahs.mapper.K3LoginMapper">
+<!-- 	<resultMap type="K3Category" id="categoryResultMap">
+ 		<result column="categoryCode" property="categoryCode" />
+		<result column="largeCategory" property="largeCategory" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="mediumCategory" property="mediumCategory" />
+		<result column="smallCategory" property="smallCategory" />
+	</resultMap> -->
+	
+	<select id="">
+		SELECT 
+		 m.memberId									AS memberId
+		,m.memberPassword							AS memberPassword
+		,m.mainBusinessCode						AS mainBusinessCode
+		,m.levelMemberCode							AS levelMemberCode
+		,m.memberName								AS memberName
+		,m.memberGender								AS memberGender
+ 		,m.memberAddr								AS memberAddr
+ 		,m.memberPhone								AS memberPhone
+ 		,m.memberResidentRegistrationNumber	AS memberResidentRegistrationNumber
+ 		,m.memberState								AS memberState
+ 		,m.memberRegDate							AS memberRegDate
+ 		,m.memberHiredDate							AS memberHiredDate
+	FROM 
+		k3_tb_member AS m
+	where
+		m.memberId = #{memberId};
+	
+		
+	</select>
+</mapper>

@@ -10,5 +10,7 @@ import k3.vehicle.ahs.dto.K3Vehicle;
 public interface K3VehicleMapper {
 	public List<K3Vehicle> getVehicleList();
 	
+	public Integer addVehicle(K3Vehicle k3Vehicle);
+	
 	public K3Vehicle getModifyVehicle(String vehicleCode);
 }

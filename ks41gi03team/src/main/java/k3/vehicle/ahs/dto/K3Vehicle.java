@@ -8,6 +8,7 @@ public class K3Vehicle {
 	private String memberId;
 	private String vehicleManufacturer;
 	private String vehicleDriveAvailability;
+	
 	public String getVehicleCode() {
 		return vehicleCode;
 	}

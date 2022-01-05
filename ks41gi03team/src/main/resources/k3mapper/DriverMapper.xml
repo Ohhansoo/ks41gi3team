@@ -48,18 +48,55 @@
 	
 	<select id="getModifyDriver" resultType="K3Driver">
 		SELECT
-				d.driverId AS driverId,
-				d.driverName AS driverName,
-				d.driverAddr AS driverAddr,
-				d.driverPhone AS driverPhone,
-				d.driverRegDate AS driverRegDate,
-				d.driverPerformanceGrade AS driverPerformanceGrade,
-				d.driverLicenseType AS driverLicenseType,
-				d.driverQualificationType AS driverQualificationType
+			d.driverId AS driverId,
+			d.contractorCode AS contractorCode,
+			d.driverName AS driverName,
+			d.driverAddr AS driverAddr,
+			d.driverPhone AS driverPhone,
+			d.driverRegDate AS driverRegDate,
+			d.driverPerformanceGrade AS driverPerformanceGrade,
+			d.driverLicenseType AS driverLicenseType,
+			d.driverQualificationType AS driverQualificationType
 		FROM
-				k3_tb_driver AS d
+			k3_tb_driver AS d
 		WHERE
-				driverId = #{driverId};
+			driverId = #{driverId};
 	</select>
+	
+	<update id="modifyDriver" parameterType="K3Driver">
+		UPDATE k3_tb_driver
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="driverId != null and driverId != ''.toString()">
+				driverId = #{driverId}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,contractorCode = "partners-driver-a"
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverName = #{driverName}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverAddr = #{driverAddr}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverPhone = #{driverPhone}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverRegDate = #{driverRegDate}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverPerformanceGrade = #{driverPerformanceGrade}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverLicenseType = #{driverLicenseType}
+			</if>
+			<if test="driverId != null and driverId != ''.toString()">
+				,driverQualificationType = #{driverQualificationType}
+			</if>
+		</trim>
+		WHERE
+			driverId = #{driverId};
+			
+	</update>
 
 </mapper>
