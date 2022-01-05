@@ -55,6 +55,7 @@
 									<tr>
 										<th>삭제</th>
 										<th>수정</th>	
+										<th>분류등록</th>	
 										<th>입고물품명</th>
 										<th>입고물품개수</th>
 										<th>제조일자</th>
@@ -70,6 +71,9 @@
 										</td>
 										<td>
 											<a th:href="@{#}">수정</a>
+										</td>
+										<td>
+											<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
 										</td>
 										<td th:text="${l.laydownGoodsName}"></td>
 										<td th:text="${l.laydownGoodsCount}"></td>
@@ -90,7 +94,8 @@
 					<!--버튼 영역 -->
 					<div class="row" style="margin:15px;">
 						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
-						<a href="sample2" id="moveAddPage">등록페이지로 이동 --></a>					
+						<a th:href="@{/team03/goodsManagement/warehousing/k3AddWarehousing}" id="moveAddPage">입고요청 페이지로 이동 --></a>					
+						<a th:href="@{/team03/goodsManagement/warehousing/k3AllowWarehousing}" id="moveAllowPage">요청승인 페이지로 이동 --></a>					
 					</div>
 					<!--End 버튼 영역 -->
 				</div>
