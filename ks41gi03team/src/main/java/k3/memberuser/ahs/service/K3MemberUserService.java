@@ -41,11 +41,12 @@ public class K3MemberUserService {
 		}
 	
 	//수정폼 이동
-	/*
-	 * public K3MemberUser K3MemberUserInfoBycode(String memberId) { K3MemberUser
-	 * k3MemberUser = memberuserMapper.K3MemberUserInfoBycode(memberId); return
-	 * k3MemberUser; }
-	 */
+	
+	  public K3MemberUser K3MemberUserInfoBycode(String memberId) { 
+		  K3MemberUser k3MemberUser = memberuserMapper.K3MemberUserInfoBycode(memberId);
+		  return k3MemberUser; 
+	  }
+	 
 	//직원여부체크
 	public int getMemberByMemberId(String memberId) {
 		return memberuserMapper.getMemberInfoByMemberId(memberId);
