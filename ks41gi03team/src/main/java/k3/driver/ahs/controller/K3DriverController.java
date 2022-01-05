@@ -52,20 +52,6 @@ public class K3DriverController {
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 	
-	@GetMapping("/k3ModifyDriver")
-	public String k3ModifyDriver(@RequestParam(value="driverId", required = false) String driverId, Model model) {
-		
-		
-		log.info("k3ModifyDriver driverId:{}", driverId);
-
-		if(driverId != null && !"".equals(driverId)) {
-			K3Driver driverInfo = k3DriverService.getModifyDriver(driverId);
-			model.addAttribute("driverInfo", driverInfo);
-		}
-		model.addAttribute("title", "기사수정화면");
-		
-		return "team03/delivery/driver/k3ModifyDriver'";
-	}
 	
 	@PostMapping("/k3ModifyDriver")
 	public String modifyDriver(K3Driver k3Driver) {
@@ -75,4 +61,18 @@ public class K3DriverController {
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 
+	@GetMapping("/k3ModifyDriver")
+	public String k3ModifyDriver(@RequestParam(value="driverId", required = false) String driverId, Model model) {
+		
+		
+		log.info("k3ModifyDriver driverId:{}", driverId);
+		
+		if(driverId != null && !"".equals(driverId)) {
+			K3Driver driverInfo = k3DriverService.getModifyDriver(driverId);
+			model.addAttribute("driverInfo", driverInfo);
+		}
+		model.addAttribute("title", "기사수정화면");
+		
+		return "team03/delivery/driver/k3ModifyDriver'";
+	}
 }
