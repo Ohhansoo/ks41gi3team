@@ -23,7 +23,7 @@ public interface K3MemberUserMapper {
 	public int k3DeleteMemberUser(List<String> deleteList);
 	
 	//직원 정보 수정처리
-
+	public int k3ModifyMemberUserInfo(K3MemberUser k3MemberUser);
 	
 	//직원 정보찾기 (수정)
 	public K3MemberUser K3MemberUserInfoBycode(String memberId);

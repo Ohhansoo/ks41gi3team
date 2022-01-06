@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title th:text="title"></title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				
+					<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+								<div class="card-header">
+									<h3 class="card-title">직원정보 삭제</h3>
+								</div>
+								<div class="card-body">
+									<form th:action="@{/team03/companymanagement/member/k3DeleteMemberUserList}" method="post">
+										<div class="form-group">
+											<label for="memberuserCode">고유코드</label>
+											<input type="text" class="form-control" id="memberuserCode" name="memberuserCode" placeholder="코드를 입력해주세요"/>
+										</div>
+									</form>
+								</div>
+								<div class="card-footer">
+									<button type="submit" class="btn btn-block btn-outlin-info">삭제</button>
+									<button type="submit" class="btn btn-block btn-outlin-info">취소</button>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+					<!-- 콘텐츠 콘테이너 끝 -->
+			</div>
+		</div>	
+	</th:block>
+</head>
