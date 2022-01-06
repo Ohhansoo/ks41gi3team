@@ -14,7 +14,7 @@
 							<td>통합회계그룹코드</td>
 							<td>사업장별 대표코드</td>
 							<td>등록자아이디</td>
-							<!-- <td>등록자이름</td>
+							<td>등록자이름</td>
 							<td>등록일시</td>
 							<td>거래구분</td>
 							<td>거래일시</td>
@@ -25,7 +25,7 @@
 							<td>적요</td>
 							<td>입출금확인</td>
 							<td>최종수정일</td>
-							<td>누계</td> -->
+							<td>누계</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -33,7 +33,7 @@
 							<td th:text="${l.inoutRec}"></td>
 							<td th:text="${l.mainBusinessCode}"></td>
 							<td th:text="${l.memberId}"></td>
-							<!-- <td th:text="${l.memberName}"></td>
+							<td th:text="${l.memberName}"></td>
 							<td th:text="${l.inoutRegDate}"></td>
 							<td th:text="${l.contractorDevision}"></td>
 							<td th:text="${l.inoutTradeDate}"></td>
@@ -44,9 +44,9 @@
 							<td th:text="${l.inoutMemo}"></td>
 							<td th:text="${l.inoutCheck}"></td>
 							<td th:text="${l.inoutLast}"></td>
-							<td th:text="${l.inoutResult}"></td> -->
+							<td th:text="${l.inoutResult}"></td>
 							<td>
-								<a th:href="@{#}">수정</a>
+								<a th:href="@{/team03/finance/inout/k3ModifyInout(inoutRec=${l.inoutRec})}">수정</a>
 							</td>
 							<td>
 								<a th:href="@{#}">삭제</a>

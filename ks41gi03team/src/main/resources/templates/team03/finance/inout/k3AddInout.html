@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				<form id="addInout" th:action="@{/team03/finance/inout/k3AddInout}" method="post">
+					<table border="1">
+							<tr>
+								<td>
+									<label for="inoutRecInput">통합회계그룹코드</label>
+								</td>
+								<td>
+									<input type="text" id="inoutRecInput" name="inoutRec">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="mainBusinessCodeInput">사업장별대표코드</label>
+								</td>
+								<td>
+									<input type="text" id="mainBusinessCodeInput" name="mainBusinessCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="memberIdInput">등록자아이디</label>
+								</td>
+								<td>
+									<input type="text" id="memberIdInput" name="memberId">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="memberNameInput">등록자이름</label>
+								</td>
+								<td>
+									<input type="text" id="memberNameInput" name="memberName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutRegDateInput">등록날짜</label>
+								</td>
+								<td>
+									<input type="text" id="inoutRegDateInput" name="inoutRegDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="contractorDevisionInput">거래유형</label>
+								</td>
+								<td>
+									<input type="text" id="contractorDevisionInput" name="contractorDevision">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutTradeDateInput">거래날짜</label>
+								</td>
+								<td>
+									<input type="text" id="inoutTradeDateInput" name="inoutTradeDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutNameInput">거래처명</label>
+								</td>
+								<td>
+									<input type="text" id="inoutNameInput" name="inoutName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutPriceInput">금액</label>
+								</td>
+								<td>
+									<input type="text" id="inoutPriceInput" name="inoutPrice">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutPreDateInput">입출금예정일</label>
+								</td>
+								<td>
+									<input type="text" id="inoutPreDateInput" name="inoutPreDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutCategoryInput">입출금구분</label>
+								</td>
+								<td>
+									<input type="text" id="inoutNameInput" name="inoutName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutMemoInput">적요</label>
+								</td>
+								<td>
+									<input type="text" id="inoutMemoInput" name="inoutMemo">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutCheckInput">입출금확인</label>
+								</td>
+								<td>
+									<input type="text" id="inoutCheckInput" name="inoutCheck">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutLastInput">최종수정일</label>
+								</td>
+								<td>
+									<input type="text" id="inoutLastInput" name="inoutLast">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inoutResultInput">누계</label>
+								</td>
+								<td>
+									<input type="text" id="inoutResultInput" name="inoutResult">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input id="addBtn" type="submit" value="확인">
+								</td>
+							</tr>														
+					</table>
+				</form> 
+			</div>
+		</div>		
+	</th:block>
+</head>
