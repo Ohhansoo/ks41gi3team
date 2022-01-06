@@ -5,10 +5,10 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
-		<script>
+	<th:block layout:fragment="customJs">
+			<script>
 			$(function(){				
-				$('#categoryBtn').on('click', function(){
+				$('#addCategoryBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/category/k3AddCategory';
 				});
 				
@@ -33,10 +33,28 @@
 				});
 			});
 		</script>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+					<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -49,16 +67,22 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
-									<div class="input-group">
+									<div class="input-group input-group-sm">
 										<div class="input-group-prepend">
-											<select name="categoryKey" class="input-group-text">
+											<select name="categoryKey" class="input-group-text form-control-sm">
 												<option value="large">대분류</option>
 												<option value="medium">중분류</option>
 												<option value="small">소분류</option>
 											</select>
+											<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+											<div class="input-group-append">
+												<div class="btn btn-default">
+													<button id="categorySearcch" type="submit">
+														<i class="fas fa-search icon"></i>
+													</button>
+												</div>
+											</div>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -110,13 +134,6 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button id="deleteCategoryBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
-						<a th:href="@{/team03/goodsManagement/category/k3AddCategory}" id="moveAddPage">등록페이지로 이동 --></a>					
-					</div>
-					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

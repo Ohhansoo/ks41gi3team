@@ -46,6 +46,7 @@
 	
 	<select id="k3GetReleaseList" resultType="K3Release">
 		SELECT
+			r.releaseCode,
 			r.releaseMergeCode,
 			w.laydownGoodsName,
 			r.releaseGoodsCount,

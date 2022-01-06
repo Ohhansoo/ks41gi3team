@@ -16,11 +16,12 @@ public class K3CheckService {
 	public K3CheckService(K3CheckMapper k3CheckMapper) {
 		this.k3CheckMapper = k3CheckMapper;
 	}
-	
+	//출하검수 현황 이동
 	public List<K3ShipmentCheck> k3GetShipmentCheckList() {
 		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckMapper.k3GetShipmentCheckList();
 		return K3ShipmentCheck;
 	}
+	//입하검수 현황 이동
 	public List<K3LaydownCheck> k3GetLaydownCheckList() {
 		List<K3LaydownCheck> K3LaydownCheck = k3CheckMapper.k3GetLaydownCheckList();
 		return K3LaydownCheck;
