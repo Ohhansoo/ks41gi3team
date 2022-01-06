@@ -14,8 +14,8 @@
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex" >
-					<div class="image">
+				<div id="userPanel" class="user-panel mt-3 pb-3 mb-3 d-flex" >
+					<div id="sidebarImage" class="image">
 						<img th:src="@{/image/snowman2.jpg}" class="img-circle elevation-2" alt="사진">
 					</div>
 					<!-- User Info -->	
@@ -96,25 +96,19 @@
 								<li class="nav-item">
 									<a th:href="@{/team03/contractorContract/Contractor/k3SearchContractor}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>거래처 관리 !
-											<i class="right fas fa-angle-left"></i>
-										</p>
+										<p>거래처 관리 !</p>
 									</a>
 								<li>
 								<li class="nav-item">
 									<a th:href="@{/team03/contractorContract/Estimate/k3SearchEstimate}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>견적서 관리 !
-											<i class="right fas fa-angle-left"></i>
-										</p>
+										<p>견적서 관리 !</p>
 									</a>
 								<li>
 								<li class="nav-item">
 									<a th:href="@{/team03/contractorContract/Contract/k3SearchContract}" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
-										<p>계약 관리 !
-											<i class="right fas fa-angle-left"></i>
-										</p>
+										<p>계약 관리 !</p>
 									</a>
 								<li>
 							</ul>
