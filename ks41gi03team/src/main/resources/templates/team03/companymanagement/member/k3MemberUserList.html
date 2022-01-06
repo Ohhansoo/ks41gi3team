@@ -8,7 +8,7 @@
 	<th:block layout:fragment="customContents">
 	<script>
 			$(function(){				
-				$('#categoryBtn').on('click', function(){
+				$('#memberuserBtn').on('click', function(){
 					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
 				
@@ -48,7 +48,7 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3DeleteMemberUser}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="categoryKey" class="input-group-text">
@@ -66,8 +66,8 @@
 												<option value="Regtiondate">입사일자</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" >
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="memberuserValue" class="form-control" >
+										<button id="MemberuserSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -138,8 +138,8 @@
 					</div>
 					<div class="row" style="margin:15px;">
 						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button id="deleteMemberUserBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
+						<button id="deleteMemberUserBtn" type="submit" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="d-flex justify-content-end" style="width: 250px;" th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>
