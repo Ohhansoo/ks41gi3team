@@ -39,7 +39,7 @@
 			m.memberId = #{memberId}; 
 	</select>
 
-	<!-- <update id="k3ModifyMemberUserInfo" parameterType="int">
+	<update id="k3ModifyMemberUserInfo" parameterType="int">
 		UPDATE 
 			k3_tb_member AS m
 		<trim prefix="SET" suffixOverrides=",">
@@ -79,7 +79,7 @@
 		</trim>		
 		WHERE 
 			m.memberId = #{memberId};
-	</update> -->
+	</update>
 
 	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
 		SELECT
