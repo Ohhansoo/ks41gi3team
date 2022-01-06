@@ -33,43 +33,7 @@ public class K3MemberUserController {
 	 * ,memberPhone ,memberResidentRegistrationNumber ,memberState ,memberRegDate
 	 * ,memberHiredDate
 	 */
-	  //직원정보 조회
-	  @PostMapping("/k3MemberUserList") 
-	  public String k3GetMemberUSerSearchList(@RequestParam(value="memberuserKey", required = false) String memberuserKey,
-			  								  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
-			  								  Model model) {
-		  if(memberuserKey != null && "memberId".equals(memberuserKey)) {
-			  memberuserKey = "memberId";
-		  }else if(memberuserKey != null && "memberPassword".equals(memberuserKey)) {
-			  memberuserKey = "memberPassword";
-		  }else if(memberuserKey != null && "mainBusinessCode".equals(memberuserKey)) {
-			  memberuserKey = "mainBusinessCode";
-		  }else if(memberuserKey != null && "memberName".equals(memberuserKey)) {
-			  memberuserKey = "memberName";
-		  }else if(memberuserKey != null && "memberGender".equals(memberuserKey)) {
-			  memberuserKey = "memberGender";
-		  }else if(memberuserKey != null && "memberAddr".equals(memberuserKey)) {
-			  memberuserKey = "memberAddr";
-		  }else if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
-			  memberuserKey = "memberPhone";
-		  }else if(memberuserKey != null && "memberResidentRegistrationNumber".equals(memberuserKey)) {
-			  memberuserKey = "memberResidentRegistrationNumber";
-		  }else if(memberuserKey != null && "memberState".equals(memberuserKey)) {
-			  memberuserKey = "memberState";
-		  }else if(memberuserKey != null && "memberRegDate".equals(memberuserKey)) {
-			  memberuserKey = "memberRegDate";
-		  }else if(memberuserKey != null && "memberHiredDate".equals(memberuserKey)) {
-			  memberuserKey = "memberHiredDate";
-		  }
-	  
-		  return "team03/companymanagement/member/k3MemberUserList"; 
-	  }
 	 
-	
-
-
-	
-
 	 
 	//중복확인 
 	@PostMapping("/k3IdCheck")
@@ -98,13 +62,14 @@ public class K3MemberUserController {
 		return "team03/companymanagement/member/k3AddMemberUserList";
 	}
 	
-	//02 직원조회
+	//02 직원조회(초기화면)
 	@GetMapping("/k3MemberUserList")
 	public String getMemberUserList(Model model) {
 		System.out.println("02 220106 getMemberUserList K3MemberUserController.java");
+		
 		List<K3MemberUser> memberuserList = memberuserService.getMemberUserList();
 		
-		model.addAttribute("title", "회원조회");
+		model.addAttribute("title", "직원관리");
 		model.addAttribute("memberuserList", memberuserList);
 		return "team03/companymanagement/member/k3MemberUserList";
 		
@@ -133,14 +98,46 @@ public class K3MemberUserController {
 		  log.info("k3ModifyMemberUserList 메소드 수정 결과  : " + result);
 		  return "redirect:/team03/companymanagement/member/k3MemberUserList"; 
 	  }
-		//04 직원정보 삭제처리
+	  //04 직원정보 삭제처리
 		@PostMapping("/k3DeleteMemberUser")
-		public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false)List<String>deleteList) {
+		public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false) List<String>deleteList) {
 			  System.out.println("04 220106 k3DeleteMemberUser K3MemberUserController.java");
 
 			int result = memberuserService.k3DeleteMemberUser(deleteList);
 			log.info("DeleteMemberUser 전송결과 : "  + result);
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
 		}
-		
+	/*
+	 * //05 직원정보 조회
+	 * 
+	 * @PostMapping("/k3MemberUserList") public String
+	 * k3GetMemberUSerSearchList(@RequestParam(value="memberuserKey", required =
+	 * false) String memberuserKey,
+	 * 
+	 * @RequestParam(value="memberuserValue", required = false) String
+	 * memberuserValue, Model model) { if(memberuserKey != null &&
+	 * "memberId".equals(memberuserKey)) { memberuserKey = "memberId"; }else
+	 * if(memberuserKey != null && "memberPassword".equals(memberuserKey)) {
+	 * memberuserKey = "memberPassword"; }else if(memberuserKey != null &&
+	 * "mainBusinessCode".equals(memberuserKey)) { memberuserKey =
+	 * "mainBusinessCode"; }else if(memberuserKey != null &&
+	 * "memberName".equals(memberuserKey)) { memberuserKey = "memberName"; }else
+	 * if(memberuserKey != null && "memberGender".equals(memberuserKey)) {
+	 * memberuserKey = "memberGender"; }else if(memberuserKey != null &&
+	 * "memberAddr".equals(memberuserKey)) { memberuserKey = "memberAddr"; }else
+	 * if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
+	 * memberuserKey = "memberPhone"; }else if(memberuserKey != null &&
+	 * "memberResidentRegistrationNumber".equals(memberuserKey)) { memberuserKey =
+	 * "memberResidentRegistrationNumber"; }else if(memberuserKey != null &&
+	 * "memberState".equals(memberuserKey)) { memberuserKey = "memberState"; }else
+	 * if(memberuserKey != null && "memberRegDate".equals(memberuserKey)) {
+	 * memberuserKey = "memberRegDate"; }else if(memberuserKey != null &&
+	 * "memberHiredDate".equals(memberuserKey)) { memberuserKey = "memberHiredDate";
+	 * } System.out.
+	 * println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
+	 * 
+	 * 
+	 * return "team03/companymanagement/member/k3MemberUserList"; }
+	 */
+		 
 }
