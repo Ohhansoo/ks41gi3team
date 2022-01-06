@@ -10,6 +10,25 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
+	<insert id="AddRetiredMemberUser">
+		INSERT INTO 
+			k3_tb_retiredMember
+				(
+				memberRetiredCode,
+				mainBusinessCode,
+				memberId,
+				memberRetiredReason,
+				memberRetiredDate,
+				memberRetirementSignedDate
+			)VALUES(
+				#{memberRetiredCode},
+				"물류센터A물류센터_전북_1",
+				#{memberId},
+				#{memberRetiredReason},
+				#{memberRetiredDate},
+				#{memberRetirementSignedDate}
+			);
+	</insert>
 		
 	<select id="getRetiredMemberUserList" resultType="K3RetiredMemberUser">
 		SELECT 
