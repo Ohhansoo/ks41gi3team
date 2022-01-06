@@ -5,8 +5,11 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+   </th:block>
 	<th:block layout:fragment="customJs">
-
 		<script type="text/javascript">
 			$(document).ready(function(){ 
 				$('.searchDetailContractor').click(function(){
@@ -143,8 +146,8 @@
 				</div>
 				<!-- End card header -->
 				<!--card body -->
-				<div class="card-body  table-responsive">
-					<table class="table table-head-fixed table-hover text-nowrap">
+				<div class="card-body">
+					<table class="table table-head-fixed table-responsive table-hover text-nowrap" style="overflow: auto">
 						<thead>
 						<tr>
 				            <th>선택</th>
@@ -160,15 +163,14 @@
 				            <th>거래처 아이디</th>
 				            <th>거래처 계정 상태</th>
 				            <th>등록직원아이디</th>
-
 						</tr>
 					</thead>
 						<tbody>
 							<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
 								<td>
-										<label>
-											<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
-										</label>
+									<label>
+										<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
+									</label>
 								</td>
 								<td>
 									<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
@@ -191,41 +193,25 @@
 								<td  th:text="${c.contractorState}"></td>
 								<td  th:text="${c.memberId}"></td>
 							</tr>
+					<tr th:unless="${not #lists.isEmpty(contractorList)}">
+						<td colspan="4">
+							등록된 거래처가 없습니다.
+						</td>
+					</tr>							
 						</tbody>						
 					</table>
-					<ul class="pagination center">
-						<li class="paginate_button page-item previous disabled" id="example1_previous">
-							<a th:if="${currentPage > 1}" th:href="@{loginHistory2(currentPage=${currentPage - 1})}" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">
+					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+						<li class="paginate_button page-item previous" id="contractorList_previous">
+							<a th:if="${currentPage > 1}" th:href="@{k3SearchContractor(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
 								이전
 							</a>
 						</li>
-					    <li class="paginate_button page-item active">
-							<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">
-								1
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">
-								2
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">
-								3
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">
-								4
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">
-								5
-							</a>
-					    </li>
-					     <li class="paginate_button page-item next" id="example1_next">
-							<a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">
+						<li class="paginate_button page-item" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+								<a  th:if="${num != currentPage}" th:href="@{k3SearchContractor(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+								<span  th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+						</li>
+					     <li class="paginate_button page-item next" id="contractorList_next">
+							<a th:if="${currentPage < lastPage}" th:href="@{k3SearchContractor(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
 								다음
 							</a>
 					    </li>
@@ -236,15 +222,19 @@
 			<!--End 조회 카드 영역 -->
 			<!--버튼 영역 -->
 			<div class="row" style="margin:15px;">
+				<div class="col-sm-3" style="float:left">
 					<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
 					<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>
-					<a th:href="@{/team03/contractorContract/Contractor/k3AddContractor}" id="moveAddPage">등록페이지로 이동 --></a>					
+				</div>
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-3" style="float:right">
+					<a th:href="@{/team03/contractorContract/Contractor/k3AddContractor}" id="moveAddPage">등록페이지로 이동 --></a>	
+				</div>				
 			</div>
 			<!--End 버튼 영역 -->
-			
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
-	
 	<!-- 거래처 상세 정보 모달창 -->
 	<div class="modal" style="text-align: center" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel"
      aria-hidden="true">
@@ -257,7 +247,7 @@
 		      <div class="modal-body">
 				<div class=" card card-body bg-light container-fluid" id="modifyContractor">
 					<table id="tmodal" class="table table-striped table-hover">
-
+					
 					</table>
 				</div>
 		      </div>
