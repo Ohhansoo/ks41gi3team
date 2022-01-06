@@ -5,43 +5,23 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-	<script>
-			$(function(){				
-				$('#memberuserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
-				});
-				
-				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
-			});
-		</script>
+	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div style="margin:15px;">
+						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">직원 등록</button>
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">직원 삭제</button>				
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">직원목록 출력</button>				
+					</div>
+					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
-							직원 조회
+					<div class="card-header cardHeadBorder">
+							<h4>직원 등록</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -66,8 +46,8 @@
 												<option value="Regtiondate">입사일자</option>
 											</select>
 										</div>
-										<input type="text" name="memberuserValue" class="form-control" >
-										<button id="MemberuserSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="categoryValue" class="form-control" >
+										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -112,7 +92,7 @@
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
 						   				<td>
-											<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">수정</a>
+											<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(memberId=${l.memberId})}">수정</a>
 										</td>	
 						   				<td th:text="${l.memberId}"></td>
 						   				<td th:text="${l.memberPassword}"></td>
@@ -135,11 +115,6 @@
 							</form>	
 						</div>
 						<!--End card body -->
-					</div>
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button id="deleteMemberUserBtn" type="submit" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a class="d-flex justify-content-end" style="width: 250px;" th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>

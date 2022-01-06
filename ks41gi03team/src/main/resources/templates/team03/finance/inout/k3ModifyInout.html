@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>계정과목 수정</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div class="card-body">
+			<div class="row">
+				<form th:action="@{/team03/finance/inout/k3ModifyInout}" method="post">
+					
+					<div class="inputwrap col-md-12">
+						<label for="inoutRecInput" class="inputName">통합회계그룹코드 코드</label>
+						<input class="inputBox" type="text" id="inoutRecInput" name="inoutRec" th:value="${inoutInfo.inoutRec}"/> 
+					</div>
+					<div class="inputwrap col-md-12">
+						<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드 이름</label>
+						<input class="inputBox" type="text" id="mainBusinessCodeInput" name="mainBusinessCode" th:value="${inoutInfo.mainBusinessCode}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="memberIdInput" class="inputName">등록자아이디</label>
+						<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${inoutInfo.memberId}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="memberNameInput" class="inputName">등록자이름</label>
+						<input class="inputBox" type="text" id="memberNameInput" name="memberName" th:value="${inoutInfo.memberName}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutRegDateInput" class="inputName">등록날짜</label>
+						<input class="inputBox" type="text" id="inoutRegDateInput" name="inoutRegDate" th:value="${inoutInfo.inoutRegDate}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="contractorDevisionInput" class="inputName">거래유형</label>
+						<input class="inputBox" type="text" id="contractorDevisionInput" name="contractorDevision" th:value="${inoutInfo.contractorDevisionInput}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="inoutTradeDateInput" class="inputName">거래날짜</label>
+						<input class="inputBox" type="text" id="inoutTradeDateInput" name="inoutTradeDate" th:value="${inoutInfo.inoutTradeDate}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="inoutNameInput" class="inputName">거래처명</label>
+						<input class="inputBox" type="text" id="inoutNameInput" name="inoutName" th:value="${inoutInfo.inoutName}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutPriceInput" class="inputName">금액</label>
+						<input class="inputBox" type="text" id="inoutPriceInput" name="inoutPrice" th:value="${inoutInfo.inoutPrice}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutPreDateInput" class="inputName">입출금예정일</label>
+						<input class="inputBox" type="text" id="inoutPreDateInput" name="inoutPreDate" th:value="${inoutInfo.inoutPreDate}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutCategoryInput" class="inputName">입출금구분</label>
+						<input class="inputBox" type="text" id="inoutCategoryInput" name="inoutCategory" th:value="${inoutInfo.inoutCategory}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutMemoInput" class="inputName">적요</label>
+						<input class="inputBox" type="text" id="inoutMemoInput" name="inoutMemo" th:value="${inoutInfo.inoutMemo}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutCheckInput" class="inputName">입출금확인</label>
+						<input class="inputBox" type="text" id="inoutCheckInput" name="inoutCheck" th:value="${inoutInfo.inoutCheck}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutLastInput" class="inputName">최종수정일</label>
+						<input class="inputBox" type="text" id="inoutLastInput" name="inoutLast" th:value="${inoutInfo.inoutLast}"/>
+					</div>	
+					<div class="inputwrap col-md-12">
+						<label for="inoutResultInput" class="inputName">누계</label>
+						<input class="inputBox" type="text" id="inoutResultInput" name="inoutResult" th:value="${inoutInfo.inoutResultInput}"/>
+					</div>	
+					
+					<div class="d-flex justify-content-center">					
+						<button type="submit" class="ahsbtn4 btn btn-outline-info" >수정</button>			
+						<button type="button" id="categoryCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
+					</div>	
+				</form>
+			</div>
+		</div>					
+	</th:block>

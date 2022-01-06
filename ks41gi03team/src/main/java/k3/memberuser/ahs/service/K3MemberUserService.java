@@ -52,6 +52,9 @@ public class K3MemberUserService {
 	  }
 	  
 	//수정처리
+	public int k3ModifyMemberUserInfo(K3MemberUser k3memberuser) {
+		return memberuserMapper.k3ModifyMemberUserInfo(k3memberuser);
+	}
 	 
 	//직원여부체크
 	public int getMemberByMemberId(String memberId) {

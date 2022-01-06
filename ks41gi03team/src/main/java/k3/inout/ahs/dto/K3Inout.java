@@ -2,85 +2,147 @@ package k3.inout.ahs.dto;
 
 public class K3Inout {
 
-	private String subjectName;
-	private String regName;
-	private String regDate;
-	private String subjectCode;
-	private String subjectGCode;
-	private String isUse;
-	private String isCorrect;
-	private String applyYear;
-	
-	
-	public String getSubjectGCode() {
-		return subjectGCode;
+	private String inoutRec;
+	private String mainBusinessCode;
+	private String memberId;
+	private String memberName;
+	private String inoutRegDate;
+	private String contractorDevision;
+	private String inoutTradeDate;
+	private String inoutName;
+	private String inoutPrice;
+	private String inoutPreDate;
+	private String inoutCategory;
+	private String inoutMemo;
+	private String inoutCheck;
+	private String inoutLast;
+	private String inoutResult;
+	public String getInoutRec() {
+		return inoutRec;
 	}
-	public void setSubjectGCode(String subjectGCode) {
-		this.subjectGCode = subjectGCode;
+	public void setInoutRec(String inoutRec) {
+		this.inoutRec = inoutRec;
 	}
-	public String getIsUse() {
-		return isUse;
+	public String getMainBusinessCode() {
+		return mainBusinessCode;
 	}
-	public void setIsUse(String isUse) {
-		this.isUse = isUse;
+	public void setMainBusinessCode(String mainBusinessCode) {
+		this.mainBusinessCode = mainBusinessCode;
 	}
-	public String getIsCorrect() {
-		return isCorrect;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setIsCorrect(String isCorrect) {
-		this.isCorrect = isCorrect;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getApplyYear() {
-		return applyYear;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setApplyYear(String applyYear) {
-		this.applyYear = applyYear;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-	public String getSubjectName() {
-		return subjectName;
+	public String getInoutRegDate() {
+		return inoutRegDate;
 	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setInoutRegDate(String inoutRegDate) {
+		this.inoutRegDate = inoutRegDate;
 	}
-	public String getRegName() {
-		return regName;
+	public String getContractorDevision() {
+		return contractorDevision;
 	}
-	public void setRegName(String regName) {
-		this.regName = regName;
+	public void setContractorDevision(String contractorDevision) {
+		this.contractorDevision = contractorDevision;
 	}
-	public String getRegDate() {
-		return regDate;
+	public String getInoutTradeDate() {
+		return inoutTradeDate;
 	}
-	public String getSubjectCode() {
-		return subjectCode;
+	public void setInoutTradeDate(String inoutTradeDate) {
+		this.inoutTradeDate = inoutTradeDate;
 	}
-	public void setSubjectCode(String subjectCode) {
-		this.subjectCode = subjectCode;
+	public String getInoutName() {
+		return inoutName;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setInoutName(String inoutName) {
+		this.inoutName = inoutName;
+	}
+	public String getInoutPrice() {
+		return inoutPrice;
+	}
+	public void setInoutPrice(String inoutPrice) {
+		this.inoutPrice = inoutPrice;
+	}
+	public String getInoutPreDate() {
+		return inoutPreDate;
+	}
+	public void setInoutPreDate(String inoutPreDate) {
+		this.inoutPreDate = inoutPreDate;
+	}
+	public String getInoutCategory() {
+		return inoutCategory;
+	}
+	public void setInoutCategory(String inoutCategory) {
+		this.inoutCategory = inoutCategory;
+	}
+	public String getInoutMemo() {
+		return inoutMemo;
+	}
+	public void setInoutMemo(String inoutMemo) {
+		this.inoutMemo = inoutMemo;
+	}
+	public String getInoutCheck() {
+		return inoutCheck;
+	}
+	public void setInoutCheck(String inoutCheck) {
+		this.inoutCheck = inoutCheck;
+	}
+	public String getInoutLast() {
+		return inoutLast;
+	}
+	public void setInoutLast(String inoutLast) {
+		this.inoutLast = inoutLast;
+	}
+	public String getInoutResult() {
+		return inoutResult;
+	}
+	public void setInoutResult(String inoutResult) {
+		this.inoutResult = inoutResult;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Subject [subjectName=");
-		builder.append(subjectName);
-		builder.append(", regName=");
-		builder.append(regName);
-		builder.append(", regDate=");
-		builder.append(regDate);
-		builder.append(", subjectCode=");
-		builder.append(subjectCode);
-		builder.append(", subjectGCode=");
-		builder.append(subjectGCode);
-		builder.append(", isUse=");
-		builder.append(isUse);
-		builder.append(", isCorrect=");
-		builder.append(isCorrect);
-		builder.append(", applyYear=");
-		builder.append(applyYear);
+		builder.append("K3Inout [inoutRec=");
+		builder.append(inoutRec);
+		builder.append(", mainBusinessCode=");
+		builder.append(mainBusinessCode);
+		builder.append(", memberId=");
+		builder.append(memberId);
+		builder.append(", memberName=");
+		builder.append(memberName);
+		builder.append(", inoutRegDate=");
+		builder.append(inoutRegDate);
+		builder.append(", contractorDevision=");
+		builder.append(contractorDevision);
+		builder.append(", inoutTradeDate=");
+		builder.append(inoutTradeDate);
+		builder.append(", inoutName=");
+		builder.append(inoutName);
+		builder.append(", inoutPrice=");
+		builder.append(inoutPrice);
+		builder.append(", inoutPreDate=");
+		builder.append(inoutPreDate);
+		builder.append(", inoutCategory=");
+		builder.append(inoutCategory);
+		builder.append(", inoutMemo=");
+		builder.append(inoutMemo);
+		builder.append(", inoutCheck=");
+		builder.append(inoutCheck);
+		builder.append(", inoutLast=");
+		builder.append(inoutLast);
+		builder.append(", inoutResult=");
+		builder.append(inoutResult);
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 }

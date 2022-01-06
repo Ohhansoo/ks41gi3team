@@ -10,14 +10,76 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
-	<delete id="">
+	<delete id="k3DeleteMemberUser">
 		DELETE 
 			m
 		FROM 
 			k3_tb_member AS m 
 		WHERE 
-			memberId = #{memberId};
+			memberId = #{memberList};
 	</delete>
+
+	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">
+		SELECT 
+			m.memberId,
+			m.memberPassword,
+			m.mainBusinessCode,
+			m.levelMemberCode,
+			m.memberName,
+			m.memberGender,
+			m.memberAddr,
+			m.memberPhone,
+			m.memberResidentRegistrationNumber,
+			m.memberState,
+			m.memberRegDate,
+			m.memberHiredDate
+		FROM 
+			k3_tb_member AS m 
+		WHERE
+			m.memberId = #{memberId}; 
+	</select>
+
+	<update id="k3ModifyMemberUserInfo" parameterType="int">
+		UPDATE 
+			k3_tb_member AS m
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="memberPassword != null and memberPassword != ''.toString()">
+			m.memberPassword = #{memberPassword},
+			</if>	
+			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+			m.mainBusinessCode ='물류센터A물류센터_전북_1',
+			</if>	
+			<if test="levelMemberCode != null and levelMemberCode != ''.toString()">
+			m.levelMemberCode = #{levelMemberCode},
+			</if>	
+			<if test="memberName != null and memberName != ''.toString()">
+			m.memberName = #{memberName},
+			</if>	
+			<if test="memberGender != null and memberGender != ''.toString()">
+			m.memberGender = #{memberGender},
+			</if>	
+			<if test="memberAddr != null and memberAddr != ''.toString()">
+			m.memberAddr = #{memberAddr},
+			</if>	
+			<if test="memberPhone != null and memberGender != ''.toString()">
+			m.memberPhone = #{memberPhone},
+			</if>	
+			<if test="memberResidentRegistrationNumber != null and memberResidentRegistrationNumber != ''.toString()">
+			m.memberResidentRegistrationNumber = #{memberResidentRegistrationNumber},
+			</if>	
+			<if test="memberState != null and memberState != ''.toString()">
+			m.memberState = #{memberState},
+			</if>	
+			<if test="memberRegDate != null and memberGender != ''.toString()">
+			m.memberRegDate = #{memberRegDate},
+			</if>	
+			<if test="memberHiredDate != null and memberHiredDate != ''.toString()">
+			m.memberHiredDate = #{memberHiredDate}
+			</if>
+		</trim>		
+		WHERE 
+			m.memberId = #{memberId};
+	</update>
 
 	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
 		SELECT

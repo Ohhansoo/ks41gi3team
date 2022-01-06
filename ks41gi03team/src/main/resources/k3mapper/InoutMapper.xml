@@ -4,20 +4,71 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.inout.ahs.mapper.K3InoutMapper">
 	
+	
+	
+	
+	
+	
+	<!-- 입출금내역 수정 폼 -->
+	<select id="getModifyInout" resultType="K3Inout">
+		SELECT 
+			 inoutRec
+			,mainBusinessCode
+			,memberId
+			,memberName
+			,inoutRegDate
+			,contractorDevision
+			,inoutTradeDate
+			,inoutName
+			,inoutPrice
+			,inoutPreDate
+			,inoutCategory
+			,inoutMemo
+			,inoutCheck
+			,inoutLast
+			,inoutResult
+		FROM k3_tb_inout
+			where
+				inoutRec = #{inoutRec};
+	</select>
+	
+	
 	<insert id="addInout">
-	INSERT INTO k3_tb_as
+	INSERT INTO k3_tb_inout
 	(
 		inoutRec,
 		mainBusinessCode,
-		memberId
-		
+		memberId,
+		memberName,
+		inoutRegDate,
+		contractorDevision,
+		inoutTradeDate,
+		inoutName,
+		inoutPrice,
+		inoutPreDate,
+		inoutCategory,
+		inoutMemo,
+		inoutCheck,
+		inoutLast,
+		inoutResult
 		)
 	VALUES
 	(
 		#{inoutRec},
 		#{mainBusinessCode},
 		#{memberId},
-		
+		#{memberName},
+		#{inoutRegDate},
+		#{contractorDevision},
+		#{inoutTradeDate},
+		#{inoutName},
+		#{inoutPrice},
+		#{inoutPreDate},
+		#{inoutCategory},
+		#{inoutMemo},
+		#{inoutCheck},
+		#{inoutLast},
+		#{inoutResult}
 	); 
 	
 	<!-- (
