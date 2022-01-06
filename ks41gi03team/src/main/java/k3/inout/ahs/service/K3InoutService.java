@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import k3.inout.ahs.dto.K3Inout;
 import k3.inout.ahs.mapper.K3InoutMapper;
-import k3.subject.ahs.dto.K3Subject;
+
 
 
 

@@ -4,13 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.shipping.ahs.mapper.K3ShippingMapper">
 
-<select id="getShippingList" resultType="K3Shipping">
+	<select id="getShippingList" resultType="K3Shipping">
 		SELECT
 			s.shippingCode,
+			s.mainBusinessCode,
+			s.contractorCode,
 			s.vehicleCheckpointCode,
 			s.areaCode,
 			s.releaseMergeCode,
 			s.shippingAddress,
+			s.shippingDetailAddress,
 			s.memberId,
 			s.memberPhone,
 			s.shippingDetail,
@@ -19,5 +22,109 @@
 		FROM
 			k3_tb_shipping AS s;
 	</select>
+	
+	<select id="addShipping" parameterType="K3Shipping">
+		INSERT INTO
+			k3_tb_shipping
+			(
+				shippingCode,
+				mainBusinessCode,
+				contractorCode,
+				vehicleCheckpointCode,
+				areaCode,
+				releaseMergeCode,
+				shippingAddress,
+				shippingDetailAddress,
+				memberId,
+				memberPhone,
+				shippingDetail,
+				driverId,
+				shippingTracking
+			)VALUES(
+				#{shippingCode}
+				,"공장A공장_서울_1"
+			 	,"partners-driver-a"
+				,#{vehicleCheckpointCode}
+				,#{areaCode}
+				,#{releaseMergeCode}
+				,#{shippingAddress}
+				,#{shippingDetailAddress}
+				,#{memberId}
+				,#{memberPhone}
+				,#{shippingDetail}
+				,#{driverId}
+				,#{shippingTracking}
+			);
+			
+			
+	</select>
+	
+	<select id="getModifyShipping" resultType="K3Shipping">
+		SELECT
+			s.shippingCode,
+			s.mainBusinessCode,
+			s.contractorCode,
+			s.vehicleCheckpointCode,
+			s.areaCode,
+			s.releaseMergeCode,
+			s.shippingAddress,
+			s.shippingDetailAddress,
+			s.memberId,
+			s.memberPhone,
+			s.shippingDetail,
+			s.driverId,
+			s.shippingTracking
+		FROM
+			k3_tb_shipping AS s
+		WHERE
+			shippingCode = #{shippingCode};
+	</select>
+	
+	<update id="modifyShipping" parameterType="K3Shipping">
+		UPDATE k3_tb_shipping		
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				shippingCode = #{shippingCode},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				mainBusinessCode = "공장A공장_서울_1",
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				contractorCode = "partners-driver-a",
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				vehicleCheckpointCode = #{vehicleCheckpointCode},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				areaCode = #{areaCode},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				releaseMergeCode = #{releaseMergeCode},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				shippingAddress = #{shippingAddress},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				shippingDetailAddress = #{shippingDetailAddress},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				memberId = #{memberId},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				memberPhone = #{memberPhone},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				shippingDetail = #{shippingDetail},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				driverId = #{driverId},
+			</if>
+			<if test="shippingCode != null and shippingCode != ''.toString()">
+				shippingTracking = #{shippingTracking}
+			</if>
+		</trim>
+		WHERE
+			shippingCode = #{shippingCode};
+	</update>
 
 </mapper>

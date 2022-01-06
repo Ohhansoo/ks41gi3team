@@ -6,6 +6,7 @@ public class K3Shipping {
 	private String areaCode;
 	private String releaseMergeCode;
 	private String shippingAddress;
+	private String shippingDetailAddress;
 	private String memberId;
 	private String memberPhone;
 	private String shippingDetail;
@@ -41,6 +42,12 @@ public class K3Shipping {
 	public void setShippingAddress(String shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
+	public String getShippingDetailAddress() {
+		return shippingDetailAddress;
+	}
+	public void setShippingDetailAddress(String shippingDetailAddress) {
+		this.shippingDetailAddress = shippingDetailAddress;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -73,29 +80,11 @@ public class K3Shipping {
 	}
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("K3Shipping [shippingCode=");
-		builder.append(shippingCode);
-		builder.append(", vehicleCheckpointCode=");
-		builder.append(vehicleCheckpointCode);
-		builder.append(", areaCode=");
-		builder.append(areaCode);
-		builder.append(", releaseMergeCode=");
-		builder.append(releaseMergeCode);
-		builder.append(", shippingAddress=");
-		builder.append(shippingAddress);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append(", memberPhone=");
-		builder.append(memberPhone);
-		builder.append(", shippingDetail=");
-		builder.append(shippingDetail);
-		builder.append(", driverId=");
-		builder.append(driverId);
-		builder.append(", shippingTracking=");
-		builder.append(shippingTracking);
-		builder.append("]");
-		return builder.toString();
+		return "K3Shipping [shippingCode=" + shippingCode + ", vehicleCheckpointCode=" + vehicleCheckpointCode
+				+ ", areaCode=" + areaCode + ", releaseMergeCode=" + releaseMergeCode + ", shippingAddress="
+				+ shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress + ", memberId=" + memberId
+				+ ", memberPhone=" + memberPhone + ", shippingDetail=" + shippingDetail + ", driverId=" + driverId
+				+ ", shippingTracking=" + shippingTracking + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -109,6 +98,7 @@ public class K3Shipping {
 		result = prime * result + ((shippingAddress == null) ? 0 : shippingAddress.hashCode());
 		result = prime * result + ((shippingCode == null) ? 0 : shippingCode.hashCode());
 		result = prime * result + ((shippingDetail == null) ? 0 : shippingDetail.hashCode());
+		result = prime * result + ((shippingDetailAddress == null) ? 0 : shippingDetailAddress.hashCode());
 		result = prime * result + ((shippingTracking == null) ? 0 : shippingTracking.hashCode());
 		result = prime * result + ((vehicleCheckpointCode == null) ? 0 : vehicleCheckpointCode.hashCode());
 		return result;
@@ -162,6 +152,11 @@ public class K3Shipping {
 				return false;
 		} else if (!shippingDetail.equals(other.shippingDetail))
 			return false;
+		if (shippingDetailAddress == null) {
+			if (other.shippingDetailAddress != null)
+				return false;
+		} else if (!shippingDetailAddress.equals(other.shippingDetailAddress))
+			return false;
 		if (shippingTracking == null) {
 			if (other.shippingTracking != null)
 				return false;
@@ -174,6 +169,7 @@ public class K3Shipping {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

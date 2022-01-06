@@ -35,6 +35,7 @@ public class K3InoutController {
 	//계정과목 수정 폼으로 이동(값 할당해서 넣기)
 	@GetMapping("/k3ModifyInout")
 	public String modifyInout(@RequestParam(value="inoutRec", required = false) String inoutRec, Model model) {
+		System.out.println(inoutRec);
 		if(inoutRec != null && !"".equals(inoutRec)) {
 			K3Inout inoutInfo = k3InoutService.getModifyInout(inoutRec);
 			model.addAttribute("inoutInfo", inoutInfo);
@@ -43,7 +44,6 @@ public class K3InoutController {
 		return "team03/finance/inout/k3ModifyInout";
 	}
 
-	
 	//입출금 내역 등록처리
 	@PostMapping("/k3AddInout")
 	public String addInout(K3Inout k3Inout) {
@@ -66,7 +66,8 @@ public class K3InoutController {
 		model.addAttribute("title", "입출금 내역");
 		model.addAttribute("subtitle", "입출금 내역 조회");
 		model.addAttribute("inoutList", inoutList);
-		    
+		System.out.println("model: " + model);
+		
 		return "/team03/finance/inout/k3InoutList";
 	}
 }

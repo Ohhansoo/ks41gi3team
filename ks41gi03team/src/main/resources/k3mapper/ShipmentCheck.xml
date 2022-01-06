@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.check.ahs.mapper.K3CheckMapper">
+	<resultMap type="K3ShipmentCheck" id="shipmentResultMap">
+ 		<result column="releaseCode" property="releaseCode" />
+		<result column="laydownGoodsName" property="laydownGoodsName" />
+		<result column="releaseGoodsCount" property="releaseGoodsCount" />
+		<result column="contractorName" property="contractorName" />
+		<result column="accepDate" property="accepDate" />
+		<result column="releaseDate" property="releaseDate" />
+		<result column="recipientName" property="recipientName" />
+		<result column="shipmentCheckManager" property="shipmentCheckManager" />
+		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
+		<result column="shipmentCheckResult" property="shipmentCheckResult" />
+	</resultMap>
+		
+	<select id="k3GetShipmentCheckList" resultType="K3ShipmentCheck">
+		SELECT
+			r.releaseCode,
+			w.laydownGoodsName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.accepDate,
+			r.releaseDate,
+			r.recipientName,
+			r.shipmentCheckManager,
+			r.shipmentCheckRegDate,
+			r.shipmentCheckResult
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_pileup AS p
+			ON
+			r.pileupCode = p.pileupCode
+			INNER JOIN	
+			k3_tb_warehousing AS w
+			ON
+			p.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE
+			r.releaseAllow = 'Y';
+	</select>
+
+</mapper>

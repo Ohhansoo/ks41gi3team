@@ -27,19 +27,7 @@ public class K3VehicleController {
 		this.k3VehicleService = k3VehicleService;
 	}
 	
-	@PostMapping("/k3AddVehicle")
-	public String addVehicle(K3Vehicle k3Vehicle) {
-		Integer result = k3VehicleService.addVehicle(k3Vehicle);
-		log.info("AddVehicle" + result);
-		log.info("AddVehicle" + k3Vehicle);
-		return "redirect:/team03/delivery/vehicle/k3VehicleList";
-	}
-	
-	@GetMapping("/k3AddVehicle")
-	public String addVehicle(Model model) {
-		return "team03/delivery/vehicle/k3AddVehicle";
-	}
-
+	//현황
 	@GetMapping("/k3VehicleList")
 	public String getVehicleList(Model model) {
 		List<K3Vehicle> vehicleList = k3VehicleService.getVehicleList();
@@ -49,6 +37,22 @@ public class K3VehicleController {
 		return "team03/delivery/vehicle/k3VehicleList";
 	}
 	
+	//등록 화면
+	@GetMapping("/k3AddVehicle")
+	public String addVehicle(Model model) {
+		return "team03/delivery/vehicle/k3AddVehicle";
+	}
+	
+	//등록 진행
+	@PostMapping("/k3AddVehicle")
+	public String addVehicle(K3Vehicle k3Vehicle) {
+		Integer result = k3VehicleService.addVehicle(k3Vehicle);
+		log.info("AddVehicle" + result);
+		log.info("AddVehicle" + k3Vehicle);
+		return "redirect:/team03/delivery/vehicle/k3VehicleList";
+	}
+	
+	//수정 화면
 	@GetMapping("/k3ModifyVehicle")
 	public String k3ModifyVehicle(@RequestParam(value="vehicleCode", required = false) String vehicleCode, Model model) {
 		
@@ -61,6 +65,14 @@ public class K3VehicleController {
 		model.addAttribute("title", "차량수정화면");
 	
 		return "team03/delivery/vehicle/k3ModifyVehicle";
-
+	}
+	
+	//수정 등록
+	@PostMapping("/k3ModifyVehicle")
+	public String modifyVehicle(K3Vehicle k3Vehicle) {
+		
+		k3VehicleService.modifyVehicle(k3Vehicle);
+		
+		return "redirect:/team03/delivery/vehicle/k3VehicleList";
 	}
 }
