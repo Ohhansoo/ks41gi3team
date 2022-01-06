@@ -21,4 +21,10 @@ public class K3MemberUserLevelService {
 		return result;
 	}
 	
+	//회원권한 (초기화면)
+	public List<K3MemberUserLevel> getMemberUserLevelList(){
+		List<K3MemberUserLevel> memberuserlevelList = memberuserlevelMapper.getMemberUserLevelList();
+		return memberuserlevelList;
+	}
+	
 }

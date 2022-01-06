@@ -6,10 +6,53 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
+	<script>
+			$(function(){				
+				$('#addourcompanyBtn').on('click', function(){
+					location.href = '/team03/companymanagement/ourcompany/k3AddOurCompanyList';
+				});
+				
+				$(document).on('click', '#deleteOurCompanyBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addourcompanyBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteOurCompanyBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -22,9 +65,9 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
-									<div class="input-group">
+									<div class="input-group input-group-sm">
 										<div class="input-group-prepend">
-											<select name="categoryKey" class="input-group-text">
+											<select name="ourcompanyKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="ourCompanyCode">자사 등록번호</option>
 												<option value="ourCompanyBusinessPlaceCode">자사 종사업장번호</option>
 												<option value="ourCompanyBusinessName">자사 상호</option>
@@ -35,8 +78,9 @@
 												<option value="ourCompanyEmail">자사 이메일</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" >
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="categoryValue" class="form-control" style="height: 38px;  font-size: 15px;">
+										<div class="btn btn-default" style="height: 38px;">
+											<i class="fas fa-search icon"></i>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -96,11 +140,6 @@
 							</form>	
 						</div>
 						<!--End card body -->
-					</div>
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" id="moveAddPage">등록페이지로 이동 --></a>					
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>

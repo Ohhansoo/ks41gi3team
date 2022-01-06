@@ -10,7 +10,7 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
-	<delete id="k3DeleteMemberUser">
+	<delete id="k3DeleteMemberUser" parameterType="int">
 		DELETE 
 			m
 		FROM 
