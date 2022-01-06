@@ -78,7 +78,7 @@ public class K3ContractorController {
 									,@RequestParam(value="searchValue", required=false) String searchValue
 									,Model model) {
 		
-		if(searchKey != null $$ .equals(searchKey))
+		/* if(searchKey != null && .equals(searchKey)) */
 		
 		return "/team03/contractorContract/Contractor/k3SearchContractor";
 	}
