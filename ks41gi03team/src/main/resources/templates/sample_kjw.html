@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--상위 카드 영역 -->
+					<div class="card">
+              <div class="row">
+                <div class="col-md-4">
+                  <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="40%" y="50%" fill="#dee2e6" dy=".3em">이용자 목록</text></svg>
+
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body" >
+                   	<div class="d-flex justify-content-center">
+							      <ul class="nav nav-pills">
+							    
+							        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">현황</a></li>
+							        <li class="nav-item"><a href="#" class="nav-link">등록</a></li>
+							        <li class="nav-item"><a href="#" class="nav-link">수정</a></li>
+							        <li class="nav-item"><a href="#" class="nav-link">삭제</a></li>
+							      </ul>
+							    </div>
+							    <br>
+							    <br>
+							   
+							    
+							    <form class="card p-2">
+						          <div class="input-group">
+						          <select class="form-select" id="search">
+					                <option value="">선택</option>
+					                <option>3</option>
+					                <option>팀</option>
+					                <option>짱</option>
+					              </select>
+						            <input type="text" class="form-control" placeholder="..">
+						            <button type="submit" class="btn btn-primary">검색</button>
+						            
+						          </div>
+						          
+						        </form>	
+						          
+                  </div>
+                </div>
+              </div>
+            </div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+						<!-- card header Start -->
+								<div class="card-header" style="height:50x;">
+									<div style="text-align:center; vertical-align:center;">이용자 목록</div>
+									
+								</div>
+						<!-- card header End -->
+						<!-- card body Start -->	
+								<div class="card-body-p0">
+									
+									<div class="table-responsive">
+								        <table class="table table-striped">
+								          <thead>
+								          <tr>
+								            <th scope="col">#</th>
+								            <th scope="col">수정</th>
+								            <th scope="col">삭제</th>
+								            <th scope="col">아이디</th>
+								            <th scope="col">비밀번호</th>
+								            <th scope="col">레벨</th>
+								          </tr>
+								          </thead>
+								          <tbody>
+								          <tr>
+								            <th scope="row">
+									            <div class="form-check">
+													<input id="paypal" name="paymentMethod" type="radio" class="form-check-input">
+									            </div>
+								            </th>
+								            <td><span class="badge rounded-pill bg-primary">수정</span></td>
+								            <td><span class="badge rounded-pill bg-secondary">삭제</span></td>
+								            <td>id001</td>
+								            <td>pw001</td>
+								            <td>관리자</td>
+								          </tr>
+								          <tr>
+								            <th scope="row">
+									            <div class="form-check">
+													<input id="paypal" name="paymentMethod" type="radio" class="form-check-input">
+									            </div>
+								            </th>
+								            <td><span class="badge rounded-pill bg-primary">수정</span></td>
+								            <td><span class="badge rounded-pill bg-secondary">삭제</span></td>
+								            <td>id002</td>
+								            <td>pw002</td>
+								            <td>구매자</td>
+								          </tr>
+								          <tr>
+								            <th scope="row">
+									            <div class="form-check">
+													<input id="paypal" name="paymentMethod" type="radio" class="form-check-input">
+									            </div>
+								            </th>
+								            <td><span class="badge rounded-pill bg-primary">수정</span></td>
+								            <td><span class="badge rounded-pill bg-secondary">삭제</span></td>
+								            <td>id003</td>
+								            <td>pw003</td>
+								            <td>판매자</td>
+								          </tr>
+								          <tr>
+								            <th scope="row">
+									            <div class="form-check">
+													<input id="paypal" name="paymentMethod" type="radio" class="form-check-input">
+									            </div>
+								            </th>
+								            <td><span class="badge rounded-pill bg-primary">수정</span></td>
+								            <td><span class="badge rounded-pill bg-secondary">삭제</span></td>
+								            <td>id004</td>
+								            <td>pw004</td>
+								            <td>관리자</td>
+								          </tr>
+								          <tr>
+								            <th scope="row">
+									            <div class="form-check">
+													<input id="paypal" name="paymentMethod" type="radio" class="form-check-input">
+									            </div>
+								            </th>
+								            <td><span class="badge rounded-pill bg-primary">수정</span></td>
+								            <td><span class="badge rounded-pill bg-secondary">삭제</span></td>
+								            <td>id005</td>
+								            <td>pw005</td>
+								            <td>구매자</td>
+								          </tr>
+								          </tbody>
+								        </table>
+								      </div>
+								</div>
+						<!-- card body End -->								
+							</div>
+						</div>		
+					</div>				
+						<div class="d-flex justify-content-center">
+							        <button type="button" class="ahsbtn5 btn btn-outline-primary me-2">버튼1</button>
+							        <button type="button" class="ahsbtn5 btn btn-primary">버튼2</button>
+						</div>			
+					<!--End 하위 카드 영역 -->		
+					<!--버튼 영역 -->
+					<!--End 버튼 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

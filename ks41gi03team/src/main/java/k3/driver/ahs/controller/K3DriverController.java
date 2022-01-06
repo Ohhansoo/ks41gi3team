@@ -73,6 +73,6 @@ public class K3DriverController {
 		}
 		model.addAttribute("title", "기사수정화면");
 		
-		return "team03/delivery/driver/k3ModifyDriver'";
+		return "team03/delivery/driver/k3ModifyDriver";
 	}
 }
