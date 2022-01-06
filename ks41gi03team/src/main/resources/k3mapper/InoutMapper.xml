@@ -3,10 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.inout.ahs.mapper.K3InoutMapper">
-	
-	
-	
-	
+<!-- 	<resultMap type="K3Inout" id="inoutResultMap">
+		<result column="inoutRec" property="inoutRec"/>
+		<result column="mainBusinessCode" property="mainBusinessCode"/>
+		<result column="memberId" property="memberId"/>
+		<result column="memberName" property="memberName"/>
+		<result column="inoutRegDate" property="inoutRegDate"/>
+		<result column="contractorDevision" property="contractorDevision"/>
+		<result column="inoutTradeDate" property="inoutTradeDate" />
+		<result column="inoutName" property="inoutName"/>
+		<result column="inoutPrice" property="inoutPrice"/>
+		<result column="inoutPreDate" property="inoutPreDate"/>
+		<result column="inoutCategory" property="inoutCategory"/>
+		<result column="inoutMemo" property="inoutMemo"/>
+		<result column="inoutCheck" property="inoutCheck"/>
+		<result column="inoutLast" property="inoutLast"/>
+		<result column="inoutResult" property="inoutResult"/>
+	</resultMap> -->
 	
 	
 	<!-- 입출금내역 수정 폼 -->
@@ -28,8 +41,8 @@
 			,inoutLast
 			,inoutResult
 		FROM k3_tb_inout
-			where
-				inoutRec = #{inoutRec};
+		where
+			inoutRec = #{inoutRec};
 	</select>
 	
 	
@@ -46,7 +59,7 @@
 		inoutName,
 		inoutPrice,
 		inoutPreDate,
-		inoutCategory,
+		inoutCategory
 		inoutMemo,
 		inoutCheck,
 		inoutLast,

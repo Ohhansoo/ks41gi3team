@@ -8,8 +8,10 @@
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
-				<table border="1">
-					<thead>
+				
+				<form id="subjectForm" th:action="@{/team03/finance/inout/k3ModifyInout}" method="post">
+					<table border="1">
+						<thead>
 						<tr>
 							<td>통합회계그룹코드</td>
 							<td>사업장별 대표코드</td>
@@ -52,11 +54,12 @@
 								<a th:href="@{#}">삭제</a>
 							</td>			
 						</tr>
-						<tr th:unless="${not #lists.isEmpty(inoutList)}" th:each="l : ${inoutList}">
+						<tr th:unless="${not #lists.isEmpty(inoutList)}">
 							<td>등록된 카테고리가 없습니다.</td>
 						</tr>
 					</tbody>
 				</table>
+				</form>
 			</div>
 		</div>
 	</th:block>
