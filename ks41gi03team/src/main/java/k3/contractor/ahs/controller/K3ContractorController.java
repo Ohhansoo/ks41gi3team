@@ -72,7 +72,19 @@ public class K3ContractorController {
 		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
 	
-	//거래처 상세정보로 화면 전환+거래처정보 가져오기
+	//거래처 검색
+	@PostMapping("/k3SearchContractor")
+	public String k3SearchContractor(@RequestParam(value="searchKey", required=false) String searchKey
+									,@RequestParam(value="searchValue", required=false) String searchValue
+									,Model model) {
+		
+		if(searchKey != null $$ .equals(searchKey))
+		
+		return "/team03/contractorContract/Contractor/k3SearchContractor";
+	}
+	
+	
+	//거래처 상세정보 모달창으로 화면 전환+거래처정보 가져오기
 	@PostMapping("/k3SearchContractor")
 	@ResponseBody
 	public K3DetailContractor k3GetDetailContractor(@RequestParam(value="contractorCode", required = false) String contractorCode) {
