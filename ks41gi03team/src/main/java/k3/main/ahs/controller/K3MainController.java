@@ -37,4 +37,10 @@ public class K3MainController {
 	public String sample5Controller() {
 		return "sample5";
 	}
+	
+	@GetMapping("/sample_kjw")
+	public String sampleKjwController() {
+		return "sample_kjw";
+	}
+	
 }
