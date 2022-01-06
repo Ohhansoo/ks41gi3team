@@ -66,7 +66,7 @@ public class K3InoutController {
 		model.addAttribute("title", "입출금 내역");
 		model.addAttribute("subtitle", "입출금 내역 조회");
 		model.addAttribute("inoutList", inoutList);
-		
+		    
 		return "/team03/finance/inout/k3InoutList";
 	}
 }
