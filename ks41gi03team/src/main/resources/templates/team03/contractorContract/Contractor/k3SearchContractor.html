@@ -79,7 +79,23 @@
 
 	<th:block layout:fragment="customContents"> 
 		<!-- 콘텐츠 콘테이너 시작 -->
-		<div class="container-fluid">
+		<div class="container-fluid" >
+			<!--버튼 영역 -->			
+				<div class="d-flex justify-content-end">					
+					<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Contractor/k3AddContractor}">
+						<i class="bi bi-file-earmark-plus"></i>
+						등록
+					</a>			
+					<a class="btn btn-outline-info ahsbtn4" type="button">
+						<i class="bi bi-printer"></i>
+						출력
+					</a>						
+					<a class="btn btn-outline-info ahsbtn4" type="button">
+						<i class="bi bi-trash"></i>
+						삭제
+					</a>			
+				</div>	
+			<!--End 버튼 영역 -->
 			<!--거래처 검색 카드 영역 -->
 			<div class="card cardColor">
 				<!--card header -->
@@ -87,6 +103,7 @@
 					거래처 검색
 				</div>
 				<!--End card header -->
+				
 				<!--card body -->
 				<div class="card-body">
 					<div class="row" style="margin: 12px">
@@ -139,7 +156,7 @@
 			</div>
 			<!--End 거래처 검색 카드 영역 -->
 			<!--조회 카드 영역 -->
-			<div class="card cardColor">
+			<div class="card cardColor"  style="text-align:center">
 				<!--card header -->
 				<div class="card-header">
 					거래처 목록
@@ -150,7 +167,13 @@
 					<table class="table table-head-fixed table-responsive table-hover text-nowrap" style="overflow: auto">
 						<thead>
 						<tr>
-				            <th>선택</th>
+							<th>
+								<a type="button" class="btn btn-default btn-sm checkbox-toggle">
+									<i class="far fa-square icon"></i>
+									<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+							  		<!-- <i class="far fa-check-square"></i> -->												
+								</a>
+							</th>
 							<th>수정</th>
 							<th>상세정보</th>						            
 				            <th>거래처 사업장 코드</th>
@@ -169,17 +192,17 @@
 							<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
 								<td>
 									<label>
-										<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
+										<input id="removeContract" type="checkbox"/>
 									</label>
 								</td>
 								<td>
-									<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
-										수정
+									<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
+										<i class="fas fa-pencil-alt icon"></i>
 									</a>
 								</td>
 								<td>
-									<a href="#" class="searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
-										상세조회
+									<a href="#"  type="button"  class="btn btn-default btn-sm searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
+										<i class="bi bi-eye"></i>
 									</a>
 								</td>										
 								<td  th:text="${c.contractorCode}"></td>
@@ -220,19 +243,6 @@
 				<!--End card body -->
 			</div>
 			<!--End 조회 카드 영역 -->
-			<!--버튼 영역 -->
-			<div class="row" style="margin:15px;">
-				<div class="col-sm-3" style="float:left">
-					<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
-					<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>
-				</div>
-				<div class="col-sm-6">
-				</div>
-				<div class="col-sm-3" style="float:right">
-					<a th:href="@{/team03/contractorContract/Contractor/k3AddContractor}" id="moveAddPage">등록페이지로 이동 --></a>	
-				</div>				
-			</div>
-			<!--End 버튼 영역 -->
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
 	<!-- 거래처 상세 정보 모달창 -->
@@ -241,8 +251,10 @@
 		  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title font-weight-bold" style="color:#286273">거래처 상세정보</h5>
-		        <a type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">X</a>
+		        <h5 class="modal-title font-weight-bold" style="color:#3F72AF">거래처 상세정보</h5>
+		        <a type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">
+					<i class="bi bi-x-circle"></i>
+		        </a>
 		      </div>
 		      <div class="modal-body">
 				<div class=" card card-body bg-light container-fluid" id="modifyContractor">
@@ -252,9 +264,18 @@
 				</div>
 		      </div>
 		      <div class="modal-footer">
-				<a class="ahsbtn1 btn btn-outline-info modifyBtn" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">수정</a>
-				<a class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</a>
-				<a class="ahsbtn1 btn btn-outline-info">출력</a>					
+				<a class="ahsbtn2 btn btn-outline-info modifyBtn" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
+					<i class="bi bi-pencil"></i>
+					수정
+				</a>
+				<a class="ahsbtn2 btn btn-outline-info deleteBtn">
+					<i class="bi bi-trash"></i>
+					삭제
+				</a>
+				<a class="ahsbtn2 btn btn-outline-info">
+					<i class="bi bi-printer"></i>
+					출력
+				</a>					
 		      </div>
 		    </div>
 		  </div>
