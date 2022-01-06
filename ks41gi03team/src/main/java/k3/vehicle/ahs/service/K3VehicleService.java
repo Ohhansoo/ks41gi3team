@@ -32,4 +32,8 @@ public class K3VehicleService {
 	public K3Vehicle getModifyVehicle(String vehicleCode) {
 		return k3VehicleMapper.getModifyVehicle(vehicleCode);
 	}
+	
+	public Integer modifyVehicle(K3Vehicle k3Vehicle) {
+		return k3VehicleMapper.modifyVehicle(k3Vehicle);
+	}
 }

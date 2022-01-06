@@ -40,9 +40,8 @@
 			,#{vehicleManufacturer}
 			,#{vehicleDriveAvailability}
 			);
-			
-	
 	</select>
+	
 	<select id="getModifyVehicle" resultType="K3Vehicle">
 		SELECT
 			vehicleCode,
@@ -57,6 +56,34 @@
 			k3_tb_vehicle
 		WHERE
 			vehicleCode = #{vehicleCode};
-
 	</select>
+	
+	<update id="modifyVehicle" parameterType="K3Vehicle">
+		UPDATE k3_tb_vehicle
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleCode = #{vehicleCode},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				mainBusinessCode = "공장A공장_서울_1",
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleTonage = #{vehicleTonage},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleInspectionDate = #{vehicleInspectionDate},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				memberId = #{memberId},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleManufacturer = #{vehicleManufacturer},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleDriveAvailability = #{vehicleDriveAvailability}
+			</if>
+		</trim>
+		WHERE
+			vehicleCode = #{vehicleCode};
+	</update>
 </mapper>

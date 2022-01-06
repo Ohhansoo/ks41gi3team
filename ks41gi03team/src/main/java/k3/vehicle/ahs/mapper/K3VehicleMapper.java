@@ -13,4 +13,6 @@ public interface K3VehicleMapper {
 	public Integer addVehicle(K3Vehicle k3Vehicle);
 	
 	public K3Vehicle getModifyVehicle(String vehicleCode);
+	
+	public Integer modifyVehicle(K3Vehicle k3Vehicle);
 }

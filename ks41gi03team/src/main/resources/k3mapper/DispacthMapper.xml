@@ -141,6 +141,8 @@
 				dockName = #{dockName}
 			</if>
 		</trim>
+		WHERE
+			dispatchCode = #{dispatchCode};
 	</update>
 
 </mapper>
