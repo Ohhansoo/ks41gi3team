@@ -16,12 +16,18 @@ public class K3WarehousingService {
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
+	
+	//입고 요청 등록 처리 
+	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
+		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);
+		return result;
+	}
+	
 	//입고 요청 현황
 	public List<K3Warehousing> k3RequestAllowWarehousing() {
 		List<K3Warehousing> K3RequestAllow = k3WarehousingMapper.k3RequestAllowWarehousing();
 		return K3RequestAllow;
 	}
-	
 	
 	//입고 분류 현황(요청목록)
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
@@ -38,6 +44,7 @@ public class K3WarehousingService {
 		List<K3Warehousing> K3LaydownCheck = k3WarehousingMapper.k3GetWarehousingList();
 		return K3LaydownCheck;
 	}
+
 
 
 }
