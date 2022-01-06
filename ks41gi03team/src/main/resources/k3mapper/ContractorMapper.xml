@@ -82,9 +82,21 @@
 		where
 			c.contractorCode = #{contractorCode};
 	</select>
+	
+	<!-- 거래처 투플 수(페이징) -->
+	<select id="K3GetContractorCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId;					
+	</select>
 
 	<!-- 거래처 목록 간단 현황으로 불러오기 -->
-	<select id="K3GetContractorList" resultType="K3Contractor">
+	<select id="K3GetContractorList" parameterType="map" resultType="map" >
 		SELECT
 			c.contractorCode
 			,cs.contractorName
@@ -101,7 +113,10 @@
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			c.contractorId = cs.contractorId;
+			c.contractorId = cs.contractorId
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>			
 	</select>
 
 </mapper>

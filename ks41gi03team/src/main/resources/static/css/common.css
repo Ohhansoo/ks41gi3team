@@ -29,6 +29,14 @@ body{
 }
 
 
+/* 사이드바 나눔선*/
+.brand-link{
+	border-bottom : 1px solid #F9F7F7;	
+}
+#userPanel{
+	border-bottom : 1px solid #F9F7F7;
+}
+
 /* 사이드 바 아래 부분*/
 .os-content{
 	background-color: #3F72AF;
