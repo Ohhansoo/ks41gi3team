@@ -1,11 +1,8 @@
 package k3.contractor.ahs.controller;
 
-import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3DetailContractor;
 import k3.contractor.ahs.service.K3ContractorService;
 
@@ -22,7 +18,6 @@ import k3.contractor.ahs.service.K3ContractorService;
 @RequestMapping(value="/team03/contractorContract/Contractor")
 public class K3ContractorController {
 	
-	private static final Logger log = LoggerFactory.getLogger(K3ContractorController.class);
 	
 	private K3ContractorService k3ContractorService;
 	
@@ -36,7 +31,7 @@ public class K3ContractorController {
 										, Model model) {
 		//거래처 정보
 		if(contractorCode != null && !"".equals(contractorCode)) {
-			K3DetailContractor contractorInfo =  (K3DetailContractor) k3ContractorService.K3GetContractorList();
+			K3DetailContractor contractorInfo =  (K3DetailContractor) k3ContractorService.K3GetContractorList(0);
 			model.addAttribute("contractorInfo", contractorInfo);
 		}
 		
@@ -89,12 +84,19 @@ public class K3ContractorController {
 	
 	//거래처 현황에 거래처 가져오기
 	@GetMapping("/k3SearchContractor")
-	public String K3GetContractorSearch(Model model) {
-		List<K3Contractor> contractorList = k3ContractorService.K3GetContractorList();
+	public String K3GetSearchContractor(@RequestParam(value="currentPage", required = false, defaultValue = "1") int currentPage
+										,Model model) {
+		
+		   //model currentPage, lastPage, contractorList, startPageNum, endPageNum
+		Map<String, Object> resultMap = k3ContractorService.K3GetContractorList(currentPage);
 
 		model.addAttribute("title", "거래처 관리");
 		model.addAttribute("subtitle", "거래처 현황");
-		model.addAttribute("contractorList", contractorList);
+		model.addAttribute("currentPage",		currentPage);
+		model.addAttribute("lastPage",			resultMap.get("lastPage"));
+		model.addAttribute("contractorList",	resultMap.get("contractorList"));
+		model.addAttribute("startPageNum",		resultMap.get("startPageNum"));
+		model.addAttribute("endPageNum",			resultMap.get("endPageNum"));
 
 		return "/team03/contractorContract/Contractor/k3SearchContractor";
 	}
