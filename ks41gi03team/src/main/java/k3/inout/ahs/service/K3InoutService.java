@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import k3.inout.ahs.dto.K3Inout;
 import k3.inout.ahs.mapper.K3InoutMapper;
+import k3.subject.ahs.dto.K3Subject;
 
 
 
@@ -18,6 +19,12 @@ public class K3InoutService {
 	
 	public K3InoutService(K3InoutMapper k3InoutMapper) {
 		this.k3InoutMapper = k3InoutMapper;
+	}
+	
+	
+	//계정과목 수정 폼으로 이동
+	public K3Inout getModifyInout(String inoutRec) {
+		return k3InoutMapper.getModifyInout(inoutRec);
 	}
 	
 	//입출금 내역 등록

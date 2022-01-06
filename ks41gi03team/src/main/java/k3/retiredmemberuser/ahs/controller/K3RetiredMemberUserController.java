@@ -7,6 +7,7 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import k3.ourcompany.ahs.controller.K3OurcompanyController;
@@ -24,7 +25,15 @@ public class K3RetiredMemberUserController {
 	public K3RetiredMemberUserController(K3RetiredMemberUserService retiredmemberuserService) {
 		this.retiredmemberuserService =retiredmemberuserService;
 	}
-	//퇴사회원 등록회면(이동)
+	
+	//퇴사회원 등록처리 
+	@PostMapping("/k3AddRetiredMemberUserList")
+	public String k3MoveToAddRetiredMemberUserForm(K3RetiredMemberUser k3RetiredMemberUser) {
+		retiredmemberuserService.AddRetiredMemberUser(k3RetiredMemberUser);
+		return "redirect:/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList";
+	}
+	
+	//퇴사회원 등록화면(이동)
 	@GetMapping("/k3AddRetiredMemberUserList")
 	public String AddRetiredMemberUser(Model model) {
 		model.addAttribute("title","퇴사회원관리");
