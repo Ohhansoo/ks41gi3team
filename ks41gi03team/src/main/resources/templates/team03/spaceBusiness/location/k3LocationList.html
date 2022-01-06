@@ -2,20 +2,121 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title th:text="title"></title>
-	</th:block>
-	<th:block layout:fragment="customContents">
+<th:block layout:fragment="customTitle">
+	<title>ksmart41</title>
+</th:block>
+	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
-			<div id="representative-button">
-				
-					<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<a th:href="@{/team03/spaceBusiness/location/k3ModifyLocation}">수정</a>
-					<a th:href="@{/team03/spaceBusiness/location/k3DeleteLocation}">삭제</a>
-					
+			<!-- 콘텐츠 콘테이너 시작 -->
+			<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+								
+					</div>	
+				<!--End 버튼 영역 -->
+				<!--상위 카드 영역 -->
+				<div class="card cardColor">
+					<!--card header -->
+					<div class="card-header">
+						조회
+					</div>
+					<!--End card header -->
+					<!--card body -->
+					<div class="card-body">
+						<div class="row" style="margin: 12px">
+							<!--inputbox 1 -->
+							<form class="col-lg-6" th:action="@{#}" method="post">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
+										<option value="">호호</option>
+										<option value="">하하</option>
+										<option value="">흐흐</option>
+										<option value="">히히</option>
+									</select>
+									<input type="text" class="form-control" placeholder="검색">
+									<div class="input-group-append">
+										<div class="btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--End inputbox 1 -->
+	 					</div>
+					</div>					
+	 				<!--End card body 묶음 -->
 				</div>
+				<!--End 상위 카드 영역 -->
+				<!--하위 카드 영역 -->
+				<div class="card">
+					<div class="row">
+						<div class="col-12">
+					<!-- card header Start -->
+							<div class="card-header">
+								<div class="card-title">로케이션 현황</div>
+							</div>
+					<!-- card header End -->
+					<!-- card body Start -->	
+							<div class="card-body table-responsive p-0 table-hover" style="height:500px;">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>
+												<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+													<i class="far fa-square icon"></i>
+													<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+											  		<!-- <i class="far fa-check-square"></i> -->												
+												</button>
+											</th>
+											<th>수정</th>
+											<th>로케이션 코드</th>
+											<th>비고</th>
+											<th>상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(locationData)}" th:each="ld :${locationData}">
+											<td>
+												<div class="icheck-primary">
+													<input type="checkbox" id="check1"/>
+													<label for="check1"></label>
+												</div>
+											</td>
+											<td>
+												<a th:href="@{/team03/spaceBusiness/location/k3ModifyLocation(locationCode=${ld.locationCode})}">수정</a>
+											</td>
+											<td th:text="${ld.locationCode}"></td>
+											<td th:text="${ld.locationNote}"></td>
+											<td th:text="${ld.locationState}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="card-footer">
+										<h1>안녕</h1>
+							</div>
+						<!-- card body End -->								
+						</div>
+					</div>		
+				</div>				
+				<!--End 하위 카드 영역 -->
 			</div>
-		</div>	
+			<!-- End 콘텐츠 콘테이너 -->
+		</div>
 	</th:block>
-</head>
