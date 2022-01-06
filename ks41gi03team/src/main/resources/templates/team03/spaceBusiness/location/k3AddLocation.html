@@ -23,7 +23,7 @@
 					var rackCodeList = rackCode.split(",");
 					var cellCodeList = cellCode.split(",");
 					var locationCode = [];
-					if(centerCodeList != null && brandCodeList != null && lineCodeList != null && rackCodeList != null && cellCode != null){
+					if(centerCodeList != '' && brandCodeList != '' && lineCodeList != '' && rackCodeList != '' && cellCode != ''){
 						for (var i = 0; i < centerCodeList.length; i++) {
 							for (var j = 0; j < brandCodeList.length; j++) {
 								for (var k = 0; k < lineCodeList.length; k++) {
@@ -42,7 +42,7 @@
 							}
 						}	
 					}
-					if(centerCodeList == null && brandCodeList != null && lineCodeList != null && rackCodeList != null && cellCode != null){
+					if(centerCodeList == '' && brandCodeList != '' && lineCodeList != '' && rackCodeList != '' && cellCode != ''){
 						for (var j = 0; j < brandCodeList.length; j++) {
 							for (var k = 0; k < lineCodeList.length; k++) {
 								for (var l = 0; l < rackCodeList.length; l++) {
@@ -59,7 +59,7 @@
 							}
 						}
 					}
-					if(centerCodeList == null && brandCodeList == null && lineCodeList != null && rackCodeList != null && cellCode != null){
+					if(centerCodeList == '' && brandCodeList == '' && lineCodeList != '' && rackCodeList != '' && cellCode != ''){
 						for (var k = 0; k < lineCodeList.length; k++) {
 							for (var l = 0; l < rackCodeList.length; l++) {
 								for (var g = 0; g < cellCodeList.length; g++) {
@@ -73,25 +73,24 @@
 							}
 						}	
 					}
-					/* console.log(JSON.stringify(locationCode)); */
+					console.log(JSON.stringify(locationCode)); 
 		
-					$.ajax({
-						type : 'POST',
-						url : '/team03/spaceBusiness/location/k3AddLocation',
-						data : JSON.stringify(locationCode),
-						contentType : 'application/json; charset=utf-8',
-						dataType : 'json'
-					}).done(function(data) {
-						console.log(data);
-						 
-						
-					}).fail(function(r) {
-						var message = JSON.parse(r.responseText);
-						console.log((message));
-						alert('서버 오류');
+					var request = $.ajax({
+									type : 'POST',
+									url : '/team03/spaceBusiness/location/k3AddLocation',
+									data : JSON.stringify(locationCode),
+									contentType : 'application/json; charset=utf-8',
+									dataType : 'text'
+					});
+					request.done(function(data) {			
+							location.href = "/team03/spaceBusiness/location/k3LocationList";
+
+					});
+					request.fail(function(r) {
+						console.log(r);
+							alert('중복된값이나 입력된 값이 없습니다.');
 					});
 					
-					/* 	 */
 					
 				});
 				

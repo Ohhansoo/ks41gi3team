@@ -3,18 +3,50 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title th:text="title"></title>
+		<title th:text="${title}"></title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+		
 		<div id="representative-button">
-			<div id="representative-button">
+			<script type="text/javascript">
 				
+			</script>
+				<div id="representative-button">
+					
 					<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-			
-					
-				</div>
+					<div class="card">
+						<div class="row">
+							<div class="col-12">
+								<div class="card-header">
+									<h3 class="card-title">창고등록</h3>
+								</div>
+								<div class="card-body">
+									<form th:action="@{/team03/spaceBusiness/location/k3ModifyLocation}" method="post">
+										<div class="form-group">
+											<label for="locationCode">로케이션코드</label>
+											<input type="text" class="form-control" id="locationCode" name="locationCode" th:value="${k3Location.locationCode}"/>
+										</div>
+										<div class="form-group">
+											<label for="locationNote">비고</label>
+											<input type="text" class="form-control" id="locationNote" name="locationNote" th:value="${k3Location.locationNote}"/>
+										</div>
+										<div class="form-group">
+											<label for="locationState">상태</label>
+											<input type="text" class="form-control" id="locationState" name="locationState" th:value="${k3Location.locationState}"/>
+										</div>
+										
+										<div class="card-footer">
+											<button type="submit" class="btn btn-block btn-outlin-info">수정</button>
+										</div>															
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>		
+				</div>			
+					<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>	
+		</div>
 	</th:block>
 </head>

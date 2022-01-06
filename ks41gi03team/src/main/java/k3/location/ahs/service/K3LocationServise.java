@@ -14,17 +14,41 @@ import k3.location.ahs.mapper.K3LocationMapper;
 @Service
 public class K3LocationServise {
 	
+	/**
+	 * 의존성 주입 생성자메소드
+	 */
 	private final K3LocationMapper k3LocationMapper;
 	public K3LocationServise(K3LocationMapper k3LocationMapper) {
 		this.k3LocationMapper = k3LocationMapper;
 	}
 	
-	
-	
-	public int k3AddLocation(List<K3Location> k3LocationList) { 
-	
-		  Map<String,Object> insertMap = new HashMap<String,Object>(); 
-		  insertMap.put("list", k3LocationList);
-		return k3LocationMapper.k3AddLocation(insertMap); 
+	/**
+	 * 로케이션 코드 수정처리
+	 */
+	public int k3ModifyLocationCodeInfo(K3Location k3Location) {
+		System.out.println("service"+ k3Location);
+		return k3ModifyLocationCodeInfo(k3Location);
 	}
+	
+	/**
+	 * 로케이션 코드수정을 위한 조회
+	 */
+	public K3Location getK3ModifyLocationInfoByLocationCode(String locationCode){
+		return k3LocationMapper.getK3ModifyLocationInfoByLocationCode(locationCode);
+	}
+	
+	/**
+	 * 로케이션 코드 입력처리
+	 */
+	public int k3AddLocation(List<K3Location> k3LocationList) { 	
+		return k3LocationMapper.k3AddLocation(k3LocationList);	 
+	}
+	
+	/**
+	 * 로케이션 코드 현황
+	 */
+	public List<K3Location> k3LocationList(){
+		List<K3Location> k3LocationList	= k3LocationMapper.k3LocationList();
+		return k3LocationList;
+	};
 }

@@ -3,23 +3,49 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.location.ahs.mapper.K3LocationMapper">
-	<!-- <insert id="k3AddLocationCode" parameterType="K3Location">
-		INSERT INTO k3_tb_location(
-			locationCode
-		)VALUES(
-			#{locationCode}
-		);
-	</insert> -->
-	<insert id="k3AddLocation" parameterType="java.util.Map">
-		INSERT INTO k3_tb_location(
-			 locationCode
-			,locationNote
-			,locationState
-		)VALUES
-		<foreach collection="list" item="item" separator=",">
-		(#{item.locationCode}
-		,#{item.locationNote}
-		,#{item.locationState});
+		<!-- 로케이션 코드 수정처리 -->
+	<update id="k3ModifyLocationCodeInfo" parameterType="K3Location">
+		UPDATE 
+			k3_tb_location AS l
+		SET
+			 l.locationCode = #{locationCode}
+			,l.locationNote = #{locationNote}
+			,l.locationState = #{locationState}
+		WHERE
+			l.locationCode = #{locationCode};
+	</update>	
+		<!-- 로케이션 수정을 위한 조회  -->
+	<select id="getK3ModifyLocationInfoByLocationCode" resultType="K3Location" parameterType="String">
+		SELECT
+			 l.locationCode
+			,l.locationNote
+			,l.locationState
+		FROM
+			k3_tb_location AS l
+		WHERE
+			l.locationCode = #{locationCode};
+	</select>
+		<!--로케이션 코드 입력처리 -->
+	<insert id="k3AddLocation" parameterType="java.util.List">
+			INSERT INTO k3_tb_location(
+				 locationCode
+				,locationNote
+				,locationState
+			)VALUES
+		<foreach collection="list" item="i" separator=",">
+			(#{i.locationCode}
+			,#{i.locationNote}
+			,#{i.locationState})
 		</foreach>	
 	</insert>
+		<!-- 로케이션 코드 현황 -->
+	<select id="k3LocationList" resultType="K3Location">
+		SELECT
+			 l.locationCode
+			,l.locationNote
+			,l.locationState
+		FROM
+			k3_tb_location AS l;	
+	</select>
+	
 </mapper>
