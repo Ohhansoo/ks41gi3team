@@ -20,7 +20,7 @@ import k3.memberuser.ahs.service.K3MemberUserService;
 @RequestMapping(value="/team03/companymanagement/member")
 public class K3MemberUserController {
 	
-	private static final Logger log = LoggerFactory.getLogger(K3CategoryController.class);
+	private static final Logger log = LoggerFactory.getLogger(K3MemberUserController.class);
 	
 	private K3MemberUserService memberuserService;
 	
@@ -98,12 +98,13 @@ public class K3MemberUserController {
 		  log.info("k3ModifyMemberUserList 메소드 수정 결과  : " + result);
 		  return "redirect:/team03/companymanagement/member/k3MemberUserList"; 
 	  }
-	  //04 직원정보 삭제처리
-		@PostMapping("/k3DeleteMemberUser")
-		public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false) List<String>deleteList) {
+	  //04 직원정보 삭제처리 ( 한줄 삭제 )
+	  @GetMapping("/k3DeleteMemberUser")
+//		public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false) List<String>deleteList) {
+		public String k3DeleteMemberUser(@RequestParam(value="memberId", required = false) String memberId, Model model) {			
 			  System.out.println("04 220106 k3DeleteMemberUser K3MemberUserController.java");
 
-			int result = memberuserService.k3DeleteMemberUser(deleteList);
+			int result = memberuserService.k3DeleteMemberUser(memberId);
 			log.info("DeleteMemberUser 전송결과 : "  + result);
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
 		}

@@ -12,7 +12,13 @@
 					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
 				
+				$('#deleteMemberUserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3DeleteMemberUser';
+				});
+				
+				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
+					alert("삭제 처리 시작");
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
@@ -66,6 +72,7 @@
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group input-group-sm">
+										<div class="input-group-prepend">
 										<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 											<option value="ID">직원ID</option>
 												<option value="PW">직원PW</option>
@@ -80,10 +87,10 @@
 												<option value="Regdate">등록일자</option>
 												<option value="Regtiondate">입사일자</option>
 										</select>
+										</div>
 										<input type="text" name="categoryValue" class="form-control" placeholder="직원ID"  style="height: 38px;  font-size: 15px;">
 										<div class="btn btn-default" style="height: 38px;">
 											<i class="fas fa-search icon"></i>
-										</div>
 										</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -105,7 +112,8 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<th>삭제</th>	
+											<th>삭제</th>
+											<th>한줄삭제</th>	
 											<th>수정</th>
 											<th>직원ID</th>
 						                     <th>직원PW</th>
@@ -126,6 +134,9 @@
 						   				<td>
 											<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberId}">
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
+										</td>
+										<td>
+											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
 										</td>
 						   				<td>
 											<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">수정</a>

@@ -40,8 +40,10 @@ public class K3MemberUserService {
 			return memberuserList;
 		}
 	//직원 삭제처리
-	public int k3DeleteMemberUser(List<String> deleteList) {
-		int result = memberuserMapper.k3DeleteMemberUser(deleteList);
+	public int k3DeleteMemberUser(String memberId) {
+		  System.out.println("05 220107 k3DeleteMemberUser K3MemberUserService.java");
+
+		int result = memberuserMapper.k3DeleteMemberUser(memberId);
 		return result;
 	}
 		

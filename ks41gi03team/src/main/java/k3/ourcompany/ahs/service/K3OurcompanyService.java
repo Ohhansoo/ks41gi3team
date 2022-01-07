@@ -15,6 +15,12 @@ public class K3OurcompanyService {
 	public K3OurcompanyService(K3OurcompanyMapper ourcompanyMapper) {
 		this.ourcompanyMapper = ourcompanyMapper;
 	}
+	//자사정보 수정폼 이동
+	public K3OurCompany K3OurCompanyInfoBycode(String ourCompanyCode) {
+		K3OurCompany k3OurCompany = ourcompanyMapper.K3OurCompanyInfoBycode(ourCompanyCode);
+		return k3OurCompany;
+	}
+	
 	//자사정보 등록처리
 	public int AddOurCompany(K3OurCompany k3OurCompany) {
 		int result = ourcompanyMapper.AddOurCompany(k3OurCompany);
@@ -25,8 +31,7 @@ public class K3OurcompanyService {
 	public List<K3OurCompany> getOurCompanyList(){
 		List<K3OurCompany> ourcompanyList = ourcompanyMapper.getOurCompanyList();
 			return ourcompanyList;
-	
-				
 	}
+	
 	
 }
