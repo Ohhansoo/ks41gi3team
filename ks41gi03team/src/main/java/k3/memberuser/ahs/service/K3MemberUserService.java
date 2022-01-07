@@ -74,6 +74,11 @@ public class K3MemberUserService {
 		List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserList();
 		return memberuserList;
 	}
+	//직원정보 삭제 처리
+	public int k3RemoveMemberUser(List<String> removeList) {
+		int result = memberuserMapper.k3RemoveMemberUser(removeList);
+		return result;
+	}
 	
 
 }

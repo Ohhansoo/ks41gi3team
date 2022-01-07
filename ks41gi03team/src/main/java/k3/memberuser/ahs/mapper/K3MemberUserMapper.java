@@ -19,7 +19,7 @@ public interface K3MemberUserMapper {
 	//직원 조회
 	public List<K3MemberUser> getMemberUserListBySearchKey(String searchKey, String searchValue);
 	
-	//직원 정보 삭제처리 
+	//직원 정보 삭제처리(한줄)
 	public int k3DeleteMemberUser(String memberId);
 	
 	//직원 정보 수정처리
@@ -33,5 +33,8 @@ public interface K3MemberUserMapper {
 	
 	//회원전체 조회(초기)
 	public List<K3MemberUser> getMemberUserList();
+	
+	//직원정보 삭제처리
+	public int k3RemoveMemberUser(List<String> removeList);
 }
 //K3MemberUser
