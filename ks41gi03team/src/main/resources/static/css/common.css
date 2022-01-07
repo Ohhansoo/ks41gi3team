@@ -203,4 +203,6 @@ body{
 	text-decoration: underline;
 	width: 80%;
 }
-
+option{
+	text-align: justify;
+}
