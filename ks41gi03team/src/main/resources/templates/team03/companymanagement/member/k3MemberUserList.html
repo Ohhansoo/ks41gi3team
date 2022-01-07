@@ -13,7 +13,7 @@
 				});
 				
 				$('#deleteMemberUserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3DeleteMemberUser';
+					location.href = '/team03/companymanagement/member/k3MemberUser(memberId=${l.memberId})';
 				});
 				
 				
@@ -88,10 +88,12 @@
 												<option value="Regtiondate">입사일자</option>
 										</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="직원ID"  style="height: 38px;  font-size: 15px;">
+										<input type="text" name="memberuserValue" class="form-control" placeholder="직원ID"  style="height: 38px;  font-size: 15px;">
 										<div class="btn btn-default" style="height: 38px;">
+										<button id="categorySearcch" type="submit">
 											<i class="fas fa-search icon"></i>
-										</div>
+										</button>
+									</div>
 								</form>
 								<!--End inputbox 1 -->
 	 						</div>
@@ -108,7 +110,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
@@ -132,7 +134,7 @@
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
 						   				<td>
-											<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberId}">
+											<input type="checkbox" class="removeList" name="deleteList" th:value="${l.memberId}">
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
 										<td>
