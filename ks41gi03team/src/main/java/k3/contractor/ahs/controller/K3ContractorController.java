@@ -103,10 +103,8 @@ public class K3ContractorController {
 			searchKey = "contractorState";
 		}else if(searchKey != null && "memberId".equals(searchKey)) {
 			searchKey = "memberId";
-		}else if(contractorRegistrationDateStart != null && ) {
-			contractorRegistrationDateStart = ;
-		}else if(contractorRegistrationDateStart != null &&) {
-			contractorRegistrationDateEnd = ;
+		}else if(searchKey == null && contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null) {
+			
 		}else{
 			searchKey = "*" ;
 		}
