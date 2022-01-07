@@ -8,14 +8,14 @@
 	<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
-				<form id="addInout" th:action="@{/team03/finance/inout/k3AddInout}" method="post">
+				<form id="addIn" th:action="@{/team03/finance/in/k3AddIn}" method="post">
 					<table border="1">
 							<tr>
 								<td>
-									<label for="inoutRecInput">통합회계그룹코드</label>
+									<label for="inCodeInput">전표번호</label>
 								</td>
 								<td>
-									<input type="text" id="inoutRecInput" name="inoutRec">
+									<input type="text" id="inCodeInput" name="inCode">
 								</td>
 							</tr>
 							<tr>
@@ -44,92 +44,101 @@
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutRegDateInput">등록날짜</label>
+									<label for="inRegDateInput">등록일시</label>
 								</td>
 								<td>
-									<input type="text" id="inoutRegDateInput" name="inoutRegDate">
+									<input type="text" id="inRegDateInput" name="inRegDate">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="contractorDevisionInput">거래유형</label>
+									<label for="estimateContractorNameInput">거래처상호명</label>
 								</td>
 								<td>
-									<input type="text" id="contractorDevisionInput" name="contractorDevision">
+									<input type="text" id="estimateContractorNameInput" name="estimateContractorName">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutTradeDateInput">거래날짜</label>
+									<label for="contractorCodeInput">거래처사업장코드</label>
 								</td>
 								<td>
-									<input type="text" id="inoutTradeDateInput" name="inoutTradeDate">
+									<input type="text" id="contractorCodeInput" name="contractorCode">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutNameInput">거래처명</label>
+									<label for="contractCodeInput">계약대표코드</label>
 								</td>
 								<td>
-									<input type="text" id="inoutNameInput" name="inoutName">
+									<input type="text" id="contractCodeInput" name="contractCode">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutPriceInput">금액</label>
+									<label for="estimateNumInput">견적번호</label>
 								</td>
 								<td>
-									<input type="text" id="inoutPriceInput" name="inoutPrice">
+									<input type="text" id="estimateNumInput" name="estimateNum">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutPreDateInput">입출금예정일</label>
+									<label for="estimatePriceInput">견적금액</label>
 								</td>
 								<td>
-									<input type="text" id="inoutPreDateInput" name="inoutPreDate">
+									<input type="text" id="estimatePriceInput" name="estimatePrice">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutCategoryInput">입출금구분</label>
+									<label for="inPayMethodInput">결제방법</label>
 								</td>
 								<td>
-									<input type="text" id="inoutCategoryInput" name="inoutCategory">
+									<input type="text" id="inPayMethodInput" name="inPayMethod">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutMemoInput">적요</label>
+									<label for="inPayDateInput">실결제일</label>
 								</td>
 								<td>
-									<input type="text" id="inoutMemoInput" name="inoutMemo">
+									<input type="text" id="inPayDateInput" name="inPayDate">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutCheckInput">입출금확인</label>
+									<label for="inPayCheckInput">수금확인금액</label>
 								</td>
 								<td>
-									<input type="text" id="inoutCheckInput" name="inoutCheck">
+									<input type="text" id="inPayCheckInput" name="inPayCheck">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutLastInput">최종수정일</label>
+									<label for="inPayRemainInput">미수금</label>
 								</td>
 								<td>
-									<input type="text" id="inoutLastInput" name="inoutLast">
+									<input type="text" id="inPayRemainInput" name="inPayRemain">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label for="inoutResultInput">누계</label>
+									<label for="inReceipeInput">증빙서류발행</label>
 								</td>
 								<td>
-									<input type="text" id="inoutResultInput" name="inoutResult">
+									<input type="text" id="inReceipeInput" name="inReceipe">
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<label for="inReceipeDateInput">전표발생일시</label>
+								</td>
+								<td>
+									<input type="text" id="inReceipeDateInput" name="inReceipeDate">
+								</td>
+							</tr>
+							
 							<tr>
 								<td colspan="2">
 									<input id="addBtn" type="submit" value="확인">

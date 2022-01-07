@@ -1,84 +1,159 @@
 package k3.in.ahs.dto;
 
 public class K3In {
-	private String subjectName;
-	private String regName;
-	private String regDate;
-	private String subjectCode;
-	private String subjectGCode;
-	private String isUse;
-	private String isCorrect;
-	private String applyYear;
+	private String inCode;
+	private String mainBusinessCode;
+	private String estimateContractorName;
+	private String memberId;
+	private String memberName;
+	private String inRegDate;
+	private String contractorCode;
+	private String contractCode;
+	private String estimateNum;
+	private String estimatePrice;
+	private String inPayMethod;
+	private String inPayDate;
+	private String inPayCheck;
+	private String inPayRemain;
+	private String inReceipe;
+	private String inReceipeDate;
 	
-	
-	public String getSubjectGCode() {
-		return subjectGCode;
+	public String getInCode() {
+		return inCode;
 	}
-	public void setSubjectGCode(String subjectGCode) {
-		this.subjectGCode = subjectGCode;
+	public void setInCode(String inCode) {
+		this.inCode = inCode;
 	}
-	public String getIsUse() {
-		return isUse;
+	public String getMainBusinessCode() {
+		return mainBusinessCode;
 	}
-	public void setIsUse(String isUse) {
-		this.isUse = isUse;
+	public void setMainBusinessCode(String mainBusinessCode) {
+		this.mainBusinessCode = mainBusinessCode;
 	}
-	public String getIsCorrect() {
-		return isCorrect;
+	public String getEstimateContractorName() {
+		return estimateContractorName;
 	}
-	public void setIsCorrect(String isCorrect) {
-		this.isCorrect = isCorrect;
+	public void setEstimateContractorName(String estimateContractorName) {
+		this.estimateContractorName = estimateContractorName;
 	}
-	public String getApplyYear() {
-		return applyYear;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setApplyYear(String applyYear) {
-		this.applyYear = applyYear;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getSubjectName() {
-		return subjectName;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-	public String getRegName() {
-		return regName;
+	public String getInRegDate() {
+		return inRegDate;
 	}
-	public void setRegName(String regName) {
-		this.regName = regName;
+	public void setInRegDate(String inRegDate) {
+		this.inRegDate = inRegDate;
 	}
-	public String getRegDate() {
-		return regDate;
+	public String getContractorCode() {
+		return contractorCode;
 	}
-	public String getSubjectCode() {
-		return subjectCode;
+	public void setContractorCode(String contractorCode) {
+		this.contractorCode = contractorCode;
 	}
-	public void setSubjectCode(String subjectCode) {
-		this.subjectCode = subjectCode;
+	public String getContractCode() {
+		return contractCode;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setContractCode(String contractCode) {
+		this.contractCode = contractCode;
+	}
+	public String getEstimateNum() {
+		return estimateNum;
+	}
+	public void setEstimateNum(String estimateNum) {
+		this.estimateNum = estimateNum;
+	}
+	public String getEstimatePrice() {
+		return estimatePrice;
+	}
+	public void setEstimatePrice(String estimatePrice) {
+		this.estimatePrice = estimatePrice;
+	}
+	public String getInPayMethod() {
+		return inPayMethod;
+	}
+	public void setInPayMethod(String inPayMethod) {
+		this.inPayMethod = inPayMethod;
+	}
+	public String getInPayDate() {
+		return inPayDate;
+	}
+	public void setInPayDate(String inPayDate) {
+		this.inPayDate = inPayDate;
+	}
+	public String getInPayCheck() {
+		return inPayCheck;
+	}
+	public void setInPayCheck(String inPayCheck) {
+		this.inPayCheck = inPayCheck;
+	}
+	public String getInPayRemain() {
+		return inPayRemain;
+	}
+	public void setInPayRemain(String inPayRemain) {
+		this.inPayRemain = inPayRemain;
+	}
+	public String getInReceipe() {
+		return inReceipe;
+	}
+	public void setInReceipe(String inReceipe) {
+		this.inReceipe = inReceipe;
+	}
+	public String getInReceipeDate() {
+		return inReceipeDate;
+	}
+	public void setInReceipeDate(String inReceipeDate) {
+		this.inReceipeDate = inReceipeDate;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Subject [subjectName=");
-		builder.append(subjectName);
-		builder.append(", regName=");
-		builder.append(regName);
-		builder.append(", regDate=");
-		builder.append(regDate);
-		builder.append(", subjectCode=");
-		builder.append(subjectCode);
-		builder.append(", subjectGCode=");
-		builder.append(subjectGCode);
-		builder.append(", isUse=");
-		builder.append(isUse);
-		builder.append(", isCorrect=");
-		builder.append(isCorrect);
-		builder.append(", applyYear=");
-		builder.append(applyYear);
+		builder.append("K3In [inCode=");
+		builder.append(inCode);
+		builder.append(", mainBusinessCode=");
+		builder.append(mainBusinessCode);
+		builder.append(", contractProfitName=");
+		builder.append(estimateContractorName);
+		builder.append(", memberId=");
+		builder.append(memberId);
+		builder.append(", memberName=");
+		builder.append(memberName);
+		builder.append(", inRegDate=");
+		builder.append(inRegDate);
+		builder.append(", contractorCode=");
+		builder.append(contractorCode);
+		builder.append(", contractCode=");
+		builder.append(contractCode);
+		builder.append(", estimateNum=");
+		builder.append(estimateNum);
+		builder.append(", estimatePrice=");
+		builder.append(estimatePrice);
+		builder.append(", inPayMethod=");
+		builder.append(inPayMethod);
+		builder.append(", inPayDate=");
+		builder.append(inPayDate);
+		builder.append(", inPayCheck=");
+		builder.append(inPayCheck);
+		builder.append(", inPayRemain=");
+		builder.append(inPayRemain);
+		builder.append(", inReceipe=");
+		builder.append(inReceipe);
+		builder.append(", inReceipeDate=");
+		builder.append(inReceipeDate);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
+	
+	
 }
