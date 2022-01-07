@@ -13,6 +13,7 @@
 					history.back();
 				});
 				$(document).on('click', '#addWarehousing', function(){
+					
    					var submitCheck = true;
    					var inputObj = $('#warehousingInfo').find('input');
    						
@@ -30,37 +31,28 @@
    					});  						
    					if(submitCheck) $('#warehousingInfo').submit();
    				});
-				$("#selectContractorName").click(function(){
-					var modal = $('.modal');
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+				
+				
+				$("#selectContractorName").click(function(){					
 					var overlay = $('.modal_overlay');
 					modal.removeClass('hidden');
  					$(".confirmBtn").click(function(){
+ 						
+ 						var checkedBox = $('.contractorId:checked');
+ 	 					var ContractorName = $('#contractorNameInput');
+ 	 					var ContractorId = $('#contractorIdInput');
+ 	 					var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
+ 	 					ContractorId.attr('value',checkedBox.val());
+ 	 					ContractorName.attr('value',checkedTrName);
+
 						modal.addClass('hidden');
-					});	 
-						/* var memberId = $('#memberId').val();
-						
-						if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
-							//호출
-							var request = $.ajax({
-	   						  url: "/member/idCheck",
-	   						  method: 'POST',
-	   						  data: { 'memberId': memberId },
-	   						  dataType: 'json' 
-	   						});
-	   				
-							request.done(function(data) {     
-	   							  console.log(data,'콜백 데이터');
-	   							  var idconfirm = data;		
-	   							});
-	   						request.fail(function( jqXHR, textStatus ) {
-	   							alert( "Request failed: " + textStatus );
-	   						});	
-							
-						}else{
-							alert('아이디를 입력해주세요')
-							return false;
-						} */
-						
+					});
 				});			
 			});
 		</script>	 
@@ -80,8 +72,9 @@
 							<div class="row">
 								<form id="warehousingInfo" th:action="@{/team03/goodsManagement/warehousing/k3AddWarehousing}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="contractorIdInput" class="inputName">회사명</label>
-										<input class="inputBox" type="text" id="contractorIdInput" name="contractorId" placeholder="회사명">
+										<label for="contractorName" class="inputName">회사명</label>
+										<input type="hidden" id="contractorIdInput" name="contractorId">
+										<input class="inputBox" type="text" id="contractorNameInput" name="contractorName" placeholder="회사명">
 										<button id="selectContractorName" class="findContractorModal" type="button">선택</button> 
 									</div>
 									<div class="inputwrap col-md-12">
@@ -116,10 +109,41 @@
 		</div>
 		<!-- 모달창 -->
 		<div class="modal hidden">
-			<div class="modal_overlay"></div>
+			<div class="modal_overlay"></div>		
 			<div class="modal_content">
-				<h1>hi</h1>				
-					<button class="ahsbtn4 btn btn-outline-info confirmBtn" type="button">확인</button>
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">거래처명 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>
+						<table border="1">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회사명</th>
+									<th>업종</th>
+									<th>대표</th>							
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(nameList)}" th:each="l : ${nameList}">
+									<td>
+										<input type="radio" class="contractorId" name="contractorId" th:value="${l.contractorId}">
+									</td>
+									<td th:text="${l.contractorName}"></td>
+									<td th:text="${l.contractorType}"></td>
+									<td th:text="${l.contractorRepresentative}"></td>
+								</tr>
+							</tbody>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
 			</div>
 		</div>
 		<!-- End 모달창 -->

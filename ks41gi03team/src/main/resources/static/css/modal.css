@@ -26,14 +26,63 @@
 	position: relative;
 	top: 0px;
 	background-color: white;
-	padding: 50px 100px;
+	padding: 0;
+	margin: 0;
 	text-align: center;
 	border-radius: 10px;
-	width: 30%;
+	width: 520px;
+	border: 8px solid #4F5564;
 }
-h1{
-	margin: 0;
+.modal_header{
+	text-align: left;
+	background-color: #4F5564;
+	padding: 0;
+	padding-top: 3px;
+	height: 35px;
+	
+}
+.modal_body form{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #EAEAEA;
+	padding-top: 15px;
+	padding-bottom: 10px;
+
+}
+.modal_body form table{
+	background-color: white;
+	width: 98%;
+}
+
+.modal_fotter{
+	background-color: #EAEAEA;
+	display: flex;
+	justify-content: flex-end;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}	
+.textTitle{
+	padding-left: 2px;
+	color: white;
+	padding: 0;
+	margin:0;
 }
 .hidden{
 	display: none;
+}
+.modalConfromBtn{
+	size: 10px;
+	width: 100px; 
+	height: 38px;
+	
+}
+.exitBtn{
+	border: 0;
+	outline: 0;
+	background-color: #4F5564;
+
+}
+.exitBtn i {
+	color: white;
 }

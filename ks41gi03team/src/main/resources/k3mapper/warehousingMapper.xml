@@ -20,6 +20,8 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+
+	
 	<insert id="k3AddWarehousing">
 		INSERT INTO
 		   k3_tb_warehousing
@@ -36,7 +38,15 @@
 		  k3_tb_warehousing;
 	</insert>
 	
-	
+	<select id="k3FindContractorNameByCode" resultType="K3Contract">
+		SELECT
+			cs.contractorId,
+			cs.contractorName,
+			cs.contractorType,
+			cs.contractorRepresentative
+		FROM
+			k3_tb_contractor_staff AS cs;
+	</select>
 	
 	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
 		SELECT

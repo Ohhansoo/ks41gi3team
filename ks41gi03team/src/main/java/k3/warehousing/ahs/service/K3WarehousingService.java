@@ -1,9 +1,11 @@
 package k3.warehousing.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import k3.contract.ahs.dto.K3Contract;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.mapper.K3WarehousingMapper;
@@ -21,6 +23,11 @@ public class K3WarehousingService {
 	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
 		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);
 		return result;
+	}
+	//계약처 이름 찾아오기
+	public List<K3Contract> k3FindContractorNameByCode(){
+		List<K3Contract> nameList = k3WarehousingMapper.k3FindContractorNameByCode();
+		return nameList;
 	}
 	
 	//입고 요청 현황
@@ -44,7 +51,5 @@ public class K3WarehousingService {
 		List<K3Warehousing> K3LaydownCheck = k3WarehousingMapper.k3GetWarehousingList();
 		return K3LaydownCheck;
 	}
-
-
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import k3.contract.ahs.dto.K3Contract;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.service.K3WarehousingService;
@@ -44,7 +45,7 @@ public class K3WarehousingController {
 		
 		return "team03/goodsManagement/warehousing/k3AddSort";
 	}
-	//입고 요청폼 이동
+	//입고 요청 등록 처리
 	@PostMapping("/k3AddWarehousing")
 	public String k3AddWarehousing(K3Warehousing k3Warehousing) {
 		log.info("입고요청 처리 컨트롤러 값받아오기 : k3Warehousing ------ " + k3Warehousing);
@@ -55,8 +56,9 @@ public class K3WarehousingController {
 	
 	//입고 요청폼 이동
 	@GetMapping("/k3AddWarehousing")
-	public String k3AddWarehousing() {
-		
+	public String k3AddWarehousing(Model model) {
+		List<K3Contract> nameList = k3WarehousingService.k3FindContractorNameByCode();
+		model.addAttribute("nameList", nameList);
 		return "team03/goodsManagement/warehousing/k3AddWarehousing";
 	}
 
