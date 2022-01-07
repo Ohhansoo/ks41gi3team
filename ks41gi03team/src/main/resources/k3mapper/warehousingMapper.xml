@@ -20,6 +20,38 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	<select id="k3GetWarehousingSearchList" parameterType="Map" resultType="K3Warehousing">
+	SELECT
+		   w.warehousingCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		   INNER JOIN
+		   k3_tb_member AS m
+		   ON
+		   w.laydownCheckManager = m.memberId
+		   <trim prefix="WHERE" prefixOverrides="AND |OR">
+				<if test="warehousingValue != null and warehousingValue != ''.toString()">
+		   			${warehousingKey} LIKE CONCAT('%',#{warehousingValue},'%') 
+				</if>	
+				<if test="searchStartDate != null and searchStartDate != ''.toString()">
+		   			AND ${warehousingDateKey} >= #{searchStartDate}
+				</if>	
+				<if test="searchEndDate != null and searchEndDate != ''.toString()">
+		   			AND #{searchEndDate} >=  ${warehousingDateKey}
+				</if>
+		   </trim>
+	</select>
+	
 
 	
 	<insert id="k3AddWarehousing">
@@ -119,6 +151,7 @@
 	
 	<select id="k3GetWarehousingList" resultType="K3Warehousing">
 		SELECT
+		   w.warehousingCode,
 		   w.laydownCheckCode,
 		   w.mainBusinessCode,
 		   w.laydownGoodsName,

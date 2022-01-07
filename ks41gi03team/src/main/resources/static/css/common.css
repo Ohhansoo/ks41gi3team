@@ -221,3 +221,9 @@ body{
 option{
 	text-align: justify;
 }
+th{
+	text-align: center;
+}
+td{
+	text-align: center;
+}
