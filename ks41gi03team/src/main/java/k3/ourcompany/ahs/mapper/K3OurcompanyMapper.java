@@ -15,8 +15,11 @@ public interface K3OurcompanyMapper {
 	//자사정보현황(초기화면)
 	public List<K3OurCompany> getOurCompanyList();
 	
+	//자사정보 수정처리
+	public int k3ModifyOurCompanyInfoBycode(K3OurCompany k3ourcompany);
 	
-	//
+	//자사정보 찾기 (수정)
+	public K3OurCompany K3OurCompanyInfoBycode(String ourCompanyCode);
 	/*
 	 * //public ourcompany getOurCompanyInfoByourCompanyCode(String ourCompanyCode)
 	 * {
