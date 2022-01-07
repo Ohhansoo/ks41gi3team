@@ -107,7 +107,14 @@ public class K3MemberUserController {
 			int result = memberuserService.k3DeleteMemberUser(memberId);
 			log.info("DeleteMemberUser 전송결과 : "  + result);
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
-		}
+	  }
+	  //직원정보 삭제처리
+	  @GetMapping("/k3RemoveMemberUser")
+	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
+		  int result = memberuserService.k3RemoveMemberUser(removeList);
+		  return "redirect:/team03/companymanagement/member/k3MemberUserList";
+	  }
+	  
 	/*
 	 * //05 직원정보 조회
 	 * 
