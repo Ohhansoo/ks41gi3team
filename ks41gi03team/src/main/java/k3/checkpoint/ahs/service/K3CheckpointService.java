@@ -35,4 +35,9 @@ public class K3CheckpointService {
 		return k3CheckpointMapper.getModifyCheckpoint(vehicleCheckpointCode);
 	}
 	
+	//수정 진행
+	public Integer modifyCheckpoint(K3Checkpoint k3Checkpoint) {
+		return k3CheckpointMapper.modifyCheckpoint(k3Checkpoint);
+	}
+	
 }

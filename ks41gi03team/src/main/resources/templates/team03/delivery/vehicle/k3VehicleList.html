@@ -7,9 +7,28 @@
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
-			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+					</div>
+				<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -22,15 +41,16 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{#}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="vehicles" class="input-group-text">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
 												<option value="vehicle">차량 코드</option>
 											</select>
+										<input type="text" class="form-control" placeholder="검색">
+										<div class="input-group-append">
+											<div class="btn btn-default">
+												<i class="fas fa-search icon"></i>
+											</div>
 										</div>
-										<input type="text" name="vehicle" class="form-control" placeholder="">
-										<button id="searchVehicle" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
-										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -48,7 +68,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
+							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
 										<th>삭제</th>
@@ -68,7 +88,9 @@
 											<input type="checkbox" value="선택">
 										</td>	
 										<td>
-										<a th:href="@{/team03/delivery/vehicle/k3ModifyVehicle(vehicleCode=${l.vehicleCode})}">수정</a>
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/vehicle/k3ModifyVehicle(vehicleCode=${l.vehicleCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>
 										</td>
 										<td th:text="${l.vehicleCode}"></td>
 										<td th:text="${l.vehicleTonage}"></td>
@@ -86,16 +108,10 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
-						<a th:href="@{/team03/delivery/vehicle/k3AddVehicle}" id="moveAddPage">등록페이지로 이동 --></a>					
-					</div>
-					<!--End 버튼 영역 -->
+					
+	
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
 	</th:block>
 </head>

@@ -23,10 +23,10 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-	 							<form th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
+	 							<form th:action="@{/team03/delivery/checkpoint/k3ModifyCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
-										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${checkpointInfo.vehicleCheckpointCode}"/>
+											<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${checkpointInfo.vehicleCheckpointCode}"/>
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">

@@ -3,6 +3,7 @@ package k3.driver.ahs.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import k3.driver.ahs.dto.K3Driver;
 import k3.driver.ahs.mapper.K3DriverMapper;
@@ -10,6 +11,7 @@ import k3.driver.ahs.mapper.K3DriverMapper;
 
 
 @Service
+@Transactional
 public class K3DriverService {
 	
 	private K3DriverMapper k3DriverMapper;
