@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.location.ahs.mapper.K3LocationMapper">
 		<!-- 로케이션 코드 수정처리 -->
+	<delete id="deleteLocationCode" parameterType="String">
+		DELETE
+			l.locationCode	
+		FROM
+			k3_tb_location AS l
+		WHERE
+			l.locationCode = #{locationCode};
+	</delete>	
 	<update id="k3ModifyLocationCodeInfo" parameterType="K3Location">
 		UPDATE 
 			k3_tb_location AS l
