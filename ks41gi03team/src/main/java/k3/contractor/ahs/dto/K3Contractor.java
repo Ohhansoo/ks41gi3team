@@ -2,6 +2,25 @@ package k3.contractor.ahs.dto;
 
 public class K3Contractor {
 
+	//거래처 등록기간 조회
+	private String contractorRegistrationDateStart;
+	private String contractorRegistrationDateEnd;
+	
+	public String getContractorRegistrationDateStart() {
+		return contractorRegistrationDateStart;
+	}
+	public void setContractorRegistrationDateStart(String contractorRegistrationDateStart) {
+		this.contractorRegistrationDateStart = contractorRegistrationDateStart;
+	}
+	public String getContractorRegistrationDateEnd() {
+		return contractorRegistrationDateEnd;
+	}
+	public void setContractorRegistrationDateEnd(String contractorRegistrationDateEnd) {
+		this.contractorRegistrationDateEnd = contractorRegistrationDateEnd;
+	}
+
+	
+	
 	//거래처 간단조회 (k3_tb_contractor_staff, k3_tb_contractor)
 	private String contractorCode;
 	private String contractorName;
@@ -13,6 +32,7 @@ public class K3Contractor {
 	private String contractorId;
 	private String contractorState;
 	private String memberId;
+
 	
 	public String getContractorCode() {
 		return contractorCode;
@@ -75,32 +95,6 @@ public class K3Contractor {
 		this.memberId = memberId;
 	}
 	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("K3Contractor [contractorCode=");
-		builder.append(contractorCode);
-		builder.append(", contractorName=");
-		builder.append(contractorName);
-		builder.append(", contractorItem=");
-		builder.append(contractorItem);
-		builder.append(", contractorStatus=");
-		builder.append(contractorStatus);
-		builder.append(", contractorDevision=");
-		builder.append(contractorDevision);
-		builder.append(", contractorPhone=");
-		builder.append(contractorPhone);
-		builder.append(", contractorRegistrationDate=");
-		builder.append(contractorRegistrationDate);
-		builder.append(", contractorId=");
-		builder.append(contractorId);
-		builder.append(", contractorState=");
-		builder.append(contractorState);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append("]");
-		return builder.toString();
-	}
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -111,6 +105,10 @@ public class K3Contractor {
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
 		result = prime * result + ((contractorPhone == null) ? 0 : contractorPhone.hashCode());
 		result = prime * result + ((contractorRegistrationDate == null) ? 0 : contractorRegistrationDate.hashCode());
+		result = prime * result
+				+ ((contractorRegistrationDateEnd == null) ? 0 : contractorRegistrationDateEnd.hashCode());
+		result = prime * result
+				+ ((contractorRegistrationDateStart == null) ? 0 : contractorRegistrationDateStart.hashCode());
 		result = prime * result + ((contractorState == null) ? 0 : contractorState.hashCode());
 		result = prime * result + ((contractorStatus == null) ? 0 : contractorStatus.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
@@ -160,6 +158,16 @@ public class K3Contractor {
 				return false;
 		} else if (!contractorRegistrationDate.equals(other.contractorRegistrationDate))
 			return false;
+		if (contractorRegistrationDateEnd == null) {
+			if (other.contractorRegistrationDateEnd != null)
+				return false;
+		} else if (!contractorRegistrationDateEnd.equals(other.contractorRegistrationDateEnd))
+			return false;
+		if (contractorRegistrationDateStart == null) {
+			if (other.contractorRegistrationDateStart != null)
+				return false;
+		} else if (!contractorRegistrationDateStart.equals(other.contractorRegistrationDateStart))
+			return false;
 		if (contractorState == null) {
 			if (other.contractorState != null)
 				return false;
@@ -177,7 +185,39 @@ public class K3Contractor {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("K3Contractor [contractorRegistrationDateStart=");
+		builder.append(contractorRegistrationDateStart);
+		builder.append(", contractorRegistrationDateEnd=");
+		builder.append(contractorRegistrationDateEnd);
+		builder.append(", contractorCode=");
+		builder.append(contractorCode);
+		builder.append(", contractorName=");
+		builder.append(contractorName);
+		builder.append(", contractorItem=");
+		builder.append(contractorItem);
+		builder.append(", contractorStatus=");
+		builder.append(contractorStatus);
+		builder.append(", contractorDevision=");
+		builder.append(contractorDevision);
+		builder.append(", contractorPhone=");
+		builder.append(contractorPhone);
+		builder.append(", contractorRegistrationDate=");
+		builder.append(contractorRegistrationDate);
+		builder.append(", contractorId=");
+		builder.append(contractorId);
+		builder.append(", contractorState=");
+		builder.append(contractorState);
+		builder.append(", memberId=");
+		builder.append(memberId);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	
+
 	
 	
 	//거래처(매출) 상세조회 ()
