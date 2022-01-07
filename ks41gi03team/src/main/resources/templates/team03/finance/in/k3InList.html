@@ -6,45 +6,95 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
+	<script>
+			$(function(){				
+				$('#inBtn').on('click', function(){
+					location.href = '/team03/finance/in/k3AddIn';
+				});
+				
+				$(document).on('click', '#deleteInBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#inForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>	
+	
 		<div id="representative-button">
 			<div id="representative-button">
+			
+			<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
 				<table border="1">
 					<thead>
 						<tr>
-							<td>계정과목</td>
-							<td>작성자id</td>
-							<td>등록시간</td>
-							<td>계정과목코드</td>
-							<td>계정과목그룹코드</td>
-							<td>계정과목사용유무</td>
-							<td>계정과목수정유무</td>
-							<td>적용년도</td>
+							<td>선택</td>
+							<td>전표번호</td>
+							<td>사업장별대표코드</td>
+							<td>등록자아이디</td>
+							<td>등록자이름</td>
+							<td>등록일시</td>
+							<td>거래처상호명</td>
+							<td>거래처사업장코드</td>
+							<td>계약대표코드</td>
+							<td>견적번호</td>
+							<td>견적금액</td>
+							<td>결제방법</td>
+							<td>실결제일</td>
+							<td>수금확인금액</td>
+							<td>미수금</td>
+							<td>증빙서류발행</td>
+							<td>전표발생일시</td>
 							<td>수정</td>
 							<td>삭제</td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(subjectList)}" th:each="l : ${subjectList}">
-							<td th:text="${l.subjectName}"></td>
-							<td th:text="${l.regName}"></td>
-							<td th:text="${l.regDate}"></td>
-							<td th:text="${l.subjectCode}"></td>
-							<td th:text="${l.subjectGCode}"></td>
-							<td th:text="${l.isUse}"></td>
-							<td th:text="${l.isCorrect}"></td>
-							<td th:text="${l.applyYear}"></td>
+						<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
 							<td>
-								<a th:href="@{#}">수정</a>
+								<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
 							</td>
+							<td th:text="${l.inCode}"></td>
+							<td th:text="${l.mainBusinessCode}"></td>
+							<td th:text="${l.memberId}"></td>
+							<td th:text="${l.memberName}"></td>
+							<td th:text="${l.inRegDate}"></td>
+							<td th:text="${l.estimateContractorName}"></td>
+							<td th:text="${l.contractorCode}"></td>
+							<td th:text="${l.contractCode}"></td>
+							<td th:text="${l.estimateNum}"></td>
+							<td th:text="${l.estimatePrice}"></td>
+							<td th:text="${l.inPayMethod}"></td>
+							<td th:text="${l.inPayDate}"></td>
+							<td th:text="${l.inPayCheck}"></td>
+							<td th:text="${l.inPayRemain}"></td>
+							<td th:text="${l.inReceipe}"></td>
+							<td th:text="${l.inReceipeDate}"></td>
 							<td>
-								<a th:href="@{#}">삭제</a>
-							</td>			
+								<a th:href="@{/team03/finance/in/k3ModifyIn(inCode=${l.inCode})}">수정</a>
+							</td>
+								
 						</tr>
-						<tr th:unless="${not #lists.isEmpty(subjectList)}" th:each="l : ${subjectList}">
+						<tr th:unless="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
 							<td>등록된 카테고리가 없습니다.</td>
 						</tr>
 					</tbody>
 				</table>
+				</form>
+				<button id="deleteInBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
 			</div>
 		</div>
 	</th:block>

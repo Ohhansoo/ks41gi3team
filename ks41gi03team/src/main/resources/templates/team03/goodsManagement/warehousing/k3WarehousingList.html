@@ -89,15 +89,15 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
-											<div class="input-group input-group-sm">
-												<select name="categoryKey" class="input-group-text form-control-sm">
-													<option value="large">상품명</option>
-													<option value="medium">회사명</option>
-													<option value="small">입고코드</option>
+										<form class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+											<!--inputbox 1 -->
+											<div class="input-group input-group-sm col-sm-5">
+												<select name="warehousingKey" class="input-group-text form-control-sm">
+													<option value="laydownGoodsName">상품명</option>
+													<option value="contractorName">회사명</option>
+													<option value="warehousingCode">입고코드</option>
 												</select>
-												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<input type="text" name="warehousingValue" class="form-control">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
 														<button id="categorySearcch" type="submit">
@@ -106,8 +106,40 @@
 													</div>
 												</div>
 											</div>
+											<!--End inputbox 1 -->
+											<!--inputbox 2 -->
+											<div class="input-group input-group-sm col-sm-4">
+												<select name="warehousingDateKey" class="input-group-text form-control-sm">
+													<option value="manufacturedDate">제조일자</option>
+													<option value="expiratonDate">유통기한</option>
+													<option value="laydownCheckDate">입하날짜</option>
+												</select>
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 2 -->
+											~
+											<!--inputbox 3 -->
+											<div class="col-sm-3" style="padding-left: 0px">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+														<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+														</div>
+													</div>
+						                   		</div>
+											</div>
+											<!--End inputbox 3 -->
 										</form>
-										<!--End inputbox 1 -->
 			 						</div>
 								</div>					
 			 					<!--End card body 묶음 -->								
@@ -164,7 +196,8 @@
 											<tr>
 												<th>삭제</th>
 												<th>수정</th>	
-												<th>분류등록</th>	
+												<th>분류등록</th>
+												<th>입고코드</th>	
 												<th>입고물품명</th>
 												<th>입고물품개수</th>
 												<th>제조일자</th>
@@ -184,6 +217,7 @@
 												<td>
 													<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
 												</td>
+												<td th:text="${l.warehousingCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
 												<td th:text="${l.manufacturedDate}"></td>

@@ -18,7 +18,11 @@ public class K3WarehousingService {
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
-	
+	//입고 현황 조회 처리
+	public List<K3Warehousing> k3GetWarehousingSearchList(Map<String, Object> searchCondition){
+		List<K3Warehousing> warehousingSearchList = k3WarehousingMapper.k3GetWarehousingSearchList(searchCondition);
+		return warehousingSearchList;
+	}
 	//입고 요청 등록 처리 
 	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
 		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);

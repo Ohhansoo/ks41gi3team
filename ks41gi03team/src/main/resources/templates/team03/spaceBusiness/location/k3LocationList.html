@@ -5,9 +5,73 @@
 <th:block layout:fragment="customTitle">
 	<title>ksmart41</title>
 </th:block>
+	<script type="text/javascript">
+			$(function(){	
+				var rowCheckObj = document.getElementsByName('rowCheck');
+				var rowCount = rowCheckObj.length;
+				console.log(rowCheckObj);
+				console.log(rowCount);
+				console.log($("input:checkbox[name=allCheck]"));
+				$("input:checkbox[name=allCheck]").click(function(){
+					
+					console.log("allCheck click")
+					var rowCheckList = $("input[name=rowCheck]");
+					console.log("allCheck click"+rowCheckList)
+					for(var i = 0; i < rowCheckList.length; i++){
+						rowCheckList[i].checked = this.checked;
+					}
+				});
+				$("input[name=rowCheck]").click(function(){
+					console.log('???')
+					if($("input[name=rowCheck]:checked").length == rowCount){
+						$("input[name=allCheck]")[0].checked = true;
+					}
+					else{
+						$("input[name=allCheck]")[0].checked = false;
+					}
+				});
+			});
+			$(function(){
+				var deleteValue = function(){
+					var url = "/team03/spaceBusiness/location/k3LocationList";
+					var valueArr = new Array();
+					var list = $("input[name=rowCheck]");
+				
+					for(var i = 0; i < list.length; i++){
+						if(list[i].cheked){
+							valueArr.push(list[i].value());
+						}
+					}
+					if(valueArr.length == 0){
+						alert("선택한 글이 없습니다.");
+					}
+					else{
+						var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
+						$.ajax({
+							url : url,
+							type : 'POST',
+							traditional : true,
+							data : { valueArr : valueArr },
+							success : function(data){
+								if(data = 1){
+									alert("삭제 성공");
+									location.replace("/team03/spaceBusiness/location/k3LocationList");
+								}
+								else{
+									alert("삭제 실패");
+								}
+							}
+						});
+					}
+				}
+					$('#delBtn').on('click', deleteValue);
+			});		
+		</script>	
 	<th:block layout:fragment="customContents"> 
+		
 		<div id="representative-button">
 			<!-- 콘텐츠 콘테이너 시작 -->
+		
 			<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
@@ -23,7 +87,7 @@
 							<i class="bi bi-boxes"></i>
 							분류등록
 						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="delBtn" class="btn btn-outline-info ahsbtn4" type="button" th:onclick="deleteValue">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>			
@@ -78,11 +142,7 @@
 									<thead>
 										<tr>
 											<th>
-												<button type="button" class="btn btn-default btn-sm checkbox-toggle">
-													<i class="far fa-square icon"></i>
-													<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
-											  		<!-- <i class="far fa-check-square"></i> -->												
-												</button>
+												<input type="checkbox" id="allCheck" name="allCheck"/>
 											</th>
 											<th>수정</th>
 											<th>로케이션 코드</th>
@@ -93,10 +153,7 @@
 									<tbody>
 										<tr th:if="${not #lists.isEmpty(locationData)}" th:each="ld :${locationData}">
 											<td>
-												<div class="icheck-primary">
-													<input type="checkbox" id="check1"/>
-													<label for="check1"></label>
-												</div>
+													<input type="checkbox" name="rowCheck" th:value=${ld.locationCode}/>
 											</td>
 											<td>
 												<a th:href="@{/team03/spaceBusiness/location/k3ModifyLocation(locationCode=${ld.locationCode})}">수정</a>

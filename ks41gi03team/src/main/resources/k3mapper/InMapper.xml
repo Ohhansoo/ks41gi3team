@@ -3,58 +3,168 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.in.ahs.mapper.K3InMapper">
+
+	<!--  입출금 내역 삭제 처리 -->
+	<delete id ="deleteIn" parameterType="int">
 	
-	<insert id="inAdd">
-	INSERT INTO k3_tb_as
+	SET foreign_key_checks=0;
+	
+	DELETE 
+		a
+	FROM
+		k3_tb_in AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or inCode =#{deleteList}
+		</foreach>	
+	SET FOreign_key_checks=1;
+	</delete>
+
+
+	<!--  입출금 내역 수정 처리 -->
+	<update id ="modifyIn" parameterType="K3In">
+			UPDATE k3_tb_in
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="inCode != null and inCode != ''.toString()">			
+					 inCode		=#{inCode}
+				</if>
+				<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+					,mainBusinessCode	=#{mainBusinessCode}
+				</if>
+				<if test="memberId != null and memberId != ''.toString()">
+					,memberId	=#{memberId}
+				</if>
+				<if test="memberName != null and memberName != ''.toString()">
+					,memberName		=#{memberName}
+				</if>
+				<if test="inRegDate != null and inRegDate != ''.toString()">
+					,inRegDate		=#{inRegDate}
+				</if>
+				<if test="estimateContractorName != null and estimateContractorName != ''.toString()">		
+					,estimateContractorName		=#{estimateContractorName}
+				</if>
+				<if test="contractorCode != null and contractorCode != ''.toString()">
+					,contractorCode		=#{contractorCode}
+				</if>
+				<if test="contractCode != null and contractCode != ''.toString()">
+					,contractCode		=#{contractCode}
+				</if>
+				<if test="estimateNum != null and estimateNum != ''.toString()">
+					,estimateNum		=#{estimateNum}
+				</if>
+				<if test="estimatePrice != null and estimatePrice != ''.toString()">
+					,estimatePrice		=#{estimatePrice}
+				</if>
+				<if test="inPayMethod != null and inPayMethod != ''.toString()">
+					,inPayMethod		=#{inPayMethod}
+				</if>
+				<if test="inPayDate != null and inPayDate != ''.toString()">
+					,inPayDate		=#{inPayDate}
+				</if>
+				<if test="inPayCheck != null and inPayCheck != ''.toString()">
+					,inPayCheck		=#{inPayCheck}
+				</if>
+				<if test="inPayRemain != null and inPayRemain != ''.toString()">
+					,inPayRemain		=#{inPayRemain}
+				</if>
+				<if test="inReceipe != null and inReceipe != ''.toString()">
+					,inReceipe		=#{inReceipe}
+				</if>
+				<if test="inReceipeDate != null and inReceipeDate != ''.toString()">
+					,inReceipeDate		=#{inReceipeDate}
+				</if>
+			</trim>
+			WHERE
+				inCode =#{inCode};
+	</update>
+	
+	
+	<!-- 매출 내역 수정 폼 -->
+	<select id="getModifyIn" resultType="K3In">
+		SELECT 
+			 inCode
+			,mainBusinessCode
+			,memberId
+			,memberName
+			,inRegDate
+			,estimateContractorName
+			,contractorCode
+			,contractCode
+			,estimateNum
+			,estimatePrice
+			,inPayMethod
+			,inPayDate
+			,inPayCheck
+			,inPayRemain
+			,inReceipe
+			,inReceipeDate
+		FROM k3_tb_in
+		where
+			inCode = #{inCode};
+	</select>	
+	
+	<insert id="addIn">
+	INSERT INTO k3_tb_in
 	(
-		asCode,
-		asName,
-		asGCode,
-		asUse,
-		asCorrect,
-		memberId,
-		asRegDate,
-		asYear
+		inCode
+		,mainBusinessCode
+		,memberId
+		,memberName
+		,inRegDate
+		,estimateContractorName
+		,contractorCode
+		,contractCode
+		,estimateNum
+		,estimatePrice
+		,inPayMethod
+		,inPayDate
+		,inPayCheck
+		,inPayRemain
+		,inReceipe
+		,inReceipeDate
 		)
 	VALUES
 	(
-		#{subjectCode},
-		#{subjectName},
-		#{subjectGCode},
-		#{isUse},
-		#{isCorrect},
-		#{regName},
-		#{regDate},
-		#{applyYear}
+		#{inCode},
+		#{mainBusinessCode},
+		#{memberId},
+		#{memberName},
+		#{inRegDate},
+		#{estimateContractorName},
+		#{contractorCode},
+		#{contractCode},
+		#{estimateNum}
+		#{estimatePrice}
+		#{inPayMethod}
+		#{inPayDate}
+		#{inPayCheck}
+		#{inPayRemain}
+		#{inReceipe}
+		#{inReceipeDate}
 	);
-	
-	<!-- (
-		97999,
-		"임의",
-		90000,
-		"Y",
-		"N",
-		"m_c01",
-		"2021-12-22",
-		"2022-01-01"
-	); -->
 
 	</insert>
 	
 		
 	
 	<select id="getInList" resultType="K3In">
-	select
-		a.asName AS subjectName,
-		a.memberId AS regName,
-		a.asRegDate AS regDate,
-		a.asCode AS subjectCode,
-		a.asGCode AS subjectGCode,
-		a.asUse AS isUse,
-		a.asCorrect AS isCorrect,
-		a.asYear AS applyYear
-	FROM
-		k3_tb_as AS a;
+		SELECT 
+			 inCode
+			,mainBusinessCode
+			,memberId
+			,memberName
+			,inRegDate
+			,estimateContractorName
+			,contractorCode
+			,contractCode
+			,estimateNum
+			,estimatePrice
+			,inPayMethod
+			,inPayDate
+			,inPayCheck
+			,inPayRemain
+			,inReceipe
+			,inReceipeDate
+		FROM k3_tb_in;
 	</select>
 
 </mapper>

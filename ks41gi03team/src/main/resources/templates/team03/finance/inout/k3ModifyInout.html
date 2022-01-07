@@ -3,9 +3,10 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>계정과목 수정</title>
+		<title>입출금내역 수정</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+	
 		<div class="card-body">
 			<div class="row">
 				<form th:action="@{/team03/finance/inout/k3ModifyInout}" method="post">
@@ -35,7 +36,7 @@
 					
 					<div class="inputwrap col-md-12">
 						<label for="contractorDevisionInput" class="inputName">거래유형</label>
-						<input class="inputBox" type="text" id="contractorDevisionInput" name="contractorDevision" th:value="${inoutInfo.contractorDevisionInput}"/>
+						<input class="inputBox" type="text" id="contractorDevisionInput" name="contractorDevision" th:value="${inoutInfo.contractorDevision}"/>
 					</div>	
 					
 					<div class="inputwrap col-md-12">
@@ -73,12 +74,12 @@
 					</div>	
 					<div class="inputwrap col-md-12">
 						<label for="inoutResultInput" class="inputName">누계</label>
-						<input class="inputBox" type="text" id="inoutResultInput" name="inoutResult" th:value="${inoutInfo.inoutResultInput}"/>
+						<input class="inputBox" type="text" id="inoutResultInput" name="inoutResult" th:value="${inoutInfo.inoutResult}"/>
 					</div>	
 					
 					<div class="d-flex justify-content-center">					
 						<button type="submit" class="ahsbtn4 btn btn-outline-info" >수정</button>			
-						<button type="button" id="categoryCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
+						<button type="button" id="inoutCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
 					</div>	
 				</form>
 			</div>
