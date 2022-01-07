@@ -10,6 +10,9 @@ import k3.location.ahs.dto.K3Location;
 @Mapper
 public interface K3LocationMapper {
 	
+	//로케이션 코드 삭제처리
+	public void deleteLocationCode(String locationCode);
+	
 	//로케이션 코드 수정처리
 	public int k3ModifyLocationCodeInfo(K3Location k3Location);
 	

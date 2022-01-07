@@ -23,11 +23,20 @@ public class K3LocationServise {
 	}
 	
 	/**
+	 * 로케이션 코드 삭제
+	 */
+	public void deleteLocationCode(String locationCode) {
+			
+		 k3LocationMapper.deleteLocationCode(locationCode);
+	}
+	
+	
+	/**
 	 * 로케이션 코드 수정처리
 	 */
 	public int k3ModifyLocationCodeInfo(K3Location k3Location) {
 		System.out.println("service"+ k3Location);
-		return k3ModifyLocationCodeInfo(k3Location);
+		return k3LocationMapper.k3ModifyLocationCodeInfo(k3Location);
 	}
 	
 	/**
