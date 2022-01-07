@@ -5,11 +5,58 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+	<script>
+			$(function(){				
+				$('#addmemberuserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
+				});
+				
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
@@ -38,8 +85,9 @@
 												<option value="loginMacAddress">MacAddress</option>
 											</select>
 										</div>
-										<input type="text" name="retiredMemberUserValue" class="form-control" >
-										<button id="retiredMemberUserSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="memberuserValue" class="form-control" style="height: 38px;  font-size: 18px;">
+											<div class="btn btn-default" style="height: 38px;">
+											<i class="fas fa-search icon"></i>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -61,8 +109,6 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<th>삭제</td>	
-											<th>수정</th>
 											<th>로그인 코드</th>
 						                    <th>사업장별대표코드</th>
 						                    <th>직원ID</th>
@@ -102,10 +148,6 @@
 							</form>	
 						</div>
 						<!--End card body -->
-					</div>
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>

@@ -28,12 +28,6 @@ public class K3DispatchController {
 	}
 	
 	//현황
-	@GetMapping("/k3AddDispatch")
-	public String addDispatch(Model model) {
-		return "team03/delivery/dispatch/k3AddDispatch";
-	}
-	
-	//등록 화면
 	@GetMapping("/k3DispatchList")
 	public String getDispatchList(Model model) {
 		List<K3Dispatch> dispatchList = k3DispatchService.getDispatchList();
@@ -41,6 +35,12 @@ public class K3DispatchController {
 		model.addAttribute("dispatchList", dispatchList);
 		
 		return "team03/delivery/dispatch/k3DispatchList";
+	}
+	
+	//등록 화면
+	@GetMapping("/k3AddDispatch")
+	public String addDispatch(Model model) {
+		return "team03/delivery/dispatch/k3AddDispatch";
 	}
 	
 	//등록 진행
@@ -52,14 +52,7 @@ public class K3DispatchController {
 		return "redirect:/team03/delivery/dispatch/k3DispatchList";
 	}
 	
-	@PostMapping("/k3ModifyDispatch")
-	public String modifyDispatch(K3Dispatch k3Dispatch) {
-		
-		k3DispatchService.modifyDispatch(k3Dispatch);
-		
-		return "redirect:/team/delivery/dispatch/k3DispatchList";
-	}
-	//수정 진행
+	//수정 화면
 	@GetMapping("/k3ModifyDispatch")
 	public String k3ModifyDispatch(@RequestParam(value="dispatchCode", required = false) String dispatchCode, Model model) {
 		
@@ -74,10 +67,12 @@ public class K3DispatchController {
 		return "team03/delivery/dispatch/k3ModifyDispatch";
 	}
 	
-	
-	
-	
-	
-	
-	
+	//수정 진행
+	@PostMapping("/k3ModifyDispatch")
+	public String modifyDispatch(K3Dispatch k3Dispatch) {
+		
+		k3DispatchService.modifyDispatch(k3Dispatch);
+		
+		return "redirect:/team03/delivery/dispatch/k3DispatchList";
+	}
 }

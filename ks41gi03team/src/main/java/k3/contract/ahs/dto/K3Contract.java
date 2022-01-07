@@ -1,6 +1,9 @@
 package k3.contract.ahs.dto;
 
 public class K3Contract {
+	//hs 거래처명 찾아오기
+	private String contractorType;
+	private String contractorRepresentative;
 	
 	//계약 간단조회(k3_tb_contract_simple)
 	private String contractCode;
@@ -11,7 +14,18 @@ public class K3Contract {
 	private String contractSingningDate;
 	private String contractorId;
 	private String memberId;
-	
+	public String getContractorType() {
+		return contractorType;
+	}
+	public void setContractorType(String contractorType) {
+		this.contractorType = contractorType;
+	}
+	public String getContractorRepresentative() {
+		return contractorRepresentative;
+	}
+	public void setContractorRepresentative(String contractorRepresentative) {
+		this.contractorRepresentative = contractorRepresentative;
+	}
 	public String getContractCode() {
 		return contractCode;
 	}
@@ -60,30 +74,14 @@ public class K3Contract {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("K3Contract [contractCode=");
-		builder.append(contractCode);
-		builder.append(", contractorName=");
-		builder.append(contractorName);
-		builder.append(", contractorCode=");
-		builder.append(contractorCode);
-		builder.append(", contractorDevision=");
-		builder.append(contractorDevision);
-		builder.append(", contractState=");
-		builder.append(contractState);
-		builder.append(", contractSingningDate=");
-		builder.append(contractSingningDate);
-		builder.append(", contractorId=");
-		builder.append(contractorId);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append("]");
-		return builder.toString();
+		return "K3Contract [contractorType=" + contractorType + ", contractorRepresentative=" + contractorRepresentative
+				+ ", contractCode=" + contractCode + ", contractorName=" + contractorName + ", contractorCode="
+				+ contractorCode + ", contractorDevision=" + contractorDevision + ", contractState=" + contractState
+				+ ", contractSingningDate=" + contractSingningDate + ", contractorId=" + contractorId + ", memberId="
+				+ memberId + "]";
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,10 +93,11 @@ public class K3Contract {
 		result = prime * result + ((contractorDevision == null) ? 0 : contractorDevision.hashCode());
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
+		result = prime * result + ((contractorRepresentative == null) ? 0 : contractorRepresentative.hashCode());
+		result = prime * result + ((contractorType == null) ? 0 : contractorType.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -143,6 +142,16 @@ public class K3Contract {
 				return false;
 		} else if (!contractorName.equals(other.contractorName))
 			return false;
+		if (contractorRepresentative == null) {
+			if (other.contractorRepresentative != null)
+				return false;
+		} else if (!contractorRepresentative.equals(other.contractorRepresentative))
+			return false;
+		if (contractorType == null) {
+			if (other.contractorType != null)
+				return false;
+		} else if (!contractorType.equals(other.contractorType))
+			return false;
 		if (memberId == null) {
 			if (other.memberId != null)
 				return false;
@@ -150,10 +159,7 @@ public class K3Contract {
 			return false;
 		return true;
 	}
+	
+	
 
-	
-	
-	
-	
-	
 }

@@ -19,24 +19,27 @@ import k3.ourcompany.ahs.service.K3OurcompanyService;
 @RequestMapping(value="/team03/companymanagement/ourcompany")
 public class K3OurcompanyController {
 	
-	private K3OurcompanyService ourcompanyService;
-	
 	private static final Logger log = LoggerFactory.getLogger(K3OurcompanyController.class);
+	
+	private K3OurcompanyService ourcompanyService;
 	
 	public K3OurcompanyController(K3OurcompanyService ourcompanyService) {
 		this.ourcompanyService = ourcompanyService;
 	}
-	/*
-	 * //수정
-	 * 
-	 * @GetMapping("ourcompany/k3ModifyOurCompanyAdmin") public String
-	 * modifyOurCompanyAdmin(@RequestParam(value="ourCompanyCode", required = false)
-	 * String ourCompanyCode, Model model) {
-	 * 
-	 * log.info("k3ModifyOurCompanyAdmin ourCompanyCode:{}", ourCompanyCode);
-	 * 
-	 * return "team03/ourcompany/k3OurCompanyList"; }
-	 */
+    //수정폼이동
+    @GetMapping("/k3ModifyOurCompanyAdmin") 
+    	public String k3ModifyOurCompanyAdmin(@RequestParam(value="ourCompanyCode", required = false) String ourCompanyCode, Model model) {
+			System.out.println("01 220107 k3ModifyOurCompanyAdmin K3OurcompanyController.java");
+
+    			if(ourCompanyCode != null && !"".equals(ourCompanyCode)) {
+    				K3OurCompany k3OurCompanyInfo = ourcompanyService.K3OurCompanyInfoBycode(ourCompanyCode);
+    				model.addAttribute("k3OurCompanyInfo", k3OurCompanyInfo);
+    			}
+    			model.addAttribute("title", "자사정보 관리");
+    			model.addAttribute("subtitle", "자사정보 수정");
+    			return "team03/companymanagement/ourcompany/k3ModifyOurCompanyAdmin";
+    		}
+    
 	//자사 등록처리
 	@PostMapping("/k3AddOurCompanyList")
 	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {

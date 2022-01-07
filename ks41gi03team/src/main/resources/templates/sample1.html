@@ -6,6 +6,18 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customJs">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
 				<script>
 				$(function(){
 					$('#login').on('click', function(){
@@ -48,7 +60,6 @@
 								
 					</div>	
 				<!--End 버튼 영역 -->
-				<!--상위 카드 영역 -->
 				<div class="card cardColor">
 					<!--card header -->
 					<div class="card-header">
@@ -93,7 +104,7 @@
 					<!-- card body Start -->	
 							<div class="card-body-p0">
 								<div class="table-responsive mailbox-messages">
-									<table class="table table-holder mailbox-messages table-striped"  >
+									<table class="table table-head-fixed text-nowrap table-striped"  >
 										<thead>
 											<tr>
 												<th>

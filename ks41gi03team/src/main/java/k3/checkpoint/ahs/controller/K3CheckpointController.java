@@ -51,7 +51,7 @@ public class K3CheckpointController {
 		return "redirect:/team03/delivery/checkpoint/k3CheckpointList";
 	}
 	
-	//수정 진행
+	//수정 화면
 	@GetMapping("/k3ModifyCheckpoint")
 	public String k3ModifyCheckpoint(@RequestParam(value="vehicleCheckpointCode", required = false) String vehicleCheckpointCode, Model model) {
 		
@@ -64,6 +64,15 @@ public class K3CheckpointController {
 		model.addAttribute("title", "입출하수정화면");
 		
 		return "team03/delivery/checkpoint/k3ModifyCheckpoint";
+	}
+	
+	//수정 진행
+	@PostMapping("/k3ModifyCheckpoint")
+	public String modifyCheckpoint(K3Checkpoint k3Checkpoint) {
+		
+		k3CheckpointService.modifyCheckpoint(k3Checkpoint);
+		
+		return "redirect:/team03/delivery/checkpoint/k3CheckpointList";
 	}
 	
 }

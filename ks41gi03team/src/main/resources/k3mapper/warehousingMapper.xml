@@ -19,6 +19,35 @@
 		<result column="laydownCheckDate" property="laydownCheckDate" />
 		<result column="dockName" property="dockName" />
 	</resultMap>
+	
+
+	
+	<insert id="k3AddWarehousing">
+		INSERT INTO
+		   k3_tb_warehousing
+			(warehousingCode, mainBusinessCode, contractorId, laydownGoodsName, laydownGoodsCount, manufacturedDate, expiratonDate)
+		SELECT 
+		   CONCAT(MAX(SUBSTRING(warehousingCode,1,11)), MAX(CAST(SUBSTRING(warehousingCode,12)AS DECIMAL))+ 1),
+		   "물류센터A물류센터_전북_1",
+		   #{contractorId},
+		   #{laydownGoodsName},
+		   #{laydownGoodsCount},
+		   #{manufacturedDate},
+		   #{expiratonDate}
+		FROM 
+		  k3_tb_warehousing;
+	</insert>
+	
+	<select id="k3FindContractorNameByCode" resultType="K3Contract">
+		SELECT
+			cs.contractorId,
+			cs.contractorName,
+			cs.contractorType,
+			cs.contractorRepresentative
+		FROM
+			k3_tb_contractor_staff AS cs;
+	</select>
+	
 	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
 		SELECT
 			w.laydownGoodsName,

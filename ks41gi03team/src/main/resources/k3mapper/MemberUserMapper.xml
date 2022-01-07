@@ -10,13 +10,13 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
-	<delete id="k3DeleteMemberUser">
-		DELETE 
-			m
-		FROM 
-			k3_tb_member AS m 
+	<delete id="k3DeleteMemberUser" parameterType="String">
+		DELETE FROM 
+			k3_tb_member 
 		WHERE 
 			memberId = #{memberList};
+
+			
 	</delete>
 
 	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">

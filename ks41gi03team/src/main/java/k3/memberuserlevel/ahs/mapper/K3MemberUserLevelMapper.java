@@ -9,10 +9,9 @@ import k3.memberuserlevel.ahs.dto.K3MemberUserLevel;
 @Mapper
 public interface K3MemberUserLevelMapper {
 	
-	//회원권한현황(초기화면)
-	
 	//등록
 	public int AddMemberUserLevel(K3MemberUserLevel k3MemberUserLevel);
 	
-
+	//회원권한현황(초기화면)
+	public List<K3MemberUserLevel> getMemberUserLevelList();
 }

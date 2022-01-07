@@ -2,14 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customJs">
+			<script>
+			$(function(){				
+				$('#addWarehousingBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
+				});
+				$('#allowWarehousingBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3AllowWarehousing';
+				});
+				$('#addlLaydownCheckBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/check/k3AddlLaydownCheck';
+				});
+				$('#addSort').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3AddSort';
+				});
+				
+				$(document).on('click', '#deleteCategoryBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+					<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart"></i>
+							입고요청
+						</button>
+						<button id="allowWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart-check"></i>
+							요청승인
+						</button>
+						<button id="addlLaydownCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-clipboard-check"></i>
+							검수등록
+						</button>			
+						<button id="addSort" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--입고 및 검수조회 card header-->
@@ -27,18 +90,21 @@
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
 										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{#}" method="post">
-											<div class="input-group">
-												<div class="input-group-prepend">
-													<select name="categoryKey" class="input-group-text">
-														<option value="large">상품명</option>
-														<option value="medium">회사명</option>
-														<option value="small">입고코드</option>
-													</select>
+										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
+											<div class="input-group input-group-sm">
+												<select name="categoryKey" class="input-group-text form-control-sm">
+													<option value="large">상품명</option>
+													<option value="medium">회사명</option>
+													<option value="small">입고코드</option>
+												</select>
+												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="categorySearcch" type="submit">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
 												</div>
-												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
 											</div>
 										</form>
 										<!--End inputbox 1 -->
@@ -51,18 +117,21 @@
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
 										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{#}" method="post">
-											<div class="input-group">
-												<div class="input-group-prepend">
-													<select name="categoryKey" class="input-group-text">
-														<option value="large">상품명</option>
-														<option value="medium">회사명</option>
-														<option value="small">검수코드</option>
-													</select>
+										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
+											<div class="input-group input-group-sm">
+												<select name="categoryKey" class="input-group-text form-control-sm">
+													<option value="large">상품명</option>
+													<option value="medium">회사명</option>
+													<option value="small">검수코드</option>
+												</select>
+												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="categorySearcch" type="submit">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
 												</div>
-												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
 											</div>
 										</form>
 										<!--End inputbox 1 -->
@@ -142,9 +211,7 @@
 												<th>수정</th>	
 												<th>입하검수코드</th>
 												<th>입하물품명</th>
-												<th>입하물품개수</th>
-												<th>제조일자</th>
-												<th>유통기한</th>					
+												<th>입하물품개수</th>					
 												<th>거래처명</th>					
 												<th>검수자</th>					
 												<th>입하날짜</th>					
@@ -163,8 +230,6 @@
 												<td th:text="${l.laydownCheckCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
-												<td th:text="${l.manufacturedDate}"></td>
-												<td th:text="${l.expiratonDate}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.memberName}"></td>
 												<td th:text="${l.laydownDate}"></td>
