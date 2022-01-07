@@ -44,6 +44,53 @@
 					'm_c17', curdate(), #{contractorBusinessClientNum}, 
 					#{contractorDevision}, #{contractorFax}, #{contractorState});
 	</insert>
+	
+	<!-- 검색된 거래처 투플 수(페이징) -->
+	<select id="K3SearchContractorCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId;
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>					
+	</select>	
+	
+	<!-- 검색된 거래처 정보 -->
+	<select id="K3SearchContractorList" parameterType="map" resultType="map">
+		SELECT
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="searchKey = contractorRegistrationDate and searchValue != ''.toString()">
+				 WHERE contractorRegistrationDate
+	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+			</if>
+			<if test="searchValue != null and searchValue != ''.toString()">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
 
 	<!-- 거래처 상세정보 불러오기 -->
 	<select id="K3GetDetailContractor" parameterType="String" resultType="K3DetailContractor">
@@ -95,7 +142,7 @@
 			c.contractorId = cs.contractorId;					
 	</select>
 
-	<!-- 거래처 목록 간단 현황으로 불러오기 -->
+	<!-- 거래처 목록 간단 현황으로 불러오기(페이징) -->
 	<select id="K3GetContractorList" parameterType="map" resultType="map" >
 		SELECT
 			c.contractorCode
