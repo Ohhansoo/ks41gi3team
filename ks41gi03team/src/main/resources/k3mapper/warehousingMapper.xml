@@ -20,6 +20,17 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	<select id="k3FindContractorName" parameterType="map" resultType="map">
+		SELECT
+			cs.contractorId,
+			cs.contractorName,
+			cs.contractorType,
+			cs.contractorRepresentative
+		FROM
+			k3_tb_contractor_staff AS cs
+	
+	</select>
+	
 	<select id="k3GetWarehousingSearchList" parameterType="Map" resultType="K3Warehousing">
 	SELECT
 		   w.warehousingCode,
