@@ -15,6 +15,8 @@ public interface K3WarehousingMapper {
 	public List<K3Warehousing> k3GetWarehousingSearchList(Map<String, Object> searchCondition);
 	//입고 요청 등록 처리
 	public int k3AddWarehousing(K3Warehousing k3Warehousing);
+	//입고 요청폼에서 모달 조회 처리
+	public List<Map<String,Object>> k3FindContractorName(Map<String,Object> paramMap);
 	//계약처명 불러오기
 	public List<K3Contract> k3FindContractorNameByCode();
 	//입고 요청 현황

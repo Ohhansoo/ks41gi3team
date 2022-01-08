@@ -28,6 +28,11 @@ public class K3WarehousingService {
 		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);
 		return result;
 	}
+	//입고 요청폼에서 모달 조회 처리
+	public List<Map<String, Object>> k3FindContractorName() {
+		List<Map<String, Object>> resultList = k3WarehousingMapper.k3FindContractorName(null);
+		return resultList;
+	}
 	//계약처 이름 찾아오기
 	public List<K3Contract> k3FindContractorNameByCode(){
 		List<K3Contract> nameList = k3WarehousingMapper.k3FindContractorNameByCode();
