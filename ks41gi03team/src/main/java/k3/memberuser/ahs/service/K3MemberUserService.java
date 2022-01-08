@@ -39,7 +39,7 @@ public class K3MemberUserService {
 			}
 			return memberuserList;
 		}
-	//직원 삭제처리
+	//직원 삭제처리(한줄)
 	public int k3DeleteMemberUser(String memberId) {
 		  System.out.println("05 220107 k3DeleteMemberUser K3MemberUserService.java");
 

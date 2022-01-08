@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.category.ahs.controller.K3CategoryController;
+import k3.memberuser.ahs.controller.K3MemberUserController;
 import k3.memberuser.ahs.dto.K3MemberUser;
 import k3.memberuser.ahs.service.K3MemberUserService;
 
@@ -109,7 +109,7 @@ public class K3MemberUserController {
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
 	  }
 	  //직원정보 삭제처리
-	  @GetMapping("/k3RemoveMemberUser")
+	  @PostMapping("/k3RemoveMemberUser")
 	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
 		  int result = memberuserService.k3RemoveMemberUser(removeList);
 		  return "redirect:/team03/companymanagement/member/k3MemberUserList";

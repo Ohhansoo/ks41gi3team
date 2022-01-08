@@ -15,8 +15,13 @@
 			k3_tb_member 
 		WHERE 
 			memberId = #{memberList};
-
-			
+	</delete>
+	
+	<delete id="k3RemoveMemberUser" parameterType="map">
+		DELETE FROM 
+			k3_tb_member 
+		WHERE 
+			memberId = "m_c1126";
 	</delete>
 
 	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">
