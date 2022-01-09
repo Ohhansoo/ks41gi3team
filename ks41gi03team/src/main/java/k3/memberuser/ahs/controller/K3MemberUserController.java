@@ -28,13 +28,6 @@ public class K3MemberUserController {
 		this.memberuserService = memberuserService;
 	}
 
-	/*
-	 * ,mainBusinessCode ,levelMemberCode ,memberName ,memberGender ,memberAddr
-	 * ,memberPhone ,memberResidentRegistrationNumber ,memberState ,memberRegDate
-	 * ,memberHiredDate
-	 */
-	 
-	 
 	//중복확인 
 	@PostMapping("/k3IdCheck")
 	@ResponseBody
@@ -47,22 +40,9 @@ public class K3MemberUserController {
 		
 		return checkResult;
 	}
-	
-	//직원등록 처리 
-	@PostMapping("/k3AddMemberUserList")
-	public String k3MoveToAddMemberUserForm(K3MemberUser k3memberuser) {
-		memberuserService.AddMemberUser(k3memberuser);
-		return "redirect:/team03/companymanagement/member/k3MemberUserList";
-	}
-	//직원등록화면(이동)
-	@GetMapping("/k3AddMemberUserList")
-	public String AddMemberUser(Model model) {
-		model.addAttribute("title", "직원관리");
-		model.addAttribute("subtitle","직원등록");
-		return "team03/companymanagement/member/k3AddMemberUserList";
-	}
-	
-	//02 직원조회(초기화면)
+	 
+	 
+	//01 직원조회(초기화면)
 	@GetMapping("/k3MemberUserList")
 	public String getMemberUserList(Model model) {
 		System.out.println("02 220106 getMemberUserList K3MemberUserController.java");
@@ -74,7 +54,23 @@ public class K3MemberUserController {
 		return "team03/companymanagement/member/k3MemberUserList";
 		
 	}
-	//01 직원정보 수정폼 이동
+	
+	//02 직원등록화면(이동)
+	@GetMapping("/k3AddMemberUserList")
+	public String AddMemberUser(Model model) {
+		model.addAttribute("title", "직원관리");
+		model.addAttribute("subtitle","직원등록");
+		return "team03/companymanagement/member/k3AddMemberUserList";
+	}
+	
+	//03 직원등록 처리 
+	@PostMapping("/k3AddMemberUserList")
+	public String k3MoveToAddMemberUserForm(K3MemberUser k3memberuser) {
+		memberuserService.AddMemberUser(k3memberuser);
+		return "redirect:/team03/companymanagement/member/k3MemberUserList";
+	}
+	
+	//04 직원정보 수정폼 이동
 	@GetMapping("/k3ModifyMemberUserList") 
 	  public String k3ModifyMemberUser(@RequestParam(value="memberId", required = false) String memberId, Model model) { 
 		  log.info("memberId = {}", memberId);
@@ -88,7 +84,8 @@ public class K3MemberUserController {
 		  model.addAttribute("subtitle","직원정보 수정");
 		  return "team03/companymanagement/member/k3ModifyMemberUserList"; 
 	  }
-	  //03 직원정보 수정처리 - uri 매핑 경로 수정 수정 해야 한다
+	
+	  //05 직원정보 수정처리
 	  @PostMapping("/k3ModifyMemberUserInfo") 
 	  	public String k3ModifyMemberUserInfo(K3MemberUser k3memberuser) {
 		  System.out.println("03 220106 k3ModifyMemberUserInfo K3MemberUserController.java");
@@ -98,7 +95,7 @@ public class K3MemberUserController {
 		  log.info("k3ModifyMemberUserList 메소드 수정 결과  : " + result);
 		  return "redirect:/team03/companymanagement/member/k3MemberUserList"; 
 	  }
-	  //04 직원정보 삭제처리 ( 한줄 삭제 )
+	  //06 직원정보 삭제처리 ( 한줄 삭제 )
 	  @GetMapping("/k3DeleteMemberUser")
 //		public String k3DeleteMemberUser(@RequestParam(value="deleteList[]", required = false) List<String>deleteList) {
 		public String k3DeleteMemberUser(@RequestParam(value="memberId", required = false) String memberId, Model model) {			
@@ -108,7 +105,7 @@ public class K3MemberUserController {
 			log.info("DeleteMemberUser 전송결과 : "  + result);
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
 	  }
-	  //직원정보 삭제처리
+	  //07 직원정보 삭제처리
 	  @GetMapping("/k3RemoveMemberUser")
 	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
 		  int result = memberuserService.k3RemoveMemberUser(removeList);

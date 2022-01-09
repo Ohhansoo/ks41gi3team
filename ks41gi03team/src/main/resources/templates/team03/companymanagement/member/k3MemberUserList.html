@@ -72,7 +72,6 @@
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group input-group-sm">
-										<div class="input-group-prepend">
 										<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 											<option value="ID">직원ID</option>
 												<option value="PW">직원PW</option>
@@ -87,12 +86,14 @@
 												<option value="Regdate">등록일자</option>
 												<option value="Regtiondate">입사일자</option>
 										</select>
-										</div>
 										<input type="text" name="memberuserValue" class="form-control" placeholder="직원ID"  style="height: 38px;  font-size: 15px;">
-										<div class="btn btn-default" style="height: 38px;">
-										<button id="categorySearcch" type="submit">
-											<i class="fas fa-search icon"></i>
-										</button>
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="memberuserSearch" type="submit" style="width: 35px; height: 35px;">
+													<i class="fas fa-search icon" ></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
