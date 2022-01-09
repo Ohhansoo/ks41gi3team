@@ -15,38 +15,7 @@
 		<result column="ourCompanyEmail" property="ourCompanyEmail" />
 	</resultMap> 
    -->
-   <select id="">
-   	SELECT 
-		oc.ourCompanyCode,
-		oc.ourCompanyBusinessPlaceCode,
-		oc.ourCompanyBusinessName,
-		oc.ourCompanyBusinessCheifName,
-		oc.ourCompanyWorkPlaceAddr,
-		oc.ourCompanyStatus,
-		oc.ourCompanyWorkType,
-		oc.ourCompanyEmail
-	FROM 
-		k3_tb_our_company AS oc
-	WHERE 
-		oc.ourCompanyCode =  #{ourCompanyCode};
-   </select>
-   
-   <update id="k3ModifyOurCompanyInfoBycode" parameterType="int">
-   	UPDATE 
-		k3_tb_our_company AS oc
-	SET
-		oc.ourCompanyCode = #{ourCompanyCode},
-		oc.ourCompanyBusinessPlaceCode = #{ourCompanyBusinessPlaceCode},
-		oc.ourCompanyBusinessName = #{ourCompanyBusinessName},
-		oc.ourCompanyBusinessCheifName = #{ourCompanyBusinessCheifName},
-		oc.ourCompanyWorkPlaceAddr = #{ourCompanyWorkPlaceAddr},
-		oc.ourCompanyStatus = #{ourCompanyStatus},
-		oc.ourCompanyWorkType = #{ourCompanyWorkType},
-		oc.ourCompanyEmail = #{ourCompanyEmail}
-	WHERE 
-		oc.ourCompanyCode = #{ourCompanyCode}; 
-   </update>
-   
+   <!-- 자사정보등록 -->
    <insert id="AddOurCompany" parameterType="K3OurCompany">
    	INSERT INTO 
    		k3_tb_our_company
@@ -71,7 +40,7 @@
 	);
    </insert>
 	
-	
+	<!-- 자사정보 조회 -->
 	<select id="getOurCompanyList"  resultType="K3OurCompany">
 	SELECT
 			oc.ourCompanyCode 					AS ourCompanyCode,

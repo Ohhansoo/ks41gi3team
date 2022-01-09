@@ -10,6 +10,7 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
+<!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">
 		DELETE FROM 
 			k3_tb_member 
@@ -17,13 +18,16 @@
 			memberId = #{memberList};
 	</delete>
 	
+<!-- 직원삭제 -->
 	<delete id="k3RemoveMemberUser" parameterType="map">
 		DELETE FROM 
 			k3_tb_member 
 		WHERE 
 			memberId = "m_c1126";
 	</delete>
+	
 
+<!-- 직원선택 (수정) -->
 	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">
 		SELECT 
 			m.memberId,
@@ -44,6 +48,7 @@
 			m.memberId = #{memberId}; 
 	</select>
 
+<!-- 직원수정처리 -->
 	<update id="k3ModifyMemberUserInfo" parameterType="int">
 		UPDATE 
 			k3_tb_member AS m
@@ -86,6 +91,7 @@
 			m.memberId = #{memberId};
 	</update>
 
+<!-- 직원선택 ?-->
 	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
 		SELECT
 			*
@@ -95,6 +101,7 @@
 			m.memberId = #{memberId};
 	</select>
 
+<!-- 직원등록 -->
 	<insert id="AddMemberUser">
 		INSERT INTO 
    		k3_tb_member
@@ -127,6 +134,7 @@
 	);
 	</insert>
 	
+	<!-- 전제조회 -->
 	<select id="getMemberUserList" resultType="K3MemberUser">
 		SELECT 
 			 m.memberId									AS memberId
