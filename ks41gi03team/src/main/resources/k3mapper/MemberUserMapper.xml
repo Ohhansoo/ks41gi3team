@@ -10,13 +10,22 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
-<!-- 직원삭제 -->
+<!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">
 		DELETE FROM 
 			k3_tb_member 
 		WHERE 
 			memberId = #{memberList};
 	</delete>
+	
+<!-- 직원삭제 -->
+	<delete id="k3RemoveMemberUser" parameterType="map">
+		DELETE FROM 
+			k3_tb_member 
+		WHERE 
+			memberId = "m_c1126";
+	</delete>
+	
 
 <!-- 직원선택 (수정) -->
 	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">
