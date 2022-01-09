@@ -3,15 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.location.ahs.mapper.K3LocationMapper">
-		<!-- 로케이션 코드 수정처리 -->
-	<delete id="deleteLocationCode" parameterType="String">
-		DELETE
-			l.locationCode	
+		
+		<!-- 삭제처리 -->
+	<delete id="deleteLocationCode" >
+		DELETE 
+			l
 		FROM
 			k3_tb_location AS l
 		WHERE
-			l.locationCode = #{locationCode};
+			l.locationCode = #{locationCode}; 
 	</delete>	
+		<!-- 로케이션 코드 수정처리 -->
 	<update id="k3ModifyLocationCodeInfo" parameterType="K3Location">
 		UPDATE 
 			k3_tb_location AS l

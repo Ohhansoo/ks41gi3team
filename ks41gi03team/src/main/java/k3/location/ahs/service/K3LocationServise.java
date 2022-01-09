@@ -1,9 +1,8 @@
 package k3.location.ahs.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class K3LocationServise {
 	 * 로케이션 코드 삭제
 	 */
 	public void deleteLocationCode(String locationCode) {
-			
+		System.out.println("service--------------" +locationCode);
 		 k3LocationMapper.deleteLocationCode(locationCode);
 	}
 	
