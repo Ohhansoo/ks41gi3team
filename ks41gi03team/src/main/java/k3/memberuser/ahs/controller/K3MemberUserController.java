@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.category.ahs.controller.K3CategoryController;
+import k3.memberuser.ahs.controller.K3MemberUserController;
 import k3.memberuser.ahs.dto.K3MemberUser;
 import k3.memberuser.ahs.service.K3MemberUserService;
 

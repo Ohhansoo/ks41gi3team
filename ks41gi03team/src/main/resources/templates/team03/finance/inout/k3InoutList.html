@@ -5,14 +5,45 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	
+	<script>
+			$(function(){				
+				$('#inoutBtn').on('click', function(){
+					location.href = '/team03/finance/inout/k3AddInout';
+				});
+				
+				$(document).on('click', '#deleteInoutBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#inoutForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
+	 
 		<div id="representative-button">
 			<div id="representative-button">
 				
-				<form id="subjectForm" th:action="@{/team03/finance/inout/k3ModifyInout}" method="post">
+				<form id="inoutForm" th:action="@{/team03/finance/inout/k3DeleteInout}" method="post">
 					<table border="1">
 						<thead>
 						<tr>
+							<td>선택</td>
+							<td>통합회계그룹코드</td>
 							<td>통합회계그룹코드</td>
 							<td>사업장별 대표코드</td>
 							<td>등록자아이디</td>
@@ -32,6 +63,9 @@
 					</thead>
 					<tbody>
 						<tr th:if="${not #lists.isEmpty(inoutList)}" th:each="l : ${inoutList}">
+							<td>
+								<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inoutRec}">
+							</td>
 							<td th:text="${l.inoutRec}"></td>
 							<td th:text="${l.mainBusinessCode}"></td>
 							<td th:text="${l.memberId}"></td>
@@ -50,9 +84,7 @@
 							<td>
 								<a th:href="@{/team03/finance/inout/k3ModifyInout(inoutRec=${l.inoutRec})}">수정</a>
 							</td>
-							<td>
-								<a th:href="@{#}">삭제</a>
-							</td>			
+								
 						</tr>
 						<tr th:unless="${not #lists.isEmpty(inoutList)}">
 							<td>등록된 카테고리가 없습니다.</td>
@@ -60,6 +92,7 @@
 					</tbody>
 				</table>
 				</form>
+				<button id="deleteInoutBtn" type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
 			</div>
 		</div>
 	</th:block>

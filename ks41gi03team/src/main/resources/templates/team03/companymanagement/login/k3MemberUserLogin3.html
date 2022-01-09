@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/login}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+
+	<th:block layout:fragment="customCss">
+		<style>
+			#loginCard {
+				height: fit-content;
+				margin-top: 120px;
+				margin-bottom: 120px;
+			}
+			#login {
+				background-color: #3F72AF;
+			}
+		</style>
+	</th:block>
+	
+	<th:block layout:fragment="customContents"> 
+	
+	<div id="login" class="container-fluid" style="width: 500px; height: 500px; margin-bottom: 100px; marign-top: 100px;">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div id="loginCard" class="card cardColor" style="background-color:ghostwhite;">
+					<h1 class="d-flex justify-content-center" style="margin-top: 50px;">AHS</h1>
+					<h6 class="d-flex justify-content-center">로그인</h6>
+					<div class="row" style="margin: 12px">
+				</div>
+					<form class="form" th:action="@{/team03/companymanagement/login/k3MemberUserLogin}" method="post">
+						<div class="justify-content-center">
+							<div class="d-flex form-floating mb-3 justify-content-center">
+								<input type="text" class="form-control" id="floatingInput" name="loginId" placeholder="ID" style="width: 400px;">
+							</div>
+							<div class="d-flex form-floating mb-3 justify-content-center">
+								<input type="password" class="form-control" id="floatingInput" name="loginPw" placeholder="Password" style="width: 400px;">
+							</div>
+							<div class="d-flex form-floating mb-3 justify-content-center">
+								<button id="loginBtn" type="submit" class="ahsbtn2 btn btn-outline-info" style="width: 400px; margin: 0;">로그인</button>
+							</div>
+							<div class="d-flex form-floating mb-3 justify-content-center">
+								<a href={#} style="color: black;">아이디 찾기</a>/
+								<a href={#} style="color: black;">비밀번호 찾기</a>/
+								<a href={/team03/companymanagement/member/k3AddMemberUserList} style="margin-bottom: 50px; color: black;">직원등록</a>
+							</div>
+						</div>	
+					</form>
+				</div>
+	 					<!--End card body 묶음 -->
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<!-- End card header -->
+						<!--card body -->
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

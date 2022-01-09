@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import k3.category.ahs.dto.K3Category;
 import k3.in.ahs.dto.K3In;
 import k3.inout.ahs.dto.K3Inout;
 import k3.inout.ahs.service.K3InoutService;
@@ -30,9 +31,24 @@ public class K3InoutController {
 	}
 	
 	
+	//입출금내역 삭제처리
+	@PostMapping("/k3DeleteInout")
+	public String deleteInout(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3InoutService.deleteInout(deleteList);
+		return "redirect:/team03/finance/inout/k3InoutList";
+	}
 	
 	
-	//계정과목 수정 폼으로 이동(값 할당해서 넣기)
+	
+	//입출금내역 수정처리
+	@PostMapping("/k3ModifyInout")
+	public String modifyInout(K3Inout k3Inout) {
+		k3InoutService.getModifyInout(k3Inout);
+		return "redirect:/team03/finance/inout/k3InoutList";
+	}
+	
+	
+	//입출금내역 수정 폼으로 이동(값 할당해서 넣기)
 	@GetMapping("/k3ModifyInout")
 	public String modifyInout(@RequestParam(value="inoutRec", required = false) String inoutRec, Model model) {
 		System.out.println(inoutRec);

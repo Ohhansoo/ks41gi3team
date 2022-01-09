@@ -12,18 +12,14 @@
 					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
 				
-				$('#deleteMemberUserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3MemberUser(memberId=${l.memberId})';
-				});
-				
-				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
-					alert("삭제 처리 시작");
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
+					var check = $('.removeList:checked');
+					var removeCheckList = [];
+					//console.log(check);
+					
 					
 					$.each(check, function(){
-						deleteCheckList.push($(this).val());
+						removeCheckList.push($(this).val());
 					});
 
 					
@@ -135,7 +131,7 @@
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
 						   				<td>
-											<input type="checkbox" class="removeList" name="deleteList" th:value="${l.memberId}">
+											<input type="checkbox" class="removeList" name="removeList[]" th:value="${l.memberId}">
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
 										<td>

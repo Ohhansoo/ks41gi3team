@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3DetailContractor;
 import k3.contractor.ahs.mapper.K3ContractorMapper;
 
 @Service
+@Transactional
 public class K3ContractorService {
+	
 	
 	//생성자 메서드 주입
 	private final K3ContractorMapper k3ContractorMapper;
@@ -37,6 +41,18 @@ public class K3ContractorService {
 		return result;
 	}
 	
+	
+	//거래처 조회(검색)
+	public List<K3Contractor> K3SearchContractorList(String searchKey, String searchValue){
+
+		List<K3Contractor> k3SearchContractorList = k3ContractorMapper.K3SearchContractorList(searchKey, searchValue);
+
+		
+		return k3SearchContractorList;
+	}
+	
+	
+	
 	//거래처 리스트(상세) 모달창
 	public K3DetailContractor K3GetDetailContractor(String contractorCode){
 		K3DetailContractor k3DetailContractor = k3ContractorMapper.K3GetDetailContractor(contractorCode); 
@@ -44,7 +60,7 @@ public class K3ContractorService {
 		return k3DetailContractor;
 	}
 	
-	//거래처 리스트(간단) 현황에 불러오기
+	//거래처 리스트(간단) 현황에 불러오기(페이징)
 	public Map<String, Object> K3GetContractorList(int currentPage){
 		
 		// 보여줄 행의 개수

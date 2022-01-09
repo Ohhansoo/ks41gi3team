@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ public class K3LocationController {
 	public K3LocationController(K3LocationServise k3LocationServise) {
 		this.k3LocationServise = k3LocationServise;
 	}
-	
+
 	/**
 	 * 로케이션코드 현황
 	 */
@@ -54,7 +55,7 @@ public class K3LocationController {
 	@PostMapping("/k3AddLocation")
 	@ResponseBody
 	public void k3AddLocation(@RequestBody List<K3Location> k3LocationList ,Model model) {
-		int result = k3LocationServise.k3AddLocation(k3LocationList);
+		 k3LocationServise.k3AddLocation(k3LocationList);
 	}
 	
 	/**
@@ -77,9 +78,17 @@ public class K3LocationController {
 		model.addAttribute("k3Location",k3Location);
 		return "team03/spaceBusiness/location/k3ModifyLocation";
 	}
-
-	@GetMapping("k3DeleteLocation")
-	public String k3DeleteLocation() {
-		return "team03/spaceBusiness/location/k3DeleteLocation";
+	/**
+	 * 
+	 */
+	@PostMapping("/k3LocationList")
+	public String k3DeleteLocation(HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for(int i = 0; i < size; i++) {
+			k3LocationServise.deleteLocationCode(ajaxMsg[i]);
+		}
+		return "redirect:/team03/spaceBusiness/location/k3LocationList";
 	}
 }
