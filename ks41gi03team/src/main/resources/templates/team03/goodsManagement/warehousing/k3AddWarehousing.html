@@ -12,7 +12,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					history.back();
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
 				$(document).on('click', '#addWarehousing', function(){
 					
@@ -155,19 +155,17 @@
 					</button>
 				</div>
 				<div class="modal_body">
-					<form>
-						<div class="input-group input-group-sm">						
-							<table border="1" id="dataTableAjax" class="dataTable">
-								<thead>
-									<tr bgcolor="#BDBDBD">
-										<th>선택</th>
-										<th>회사명</th>
-										<th>업종</th>
-										<th>대표</th>							
-									</tr>
-								</thead>
-							</table>
-						</div>				
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회사명</th>
+									<th>업종</th>
+									<th>대표</th>							
+								</tr>
+							</thead>
+						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">

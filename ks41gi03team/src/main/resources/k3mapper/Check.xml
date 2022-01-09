@@ -45,5 +45,15 @@
 		WHERE
 			r.releaseAllow = 'Y';
 	</select>
-
+	
+	<select id="k3GetLaydownCheckList" resultType="K3LaydownCheck">
+	SELECT
+		W.warehousingCode,
+		W.laydownGoodsName,
+		W.laydownGoodsCount
+	FROM
+		k3_tb_warehousing AS W
+	WHERE
+		warehousingCode = "warehousing1"
+	</select>
 </mapper>

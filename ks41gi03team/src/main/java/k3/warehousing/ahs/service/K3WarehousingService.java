@@ -23,6 +23,11 @@ public class K3WarehousingService {
 		List<K3Warehousing> warehousingSearchList = k3WarehousingMapper.k3GetWarehousingSearchList(searchCondition);
 		return warehousingSearchList;
 	}
+	//입고 승인 처리
+	public int k3AllowWarehousing(Map<String, Object> warehousingList) {
+		int result = k3WarehousingMapper.k3AllowWarehousing(warehousingList);
+		return result;
+	}
 	//입고 요청 등록 처리 
 	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
 		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);
@@ -55,10 +60,15 @@ public class K3WarehousingService {
 		List<K3WarehousingSort> sortList = k3WarehousingMapper.k3GetWarehousingSortList();
 		return sortList;
 	}
-	//입고 현황
+	//검수 현황(초기화면)
+	public List<K3Warehousing> k3GetLaydownCheck() {
+		List<K3Warehousing> laydownCheck = k3WarehousingMapper.k3GetLaydownCheck();
+		return laydownCheck;
+	}
+	//입고 현황(초기화면)
 	public List<K3Warehousing> k3GetWarehousingList() {
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingMapper.k3GetWarehousingList();
-		return K3LaydownCheck;
+		List<K3Warehousing> warehousingList = k3WarehousingMapper.k3GetWarehousingList();
+		return warehousingList;
 	}
 
 }
