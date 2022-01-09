@@ -40,4 +40,10 @@ public class K3CheckpointService {
 		return k3CheckpointMapper.modifyCheckpoint(k3Checkpoint);
 	}
 	
+	//삭제
+	public Integer k3DeleteCheckpoint(List<String> deleteList) {
+		Integer result = k3CheckpointMapper.k3DeleteCheckpoint(deleteList);
+		return result;
+	}
+	
 }

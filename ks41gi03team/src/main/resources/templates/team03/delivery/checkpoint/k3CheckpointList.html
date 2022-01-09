@@ -5,6 +5,35 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customJs">
+			<script>
+			$(function(){				
+				$('#addCategoryBtn').on('click', function(){
+					location.href = '/team03/delivery/checkpoint/k3AddChekcpoint';
+				});
+				
+				$(document).on('click', '#deleteCheckpointBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
+	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<!-- 콘텐츠 콘테이너 시작 -->
@@ -23,7 +52,7 @@
 							<i class="bi bi-boxes"></i>
 							분류등록
 						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="submit">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>			
@@ -85,7 +114,7 @@
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(checkpointList)}" th:each="l : ${checkpointList}">
 										<td>
-											<input type="checkbox" value="선택">
+											<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.vehicleCheckpointCode}">
 										</td>	
 										<td>
 											<a id="modifyCheck" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/checkpoint/k3ModifyCheckpoint(vehicleCheckpointCode=${l.vehicleCheckpointCode})}">
