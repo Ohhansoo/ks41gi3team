@@ -20,6 +20,20 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	<update id="k3AllowWarehousing" parameterType="map">
+		UPDATE
+			k3_tb_warehousing
+		SET
+			warehousingAllow = #{YesOrNo}
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<foreach collection="allowList" item="allowList">
+				OR warehousingCode = #{allowList}
+			</foreach>			
+		</trim>
+	
+	</update>
+	
+
 	<select id="k3FindContractorName" parameterType="map" resultType="map">
 		SELECT
 			cs.contractorId,
@@ -93,6 +107,7 @@
 	
 	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
 		SELECT
+			w.warehousingCode,
 			w.laydownGoodsName,
 			w.laydownGoodsCount,
 			cs.contractorName,
@@ -173,6 +188,9 @@
 		   w.laydownDate,
 		   m.memberName,
 		   w.laydownCheckDate,
+		   w.laydownCheckResult,
+		   w.warehousingDay,
+		   w.laydownCheckManager,
 		   w.laydownCheckResult
 		FROM
 		   k3_tb_warehousing AS w

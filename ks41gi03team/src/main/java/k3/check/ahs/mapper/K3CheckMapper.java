@@ -12,6 +12,6 @@ public interface K3CheckMapper {
 	
 	//출하검수 초기화면
 	public List<K3ShipmentCheck> k3GetShipmentCheckList();
-	//입하검수 초기화면
+	//입하검수 정보 불러오기
 	public List<K3LaydownCheck> k3GetLaydownCheckList();
 }

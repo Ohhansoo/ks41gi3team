@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.dto.K3ShipmentCheck;
@@ -37,7 +38,8 @@ public class K3CheckController {
 	}
 	//입하검수 등록이동
 	@GetMapping("/k3AddlLaydownCheck")
-	public String k3AddLaydownCheck(){
+	public String k3AddLaydownCheck(@RequestParam(value="", required=false)String code, 
+									Model model){
 		
 		return "team03/goodsManagement/check/k3AddlLaydownCheck";
 	}

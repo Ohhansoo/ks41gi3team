@@ -60,11 +60,25 @@ public class K3WarehousingController {
 		searchCondition.put("searchEndDate", searchEndDate);
 		searchCondition.put("warehousingDateKey", warehousingDateKey);
 		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingSearchList(searchCondition);
-		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
-		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", K3LaydownCheck);
+		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingSearchList(searchCondition);
+		model.addAttribute("warehousingList", warehousingList);
+		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", warehousingList);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
+	}
+	//입고 승인/반려 처리
+	@PostMapping("/k3AllowWarehousing")
+	public String k3AllowWarehousing(@RequestParam(value="allowList[]", required=false)List<String> allowList,
+									 @RequestParam(value="YesOrNo", required=false)String YesOrNo){
+		log.info("컨트롤러//////입고 승인처리  allowList ------ " + allowList);
+		log.info("컨트롤러//////입고 반려처리  YesOrNo ------ " + YesOrNo);
+		Map<String, Object> warehousingList = new HashMap<String, Object>();
+		warehousingList.put("allowList", allowList);
+		warehousingList.put("YesOrNo", YesOrNo);
+
+		int result = k3WarehousingService.k3AllowWarehousing(warehousingList);
+		log.info("컨트롤러//////입고 승인처리 결과 result------ " + result);
+		return "redirect:/team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
 	
 	//입고 승인폼 이동
@@ -127,11 +141,13 @@ public class K3WarehousingController {
 	//입고 현황이동
 	@GetMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(Model model) {
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingList();
-		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + K3LaydownCheck);
+		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingList();
+		//List<K3Warehousing> laydownCheck = k3WarehousingService.k3GetLaydownCheck();
+		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + warehousingList);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고현황");
-		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
+		model.addAttribute("warehousingList", warehousingList);
+		//model.addAttribute("laydownCheck", laydownCheck);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}

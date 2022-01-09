@@ -21,7 +21,7 @@ public class K3CheckService {
 		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckMapper.k3GetShipmentCheckList();
 		return K3ShipmentCheck;
 	}
-	//입하검수 현황 이동
+	//입하검수 정보 불러오기
 	public List<K3LaydownCheck> k3GetLaydownCheckList() {
 		List<K3LaydownCheck> K3LaydownCheck = k3CheckMapper.k3GetLaydownCheckList();
 		return K3LaydownCheck;
