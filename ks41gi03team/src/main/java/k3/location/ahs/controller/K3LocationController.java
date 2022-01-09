@@ -79,7 +79,7 @@ public class K3LocationController {
 		return "team03/spaceBusiness/location/k3ModifyLocation";
 	}
 	/**
-	 * 
+	 * 로케이션 코드 삭제처리
 	 */
 	@PostMapping("/k3LocationList")
 	public String k3DeleteLocation(HttpServletRequest request) {
@@ -87,7 +87,9 @@ public class K3LocationController {
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		int size = ajaxMsg.length;
 		for(int i = 0; i < size; i++) {
+			System.out.println("controller-------------size" +size);
 			k3LocationServise.deleteLocationCode(ajaxMsg[i]);
+			System.out.println("controller-------------ajaxMsg[i]" +ajaxMsg[i]);
 		}
 		return "redirect:/team03/spaceBusiness/location/k3LocationList";
 	}

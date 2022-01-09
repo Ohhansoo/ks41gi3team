@@ -23,12 +23,12 @@ public interface K3WarehouseMapper {
 	 * 창고수정
 	 */
 	//창고코드로 조회
-	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode);
+	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(String warehouseCode);
 	//창고수정처리
 	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses);
 	
 	/**
 	 * 창고고유코드로 삭제
 	 */
-	public int deleteWarehouseCode(int warehouseCode);
+	public int deleteWarehouseCode(String warehouseCode);
 }
