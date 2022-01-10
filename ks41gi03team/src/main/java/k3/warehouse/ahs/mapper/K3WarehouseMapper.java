@@ -10,6 +10,11 @@ import k3.warehouse.ahs.dto.K3Warehouses;
 public interface K3WarehouseMapper {
 	
 	/**
+	 * 창고목록조회
+	 */
+	public List<K3Warehouses> getWarehouseListBySearchKey(String warehouseKey, String warehouseValue);
+		
+	/**
 	 * 창고등록처리
 	 */
 	public int k3AddWarehouse(K3Warehouses k3Warehouses);

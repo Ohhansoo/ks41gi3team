@@ -8,23 +8,23 @@
 	
 	<th:block layout:fragment="customContents"> 
 			<script type="text/javascript">
-			$(function(){	
+			$(function(){
+				
+				$('#addLocationBtn').click(function(){
+					location.href = "/team03/spaceBusiness/location/k3AddLocation";
+				});
+				
 				var rowCheckObj = document.getElementsByName('rowCheck');
 				var rowCount = rowCheckObj.length;
-				console.log(rowCheckObj);
-				console.log(rowCount);
-				console.log($("input:checkbox[name=allCheck]"));
 				$("input:checkbox[name=allCheck]").click(function(){
 					
-					console.log("allCheck click")
 					var rowCheckList = $("input[name=rowCheck]");
-					console.log("allCheck click"+rowCheckList)
 					for(var i = 0; i < rowCheckList.length; i++){
 						rowCheckList[i].checked = this.checked;
 					}
 				});
 				$("input[name=rowCheck]").click(function(){
-					console.log('???')
+					
 					if($("input[name=rowCheck]:checked").length == rowCount){
 						$("input[name=allCheck]")[0].checked = true;
 					}
@@ -37,7 +37,7 @@
 					var url = "/team03/spaceBusiness/location/k3LocationList";
 					var valueArr = new Array();
 					var list = $("input[name=rowCheck]");
-					console.log("list!!" + $("input[name=rowCheck]"))
+
 					for(var i = 0; i < list.length; i++){
 						if(list[i].checked){
 							valueArr.push(list[i].value);
@@ -72,21 +72,21 @@
 			<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-file-earmark-plus"></i>
-							등록
+						<button class="btn btn-outline-info ahsbtn4" type="button" id="addLocationBtn">
+							<i class="bi bi-file-earmark-plus">등록</i>
+							
 						</button>			
 						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-printer"></i>
-							출력
+							<i class="bi bi-printer">출력</i>
+						
 						</button>			
 						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-boxes"></i>
-							분류등록
+							<i class="bi bi-boxes">분류등록</i>
+							
 						</button>			
 						<button id="delBtn" class="btn btn-outline-info ahsbtn4" type="button" th:onclick="|javascript:deleteValue()|">
-							<i class="bi bi-trash"></i>
-							삭제
+							<i class="bi bi-trash">삭제</i>
+							
 						</button>			
 								
 					</div>	
@@ -161,9 +161,6 @@
 										</tr>
 									</tbody>
 								</table>
-							</div>
-							<div class="card-footer">
-										<h1>안녕</h1>
 							</div>
 						<!-- card body End -->								
 						</div>

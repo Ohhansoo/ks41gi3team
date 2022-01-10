@@ -14,6 +14,27 @@
 		<result column="warehouseOperation" property="warehouseOperation" />
 	</resultMap> 
 --> 
+		<!-- 창고 목록 조회  -->
+	<select  id="getWarehouseListBySearchKey" parameterType="String" resultType="K3Warehouses">
+		SELECT
+			 warehouseCode
+			,warehouseName
+			,floorNumber		
+			,warehouseNumber
+			,warehouseArea
+			,warehouseFlat
+			,warehouseType
+			,warehouseDockNumber
+			,warehouseOperation
+		FROM	
+			k3_tb_mainWarehouse
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="warehouseValue != null and warehouseValue != ''.toString()">
+				${warehouseKey} LIKE CONCAT(#{warehouseValue}, '%');
+			</if>
+		</trim>	
+	</select>	
+		<!-- 창고 삭제 -->
 	<delete id="deleteWarehouseCode" parameterType="String">
 		DELETE
 			w
