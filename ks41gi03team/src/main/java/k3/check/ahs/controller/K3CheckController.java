@@ -2,6 +2,8 @@ package k3.check.ahs.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,28 +22,51 @@ import k3.warehousing.ahs.service.K3WarehousingService;
 @Controller
 @RequestMapping(value="/team03/goodsManagement/check")
 public class K3CheckController {
-	private K3CheckService k3CheckService;
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(K3CheckController.class);
 
 	
+	private final K3CheckService k3CheckService;
+
 	public K3CheckController(K3CheckService k3CheckService) {
 		this.k3CheckService = k3CheckService;
 
 	}
 	
+	//입하검수 등록이동
+	 @PostMapping("/k3AddLaydownCheck") 
+	 public String k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck){
+		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", K3LaydownCheck);
+		 int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
+		 return "redirect:/team03/goodsManagement/check/k3LaydownCheckList"; 
+	  }
 	
-	
+	//입하검수 등록처리
+	@GetMapping("/k3AddLaydownCheck")
+	public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
+			Model model){
+		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
+		List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode);		
+		log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입하검수등록");
+		model.addAttribute("laydownCheckList", laydownCheckList);
+		
+		return "team03/goodsManagement/check/k3AddLaydownCheck";
+	}
 	//출하검수 등록이동
 	@GetMapping("/k3AddShipmentCheck")
 	public String k3AddShipmentCheck(){
 		
 		return "team03/goodsManagement/check/k3AddShipmentCheck";
 	}
-	//입하검수 등록이동
-	@GetMapping("/k3AddlLaydownCheck")
-	public String k3AddLaydownCheck(@RequestParam(value="", required=false)String code, 
-									Model model){
-		
-		return "team03/goodsManagement/check/k3AddlLaydownCheck";
+	//입하검수 리스트이동
+	@GetMapping("/k3LaydownCheckList")
+	public String k3GetLaydownCheckList(Model model){
+		List<K3LaydownCheck> laydownCheck = k3CheckService.k3GetLaydownCheckList();
+		model.addAttribute("laydownCheck", laydownCheck);
+		return "team03/goodsManagement/check/k3LaydownCheckList";
 	}
 	/*
 	 * //출하검수 현황이동(초기화면)

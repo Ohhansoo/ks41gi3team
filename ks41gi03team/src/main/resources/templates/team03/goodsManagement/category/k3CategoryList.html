@@ -110,7 +110,6 @@
 										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
 											<td>
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
-												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 											</td>
 											<td>
 												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>

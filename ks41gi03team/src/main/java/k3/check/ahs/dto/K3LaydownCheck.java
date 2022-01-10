@@ -1,6 +1,7 @@
 package k3.check.ahs.dto;
 
 public class K3LaydownCheck {
+	private String warehousingCode;
 	private String laydownCheckCode;
 	private String mainBusinessCode;
 	private String contractorName;
@@ -15,6 +16,12 @@ public class K3LaydownCheck {
 	private String laydownCheckDate;
 	private String dockName;
 	private String memberName;
+	public String getWarehousingCode() {
+		return warehousingCode;
+	}
+	public void setWarehousingCode(String warehousingCode) {
+		this.warehousingCode = warehousingCode;
+	}
 	public String getLaydownCheckCode() {
 		return laydownCheckCode;
 	}
@@ -100,6 +107,16 @@ public class K3LaydownCheck {
 		this.memberName = memberName;
 	}
 	@Override
+	public String toString() {
+		return "K3LaydownCheck [warehousingCode=" + warehousingCode + ", laydownCheckCode=" + laydownCheckCode
+				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
+				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
+				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate="
+				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
+				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName
+				+ ", memberName=" + memberName + "]";
+	}
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -117,6 +134,7 @@ public class K3LaydownCheck {
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
 	@Override
@@ -195,20 +213,13 @@ public class K3LaydownCheck {
 				return false;
 		} else if (!memberName.equals(other.memberName))
 			return false;
+		if (warehousingCode == null) {
+			if (other.warehousingCode != null)
+				return false;
+		} else if (!warehousingCode.equals(other.warehousingCode))
+			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "K3LaydownCheck [laydownCheckCode=" + laydownCheckCode + ", mainBusinessCode=" + mainBusinessCode
-				+ ", contractorName=" + contractorName + ", contractorId=" + contractorId + ", laydownGoodsName="
-				+ laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount + ", manufacturedDate="
-				+ manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate=" + laydownDate
-				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
-				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
-				+ "]";
-	}
-	
-	
 	
 
 	
