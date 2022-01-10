@@ -102,22 +102,24 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<th>직원ID</th>
-						                     <th>직원PW</th>
-						                     <th>사업장별대표코드</th>
-						                     <th>권한번호</th>
-						                     <th>직원이름</th>
-						                     <th>성별</th>
-						                     <th>주소</th>
-						                     <th>전화번호</th>
-						                     <th>주민번호</th>
-						                     <th>직원계정상태</th>
-						                     <th>등록일자</th>
-						                     <th>입사일자</th>	
+											<th>삭제</td>	
+											<th>수정</th>
+											<th>퇴사번호</th>
+						                    <th>사업장별대표코드</th>
+						                    <th>직원ID</th>
+						                    <th>퇴사사유</th>
+						                    <th>퇴사일자</th>
+						                    <th>퇴사처리일자</th>
 										</tr>
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
+						   				<td>
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberRetiredCode}">
+											</td>
+							   				<td>
+												<a th:href="@{/team03/companymanagement/member/k3ModifyOurCompanyList(memberRetiredCode=${l.memberRetiredCode})}">수정</a>
+											</td>	
 						   				<td th:text="${l.memberRetiredCode}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberId}"></td>
