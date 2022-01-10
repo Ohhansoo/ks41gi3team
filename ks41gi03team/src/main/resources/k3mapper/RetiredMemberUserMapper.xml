@@ -39,6 +39,12 @@
 			,rm.memberRetiredDate					AS memberRetiredDate
 			,rm.memberRetirementSignedDate		AS memberRetirementSignedDate
 		FROM k3_tb_retiredMember AS rm
+		INNER JOIN
+			k3_tb_member AS m
+			ON
+			rm.memberId = m.memberId 
+		WHERE
+			memberState = "퇴사";
 	</select>
 
 </mapper>

@@ -11,25 +11,7 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 	
-	<select id="">
-		SELECT 
-		 m.memberId									AS memberId
-		,m.memberPassword							AS memberPassword
-		,m.mainBusinessCode						AS mainBusinessCode
-		,m.levelMemberCode							AS levelMemberCode
-		,m.memberName								AS memberName
-		,m.memberGender								AS memberGender
- 		,m.memberAddr								AS memberAddr
- 		,m.memberPhone								AS memberPhone
- 		,m.memberResidentRegistrationNumber	AS memberResidentRegistrationNumber
- 		,m.memberState								AS memberState
- 		,m.memberRegDate							AS memberRegDate
- 		,m.memberHiredDate							AS memberHiredDate
-	FROM 
-		k3_tb_member AS m
-	where
-		m.memberId = #{memberId};
+	<!-- 전체조회 -->
 	
-		
-	</select>
+	
 </mapper>

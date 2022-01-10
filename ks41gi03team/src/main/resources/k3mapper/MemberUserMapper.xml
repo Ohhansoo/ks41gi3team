@@ -18,13 +18,19 @@
 			memberId = #{memberList};
 	</delete>
 	
+	
 <!-- 직원삭제 -->
-	<delete id="k3RemoveMemberUser" parameterType="map">
-		DELETE FROM 
+	<update id="k3RemoveMemberUser" parameterType="map">
+		UPDATE 
 			k3_tb_member 
-		WHERE 
-			memberId = "m_c1126";
-	</delete>
+		SET
+			memberState = "퇴사"
+		<trim prefix="WHERE" prefixOverrides="AND |OR"> 
+			<foreach collection="removeList" item="removeList">
+				OR memberId = #{removeList}
+			</foreach>
+		</trim>	
+	</update>
 	
 
 <!-- 직원선택 (수정) -->
@@ -149,7 +155,10 @@
 			,m.memberState								AS memberState
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
-	FROM k3_tb_member	AS m
+		FROM 
+			k3_tb_member	AS m
+		WHERE
+			memberState = "일반";
 	
 	</select>
 

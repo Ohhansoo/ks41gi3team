@@ -26,31 +26,6 @@ public class K3OurcompanyController {
 	public K3OurcompanyController(K3OurcompanyService ourcompanyService) {
 		this.ourcompanyService = ourcompanyService;
 	}
-	/*
-	 * //수정폼이동
-	 * 
-	 * @GetMapping("/k3ModifyOurCompanyList") public String
-	 * k3ModifyOurCompany(@RequestParam(value="ourCompanyCode", required = false)
-	 * String ourCompanyCode, Model model) {
-	 * System.out.println("01 220107 k3ModifyOurCompany K3OurcompanyController.java"
-	 * );
-	 * 
-	 * if(ourCompanyCode != null && !"".equals(ourCompanyCode)) { K3OurCompany
-	 * k3OurCompanyInfo = ourcompanyService.K3OurCompanyInfoBycode(ourCompanyCode);
-	 * model.addAttribute("k3OurCompanyInfo", k3OurCompanyInfo); }
-	 * model.addAttribute("title", "자사정보 관리"); model.addAttribute("subtitle",
-	 * "자사정보 수정"); return
-	 * "team03/companymanagement/ourcompany/k3ModifyOurCompanyList"; } //자사정보 수정 처리
-	 * 
-	 * @PostMapping("/k3ModifyOurCompanyInfoBycode") public String
-	 * k3ModifyOurCompanyInfoBycode(K3OurCompany k3ourcompany) { System.out.
-	 * println("01 220109 k3ModifyOurCompanyInfoBycode K3OurcompanyController.java"
-	 * );
-	 * 
-	 * int result = ourcompanyService.K3OurCompanyInfoBycode(k3ourcompany); return
-	 * "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList"; }
-	 */
-    
 	//01 자사조회
 	@GetMapping("/k3OurCompanyList")
 	public String getOurCompanyList(Model model) {
