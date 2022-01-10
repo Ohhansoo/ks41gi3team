@@ -15,6 +15,52 @@
 		<result column="ourCompanyEmail" property="ourCompanyEmail" />
 	</resultMap> 
    -->
+   
+   <!-- 자사정보 수정처리 -->
+   
+   <update id="k3ModifyOurCompanyInfo" parameterType="int">
+		UPDATE 
+			k3_tb_our_company AS oc
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="ourCompanyCode != null and ourCompanyCode != ''.toString()">
+			oc.ourCompanyCode = #{ourCompanyCode},
+			</if>	
+			<if test="ourCompanyBusinessPlaceCode != null and ourCompanyBusinessPlaceCode != ''.toString()">
+			oc.ourCompanyBusinessPlaceCode = #{ourCompanyBusinessPlaceCode},
+			</if>	
+			<if test="ourCompanyBusinessName != null and ourCompanyBusinessName != ''.toString()">
+			oc.ourCompanyBusinessName = #{ourCompanyBusinessName},
+			</if>	
+			<if test="ourCompanyBusinessCheifName != null and ourCompanyBusinessCheifName != ''.toString()">
+			oc.ourCompanyBusinessCheifName = #{ourCompanyBusinessCheifName},
+			</if>	
+			<if test="ourCompanyWorkPlaceAddr != null and ourCompanyWorkPlaceAddr != ''.toString()">
+			oc.ourCompanyWorkPlaceAddr = #{ourCompanyWorkPlaceAddr},
+			</if>	
+			<if test="ourCompanyStatus != null and ourCompanyStatus != ''.toString()">
+			oc.ourCompanyStatus = #{ourCompanyStatus},
+			</if>	
+			<if test="ourCompanyWorkType != null and ourCompanyWorkType != ''.toString()">
+			oc.ourCompanyWorkType = #{ourCompanyWorkType},
+			</if>	
+			<if test="ourCompanyEmail != null and ourCompanyEmail != ''.toString()">
+			oc.ourCompanyEmail = #{ourCompanyEmail},
+			</if>	
+		</trim>		
+		WHERE 
+			oc.ourCompanyCode = #{ourCompanyCode};
+	</update>
+   
+   <!-- 자사정보 선택 (수정) -->
+   <select id="K3OurCompanyInfoBycode" resultType="K3OurCompany">
+   	SELECT
+			*
+	FROM
+		k3_tb_our_company AS oc
+	WHERE
+		oc.ourCompanyCode = #{ourCompanyCode};
+   </select>
+   
    <!-- 자사정보등록 -->
    <insert id="AddOurCompany" parameterType="K3OurCompany">
    	INSERT INTO 
@@ -40,7 +86,7 @@
 	);
    </insert>
 	
-	<!-- 자사정보 조회 -->
+	<!-- 자사정보 전체 조회 -->
 	<select id="getOurCompanyList"  resultType="K3OurCompany">
 	SELECT
 			oc.ourCompanyCode 					AS ourCompanyCode,

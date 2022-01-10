@@ -6,6 +6,18 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
 	<script>
 			$(function(){				
 				$('#addourcompanyBtn').on('click', function(){
@@ -105,7 +117,7 @@
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<th>삭제</th>	
@@ -127,7 +139,9 @@
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
 						   				<td>
-											<a th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">수정</a>
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>
 										</td>	
 						   				<td th:text="${l.ourCompanyCode}"></td>
 								   			<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>

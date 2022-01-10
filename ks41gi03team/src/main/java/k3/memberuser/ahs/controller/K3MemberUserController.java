@@ -108,6 +108,7 @@ public class K3MemberUserController {
 	  //07 직원정보 삭제처리
 	  @PostMapping("/k3RemoveMemberUser")
 	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
+		  System.out.println("04 220106 k3DeleteMemberUser K3MemberUserController.java");
 		  int result = memberuserService.k3RemoveMemberUser(removeList);
 		  return "redirect:/team03/companymanagement/member/k3MemberUserList";
 	  }

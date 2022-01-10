@@ -6,6 +6,18 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
 	<script>
 			$(function(){				
 				$('#addmemberuserBtn').on('click', function(){
@@ -13,6 +25,7 @@
 				});
 				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
+					/* location.href = '/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList'; */
 					var check = $('.removeList:checked');
 					var removeCheckList = [];
 					//console.log(check);
@@ -108,7 +121,7 @@
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<th>삭제</th>
@@ -138,8 +151,9 @@
 											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
 										</td>
 						   				<td>
-											<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">수정</a>
-										</td>	
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>										</td>	
 						   				<td th:text="${l.memberId}"></td>
 						   				<td th:text="${l.memberPassword}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
