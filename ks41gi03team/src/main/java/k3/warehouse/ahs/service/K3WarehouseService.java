@@ -56,8 +56,9 @@ public class K3WarehouseService {
 	/**
 	 * 창고고유고드로 창고삭제
 	 */
-	public int deleteWarehouseCode(String warehouseCode) {
-		return k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
+	public void deleteWarehouseCode(String warehouseCode) {
+		
+		k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
 	}
 	
 }
