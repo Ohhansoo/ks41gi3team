@@ -75,4 +75,32 @@ public class K3VehicleController {
 		
 		return "redirect:/team03/delivery/vehicle/k3VehicleList";
 	}
+	
+	//검색
+	@PostMapping("/k3VehicleList")
+	public String k3SearchVehicleList(@RequestParam(value="vehicleKey", required = false) String vehicleKey,
+										@RequestParam(value="vehicleValue", required = false) String vehicleValue,
+										Model model) {
+		if(vehicleKey != null && "vehicle".equals(vehicleKey)) {
+			vehicleKey = "vehicleCode";
+		}
+		
+		List<K3Vehicle> vehicleList = k3VehicleService.k3SearchVehicleList(vehicleKey, vehicleValue);
+		
+		model.addAttribute("title", "차량 관리");
+		model.addAttribute("vehicleList", vehicleList);
+		
+		return "team03/delivery/vehicle/k3VehicleList";
+	}
+	
+	//삭제
+	@GetMapping("/k3DeleteVehicle")
+	public String k3DeleteVehicle(@RequestParam(value="vehicleCode", required=false) String vehicleCode, Model model) {
+		System.out.println("k3DeleteVehicle");
+		
+		Integer result = k3VehicleService.k3DeleteVehicle(vehicleCode);
+		log.info("DeleteVehicle" + result);
+		return "redirect:/team03/delivery/vehicle/k3VehicleList";
+	}
+	
 }
