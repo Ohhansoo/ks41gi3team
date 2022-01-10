@@ -27,9 +27,9 @@ public interface K3WarehousingMapper {
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort();
 	//입고 분류 현황(완료목록)
 	public List<K3WarehousingSort> k3GetWarehousingSortList();
-	//입고현황 조회
+	//검수현황 초기화면
 	public List<K3Warehousing> k3GetLaydownCheck();
-	//입고현황 조회
+	//입고현황 초기화면
 	public List<K3Warehousing> k3GetWarehousingList();
 
 

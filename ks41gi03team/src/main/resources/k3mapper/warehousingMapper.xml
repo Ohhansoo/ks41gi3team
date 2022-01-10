@@ -30,7 +30,6 @@
 				OR warehousingCode = #{allowList}
 			</foreach>			
 		</trim>
-	
 	</update>
 	
 
@@ -53,7 +52,13 @@
 		   w.manufacturedDate,
 		   w.expiratonDate,
 		   c.contractorName,
-		   w.laydownDate
+		   w.laydownDate,
+		   w.laydownCheckCode,
+		   w.laydownCheckResult,
+		   w.warehousingDay,
+		   w.laydownCheckDate,
+		   m.memberName,
+		   w.laydownCheckResult
 		FROM
 		   k3_tb_warehousing AS w
 		   INNER JOIN
@@ -174,8 +179,8 @@
 		WHERE
 			w.sorting = 'Y' AND w.laydownCheckResult = 'Y'	
 	</select>
-	
-	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		
+	<select id="k3GetLaydownCheck" resultType="K3Warehousing">
 		SELECT
 		   w.warehousingCode,
 		   w.laydownCheckCode,
@@ -188,9 +193,6 @@
 		   w.laydownDate,
 		   m.memberName,
 		   w.laydownCheckDate,
-		   w.laydownCheckResult,
-		   w.warehousingDay,
-		   w.laydownCheckManager,
 		   w.laydownCheckResult
 		FROM
 		   k3_tb_warehousing AS w
@@ -202,6 +204,28 @@
 		   k3_tb_member AS m
 		   ON
 		   w.laydownCheckManager = m.memberId
+	</select>
+	
+	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		SELECT
+		   w.warehousingCode,
+		   w.laydownCheckCode,
+		   w.mainBusinessCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		WHERE
+			w.warehousingAllow = 'Y'
+
 	</select>
 
 </mapper>

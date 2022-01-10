@@ -3,7 +3,7 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
    <th:block layout:fragment="customJs">
-			<script>
+			<script type="text/javascript">
 			$(function(){				
 				$('#addWarehousingBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
@@ -12,7 +12,7 @@
 					location.href = '/team03/goodsManagement/warehousing/k3AllowWarehousing';
 				});
 				$('#addlLaydownCheckBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/check/k3AddlLaydownCheck';
+					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
 				});
 				$('#addSort').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddSort';
@@ -197,8 +197,8 @@
 												<tr>
 													<th>삭제</th>
 													<th>수정</th>	
-													<th>분류등록</th>
-													<th>입고코드</th>	
+													<th>입고코드</th>
+													<th>입하검수코드</th>	
 													<th>입고물품명</th>
 													<th>입고물품개수</th>
 													<th>제조일자</th>
@@ -215,10 +215,8 @@
 													<td>
 														<a th:href="@{#}">수정</a>
 													</td>
-													<td>
-														<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
-													</td>
 													<td th:text="${l.warehousingCode}"></td>
+													<td th:text="${l.laydownCheckCode}"></td>
 													<td th:text="${l.laydownGoodsName}"></td>
 													<td th:text="${l.laydownGoodsCount}"></td>
 													<td th:text="${l.manufacturedDate}"></td>
@@ -245,6 +243,7 @@
 											<tr>
 												<th>삭제</th>
 												<th>수정</th>	
+												<th>분류등록</th>
 												<th>입하검수코드</th>
 												<th>입하물품명</th>
 												<th>입하물품개수</th>					
@@ -256,12 +255,15 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+											<tr th:if="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
 												<td>
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
 													<a th:href="@{#}">수정</a>
+												</td>
+												<td>
+													<a th:href="@{/team03/goodsManagement/check/k3AddlLaydownCheck}">등록</a>
 												</td>
 												<td th:text="${l.laydownCheckCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
@@ -272,7 +274,7 @@
 												<td th:text="${l.laydownCheckDate}"></td>
 												<td th:text="${l.laydownCheckResult}"></td>
 											</tr>
-											<tr th:unless="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+											<tr th:unless="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
 												<td> 입하검수 목록이 없습니다. </td>
 											</tr>
 										</tbody>						

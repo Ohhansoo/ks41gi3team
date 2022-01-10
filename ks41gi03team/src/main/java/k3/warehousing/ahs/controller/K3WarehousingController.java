@@ -142,12 +142,12 @@ public class K3WarehousingController {
 	@GetMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(Model model) {
 		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingList();
-		//List<K3Warehousing> laydownCheck = k3WarehousingService.k3GetLaydownCheck();
+		List<K3Warehousing> laydownCheck = k3WarehousingService.k3GetLaydownCheck();
 		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + warehousingList);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고현황");
 		model.addAttribute("warehousingList", warehousingList);
-		//model.addAttribute("laydownCheck", laydownCheck);
+		model.addAttribute("laydownCheck", laydownCheck);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}

@@ -77,16 +77,17 @@
 					});
 					var overlay = $('.modal_overlay');
 					modal.removeClass('hidden');
-						$(".confirmBtn").click(function(){
-							var checkedBox = $('.contractorId:checked');
-			 				var ContractorName = $('#contractorNameInput');
-			 				var ContractorId = $('#contractorIdInput');
-			 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
-			 				ContractorId.attr('value',checkedBox.val());
-			 				ContractorName.attr('value',checkedTrName);
-		
-						modal.addClass('hidden');
-					});
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.contractorId:checked');
+	 				var ContractorName = $('#contractorNameInput');
+	 				var ContractorId = $('#contractorIdInput');
+	 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
+	 				ContractorId.attr('value',checkedBox.val());
+	 				ContractorName.attr('value',checkedTrName);
+					console.log(checkedBox);
+					modal.addClass('hidden');
 				});
 			});
 		</script>

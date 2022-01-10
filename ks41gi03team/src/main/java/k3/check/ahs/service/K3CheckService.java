@@ -11,10 +11,20 @@ import k3.warehousing.ahs.dto.K3Warehousing;
 
 @Service
 public class K3CheckService {
-	private K3CheckMapper k3CheckMapper;
+	private final K3CheckMapper k3CheckMapper;
 	
 	public K3CheckService(K3CheckMapper k3CheckMapper) {
 		this.k3CheckMapper = k3CheckMapper;
+	}
+	//입하검수 등록하기
+	public int k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck) {
+		int result = k3CheckMapper.k3AddLaydownCheck(K3LaydownCheck);
+		return result;
+	}
+	//입하검수 등록 페이지 이동(물품명, 개수 세팅)
+	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode) {
+		List<K3LaydownCheck> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode);		
+		return laydownCheckList;
 	}
 	//출하검수 현황 이동
 	public List<K3ShipmentCheck> k3GetShipmentCheckList() {
@@ -23,8 +33,8 @@ public class K3CheckService {
 	}
 	//입하검수 정보 불러오기
 	public List<K3LaydownCheck> k3GetLaydownCheckList() {
-		List<K3LaydownCheck> K3LaydownCheck = k3CheckMapper.k3GetLaydownCheckList();
-		return K3LaydownCheck;
+		List<K3LaydownCheck> laydownCheck = k3CheckMapper.k3GetLaydownCheckList();
+		return laydownCheck;
 	}
 
 	
