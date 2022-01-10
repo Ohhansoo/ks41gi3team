@@ -36,4 +36,16 @@ public class K3VehicleService {
 	public Integer modifyVehicle(K3Vehicle k3Vehicle) {
 		return k3VehicleMapper.modifyVehicle(k3Vehicle);
 	}
+	
+	public List<K3Vehicle> k3SearchVehicleList(String vehicleKey, String vehicleValue){
+		List<K3Vehicle> k3VehicleList = k3VehicleMapper.k3SearchVehicleList(vehicleKey, vehicleValue);
+		return k3VehicleList;
+	}
+	
+	public Integer k3DeleteVehicle(String vehicleCode) {
+		Integer result = k3VehicleMapper.k3DeleteVehicle(vehicleCode);
+		return result;
+	}
+	
+	
 }

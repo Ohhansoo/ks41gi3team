@@ -18,11 +18,7 @@
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
-						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-boxes"></i>
-							분류등록
-						</button>			
+						</button>					
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
@@ -40,17 +36,13 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{#}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
 								<div class="input-group input-group-sm">
-									<select class="form-control-sm">
-												<option value="vehicle">차량 코드</option>
-											</select>
-										<input type="text" class="form-control" placeholder="검색">
-										<div class="input-group-append">
-											<div class="btn btn-default">
-												<i class="fas fa-search icon"></i>
-											</div>
-										</div>
+									<select class="form-control-sm" name="vehicleKey">
+										<option value="vehicle">차량 코드</option>
+									</select>
+										<input type="text" class="form-control" placeholder="검색" name="vehicleValue">
+										<button type="submit">검색</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -72,6 +64,7 @@
 								<thead>
 									<tr>
 										<th>삭제</th>
+										<th>단건삭제</th>
 										<th>수정</th>	
 										<th>차량 코드</th>
 										<th>톤수</th>
@@ -87,6 +80,9 @@
 										<td>
 											<input type="checkbox" value="선택">
 										</td>	
+										<td>
+											<a th:href="@{/team03/delivery/vehicle/k3DeleteVehicle(vehicleCode=${l.vehicleCode})}">삭제</a>
+										</td>
 										<td>
 										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/vehicle/k3ModifyVehicle(vehicleCode=${l.vehicleCode})}">
 												<i class="fas fa-pencil-alt icon"></i>
