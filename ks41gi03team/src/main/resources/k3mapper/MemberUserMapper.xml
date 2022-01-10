@@ -9,6 +9,41 @@
 		<result column="mediumCategory" property="mediumCategory" />
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
+	
+	<!--  <select id="K3MemberUserInfoBycode" parameterType="String" resultMap="memberResultMap">
+		SELECT 
+			m.memberId,
+			m.memberPassword,
+			m.mainBusinessCode,
+			m.levelMemberCode,
+			m.memberName,
+			m.memberGender,
+			m.memberAddr,
+			m.memberPhone,
+			m.memberResidentRegistrationNumber,
+			m.memberState,
+			m.memberRegDate,
+			m.memberHiredDate,
+			m.memberRetiredReason,
+			m.memberRetiredDate,
+			m.memberRetirementSignedDate
+		FROM 
+			k3_tb_member AS m
+		WHERE
+			m.memberId = #{memberId};
+	</select>-->
+
+	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="memberuserValue != null and memberuserValue != ''.toString()">
+				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%');
+			</if>
+		</trim>
+	</select>
 
 <!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">

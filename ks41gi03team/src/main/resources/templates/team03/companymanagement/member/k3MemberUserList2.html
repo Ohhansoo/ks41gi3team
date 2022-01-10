@@ -18,64 +18,35 @@
         text-align: center;
       }
     </style>
-	<script type="text/javascript">
-			$(function(){	
-				var rowCheckObj = document.getElementsByName('rowCheck');
-				var rowCount = rowCheckObj.length;
-				console.log(rowCheckObj);
-				console.log(rowCount);
-				console.log($("input:checkbox[name=allCheck]"));
-				$("input:checkbox[name=allCheck]").click(function(){
-					
-					console.log("allCheck click")
-					var rowCheckList = $("input[name=rowCheck]");
-					console.log("allCheck click"+rowCheckList)
-					for(var i = 0; i < rowCheckList.length; i++){
-						rowCheckList[i].checked = this.checked;
-					}
+	<script>
+			$(function(){				
+				$('#addmemberuserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
-				$("input[name=rowCheck]").click(function(){
-					console.log('???')
-					if($("input[name=rowCheck]:checked").length == rowCount){
-						$("input[name=allCheck]")[0].checked = true;
-					}
-					else{
-						$("input[name=allCheck]")[0].checked = false;
+				
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					/* location.href = '/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList'; */
+					var check = $('.removeList:checked');
+					var removeCheckList = [];
+					//console.log(check);
+					
+					
+					$.each(check, function(){
+						removeCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
 					}
 				});
 			});
-				function deleteValue(){
-					var url = "/team03/spaceBusiness/location/k3LocationList";
-					var valueArr = new Array();
-					var list = $("input[name=rowCheck]");
-					console.log("list!!" + $("input[name=rowCheck]"))
-					for(var i = 0; i < list.length; i++){
-						if(list[i].checked){
-							valueArr.push(list[i].value);
-						}
-					}
-					if(valueArr.length == 0){
-						alert("선택한 글이 없습니다.");
-					}
-					else{
-						var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
-						$.ajax({
-							url : url,
-							type : 'POST',
-							traditional : true,
-							data : { valueArr : valueArr },
-							success : function(data){
-								if(data = 1){
-									alert("삭제 성공");
-									location.replace("/team03/spaceBusiness/location/k3LocationList");
-								}
-								else{
-									alert("삭제 실패");
-								}
-							}
-						});
-					}
-				}
 		</script>
 		<div id="representative-button">
 			<div id="representative-button">
@@ -180,10 +151,9 @@
 											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
 										</td>
 						   				<td>
-						   				<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
 												<i class="fas fa-pencil-alt icon"></i>
-										</a>
-										</td>	
+										</a>										</td>	
 						   				<td th:text="${l.memberId}"></td>
 						   				<td th:text="${l.memberPassword}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>

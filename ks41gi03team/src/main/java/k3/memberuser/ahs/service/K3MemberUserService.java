@@ -81,6 +81,12 @@ public class K3MemberUserService {
 		public int getMemberByMemberId(String memberId) {
 			return memberuserMapper.getMemberInfoByMemberId(memberId);
 		}
+		
+		//08 직원검색
+		public List<K3MemberUser> k3GetMemberUSerSearchList(String memberuserKey, String memberuserValue){
+			List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserListBySearchKey(memberuserKey, memberuserValue);
+			return memberuserList;
+		}
 	  
 	
 	 
