@@ -218,19 +218,12 @@ background: linear-gradient(287deg, rgba(255,255,255,1) 0%, rgba(243,244,244,1) 
 				</div>
                 <div class="login-input-container">
                 	<div class="d-flex justify-content-center">
-                	<h1>LOGIN</h1>
+                	<h1>LOGIN SUCCESS</h1>
                 	</div>
-                    <div class="login-input-wrap input-id">
-                        <i class="bi bi-person-fill"></i>
-                        <input placeholder="ID" type="text">
-                    </div>
-                    <div class="login-input-wrap input-password">
-                        <i class="fas fa-key"></i>
-                        <input placeholder="Password"  type="password">
-                    </div>
-                </div>
-                <div class="login-btn-wrap">
-                    <button id="login" type="submit" class="ahsbtn3 btn btn-outline-primary me-2" style="width: 100px;">로그인</button>
+                	 <hr>
+				    <p>
+				        <span sec:authentication="name"></span>님 환영합니다~
+				    </p>
                 </div>
             </div>
         </div>

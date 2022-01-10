@@ -16,7 +16,7 @@ public interface K3MemberUserMapper {
 	public int AddMemberUser(K3MemberUser k3MemberUser);
 		
 	//03. 직원 정보찾기 (수정)
-	public K3MemberUser K3MemberUserInfoBycode(String memberId);
+	public K3MemberUser K3ModifyMemberUserInfoBycode(String memberId);
 	
 	//04. 직원 정보 수정처리
 	public int k3ModifyMemberUserInfo(K3MemberUser k3MemberUser);
@@ -32,8 +32,12 @@ public interface K3MemberUserMapper {
 
 	//08. 직원중복체크
 	public int getMemberUserByMemberId(String memberId);
+	
+	// 직원조회 로그인?
+	public K3MemberUser K3MemberUserInfoBycode(String memberId);
 
 	//09. 회원조회(중복체크?)
 	public int getMemberInfoByMemberId(String memberId);
+	
 	
 }
