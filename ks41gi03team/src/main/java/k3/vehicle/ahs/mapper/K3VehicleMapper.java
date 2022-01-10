@@ -24,7 +24,7 @@ public interface K3VehicleMapper {
 	//검색
 	public List<K3Vehicle> k3SearchVehicleList(String vehicleKey, String vehicleValue);
 	
-	//삭제
+	//단건 삭제
 	public Integer k3DeleteVehicle(String vehicleCode);
 
 }

@@ -93,7 +93,7 @@ public class K3VehicleController {
 		return "team03/delivery/vehicle/k3VehicleList";
 	}
 	
-	//삭제
+	//단건 삭제
 	@GetMapping("/k3DeleteVehicle")
 	public String k3DeleteVehicle(@RequestParam(value="vehicleCode", required=false) String vehicleCode, Model model) {
 		System.out.println("k3DeleteVehicle");
