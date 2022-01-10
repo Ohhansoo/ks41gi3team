@@ -17,6 +17,16 @@ public class K3WarehouseService {
 		this.k3WarehouseMapper = k3WarehouseMapper;
 	}
 	/**
+	 * 창고 목록 조회
+	 */
+	public List<K3Warehouses> getWarehouseListBySearchKey(String warehouseKey, String warehouseValue){
+		List<K3Warehouses> k3Warehouses = k3WarehouseMapper.getWarehouseListBySearchKey(warehouseKey, warehouseValue);
+		System.out.println("service------------>"+ k3Warehouses);
+		
+		return k3Warehouses;
+	}
+	
+	/**
 	 * 창고 등록
 	 */
 	public int k3AddWarehouse(K3Warehouses k3Warehouses) {
