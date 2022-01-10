@@ -15,8 +15,27 @@
 					location.href = "/team03/spaceBusiness/warehouse/k3AddWarehouse";
 				});
 				$('#deletewarehouseBtn').click(function(){
-					console.log("????")
-					/* location.href = "/team03/spaceBusiness/warehouse/k3DeleteWarehouse"; */
+					var warehouseCode = $('#warehouseCode').val();
+					if(warehouseCode != ''){
+						$.ajax({
+							url : '/team03/spaceBusiness/warehouse/k3DeleteWarehouse',
+							type : 'POST',
+							traditional : true,
+							data : { warehouseCode : warehouseCode },
+							success : function(data){
+								if(data){
+									alert("삭제 성공");
+									location.href = "/team03/spaceBusiness/warehouse/k3WarehouseList";
+								}
+								else{
+									alert("삭제 실패");
+								}
+							}
+						});
+					}
+					else{
+						alert("코드를 입력해주세요");
+					}
 				});
 				
 				
@@ -126,19 +145,22 @@
 											</div>
 												<!-- 모달 바디 -->
 											<div class="modal-body">
-												<div class="form-group">
-													<label for="warehouseCode">고유코드</label>
-													<input type="text" class="form-control" id="warehouseCode" name="warehouseCode" placeholder="코드를 입력해주세요"/>
-												</div>
+												<form th:action="@{/team03/spaceBusiness/warehouse/k3WarehouseList}" method="post">
+													<div class="form-group">
+														<label for="warehouseCode">고유코드</label>
+														<input type="text" class="form-control" id="warehouseCode" name="warehouseCode" placeholder="코드를 입력해주세요"/>
+													</div>
+												</form>
 											</div>
 												<!-- 모달 발 -->
 									        <div class="modal-footer">
-									        	<button id="deletewarehouseBtn" type="button" class="btn btn-outline-info ahsbtn4">삭제</button>
+									        	<button id="deletewarehouseBtn" type="submit" class="btn btn-outline-info ahsbtn4">삭제</button>
 									        	<button type="button" class="btn btn-outline-danger ahsbtn4" data-dismiss="modal">취소</button>
 									        </div>
 								    	</div>
 								    </div>
 								</div>
+									<!-- 모달끝 -->
 							</div>
 						</div>	
 					</div>
