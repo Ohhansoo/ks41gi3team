@@ -63,13 +63,13 @@
 				});
 			})
 		</script>  -->
-	<form class=" card cardColor card-body container-fluid" id="addContractorForm" th:action="@{/team03/contractorContract/Contractor/k3ModifyContractorContractor}" method="post">
+	<form class=" card cardColor card-body container-fluid" id="modifyContractorForm" th:action="@{/team03/contractorContract/Contractor/k3ModifyContractor}" method="POST">
 		<h4>거래처 정보입력</h4>
 
 		<div th:if="${not #lists.isEmpty(k3DetailContractor)}"   th:each="c:${k3DetailContractor}">
    			<div id="contractorCode">
    				<label for="contractorCode">거래처사업장코드</label>
-   				<input type="text" name="contractorCode" placeholder="거래처사업장코드" th:value="${c.contractorCode}"/>
+   				<input type="text" name="contractorCode" placeholder="거래처사업장코드" th:value="${c.contractorCode}"  readonly  style="background-color:#BDBDBD"/>
    				<button type="button" id="contractorCodeCheckBtn">중복확인 </button> 
    				<label id="contractorCodeAlert" style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    
    			</div>
@@ -152,8 +152,8 @@
    				<input type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주" th:value="${c.contractorAccountHolder}"/>
    			</div>
  			<div id="contractorId">
-   				<label for="contractorId">거래처아이디</label>
-   				<input type="text" name="contractorId" id="contractorId" placeholder="거래처아이디" th:value="${c.contractorId}"/>
+   				<label for="contractorId">거래처 아이디</label>
+   				<input type="text" name="contractorId" id="contractorId" placeholder="거래처아이디" th:value="${c.contractorId}"  readonly  style="background-color:#BDBDBD"/>
    				<button type="button" id="btn">중복확인 </button> 
    			</div>
    			<div id="contractorPw">
@@ -172,11 +172,7 @@
    				<label for="memberId">등록직원 아이디</label>
    				<input type="text" name="memberId" id="memberId" value="m_c17" th:value="${c.memberId}"/>
    			</div>
-   			<div id="contractorRegistrationDate">
-   				<label for="contractorRegistrationDate">등록일자</label>
-   				<input type="text" name="contractorRegistrationDate" placeholder="등록일자" readonly  style="background-color:#BDBDBD"/>
-   			</div>
 		</div>
 	</table>
-	<button  class="ahsbtn3" id="addContractorBtn" type="submit">수정완료</button>
+	<button  class="ahsbtn3" id="modifyContractorBtn" type="submit">수정완료</button>
 	</form>

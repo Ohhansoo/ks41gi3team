@@ -22,8 +22,14 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 	
-	//거래처 수정 처리
+	//거래처 수정 처리 k3_tb_contractor
+	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor) {
+		int result = k3ContractorMapper.k3ModifyDetailContractor(k3DetailContractor);
+		return result;
+	}
+	//거래처 수정 처리 k3_tb_contractor_staff
 	public int k3ModifyContractor(K3DetailContractor k3DetailContractor) {
+		int result = k3ContractorMapper.k3ModifyContractor(k3DetailContractor);
 		return result;
 	}
 	
@@ -64,8 +70,8 @@ public class K3ContractorService {
 	//거래처 리스트(상세) 모달창
 	public K3DetailContractor K3GetDetailContractor(String contractorCode){
 		K3DetailContractor k3DetailContractor = k3ContractorMapper.K3GetDetailContractor(contractorCode); 
-
 		
+			
 		return k3DetailContractor;
 	}
 	

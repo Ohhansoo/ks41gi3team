@@ -10,12 +10,17 @@ import k3.contractor.ahs.dto.K3DetailContractor;
 @Mapper
 public interface K3ContractorMapper {
 	
+	//거래처 수정처리 k3_tb_contractor
+	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor);
+	
+	//거래처 수정처리 k3_tb_contractor_staff
+	public int k3ModifyContractor(K3DetailContractor k3DetailContractor);
+	
 	//거래처 수정으로 화면 전환
 	public K3DetailContractor k3GetModifyContractor(String contractorCode);
 	
 	//거래처 등록
 	public int k3AddContractor(K3DetailContractor k3DetailContractor);
-	
 	
 	public int k3AddDetailContractor(K3DetailContractor k3DetailContractor);
 	

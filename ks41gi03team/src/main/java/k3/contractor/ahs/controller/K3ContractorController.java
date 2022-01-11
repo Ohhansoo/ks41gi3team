@@ -26,7 +26,8 @@ public class K3ContractorController {
 	//거래처 수정처리
 	@PostMapping("/k3ModifyContractor")
 	public String k3ModifyContractor(K3DetailContractor k3DetailContractor) {
-		int result = k3ContractorService.k3ModifyContractor(k3DetailContractor);
+		 k3ContractorService.k3ModifyContractor(k3DetailContractor);
+		 k3ContractorService.k3ModifyDetailContractor(k3DetailContractor);
 		
 		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
