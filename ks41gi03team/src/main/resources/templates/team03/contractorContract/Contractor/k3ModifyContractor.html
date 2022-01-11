@@ -3,104 +3,162 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>addContract</title>
+		<title th:text="${title}"></title>
 	</th:block>
+	
 	<th:block layout:fragment="customContents"> 
-	<div class=" card card-body container-fluid" id="modifyContractor">
-	<h4>거래처 정보 수정</h4>
-		<form class=" card cardColor card-body container-fluid" id="modifyContractorForm" th:action="@{/team03/contractorContract/Contractor/k3ModifyContractor}" method="post">
-  			<div id="contractorCode">
+		 <!-- <script>
+			$(function(){
+				//거래처 사업장코드 중복확인 스크립트
+				$(document).on('click', "#addContractorBtn", function(){
+					var submitCheck = true;
+					var inputObj = $("#addContractorForm").find('input');
+					$.each(inputObj, function(){
+						var inputData = $(this).val();
+						var inputId = $(this.).attr('id');
+						var labelText = $('label[for=]' + inputId + ']').text();
+						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){
+							alert(labelText + '입력해주세요');
+							$(this.)focus();
+							submitCehck = false;
+							return false;
+						}
+					});
+					if(submitCheck) $('#addContractorForm').submit();
+				});
+				$('#contractorCodeCheckBtn').click(function(){
+					var contractorCode = $('#contractorCode').val();
+					console.log("거래처사업장코드 중복체크 버튼");
+					if(typeof contractorCode != 'undefined' && contractorCode != null && contractorCode != ''){
+						//ajax호출
+						var request = $.ajax({
+							url: '/contractorContract/Check/k3AddContractorCheck',
+							method : 'POST',
+							data: { 'contractorCode' : contractorCode},
+							dataType: 'json'
+						});
+						request.done(function(data){
+							//중복여부 체크(true: 중복, false: 등록가능)
+							var CodeConfirm = data;
+							
+							if(CodeConfirm){
+								alert('중복된 거래처사업장코드입니다.');		
+								$('#addContractorBtn').prop('disabled', true);
+								$('#contractorCodeAlert').prop('type', false);
+							}else{
+								alert('등록이 가능한 거래처사업장코드입니다.');
+								$('#addContractorForm input').prop('disabled', false);
+								$('#addContractorForm select').prop('disabled', false);
+								$('#addContractorForm button').prop('disabled', false);
+							}
+						});
+						request.fail(function(jqXHR, textStatus){
+							alert("Request failed: " + textStatus);
+							
+						});
+					}else{
+						alert('거래처사업장 코드를 입력해주세요')
+						return false;
+					}
+				});
+			})
+		</script>  -->
+	<form class=" card cardColor card-body container-fluid" id="modifyContractorForm" th:action="@{/team03/contractorContract/Contractor/k3ModifyContractor}" method="POST">
+		<h4>거래처 정보입력</h4>
+
+		<div th:if="${not #lists.isEmpty(k3DetailContractor)}"   th:each="c:${k3DetailContractor}">
+   			<div id="contractorCode">
    				<label for="contractorCode">거래처사업장코드</label>
-   				<input type="text" name="contractorCode" placeholder="거래처사업장코드"/>
+   				<input type="text" name="contractorCode" placeholder="거래처사업장코드" th:value="${c.contractorCode}"  readonly  style="background-color:#BDBDBD"/>
    				<button type="button" id="contractorCodeCheckBtn">중복확인 </button> 
    				<label id="contractorCodeAlert" style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    
    			</div>
    			<div id="contractorName">
    				<label for="contractorName">거래처 상호명</label>
-   				<input type="text" name="contractorName" placeholder="거래처 상호명"/>
+   				<input type="text" name="contractorName" placeholder="거래처 상호명" th:value="${c.contractorName}"/>
    			</div>
    			<div id="contractorBusinessNum">
    				<label for="contractorBusinessNum">거래처 사업자등록번호</label>
-   				<input type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
+   				<input type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호" th:value="${c.contractorBusinessNum}"/>
    				<button type="button" id="contractorBusinessNumCheckBtn">중복확인 </button>
    				<label style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    				
    			</div>
    			<div id="mainBusinessCode">
    				<label for="mainBusinessCode">사업장별 대표코드</label>
-   				<input type="text" name="mainBusinessCode" id="mainBusinessCode" value="물류센터A물류센터_고양_1" readonly style="background-color:#BDBDBD"/>
+   				<input type="text" name="mainBusinessCode" id="mainBusinessCode" th:value="${c.mainBusinessCode}" readonly style="background-color:#BDBDBD"/>
    			</div>
    			<div id="contractorDevision">
    				<label for="contractorDevision">거래 구분</label>
-   				<input type="text" name="contractorDevision" id="contractorDevision" placeholder="거래 구분"/>
+   				<input type="text" name="contractorDevision" id="contractorDevision" placeholder="거래 구분" th:value="${c.contractorDevision}"/>
    			</div>
    			<div id="contractorType">
    				<label for="contractorType">거래처 유형</label>
-   				<input type="text" name="contractorType" id="contractorType" placeholder="거래처 유형"/>
+   				<input type="text" name="contractorType" id="contractorType" placeholder="거래처 유형" th:value="${c.contractorType}"/>
    			</div>
    			<div id="contractorItem">
    				<label for="contractorItem">거래처 종목</label>
-   				<input type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목"/>
+   				<input type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목" th:value="${c.contractorItem}"/>
    			</div>
    			<div id="contractorStatus">
    				<label for="contractorStatus">거래처 업태</label>
-   				<input type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태"/>
+   				<input type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태" th:value="${c.contractorStatus}"/>
    			</div>
    			<div id="contractorRepresentative">
    				<label for="contractorRepresentative">거래처 대표자명</label>
-   				<input type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명"/>
+   				<input type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명" th:value="${c.contractorRepresentative}"/>
    			</div>
    			<div id="contractorBusinessClientNum">
    				<label for="contractorBusinessClientNum">거래처 종사업장번호</label>
-   				<input type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
+   				<input type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호" th:value="${c.contractorBusinessClientNum}"/>
    			</div>
    			<div id="contractorAddr">
    				<label for="contractorAddr">거래처 주소</label>
-   				<input type="text" name="contractorAddr" id="contractorAddr" placeholder="거래처 주소"/>
+   				<input type="text" name="contractorAddr" id="contractorAddr" placeholder="거래처 주소" th:value="${c.contractorAddr}"/>
    			</div>
   			<div id="contractorPhone">
    				<label for="contractorPhone">거래처 전화번호</label>
-   				<input type="text" name="contractorPhone" id="contractorPhone" placeholder="거래처 전화번호"/>
+   				<input type="text" name="contractorPhone" id="contractorPhone" placeholder="거래처 전화번호" th:value="${c.contractorPhone}"/>
    			</div>
    			<div id=contractorEmail>
    				<label for="contractorEmail">거래처 이메일</label>
-   				<input type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일"/>
+   				<input type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일" th:value="${c.contractorEmail}"/>
    			</div>
    			<div id="contractorSuperviser">
    				<label for="contractorSuperviser">거래처 담당자</label>
-   				<input type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자"/>
+   				<input type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자" th:value="${c.contractorSuperviser}"/>
    			</div>
    			<div id="contractorSuperviserPhone">
    				<label for="contractorSuperviserPhone">담당자 연락처</label>
-   				<input type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처"/>
+   				<input type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처" th:value="${c.contractorSuperviserPhone}"/>
    			</div>
    			<div id="contractorSuperviserEmail">
    				<label for="contractorSuperviserEmail">담당자 이메일</label>
-   				<input type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="담당자 이메일"/>
+   				<input type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="담당자 이메일" th:value="${c.contractorSuperviserEmail}"/>
    			</div>
    			<div id="contractorFax">
    				<label for="contractorFax">거래처 Fax</label>
-   				<input type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax"/>
+   				<input type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax" th:value="${c.contractorFax}"/>
    			</div>
    			<div id="contractorProfitBank">
    				<label for="contractorProfitBank">거래처 은행명</label>
-   				<input type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명"/>
+   				<input type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명" th:value="${c.contractorProfitBank}"/>
    			</div>
    			<div id="contractorProfitAccount">
    				<label for="contractorProfitAccount">거래처 계좌번호</label>
-   				<input type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호"/>
+   				<input type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호" th:value="${c.contractorProfitAccount}"/>
    			</div>
    			<div id="contractorAccountHolder">
    				<label for="contractorAccountHolder">거래처 예금주</label>
-   				<input type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주"/>
+   				<input type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주" th:value="${c.contractorAccountHolder}"/>
    			</div>
  			<div id="contractorId">
-   				<label for="contractorId">거래처아이디</label>
-   				<input type="text" name="contractorId" id="contractorId" placeholder="거래처아이디"/>
+   				<label for="contractorId">거래처 아이디</label>
+   				<input type="text" name="contractorId" id="contractorId" placeholder="거래처아이디" th:value="${c.contractorId}"  readonly  style="background-color:#BDBDBD"/>
    				<button type="button" id="btn">중복확인 </button> 
    			</div>
    			<div id="contractorPw">
    				<label for="contractorPw">거래처 비밀번호</label>
-   				<input type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호"/>
+   				<input type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호" th:value="${c.contractorPw}"/>
    			</div>
    			<div id="levelCode">
    				<label for="levelCode">거래처 권한번호</label>
@@ -108,16 +166,13 @@
    			</div>
    			<div id="contractorState">
    				<label for="contractorState">거래처 계정 상태</label>
-   				<input type="text" name="contractorState" id="contractorState" placeholder="거래처 계정 상태"/>
+   				<input type="text" name="contractorState" id="contractorState" placeholder="거래처 계정 상태" th:value="${c.contractorState}"/>
    			</div>
    			<div id="memberId">
    				<label for="memberId">등록직원 아이디</label>
-   				<input type="text" name="memberId" id="memberId" value="m_c17" />
+   				<input type="text" name="memberId" id="memberId" value="m_c17" th:value="${c.memberId}"/>
    			</div>
-   			<div id="contractorRegistrationDate">
-   				<label for="contractorRegistrationDate">등록일자</label>
-   				<input type="text" name="contractorRegistrationDate" placeholder="등록일자" readonly  style="background-color:#BDBDBD"/>
-   			</div>
-			<button class="ahsbtn3" id="modifyContractorBtn"  type="submit">수정완료</button>
-		</form>
-	</div>
+		</div>
+	</table>
+	<button  class="ahsbtn3" id="modifyContractorBtn" type="submit">수정완료</button>
+	</form>
