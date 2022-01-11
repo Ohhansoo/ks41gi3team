@@ -22,7 +22,7 @@ public class K3CategoryController {
 	
 	private static final Logger log = LoggerFactory.getLogger(K3CategoryController.class);
 	
-	private K3CategoryService k3CategoryService;
+	private final K3CategoryService k3CategoryService;
 	
 	public K3CategoryController(K3CategoryService k3CategoryService) {
 		this.k3CategoryService = k3CategoryService;

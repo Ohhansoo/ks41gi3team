@@ -32,7 +32,16 @@
 		WHERE
 			m.memberId = #{memberId};
 	</select>-->
-
+	
+	<select id="k3GetMemberUserModalList" resultType="map" parameterType="map">
+		SELECT 
+			 m.memberId									AS memberId
+			,m.memberName								AS memberName
+		FROM 
+			k3_tb_member	AS m
+	</select>
+	
+<!--  직원검색 -->
 	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
 		SELECT
 			*

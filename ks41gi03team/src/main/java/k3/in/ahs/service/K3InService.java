@@ -20,7 +20,7 @@ public class K3InService {
 		this.k3InMapper=k3InMapper;
 	}
 	
-//입출금내역 삭제처리
+	//입출금내역 삭제처리
 	public int deleteIn(List<String> deleteList) {
 		int result = k3InMapper.deleteIn(deleteList);
 		return result;
@@ -34,7 +34,6 @@ public class K3InService {
 	
 	//매출 내역 수정 폼으로 이동
 	public K3In getModifyIn(String inCode) {
-		
 		System.out.println( inCode + "  << getmodifyIn @ service");
 		return k3InMapper.getModifyIn(inCode);
 	}
