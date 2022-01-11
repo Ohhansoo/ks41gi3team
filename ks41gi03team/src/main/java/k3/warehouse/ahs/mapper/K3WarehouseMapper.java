@@ -35,5 +35,5 @@ public interface K3WarehouseMapper {
 	/**
 	 * 창고고유코드로 삭제
 	 */
-	public void deleteWarehouseCode(String warehouseCode);
+	public int deleteWarehouseCode(String warehouseCode);
 }

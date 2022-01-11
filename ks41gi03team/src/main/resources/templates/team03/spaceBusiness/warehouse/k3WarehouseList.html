@@ -4,6 +4,8 @@
    layout:decorate="@{layout/default}">
   
 	<th:block layout:fragment="customTitle">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 		<title th:text="${title}"></title>
 	</th:block>
 	
@@ -24,17 +26,17 @@
 							data : { warehouseCode : warehouseCode },
 							success : function(data){
 								if(data){
-									alert("삭제 성공");
+									swal("삭제 되었습니다");
 									location.href = "/team03/spaceBusiness/warehouse/k3WarehouseList";
 								}
 								else{
-									alert("삭제 실패");
+									alert("코드불일치");
 								}
 							}
 						});
 					}
 					else{
-						alert("코드를 입력해주세요");
+						swal("코드를 입력해주세요");
 					}
 				});
 				
