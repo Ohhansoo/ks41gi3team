@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -85,8 +84,8 @@ public class K3VehicleController {
 	//검색
 	@PostMapping("/k3VehicleList")
 	public String k3SearchVehicleList(@RequestParam(value="vehicleKey", required = false) String vehicleKey,
-														  @RequestParam(value="vehicleValue", required = false) String vehicleValue,
-														  Model model) {
+										@RequestParam(value="vehicleValue", required = false) String vehicleValue,
+										Model model) {
 		if(vehicleKey != null && "vehicle".equals(vehicleKey)) {
 			vehicleKey = "vehicleCode";
 		}
@@ -109,11 +108,11 @@ public class K3VehicleController {
 		return "redirect:/team03/delivery/vehicle/k3VehicleList";
 	}
 	
-	
+	//담당자 선택처리 (@ResponseBody 중요)
 	@PostMapping("/vehicleMemberId")
 	@ResponseBody
 	public List<Map<String, Object>> k3SelectVehicleMemberId(){
-		List<Map<String, Object>> searchId = k3VehicleService.k3SelectVehicleMemberId();
+		List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
 		return searchId;
 	}
 }

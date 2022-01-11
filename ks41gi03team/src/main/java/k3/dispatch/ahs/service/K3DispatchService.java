@@ -1,6 +1,7 @@
 package k3.dispatch.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,4 +47,10 @@ public class K3DispatchService {
 		List<K3Dispatch> k3DispatchList = k3DispatchMapper.k3SearchDispatchList(dispatchKey, dispatchValue);
 		return k3DispatchList;
 	}
+	
+	//모달
+		public List<Map<String, Object>> k3SelectDispatchMemberId() {
+			List<Map<String, Object>> searchId = k3DispatchMapper.k3SelectDispatchMemberId(null);
+			return searchId;
+		}
 }
