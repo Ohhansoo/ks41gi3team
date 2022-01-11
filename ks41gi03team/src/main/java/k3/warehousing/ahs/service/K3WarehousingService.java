@@ -13,7 +13,7 @@ import k3.warehousing.ahs.mapper.K3WarehousingMapper;
 @Service
 public class K3WarehousingService {
 	
-	private K3WarehousingMapper k3WarehousingMapper;
+	private final K3WarehousingMapper k3WarehousingMapper;
 	
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
@@ -50,6 +50,12 @@ public class K3WarehousingService {
 		return K3RequestAllow;
 	}
 	
+	//입고분류 등록폼 이동
+	/*
+	 * public List<K3Warehousing> k3GetSortInfo(String warehousingCode) {
+	 * List<K3Warehousing> warehousingSort =
+	 * k3WarehousingMapper.k3GetSortInfo(warehousingCode); return warehousingSort; }
+	 */
 	//입고 분류 현황(요청목록)
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
 		List<K3WarehousingSort> requestSort = k3WarehousingMapper.k3GetWarehousingRequestSort();
