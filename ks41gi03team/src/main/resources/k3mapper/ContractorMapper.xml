@@ -13,6 +13,45 @@
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
 	
+	<!-- 거래처 수정화면 -->
+	<select id="k3GetModifyContractor" parameterType="String" resultType="K3DetailContractor">
+		SELECT	
+			c.contractorCode
+			, cs.contractorName
+			, c.contractorBusinessNum
+			, cs.mainBusinessCode	
+			, c.contractorDevision
+			, cs.contractorType
+			, c.contractorItem
+			, c.contractorStatus
+			, cs.contractorRepresentative
+			, c.contractorBusinessClientNum
+			, c.contractorAddr
+			, cs.contractorPhone
+			, c.contractorEmail
+			, cs.contractorSuperviser
+			, cs.contractorSuperviserPhone
+			, c.contractorSuperviserEmail
+			, c.contractorFax
+			, c.contractorProfitBank
+			, c.contractorProfitAccount
+			, c.contractorAccountHolder
+			, cs.contractorId
+			, cs.contractorPw
+			, cs.levelCode
+			, c.contractorState
+			, cs.memberId
+			, c.contractorRegistrationDate
+		FROM 
+			k3_tb_contractor_staff AS cs
+			INNER join
+			k3_tb_contractor AS c
+			on
+			cs.contractorId = c.contractorId
+		where
+			c.contractorCode = #{contractorCode};
+	</select>
+	
 	<!-- 거래처 등록하기 -->
 	<insert id="k3AddContractor" parameterType="K3DetailContractor">
 		INSERT INTO 
@@ -81,15 +120,16 @@
 			k3_tb_contractor_staff AS cs
 			on
 			c.contractorId = cs.contractorId
-		<trim prefix="WHERE" prefixOverrides="AND /OR">
-			<if test="searchKey = contractorRegistrationDate and searchValue != ''.toString()">
-				 WHERE contractorRegistrationDate
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
+						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
+				 contractorRegistrationDate
 	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
 			</if>
 			<if test="searchValue != null and searchValue != ''.toString()">
-				${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
 			</if>
-		</trim>
+		</trim>	
 	</select>
 
 	<!-- 거래처 상세정보 불러오기 -->

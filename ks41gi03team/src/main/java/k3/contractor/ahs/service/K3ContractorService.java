@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3DetailContractor;
 import k3.contractor.ahs.mapper.K3ContractorMapper;
 
@@ -23,9 +22,16 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 	
+	//거래처 수정 처리
+	public int k3ModifyContractor(K3DetailContractor k3DetailContractor) {
+		return result;
+	}
+	
 	//거래처 수정으로 화면전환
-	public int k3GetModifyContractor(K3DetailContractor k3DetailContractor) {
-		return k3ContractorMapper.K3ModifyContractorInfo(k3DetailContractor);
+	public K3DetailContractor k3GetModifyContractor(String contractorCode) {
+		K3DetailContractor k3DetailContractor = k3ContractorMapper.k3GetModifyContractor(contractorCode);
+		
+		return k3DetailContractor;
 	}
 
 	//거래처 등록 k3_tb_contractor_staff
@@ -42,20 +48,23 @@ public class K3ContractorService {
 	}
 	
 	
-	//거래처 조회(검색)
-	public List<K3Contractor> K3SearchContractorList(String searchKey, String searchValue){
-
-		List<K3Contractor> k3SearchContractorList = k3ContractorMapper.K3SearchContractorList(searchKey, searchValue);
+	
+	  //거래처 조회(검색)
+	public Map<String, Object> K3SearchContractorList(String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue){ 
+		
+		Map<String, Object> k3SearchContractorList = k3ContractorMapper.K3SearchContractorList(searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
 
 		
-		return k3SearchContractorList;
+	  return k3SearchContractorList; 
 	}
+	 
 	
 	
 	
 	//거래처 리스트(상세) 모달창
 	public K3DetailContractor K3GetDetailContractor(String contractorCode){
 		K3DetailContractor k3DetailContractor = k3ContractorMapper.K3GetDetailContractor(contractorCode); 
+
 		
 		return k3DetailContractor;
 	}
@@ -63,11 +72,17 @@ public class K3ContractorService {
 	//거래처 리스트(간단) 현황에 불러오기(페이징)
 	public Map<String, Object> K3GetContractorList(int currentPage){
 		
-		// 보여줄 행의 개수
-		int rowPerPage = 5;
-		
 		//거래처 정보 테이블 행의 개수
 		double rowCount = k3ContractorMapper.K3GetContractorCount();
+		
+		// 보여줄 행의 개수
+		int rowPerPage = 0;
+		if(rowCount < 5) {
+			rowPerPage = (int) rowCount;
+		}else {
+			rowPerPage = 5;
+		}
+		
 		
 		//마지막 페이지
 		int lastPage = (int) Math.ceil((rowCount / rowPerPage));

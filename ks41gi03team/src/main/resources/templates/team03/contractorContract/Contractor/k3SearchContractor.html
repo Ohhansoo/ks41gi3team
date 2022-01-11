@@ -11,6 +11,8 @@
    </th:block>
 	<th:block layout:fragment="customJs">
 	
+	
+	
 		<!-- 거래처 상세정보 모달창 스크립트 -->
 		<script type="text/javascript">
 			$(document).ready(function(){ 
@@ -32,6 +34,7 @@
 				}); 
 				function showList(data){ 
 					var tmodal = ''; 
+					console.log('data=>'+JSON.stringify(data))
 					$("#tmodal").empty();
 					tmodal += '<tr><th>거래처 사업장 코드</th><td>'+ data.contractorCode +'</td>';
 					tmodal += '<th>거래처 상호명</th><td>'+ data.contractorName +'</td></tr>';
@@ -71,11 +74,12 @@
 					
 					tmodal += '<tr><th>등록직원아이디</th><td>'+ data.memberId +'</td>';
 					tmodal += '<th>등록일자</th><td>'+ data.contractorRegistrationDate +'</td></tr>';
+					
+					$('.modifyModalBtn').attr('href','/team03/contractorContract/Contractor/k3ModifyContractor?contractorCode='+data.contractorCode);
 					$("#tmodal").append(tmodal);
 					$('#detailContractorModal').modal('show');
 				}
 			}); 
-	
 		</script>
 		<!-- END 거래처 상세정보 모달창 스크립트 -->
 	</th:block>
@@ -112,12 +116,11 @@
 					<div class="row" style="margin: 12px">
 						<!--inputbox 1 -->
 						<div class="col-sm-5" style="padding-left: 0px">
-							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="post">
+							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="Post">
 								<div class="input-group  d-flex justify-content-start">
 									<div class="input-group-prepend">
 										<select class="form-control" name="searchKey">
-											<option selected>통합검색</option>
-											<option value="contractorCode">거래처 사업장 코드</option>
+											<option value="contractorCode" selected>거래처 사업장 코드</option>
 											<option value="contractorName">거래처 상호명</option>
 											<option value="contractorItem">거래처 종목</option>
 											<option value="contractorStatus">거래처 업태</option>
@@ -130,7 +133,7 @@
 	        							</div>
 									<input type="text" class="form-control" placeholder="거래처정보입력"  name="searchValue" >
 									<div class=" input-group-append">
-										<button type="submit" name="contractorSearch" class="btn btn-default">
+										<button type="submit" class="btn btn-default">
 											<i class="fas fa-search icon"></i>
 										</button>
 									</div>
@@ -142,7 +145,7 @@
 						</div>
 						<!--inputbox 2 -->
 						<div class="col-sm-6" style="padding-left: 0px">
-							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="post" id="contractorSearchDate">
+							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="Post" id="contractorSearchDate">
 								<div class="input-group d-flex justify-content-end">
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
 										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택~">
@@ -203,40 +206,40 @@
 				            <th>등록일자</th>
 						</tr>
 					</thead>
-						<tbody>
-							<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
-								<td>
-									<label>
-										<input id="removeContract" type="checkbox"/>
-									</label>
-								</td>
-								<td>
-									<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
-										<i class="fas fa-pencil-alt icon"></i>
-									</a>
-								</td>
-								<td>
-									<a href="#"  type="button"  class="btn btn-default btn-sm searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
-										<i class="bi bi-eye"></i>
-									</a>
-								</td>										
-								<td  th:text="${c.contractorCode}"></td>
-								<td  th:text="${c.contractorName}"></td>
-								<td  th:text="${c.contractorItem}"></td>
-								<td  th:text="${c.contractorStatus}"></td>
-								<td  th:text="${c.contractorDevision}"></td>
-								<td  th:text="${c.contractorPhone}"></td>
-								<td  th:text="${c.contractorId}"></td>
-								<td  th:text="${c.contractorState}"></td>
-								<td  th:text="${c.memberId}"></td>
-								<td  th:text="${c.contractorRegistrationDate}"></td>
-							</tr>
-					<tr th:unless="${not #lists.isEmpty(contractorList)}">
-						<td colspan="4">
-							등록된 거래처가 없습니다.
-						</td>
-					</tr>							
-						</tbody>						
+					<tbody>
+						<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
+							<td>
+								<label>
+									<input id="removeContract" type="checkbox"/>
+								</label>
+							</td>
+							<td>
+								<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor(contractorCode=${c.contractorCode})}">
+									<i class="fas fa-pencil-alt icon"></i>
+								</a>
+							</td>
+							<td>
+								<a href="#"  type="button"  class="btn btn-default btn-sm searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
+									<i class="bi bi-eye"></i>
+								</a>
+							</td>										
+							<td  th:text="${c.contractorCode}"></td>
+							<td  th:text="${c.contractorName}"></td>
+							<td  th:text="${c.contractorItem}"></td>
+							<td  th:text="${c.contractorStatus}"></td>
+							<td  th:text="${c.contractorDevision}"></td>
+							<td  th:text="${c.contractorPhone}"></td>
+							<td  th:text="${c.contractorId}"></td>
+							<td  th:text="${c.contractorState}"></td>
+							<td  th:text="${c.memberId}"></td>
+							<td  th:text="${c.contractorRegistrationDate}"></td>
+						</tr>
+						<tr th:unless="${not #lists.isEmpty(contractorList)}">
+							<td colspan="4">
+								등록된 거래처가 없습니다.
+							</td>
+						</tr>							
+					</tbody>						
 					</table>
 					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
 						<li class="paginate_button page-item previous" id="contractorList_previous">
@@ -280,7 +283,7 @@
 				</div>
 		      </div>
 		      <div class="modal-footer">
-				<a class="ahsbtn2 btn btn-outline-info modifyBtn" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
+				<a class="ahsbtn2 btn btn-outline-info modifyModalBtn">
 					<i class="bi bi-pencil"></i>
 					수정
 				</a>
