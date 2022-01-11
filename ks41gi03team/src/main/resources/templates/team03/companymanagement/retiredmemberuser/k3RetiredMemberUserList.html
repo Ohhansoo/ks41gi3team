@@ -2,96 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-		<th:block layout:fragment="customCss">
-		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">
-	
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customJs">	
-	
-	<script type="text/javascript">
-		$(function(){
-				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
-				});
-				$(document).on('click', '#addWarehousing', function(){
-					
-						var submitCheck = true;
-						var inputObj = $('#warehousingInfo').find('input');
-							
-						$.each(inputObj, function(){	
-	   					var inputDate = $(this).val();
-	   					var inputId = $(this).attr('id');
-	   					var labelText = $('label[for=' + inputId + ']').text();
-							
-	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
-	   						alert(labelText + ' 입력해주세요');
-	   						$(this).focus();
-	   						submitCheck = false;
-	   						return false;
-	   					}		
-						});  						
-						if(submitCheck) $('#warehousingInfo').submit();
-					});
-				var modal = $('.modal');
-				
-				$(".exitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-		
-				$(document).on('click', '#selectContractorName', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
-					
-					$('#dataTableAjax').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/companymanagement/member/k3membermodal',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "contractorName"},
-							{ "data": "contractorType"},
-							{ "data": "contractorRepresentative"}								
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="contractorId" name="contractorId" value="'+ row.contractorId +'">'
-									return htmlbtn;
-								}
-							}
-						]
-					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
-				$(document).on('click', '.confirmBtn', function(){
-					var checkedBox = $('.contractorId:checked');
-	 				var ContractorName = $('#contractorNameInput');
-	 				var ContractorId = $('#contractorIdInput');
-	 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
-	 				ContractorId.attr('value',checkedBox.val());
-	 				ContractorName.attr('value',checkedTrName);
-					console.log(checkedBox);
-					modal.addClass('hidden');
-				});
-			});
-	</script>
-	</th:block>	
 	<th:block layout:fragment="customContents"> 
 	<script>
 			$(function(){				
@@ -130,10 +43,6 @@
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
-						<button id="adduserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-file-earmark-plus"></i>
-							등록2
-						</button>			
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
@@ -156,24 +65,28 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}"  method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="retiredmemberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-												<option value="memberRetiredCode">퇴사번호</option>
-												<option value="mainBusinessCode">사업장별대표코드</option>
+											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
-												<option value="memberRetiredReason">퇴사사유</option>
-												<option value="memberRetiredDate">퇴사일자</option>
-												<option value="memberRetirementSignedDate">퇴사처리일자</option>
-											</select>
-										</div>
-										<input type="text" name="retiredmemberuserValue" class="form-control" style="height: 38px;  font-size: 15px;">
-											<div class="btn btn-default" style="height: 38px;">
-											<i class="fas fa-search icon"></i>
-										</div>	
+												<option value="memberPassword">직원PW</option>
+												<option value="mainBusinessCode">사업장별대표코드</option>
+												<option value="levelMemberCode">권한번호</option>
+												<option value="memberName">직원이름</option>
+												<option value="memberGender">성별</option>
+												<option value="memberAddr">주소</option>
+												<option value="memberPhone">전화번호</option>
+												<option value="memberResidentRegistrationNumber">주민번호</option>
+												<option value="memberState">직원계정상태</option>
+												<option value="memberRegDate">등록일자</option>
+												<option value="memberHiredDate">입사일자</option>
+										</select>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
+										<button type="submit">검색</button>
+											</div>
 									</div>
-								</form>
+									</form>
 								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
@@ -183,40 +96,43 @@
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
+						<div class="card-header deprbtn">
 							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<th>삭제</td>	
-											<th>수정</th>
-											<th>퇴사번호</th>
-						                    <th>사업장별대표코드</th>
-						                    <th>직원ID</th>
-						                    <th>퇴사사유</th>
-						                    <th>퇴사일자</th>
-						                    <th>퇴사처리일자</th>
+											<th>직원ID</th>
+						                     <th>직원PW</th>
+						                     <th>사업장별대표코드</th>
+						                     <th>권한번호</th>
+						                     <th>직원이름</th>
+						                     <th>성별</th>
+						                     <th>주소</th>
+						                     <th>전화번호</th>
+						                     <th>주민번호</th>
+						                     <th>직원계정상태</th>
+						                     <th>등록일자</th>
+						                     <th>입사일자</th>	
 										</tr>
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
-						   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.memberRetiredCode}">
-											</td>
-							   				<td>
-												<a th:href="@{/team03/companymanagement/member/k3ModifyOurCompanyList(memberRetiredCode=${l.memberRetiredCode})}">수정</a>
-											</td>	
-						   				<td th:text="${l.memberRetiredCode}"></td>
-						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberId}"></td>
-						   				<td th:text="${l.memberRetiredReason}"></td>
-						   				<td th:text="${l.memberRetiredDate}"></td>
-						   				<td th:text="${l.memberRetirementSignedDate}"></td>
+						   				<td th:text="${l.memberPassword}"></td>
+						   				<td th:text="${l.mainBusinessCode}"></td>
+						   				<td th:text="${l.levelMemberCode}"></td>
+						   				<td th:text="${l.memberName}"></td>
+						   				<td th:text="${l.memberGender}"></td>
+						   				<td th:text="${l.memberAddr}"></td>
+						   				<td th:text="${l.memberPhone}"></td>
+						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
+						   				<td th:text="${l.memberState}"></td>
+						   				<td th:text="${l.memberRegDate}"></td>
+						   				<td th:text="${l.memberHiredDate}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
 						   				<td colspan="9">등록된 직원이 없습니다.</td>
@@ -232,35 +148,5 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-		<!-- 모달창 -->
-		<div class="modal hidden">
-			<div class="modal_overlay"></div>		
-			<div class="modal_content">
-				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
-					<button class="exitBtn" type="button">
-						<i class="fas fa-times-circle"></i>
-					</button>
-				</div>
-				<div class="modal_body">
-					<form>	
-						<table border="1" id="dataTableAjax" class="dataTable">
-							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>회사명</th>
-									<th>업종</th>
-									<th>대표</th>							
-								</tr>
-							</thead>
-						</table>				
-					</form>
-				</div>
-				<div class="modal_fotter">
-					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
-				</div>			
-			</div>
-		</div>
-		<!-- End 모달창 -->
 	</th:block>
 </head>

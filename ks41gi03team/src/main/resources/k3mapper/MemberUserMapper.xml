@@ -33,7 +33,7 @@
 			m.memberId = #{memberId};
 	</select>-->
 	
-	<select id="k3GetMemberUserModalList" resultType="map" parameterType="map">
+	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT 
 			 m.memberId									AS memberId
 			,m.memberName								AS memberName

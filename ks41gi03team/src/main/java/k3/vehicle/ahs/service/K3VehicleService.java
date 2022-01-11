@@ -53,13 +53,14 @@ public class K3VehicleService {
 		Integer result = k3VehicleMapper.k3DeleteVehicle(vehicleCode);
 		return result;
 	}
-
+	
+	//모달
 	public List<Map<String, Object>> k3SelectVehicleMemberId() {
 		List<Map<String, Object>> searchId = k3VehicleMapper.k3SelectVehicleMemberId(null);
 		return searchId;
 	}
 	
-	//
+	
 
 	
 	

@@ -53,17 +53,17 @@
 					modal.addClass('hidden');
 				});
 		
-				$(document).on('click', '#selectContractorName', function(){
+				$(document).on('click', '.vehicleMemberId_btn', function(){		//1. 버튼 이름 설정
 					var aLengthMenuArray = [];
 					aLengthMenuArray.push([5,10,-1]);
 					aLengthMenuArray.push([5,10,'ALL']);
 					
-					$('#dataTableAjax').DataTable({
+					$('#vehicleMemberId').DataTable({
 						destroy: true,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: 'team03/delivery/vehicle/vehicleMemberId',
+							url: '/team03/delivery/vehicle/vehicleMemberId',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -72,9 +72,8 @@
 						},
 						columns: [
 							{ "data": "선택"},
-							{ "data": "contractorName"},
-							{ "data": "contractorType"},
-							{ "data": "contractorRepresentative"}								
+							{ "data": "memberId"}, //mapper.xml에서 받아오기
+							{ "data": "memberName"}							
 						],
 						columnDefs: [
 							{
@@ -82,7 +81,8 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="contractorId" name="contractorId" value="'+ row.contractorId +'">'
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									//class name value 바꾸기
 									return htmlbtn;
 								}
 							}
@@ -92,15 +92,16 @@
 					modal.removeClass('hidden');
 						
 				});
-				$(document).on('click', '.confirmBtn', function(){
-					var checkedBox = $('.contractorId:checked');
-	 				var ContractorName = $('#contractorNameInput');
-	 				var ContractorId = $('#contractorIdInput');
-	 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
-	 				ContractorId.attr('value',checkedBox.val());
-	 				ContractorName.attr('value',checkedTrName);
-					console.log(checkedBox);
-					modal.addClass('hidden');
+				$(document).on('click', '#memberConfirmBtn', function(){ 	//5. 버튼 붙여넣기
+					var checkedBox = $('.memberId:checked'); 	//6. 위 클래스 가져오기(memberId) -> 모달창 선택 접근
+	 				var memberId = $('#memberId');	//7. input박스의 id 가져오기
+					
+	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+	 				//선택된 것의 부모의 부모를 찾아감(행 전체) -> childeren 0,1,2 3개 -> eq(2) 2인 회원명을 가져옴 -> text()
+	 				
+	 				memberId.attr('value',vehicleMemberIdValue);		//속성인 이름 변수를 가져옴
+
+					modal.addClass('hidden');	//히든 클래스
 				});
 			});
 		</script>
@@ -143,7 +144,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">점검 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId"/>
-										<button class="vehicleMemberId_btn" type="button" id="vehicleMemberId_btn">담당자 등록</button> 
+										<button class="vehicleMemberId_btn" type="button">담당자 등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
@@ -179,20 +180,19 @@
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="dataTableAjax" class="dataTable">
+						<table border="1" id="vehicleMemberId" class="dataTable"> <!-- 2. 아이디 변경 -->
 							<thead>
 								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>회사명</th>
-									<th>업종</th>
-									<th>대표</th>							
+									<th>선택</th>		<!-- 3. th 설정 -->
+									<th>회원코드</th>
+									<th>회원명</th>				
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button> <!-- 4. 버튼 이름 -->
 				</div>			
 			</div>
 		</div>
