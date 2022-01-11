@@ -7,10 +7,6 @@
 	</th:block>
 	<th:block layout:fragment="customContents">
 	<style>
-      table {
-        width: 1000px;
-        height: 200px;
-      }
       td {
         text-align: center;
       }
@@ -82,20 +78,20 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group input-group-sm">
 										<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-											<option value="ID">직원ID</option>
-												<option value="PW">직원PW</option>
-												<option value="mainCode">사업장별대표코드</option>
-												<option value="LevelCode">권한번호</option>
+											<option value="memberId">직원ID</option>
+												<option value="memberPassword">직원PW</option>
+												<option value="mainBusinessCode">사업장별대표코드</option>
+												<option value="levelMemberCode">권한번호</option>
 												<option value="memberName">직원이름</option>
-												<option value="Gender">성별</option>
-												<option value="Addr">주소</option>
-												<option value="Phone">전화번호</option>
-												<option value="Restration">주민번호</option>
-												<option value="MemberState">직원계정상태</option>
-												<option value="Regdate">등록일자</option>
-												<option value="Regtiondate">입사일자</option>
+												<option value="memberGender">성별</option>
+												<option value="memberAddr">주소</option>
+												<option value="memberPhone">전화번호</option>
+												<option value="memberResidentRegistrationNumber">주민번호</option>
+												<option value="memberState">직원계정상태</option>
+												<option value="memberRegDate">등록일자</option>
+												<option value="memberHiredDate">입사일자</option>
 										</select>
-										<input type="text" class="form-control" placeholder="검색" name="vehicleValue">
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
 										<button type="submit">검색</button>
 											</div>
 										</div>

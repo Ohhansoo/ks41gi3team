@@ -1,6 +1,7 @@
 package k3.memberuser.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -28,7 +29,7 @@ public interface K3MemberUserMapper {
 	public int k3RemoveMemberUser(List<String> removeList);
 		
 	//07. 직원 검색
-	public List<K3MemberUser> getMemberUserListBySearchKey(String searchKey, String searchValue);
+	public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue);
 
 	//08. 직원중복체크
 	public int getMemberUserByMemberId(String memberId);
@@ -38,6 +39,9 @@ public interface K3MemberUserMapper {
 
 	//09. 회원조회(중복체크?)
 	public int getMemberInfoByMemberId(String memberId);
+
+	//10 모달창
+	public List<Map<String, Object>> k3GetModalList(Map<String, Object> paramMap);
 	
 	
 }
