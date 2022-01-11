@@ -40,7 +40,7 @@ public interface K3MemberUserMapper {
 	//09. 회원조회(중복체크?)
 	public int getMemberInfoByMemberId(String memberId);
 
-	//10 모달
+	//10 모달창
 	public List<Map<String, Object>> k3GetModalList(Map<String, Object> paramMap);
 	
 	
