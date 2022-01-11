@@ -6,19 +6,32 @@ import org.springframework.stereotype.Service;
 
 import k3.out.ahs.dto.K3Out;
 import k3.out.ahs.mapper.K3OutMapper;
+import k3.subject.ahs.dto.K3Subject;
 
 @Service
 public class K3OutService {
 
-		private K3OutMapper k3OutMapper;
+		private final K3OutMapper k3OutMapper;
 		
 		public K3OutService(K3OutMapper k3OutMapper) {
 			this.k3OutMapper=k3OutMapper;
 		}
 
+		//비용 수정 처리
+		public int modifyOut(K3Out k3Out) {
+			System.out.println("비용 수정 처리 서비스");
+			return k3OutMapper.modifyOut(k3Out);
+		}
+		
+		//비용 수정 폼으로 이동
+		public K3Out getModifyOut(String outCode) {
+			System.out.println("비용 수정 폼 서비스");
+			return k3OutMapper.getModifyOut(outCode);
+		}
+		
 		//비용 내역 등록
-		public int outAdd(K3Out k3Out) {
-			int result = k3OutMapper.outAdd(k3Out);
+		public int addOut(K3Out k3Out) {
+			int result = k3OutMapper.addOut(k3Out);
 			return result;
 		}
 		
