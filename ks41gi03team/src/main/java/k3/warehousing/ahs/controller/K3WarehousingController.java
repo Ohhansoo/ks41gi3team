@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import k3.category.ahs.service.K3CategoryService;
+import k3.check.ahs.dto.K3LaydownCheck;
+import k3.check.ahs.service.K3CheckService;
 import k3.contract.ahs.dto.K3Contract;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
@@ -26,10 +29,14 @@ public class K3WarehousingController {
 	
 	private static final Logger log = LoggerFactory.getLogger(K3WarehousingController.class);
 
-	private K3WarehousingService k3WarehousingService;
+	private final K3WarehousingService k3WarehousingService;
+	private final K3CheckService k3CheckService;
+	private final K3CategoryService k3CategoryService;
 	
-	public K3WarehousingController(K3WarehousingService k3WarehousingService) {
+	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService) {
 		this.k3WarehousingService = k3WarehousingService;
+		this.k3CheckService = k3CheckService;
+		this.k3CategoryService = k3CategoryService;
 	}
 	//입고현황 조회처리
 	@PostMapping("/k3WarehousingList")
@@ -91,10 +98,23 @@ public class K3WarehousingController {
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
+	//입고분류 카테고리 선택처리
+	@PostMapping("/getCategoryList")
+	@ResponseBody
+	public List<Map<String, Object>> getCategoryList() {
+		List<Map<String, Object>> categoryList = k3CategoryService.getCategoryListByMap();
+		return categoryList;
+	}
 	
 	//입고분류 등록폼 이동
 	@GetMapping("/k3AddSort")
-	public String k3AddWarehousingSort() {
+	public String k3AddWarehousingSort(@RequestParam(value="warehousingCode", required= false) String warehousingCode,
+									   Model model) {
+		log.info("입고분류 등록폼 이동 값받아오기 warehousingCode ------.>>>>", warehousingCode);
+		List<K3LaydownCheck> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode);
+		model.addAttribute("warehousingSort", warehousingSort);
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고분류");
 		
 		return "team03/goodsManagement/warehousing/k3AddSort";
 	}

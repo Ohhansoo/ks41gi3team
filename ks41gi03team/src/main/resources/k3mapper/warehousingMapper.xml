@@ -204,6 +204,8 @@
 		   k3_tb_member AS m
 		   ON
 		   w.laydownCheckManager = m.memberId
+		WHERE
+			w.laydownCheckResult is not null;
 	</select>
 	
 	<select id="k3GetWarehousingList" resultType="K3Warehousing">
@@ -224,7 +226,7 @@
 		   on
 		   w.contractorId = c.contractorId
 		WHERE
-			w.warehousingAllow = 'Y'
+			w.warehousingAllow = 'Y' and w.sorting = 'Y'
 
 	</select>
 
