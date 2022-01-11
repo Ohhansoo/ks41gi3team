@@ -32,17 +32,20 @@
 		
 	<select id="getRetiredMemberUserList" resultType="K3RetiredMemberUser">
 		SELECT 
-			 rm.memberRetiredCode					AS memberRetiredCode
-			,rm.mainBusinessCode						AS mainBusinessCode
-			,rm.memberId								AS memberId
-			,rm.memberRetiredReason					AS memberRetiredReason
-			,rm.memberRetiredDate					AS memberRetiredDate
-			,rm.memberRetirementSignedDate		AS memberRetirementSignedDate
-		FROM k3_tb_retiredMember AS rm
-		INNER JOIN
-			k3_tb_member AS m
-			ON
-			rm.memberId = m.memberId 
+			 m.memberId									AS memberId
+			,m.memberPassword							AS memberPassword
+			,m.mainBusinessCode							AS mainBusinessCode
+			,m.levelMemberCode							AS levelMemberCode
+			,m.memberName								AS memberName
+			,m.memberGender								AS memberGender
+			,m.memberAddr								AS memberAddr
+			,m.memberPhone								AS memberPhone
+			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
+			,m.memberState								AS memberState
+			,m.memberRegDate							AS memberRegDate
+			,m.memberHiredDate							AS memberHiredDate
+		FROM 
+			k3_tb_member	AS m
 		WHERE
 			memberState = "퇴사";
 	</select>
