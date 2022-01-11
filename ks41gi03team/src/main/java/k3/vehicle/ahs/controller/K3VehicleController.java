@@ -79,8 +79,8 @@ public class K3VehicleController {
 	//검색
 	@PostMapping("/k3VehicleList")
 	public String k3SearchVehicleList(@RequestParam(value="vehicleKey", required = false) String vehicleKey,
-										@RequestParam(value="vehicleValue", required = false) String vehicleValue,
-										Model model) {
+														  @RequestParam(value="vehicleValue", required = false) String vehicleValue,
+														  Model model) {
 		if(vehicleKey != null && "vehicle".equals(vehicleKey)) {
 			vehicleKey = "vehicleCode";
 		}
