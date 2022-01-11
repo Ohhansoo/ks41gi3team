@@ -20,16 +20,15 @@
 					</div>
 					<!-- User Info -->	
 					<div class="info">
-						<h4 class="userName font-weight-bold" th:if="${session.SID != null}">오한수</h4>
+						<h4 class="userName font-weight-bold" th:if="${session.SID != null}">[[${session.SID}]]</h4>
 						<h5 class="userName font-weight-bold" th:if="${session.SID == null}">로그인 해주세요</h5>
 						<div>
 							<p class="part" th:if="${session.SID != null}">운송지원팀 </p>   
-							<a th:href="@{team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID == null}" style="color: white;">로그인</a>&nbsp;/
-					        <a th:href="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" th:if="${session.SID == null}" style="color: white;">직원등록</a>
-						<a th:href="@{/team03/companymanagement/login/k3MemberUserLogout}" th:if="${session.SID != null}">로그아웃</a>
+							<a th:href="@{team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID == null}" style="color: white;">로그인</a>&nbsp;
+					        <a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" th:if="${session.SID == null}" style="color: white;">|직원등록</a>
 						</div>
 						<div>
-							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID != null}">로그아웃</a>&nbsp;
+							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogout}" th:if="${session.SID != null}" style="color: white;">로그아웃</a>&nbsp;
 							<a href="#" class="link" th:if="${session.SID != null}">| 정보변경</a>
 						</div>
 					</div>
