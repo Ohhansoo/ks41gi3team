@@ -1,6 +1,7 @@
 package k3.vehicle.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,14 @@ public class K3VehicleService {
 		Integer result = k3VehicleMapper.k3DeleteVehicle(vehicleCode);
 		return result;
 	}
+
+	public List<Map<String, Object>> k3SelectVehicleMemberId() {
+		List<Map<String, Object>> searchId = k3VehicleMapper.k3SelectVehicleMemberId(null);
+		return searchId;
+	}
+	
+	//
+
 	
 	
 }
