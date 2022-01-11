@@ -2,96 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-		<th:block layout:fragment="customCss">
-		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">
-	
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customJs">	
-	
-	<script type="text/javascript">
-		$(function(){
-				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
-				});
-				$(document).on('click', '#addWarehousing', function(){
-					
-						var submitCheck = true;
-						var inputObj = $('#warehousingInfo').find('input');
-							
-						$.each(inputObj, function(){	
-	   					var inputDate = $(this).val();
-	   					var inputId = $(this).attr('id');
-	   					var labelText = $('label[for=' + inputId + ']').text();
-							
-	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
-	   						alert(labelText + ' 입력해주세요');
-	   						$(this).focus();
-	   						submitCheck = false;
-	   						return false;
-	   					}		
-						});  						
-						if(submitCheck) $('#warehousingInfo').submit();
-					});
-				var modal = $('.modal');
-				
-				$(".exitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-		
-				$(document).on('click', '#selectContractorName', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
-					
-					$('#dataTableAjax').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/companymanagement/member/k3membermodal',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "contractorName"},
-							{ "data": "contractorType"},
-							{ "data": "contractorRepresentative"}								
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="contractorId" name="contractorId" value="'+ row.contractorId +'">'
-									return htmlbtn;
-								}
-							}
-						]
-					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
-				$(document).on('click', '.confirmBtn', function(){
-					var checkedBox = $('.contractorId:checked');
-	 				var ContractorName = $('#contractorNameInput');
-	 				var ContractorId = $('#contractorIdInput');
-	 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
-	 				ContractorId.attr('value',checkedBox.val());
-	 				ContractorName.attr('value',checkedTrName);
-					console.log(checkedBox);
-					modal.addClass('hidden');
-				});
-			});
-	</script>
-	</th:block>	
 	<th:block layout:fragment="customContents"> 
 	<script>
 			$(function(){				
@@ -129,10 +42,6 @@
 						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
-						</button>			
-						<button id="adduserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-file-earmark-plus"></i>
-							등록2
 						</button>			
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
@@ -232,35 +141,5 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-		<!-- 모달창 -->
-		<div class="modal hidden">
-			<div class="modal_overlay"></div>		
-			<div class="modal_content">
-				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
-					<button class="exitBtn" type="button">
-						<i class="fas fa-times-circle"></i>
-					</button>
-				</div>
-				<div class="modal_body">
-					<form>	
-						<table border="1" id="dataTableAjax" class="dataTable">
-							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>회사명</th>
-									<th>업종</th>
-									<th>대표</th>							
-								</tr>
-							</thead>
-						</table>				
-					</form>
-				</div>
-				<div class="modal_fotter">
-					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
-				</div>			
-			</div>
-		</div>
-		<!-- End 모달창 -->
 	</th:block>
 </head>

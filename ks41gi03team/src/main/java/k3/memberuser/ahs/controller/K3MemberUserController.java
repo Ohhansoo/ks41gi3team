@@ -158,8 +158,9 @@ public class K3MemberUserController {
 	
 	  //모달
 		@PostMapping("/k3membermodal")
+		@ResponseBody
 		public List<Map<String, Object>> k3GetMemberUserModalList(){
-			List<Map<String, Object>> modalList  = memberuserService.k3GetMemberUserModalList();
+			List<Map<String, Object>> modalList  =memberuserService.k3GetMemberUserModalList();
 			return modalList;
 		}
 		
