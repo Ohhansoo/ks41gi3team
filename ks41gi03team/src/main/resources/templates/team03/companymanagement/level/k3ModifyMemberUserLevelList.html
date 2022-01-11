@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+	  <style>
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+	<script>
+			$(function(){				
+				$('#addmemberuserBtn').on('click', function(){
+				});
+				
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							권한 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/level/k3MemberUserLevelList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="memberuserlevelKey" class="input-group-text">
+												<option value="levelCode">권한번호</option>
+												<option value="levelName">권한이름</option>
+											</select>
+										</div>
+										<input type="text" name="memberuserlevelValue" class="form-control" >
+										<button id="memberuserlevelSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							권한 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/tteam03/companymanagement/level/k3MemberUserLevelList}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>삭제</th>	
+											<th>수정</th>
+											<th>권한번호</th>
+											<th>권한이름</th>
+										</tr>
+									</thead>
+									<tbody>								
+			   							<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+							   				<td>
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.levelCode}">
+												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
+											</td>
+							   				<td>
+												<a th:href="@{/team03/companymanagement/level/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">수정</a>
+											</td>	
+							   				<td th:text="${l.levelCode}"></td>
+							   				<td th:text="${l.levelName}"></td>
+						   			</tr>
+			   						<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

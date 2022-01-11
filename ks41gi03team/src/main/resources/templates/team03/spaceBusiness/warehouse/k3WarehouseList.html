@@ -2,34 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
+  
 	<th:block layout:fragment="customTitle">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 		<title th:text="${title}"></title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script type="text/javascript">
+			$(function(){
+				$('#addWarehouseBtn').click(function(){
+					location.href = "/team03/spaceBusiness/warehouse/k3AddWarehouse";
+				});
+				$('#deletewarehouseBtn').click(function(){
+					var warehouseCode = $('#warehouseCode').val();
+					if(warehouseCode != ''){
+						$.ajax({
+							url : '/team03/spaceBusiness/warehouse/k3DeleteWarehouse',
+							type : 'POST',
+							traditional : true,
+							data : { warehouseCode : warehouseCode },
+							success : function(data){
+								if(data){
+									swal("삭제 되었습니다");
+									location.href = "/team03/spaceBusiness/warehouse/k3WarehouseList";
+								}
+								else{
+									alert("코드불일치");
+								}
+							}
+						});
+					}
+					else{
+						swal("코드를 입력해주세요");
+					}
+				});
+				
+				
+			});	
+		</script>
 		<div id="representative-button">
 			<div id="representative-button">
 					<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
+							<div class="d-flex justify-content-end">					
+								<button class="btn btn-outline-info ahsbtn4" type="button" id="addWarehouseBtn">
+									<i class="bi bi-house-door">창고등록</i>	
+								</button>			
+								<button class="btn btn-outline-info ahsbtn4" type="button">
+									<i class="bi bi-printer">출력</i>
+								</button>						
+								<button class="btn btn-outline-info ahsbtn4" type="button"  data-toggle="modal" data-target="#myModal">
+									<i class="bi bi-trash">창고삭제</i>
+								</button>
+								
+							</div>	
+							<div class="card cardColor">
+								<!--card header -->
+								<div class="card-header">
+									<h2 class="card-title">창고조회</h2>
+								</div>
+								<!--End card header -->
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<form class="col-lg-6" th:action="@{/team03/spaceBusiness/warehouse/k3WarehouseList}" method="post">
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<select name="warehouseKey" class="input-group-text">
+														<option th:value="warehouseName">창고이름</option>
+														<option th:value="floorNumber">층</option>
+														<option th:value="warehouseNumber">번호</option>
+														<option th:value="warehouseArea">면적</option>
+														<option th:value="warehouseType">기능</option>
+														<option th:value="warehouseOperation">사용여부</option>
+													</select>
+												</div>
+													<input type="text" name="warehouseValue" class="form-control" placeholder="입력해주세요">
+													<button id="warehouseSearch" type="submit" class="ahsbtn2 btn btn-outline-info">	
+														<i class="bi bi-search">조회</i>
+													</button>						
+											</div>
+										</form>
+				 					</div>
+								</div>					
+							</div>
 							<div class="card">
 								<div class="card-header">
 									<h2 class="card-title">창고 현황</h2>
-									<div class="card-tools">
-										<div class="input-group input-group-sm" style="width: 150px;">
-											<input type="text" name="table_search" class="form-control float-right" placeholder="Search"/>
-											<div class="input-group-append">
-												<button type="button" class="btn btn-default">
-													<i class="fas fa-search"></i>	
-												</button>									
-											</div>
-										</div>
-									</div>
 								</div>
-								<div class="card-body table-responsive p-0" style="heght:300px;">
+								<div class="card-body table-responsive p-0" style="height:500px;">
 									<table class="table table-head-fixed text-nowrap">
 										<thead>	
 											<tr>
+												<td>수정</td>
 												<td>창고고유코드</td>
 												<td>창고이름</td>
 												<td>층</td>
@@ -39,12 +109,15 @@
 												<td>창고유형</td>
 												<td>도크개수</td>
 												<td>운영여부</td>
-												<td>수정</td>
-												<td>삭제</td>
 											</tr>
 										</thead>
 										<tbody>
 											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
+												<td>
+													<a type="button"  class="btn btn-default btn-sm" th:href="@{/team03/spaceBusiness/warehouse/k3ModifyWarehouse(warehouseCode=${w.warehouseCode})}">
+														<i class="fas fa-pencil-alt icon"></i>
+													</a>
+												</td>
 												<td th:text="${w.warehouseCode}"></td>
 												<td th:text="${w.warehouseName}"></td>	
 												<td th:text="${w.floorNumber}"></td>
@@ -54,12 +127,6 @@
 												<td th:text="${w.warehouseType}"></td>
 												<td th:text="${w.warehouseDockNumber}"></td>
 												<td th:text="${w.warehouseOperation}"></td>
-												<td>
-													<a th:href="@{/team03/spaceBusiness/warehouse/k3ModifyWarehouse(warehouseCode=${w.warehouseCode})}">수정</a>
-												</td>
-												<td>
-													<a th:href="@{/team03/spaceBusiness/warehouse/k3DeleteWarehouse}">삭제</a>		
-												</td>
 											</tr>	
 										</tbody>
 									</table>
@@ -69,11 +136,37 @@
 										<i class="fas fa-puls"></i>
 									</button>
 								</div>
+									<!-- 모달창 -->
+								<div class="modal fade" id="myModal">
+								    <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									      		<!-- 모달헤드 -->
+											<div class="modal-header">
+												<h4 class="modal-title">창고 삭제</h4>
+												<button type="button" class="close " data-dismiss="modal">&times;</button>
+											</div>
+												<!-- 모달 바디 -->
+											<div class="modal-body">
+												<form th:action="@{/team03/spaceBusiness/warehouse/k3WarehouseList}" method="post">
+													<div class="form-group">
+														<label for="warehouseCode">고유코드</label>
+														<input type="text" class="form-control" id="warehouseCode" name="warehouseCode" placeholder="코드를 입력해주세요"/>
+													</div>
+												</form>
+											</div>
+												<!-- 모달 발 -->
+									        <div class="modal-footer">
+									        	<button id="deletewarehouseBtn" type="submit" class="btn btn-outline-info ahsbtn4">삭제</button>
+									        	<button type="button" class="btn btn-outline-danger ahsbtn4" data-dismiss="modal">취소</button>
+									        </div>
+								    	</div>
+								    </div>
+								</div>
+									<!-- 모달끝 -->
 							</div>
 						</div>	
 					</div>
 				</div>	
-					<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
 	</th:block>

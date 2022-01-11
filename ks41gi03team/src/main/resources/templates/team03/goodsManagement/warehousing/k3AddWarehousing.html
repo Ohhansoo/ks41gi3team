@@ -5,57 +5,95 @@
 	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/modal.css}">
+		
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
+	<th:block layout:fragment="customJs">		
+		
+		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					history.back();
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
 				$(document).on('click', '#addWarehousing', function(){
 					
-   					var submitCheck = true;
-   					var inputObj = $('#warehousingInfo').find('input');
-   						
-   					$.each(inputObj, function(){	
+						var submitCheck = true;
+						var inputObj = $('#warehousingInfo').find('input');
+							
+						$.each(inputObj, function(){	
 	   					var inputDate = $(this).val();
 	   					var inputId = $(this).attr('id');
 	   					var labelText = $('label[for=' + inputId + ']').text();
-   						
+							
 	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
 	   						alert(labelText + ' 입력해주세요');
 	   						$(this).focus();
 	   						submitCheck = false;
 	   						return false;
 	   					}		
-   					});  						
-   					if(submitCheck) $('#warehousingInfo').submit();
-   				});
+						});  						
+						if(submitCheck) $('#warehousingInfo').submit();
+					});
 				var modal = $('.modal');
 				
 				$(".exitBtn").click(function(){
 						
 					modal.addClass('hidden');
 				});
-				
-				
-				$("#selectContractorName").click(function(){					
+		
+				$(document).on('click', '#selectContractorName', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#dataTableAjax').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/findContractorName',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "contractorName"},
+							{ "data": "contractorType"},
+							{ "data": "contractorRepresentative"}								
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="contractorId" name="contractorId" value="'+ row.contractorId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
 					var overlay = $('.modal_overlay');
 					modal.removeClass('hidden');
- 					$(".confirmBtn").click(function(){
- 						
- 						var checkedBox = $('.contractorId:checked');
- 	 					var ContractorName = $('#contractorNameInput');
- 	 					var ContractorId = $('#contractorIdInput');
- 	 					var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
- 	 					ContractorId.attr('value',checkedBox.val());
- 	 					ContractorName.attr('value',checkedTrName);
-
-						modal.addClass('hidden');
-					});
-				});			
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.contractorId:checked');
+	 				var ContractorName = $('#contractorNameInput');
+	 				var ContractorId = $('#contractorIdInput');
+	 				var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
+	 				ContractorId.attr('value',checkedBox.val());
+	 				ContractorName.attr('value',checkedTrName);
+					console.log(checkedBox);
+					modal.addClass('hidden');
+				});
 			});
-		</script>	 
+		</script>
+		
+	</th:block>
+	<th:block layout:fragment="customContents">	 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -118,8 +156,8 @@
 					</button>
 				</div>
 				<div class="modal_body">
-					<form>
-						<table border="1">
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>
@@ -128,16 +166,6 @@
 									<th>대표</th>							
 								</tr>
 							</thead>
-							<tbody>
-								<tr th:if="${not #lists.isEmpty(nameList)}" th:each="l : ${nameList}">
-									<td>
-										<input type="radio" class="contractorId" name="contractorId" th:value="${l.contractorId}">
-									</td>
-									<td th:text="${l.contractorName}"></td>
-									<td th:text="${l.contractorType}"></td>
-									<td th:text="${l.contractorRepresentative}"></td>
-								</tr>
-							</tbody>
 						</table>				
 					</form>
 				</div>

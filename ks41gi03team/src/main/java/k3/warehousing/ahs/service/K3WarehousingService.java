@@ -13,7 +13,7 @@ import k3.warehousing.ahs.mapper.K3WarehousingMapper;
 @Service
 public class K3WarehousingService {
 	
-	private K3WarehousingMapper k3WarehousingMapper;
+	private final K3WarehousingMapper k3WarehousingMapper;
 	
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
@@ -23,10 +23,20 @@ public class K3WarehousingService {
 		List<K3Warehousing> warehousingSearchList = k3WarehousingMapper.k3GetWarehousingSearchList(searchCondition);
 		return warehousingSearchList;
 	}
+	//입고 승인 처리
+	public int k3AllowWarehousing(Map<String, Object> warehousingList) {
+		int result = k3WarehousingMapper.k3AllowWarehousing(warehousingList);
+		return result;
+	}
 	//입고 요청 등록 처리 
 	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
 		int result = k3WarehousingMapper.k3AddWarehousing(k3Warehousing);
 		return result;
+	}
+	//입고 요청폼에서 모달 조회 처리
+	public List<Map<String, Object>> k3FindContractorName() {
+		List<Map<String, Object>> resultList = k3WarehousingMapper.k3FindContractorName(null);
+		return resultList;
 	}
 	//계약처 이름 찾아오기
 	public List<K3Contract> k3FindContractorNameByCode(){
@@ -40,6 +50,12 @@ public class K3WarehousingService {
 		return K3RequestAllow;
 	}
 	
+	//입고분류 등록폼 이동
+	/*
+	 * public List<K3Warehousing> k3GetSortInfo(String warehousingCode) {
+	 * List<K3Warehousing> warehousingSort =
+	 * k3WarehousingMapper.k3GetSortInfo(warehousingCode); return warehousingSort; }
+	 */
 	//입고 분류 현황(요청목록)
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
 		List<K3WarehousingSort> requestSort = k3WarehousingMapper.k3GetWarehousingRequestSort();
@@ -50,10 +66,15 @@ public class K3WarehousingService {
 		List<K3WarehousingSort> sortList = k3WarehousingMapper.k3GetWarehousingSortList();
 		return sortList;
 	}
-	//입고 현황
+	//검수 현황(초기화면)
+	public List<K3Warehousing> k3GetLaydownCheck() {
+		List<K3Warehousing> laydownCheck = k3WarehousingMapper.k3GetLaydownCheck();
+		return laydownCheck;
+	}
+	//입고 현황(초기화면)
 	public List<K3Warehousing> k3GetWarehousingList() {
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingMapper.k3GetWarehousingList();
-		return K3LaydownCheck;
+		List<K3Warehousing> warehousingList = k3WarehousingMapper.k3GetWarehousingList();
+		return warehousingList;
 	}
 
 }

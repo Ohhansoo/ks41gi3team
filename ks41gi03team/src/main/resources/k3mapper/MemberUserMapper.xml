@@ -9,16 +9,75 @@
 		<result column="mediumCategory" property="mediumCategory" />
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
+	
+	<!--  <select id="K3MemberUserInfoBycode" parameterType="String" resultMap="memberResultMap">
+		SELECT 
+			m.memberId,
+			m.memberPassword,
+			m.mainBusinessCode,
+			m.levelMemberCode,
+			m.memberName,
+			m.memberGender,
+			m.memberAddr,
+			m.memberPhone,
+			m.memberResidentRegistrationNumber,
+			m.memberState,
+			m.memberRegDate,
+			m.memberHiredDate,
+			m.memberRetiredReason,
+			m.memberRetiredDate,
+			m.memberRetirementSignedDate
+		FROM 
+			k3_tb_member AS m
+		WHERE
+			m.memberId = #{memberId};
+	</select>-->
+	
+	<select id="k3GetModalList" resultType="map" parameterType="map">
+		SELECT 
+			 m.memberId									AS memberId
+			,m.memberName								AS memberName
+		FROM 
+			k3_tb_member	AS m
+	</select>
+	
+<!--  직원검색 -->
+	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="memberuserValue != null and memberuserValue != ''.toString()">
+				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%');
+			</if>
+		</trim>
+	</select>
 
+<!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">
 		DELETE FROM 
 			k3_tb_member 
 		WHERE 
 			memberId = #{memberList};
-
-			
 	</delete>
+	
+	
+<!-- 직원삭제 -->
+	<update id="k3RemoveMemberUser" parameterType="map">
+		UPDATE 
+			k3_tb_member 
+		SET
+			memberState = "퇴사"
+		<trim prefix="WHERE" prefixOverrides="AND |OR"> 
+			<foreach collection="removeList" item="removeList">
+				OR memberId = #{removeList}
+			</foreach>
+		</trim>	
+	</update>
+	
 
+<!-- 직원선택 (수정) -->
 	<select id="getk3ModifyMemberUserInfoMemberId" parameterType="int" resultType="K3MemberUser">
 		SELECT 
 			m.memberId,
@@ -39,6 +98,7 @@
 			m.memberId = #{memberId}; 
 	</select>
 
+<!-- 직원수정처리 -->
 	<update id="k3ModifyMemberUserInfo" parameterType="int">
 		UPDATE 
 			k3_tb_member AS m
@@ -81,6 +141,7 @@
 			m.memberId = #{memberId};
 	</update>
 
+<!-- 직원선택 ?-->
 	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
 		SELECT
 			*
@@ -90,6 +151,7 @@
 			m.memberId = #{memberId};
 	</select>
 
+<!-- 직원등록 -->
 	<insert id="AddMemberUser">
 		INSERT INTO 
    		k3_tb_member
@@ -122,6 +184,7 @@
 	);
 	</insert>
 	
+	<!-- 전제조회 -->
 	<select id="getMemberUserList" resultType="K3MemberUser">
 		SELECT 
 			 m.memberId									AS memberId
@@ -136,7 +199,10 @@
 			,m.memberState								AS memberState
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
-	FROM k3_tb_member	AS m
+		FROM 
+			k3_tb_member	AS m
+		WHERE
+			memberState = "일반";
 	
 	</select>
 

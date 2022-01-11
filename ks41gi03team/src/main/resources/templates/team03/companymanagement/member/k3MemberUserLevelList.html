@@ -5,56 +5,156 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+	<script>
+			$(function(){				
+				$('#addmemberuserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
+				});
+				
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					var check = $('.removeList:checked');
+					var removeCheckList = [];
+					//console.log(check);
+					
+					
+					$.each(check, function(){
+						removeCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 		<div id="representative-button">
 			<div id="representative-button">
-				<section class="content">
-      <div class="container-fluid ">
-      
-      <div style="margin: 15px">
-          <button type="button" class="btn btn-primary btn-sm">등록</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">수정</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">조회</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">삭제</button>&nbsp; &nbsp;
-          <button type="button" class="btn btn-primary btn-sm">엑셀</button>&nbsp; &nbsp;
-      </div>
-	  
- 	<div class="row" style="text-align: center">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header"></div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>직원명</th>
-                      <th>직원 ID</th>
-                      <th>직원 PW</th>
-                      <th>직원번호</th>
-                      <th>주소</th>
-                      <th>전화번호</th>
-                      <th>메모</th>
-                      <th>수정</th>
-                    </tr>
-                  </thead>
-					<tbody>
-			   			<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-			   				<td th:text="${l.ourCompanyCode}"></td>
-			   				<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>
-			   				<td th:text="${l.ourCompanyBusinessName}"></td>
-			   				<td th:text="${l.ourCompanyBusinessCheifName}"></td>
-			   				<td th:text="${l.ourCompanyWorkPlaceAddr}"></td>
-			   				<td th:text="${l.ourCompanyStatus}"></td>
-			   				<td th:text="${l.ourCompanyWorkType}"></td>
-			   				<td th:text="${l.ourCompanyEmail}"></td>
-			   			</tr>
-			   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-			   				<td colspan="9">등록된 회원이 없습니다.</td>
-			   			</tr>
-		   		</tbody>
-				</table>
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserLevelList}" method="post">
+									<div class="input-group input-group-sm">
+										<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+											<option value="ID">직원ID</option>
+												<option value="PW">직원PW</option>
+												<option value="mainCode">사업장별대표코드</option>
+												<option value="LevelCode">권한번호</option>
+												<option value="memberName">직원이름</option>
+												<option value="Gender">성별</option>
+												<option value="Addr">주소</option>
+												<option value="Phone">전화번호</option>
+												<option value="Restration">주민번호</option>
+												<option value="MemberState">직원계정상태</option>
+												<option value="Regdate">등록일자</option>
+												<option value="Regtiondate">입사일자</option>
+										</select>
+										<input type="text" name="memberuserValue" class="form-control" placeholder="직원ID"  style="height: 38px;  font-size: 15px;">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="memberuserSearch" type="submit" style="width: 35px; height: 35px;">
+													<i class="fas fa-search icon" ></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							직원 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
+								<table class="table table-head-fixed text-nowrap table-striped" style="width: 300px;">
+									<thead>
+										<tr>
+						                     <th>권한번호</th>
+						                     <th>권한명</th>
+										</tr>
+									</thead>
+									<tbody>								
+										<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+						   				<td>
+											<input type="checkbox" class="removeList" name="removeList[]" th:value="${l.memberId}">
+											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
+										</td>
+										<td>
+											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
+										</td>
+						   				<td>
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>										</td>	
+						   				<td th:text="${l.levelCode}"></td>
+						   				<td th:text="${l.levelName}"></td>
+						   			</tr>
+						   			<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
 	</th:block>

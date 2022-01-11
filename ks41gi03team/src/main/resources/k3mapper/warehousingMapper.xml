@@ -20,6 +20,30 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	<update id="k3AllowWarehousing" parameterType="map">
+		UPDATE
+			k3_tb_warehousing
+		SET
+			warehousingAllow = #{YesOrNo}
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<foreach collection="allowList" item="allowList">
+				OR warehousingCode = #{allowList}
+			</foreach>			
+		</trim>
+	</update>
+	
+
+	<select id="k3FindContractorName" parameterType="map" resultType="map">
+		SELECT
+			cs.contractorId,
+			cs.contractorName,
+			cs.contractorType,
+			cs.contractorRepresentative
+		FROM
+			k3_tb_contractor_staff AS cs
+	
+	</select>
+	
 	<select id="k3GetWarehousingSearchList" parameterType="Map" resultType="K3Warehousing">
 	SELECT
 		   w.warehousingCode,
@@ -28,7 +52,13 @@
 		   w.manufacturedDate,
 		   w.expiratonDate,
 		   c.contractorName,
-		   w.laydownDate
+		   w.laydownDate,
+		   w.laydownCheckCode,
+		   w.laydownCheckResult,
+		   w.warehousingDay,
+		   w.laydownCheckDate,
+		   m.memberName,
+		   w.laydownCheckResult
 		FROM
 		   k3_tb_warehousing AS w
 		   INNER JOIN
@@ -82,6 +112,7 @@
 	
 	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
 		SELECT
+			w.warehousingCode,
 			w.laydownGoodsName,
 			w.laydownGoodsCount,
 			cs.contractorName,
@@ -148,8 +179,8 @@
 		WHERE
 			w.sorting = 'Y' AND w.laydownCheckResult = 'Y'	
 	</select>
-	
-	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		
+	<select id="k3GetLaydownCheck" resultType="K3Warehousing">
 		SELECT
 		   w.warehousingCode,
 		   w.laydownCheckCode,
@@ -173,6 +204,30 @@
 		   k3_tb_member AS m
 		   ON
 		   w.laydownCheckManager = m.memberId
+		WHERE
+			w.laydownCheckResult is not null;
+	</select>
+	
+	<select id="k3GetWarehousingList" resultType="K3Warehousing">
+		SELECT
+		   w.warehousingCode,
+		   w.laydownCheckCode,
+		   w.mainBusinessCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		WHERE
+			w.warehousingAllow = 'Y' and w.sorting = 'Y'
+
 	</select>
 
 </mapper>

@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import k3.category.ahs.service.K3CategoryService;
+import k3.check.ahs.dto.K3LaydownCheck;
+import k3.check.ahs.service.K3CheckService;
 import k3.contract.ahs.dto.K3Contract;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
@@ -25,10 +29,14 @@ public class K3WarehousingController {
 	
 	private static final Logger log = LoggerFactory.getLogger(K3WarehousingController.class);
 
-	private K3WarehousingService k3WarehousingService;
+	private final K3WarehousingService k3WarehousingService;
+	private final K3CheckService k3CheckService;
+	private final K3CategoryService k3CategoryService;
 	
-	public K3WarehousingController(K3WarehousingService k3WarehousingService) {
+	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService) {
 		this.k3WarehousingService = k3WarehousingService;
+		this.k3CheckService = k3CheckService;
+		this.k3CategoryService = k3CategoryService;
 	}
 	//입고현황 조회처리
 	@PostMapping("/k3WarehousingList")
@@ -59,11 +67,25 @@ public class K3WarehousingController {
 		searchCondition.put("searchEndDate", searchEndDate);
 		searchCondition.put("warehousingDateKey", warehousingDateKey);
 		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingSearchList(searchCondition);
-		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
-		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", K3LaydownCheck);
+		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingSearchList(searchCondition);
+		model.addAttribute("warehousingList", warehousingList);
+		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", warehousingList);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
+	}
+	//입고 승인/반려 처리
+	@PostMapping("/k3AllowWarehousing")
+	public String k3AllowWarehousing(@RequestParam(value="allowList[]", required=false)List<String> allowList,
+									 @RequestParam(value="YesOrNo", required=false)String YesOrNo){
+		log.info("컨트롤러//////입고 승인처리  allowList ------ " + allowList);
+		log.info("컨트롤러//////입고 반려처리  YesOrNo ------ " + YesOrNo);
+		Map<String, Object> warehousingList = new HashMap<String, Object>();
+		warehousingList.put("allowList", allowList);
+		warehousingList.put("YesOrNo", YesOrNo);
+
+		int result = k3WarehousingService.k3AllowWarehousing(warehousingList);
+		log.info("컨트롤러//////입고 승인처리 결과 result------ " + result);
+		return "redirect:/team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
 	
 	//입고 승인폼 이동
@@ -76,10 +98,23 @@ public class K3WarehousingController {
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
+	//입고분류 카테고리 선택처리
+	@PostMapping("/getCategoryList")
+	@ResponseBody
+	public List<Map<String, Object>> getCategoryList() {
+		List<Map<String, Object>> categoryList = k3CategoryService.getCategoryListByMap();
+		return categoryList;
+	}
 	
 	//입고분류 등록폼 이동
 	@GetMapping("/k3AddSort")
-	public String k3AddWarehousingSort() {
+	public String k3AddWarehousingSort(@RequestParam(value="warehousingCode", required= false) String warehousingCode,
+									   Model model) {
+		log.info("입고분류 등록폼 이동 값받아오기 warehousingCode ------.>>>>", warehousingCode);
+		List<K3LaydownCheck> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode);
+		model.addAttribute("warehousingSort", warehousingSort);
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고분류");
 		
 		return "team03/goodsManagement/warehousing/k3AddSort";
 	}
@@ -91,6 +126,15 @@ public class K3WarehousingController {
 		log.info("입고요청 처리 컨트롤러 결과: result ------ " + result);
 		return "redirect:/team03/goodsManagement/warehousing/k3WarehousingList";
 	}
+	//입고 요청폼에서 모달 조회 처리
+	@PostMapping("/findContractorName")
+	@ResponseBody
+	public List<Map<String, Object>> k3FindContractorName() {
+		List<Map<String, Object>> resultList = k3WarehousingService.k3FindContractorName();
+		log.info(" postMapping 입고청폼에서 모달 조회처리 결과  resultList ---------------------->>>>>>>>>", resultList);
+		return resultList;
+	}
+	
 	
 	//입고 요청폼 이동
 	@GetMapping("/k3AddWarehousing")
@@ -117,11 +161,13 @@ public class K3WarehousingController {
 	//입고 현황이동
 	@GetMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(Model model) {
-		List<K3Warehousing> K3LaydownCheck = k3WarehousingService.k3GetWarehousingList();
-		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + K3LaydownCheck);
+		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingList();
+		List<K3Warehousing> laydownCheck = k3WarehousingService.k3GetLaydownCheck();
+		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + warehousingList);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고현황");
-		model.addAttribute("K3LaydownCheck", K3LaydownCheck);
+		model.addAttribute("warehousingList", warehousingList);
+		model.addAttribute("laydownCheck", laydownCheck);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}

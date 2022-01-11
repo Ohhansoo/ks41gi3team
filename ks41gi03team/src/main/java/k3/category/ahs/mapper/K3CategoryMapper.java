@@ -1,6 +1,7 @@
 package k3.category.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,6 +27,8 @@ public interface K3CategoryMapper {
 	
 	//카테고리 현황(초기화면)
 	public List<K3Category> getCategoryList();
+	//카테고리 현황(초기화면2)
+	public List<Map<String, Object>> getCategoryListByMap(Map<String,Object> paramMap);
 
 
 

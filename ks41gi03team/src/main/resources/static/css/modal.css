@@ -30,7 +30,7 @@
 	margin: 0;
 	text-align: center;
 	border-radius: 10px;
-	width: 520px;
+	width: 600px;
 	border: 8px solid #4F5564;
 }
 .modal_header{
@@ -85,4 +85,7 @@
 }
 .exitBtn i {
 	color: white;
+}
+#findContractorName{
+	width: 30%; 
 }

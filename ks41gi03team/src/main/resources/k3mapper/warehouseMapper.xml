@@ -14,7 +14,28 @@
 		<result column="warehouseOperation" property="warehouseOperation" />
 	</resultMap> 
 --> 
-	<delete id="deleteWarehouseCode" parameterType="int">
+		<!-- 창고 목록 조회  -->
+	<select  id="getWarehouseListBySearchKey" parameterType="String" resultType="K3Warehouses">
+		SELECT
+			 warehouseCode
+			,warehouseName
+			,floorNumber		
+			,warehouseNumber
+			,warehouseArea
+			,warehouseFlat
+			,warehouseType
+			,warehouseDockNumber
+			,warehouseOperation
+		FROM	
+			k3_tb_mainWarehouse
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="warehouseValue != null and warehouseValue != ''.toString()">
+				${warehouseKey} LIKE CONCAT(#{warehouseValue}, '%');
+			</if>
+		</trim>	
+	</select>	
+		<!-- 창고 삭제 -->
+	<delete id="deleteWarehouseCode" parameterType="String">
 		DELETE
 			w
 		from
@@ -23,7 +44,7 @@
 			w.warehouseCode = #{warehouseCode};
 	</delete>
 		<!-- 창고수정을 위한 코드로 조회 -->
-	<select id="getK3ModifyWarehouseInfoByWarehouseCode" parameterType="int" resultType="K3Warehouses">
+	<select id="getK3ModifyWarehouseInfoByWarehouseCode" parameterType="String" resultType="K3Warehouses">
 		SELECT
 			 w.warehouseCode
 			,w.warehouseName
@@ -42,7 +63,7 @@
 		<!-- 창고수정 처리 -->
 	<update id="k3ModifyWarehouseInfo" parameterType="K3Warehouses">
 		UPDATE
-			k3_tb_warehouse AS w
+			k3_tb_mainWarehouse AS w
 		SET
 			 w.warehouseCode = #{warehouseCode}
 			,w.warehouseName = #{warehouseName}
@@ -57,7 +78,7 @@
 			w.warehouseCode = #{warehouseCode};
 	</update>
 		<!-- 창고등록처리 -->
-	<insert id="k3AddWarehouse" parameterType="K3Warehouses">
+	<insert id="k3AddWarehouse" parameterType="K3Warehouses" >
 		INSERT INTO k3_tb_mainWarehouse
 			(warehouseName
 			,floorNumber

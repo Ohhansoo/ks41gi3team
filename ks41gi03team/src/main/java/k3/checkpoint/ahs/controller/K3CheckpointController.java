@@ -35,6 +35,14 @@ public class K3CheckpointController {
 		return "team03/delivery/checkpoint/k3CheckpointList";
 	}
 	
+	//삭제
+	@PostMapping("/k3DeleteCheckpoint")
+	public String k3DeleteCheckpoint(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		Integer result = k3CheckpointService.k3DeleteCheckpoint(deleteList);
+		log.info("DeleteCheckpoint 전송결과 : " + result);
+		return "redirect:/team03/delivery/checkpoint/k3CheckpointList";
+	}
+	
 	//등록 화면
 	@GetMapping("/k3AddCheckpoint")
 	public String chekcpointCheck(Model model) {
@@ -74,5 +82,6 @@ public class K3CheckpointController {
 		
 		return "redirect:/team03/delivery/checkpoint/k3CheckpointList";
 	}
+	
 	
 }

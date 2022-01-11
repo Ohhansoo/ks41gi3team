@@ -7,10 +7,6 @@
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 	  <style>
-      table {
-        width: 1000px;
-        height: 200px;
-      }
       td {
         text-align: center;
       }
@@ -21,7 +17,6 @@
 	<script>
 			$(function(){				
 				$('#addmemberuserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
 				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
@@ -76,16 +71,16 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/level/k3MemberUserLevelList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="categoryKey" class="input-group-text">
-												<option value="ourCompanyCode">권한번호</option>
-												<option value="ourCompanyCode">권한이름</option>
+											<select name="memberuserlevelKey" class="input-group-text">
+												<option value="levelCode">권한번호</option>
+												<option value="levelName">권한이름</option>
 											</select>
 										</div>
-										<input type="text" name="categoryValue" class="form-control" >
-										<button id="categorySearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="memberuserlevelValue" class="form-control" >
+										<button id="memberuserlevelSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -103,7 +98,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
+							<form id="searchForm" th:action="@{/tteam03/companymanagement/level/k3MemberUserLevelList}" method="post">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
@@ -114,24 +109,18 @@
 										</tr>
 									</thead>
 									<tbody>								
-			   							<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
+			   							<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
 							   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.ourCompanyCode}">
+												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.levelCode}">
 												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 											</td>
 							   				<td>
-												<a th:href="@{/team03/companymanagement/member/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">수정</a>
+												<a th:href="@{/team03/companymanagement/level/k3ModifyMemberUserLevelList(levelCode=${l.levelCode})}">수정</a>
 											</td>	
-							   				<td th:text="${l.ourCompanyCode}"></td>
-							   				<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>
-							   				<td th:text="${l.ourCompanyBusinessName}"></td>
-							   				<td th:text="${l.ourCompanyBusinessCheifName}"></td>
-							   				<td th:text="${l.ourCompanyWorkPlaceAddr}"></td>
-							   				<td th:text="${l.ourCompanyStatus}"></td>
-							   				<td th:text="${l.ourCompanyWorkType}"></td>
-							   				<td th:text="${l.ourCompanyEmail}"></td>
+							   				<td th:text="${l.levelCode}"></td>
+							   				<td th:text="${l.levelName}"></td>
 						   			</tr>
-			   						<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
+			   						<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
 						   				<td colspan="9">등록된 직원이 없습니다.</td>
 						   			</tr>
 									</tbody>						

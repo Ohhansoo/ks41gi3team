@@ -26,35 +26,7 @@ public class K3OurcompanyController {
 	public K3OurcompanyController(K3OurcompanyService ourcompanyService) {
 		this.ourcompanyService = ourcompanyService;
 	}
-    //수정폼이동
-    @GetMapping("/k3ModifyOurCompanyAdmin") 
-    	public String k3ModifyOurCompanyAdmin(@RequestParam(value="ourCompanyCode", required = false) String ourCompanyCode, Model model) {
-			System.out.println("01 220107 k3ModifyOurCompanyAdmin K3OurcompanyController.java");
-
-    			if(ourCompanyCode != null && !"".equals(ourCompanyCode)) {
-    				K3OurCompany k3OurCompanyInfo = ourcompanyService.K3OurCompanyInfoBycode(ourCompanyCode);
-    				model.addAttribute("k3OurCompanyInfo", k3OurCompanyInfo);
-    			}
-    			model.addAttribute("title", "자사정보 관리");
-    			model.addAttribute("subtitle", "자사정보 수정");
-    			return "team03/companymanagement/ourcompany/k3ModifyOurCompanyAdmin";
-    		}
-    
-	//자사 등록처리
-	@PostMapping("/k3AddOurCompanyList")
-	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {
-		ourcompanyService.AddOurCompany(k3ourcompany);
-		return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
-	}
-	//자사 등록화면(이동)
-	@GetMapping("/k3AddOurCompanyList")
-	public String AddOurCompany(Model model) {
-		model.addAttribute("title", "자사정보관리");
-		model.addAttribute("subtitle", "자사정보등록");
-		//return "redirect:/team03/ourcompany/k3OurCompanyList";
-		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
-	}
-	//자사조회
+	//01 자사조회
 	@GetMapping("/k3OurCompanyList")
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();
@@ -62,7 +34,47 @@ public class K3OurcompanyController {
 		model.addAttribute("title","자사정보 조회");
 		model.addAttribute("ourcompanyList",ourcompanyList);
 		return "team03/companymanagement/ourcompany/k3OurCompanyList";
+		
+	}
+	
+	//02 자사 등록화면(이동)
+	@GetMapping("/k3AddOurCompanyList")
+	public String AddOurCompany(Model model) {
+		model.addAttribute("title", "자사정보관리");
+		model.addAttribute("subtitle", "자사정보등록");
+		//return "redirect:/team03/ourcompany/k3OurCompanyList";
+		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
+		
+	}
+	
+	//03 자사 등록처리
+	@PostMapping("/k3AddOurCompanyList")
+	public String k3MoveToAddOurCompanyForm(K3OurCompany k3ourcompany) {
+		ourcompanyService.AddOurCompany(k3ourcompany);
+		return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
 
-	
+	//04 자사 수정폼 이동
+	@GetMapping("/k3ModifyOurCompanyList")
+	public String k3ModifyOurCompany(@RequestParam(value="ourCompanyCode", required = false) String ourCompanyCode, Model model) {
+		  System.out.println("04 220109 k3ModifyOurCompany K3OurcompanyController.java");
+		  
+		  if(ourCompanyCode != null && !"".equals(ourCompanyCode)) {
+			  K3OurCompany k3OurCompanyInfo = ourcompanyService.K3OurCompanyInfoBycode(ourCompanyCode);
+			  model.addAttribute("k3OurCompanyInfo", k3OurCompanyInfo);
+		  }
+		  model.addAttribute("title","자사정보 관리");
+		  model.addAttribute("subtitle","자사정보 수정");
+		  return "team03/companymanagement/ourcompany/k3ModifyOurCompanyList";
+		  
+	}
+	//05 자사 수정처리
+	@PostMapping("/k3ModifyOurCompanyInfo")
+	public String k3ModifyOurCompanyInfo(K3OurCompany k3ourcompany) {
+		  System.out.println("05 220109 k3ModifyOurCompanyInfo K3OurcompanyController.java");
+		  
+		  int result = ourcompanyService.k3ModifyOurCompanyInfo(k3ourcompany);
+		  
+		  return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
+	}
 }

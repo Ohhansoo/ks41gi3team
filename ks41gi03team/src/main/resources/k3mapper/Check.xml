@@ -15,7 +15,31 @@
 		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
 		<result column="shipmentCheckResult" property="shipmentCheckResult" />
 	</resultMap>
-		
+	
+	<update id="k3AddLaydownCheck">
+		UPDATE
+			k3_tb_warehousing
+		SET
+			laydownCheckCode = #{laydownCheckCode},
+			laydownCheckResult = #{laydownCheckResult},
+			laydownCheckManager = #{laydownCheckManager},
+			laydownCheckDate = #{laydownCheckDate}
+		WHERE
+			warehousingCode = #{warehousingCode};
+	</update>
+	
+	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
+		SELECT
+			W.warehousingCode,
+			W.laydownGoodsName,
+			W.laydownGoodsCount
+		FROM
+			k3_tb_warehousing AS W
+		WHERE
+			warehousingCode = #{warehousingCode};
+	</select>
+	
+	
 	<select id="k3GetShipmentCheckList" resultType="K3ShipmentCheck">
 		SELECT
 			r.releaseCode,
@@ -45,5 +69,22 @@
 		WHERE
 			r.releaseAllow = 'Y';
 	</select>
-
+	
+	<select id="k3GetLaydownCheckList" resultType="K3LaydownCheck">
+		SELECT
+		   w.warehousingCode,
+		   w.laydownCheckCode,
+		   w.laydownGoodsName,
+		   w.laydownGoodsCount,
+		   c.contractorName,
+		   w.laydownDate
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+		WHERE
+			w.warehousingAllow = 'Y' AND w.laydownCheckResult IS NULL;
+	</select>
 </mapper>

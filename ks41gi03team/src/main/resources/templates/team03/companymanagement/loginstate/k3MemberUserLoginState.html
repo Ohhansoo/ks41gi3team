@@ -18,33 +18,6 @@
         text-align: center;
       }
     </style>
-	<script>
-			$(function(){				
-				$('#addmemberuserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
-				});
-				
-				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
-			});
-		</script> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -85,9 +58,14 @@
 												<option value="loginMacAddress">MacAddress</option>
 											</select>
 										</div>
-										<input type="text" name="memberuserValue" class="form-control" style="height: 38px;  font-size: 18px;">
-											<div class="btn btn-default" style="height: 38px;">
-											<i class="fas fa-search icon"></i>
+										<input type="text" name="loginstateValue" class="form-control" placeholder="로그인 코드"  style="height: 38px;  font-size: 15px;">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="loginstateSearch" type="submit" style="width: 35px; height: 35px;">
+													<i class="fas fa-search icon" ></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -122,13 +100,7 @@
 										</tr>
 									</thead>
 									<tbody>								
-										<tr th:if="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
-						   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.loginCode}">
-											</td>
-							   				<td>
-												<a th:href="@{/team03/companymanagement/loginstate/k3MemberUserLoginState(loginCode=${l.loginCode})}">수정</a>
-											</td>	
+										<tr th:if="${not #lists.isEmpty(loginstateList)}" th:each="l : ${loginstateList}">		
 						   				<td th:text="${l.loginCode}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberId}"></td>

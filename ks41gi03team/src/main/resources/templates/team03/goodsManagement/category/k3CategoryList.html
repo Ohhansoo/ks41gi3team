@@ -46,7 +46,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteCheckpointBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>					
@@ -110,7 +110,6 @@
 										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
 											<td>
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
-												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 											</td>
 											<td>
 												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>

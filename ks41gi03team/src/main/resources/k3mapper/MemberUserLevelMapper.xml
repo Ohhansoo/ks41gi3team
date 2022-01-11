@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.memberuser.ahs.mapper.K3MemberUserMapper">
+<mapper namespace="k3.memberuser.ahs.mapper.K3MemberUserLevelMapper">
 <!-- 	<resultMap type="K3Category" id="categoryResultMap">
 		<result column="largeCategory" property="largeCategory" />
 		<result column="mainBusinessCode" property="mainBusinessCode" />

@@ -31,12 +31,19 @@ public class K3DispatchService {
 		return result;
 	}
 	
-	//수정
+	//수정 화면
 	public K3Dispatch getModifyDispatch(String dispatchCode) {
 		return k3DispatchMapper.getModifyDispatch(dispatchCode);
 	}
 	
+	//수정
 	public Integer modifyDispatch(K3Dispatch k3Dispatch) {
 		return k3DispatchMapper.modifyDispatch(k3Dispatch);
+	}
+	
+	//검색
+	public List<K3Dispatch> k3SearchDispatchList(String dispatchKey, String dispatchValue){
+		List<K3Dispatch> k3DispatchList = k3DispatchMapper.k3SearchDispatchList(dispatchKey, dispatchValue);
+		return k3DispatchList;
 	}
 }

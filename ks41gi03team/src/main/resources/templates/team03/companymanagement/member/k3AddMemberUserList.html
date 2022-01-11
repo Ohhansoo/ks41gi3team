@@ -2,17 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
-			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
+	<th:block layout:fragment="customJs">
+	<script>	
+		$(function(){
+
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
 				});
+		
+				$(document).on('click', '#checkbtn', function(){ 
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					 $('#k3membermodal').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/companymanagement/member/k3membermodal',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+					},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					}); 
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+					
+						
+				});
+				 $(document).on('click', '#checkmemberBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var levelMemberCodeInput = $('#levelMemberCodeInput');
+	 				
+	 				var levelMemberCodeInpuValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				levelMemberCodeInput.attr('value',levelMemberCodeInpuValue);
+
+					modal.addClass('hidden');
+				}); 
 			});
-		</script>	 
+			</script>
+	</th:block>	
+	<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -45,6 +102,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="mediumCategoryInput" class="inputName">권한번호</label>
 										<input class="inputBox" type="text" id="levelMemberCodeInput" name="levelMemberCode">&nbsp;
+										<button type="button" id="checkbtn">직원선택</button> 
 										*관리자 - GM, 팀장 - TM, 사원 - ST, 거래처 - CT
 									</div>	
 									<div class="inputwrap col-md-12">
@@ -113,5 +171,34 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">카테고리 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="k3membermodal" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회원코드</th>
+									<th>회원명</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 	</th:block>
 </head>

@@ -92,5 +92,15 @@
 		WHERE
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</update>
+	
+	<delete id="k3DeleteCheckpoint" parameterType="Integer">
+		DELECT
+			vc
+		FROM
+			k3_tb_vehicle_checkpoint AS vc
+			<foreach collection="list" item="deleteList" open="WHERE 1=2">
+				or vehicleCheckpointCode = #{deleteList}
+			</foreach>
+	</delete>
 
 </mapper>
