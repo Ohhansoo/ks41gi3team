@@ -45,7 +45,7 @@ public class K3CheckController {
 	//입하검수 등록처리
 	@GetMapping("/k3AddLaydownCheck")
 	public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
-			Model model){
+									Model model){
 		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
 		List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode);		
 		log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
@@ -65,6 +65,8 @@ public class K3CheckController {
 	@GetMapping("/k3LaydownCheckList")
 	public String k3GetLaydownCheckList(Model model){
 		List<K3LaydownCheck> laydownCheck = k3CheckService.k3GetLaydownCheckList();
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입하현황");
 		model.addAttribute("laydownCheck", laydownCheck);
 		return "team03/goodsManagement/check/k3LaydownCheckList";
 	}

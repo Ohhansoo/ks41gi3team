@@ -1,6 +1,7 @@
 package k3.memberuser.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class K3MemberUserService {
 	public K3MemberUserService(K3MemberUserMapper memberuserMapper) {
 		this.memberuserMapper = memberuserMapper;
 	}
-	//로그인
+	/*//로그인
 		public List<K3MemberUser> MemberUserList(String searchKey, String searchValue) {
 			List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserListBySearchKey(searchKey, searchValue);
 			
@@ -37,8 +38,7 @@ public class K3MemberUserService {
 					}
 				}
 			}
-			return memberuserList;
-		}
+			return memberuserList; */
 		
 		//01 직원현황(초기화면)
 		public List<K3MemberUser> getMemberUserList() {
@@ -83,9 +83,15 @@ public class K3MemberUserService {
 		}
 		
 		//08 직원검색
-		public List<K3MemberUser> k3GetMemberUSerSearchList(String memberuserKey, String memberuserValue){
-			List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserListBySearchKey(memberuserKey, memberuserValue);
+		public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue){
+			List<K3MemberUser> memberuserList = memberuserMapper.k3GetMemberUserSearchList(memberuserKey, memberuserValue);
 			return memberuserList;
+		}
+		
+		//09 모달
+		public List<Map<String, Object>> k3GetMemberUserModalList() {
+			List<Map<String, Object>> modalList = memberuserMapper.k3GetModalList(null);
+			return modalList;
 		}
 	  
 	

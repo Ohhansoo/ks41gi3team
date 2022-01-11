@@ -1,6 +1,7 @@
 package k3.memberuser.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,9 +120,9 @@ public class K3MemberUserController {
 	  //08 직원정보 검색
 	  @PostMapping("/k3MemberUserList") 
 	  public String k3GetMemberUserSearchList(@RequestParam(value="memberuserKey", required = false) String memberuserKey,
-			  															@RequestParam(value="memberuserValue", required = false) String memberuserValue,
-			  															Model model) { 
-		  if(memberuserKey != null && "memberId".equals(memberuserKey)) {
+			  															  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
+			  															  Model model) { 
+		  	if(memberuserKey != null && "memberId".equals(memberuserKey)) {
 			      memberuserKey = "memberId"; 
 			  }else if(memberuserKey != null && "memberPassword".equals(memberuserKey)) {
 			     memberuserKey = "memberPassword"; 
@@ -129,8 +130,10 @@ public class K3MemberUserController {
 				 memberuserKey = "mainBusinessCode"; 
 			  }else if(memberuserKey != null &&"memberName".equals(memberuserKey)) {
 				  memberuserKey = "memberName"; 
+			  }else if(memberuserKey != null &&"levelMemberCode".equals(memberuserKey)) {
+				  memberuserKey = "levelMemberCode"; 
 			  }else if(memberuserKey != null && "memberGender".equals(memberuserKey)) {
-		          memberuserKey = "memberGender"; 
+		          memberuserKey = "memberGender";
 			  }else if(memberuserKey != null && "memberAddr".equals(memberuserKey)) { 
 				  memberuserKey = "memberAddr"; 
 			  }else if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
@@ -146,12 +149,25 @@ public class K3MemberUserController {
 		      } 
 		  		System.out.println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
 		  		
-		  		List<K3MemberUser> memberuserList = memberuserService.k3GetMemberUSerSearchList(memberuserKey, memberuserValue);
+		  		List<K3MemberUser> memberuserList = memberuserService.k3GetMemberUserSearchList(memberuserKey, memberuserValue);
 	  
-		  		model.addAttribute("title","차량관리");
+		  		model.addAttribute("title","직원관리");
 		  		model.addAttribute("memberuserList",memberuserList);
 		  		
 		  		return "team03/companymanagement/member/k3MemberUserList"; }
-	 
-		 
-}
+	
+	  //모달
+		@PostMapping("/k3membermodal")
+		public List<Map<String, Object>> k3GetMemberUserModalList(){
+			List<Map<String, Object>> modalList  = memberuserService.k3GetMemberUserModalList();
+			return modalList;
+		}
+		
+		}
+		
+		
+		
+		
+		
+		
+		

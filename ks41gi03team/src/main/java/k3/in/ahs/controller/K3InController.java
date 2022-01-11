@@ -73,8 +73,8 @@ public class K3InController {
 		//매출 내역 등록화면(이동)
 		@GetMapping("/k3AddIn")
 		public String goToInAddForm(Model model) {
-			model.addAttribute("title", "입출금내역 관리");
-			model.addAttribute("subtitle", "입출금내역 등록");
+			model.addAttribute("title", "매출 내역 관리");
+			model.addAttribute("subtitle", "매출 내역 등록");
 			System.out.println("매출 내역 등록 컨트롤러 실행");
 			System.out.println(model + "model 값");
 			return "/team03/finance/in/k3AddIn";
@@ -84,8 +84,8 @@ public class K3InController {
 		@GetMapping("/k3InList")
 		public String InList(Model model) {
 			List<K3In> inList = k3InService.getInList();
-			model.addAttribute("title", "입출금 내역");
-			model.addAttribute("subtitle", "입출금 내역 조회");
+			model.addAttribute("title", "매출 내역 관리");
+			model.addAttribute("subtitle", "매출 내역 조회");
 			model.addAttribute("inList", inList);
 			System.out.println("매출 내역 조회 컨트롤러 실행");
 			
