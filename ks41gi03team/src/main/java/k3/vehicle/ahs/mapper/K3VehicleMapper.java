@@ -1,6 +1,7 @@
 package k3.vehicle.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,5 +27,8 @@ public interface K3VehicleMapper {
 	
 	//단건 삭제
 	public Integer k3DeleteVehicle(String vehicleCode);
+	
+	//모달
+	public List<Map<String, Object>> k3SelectVehicleMemberId(Map<String,Object> paraMap);
 
 }
