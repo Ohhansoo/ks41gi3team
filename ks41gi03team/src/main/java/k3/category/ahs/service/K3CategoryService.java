@@ -1,6 +1,7 @@
 package k3.category.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,11 @@ public class K3CategoryService {
 	//카테고리 현황(초기화면)
 	public List<K3Category> getCategoryList(){		
 		List<K3Category> categoryList = k3CategoryMapper.getCategoryList();
+		return categoryList;
+	}
+	//카테고리 현황(초기화면2)
+	public List<Map<String, Object>> getCategoryListByMap(){		
+		List<Map<String, Object>> categoryList = k3CategoryMapper.getCategoryListByMap(null);
 		return categoryList;
 	}
 

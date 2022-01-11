@@ -263,7 +263,7 @@
 													<a th:href="@{#}">수정</a>
 												</td>
 												<td>
-													<a th:href="@{/team03/goodsManagement/check/k3AddlLaydownCheck}">등록</a>
+													<a th:if="${l.laydownCheckResult} == 'Y'" th:href="@{/team03/goodsManagement/warehousing/k3AddSort(warehousingCode=${l.warehousingCode})}">등록</a>
 												</td>
 												<td th:text="${l.laydownCheckCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>

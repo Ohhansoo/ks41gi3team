@@ -85,5 +85,15 @@
 		FROM
 				k3_tb_total_category AS c;
 	</select>
+	
+	<select id="getCategoryListByMap" parameterType="map" resultType="map">
+		SELECT
+				c.categoryCode AS categoryCode,
+				c.largeCategory AS largeCategory,
+				c.mediumCategory AS mediumCategory, 
+				c.smallCategory AS smallCategory
+		FROM
+				k3_tb_total_category AS c;
+	</select>
 
 </mapper>

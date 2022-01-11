@@ -5,6 +5,10 @@
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript">
 			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+				});
+				
 				$(document).on('click', '#moveAddLaydownCheckBtn', function(){
 						var check = $('.laydownCheckList:checked');
 						//var ladonwCheckList = [];
