@@ -53,12 +53,13 @@ public class K3WarehouseService {
 		System.out.println("k3ModifyWarehouseInfo Service >>>>>>> "+ k3Warehouses);
 		return k3WarehouseMapper.k3ModifyWarehouseInfo(k3Warehouses);
 	}
+	
 	/**
 	 * 창고고유고드로 창고삭제
 	 */
-	public void deleteWarehouseCode(String warehouseCode) {
+	public int deleteWarehouseCode(String warehouseCode) {
 		
-		k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
+		return k3WarehouseMapper.deleteWarehouseCode(warehouseCode);
 	}
 	
 }

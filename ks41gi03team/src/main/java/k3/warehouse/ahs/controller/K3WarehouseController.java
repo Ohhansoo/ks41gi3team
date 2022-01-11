@@ -124,10 +124,17 @@ public class K3WarehouseController {
 	 * 창고삭제(처리)
 	 */
 	@PostMapping("/k3DeleteWarehouse")
-	public String getK3DeleteWarehouse(@RequestParam String warehouseCode) {
-
-		System.out.println("controller-------> " + warehouseCode);
-		k3WarehouseService.deleteWarehouseCode(warehouseCode);
-		return "team03/spaceBusiness/warehouse/k3WarehouseList";
+	@ResponseBody
+	public boolean getK3DeleteWarehouse(@RequestParam String warehouseCode) {
+		
+		boolean check = false;
+		
+		int result = k3WarehouseService.deleteWarehouseCode(warehouseCode);
+		
+		if(result > 0) {
+			check = true;
+		}
+		
+		return check;
 	}
 }
