@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.mapper.K3SubjectMapper;
+import k3.vehicle.ahs.dto.K3Vehicle;
 
 
 @Service
@@ -20,6 +21,11 @@ public class K3SubjectService {
 		this.k3SubjectMapper = k3SubjectMapper;
 	}
 	
+	//계정과목 검색
+	public List<K3Subject> searchSubjectList(String subjectKey, String subjectValue){
+		List<K3Subject> k3SubjectList = k3SubjectMapper.searchSubjectList(subjectKey, subjectValue);
+		return k3SubjectList;
+	}
 	
 	//계정과목 삭제처리
 	public int deleteSubject(List<String> deleteList) {

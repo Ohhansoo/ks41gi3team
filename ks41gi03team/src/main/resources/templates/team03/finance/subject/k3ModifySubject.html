@@ -9,44 +9,43 @@
 		
 		<div class="card-body">
 			<div class="row">
-				<form th:action="@{/team03/finance/subject/k3ModifySubject}" method="post">
-					
+				<form id="subjectInfo" th:action="@{/team03/finance/subject/k3ModifySubject}" method="post">
 					<div class="inputwrap col-md-12">
-						<label for="subjectCodeInput" class="inputName">계정과목 코드</label>
-						<input class="inputBox" type="text" id="subjectCodeInput" name="subjectCode" th:value="${subjectInfo.subjectCode}"/> 
+						<label for="asCodeInput" class="inputName">계정과목 코드</label>
+						<input class="inputBox" type="text" id="asCodeInput" name="asCode" th:value="${subjectInfo.asCode}"/> 
 					</div>
 					<div class="inputwrap col-md-12">
-						<label for="subjectNameInput" class="inputName">계정과목 이름</label>
-						<input class="inputBox" type="text" id="subjectNameInput" name="subjectName" th:value="${subjectInfo.subjectName}"/>
+						<label for="asNameInput" class="inputName">계정과목 이름</label>
+						<input class="inputBox" type="text" id="asNameInput" name="asName" th:value="${subjectInfo.asName}"/>
 					</div>	
 					
 					<div class="inputwrap col-md-12">
-						<label for="subjectGCodeInput" class="inputName">통합계정과목 코드</label>
-						<input class="inputBox" type="text" id="subjectGCodeInput" name="subjectGCode" th:value="${subjectInfo.subjectGCode}"/>
+						<label for="asGCodeInput" class="inputName">통합계정과목 코드</label>
+						<input class="inputBox" type="text" id="asGCodeInput" name="asGCode" th:value="${subjectInfo.asGCode}"/>
 					</div>	
 					
 					<div class="inputwrap col-md-12">
-						<label for="subjectUseInput" class="inputName">계정과목 사용여부</label>
-						<input class="inputBox" type="text" id="subjectUseInput" name="isUse" th:value="${subjectInfo.isUse}"/>
+						<label for="asUseInput" class="inputName">계정과목 사용여부</label>
+						<input class="inputBox" type="text" id="asUseInput" name="asUse" th:value="${subjectInfo.asUse}"/>
 					</div>	
 					<div class="inputwrap col-md-12">
-						<label for="subjectCorrectInput" class="inputName">계정과목 수정여부</label>
-						<input class="inputBox" type="text" id="subjectCorrectInput" name="isCorrect" th:value="${subjectInfo.isCorrect}"/>
-					</div>	
-					
-					<div class="inputwrap col-md-12">
-						<label for="subjectMemberId" class="inputName">등록자아이디</label>
-						<input class="inputBox" type="text" id="subjectMemberInput" name="regName" th:value="${subjectInfo.regName}"/>
+						<label for="asCorrectInput" class="inputName">계정과목 수정여부</label>
+						<input class="inputBox" type="text" id="asCorrectInput" name="asCorrect" th:value="${subjectInfo.asCorrect}"/>
 					</div>	
 					
 					<div class="inputwrap col-md-12">
-						<label for="subjectRegDateInput" class="inputName">등록날짜</label>
-						<input class="inputBox" type="text" id="subjectRegDateInput" name="regDate" th:value="${subjectInfo.regDate}"/>
+						<label for="memberIdInput" class="inputName">등록자아이디</label>
+						<input class="inputBox" type="text" id="memberInput" name="memberId" th:value="${subjectInfo.memberId}"/>
 					</div>	
 					
 					<div class="inputwrap col-md-12">
-						<label for="subjectApplyDateInput" class="inputName">적용연도</label>
-						<input class="inputBox" type="text" id="subjectApplyDateInput" name="applyYear" th:value="${subjectInfo.applyYear}"/>
+						<label for="asRegDateInput" class="inputName">등록날짜</label>
+						<input class="inputBox" type="text" id="asRegDateInput" name="asRegDate" th:value="${subjectInfo.asRegDate}"/>
+					</div>	
+					
+					<div class="inputwrap col-md-12">
+						<label for="asYearInput" class="inputName">적용연도</label>
+						<input class="inputBox" type="text" id="asYearInput" name="asYear" th:value="${subjectInfo.asYear}"/>
 					</div>	
 					
 					<div class="d-flex justify-content-center">					
