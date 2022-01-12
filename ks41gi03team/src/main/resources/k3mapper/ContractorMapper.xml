@@ -177,24 +177,45 @@
 					#{contractorDevision}, #{contractorFax}, #{contractorState});
 	</insert>
 	
-	<!-- 검색된 거래처 투플 수(페이징) -->
-	<select id="K3SearchContractorCount" resultType="int" fetchSize="1000">
+	
+	<!-- 검색된 거래처 투플수(동적 페이징)  -->
+	<select id="K3SearchContractorCount" parameterType="map" resultType="map">
 		SELECT
-			COUNT(1)
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
 		FROM
 			k3_tb_contractor AS c
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			c.contractorId = cs.contractorId;
-		<trim prefix="WHERE" prefixOverrides="AND /OR">
-			<if test="searchValue != null and searchValue != ''.toString()">
-				${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			c.contractorId = cs.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
+						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
+				 contractorRegistrationDate
+	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
 			</if>
-		</trim>					
-	</select>	
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			
+			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
+				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			c.contractorRegistrationDate DESC
+	</select>
 	
-	<!-- 검색된 거래처 정보 -->
+	<!-- 검색된 거래처 정보(동적 페이징) -->
 	<select id="K3SearchContractorList" parameterType="map" resultType="map">
 		SELECT
 			c.contractorCode
@@ -219,11 +240,21 @@
 				 contractorRegistrationDate
 	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
 			</if>
-			<if test="searchValue != null and searchValue != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			
+			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
+				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
 		</trim>	
+		ORDER BY
+			c.contractorRegistrationDate DESC
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
+		</if>
 	</select>
+
 
 	<!-- 거래처 상세정보 불러오기 -->
 	<select id="K3GetDetailContractor" parameterType="String" resultType="K3DetailContractor">
@@ -294,6 +325,8 @@
 			k3_tb_contractor_staff AS cs
 			on
 			c.contractorId = cs.contractorId
+		ORDER BY
+			c.contractorRegistrationDate DESC
 		<if test="startNum != null">
 			LIMIT #{startNum}, #{rowPerPage};
 		</if>			

@@ -56,15 +56,74 @@ public class K3ContractorService {
 	
 	
 	  //거래처 조회(검색)
-	public Map<String, Object> K3SearchContractorList(String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue){ 
+	public Map<String, Object> K3SearchContractorList(String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue, int currentPage)
+	{ 
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
-		Map<String, Object> k3SearchContractorList = k3ContractorMapper.K3SearchContractorList(searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
+		List<Map<String,Object>> contractorListCount = k3ContractorMapper.K3SearchContractorCount(paramMap, searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
+		
+		System.out.println("뭐가 담겨있나 : " + contractorListCount);		
+		
+		// 검색된 거래처 투플 수(페이징)
+		double rowCount = contractorListCount.size();
+		
+		System.out.println("얼마나 보여줄까 : " + rowCount);
+		
+		// 보여줄 행의 개수
+		int rowPerPage = 0;
+		if(rowCount < 5) {
+			rowPerPage = (int) rowCount;
+		}else {
+			rowPerPage = 5;
+		}
+		System.out.println("몇개일까" + rowCount + "얼마나 보여줄까" + rowPerPage);
+		
+		//마지막 페이지
+		int lastPage = (int) Math.ceil((rowCount / rowPerPage));
+		
+		//페이지 알고리즘
+		int startNum = (currentPage - 1) * rowPerPage;
+		
+		// 보여줄 시작 페이지 번호
+		int startPageNum = 1;
+		
+		// 보여줄 마지막 페이지 번호
+		int endPageNum = 0;
+		if(lastPage > 5) {
+			endPageNum = 5;
+		}else {
+			endPageNum = lastPage;
+		}
+		
+		// 동적 페이지 구성 (7페이지 부터)
+		if(currentPage > 5) {
+			startPageNum = currentPage - 2;
+			endPageNum = currentPage + 2;
+			if(endPageNum > lastPage) {
+				startPageNum = lastPage - 4;
+				endPageNum = lastPage;
+			}
+		}
 
+		paramMap.put("startNum", startNum);
+		paramMap.put("rowPerPage", rowPerPage);
 		
-	  return k3SearchContractorList; 
+		System.out.println("paramMap 내부확인"+ paramMap);
+		
+		List<Map<String,Object>> contractorList = k3ContractorMapper.K3SearchContractorList(paramMap, searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
+
+		paramMap.clear();
+		
+		paramMap.put("lastPage", lastPage);
+		paramMap.put("contractorList", contractorList);
+		paramMap.put("startPageNum", startPageNum);
+		paramMap.put("endPageNum", endPageNum);
+		
+		System.out.println("paramMap 내부확인2"+ paramMap);		
+		
+		return paramMap;
+		
 	}
-	 
-	
 	
 	
 	//거래처 리스트(상세) 모달창
