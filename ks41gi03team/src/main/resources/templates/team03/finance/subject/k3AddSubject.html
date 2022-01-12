@@ -6,82 +6,69 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+		<script>
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					history.back();
+				});
+			});
+		</script>	 
 		<div id="representative-button">
 			<div id="representative-button">
-				<form id="addSubject" th:action="@{/team03/finance/subject/k3SubjectList}" method="post">
-					<table border="1">
-							<tr>
-								<td>
-									<label for="subjectCodeInput">계정과목 코드</label>
-								</td>
-								<td>
-									<input type="text" id="subjectCodeInput" name="subjectCode">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectNameInput">계정과목 이름</label>
-								</td>
-								<td>
-									<input type="text" id="subjectNameInput" name="subjectName">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectGCodeInput">통합계정과목 코드</label>
-								</td>
-								<td>
-									<input type="text" id="subjectGCodeInput" name="subjectGCode">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectUseInput">계정과목 사용여부</label>
-								</td>
-								<td>
-									<input type="text" id="subjectUseInput" name="isUse">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectCorrectInput">계정과목 수정여부</label>
-								</td>
-								<td>
-									<input type="text" id="subjectCorrectInput" name="isCorrect">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectMemberId">등록자아이디</label>
-								</td>
-								<td>
-									<input type="text" id="subjectMemberInput" name="regName">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectRegDateInput">등록날짜</label>
-								</td>
-								<td>
-									<input type="text" id="subjectRegDateInput" name="regDate">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="subjectApplyDateInput">적용연도</label>
-								</td>
-								<td>
-									<input type="text" id="subjectApplyDateInput" name="applyYear">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input id="addBtn" type="submit" value="확인">
-								</td>
-							</tr>														
-					</table>
-				</form> 
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header cardHeadBorder">
+							<h4>계정과목 등록</h4>
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row">
+								<form id="subjectInfo" th:action="@{/team03/finance/subject/k3SubjectList}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="asCodeInput" class="inputName">계정과목코드</label>
+										<input class="inputBox" type="text" id="asCodeInput" name="asCode"> 
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="asNameInput" class="inputName">계정과목이름</label>
+										<input class="inputBox" type="text" id="asNameInput" name="asName">
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="asUseInput" class="inputName">계정과목 사용여부</label>
+										<input class="inputBox" type="text" id="asUseInput" name="asUse">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="asCorrectInput" class="inputName">계정과목 수정여부</label>
+										<input class="inputBox" type="text" id="asCorrectInput" name="asCorrect">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberIdInput" class="inputName">등록자아이디</label>
+										<input class="inputBox" type="text" id="memberIdInput" name="membeId">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="asRegDateInput" class="inputName">등록날짜</label>
+										<input class="inputBox" type="text" id="asRegDateInput" name="asRegDate">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="asYearInput" class="inputName">적용연도</label>
+										<input class="inputBox" type="text" id="asYearInput" name="asYear">
+									</div>								
+									<div class="d-flex justify-content-center">					
+										<button class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
+										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>	
+								</form>
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>		
+		</div>
 	</th:block>
 </head>
