@@ -47,7 +47,8 @@ public class K3LoginController {
 			 
 			 		K3MemberUser k3memberuser = memberuserService.K3MemberUserInfoBycode(memberId);
 		     		System.out.println("아이디 입력완료, 비번도입력완");
-			         if(k3memberuser != null && k3memberuser.getMemberPassword()!= null && memberPassword.equals(k3memberuser.getMemberPassword())) {
+			         if(k3memberuser != null && k3memberuser.getMemberPassword()!= null 
+			        		 								&& memberPassword.equals(k3memberuser.getMemberPassword())) {
 			        	 
 			     		System.out.println("비번일치");
 
