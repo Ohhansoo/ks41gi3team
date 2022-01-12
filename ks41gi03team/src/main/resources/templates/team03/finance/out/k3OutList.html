@@ -24,7 +24,7 @@
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
 							
-							$('#inForm').submit();
+							$('#outForm').submit();
 						}
 						
 					}else{
@@ -34,54 +34,111 @@
 			});
 		</script>	
 		
-	 <form id="outForm" th:action="@{/team03/finance/out/k3DeleteOut}" method="post">
 		<div id="representative-button">
-			<div id="representative-button">
-				<table border="1">
-					<thead>
-						<tr>
-							<td>선택</td>
-							<td>비용코드</td>
-							<td>계정과목코드</td>
-							<td>계정과목이름</td>
-							<td>사업장별 대표코드</td>
-							<td>거래처 상호명</td>
-							<td>등록자아이디</td>
-							<td>등록일시</td>
-							<td>적요</td>
-							<td>비용금액</td>
-							<td>납부방법</td>
-							<td>영수증</td>
-							<td>수정</td>
-							<td>삭제</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${not #lists.isEmpty(outList)}" th:each="l : ${outList}">
-							<td>
-								<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.outCode}">
-							</td>						
-							<td th:text="${l.outCode}"></td>
-							<td th:text="${l.asCode}"></td>
-							<td th:text="${l.asName}"></td>
-							<td th:text="${l.mainBusinessCode}"></td>
-							<td th:text="${l.outName}"></td>
-							<td th:text="${l.memberId}"></td>
-							<td th:text="${l.outRegDate}"></td>
-							<td th:text="${l.outMemo}"></td>
-							<td th:text="${l.outPrice}"></td>
-							<td th:text="${l.outMethod}"></td>
-							<td th:text="${l.outReceipe}"></td>
-							<td>
-								<a th:href="@{/team03/finance/out/k3ModifyOut(outCode=${l.outCode})}">수정</a>
-							</td>
-							<td>
-								<a th:href="@{#}">삭제</a>
-							</td>			
-						</tr>
-					</tbody>
-				</table>
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/finance/out/k3AddOut'">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>					
+						<button id="deleteOutBtn" type="button" class="ahsbtn4 btn btn-outline-info deleteBbtn">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+					</div>
+				<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/finance/out/k3SearchOutList}" method="post">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm" name="outKey">
+										<option value="asName">계정과목이름</option>
+										<option value="outCode">비용코드</option>
+										<option value="outMemo">적요</option>
+									</select>
+										<input type="text" class="form-control" placeholder="검색" name="outValue">
+										<button type="submit">검색</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card underCard">
+						<!--card header -->
+						<div class="card-header deprbtn">
+							비용 내역 조회
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="outForm" th:action="@{/team03/finance/out/k3DeleteOut}" method="post">
+								<table class="table table-head-fixed text-nowrap table-striped">
+									<thead>
+										<tr>
+											<td>선택</td>
+											<td>수정</td>
+											<td>비용코드</td>
+											<td>계정과목코드</td>
+											<td>계정과목이름</td>
+											<td>사업장별 대표코드</td>
+											<td>거래처 상호명</td>
+											<td>등록자아이디</td>
+											<td>등록일시</td>
+											<td>적요</td>
+											<td>비용금액</td>
+											<td>납부방법</td>
+											<td>영수증</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(outList)}" th:each="l : ${outList}">
+											<td>
+												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.outCode}">
+											</td>
+											<td>
+											<a id="modifyOut" type="button" class="btn btn-default btn-sm" th:href="@{/team03/finance/out/k3ModifyOut(outCode=${l.outCode})}">
+													<i class="fas fa-pencil-alt icon"></i>
+											</a>
+											</td>
+											<td th:text="${l.outCode}"></td>
+											<td th:text="${l.asCode}"></td>
+											<td th:text="${l.asName}"></td>
+											<td th:text="${l.mainBusinessCode}"></td>
+											<td th:text="${l.outName}"></td>
+											<td th:text="${l.memberId}"></td>
+											<td th:text="${l.outRegDate}"></td>
+											<td th:text="${l.outMemo}"></td>
+											<td th:text="${l.outPrice}"></td>
+											<td th:text="${l.outMethod}"></td>
+											<td th:text="${l.outReceipe}"></td>
+										</tr>
+									</tbody>						
+								</table>
+							</form>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
 	</th:block>
-</head>

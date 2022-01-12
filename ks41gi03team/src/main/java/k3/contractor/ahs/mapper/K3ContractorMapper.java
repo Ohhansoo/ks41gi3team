@@ -23,12 +23,13 @@ public interface K3ContractorMapper {
 	public int k3AddContractor(K3DetailContractor k3DetailContractor);
 	
 	public int k3AddDetailContractor(K3DetailContractor k3DetailContractor);
+
 	
-	//조회된 거래처 테이블 투플의 총 개수
-	public int K3SearchContractorCount();
-	
+	//검색된 거래처 투플수(동적 페이징) 
+	public List<Map<String, Object>> K3SearchContractorCount(Map<String, Object> paramMap, String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue);
+
 	//거래처 조회(검색) 
-	public Map<String, Object> K3SearchContractorList(String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue);
+	public List<Map<String, Object>> K3SearchContractorList(Map<String, Object> paramMap, String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue);
 	 	
 	//거래처 상세정보 받아오기
 	public K3DetailContractor K3GetDetailContractor(String contractorCode);

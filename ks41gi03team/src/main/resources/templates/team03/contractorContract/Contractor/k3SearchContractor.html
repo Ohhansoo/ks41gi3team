@@ -14,8 +14,9 @@
 	
 	
 		<!-- 거래처 상세정보 모달창 스크립트 -->
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
 			$(document).ready(function(){ 
+				
 				$('.searchDetailContractor').click(function(){
 					var contractorCode = $(this).attr('data-contractorCode');
 					$.ajax({ 
@@ -75,6 +76,7 @@
 					tmodal += '<tr><th>등록직원아이디</th><td>'+ data.memberId +'</td>';
 					tmodal += '<th>등록일자</th><td>'+ data.contractorRegistrationDate +'</td></tr>';
 					
+					
 					$('.modifyModalBtn').attr('href','/team03/contractorContract/Contractor/k3ModifyContractor?contractorCode='+data.contractorCode);
 					$("#tmodal").append(tmodal);
 					$('#detailContractorModal').modal('show');
@@ -116,22 +118,22 @@
 					<div class="row" style="margin: 12px">
 						<!--inputbox 1 -->
 						<div class="col-sm-5" style="padding-left: 0px">
-							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="Post">
+							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractorList}" method="Get">
 								<div class="input-group  d-flex justify-content-start">
 									<div class="input-group-prepend">
 										<select class="form-control" name="searchKey">
-											<option value="contractorCode" selected>거래처 사업장 코드</option>
-											<option value="contractorName">거래처 상호명</option>
-											<option value="contractorItem">거래처 종목</option>
-											<option value="contractorStatus">거래처 업태</option>
-											<option value="contractorDevision">거래 구분</option>             
-											<option value="contractorPhone">거래처 전화번호</option>
-											<option value="contractorId">거래처아이디</option>
-											<option value="contractorState">거래처 계정상태</option>
-											<option value="memberId">등록직원</option>
-	        								</select>
-	        							</div>
-									<input type="text" class="form-control" placeholder="거래처정보입력"  name="searchValue" >
+											<option value="contractorCode" selected th:selected="${searchKey} == contractorCode">거래처 사업장 코드</option>
+											<option value="contractorName" th:selected="${searchKey} == contractorName">거래처 상호명</option>
+											<option value="contractorItem" th:selected="${searchKey} == contractorItem">거래처 종목</option>
+											<option value="contractorStatus" th:selected="${searchKey} == contractorStatus">거래처 업태</option>
+											<option value="contractorDevision" th:selected="${searchKey} == contractorDevision">거래 구분</option>             
+											<option value="contractorPhone" th:selected="${searchKey} == contractorPhone">거래처 전화번호</option>
+											<option value="contractorId" th:selected="${searchKey} == contractorId">거래처아이디</option>
+											<option value="contractorState" th:selected="${searchKey} == contractorState">거래처 계정상태</option>
+											<option value="memberId" th:selected="${searchKey} == memberId">등록직원</option>
+	        							</select>
+	        						</div>
+									<input type="text" class="form-control" placeholder="거래처정보입력" name="searchValue" th:value="${searchValue}">
 									<div class=" input-group-append">
 										<button type="submit" class="btn btn-default">
 											<i class="fas fa-search icon"></i>
@@ -145,7 +147,7 @@
 						</div>
 						<!--inputbox 2 -->
 						<div class="col-sm-6" style="padding-left: 0px">
-							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="Post" id="contractorSearchDate">
+							<form th:action="@{/team03/contractorContract/Contractor/k3SearchContractorList}" method="Get" id="contractorSearchDate">
 								<div class="input-group d-flex justify-content-end">
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
 										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택~">
@@ -160,7 +162,7 @@
 										</div>
 									</div>
 									<div class=" input-group-append">
-										<button name="contractorSearchDate" type="submit" class="btn btn-default">
+										<button type="submit" class="btn btn-default">
 											<i class="fas fa-search icon"></i>
 										</button>
 									</div>
@@ -243,16 +245,16 @@
 					</table>
 					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
 						<li class="paginate_button page-item previous" id="contractorList_previous">
-							<a th:if="${currentPage > 1}" th:href="@{k3SearchContractor(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+							<a th:if="${currentPage > 1}" th:href="@{${urlMap}(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
 								이전
 							</a>
 						</li>
-						<li class="paginate_button page-item" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-								<a  th:if="${num != currentPage}" th:href="@{k3SearchContractor(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+						<li class="paginate_button page-item" id="contractorList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+								<a  th:if="${num != currentPage}" th:href="@{${urlMap}(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 								<span  th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
 						</li>
 					     <li class="paginate_button page-item next" id="contractorList_next">
-							<a th:if="${currentPage < lastPage}" th:href="@{k3SearchContractor(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+							<a th:if="${currentPage < lastPage}" th:href="@{${urlMap}(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
 								다음
 							</a>
 					    </li>

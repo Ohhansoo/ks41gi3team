@@ -37,7 +37,7 @@
 											<label for="laydownCheckCode" class="inputName">입하검수코드</label>
 											<input class="inputBox" type="text" id="laydownCheckCode" name="laydownCheckCode"/>
 											<input type="hidden" id="warehousingCode" name="warehousingCode" th:value="${l.warehousingCode}"/>
-											<button>기존코드 사용</button>
+											<button type="button" id="findCode">기존코드 사용</button>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="laydownGoodsName" class="inputName">물품명</label>
@@ -49,12 +49,21 @@
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckResult" class="inputName">입하검수결과</label>
-											<input class="inputBox" type="text" id="laydownCheckResult" name="laydownCheckResult"/>
+											<select id="laydownCheckResult" name="laydownCheckResult">
+												<option value = "Y"> 정상 </option>
+												<option value ="damage"> 파손 </option>
+												<option value ="countError"> 수량오류 </option>
+												<option value ="etc"> 기타 </option>
+											</select>
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckManager" class="inputName">검수담당자</label>
 											<input class="inputBox" type="text" id="laydownCheckManager" name="laydownCheckManager"/>
-										</div>								
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="laydownDate" class="inputName">입하일시</label>
+											<input class="inputBox" type="date" id="laydownDate" name="laydownDate"/>
+										</div>							
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckDate" class="inputName">검수일시</label>
 											<input class="inputBox" type="date" id="laydownCheckDate" name="laydownCheckDate"/>

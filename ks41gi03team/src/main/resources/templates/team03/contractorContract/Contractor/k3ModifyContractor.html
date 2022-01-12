@@ -5,7 +5,10 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+   </th:block>
 	<th:block layout:fragment="customContents"> 
 		 <!-- <script>
 			$(function(){
@@ -82,10 +85,6 @@
    				<input type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호" th:value="${c.contractorBusinessNum}"/>
    				<button type="button" id="contractorBusinessNumCheckBtn">중복확인 </button>
    				<label style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    				
-   			</div>
-   			<div id="mainBusinessCode">
-   				<label for="mainBusinessCode">사업장별 대표코드</label>
-   				<input type="text" name="mainBusinessCode" id="mainBusinessCode" th:value="${c.mainBusinessCode}" readonly style="background-color:#BDBDBD"/>
    			</div>
    			<div id="contractorDevision">
    				<label for="contractorDevision">거래 구분</label>
@@ -173,6 +172,8 @@
    				<input type="text" name="memberId" id="memberId" value="m_c17" th:value="${c.memberId}"/>
    			</div>
 		</div>
-	</table>
-	<button  class="ahsbtn3" id="modifyContractorBtn" type="submit">수정완료</button>
+		<div class="row">
+			<a  class="ahsbtn2 btn btn-outline-info" id="cancleModifyContractorBtn" type="button" th:href="@{k3SearchContractor}">수정취소</a>
+			<button  class="ahsbtn2 btn btn-outline-info" id="modifyContractorBtn" type="submit">수정완료</button>
+		</div>
 	</form>

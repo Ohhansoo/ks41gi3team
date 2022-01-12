@@ -2,7 +2,7 @@ package k3.location.ahs.service;
 
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -58,5 +58,14 @@ public class K3LocationServise {
 	public List<K3Location> k3LocationList(){
 		List<K3Location> k3LocationList	= k3LocationMapper.k3LocationList();
 		return k3LocationList;
+	}
+	/**
+	 * 모달창에 로케이션 list 전달
+	 */
+	public List<Map<String, Object>> k3GetModalLocationList() {
+		List<Map<String, Object>> locationList = k3LocationMapper.k3GetModalLocationList(null);
+		return locationList;
 	};
+
+	
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.subject.ahs.dto.K3Subject;
 import k3.subject.ahs.service.K3SubjectService;
+import k3.vehicle.ahs.dto.K3Vehicle;
 
 @Controller
 @RequestMapping(value="/team03/finance/subject")
@@ -27,14 +28,31 @@ public class K3SubjectController {
 	}
 	
 	
+	//계정과목 검색
+	@PostMapping("/k3SearchSubjectList")
+	public String searchSubjectList(@RequestParam(value="subjectKey", required = false) String subjectKey,
+									@RequestParam(value="subjectValue", required = false) String subjectValue,
+									Model model) {
+		if(subjectKey != null && "asName".equals(subjectKey)) {
+			subjectKey = "asName";
+		}else if(subjectKey != null && "asCode".equals(subjectKey)){
+			subjectKey = "asCode";
+		}
+		List<K3Subject> subjectList = k3SubjectService.searchSubjectList(subjectKey, subjectValue);
+		
+		model.addAttribute("subjectList", subjectList);
+		System.out.println(subjectKey +"subjectKey");
+		System.out.println(subjectValue +"subjectValue");
+		return "team03/finance/subject/k3SubjectList";
+	}
+
 	//계정과목 삭제처리
 	@PostMapping("/k3DeleteSubject")
-	public String deleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+	public String deleteSubject(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3SubjectService.deleteSubject(deleteList);
 		log.info("DeleteSubject 전송결과 : " + result);
 		return "redirect:/team03/finance/subject/k3SubjectList";
 	}
-	
 	
 	//계정과목 수정 처리
 	@PostMapping("/k3ModifySubject")
