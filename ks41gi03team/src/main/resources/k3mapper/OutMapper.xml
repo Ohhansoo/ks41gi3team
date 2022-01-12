@@ -13,6 +13,43 @@
 		<result column="isCorrect" property="subjectIsCorrect" />
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap> -->
+
+<!-- 계정과목 검색 -->	
+	<select id="searchOutList" resultType="K3Out">
+			SELECT
+			outCode
+			,asCode
+			,asName
+			,mainBusinessCode
+			,outName
+			,memberId
+			,outRegDate
+			,outMemo
+			,outPrice
+			,outMethod
+			,outReceipe
+			FROM
+				k3_tb_out
+		<trim prefix="WHERE" prefixOverrides="AND \OR">
+			<if test="outValue != null and outValue != ''.toString()">
+				${outKey} LIKE CONCAT('%', #{outValue}, '%');
+			</if>
+		</trim>
+	</select>	
+	
+	
+	
+	<!--  비용 삭제 처리 -->
+	<delete id ="deleteOut" parameterType="int">
+	
+	DELETE 
+		a
+	FROM
+		k3_tb_out AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or outCode=#{deleteList}
+		</foreach>	
+	</delete>
 	
 	<!--  비용 수정 처리 -->
 	<update id ="modifyOut" parameterType="K3Out">
@@ -75,6 +112,7 @@
 			outCode = #{outCode};
 	</select>
 	
+	<!-- 비용 등록처리 -->
 	<insert id="addOut">
 	INSERT INTO k3_tb_out
 	(
@@ -106,6 +144,7 @@
 	);
 	</insert>
 	
+	<!-- 비용 (시작화면) -->
 	<select id="getOutList" resultType="K3Out">
 	select
 		outCode,
