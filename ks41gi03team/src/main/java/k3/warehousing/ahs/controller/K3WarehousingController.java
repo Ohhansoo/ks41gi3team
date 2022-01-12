@@ -21,6 +21,7 @@ import k3.check.ahs.service.K3CheckService;
 import k3.contract.ahs.dto.K3Contract;
 import k3.location.ahs.service.K3LocationServise;
 import k3.memberuser.ahs.service.K3MemberUserService;
+import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.service.K3WarehousingService;
@@ -105,7 +106,22 @@ public class K3WarehousingController {
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
-
+	//입고분류 등록처리
+	@PostMapping("/k3AddSort")
+	public String k3AddWarehousingSort(K3Stock k3Stock) {
+		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode ------.>>>>", k3Stock);
+		System.out.println("입고분류 등록처리 ->>>>------------>>>>" + k3Stock);
+		//재고 테이블에 등록
+		int pileupResult = k3WarehousingService.k3AddWarehousingSort(k3Stock);
+		if(pileupResult > 0) {
+			//입고 테이블에 분류 승인 업데이트
+			int soringResult = k3WarehousingService.k3UpdateSorting(k3Stock);
+			//로케이션 테이블에 사용현황 업데이트
+			int locationStateResult = k3WarehousingService.k3UpdateLocationState(k3Stock);
+		}
+		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode ------.>>>>", pileupResult);
+		return "redirect:/team03/goodsManagement/warehousing/k3WarehousingList";
+	}
 	
 	//입고분류 모달 로케이션 선택처리
 	@PostMapping("/locationList")

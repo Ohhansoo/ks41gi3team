@@ -23,6 +23,7 @@
 			laydownCheckCode = #{laydownCheckCode},
 			laydownCheckResult = #{laydownCheckResult},
 			laydownCheckManager = #{laydownCheckManager},
+			laydownDate = #{laydownDate},
 			laydownCheckDate = #{laydownCheckDate}
 		WHERE
 			warehousingCode = #{warehousingCode};

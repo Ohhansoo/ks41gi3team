@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.dto.K3ShipmentCheck;
 import k3.check.ahs.mapper.K3CheckMapper;
+import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 
 @Service
@@ -36,6 +37,5 @@ public class K3CheckService {
 		List<K3LaydownCheck> laydownCheck = k3CheckMapper.k3GetLaydownCheckList();
 		return laydownCheck;
 	}
-
 	
 }

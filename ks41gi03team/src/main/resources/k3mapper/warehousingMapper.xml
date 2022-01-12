@@ -20,11 +20,59 @@
 		<result column="dockName" property="dockName" />
 	</resultMap>
 	
+	<update id="k3UpdateLocationState">
+	UPDATE 
+		k3_tb_location
+	SET 
+		locationState = "사용중"
+	WHERE
+		locationCode = #{locationCode};
+	</update>
+	
+	<!--분류등록 입고테이블 업데이트  -->
+	<update id="k3UpdateSorting">
+	UPDATE 
+		k3_tb_warehousing
+	SET 
+		sorting = "Y"
+	WHERE
+		warehousingCode = #{warehousingCode};
+	</update>
+	
+	<!-- 분류등록 -->
+	<insert id="k3AddWarehousingSort">
+	INSERT INTO k3_tb_pileup
+		(pileupCode, 
+		warehousingCode, 
+		locationCode, 
+		categoryCode, 
+		stockQuantity, 
+		productFrequency, 
+		sortingManager, 
+		sortingDate)
+	SELECT 
+		   CONCAT(MAX(SUBSTRING(pileupCode,1,6)), MAX(CAST(SUBSTRING(pileupCode,7)AS DECIMAL))+ 1),
+		   #{warehousingCode},
+		   #{locationCode},
+		   #{categoryCode},
+		   #{stockQuantity},
+		   #{productFrequency},
+		   #{sortingManager},
+		   #{sortingDate}
+		FROM 
+		  k3_tb_pileup;
+	
+	</insert>
+	
 	<update id="k3AllowWarehousing" parameterType="map">
 		UPDATE
 			k3_tb_warehousing
-		SET
-			warehousingAllow = #{YesOrNo}
+		<trim prefix="SET" prefixOverrides=",">
+			,warehousingAllow = #{YesOrNo}
+			<if test="YesOrNo eq 'Y'.toString()">		   			
+				,acceptDate = CURDATE()	
+			</if>	
+		</trim>	
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<foreach collection="allowList" item="allowList">
 				OR warehousingCode = #{allowList}
