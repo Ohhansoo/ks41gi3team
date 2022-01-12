@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import k3.interceptor.CommonInterceptor;
+import k3.login.ahs.interceptor.CommonInterceptor;
+
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{

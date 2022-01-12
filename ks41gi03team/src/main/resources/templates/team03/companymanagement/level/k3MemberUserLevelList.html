@@ -2,11 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+     <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-	<th:block layout:fragment="customContents"> 
-	  <style>
+	<th:block layout:fragment="customJs">
+	<th:block layout:fragment="customContents">
+	
+	<style>
       td {
         text-align: center;
       }
@@ -14,32 +17,6 @@
         text-align: center;
       }
     </style>
-	<script>
-			$(function(){				
-				$('#addmemberuserBtn').on('click', function(){
-				});
-				
-				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
-			});
-		</script>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -64,7 +41,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							권한 조회
+							직원 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -74,13 +51,23 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/level/k3MemberUserLevelList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="memberuserlevelKey" class="input-group-text">
-												<option value="levelCode">권한번호</option>
-												<option value="levelName">권한이름</option>
-											</select>
+										<select name="memberuserlevelKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+												<option value="memberId">직원ID</option>
+												<option value="memberPassword">직원PW</option>
+												<option value="mainBusinessCode">사업장별대표코드</option>
+												<option value="levelMemberCode">권한번호</option>
+												<option value="memberName">직원이름</option>
+												<option value="memberGender">성별</option>
+												<option value="memberAddr">주소</option>
+												<option value="memberPhone">전화번호</option>
+												<option value="memberResidentRegistrationNumber">주민번호</option>
+												<option value="memberState">직원계정상태</option>
+												<option value="memberRegDate">등록일자</option>
+												<option value="memberHiredDate">입사일자</option>
+										</select>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserlevelValue">
+										<button type="submit">검색</button>
 										</div>
-										<input type="text" name="memberuserlevelValue" class="form-control" >
-										<button id="memberuserlevelSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -93,34 +80,51 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							권한 현황
+							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/tteam03/companymanagement/level/k3MemberUserLevelList}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+							<form id="searchForm" th:action="@{#}" method="post">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<th>삭제</th>	
 											<th>수정</th>
-											<th>권한번호</th>
-											<th>권한이름</th>
+											<th>직원ID</th>
+						                     <th>직원PW</th>
+						                     <th>사업장별대표코드</th>
+						                     <th>권한번호</th>
+						                     <th>직원이름</th>
+						                     <th>성별</th>
+						                     <th>주소</th>
+						                     <th>전화번호</th>
+						                     <th>주민번호</th>
+						                     <th>직원계정상태</th>
+						                     <th>등록일자</th>
+						                     <th>입사일자</th>		
 										</tr>
 									</thead>
 									<tbody>								
-			   							<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
-							   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.levelCode}">
-												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
-											</td>
-							   				<td>
-												<a th:href="@{/team03/companymanagement/level/k3ModifyMemberUserLevelList(levelCode=${l.levelCode})}">수정</a>
-											</td>	
-							   				<td th:text="${l.levelCode}"></td>
-							   				<td th:text="${l.levelName}"></td>
+										<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+						   				<td>
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>										
+										</td>	
+						   				<td th:text="${l.memberId}"></td>
+						   				<td th:text="${l.memberPassword}"></td>
+						   				<td th:text="${l.mainBusinessCode}"></td>
+						   				<td th:text="${l.levelMemberCode}"></td>
+						   				<td th:text="${l.memberName}"></td>
+						   				<td th:text="${l.memberGender}"></td>
+						   				<td th:text="${l.memberAddr}"></td>
+						   				<td th:text="${l.memberPhone}"></td>
+						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
+						   				<td th:text="${l.memberState}"></td>
+						   				<td th:text="${l.memberRegDate}"></td>
+						   				<td th:text="${l.memberHiredDate}"></td>
 						   			</tr>
-			   						<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
+						   			<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
 						   				<td colspan="9">등록된 직원이 없습니다.</td>
 						   			</tr>
 									</tbody>						
