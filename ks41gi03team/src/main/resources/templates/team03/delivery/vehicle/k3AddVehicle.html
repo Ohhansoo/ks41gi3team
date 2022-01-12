@@ -12,25 +12,18 @@
 		<link rel="stylesheet" th:href="@{/css/modal.css}">
    </th:block>
    
-	<th:block layout:fragment="customContents">
-		<script>
-			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
-				});
-			});
-		</script>
+
 		
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+					location.href = '/team03/delivery/vehicle/k3VehicleList';
 				});
-				$(document).on('click', '#addWarehousing', function(){
+				$(document).on('click', '#submitBtn', function(){
 					
 						var submitCheck = true;
-						var inputObj = $('#warehousingInfo').find('input');
+						var inputObj = $('#userInfo').find('input');
 							
 						$.each(inputObj, function(){	
 	   					var inputDate = $(this).val();
@@ -44,7 +37,7 @@
 	   						return false;
 	   					}		
 						});  						
-						if(submitCheck) $('#warehousingInfo').submit();
+						if(submitCheck) $('#userInfo').submit();
 					});
 				var modal = $('.modal');
 				
@@ -103,12 +96,12 @@
 
 					modal.addClass('hidden');	//히든 클래스
 				});
+				
 			});
 		</script>
-	
-
-	
-	</th:block>
+		</th:block>
+		
+		<th:block layout:fragment="customContents">	
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -127,7 +120,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCode" class="inputName">차량 코드</label>
 										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode"/>
-										<button type="button" id="btn">중복확인 </button> 
+										<button type="button" id="vehicleCodeCheck" class="vehicleCodeCheck">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleTonage" class="inputName">톤수</label>
@@ -155,8 +148,8 @@
 										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability"/>
 									</div>							
 									<div class="d-flex justify-content-center">
-										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
-										<button id="cancleBtn" type="submit" class="ahsbtn5 btn btn-primary">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
+										<button id="cancelBtn" type="button" class="ahsbtn5 btn btn-primary">취소</button>
 									</div>	
 								</form>
 	 						</div>

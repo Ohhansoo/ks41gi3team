@@ -30,5 +30,7 @@ public interface K3VehicleMapper {
 	
 	//모달
 	public List<Map<String, Object>> k3SelectVehicleMemberId(Map<String,Object> paraMap);
+	
+	
 
 }

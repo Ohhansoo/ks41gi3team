@@ -2,18 +2,24 @@ package k3.vehicle.ahs.dto;
 
 public class K3Vehicle {
 	private String vehicleCode;
+	private String mainBusinessCode;
 	private String vehicleTonage;
 	private String vehicleType;
 	private String vehicleInspectionDate;
 	private String memberId;
 	private String vehicleManufacturer;
 	private String vehicleDriveAvailability;
-	
 	public String getVehicleCode() {
 		return vehicleCode;
 	}
 	public void setVehicleCode(String vehicleCode) {
 		this.vehicleCode = vehicleCode;
+	}
+	public String getMainBusinessCode() {
+		return mainBusinessCode;
+	}
+	public void setMainBusinessCode(String mainBusinessCode) {
+		this.mainBusinessCode = mainBusinessCode;
 	}
 	public String getVehicleTonage() {
 		return vehicleTonage;
@@ -53,28 +59,16 @@ public class K3Vehicle {
 	}
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("K3Vehicle [vehicleCode=");
-		builder.append(vehicleCode);
-		builder.append(", vehicleTonage=");
-		builder.append(vehicleTonage);
-		builder.append(", vehicleType=");
-		builder.append(vehicleType);
-		builder.append(", vehicleInspectionDate=");
-		builder.append(vehicleInspectionDate);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append(", vehicleManufacturer=");
-		builder.append(vehicleManufacturer);
-		builder.append(", vehicleDriveAvailability=");
-		builder.append(vehicleDriveAvailability);
-		builder.append("]");
-		return builder.toString();
+		return "K3Vehicle [vehicleCode=" + vehicleCode + ", mainBusinessCode=" + mainBusinessCode + ", vehicleTonage="
+				+ vehicleTonage + ", vehicleType=" + vehicleType + ", vehicleInspectionDate=" + vehicleInspectionDate
+				+ ", memberId=" + memberId + ", vehicleManufacturer=" + vehicleManufacturer
+				+ ", vehicleDriveAvailability=" + vehicleDriveAvailability + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + ((vehicleCode == null) ? 0 : vehicleCode.hashCode());
 		result = prime * result + ((vehicleDriveAvailability == null) ? 0 : vehicleDriveAvailability.hashCode());
@@ -93,6 +87,11 @@ public class K3Vehicle {
 		if (getClass() != obj.getClass())
 			return false;
 		K3Vehicle other = (K3Vehicle) obj;
+		if (mainBusinessCode == null) {
+			if (other.mainBusinessCode != null)
+				return false;
+		} else if (!mainBusinessCode.equals(other.mainBusinessCode))
+			return false;
 		if (memberId == null) {
 			if (other.memberId != null)
 				return false;
@@ -130,9 +129,7 @@ public class K3Vehicle {
 			return false;
 		return true;
 	}
-
 	
 	
-
-
+	
 }

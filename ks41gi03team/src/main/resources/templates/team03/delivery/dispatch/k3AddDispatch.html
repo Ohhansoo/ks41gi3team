@@ -11,26 +11,18 @@
 		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
 		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-   
-	<th:block layout:fragment="customContents">
-		<script>
-			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
-				});
-			});
-		</script>
+
 		
 		<th:block layout:fragment="customJs">
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+					location.href = '/team03/delivery/dispatch/k3DispatchList';
 				});
-				$(document).on('click', '#addWarehousing', function(){
+				$(document).on('click', '#submitBtn', function(){
 					
 						var submitCheck = true;
-						var inputObj = $('#warehousingInfo').find('input');
+						var inputObj = $('#userInfo').find('input');
 							
 						$.each(inputObj, function(){	
 	   					var inputDate = $(this).val();
@@ -44,7 +36,7 @@
 	   						return false;
 	   					}		
 						});  						
-						if(submitCheck) $('#warehousingInfo').submit();
+						if(submitCheck) $('#userInfo').submit();
 					});
 				var modal = $('.modal');
 				
@@ -105,7 +97,8 @@
 				});
 			});
 		</script>
-	 
+		</th:block>
+		<th:block layout:fragment="customContents">	
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -180,8 +173,8 @@
 										<input class="inputBox" type="text" id="dockName" name="dockName"/>
 									</div>								
 									<div class="d-flex justify-content-center">
-										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
-										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
+										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>	
 								</form>
 	 						</div>
