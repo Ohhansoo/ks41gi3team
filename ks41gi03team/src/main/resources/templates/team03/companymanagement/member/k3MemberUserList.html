@@ -2,10 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
+	<th:block layout:fragment="customJs">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
 	<style>
       td {
         text-align: center;
@@ -44,6 +43,8 @@
 				});
 			});
 		</script>
+	</th:block>
+	<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -76,10 +77,10 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-										<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+									<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+										<div class="input-group  d-flex justify-content-start">
+											<div class="input-group-prepend">
+												<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
 												<option value="memberPassword">직원PW</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
@@ -93,13 +94,14 @@
 												<option value="memberRegDate">등록일자</option>
 												<option value="memberHiredDate">입사일자</option>
 										</select>
-										</div>
 									<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
 									<div class=" input-group-append">
+									<div class="btn btn-default" style="padding:0;">
 										<button type="submit" class="btn btn-default">
 											<i class="fas fa-search icon"></i>
 										</button>
 										</div>
+									</div>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -107,17 +109,17 @@
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
-				</div>
+					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
-					<div class="card cardColor" style="width: 60%; float: left;">
+					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
 							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<div class="card-body table-responsive p-0 table-hover">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
@@ -179,16 +181,16 @@
 					<!--End 하위 카드 영역 -->
 					
 					<div>
-					<div class="card cardColor" style="width: 39%; float: right;">
+					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
 							직원 권한현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<div class="card-body table-responsive p-0 table-hover">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
+								<table class="table table-head-fixed text-nowrap table-striped" style="overflow: auto">
 									<thead>
 										<tr>
 											<th>삭제</th>
@@ -244,12 +246,9 @@
 						</div>
 						<!--End card body -->
 					</div>
-					</div>
 					<!--End 하위 카드 영역 -->
-				</div>
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
 	</th:block>
 </head>
