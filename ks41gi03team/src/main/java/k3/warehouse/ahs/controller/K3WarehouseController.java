@@ -72,7 +72,7 @@ public class K3WarehouseController {
 		model.addAttribute("title", "창고목록조회");
 		model.addAttribute("K3Warehouses", K3Warehouses);
 
-		return "redirect:/team03/spaceBusiness/warehouse/k3WarehouseList";
+		return "team03/spaceBusiness/warehouse/k3WarehouseList";
 	}
 
 	/**
