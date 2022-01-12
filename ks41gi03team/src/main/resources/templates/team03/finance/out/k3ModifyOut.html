@@ -3,10 +3,16 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>입출금내역 수정</title>
+		<title>비용 내역 수정</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
-	
+		<script>
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					history.back();
+				});
+			});
+		</script>	 	
 		<div class="card-body">
 			<div class="row">
 				<form th:action="@{/team03/finance/out/k3ModifyOut}" method="post">
@@ -69,7 +75,7 @@
 					
 					<div class="d-flex justify-content-center">					
 						<button type="submit" class="ahsbtn4 btn btn-outline-info" >수정</button>			
-						<button type="button" id="inCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
+						<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 					</div>	
 				</form>
 			</div>

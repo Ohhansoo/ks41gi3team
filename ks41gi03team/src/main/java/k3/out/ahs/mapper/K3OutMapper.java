@@ -11,6 +11,12 @@ import k3.subject.ahs.dto.K3Subject;
 public interface K3OutMapper {
 	
 	
+	//비용 검색
+	public List<K3Out> searchOutList(String outKey, String outValue);
+	 
+	//비용 삭제처리
+	public int deleteOut(List<String> deleteList);
+	
 	//비용 수정처리
 	public int modifyOut(K3Out k3Out);
 		

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				<form id="addOut" th:action="@{k3AddOut}" method="post">
+					<table border="1">
+							<tr>
+								<td>
+									<label for="outCodeInput">비용코드</label>
+								</td>
+								<td>
+									<input type="text" id="outCodeInput" name="outCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="asCodeInput">계정과목 코드</label>
+								</td>
+								<td>
+									<input type="text" id="asCodeInput" name="asCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="asNameInput">계정과목 이름</label>
+								</td>
+								<td>
+									<input type="text" id="asNameInput" name="asName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="mainBusinessCodeInput">사업장별 대표코드</label>
+								</td>
+								<td>
+									<input type="text" id="mainBusinessCodeInput" name="mainBusinessCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outNameInput">거래처 상호명</label>
+								</td>
+								<td>
+									<input type="text" id="outNameInput" name="outName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="memberIdInput">등록자 아이디</label>
+								</td>
+								<td>
+									<input type="text" id="memberIdInput" name="memberId">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outRegDateInput">등록일시</label>
+								</td>
+								<td>
+									<input type="text" id="outRegDateInput" name="outRegDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outMemoInput">적요</label>
+								</td>
+								<td>
+									<input type="text" id="outMemoInput" name="outMemo">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outPriceInput">비용금액</label>
+								</td>
+								<td>
+									<input type="text" id="outPriceInput" name="outPrice">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outMethodInput">납부방법</label>
+								</td>
+								<td>
+									<input type="text" id="outMethodInput" name="outMethod">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="outReceipeInput">영수증</label>
+								</td>
+								<td>
+									<input type="text" id="outReceipeInput" name="outReceipe">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input id="addBtn" type="submit" value="확인">
+								</td>
+							</tr>														
+					</table>
+				</form> 
+			</div>
+		</div>		
+	</th:block>
+</head>

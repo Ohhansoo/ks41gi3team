@@ -17,6 +17,18 @@ public class K3OutService {
 			this.k3OutMapper=k3OutMapper;
 		}
 
+		//비용 내역 검색
+		public List<K3Out> searchOutList(String outKey, String outValue){
+			List<K3Out> k3OutList = k3OutMapper.searchOutList(outKey, outValue);
+			return k3OutList;
+		}
+		
+		//비용 삭제처리
+		public int deleteOut(List<String> deleteList) {
+			int result = k3OutMapper.deleteOut(deleteList);
+			return result;
+		}		
+
 		//비용 수정 처리
 		public int modifyOut(K3Out k3Out) {
 			System.out.println("비용 수정 처리 서비스");
@@ -32,6 +44,7 @@ public class K3OutService {
 		//비용 내역 등록
 		public int addOut(K3Out k3Out) {
 			int result = k3OutMapper.addOut(k3Out);
+			System.out.println("등록처리 서비스");
 			return result;
 		}
 		
