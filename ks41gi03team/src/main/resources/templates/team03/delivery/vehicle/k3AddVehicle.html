@@ -5,6 +5,13 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+   </th:block>
+   
 	<th:block layout:fragment="customContents">
 		<script>
 			$(function(){
@@ -12,8 +19,96 @@
 					history.back();
 				});
 			});
-		</script>	
-	 
+		</script>
+		
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+				});
+				$(document).on('click', '#addWarehousing', function(){
+					
+						var submitCheck = true;
+						var inputObj = $('#warehousingInfo').find('input');
+							
+						$.each(inputObj, function(){	
+	   					var inputDate = $(this).val();
+	   					var inputId = $(this).attr('id');
+	   					var labelText = $('label[for=' + inputId + ']').text();
+							
+	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+	   						alert(labelText + ' 입력해주세요');
+	   						$(this).focus();
+	   						submitCheck = false;
+	   						return false;
+	   					}		
+						});  						
+						if(submitCheck) $('#warehousingInfo').submit();
+					});
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '.vehicleMemberId_btn', function(){		//1. 버튼 이름 설정
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#vehicleMemberId').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/vehicle/vehicleMemberId',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"}, //mapper.xml에서 받아오기
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									//class name value 바꾸기
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){ 	//5. 버튼 붙여넣기
+					var checkedBox = $('.memberId:checked'); 	//6. 위 클래스 가져오기(memberId) -> 모달창 선택 접근
+	 				var memberId = $('#memberId');	//7. input박스의 id 가져오기
+					
+	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+	 				//선택된 것의 부모의 부모를 찾아감(행 전체) -> childeren 0,1,2 3개 -> eq(2) 2인 회원명을 가져옴 -> text()
+	 				
+	 				memberId.attr('value',vehicleMemberIdValue);		//속성인 이름 변수를 가져옴
+
+					modal.addClass('hidden');	//히든 클래스
+				});
+			});
+		</script>
+	
+
+	
+	</th:block>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -49,6 +144,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">점검 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId"/>
+										<button class="vehicleMemberId_btn" type="button">담당자 등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
@@ -72,5 +168,34 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">거래처명 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="vehicleMemberId" class="dataTable"> <!-- 2. 아이디 변경 -->
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>		<!-- 3. th 설정 -->
+									<th>회원코드</th>
+									<th>회원명</th>				
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button> <!-- 4. 버튼 이름 -->
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 	</th:block>
 </head>

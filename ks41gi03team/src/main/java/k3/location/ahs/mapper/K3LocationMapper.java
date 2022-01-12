@@ -24,4 +24,7 @@ public interface K3LocationMapper {
 	
 	//로케이션 코드 현황
 	public List<K3Location> k3LocationList();
+	
+	//모달창으로 로케이션 리스트 넘겨주기
+	public List<Map<String, Object>> k3GetModalLocationList(Map<String, Object> paranMap);
 }

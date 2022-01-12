@@ -14,6 +14,27 @@
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap>
 	
+	<!-- 계정과목 검색 -->	
+	<select id="searchSubjectList" resultType="K3Subject">
+		
+			SELECT 
+			  asCode
+			, asName
+			, asGCode
+			, asUse
+			, asCorrect
+			, memberId
+			, asRegDate
+			, asYear
+			FROM
+				k3_tb_as
+		<trim prefix="WHERE" prefixOverrides="AND \OR">
+			<if test="subjectValue != null and subjectValue != ''.toString()">
+				${subjectKey} LIKE CONCAT('%', #{subjectValue}, '%');
+			</if>
+		</trim>
+	</select>	
+	
 	
 	<!--  계정과목 삭제 처리 -->
 	<delete id ="deleteSubject" parameterType="int">
@@ -31,50 +52,50 @@
 	<update id ="modifySubject" parameterType="K3Subject">
 			UPDATE k3_tb_as
 			<trim prefix="SET" prefixOverrides=",">
-				<if test="subjectCode != null and subjectCode!= ''.toString()">			
-					 asCode		=#{subjectCode}
+				<if test="asCode != null and asCode!= ''.toString()">			
+					 asCode		=#{asCode}
 				</if>
-				<if test="subjectName != null and subjectName != ''.toString()">
-					,asName	=#{subjectName}
+				<if test="asName != null and asName != ''.toString()">
+					,asName	=#{asName}
 				</if>
-				<if test="subjectGCode != null and subjectGCode != ''.toString()">		
-					,asGCode		=#{subjectGCode}
+				<if test="asGCode != null and asGCode != ''.toString()">		
+					,asGCode		=#{asGCode}
 				</if>
-				<if test="isUse != null and isUse != ''.toString()">
-					,asUse	=#{isUse}
+				<if test="asUse != null and asUse != ''.toString()">
+					,asUse	=#{asUse}
 				</if>
-				<if test="isCorrect != null and isCorrect != ''.toString()">
-					,asCorrect		=#{isCorrect}
+				<if test="asCorrect != null and asCorrect != ''.toString()">
+					,asCorrect		=#{asCorrect}
 				</if>
-				<if test="regName != null and regName != ''.toString()">
-					,memberId		=#{regName}
+				<if test="memberId != null and memberId != ''.toString()">
+					,memberId		=#{memberId}
 				</if>
-				<if test="regDate != null and regDate != ''.toString()">
-					,asRegDate		=#{regDate}
+				<if test="asRegDate != null and asRegDate != ''.toString()">
+					,asRegDate		=#{asRegDate}
 				</if>
-				<if test="applyYear != null and applyYear != ''.toString()">
-					,asYear		=#{applyYear}
+				<if test="asYear != null and asYear != ''.toString()">
+					,asYear		=#{asYear}
 				</if>
 			</trim>
 			WHERE
-				asCode =#{subjectCode};
+				asCode =#{asCode};
 	</update>
 	
 	<!-- 계정과목 수정 폼 -->
 	<select id="getModifySubject" resultType="K3Subject">
 		select
-			a.asName AS subjectName,
-			a.memberId AS regName,
-			a.asRegDate AS regDate,
-			a.asCode AS subjectCode,
-			a.asGCode AS subjectGCode,
-			a.asUse AS isUse,
-			a.asCorrect AS isCorrect,
-			a.asYear AS applyYear
+			asName,
+			memberId,
+			asRegDate,
+			asCode,
+			asGCode,
+			asUse,
+			asCorrect,
+			asYear
 		FROM
-			k3_tb_as AS a
+			k3_tb_as
 		where
-			asCode = #{subjectCode};
+			asCode = #{asCode};
 	</select>
 
 	
@@ -93,41 +114,30 @@
 		)
 	VALUES
 	(
-		#{subjectCode},
-		#{subjectName},
-		#{subjectGCode},
-		#{isUse},
-		#{isCorrect},
-		#{regName},
-		#{regDate},
-		#{applyYear}
+		#{asCode},
+		#{asName},
+		#{asGCode},
+		#{asUse},
+		#{asCorrect},
+		#{asName},
+		#{asRegDate},
+		#{asYear}
 	);
-	
-	<!-- (
-		97999,
-		"임의",
-		90000,
-		"Y",
-		"N",
-		"m_c01",
-		"2021-12-22",
-		"2022-01-01"
-	); -->
 	</insert>
 	
 	<!-- 계정과목 목록 조회 (시작화면) -->
 	<select id="getSubjectList" resultType="K3Subject">
 	select
-		a.asName AS subjectName,
-		a.memberId AS regName,
-		a.asRegDate AS regDate,
-		a.asCode AS subjectCode,
-		a.asGCode AS subjectGCode,
-		a.asUse AS isUse,
-		a.asCorrect AS isCorrect,
-		a.asYear AS applyYear
+		asName,
+		memberId,
+		asRegDate,
+		asCode,
+		asGCode,
+		asUse,
+		asCorrect,
+		asYear
 	FROM
-		k3_tb_as AS a;
+		k3_tb_as;
 	</select>
 
 </mapper>

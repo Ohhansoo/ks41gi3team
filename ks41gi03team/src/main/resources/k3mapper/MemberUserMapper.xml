@@ -35,8 +35,8 @@
 	
 	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT 
-			 m.memberId									AS memberId
-			,m.memberName								AS memberName
+			 m.memberId									
+			,m.memberName			
 		FROM 
 			k3_tb_member	AS m
 	</select>

@@ -1,6 +1,7 @@
 package k3.dispatch.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.dispatch.ahs.dto.K3Dispatch;
 import k3.dispatch.ahs.service.K3DispatchService;
+import k3.memberuser.ahs.service.K3MemberUserService;
 
 
 @Controller
@@ -22,9 +25,11 @@ public class K3DispatchController {
 	private static final Logger log = LoggerFactory.getLogger(K3DispatchController.class);
 	
 	private K3DispatchService k3DispatchService;
+	private K3MemberUserService k3MemberUserService; //의존성 검사
 	
-	public K3DispatchController(K3DispatchService k3DispatchService) {
+	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService) {
 		this.k3DispatchService = k3DispatchService;
+		this.k3MemberUserService = k3MemberUserService;
 	}
 	
 	//현황
@@ -96,5 +101,13 @@ public class K3DispatchController {
 		
 		return"team03/delivery/dispatch/k3DispatchList";
 	}
+	
+	//담당자 선택처리 (@ResponseBody 중요)
+		@PostMapping("/dispatchMemberId")
+		@ResponseBody
+		public List<Map<String, Object>> k3SelectDispatchMemberId(){
+			List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
+			return searchId;
+		}
 	
 }

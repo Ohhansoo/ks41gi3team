@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +19,8 @@ import k3.category.ahs.service.K3CategoryService;
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.service.K3CheckService;
 import k3.contract.ahs.dto.K3Contract;
+import k3.location.ahs.service.K3LocationServise;
+import k3.memberuser.ahs.service.K3MemberUserService;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.service.K3WarehousingService;
@@ -32,11 +35,15 @@ public class K3WarehousingController {
 	private final K3WarehousingService k3WarehousingService;
 	private final K3CheckService k3CheckService;
 	private final K3CategoryService k3CategoryService;
+	private final K3MemberUserService k3MemberUserService;
+	private final K3LocationServise k3LocationServise;
 	
-	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService) {
+	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService, K3MemberUserService k3MemberUserService, K3LocationServise k3LocationServise) {
 		this.k3WarehousingService = k3WarehousingService;
 		this.k3CheckService = k3CheckService;
 		this.k3CategoryService = k3CategoryService;
+		this.k3MemberUserService = k3MemberUserService;
+		this.k3LocationServise = k3LocationServise;
 	}
 	//입고현황 조회처리
 	@PostMapping("/k3WarehousingList")
@@ -98,7 +105,26 @@ public class K3WarehousingController {
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
-	//입고분류 카테고리 선택처리
+
+	
+	//입고분류 모달 로케이션 선택처리
+	@PostMapping("/locationList")
+	@ResponseBody
+	public List<Map<String, Object>> locationList() {
+		List<Map<String, Object>> locationList = k3LocationServise.k3GetModalLocationList();
+		
+		return locationList;
+	}
+	
+	//입고분류 모달 담당자 선택처리
+	@PostMapping("/MemberList")
+	@ResponseBody
+	public List<Map<String, Object>> memberList() {
+		List<Map<String, Object>> memberList = k3MemberUserService.k3GetMemberUserModalList();
+		
+		return memberList;
+	}
+	//입고분류 모달 카테고리 선택처리
 	@PostMapping("/getCategoryList")
 	@ResponseBody
 	public List<Map<String, Object>> getCategoryList() {

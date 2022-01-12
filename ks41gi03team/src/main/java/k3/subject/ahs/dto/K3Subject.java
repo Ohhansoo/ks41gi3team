@@ -2,86 +2,88 @@ package k3.subject.ahs.dto;
 
 public class K3Subject {
 	
-	private String subjectName;
-	private String regName;
-	private String regDate;
-	private int subjectCode;
-	private int subjectGCode;
-	private String isUse;
-	private String isCorrect;
-	private String applyYear;
+	private String asName;
+	private String memberId;
+	private String asRegDate;
+	private int asCode;
+	private int asGCode;
+	private String asUse;
+	private String asCorrect;
+	private String asYear;
 	
 	
-	public int getSubjectGCode() {
-		return subjectGCode;
+	public String getAsName() {
+		return asName;
 	}
-	public void setSubjectGCode(int subjectGCode) {
-		this.subjectGCode = subjectGCode;
+	public void setAsName(String asName) {
+		this.asName = asName;
 	}
-	public String getIsUse() {
-		return isUse;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setIsUse(String isUse) {
-		this.isUse = isUse;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getIsCorrect() {
-		return isCorrect;
+	public String getAsRegDate() {
+		return asRegDate;
 	}
-	public void setIsCorrect(String isCorrect) {
-		this.isCorrect = isCorrect;
+	public void setAsRegDate(String asRegDate) {
+		this.asRegDate = asRegDate;
 	}
-	public String getApplyYear() {
-		return applyYear;
+	public int getAsCode() {
+		return asCode;
 	}
-	public void setApplyYear(String applyYear) {
-		this.applyYear = applyYear;
+	public void setAsCode(int asCode) {
+		this.asCode = asCode;
 	}
-	public String getSubjectName() {
-		return subjectName;
+	public int getAsGCode() {
+		return asGCode;
 	}
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setAsGCode(int asGCode) {
+		this.asGCode = asGCode;
 	}
-	public String getRegName() {
-		return regName;
+	public String getAsUse() {
+		return asUse;
 	}
-	public void setRegName(String regName) {
-		this.regName = regName;
+	public void setAsUse(String asUse) {
+		this.asUse = asUse;
 	}
-	public String getRegDate() {
-		return regDate;
+	public String getAsCorrect() {
+		return asCorrect;
 	}
-	public int getSubjectCode() {
-		return subjectCode;
+	public void setAsCorrect(String asCorrect) {
+		this.asCorrect = asCorrect;
 	}
-	public void setSubjectCode(int subjectCode) {
-		this.subjectCode = subjectCode;
+	public String getAsYear() {
+		return asYear;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setAsYear(String asYear) {
+		this.asYear = asYear;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3Subject [subjectName=");
-		builder.append(subjectName);
-		builder.append(", regName=");
-		builder.append(regName);
-		builder.append(", regDate=");
-		builder.append(regDate);
-		builder.append(", subjectCode=");
-		builder.append(subjectCode);
-		builder.append(", subjectGCode=");
-		builder.append(subjectGCode);
-		builder.append(", isUse=");
-		builder.append(isUse);
-		builder.append(", isCorrect=");
-		builder.append(isCorrect);
-		builder.append(", applyYear=");
-		builder.append(applyYear);
+		builder.append("K3Subject [asName=");
+		builder.append(asName);
+		builder.append(", memberId=");
+		builder.append(memberId);
+		builder.append(", asRegDate=");
+		builder.append(asRegDate);
+		builder.append(", asCode=");
+		builder.append(asCode);
+		builder.append(", asGCode=");
+		builder.append(asGCode);
+		builder.append(", asUse=");
+		builder.append(asUse);
+		builder.append(", asCorrect=");
+		builder.append(asCorrect);
+		builder.append(", asYear=");
+		builder.append(asYear);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }

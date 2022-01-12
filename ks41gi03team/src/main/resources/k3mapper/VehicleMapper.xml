@@ -115,5 +115,12 @@
 		WHERE
 			vehicleCode = #{vehicleList};
 	</delete>
+	
+	<!-- <select id="k3SelectVehicleMemberId" resultType="map" parameterType="map">
+		SELECT
+			memberId
+		FROM
+			k3_tb_vehicle;
+	</select> -->
 
 </mapper>
