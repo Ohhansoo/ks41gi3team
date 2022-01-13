@@ -25,22 +25,21 @@ public class K3ContractorController {
 		this.k3ContractorService = k3ContractorService;
 	}
 	
-	//거래처 삭제처리(체크박스)
-	
-	
-	
 	//거래처 삭제처리
+	
+	
+	
+	//거래처 삭제처리(체크박스)
 	@PostMapping("/k3SearchContractor")
 	public String k3DeleteContractor(HttpServletRequest request) {
-		String[] ajaxMsg = request.getParameterValues("checkArr");
-		int size = ajaxMsg.length;
+		String[] checkArr = request.getParameterValues("checkArr");
+		
+		int size = checkArr.length;
 		for(int i=0; i < size; i++) {
-			k3ContractorService.k3DeleteContractor(ajaxMsg[i]);
+			k3ContractorService.k3DeleteContractor(checkArr[i]);
 		}
 		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
-	
-	
 	
 	//거래처 수정처리
 	@PostMapping("/k3ModifyContractor")
@@ -95,38 +94,7 @@ public class K3ContractorController {
 	}
 
 	
-	//거래처 검색 기능
-	@GetMapping("/k3SearchContractorList") 
-	public String K3SearchContractorList(@RequestParam(value="searchKey", required=false) String searchKey ,
-							  			@RequestParam(value="searchValue", required=false) String searchValue,
-							  			@RequestParam(value="contractorRegistrationDateStart", required=false) String contractorRegistrationDateStart,
-							  			@RequestParam(value="contractorRegistrationDateEnd", required=false) String contractorRegistrationDateEnd, 
-							  			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, 
-							  				Model model) {
-		
-		//검색키(searchKey), 검색어(searchValue)를 이용해서 거래처 목록 조회
-		Map<String, Object> resultMap = k3ContractorService.K3SearchContractorList(searchKey,contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue, currentPage);
-			
-		//조회된 거래처 목록 model에 값 저장 model.addAttribute("title", "거래처 관리");
-		model.addAttribute("title", "거래처 관리");
-		model.addAttribute("subtitle", "거래처 현황");
 
-		// model currentPage, lastPage, contractorList, startPageNum, endPageNum
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPage", resultMap.get("lastPage"));
-		model.addAttribute("startPageNum", resultMap.get("startPageNum"));
-		model.addAttribute("endPageNum", resultMap.get("endPageNum"));
-		model.addAttribute("contractorRegistrationDateStart", contractorRegistrationDateStart);
-		model.addAttribute("contractorRegistrationDateEnd", contractorRegistrationDateEnd);
-		model.addAttribute("searchKey", searchKey);
-		model.addAttribute("searchValue", searchValue);
-		model.addAttribute("urlMap", "k3SearchContractorList");
-		model.addAttribute("contractorList", resultMap.get("contractorList"));		
-		
-		System.out.println("model 내부확인: " + model);
-	  
-		return "/team03/contractorContract/Contractor/k3SearchContractor"; 
-		}
 	 
 
 	// 거래처 상세정보 모달창으로 화면 전환+거래처정보 가져오기 public K3DetailContractor
@@ -140,7 +108,7 @@ public class K3ContractorController {
 		return k3DetailContractor;
 	}
 
-	// 거래처 현황에 거래처 가져오기
+	// 거래처 현황에 거래처 가져오기 + 검색 기능(동적 페이징)
 	@GetMapping("/k3SearchContractor")
 	public String K3GetSearchContractor(@RequestParam(value="searchKey", required=false) String searchKey ,
 						  			@RequestParam(value="searchValue", required=false) String searchValue,
