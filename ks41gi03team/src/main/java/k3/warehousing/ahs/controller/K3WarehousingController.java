@@ -168,7 +168,7 @@ public class K3WarehousingController {
 		log.info("입고요청 처리 컨트롤러 결과: result ------ " + result);
 		return "redirect:/team03/goodsManagement/warehousing/k3WarehousingList";
 	}
-	//입고 요청폼에서 모달 조회 처리
+	//모달 입고 요청폼에서 조회 처리
 	@PostMapping("/findContractorName")
 	@ResponseBody
 	public List<Map<String, Object>> k3FindContractorName() {

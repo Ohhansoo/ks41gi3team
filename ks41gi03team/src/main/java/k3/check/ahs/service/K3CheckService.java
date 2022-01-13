@@ -1,6 +1,7 @@
 package k3.check.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,11 @@ public class K3CheckService {
 	public int k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck) {
 		int result = k3CheckMapper.k3AddLaydownCheck(K3LaydownCheck);
 		return result;
+	}
+	////모달 입하검수 등록을 위한 입하검수코드 조회
+	public List<Map<String, Object>> k3GetLaydownCheckCodeList() {
+		List<Map<String, Object>> laydownCheckCodeList = k3CheckMapper.k3GetLaydownCheckCodeList(null);
+		return laydownCheckCodeList;
 	}
 	//입하검수 등록 페이지 이동(물품명, 개수 세팅)
 	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode) {

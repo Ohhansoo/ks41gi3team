@@ -1,6 +1,7 @@
 package k3.check.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,8 @@ public interface K3CheckMapper {
 	
 	//입하검수 등록하기
 	public int k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck);
+	//모달 입하검수 등록을 위한 입하검수코드 조회
+	public List<Map<String, Object>> k3GetLaydownCheckCodeList(Map<String, Object> map);
 	//입하검수 등록 페이지 이동(물품명, 개수 세팅)
 	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode);
 	//출하검수 초기화면
