@@ -19,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		
 		String sessionId = (String) session.getAttribute("SID");
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
-		System.out.println("01 220112 sessionLevel");
+		System.out.println("01 220112 sessionLevel"+  sessionLevel);
 		
 		if(sessionId == null) {
 			response.sendRedirect("/k3MemberUserLogin");
