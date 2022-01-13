@@ -38,12 +38,13 @@
 			,m.levelMemberCode							AS levelMemberCode
 			,m.memberName								AS memberName
 			,m.memberGender								AS memberGender
-			,m.memberAddr								AS memberAddr
 			,m.memberPhone								AS memberPhone
 			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
 			,m.memberState								AS memberState
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
+			,m.memberpostaladdress						AS memberpostaladdress
+			,m.memberstreetaddress						AS memberstreetaddress
 		FROM 
 			k3_tb_member	AS m
 		WHERE
