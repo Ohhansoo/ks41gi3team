@@ -129,13 +129,11 @@
 				</if>
 		   </trim>
 	</select>
-	
-
-	
+		<!--입고 등록처리  -->
 	<insert id="k3AddWarehousing">
 		INSERT INTO
 		   k3_tb_warehousing
-			(warehousingCode, mainBusinessCode, contractorId, laydownGoodsName, laydownGoodsCount, manufacturedDate, expiratonDate)
+			(warehousingCode, mainBusinessCode, contractorId, laydownGoodsName, laydownGoodsCount, manufacturedDate, expiratonDate, laydownRequestDate)
 		SELECT 
 		   CONCAT(MAX(SUBSTRING(warehousingCode,1,11)), MAX(CAST(SUBSTRING(warehousingCode,12)AS DECIMAL))+ 1),
 		   "물류센터A물류센터_전북_1",
@@ -143,7 +141,8 @@
 		   #{laydownGoodsName},
 		   #{laydownGoodsCount},
 		   #{manufacturedDate},
-		   #{expiratonDate}
+		   #{expiratonDate},
+		   #{laydownRequestDate}
 		FROM 
 		  k3_tb_warehousing;
 	</insert>
@@ -227,7 +226,8 @@
 		WHERE
 			w.sorting = 'Y' AND w.laydownCheckResult = 'Y'	
 	</select>
-		
+	
+	<!--입고 현황(초기화면) - 입하검수리스트  -->	
 	<select id="k3GetLaydownCheck" resultType="K3Warehousing">
 		SELECT
 		   w.warehousingCode,
@@ -256,6 +256,7 @@
 			w.laydownCheckResult is not null;
 	</select>
 	
+	<!--입고 현황(초기화면) - 입고리스트  -->
 	<select id="k3GetWarehousingList" resultType="K3Warehousing">
 		SELECT
 		   w.warehousingCode,

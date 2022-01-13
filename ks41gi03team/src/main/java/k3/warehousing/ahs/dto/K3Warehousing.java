@@ -12,6 +12,7 @@ public class K3Warehousing {
 	private int laydownGoodsCount;
 	private String manufacturedDate;
 	private String expiratonDate;
+	private String laydownRequestDate;
 	private String laydownDate;
 	private String laydownCheckResult;
 	private String laydownCheckManager;
@@ -72,6 +73,12 @@ public class K3Warehousing {
 	public void setExpiratonDate(String expiratonDate) {
 		this.expiratonDate = expiratonDate;
 	}
+	public String getLaydownRequestDate() {
+		return laydownRequestDate;
+	}
+	public void setLaydownRequestDate(String laydownRequestDate) {
+		this.laydownRequestDate = laydownRequestDate;
+	}
 	public String getLaydownDate() {
 		return laydownDate;
 	}
@@ -109,6 +116,17 @@ public class K3Warehousing {
 		this.memberName = memberName;
 	}
 	@Override
+	public String toString() {
+		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
+				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
+				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
+				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate
+				+ ", laydownRequestDate=" + laydownRequestDate + ", laydownDate=" + laydownDate
+				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
+				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
+				+ "]";
+	}
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -123,6 +141,7 @@ public class K3Warehousing {
 		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
 		result = prime * result + laydownGoodsCount;
 		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
+		result = prime * result + ((laydownRequestDate == null) ? 0 : laydownRequestDate.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
@@ -190,6 +209,11 @@ public class K3Warehousing {
 				return false;
 		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
 			return false;
+		if (laydownRequestDate == null) {
+			if (other.laydownRequestDate != null)
+				return false;
+		} else if (!laydownRequestDate.equals(other.laydownRequestDate))
+			return false;
 		if (mainBusinessCode == null) {
 			if (other.mainBusinessCode != null)
 				return false;
@@ -212,16 +236,5 @@ public class K3Warehousing {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
-				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
-				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
-				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate="
-				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
-				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName
-				+ ", memberName=" + memberName + "]";
-	}
-	
 	
 }

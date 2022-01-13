@@ -1,6 +1,7 @@
 package k3.check.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.dto.K3ShipmentCheck;
@@ -33,28 +35,47 @@ public class K3CheckController {
 		this.k3CheckService = k3CheckService;
 
 	}
-	
-	//입하검수 등록이동
-	 @PostMapping("/k3AddLaydownCheck") 
-	 public String k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck){
-		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", K3LaydownCheck);
-		 int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
-		 return "redirect:/team03/goodsManagement/check/k3LaydownCheckList"; 
-	  }
-	
+	 //입하검수 수정폼이동
+	 @GetMapping("/k3ModifyLaydownCheck")
+	 public String K3ModifyLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
+			 Model model){
+		 log.info("K3CheckController/ 입하검수 수정페이지 이동----->>>>>>>>>>", warehousingCode);
+		 List<K3LaydownCheck> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode);		
+		 log.info("K3CheckController/ 입하검수 수정페이지 이동 처리결과----->>>>>>>>>>", laydownModifyList);
+		 model.addAttribute("title", "입고관리");
+		 model.addAttribute("subtitle", "입하검수수정");
+		 model.addAttribute("laydownModifyList", laydownModifyList);
+		 System.out.println(laydownModifyList);
+		 return "team03/goodsManagement/check/k3ModifyLaydownCheck";
+	 }
 	//입하검수 등록처리
-	@GetMapping("/k3AddLaydownCheck")
-	public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
-									Model model){
-		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
-		List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode);		
-		log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
-		model.addAttribute("title", "입고관리");
-		model.addAttribute("subtitle", "입하검수등록");
-		model.addAttribute("laydownCheckList", laydownCheckList);
-		
-		return "team03/goodsManagement/check/k3AddLaydownCheck";
+	@PostMapping("/k3AddLaydownCheck") 
+	public String k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck){
+		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", K3LaydownCheck);
+		int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
+		return "redirect:/team03/goodsManagement/check/k3LaydownCheckList"; 
 	}
+	//모달 입하검수 등록을 위한 입하검수코드 조회
+	@PostMapping("/k3GetLaydownCheckCodeList") 
+	@ResponseBody
+	public List<Map<String, Object>> k3GetLaydownCheckCodeList(){
+		log.info("K3CheckController/ 입하검수 등록페이지 이동----------------------");
+		List<Map<String, Object>> laydownCheckCodeList = k3CheckService.k3GetLaydownCheckCodeList();  
+		return laydownCheckCodeList; 
+	}
+	 //입하검수 등록폼이동
+	 @GetMapping("/k3AddLaydownCheck")
+	 public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
+			 Model model){
+		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
+		 List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode);		
+		 log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
+		 model.addAttribute("title", "입고관리");
+		 model.addAttribute("subtitle", "입하검수등록");
+		 model.addAttribute("laydownCheckList", laydownCheckList);
+		 return "team03/goodsManagement/check/k3AddLaydownCheck";
+	 }
+	
 	//출하검수 등록이동
 	@GetMapping("/k3AddShipmentCheck")
 	public String k3AddShipmentCheck(){

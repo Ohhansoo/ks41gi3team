@@ -170,7 +170,7 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="addLaydownTable" th:action="@{/team03/goodsManagement/check/k3AddLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownCheckList)}" th:each="l : ${laydownCheckList}">
+									<form id="modifyLaydownTable" th:action="@{/team03/goodsManagement/check/k3ModifyLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckCode" class="inputName">입하검수코드</label>
 											<input class="inputBox" type="text" id="laydownCheckCode" name="laydownCheckCode"/>
@@ -212,6 +212,11 @@
 											<button id="laydownCheckBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 											<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 										</div>	
+									</form>
+									<form id="modifyLaydownTable" th:unless="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
+										<div>
+											<h2>조회 결과가 없습니다.</h2>
+										</div>
 									</form>
 		 						</div>
 							</div>					
