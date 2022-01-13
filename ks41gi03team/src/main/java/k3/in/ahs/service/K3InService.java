@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import k3.in.ahs.dto.K3In;
 import k3.in.ahs.mapper.K3InMapper;
 import k3.inout.ahs.dto.K3Inout;
+import k3.out.ahs.dto.K3Out;
 
 @Service
 @Transactional
@@ -20,12 +21,17 @@ public class K3InService {
 		this.k3InMapper=k3InMapper;
 	}
 	
-	//입출금내역 삭제처리
+	//매출 내역 검색
+	public List<K3In> searchInList(String inKey, String inValue){
+		List<K3In> k3InList = k3InMapper.searchInList(inKey, inValue);
+		return k3InList;
+	}
+	
+	//매출내역 삭제처리
 	public int deleteIn(List<String> deleteList) {
 		int result = k3InMapper.deleteIn(deleteList);
 		return result;
 	}
-	
 	
 	//매출 내역 수정 처리
 	public int getModifyIn(K3In k3In) {
