@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div id="representative-button">
+			<div id="representative-button">
+				<form id="addIn" th:action="@{/team03/finance/in/k3AddIn}" method="post">
+					<table border="1">
+							<tr>
+								<td>
+									<label for="inCodeInput">전표번호</label>
+								</td>
+								<td>
+									<input type="text" id="inCodeInput" name="inCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="mainBusinessCodeInput">사업장별대표코드</label>
+								</td>
+								<td>
+									<input type="text" id="mainBusinessCodeInput" name="mainBusinessCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="memberIdInput">등록자아이디</label>
+								</td>
+								<td>
+									<input type="text" id="memberIdInput" name="memberId">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="memberNameInput">등록자이름</label>
+								</td>
+								<td>
+									<input type="text" id="memberNameInput" name="memberName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inRegDateInput">등록일시</label>
+								</td>
+								<td>
+									<input type="text" id="inRegDateInput" name="inRegDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="estimateContractorNameInput">거래처상호명</label>
+								</td>
+								<td>
+									<input type="text" id="estimateContractorNameInput" name="estimateContractorName">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="contractorCodeInput">거래처사업장코드</label>
+								</td>
+								<td>
+									<input type="text" id="contractorCodeInput" name="contractorCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="contractCodeInput">계약대표코드</label>
+								</td>
+								<td>
+									<input type="text" id="contractCodeInput" name="contractCode">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="estimateNumInput">견적번호</label>
+								</td>
+								<td>
+									<input type="text" id="estimateNumInput" name="estimateNum">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="estimatePriceInput">견적금액</label>
+								</td>
+								<td>
+									<input type="text" id="estimatePriceInput" name="estimatePrice">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inPayMethodInput">결제방법</label>
+								</td>
+								<td>
+									<input type="text" id="inPayMethodInput" name="inPayMethod">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inPayDateInput">실결제일</label>
+								</td>
+								<td>
+									<input type="text" id="inPayDateInput" name="inPayDate">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inPayCheckInput">수금확인금액</label>
+								</td>
+								<td>
+									<input type="text" id="inPayCheckInput" name="inPayCheck">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inPayRemainInput">미수금</label>
+								</td>
+								<td>
+									<input type="text" id="inPayRemainInput" name="inPayRemain">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inReceipeInput">증빙서류발행</label>
+								</td>
+								<td>
+									<input type="text" id="inReceipeInput" name="inReceipe">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="inReceipeDateInput">전표발생일시</label>
+								</td>
+								<td>
+									<input type="text" id="inReceipeDateInput" name="inReceipeDate">
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2">
+									<input id="addBtn" type="submit" value="확인">
+								</td>
+							</tr>														
+					</table>
+				</form> 
+			</div>
+		</div>		
+	</th:block>
+</head>

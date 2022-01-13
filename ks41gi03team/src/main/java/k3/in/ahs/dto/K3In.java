@@ -3,21 +3,24 @@ package k3.in.ahs.dto;
 public class K3In {
 	private String inCode;
 	private String mainBusinessCode;
-	private String estimateContractorName;
 	private String memberId;
-	private String memberName;
-	private String inRegDate;
-	private String contractorCode;
-	private String contractCode;
 	private String estimateNum;
 	private String estimatePrice;
 	private String inPayMethod;
 	private String inPayDate;
 	private String inPayCheck;
+	private String inCheck;
 	private String inPayRemain;
 	private String inReceipe;
 	private String inReceipeDate;
+	private String memberName;
 	
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public String getInCode() {
 		return inCode;
 	}
@@ -30,41 +33,11 @@ public class K3In {
 	public void setMainBusinessCode(String mainBusinessCode) {
 		this.mainBusinessCode = mainBusinessCode;
 	}
-	public String getEstimateContractorName() {
-		return estimateContractorName;
-	}
-	public void setEstimateContractorName(String estimateContractorName) {
-		this.estimateContractorName = estimateContractorName;
-	}
 	public String getMemberId() {
 		return memberId;
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
-	}
-	public String getMemberName() {
-		return memberName;
-	}
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-	public String getInRegDate() {
-		return inRegDate;
-	}
-	public void setInRegDate(String inRegDate) {
-		this.inRegDate = inRegDate;
-	}
-	public String getContractorCode() {
-		return contractorCode;
-	}
-	public void setContractorCode(String contractorCode) {
-		this.contractorCode = contractorCode;
-	}
-	public String getContractCode() {
-		return contractCode;
-	}
-	public void setContractCode(String contractCode) {
-		this.contractCode = contractCode;
 	}
 	public String getEstimateNum() {
 		return estimateNum;
@@ -96,6 +69,12 @@ public class K3In {
 	public void setInPayCheck(String inPayCheck) {
 		this.inPayCheck = inPayCheck;
 	}
+	public String getInCheck() {
+		return inCheck;
+	}
+	public void setInCheck(String inCheck) {
+		this.inCheck = inCheck;
+	}
 	public String getInPayRemain() {
 		return inPayRemain;
 	}
@@ -114,6 +93,7 @@ public class K3In {
 	public void setInReceipeDate(String inReceipeDate) {
 		this.inReceipeDate = inReceipeDate;
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -121,18 +101,8 @@ public class K3In {
 		builder.append(inCode);
 		builder.append(", mainBusinessCode=");
 		builder.append(mainBusinessCode);
-		builder.append(", contractProfitName=");
-		builder.append(estimateContractorName);
 		builder.append(", memberId=");
 		builder.append(memberId);
-		builder.append(", memberName=");
-		builder.append(memberName);
-		builder.append(", inRegDate=");
-		builder.append(inRegDate);
-		builder.append(", contractorCode=");
-		builder.append(contractorCode);
-		builder.append(", contractCode=");
-		builder.append(contractCode);
 		builder.append(", estimateNum=");
 		builder.append(estimateNum);
 		builder.append(", estimatePrice=");
@@ -143,6 +113,8 @@ public class K3In {
 		builder.append(inPayDate);
 		builder.append(", inPayCheck=");
 		builder.append(inPayCheck);
+		builder.append(", inCheck=");
+		builder.append(inCheck);
 		builder.append(", inPayRemain=");
 		builder.append(inPayRemain);
 		builder.append(", inReceipe=");
@@ -152,8 +124,6 @@ public class K3In {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 	
 	
 }
