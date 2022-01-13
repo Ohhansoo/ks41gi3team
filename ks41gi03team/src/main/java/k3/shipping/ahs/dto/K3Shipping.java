@@ -2,13 +2,15 @@ package k3.shipping.ahs.dto;
 
 public class K3Shipping {
 	private String shippingCode;
+	private String mainBusinessCode;
+	private String contractorCode;
 	private String vehicleCheckpointCode;
 	private String areaCode;
+	private String releaseCode;
 	private String releaseMergeCode;
 	private String shippingAddress;
 	private String shippingDetailAddress;
 	private String memberId;
-	private String memberPhone;
 	private String shippingDetail;
 	private String driverId;
 	private String shippingTracking;
@@ -17,6 +19,18 @@ public class K3Shipping {
 	}
 	public void setShippingCode(String shippingCode) {
 		this.shippingCode = shippingCode;
+	}
+	public String getMainBusinessCode() {
+		return mainBusinessCode;
+	}
+	public void setMainBusinessCode(String mainBusinessCode) {
+		this.mainBusinessCode = mainBusinessCode;
+	}
+	public String getContractorCode() {
+		return contractorCode;
+	}
+	public void setContractorCode(String contractorCode) {
+		this.contractorCode = contractorCode;
 	}
 	public String getVehicleCheckpointCode() {
 		return vehicleCheckpointCode;
@@ -29,6 +43,12 @@ public class K3Shipping {
 	}
 	public void setAreaCode(String areaCode) {
 		this.areaCode = areaCode;
+	}
+	public String getReleaseCode() {
+		return releaseCode;
+	}
+	public void setReleaseCode(String releaseCode) {
+		this.releaseCode = releaseCode;
 	}
 	public String getReleaseMergeCode() {
 		return releaseMergeCode;
@@ -54,12 +74,6 @@ public class K3Shipping {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getMemberPhone() {
-		return memberPhone;
-	}
-	public void setMemberPhone(String memberPhone) {
-		this.memberPhone = memberPhone;
-	}
 	public String getShippingDetail() {
 		return shippingDetail;
 	}
@@ -80,10 +94,11 @@ public class K3Shipping {
 	}
 	@Override
 	public String toString() {
-		return "K3Shipping [shippingCode=" + shippingCode + ", vehicleCheckpointCode=" + vehicleCheckpointCode
-				+ ", areaCode=" + areaCode + ", releaseMergeCode=" + releaseMergeCode + ", shippingAddress="
-				+ shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress + ", memberId=" + memberId
-				+ ", memberPhone=" + memberPhone + ", shippingDetail=" + shippingDetail + ", driverId=" + driverId
+		return "K3Shipping [shippingCode=" + shippingCode + ", mainBusinessCode=" + mainBusinessCode
+				+ ", contractorCode=" + contractorCode + ", vehicleCheckpointCode=" + vehicleCheckpointCode
+				+ ", areaCode=" + areaCode + ", releaseCode=" + releaseCode + ", releaseMergeCode=" + releaseMergeCode
+				+ ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
+				+ ", memberId=" + memberId + ", shippingDetail=" + shippingDetail + ", driverId=" + driverId
 				+ ", shippingTracking=" + shippingTracking + "]";
 	}
 	@Override
@@ -91,9 +106,11 @@ public class K3Shipping {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((areaCode == null) ? 0 : areaCode.hashCode());
+		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
+		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
-		result = prime * result + ((memberPhone == null) ? 0 : memberPhone.hashCode());
+		result = prime * result + ((releaseCode == null) ? 0 : releaseCode.hashCode());
 		result = prime * result + ((releaseMergeCode == null) ? 0 : releaseMergeCode.hashCode());
 		result = prime * result + ((shippingAddress == null) ? 0 : shippingAddress.hashCode());
 		result = prime * result + ((shippingCode == null) ? 0 : shippingCode.hashCode());
@@ -117,20 +134,30 @@ public class K3Shipping {
 				return false;
 		} else if (!areaCode.equals(other.areaCode))
 			return false;
+		if (contractorCode == null) {
+			if (other.contractorCode != null)
+				return false;
+		} else if (!contractorCode.equals(other.contractorCode))
+			return false;
 		if (driverId == null) {
 			if (other.driverId != null)
 				return false;
 		} else if (!driverId.equals(other.driverId))
+			return false;
+		if (mainBusinessCode == null) {
+			if (other.mainBusinessCode != null)
+				return false;
+		} else if (!mainBusinessCode.equals(other.mainBusinessCode))
 			return false;
 		if (memberId == null) {
 			if (other.memberId != null)
 				return false;
 		} else if (!memberId.equals(other.memberId))
 			return false;
-		if (memberPhone == null) {
-			if (other.memberPhone != null)
+		if (releaseCode == null) {
+			if (other.releaseCode != null)
 				return false;
-		} else if (!memberPhone.equals(other.memberPhone))
+		} else if (!releaseCode.equals(other.releaseCode))
 			return false;
 		if (releaseMergeCode == null) {
 			if (other.releaseMergeCode != null)
@@ -169,7 +196,6 @@ public class K3Shipping {
 			return false;
 		return true;
 	}
-	
 	
 	
 	
