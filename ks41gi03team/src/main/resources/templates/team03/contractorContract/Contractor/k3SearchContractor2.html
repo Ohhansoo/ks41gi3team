@@ -62,38 +62,36 @@
 		</script>
 	</th:block>
 
-	<th:block layout:fragment="customContents"> 
-		<div id="representative-button">
-			<div id="representative-button">
-				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<!--거래처 검색 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							거래처 검색
-						</div>
+		<th:block layout:fragment="customContents"> 
+		<!-- 콘텐츠 콘테이너 시작 -->
+		<div class="container-fluid">
+			<!--거래처 검색 카드 영역 -->
+			<div class="card cardColor">
+				<!--card header -->
+				<div class="card-header">
+					거래처 검색
+				</div>
 						<!--End card header -->
 						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-sm-6" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select class="form-control">
-												<option selected>통합검색</option>
-												<option>거래처 사업장 코드</option>
-												<option>거래처 상호명</option>
-												<option>거래처 종목</option>
-												<option>거래처 업태</option>
-												<option>거래 구분</option>             
-												<option>거래처 전화번호</option>
-												<option>거래처아이디</option>
-												<option>거래처 계정상태</option>
-												<option>등록직원</option>
-	         								</select>
-	         							</div>
+				<div class="card-body">
+					<div class="row" style="margin: 12px">
+						<!--inputbox 1 -->
+						<div class="col-sm-6" style="padding-left: 0px">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<select class="form-control">
+										<option selected>통합검색</option>
+										<option>거래처 사업장 코드</option>
+										<option>거래처 상호명</option>
+										<option>거래처 종목</option>
+										<option>거래처 업태</option>
+										<option>거래 구분</option>             
+										<option>거래처 전화번호</option>
+										<option>거래처아이디</option>
+										<option>거래처 계정상태</option>
+										<option>등록직원</option>
+        								</select>
+        							</div>
 										<input type="text" class="form-control" placeholder="거래처정보입력">
 										<div class=" input-group-append">
 											<button type="button" class="ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
