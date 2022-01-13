@@ -67,11 +67,11 @@
 										<th>단건삭제</th>
 										<th>수정</th>	
 										<th>차량 코드</th>
-										<th>톤수</th>
-										<th>차종</th>
-										<th>점검일시</th>
-										<th>점검 담당자</th>
+										<th>차량 등록 담당자</th>
 										<th>차량 제조사</th>
+										<th>차종</th>
+										<th>톤수</th>
+										<th>점검일시</th>
 										<th>운행 가능 여부</th>
 									</tr>
 								</thead>
@@ -89,11 +89,11 @@
 										</a>
 										</td>
 										<td th:text="${l.vehicleCode}"></td>
-										<td th:text="${l.vehicleTonage}"></td>
-										<td th:text="${l.vehicleType}"></td>
-										<td th:text="${l.vehicleInspectionDate}"></td>
 										<td th:text="${l.memberId}"></td>
 										<td th:text="${l.vehicleManufacturer}"></td>
+										<td th:text="${l.vehicleType}"></td>
+										<td th:text="${l.vehicleTonage}"></td>
+										<td th:text="${l.vehicleInspectionDate}"></td>	
 										<td th:text="${l.vehicleDriveAvailability}"></td>
    											
 										

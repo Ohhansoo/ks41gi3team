@@ -28,7 +28,7 @@ import k3.subject.ahs.dto.K3Subject;
 	}
 	
 
-	//계정과목 검색
+	//비용 검색
 	@PostMapping("/k3SearchOutList")
 	public String searchOutList(@RequestParam(value="outKey", required = false) String outKey,
 								@RequestParam(value="outValue", required = false) String outValue,
@@ -44,11 +44,11 @@ import k3.subject.ahs.dto.K3Subject;
 		
 		model.addAttribute("outList", outList);
 		System.out.println(outKey +"outKey");
-		System.out.println(outValue +"outtValue");
+		System.out.println(outValue +"outValue");
 		return "team03/finance/out/k3OutList";
 	}
 
-	//계정과목 삭제처리
+	//비용 삭제처리
 	@PostMapping("/k3DeleteOut")
 	public String deleteOut(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3OutService.deleteOut(deleteList);

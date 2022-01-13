@@ -153,7 +153,9 @@ public class K3WarehousingController {
 	public String k3AddWarehousingSort(@RequestParam(value="warehousingCode", required= false) String warehousingCode,
 									   Model model) {
 		log.info("입고분류 등록폼 이동 값받아오기 warehousingCode ------.>>>>", warehousingCode);
-		List<K3LaydownCheck> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode);
+		//입고분류 등록 받아오기
+		String type = "add";
+		List<K3LaydownCheck> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
 		model.addAttribute("warehousingSort", warehousingSort);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고분류");
