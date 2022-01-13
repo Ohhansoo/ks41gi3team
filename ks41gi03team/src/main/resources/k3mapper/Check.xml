@@ -49,11 +49,25 @@
 	
 	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
 		SELECT
-			W.warehousingCode,
-			W.laydownGoodsName,
-			W.laydownGoodsCount
+			W.warehousingCode
+			,W.laydownGoodsName
+			,W.laydownGoodsCount
+			<if test="type eq 'modify'.toString()">
+				,W.laydownCheckCode
+				,W.laydownCheckResult
+				,W.laydownDate
+				,W.laydownCheckManager
+				,W.laydownCheckDate
+				,cs.contractorName
+			</if>
 		FROM
 			k3_tb_warehousing AS W
+			<if test="type eq 'modify'.toString()">
+				INNER JOIN
+				k3_tb_contractor_staff AS cs
+				ON
+				W.contractorId = cs.contractorId
+			</if>
 		WHERE
 			warehousingCode = #{warehousingCode};
 	</select>
