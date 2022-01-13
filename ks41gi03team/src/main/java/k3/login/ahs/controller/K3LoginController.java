@@ -69,7 +69,7 @@ public class K3LoginController {
 	public String K3Logout(HttpSession session) {
 		System.out.println("03 K3logout 220111");
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
 	}
 	
 	//로그인 결과 페이지
