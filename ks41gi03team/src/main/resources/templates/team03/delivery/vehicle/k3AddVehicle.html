@@ -46,7 +46,7 @@
 					modal.addClass('hidden');
 				});
 		
-				$(document).on('click', '.vehicleMemberId_btn', function(){		//1. 버튼 이름 설정
+				$(document).on('click', '.vehicleMemberId_btn', function(){
 					var aLengthMenuArray = [];
 					aLengthMenuArray.push([5,10,-1]);
 					aLengthMenuArray.push([5,10,'ALL']);
@@ -65,7 +65,7 @@
 						},
 						columns: [
 							{ "data": "선택"},
-							{ "data": "memberId"}, //mapper.xml에서 받아오기
+							{ "data": "memberId"},
 							{ "data": "memberName"}							
 						],
 						columnDefs: [
@@ -75,7 +75,6 @@
 								searchable : false,
 								render : function(data, type, row){
 									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
-									//class name value 바꾸기
 									return htmlbtn;
 								}
 							}
@@ -85,16 +84,15 @@
 					modal.removeClass('hidden');
 						
 				});
-				$(document).on('click', '#memberConfirmBtn', function(){ 	//5. 버튼 붙여넣기
-					var checkedBox = $('.memberId:checked'); 	//6. 위 클래스 가져오기(memberId) -> 모달창 선택 접근
-	 				var memberId = $('#memberId');	//7. input박스의 id 가져오기
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var memberId = $('#memberId');
 					
 	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
-	 				//선택된 것의 부모의 부모를 찾아감(행 전체) -> childeren 0,1,2 3개 -> eq(2) 2인 회원명을 가져옴 -> text()
 	 				
-	 				memberId.attr('value',vehicleMemberIdValue);		//속성인 이름 변수를 가져옴
+	 				memberId.attr('value',vehicleMemberIdValue);
 
-					modal.addClass('hidden');	//히든 클래스
+					modal.addClass('hidden');
 				});
 				
 			});
@@ -173,10 +171,10 @@
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="vehicleMemberId" class="dataTable"> <!-- 2. 아이디 변경 -->
+						<table border="1" id="vehicleMemberId" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
-									<th>선택</th>		<!-- 3. th 설정 -->
+									<th>선택</th>	
 									<th>회원코드</th>
 									<th>회원명</th>				
 								</tr>
@@ -185,7 +183,7 @@
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button> <!-- 4. 버튼 이름 -->
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
