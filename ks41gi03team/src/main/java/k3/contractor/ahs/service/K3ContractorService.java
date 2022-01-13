@@ -22,6 +22,12 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 	
+	//거래처 삭제 처리(체크박스)
+	public void k3DeleteContractor(String contractorCode) {
+		k3ContractorMapper.k3DeleteContractor(contractorCode);
+	}
+	
+	
 	//거래처 수정 처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor) {
 		int result = k3ContractorMapper.k3ModifyDetailContractor(k3DetailContractor);
@@ -55,7 +61,7 @@ public class K3ContractorService {
 	
 	
 	
-	  //거래처 조회(검색)
+	//거래처 조회(검색)
 	public Map<String, Object> K3SearchContractorList(String searchKey, String contractorRegistrationDateStart, String contractorRegistrationDateEnd, String searchValue, int currentPage)
 	{ 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -64,13 +70,17 @@ public class K3ContractorService {
 		
 		System.out.println("뭐가 담겨있나 : " + contractorListCount);		
 		
+		currentPage = 1;
+		
 		// 검색된 거래처 투플 수(페이징)
 		double rowCount = contractorListCount.size();
 		
 		System.out.println("얼마나 보여줄까 : " + rowCount);
 		
+		System.out.println("현재페이지는? : " + currentPage);
+		
 		// 보여줄 행의 개수
-		int rowPerPage = 0;
+		int rowPerPage = 1;
 		if(rowCount < 5) {
 			rowPerPage = (int) rowCount;
 		}else {
