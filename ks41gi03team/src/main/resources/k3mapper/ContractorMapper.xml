@@ -12,27 +12,21 @@
 		<result column="contractorId"     property="contractorId"/>
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
-	
-	<!-- 거래처 삭제처리(체크박스) k3_tb_contractor_staff -->
+
+	<!-- 거래처 삭제처리(체크박스) -->
 	<delete id="k3DeleteContractor">
 		DELETE 
-			cs
-		FROM
-			k3_tb_contractor_staff AS cs
-		WHERE
-			cs.contractorCode = #{contractorCode}; 	
-	</delete>
-	
-	<!-- 거래처 삭제처리(체크박스) k3_tb_contractor -->
-	<delete id="k3DeleteContractorDetail">
-		DELETE 
-			c
+			c,cs
 		FROM
 			k3_tb_contractor AS c
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			c.contractorId = cs.contractorId				
 		WHERE
-			c.contractorCode = #{contractorCode}; 		
-	
+			c.contractorCode = #{contractorCode}; 
 	</delete>
+	
 	
 	<!-- 거래처 수정처리 k3_tb_contractor_staff -->
 	<update id="k3ModifyContractor" parameterType="K3DetailContractor">
