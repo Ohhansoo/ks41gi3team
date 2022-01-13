@@ -86,12 +86,17 @@
 			m.levelMemberCode,
 			m.memberName,
 			m.memberGender,
-			m.memberAddr,
 			m.memberPhone,
 			m.memberResidentRegistrationNumber,
 			m.memberState,
 			m.memberRegDate,
 			m.memberHiredDate
+			m.memberRetiredReason
+			m.memberRetiredDate
+			m.memberRetirementSignedDate
+			m.memberpostaladdress
+			m.memberstreetaddress
+			m.memberdetailaddress
 		FROM 
 			k3_tb_member AS m 
 		WHERE
@@ -118,9 +123,6 @@
 			<if test="memberGender != null and memberGender != ''.toString()">
 			m.memberGender = #{memberGender},
 			</if>	
-			<if test="memberAddr != null and memberAddr != ''.toString()">
-			m.memberAddr = #{memberAddr},
-			</if>	
 			<if test="memberPhone != null and memberGender != ''.toString()">
 			m.memberPhone = #{memberPhone},
 			</if>	
@@ -135,6 +137,24 @@
 			</if>	
 			<if test="memberHiredDate != null and memberHiredDate != ''.toString()">
 			m.memberHiredDate = #{memberHiredDate}
+			</if>
+			<if test="memberRetiredReason != null and memberRetiredReason != ''.toString()">
+			m.memberRetiredReason = #{memberRetiredReason}
+			</if>
+			<if test="memberRetiredDate != null and memberRetiredDate != ''.toString()">
+			m.memberRetiredDate = #{memberRetiredDate}
+			</if>
+			<if test="memberRetirementSignedDate != null and memberRetirementSignedDate != ''.toString()">
+			m.memberRetirementSignedDate = #{memberRetirementSignedDate}
+			</if>
+			<if test="memberpostaladdress != null and memberHiredDate != ''.toString()">
+			m.memberpostaladdress = #{memberpostaladdress}
+			</if>
+			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
+			m.memberstreetaddress = #{memberstreetaddress}
+			</if>
+			<if test="memberdetailaddress != null and memberdetailaddress != ''.toString()">
+			m.memberstreetaddress = #{memberdetailaddress}
 			</if>
 		</trim>		
 		WHERE 
@@ -162,12 +182,13 @@
 		,levelMemberCode
 		,memberName
 		,memberGender
-		,memberAddr
 		,memberPhone
 		,memberResidentRegistrationNumber
 		,memberState
 		,memberRegDate
 		,memberHiredDate
+		,memberpostaladdress
+		,memberstreetaddress
 	)VALUES(
 		 #{memberId}
 		,#{memberPassword}
@@ -175,12 +196,13 @@
 		,#{levelMemberCode}
 		,#{memberName}
 		,#{memberGender}
-		,#{memberAddr}
 		,#{memberPhone}
 		,#{memberResidentRegistrationNumber}
 		,"일반"
 		,#{memberRegDate}
 		,#{memberHiredDate}
+		,#{memberpostaladdress}
+		,#{memberstreetaddress}
 	);
 	</insert>
 	
@@ -193,12 +215,13 @@
 			,m.levelMemberCode							AS levelMemberCode
 			,m.memberName								AS memberName
 			,m.memberGender								AS memberGender
-			,m.memberAddr								AS memberAddr
 			,m.memberPhone								AS memberPhone
 			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
 			,m.memberState								AS memberState
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
+			,m.memberpostaladdress						AS memberpostaladdress
+			,m.memberstreetaddress						AS memberstreetaddress
 		FROM 
 			k3_tb_member	AS m
 		WHERE

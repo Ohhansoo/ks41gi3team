@@ -6,14 +6,21 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import k3.contract.ahs.dto.K3Contract;
+import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Mapper
 public interface K3WarehousingMapper {
+	//로케이션 테이블에 사용현황 업데이트
+	public int k3UpdateLocationState(K3Stock k3Stock);
+	//입고분류여부 업데이트
+	public int k3UpdateSorting(K3Stock k3Stock);
+	//입고분류 등록처리
+	public int k3AddWarehousingSort(K3Stock k3Stock);
 	//입고현황 조회처리
 	public List<K3Warehousing> k3GetWarehousingSearchList(Map<String, Object> searchCondition);
-	//입고 승인 처리
+	//입고 승인/반려 처리
 	public int k3AllowWarehousing(Map<String, Object> warehousingList);
 	//입고 요청 등록 처리
 	public int k3AddWarehousing(K3Warehousing k3Warehousing);
@@ -33,6 +40,9 @@ public interface K3WarehousingMapper {
 	public List<K3Warehousing> k3GetLaydownCheck();
 	//입고현황 초기화면
 	public List<K3Warehousing> k3GetWarehousingList();
+
+
+
 
 
 }

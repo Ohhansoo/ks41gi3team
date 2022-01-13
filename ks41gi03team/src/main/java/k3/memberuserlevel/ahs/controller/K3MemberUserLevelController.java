@@ -14,7 +14,7 @@ import k3.memberuserlevel.ahs.service.K3MemberUserLevelService;
 @RequestMapping(value = "/team03/companymanagement/level")
 public class K3MemberUserLevelController {
 
-	private K3MemberUserLevelService memberuserlevelService;
+	private final K3MemberUserLevelService memberuserlevelService;
 
 	public K3MemberUserLevelController(K3MemberUserLevelService memberuserlevelService) {
 		this.memberuserlevelService = memberuserlevelService;
@@ -27,25 +27,26 @@ public class K3MemberUserLevelController {
 	 * memberuserlevelService.AddMemberUserLevel(k3MemberUserLevel); return null; }
 	 */
 
-	//01 회원권한 조회(초기화면)
+		//01 회원권한 조회(초기화면)
 		@GetMapping("/k3MemberUserLevelList")
 		public String getMemberUserLevelList(Model model) {
 			System.out.println("02 220107 getMemberUserLevelList K3MemberUserLevelController.java");
 
 			 List<K3MemberUserLevel> memberuserlevelList =memberuserlevelService.getMemberUserLevelList();
 			 
-			model.addAttribute("title", "회원권한조회");
+			 model.addAttribute("title", "회원권한조회");
 			 model.addAttribute("memberuserlevelList", memberuserlevelList); 
-			return "team03/companymanagement/level/k3MemberUserLevelList";
+			
+			 return "team03/companymanagement/level/k3MemberUserLevelList";
 	}
 		
-	//02 회원권한등록화면(이동)
-	@GetMapping("/k3AddMemberUserLevelList")
-	public String AddMemberUserLevelList(Model model) {
-		model.addAttribute("title", "회원권한관리");
-		model.addAttribute("subtitle", "회원권한등록");
-		return "team03/companymanagement/level/k3AddMemberUserLevelList";
-	}
+//	//02 회원권한등록화면(이동)
+//	@GetMapping("/k3AddMemberUserLevelList")
+//	public String AddMemberUserLevelList(Model model) {
+//		model.addAttribute("title", "회원권한관리");
+//		model.addAttribute("subtitle", "회원권한등록");
+//		return "team03/companymanagement/level/k3AddMemberUserLevelList";
+//	}
 
 	
 }

@@ -11,9 +11,9 @@ public interface K3MemberUserLevelMapper {
 	
 	//01 회원권한현황(초기화면)
 	public List<K3MemberUserLevel> getMemberUserLevelList();
-		
+
 	//02 등록
-	public int AddMemberUserLevel(K3MemberUserLevel k3MemberUserLevel);
+	//public int AddMemberUserLevel(K3MemberUserLevel k3MemberUserLevel);
 	
 	
 }

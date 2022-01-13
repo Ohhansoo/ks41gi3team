@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import k3.check.ahs.dto.K3LaydownCheck;
 import k3.contract.ahs.dto.K3Contract;
+import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
 import k3.warehousing.ahs.mapper.K3WarehousingMapper;
@@ -18,12 +20,27 @@ public class K3WarehousingService {
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
+	//로케이션 테이블에 사용현황 업데이트
+	public int k3UpdateLocationState(K3Stock k3Stock) {
+		int locationStateResult = k3WarehousingMapper.k3UpdateLocationState(k3Stock);
+		return locationStateResult;
+	}
+	//입고분류여부 업데이트
+	public int k3UpdateSorting(K3Stock k3Stock) {
+		int soringResult = k3WarehousingMapper.k3UpdateSorting(k3Stock);
+		return soringResult;
+	}
+	//입고분류 등록처리
+	public int k3AddWarehousingSort(K3Stock k3Stock) {
+		int result = k3WarehousingMapper.k3AddWarehousingSort(k3Stock);
+		return result;
+	}
 	//입고 현황 조회 처리
 	public List<K3Warehousing> k3GetWarehousingSearchList(Map<String, Object> searchCondition){
 		List<K3Warehousing> warehousingSearchList = k3WarehousingMapper.k3GetWarehousingSearchList(searchCondition);
 		return warehousingSearchList;
 	}
-	//입고 승인 처리
+	//입고 승인/반려 처리
 	public int k3AllowWarehousing(Map<String, Object> warehousingList) {
 		int result = k3WarehousingMapper.k3AllowWarehousing(warehousingList);
 		return result;
@@ -49,7 +66,7 @@ public class K3WarehousingService {
 		List<K3Warehousing> K3RequestAllow = k3WarehousingMapper.k3RequestAllowWarehousing();
 		return K3RequestAllow;
 	}
-	
+
 	//입고분류 등록폼 이동
 	/*
 	 * public List<K3Warehousing> k3GetSortInfo(String warehousingCode) {
@@ -76,5 +93,9 @@ public class K3WarehousingService {
 		List<K3Warehousing> warehousingList = k3WarehousingMapper.k3GetWarehousingList();
 		return warehousingList;
 	}
+
+
+
+
 
 }

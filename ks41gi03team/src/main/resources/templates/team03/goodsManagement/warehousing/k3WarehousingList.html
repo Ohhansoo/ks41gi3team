@@ -14,9 +14,6 @@
 				$('#addlLaydownCheckBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
 				});
-				$('#addSort').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3AddSort';
-				});
 				
 				$(document).on('click', '#deleteCategoryBtn', function(){
 					var check = $('.deleteList:checked');
@@ -58,11 +55,7 @@
 						<button id="addlLaydownCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-clipboard-check"></i>
 							검수등록
-						</button>			
-						<button id="addSort" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-boxes"></i>
-							분류등록
-						</button>			
+						</button>						
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
@@ -78,8 +71,8 @@
 						<!--입고 및 검수조회 card header-->
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">입고조회</a>
 								<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">검수조회</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">입고조회</a>
 							</div>
 						</nav>
 						<!--End 입고 및 검수조회 card header -->					
@@ -180,14 +173,14 @@
 						<!--입고조회 및 검수조회 현황  header-->
 						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">입고현황</a>
 								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">입하검수현황</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">입고현황</a>
 							</div>
 						</nav>
 						<!--End 입고조회 및 검수조회 현황  header-->
 						<!--입고조회 및 검수조회 현황 body-->
 						<div class="tab-content" id="nav-tabContent">
-							<!--입고조회 재고현황-->
+							<!--입고조회 현황-->
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
@@ -260,7 +253,7 @@
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
-													<a th:href="@{#}">수정</a>
+													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">수정</a>
 												</td>
 												<td>
 													<a th:if="${l.laydownCheckResult} == 'Y'" th:href="@{/team03/goodsManagement/warehousing/k3AddSort(warehousingCode=${l.warehousingCode})}">등록</a>

@@ -47,7 +47,8 @@ public class K3LoginController {
 			 
 			 		K3MemberUser k3memberuser = memberuserService.K3MemberUserInfoBycode(memberId);
 		     		System.out.println("아이디 입력완료, 비번도입력완");
-			         if(k3memberuser != null && k3memberuser.getMemberPassword()!= null && memberPassword.equals(k3memberuser.getMemberPassword())) {
+			         if(k3memberuser != null && k3memberuser.getMemberPassword()!= null 
+			        		 								&& memberPassword.equals(k3memberuser.getMemberPassword())) {
 			        	 
 			     		System.out.println("비번일치");
 
@@ -68,7 +69,7 @@ public class K3LoginController {
 	public String K3Logout(HttpSession session) {
 		System.out.println("03 K3logout 220111");
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
 	}
 	
 	//로그인 결과 페이지

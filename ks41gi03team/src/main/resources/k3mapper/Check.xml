@@ -23,10 +23,29 @@
 			laydownCheckCode = #{laydownCheckCode},
 			laydownCheckResult = #{laydownCheckResult},
 			laydownCheckManager = #{laydownCheckManager},
+			laydownDate = #{laydownDate},
 			laydownCheckDate = #{laydownCheckDate}
 		WHERE
 			warehousingCode = #{warehousingCode};
 	</update>
+	
+	<select id="k3GetLaydownCheckCodeList" resultType="map" parameterType="map">
+		SELECT
+			w.laydownCheckCode,
+			w.warehousingCode,	
+			w.laydownGoodsName,
+			cs.contractorName,
+			w.laydownRequestDate
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE
+			w.warehousingAllow = 'Y' AND w.laydownCheckCode IS NOT NULL
+		ORDER BY w.laydownCheckCode;
+	</select>
 	
 	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
 		SELECT
