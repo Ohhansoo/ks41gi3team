@@ -40,7 +40,9 @@ public class K3CheckController {
 	 public String K3ModifyLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
 			 Model model){
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동----->>>>>>>>>>", warehousingCode);
-		 List<K3LaydownCheck> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode);		
+		 //수정 관련 정보 받아오기
+		 String type = "modify";
+		 List<K3LaydownCheck> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동 처리결과----->>>>>>>>>>", laydownModifyList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수수정");
@@ -68,7 +70,9 @@ public class K3CheckController {
 	 public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
 			 Model model){
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
-		 List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode);		
+		 //등록 관련 정보 받아오기
+		 String type = "add";
+		 List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수등록");

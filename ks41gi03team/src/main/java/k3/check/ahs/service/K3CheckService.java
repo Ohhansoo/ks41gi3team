@@ -28,9 +28,9 @@ public class K3CheckService {
 		List<Map<String, Object>> laydownCheckCodeList = k3CheckMapper.k3GetLaydownCheckCodeList(null);
 		return laydownCheckCodeList;
 	}
-	//입하검수 등록 페이지 이동(물품명, 개수 세팅)
-	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode) {
-		List<K3LaydownCheck> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode);		
+	//입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
+	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode, String type) {
+		List<K3LaydownCheck> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode, type);		
 		return laydownCheckList;
 	}
 	//출하검수 현황 이동

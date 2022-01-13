@@ -16,6 +16,7 @@ public class K3LaydownCheck {
 	private String laydownCheckDate;
 	private String dockName;
 	private String memberName;
+	private String type;
 	public String getWarehousingCode() {
 		return warehousingCode;
 	}
@@ -106,15 +107,11 @@ public class K3LaydownCheck {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	@Override
-	public String toString() {
-		return "K3LaydownCheck [warehousingCode=" + warehousingCode + ", laydownCheckCode=" + laydownCheckCode
-				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
-				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
-				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate="
-				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
-				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName
-				+ ", memberName=" + memberName + "]";
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	@Override
 	public int hashCode() {
@@ -134,6 +131,7 @@ public class K3LaydownCheck {
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
@@ -213,6 +211,11 @@ public class K3LaydownCheck {
 				return false;
 		} else if (!memberName.equals(other.memberName))
 			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
 		if (warehousingCode == null) {
 			if (other.warehousingCode != null)
 				return false;
@@ -220,7 +223,15 @@ public class K3LaydownCheck {
 			return false;
 		return true;
 	}
-	
-
+	@Override
+	public String toString() {
+		return "K3LaydownCheck [warehousingCode=" + warehousingCode + ", laydownCheckCode=" + laydownCheckCode
+				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
+				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
+				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate="
+				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
+				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName
+				+ ", memberName=" + memberName + ", type=" + type + "]";
+	}
 	
 }
