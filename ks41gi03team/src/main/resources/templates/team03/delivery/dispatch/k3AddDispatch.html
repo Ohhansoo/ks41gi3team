@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
+
 					location.href = '/team03/delivery/dispatch/k3DispatchList';
 				});
 				$(document).on('click', '#submitBtn', function(){
@@ -92,6 +93,7 @@
 	 				memberId.attr('value', dispatchMemberIdValue);	
 
 					modal.addClass('hidden');
+
 				});
 			});
 		</script>
@@ -171,6 +173,7 @@
 										<label for="dockName" class="inputName">도크명</label>
 										<input class="inputBox" type="text" id="dockName" name="dockName"/>
 									</div>								
+
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
 										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>

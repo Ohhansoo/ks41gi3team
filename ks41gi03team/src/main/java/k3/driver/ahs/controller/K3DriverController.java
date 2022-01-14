@@ -54,7 +54,9 @@ public class K3DriverController {
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 	
+
 	//수정 화면
+
 	@GetMapping("/k3ModifyDriver")
 	public String k3ModifyDriver(@RequestParam(value="driverId", required = false) String driverId, Model model) {
 		
@@ -68,6 +70,7 @@ public class K3DriverController {
 		
 		return "team03/delivery/driver/k3ModifyDriver";
 	}
+
 	
 	//수정 등록
 	@PostMapping("/k3ModifyDriver")
@@ -77,4 +80,5 @@ public class K3DriverController {
 		
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
+
 }
