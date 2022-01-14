@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.in.ahs.service.K3InService;
 import k3.inout.ahs.controller.K3InoutController;
 import k3.inout.ahs.dto.K3Inout;
@@ -27,9 +29,19 @@ public class K3InController {
 		//의존성 주입
 		private final K3InService k3InService;
 		
+				
 		public K3InController(K3InService k3InService) {
 			this.k3InService = k3InService;
 		}
+		
+		
+		
+	/*
+	 * HttpServletRequest request
+	 * 
+	 * session = request.getSession(); session
+	 */
+		
 		
 		//매출내역 검색
 		@PostMapping("/k3SearchInList")
@@ -75,7 +87,6 @@ public class K3InController {
 				K3In inInfo = k3InService.getModifyIn(inCode);
 				model.addAttribute("inInfo", inInfo);
 			}
-			
 			model.addAttribute("title", "계정과목 수정화면");
 			return "team03/finance/in/k3ModifyIn";
 		}
@@ -95,6 +106,16 @@ public class K3InController {
 		public String goToInAddForm(Model model) {
 			model.addAttribute("title", "매출 내역 관리");
 			model.addAttribute("subtitle", "매출 내역 등록");
+			
+			List<K3MainBusinessCode>  getMainBusinessCodeList =	k3InService.getMainBusinessCodeList();
+			System.out.println(getMainBusinessCodeList + "메인비즈니스코드");
+			model.addAttribute("getMainBusinessCodeList", getMainBusinessCodeList);
+			
+			List<K3Estimate> getEstimateNum = k3InService.getEstimateNum();
+			System.out.println(getEstimateNum + "견적번호");
+			model.addAttribute("getEstimateNum", getEstimateNum);
+			
+			
 			System.out.println("매출 내역 등록 컨트롤러 실행");
 			System.out.println(model + "model 값");
 			return "/team03/finance/in/k3AddIn";
