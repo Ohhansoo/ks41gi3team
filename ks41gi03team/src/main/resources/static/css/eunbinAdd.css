@@ -6,10 +6,10 @@
 	color:#3F72AF;
 }
 .input-group{
-	
+	padding-top:15px;
+	padding-bottom:15px;
 }
 .addGroup{
-	padding-top:15px;
 	padding-bottom:15px;
 }
 
@@ -23,4 +23,8 @@
 }
 .ahsbtn2{
 	margin-left:0px;
+}
+
+.addForm{
+	padding : 15px;
 }
