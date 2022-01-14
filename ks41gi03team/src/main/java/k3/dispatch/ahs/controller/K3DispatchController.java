@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.dispatch.ahs.dto.K3Dispatch;
@@ -42,12 +43,13 @@ public class K3DispatchController {
 		return "team03/delivery/dispatch/k3DispatchList";
 	}
 	
+
 	//등록 화면
 	@GetMapping("/k3AddDispatch")
 	public String addDispatch(Model model) {
 		return "team03/delivery/dispatch/k3AddDispatch";
 	}
-	
+
 	//등록 진행
 	@PostMapping("/k3AddDispatch")
 	public String addDispatch(K3Dispatch k3Dispatch) {
@@ -57,7 +59,19 @@ public class K3DispatchController {
 		return "redirect:/team03/delivery/dispatch/k3DispatchList";
 	}
 	
+
 	//수정 화면
+
+	@PostMapping("/k3ModifyDispatch")
+	public String modifyDispatch(K3Dispatch k3Dispatch) {
+		
+		k3DispatchService.modifyDispatch(k3Dispatch);
+		
+		return "redirect:/team/delivery/dispatch/k3DispatchList";
+	}
+  
+	//수정 진행
+
 	@GetMapping("/k3ModifyDispatch")
 	public String k3ModifyDispatch(@RequestParam(value="dispatchCode", required = false) String dispatchCode, Model model) {
 		
@@ -72,6 +86,7 @@ public class K3DispatchController {
 		return "team03/delivery/dispatch/k3ModifyDispatch";
 	}
 	
+
 	//수정 진행
 	@PostMapping("/k3ModifyDispatch")
 	public String modifyDispatch(K3Dispatch k3Dispatch) {
