@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title>ksmart41</title>
+</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<!-- 콘텐츠 콘테이너 시작 -->
+			<div class="container-fluid">
+				
+				
+				<!--하위 카드 영역 -->
+				<div class="card">
+					<div class="row">
+						<div class="col-12">
+					<!-- card header Start -->
+							<div class="card-header">
+								<div class="card-title">재무관리</div>
+							</div>
+					<!-- card header End -->
+					<!-- card body Start -->	
+							<div class="card-body-p0">
+								<div class="table-responsive mailbox-messages">
+									<table class="table table-holder mailbox-messages">
+										<thead>
+											<tr>
+												<th>
+													<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+														<i class="far fa-square icon"></i>
+														<!-- 클릭이벤트 아래의 버튼이미지로 바꿈 -->
+												  		<!-- <i class="far fa-check-square"></i> -->												
+													</button>
+												</th>
+												<th>수정</th>
+												<th>무릎</th>
+												<th>발</th>
+												<th>무릎</th>
+												<th>발</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<div class="icheck-primary">
+														<input type="checkbox" id="check1"/>
+														<label for="check1"></label>
+													</div>
+												</td>
+												<td>
+													<button type="button" class="btn btn-default btn-sm">
+  														<i class="fas fa-pencil-alt icon"></i>
+													</button>
+												</td>
+												<td>예압</td>
+												<td>예얍</td>
+												<td>예얍</td>
+												<td>예얍</td>
+											</tr>
+											<tr>
+												<td>
+													<div class="icheck-primary">
+														<input type="checkbox" id="check1"/>
+														<label for="check1"></label>
+													</div>
+												</td>
+												<td>
+													<button type="button" class="btn btn-default btn-sm">
+  														<i class="fas fa-pencil-alt icon"></i>
+													</button>
+												</td>
+												<td>예압</td>
+												<td>예얍</td>
+												<td>예얍</td>
+												<td>예얍</td>
+											</tr>
+											<tr>
+												<td>
+													<div class="icheck-primary">
+														<input type="checkbox" id="check1"/>
+														<label for="check1"></label>
+													</div>
+												</td>
+												<td>
+													<button type="button" class="btn btn-default btn-sm">
+  														<i class="fas fa-pencil-alt icon"></i>
+													</button>
+												</td>
+												<td>예압</td>
+												<td>예얍</td>
+												<td>예얍</td>
+												<td>예얍</td>
+											</tr>
+												
+												
+										</tbody>
+									</table>
+								</div>		
+							</div>
+						<!-- card body End -->								
+						</div>
+					</div>		
+				</div>				
+				<!--End 하위 카드 영역 -->
+				
+				<!--상위 카드 영역 -->
+				<div class="card cardColor">
+					<!--card header -->
+					<div class="card-header">
+						메뉴
+					</div>
+					<!--End card header -->
+					<!--card body -->
+					<div class="card-body">
+						<div class="row" style="margin: 12px">
+							<!--inputbox 1 -->
+						<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+								
+					</div>	
+				<!--End 버튼 영역 -->	
+							
+							<!--  검색 바  -->
+							<form class="col-lg-6" th:action="@{#}" method="post">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
+										<option value="">호호</option>
+										<option value="">하하</option>
+										<option value="">흐흐</option>
+										<option value="">히히</option>
+									</select>
+									<input type="text" class="form-control" placeholder="검색">
+									<div class="input-group-append">
+										<div class="btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--End inputbox 1 -->
+	 					</div>
+					</div>					
+	 				<!--End card body 묶음 -->
+				</div>
+				<!--End 상위 카드 영역 -->
+			</div>
+			<!-- End 콘텐츠 콘테이너 -->
+		</div>
+	</th:block>

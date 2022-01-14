@@ -2,20 +2,171 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title th:text="title"></title>
-	</th:block>
-	<th:block layout:fragment="customContents">
-		<div id="representative-button">
-			<div id="representative-button">
+<th:block layout:fragment="customTitle">
+	<title>ksmart41</title>
+</th:block>
+	
+	<th:block layout:fragment="customContents"> 
+			<script type="text/javascript">
+			$(function(){
 				
-					<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<a th:href="@{/team03/spaceBusiness/location/k3ModifyLocation}">수정</a>
-					<a th:href="@{/team03/spaceBusiness/location/k3DeleteLocation}">삭제</a>
+				$('#addLocationBtn').click(function(){
+					location.href = "/team03/spaceBusiness/location/k3AddLocation";
+				});
+				
+				var rowCheckObj = document.getElementsByName('rowCheck');
+				var rowCount = rowCheckObj.length;
+				$("input:checkbox[name=allCheck]").click(function(){
 					
+					var rowCheckList = $("input[name=rowCheck]");
+					for(var i = 0; i < rowCheckList.length; i++){
+						rowCheckList[i].checked = this.checked;
+					}
+				});
+				$("input[name=rowCheck]").click(function(){
+					
+					if($("input[name=rowCheck]:checked").length == rowCount){
+						$("input[name=allCheck]")[0].checked = true;
+					}
+					else{
+						$("input[name=allCheck]")[0].checked = false;
+					}
+				});
+			});
+				function deleteValue(){
+					var url = "/team03/spaceBusiness/location/k3LocationList";
+					var valueArr = new Array();
+					var list = $("input[name=rowCheck]");
+
+					for(var i = 0; i < list.length; i++){
+						if(list[i].checked){
+							valueArr.push(list[i].value);
+						}
+					}
+					if(valueArr.length == 0){
+						alert("선택한 글이 없습니다.");
+					}
+					else{
+						var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
+						$.ajax({
+							url : url,
+							type : 'POST',
+							traditional : true,
+							data : { valueArr : valueArr },
+							success : function(data){
+								if(data = 1){
+									alert("삭제 성공");
+									location.replace("/team03/spaceBusiness/location/k3LocationList");
+								}
+								else{
+									alert("삭제 실패");
+								}
+							}
+						});
+					}
+				}
+		</script>
+		<div id="representative-button">
+			<!-- 콘텐츠 콘테이너 시작 -->
+		
+			<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button" id="addLocationBtn">
+							<i class="bi bi-file-earmark-plus">등록</i>
+							
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer">출력</i>
+						
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes">분류등록</i>
+							
+						</button>			
+						<button id="delBtn" class="btn btn-outline-info ahsbtn4" type="button" th:onclick="|javascript:deleteValue()|">
+							<i class="bi bi-trash">삭제</i>
+						</button>			
+								
+					</div>	
+				<!--End 버튼 영역 -->
+				<!--상위 카드 영역 -->
+				<div class="card cardColor">
+					<!--card header -->
+					<div class="card-header">
+						조회
+					</div>
+					<!--End card header -->
+					<!--card body -->
+					<div class="card-body">
+						<div class="row" style="margin: 12px">
+							<!--inputbox 1 -->
+							<form class="col-lg-6" th:action="@{#}" method="post">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
+										<option value="">호호</option>
+										<option value="">하하</option>
+										<option value="">흐흐</option>
+										<option value="">히히</option>
+									</select>
+									<input type="text" class="form-control" placeholder="검색">
+									<div class="input-group-append">
+										<div class="btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--End inputbox 1 -->
+	 					</div>
+					</div>					
+	 				<!--End card body 묶음 -->
 				</div>
+				<!--End 상위 카드 영역 -->
+				<!--하위 카드 영역 -->
+				<div class="card">
+					<div class="row">
+						<div class="col-12">
+					<!-- card header Start -->
+							<div class="card-header">
+								<div class="card-title">로케이션 현황</div>
+							</div>
+					<!-- card header End -->
+					<!-- card body Start -->	
+							<div class="card-body table-responsive p-0 table-hover" style="height:500px;">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>
+												<input type="checkbox" id="allCheck" name="allCheck"/>
+											</th>
+											<th>수정</th>
+											<th>로케이션 코드</th>
+											<th>비고</th>
+											<th>상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(locationData)}" th:each="ld :${locationData}">
+											<td>
+													<input type="checkbox" name="rowCheck" th:value="${ld.locationCode}"/>
+											</td>
+											<td>
+												<a th:href="@{/team03/spaceBusiness/location/k3ModifyLocation(locationCode=${ld.locationCode})}">수정</a>
+											</td>
+											<td th:text="${ld.locationCode}"></td>
+											<td th:text="${ld.locationNote}"></td>
+											<td th:text="${ld.locationState}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						<!-- card body End -->								
+						</div>
+					</div>		
+				</div>				
+				<!--End 하위 카드 영역 -->
 			</div>
-		</div>	
+			<!-- End 콘텐츠 콘테이너 -->
+		</div>
 	</th:block>
-</head>

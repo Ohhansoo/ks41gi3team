@@ -6,7 +6,19 @@
 		<title th:text="title"></title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+	
 		<div id="representative-button">
+			<script type="text/javascript">
+				$(function(){
+					$('input:text[name=warehouseArea]').keyup(function() {
+						var area = parseInt($(this).val());		
+					   	if(area > 0) {
+					       	var flat = Math.round(area / 3.3058);
+					        $('input:text[name=warehouseFlat]').attr('value',flat);
+				        }
+					});
+				});
+			</script>	
 			<div id="representative-button">
 				
 					<!-- 콘텐츠 콘테이너 시작 -->
@@ -41,16 +53,16 @@
 										</div>
 										<div class="form-group">
 											<label for="warehouseFlat">평수</label>
-											<input type="text" class="form-control" id="warehouseFalt" name="warehouseFalt" th:value="${k3Warehouses.warehouseFlat}"/>평
+											<input type="text" class="form-control" id="warehouseFlat" name="warehouseFlat" th:value="${k3Warehouses.warehouseFlat}"/>평
 										</div>
 										<div class="form-group">
 											<label>기능</label>
 											<select class="form-group"  name="warehouseType">	
 												<option th:value="${k3Warehouses.warehouseType}"></option>
-												<option value="일반">일반</option>
-												<option value="냉장">냉장</option>
-												<option value="냉동">냉동</option>
-												<option value="고급">고급</option>
+												<option th:value="일반">일반</option>
+												<option th:value="냉장">냉장</option>
+												<option th:value="냉동">냉동</option>
+												<option th:value="고급">고급</option>
 											</select>
 										</div>
 										<div class="form-group">
@@ -61,11 +73,10 @@
 											<label>운영여부</label>
 											<select class="form-group" id="warehouseOperation" name="warehouseOperation">
 												<option th:value="${k3Warehouses.warehouseOperation}"></option>
-												<option value="운영가능">운영가능</option>
-												<option value="운영중지">운영중지</option>
-												<option value="내부수리">내부수리</option>
-												<option value="임대완료">임대완료</option>
-												<option value="기타">기타</option>
+												<option th:value="운영가능">운영가능</option>
+												<option th:value="운영중지">운영중지</option>
+												<option th:value="내부수리">내부수리</option>
+												<option th:value="임대완료">임대완료</option>
 											</select>
 										</div>
 										<div class="card-footer">

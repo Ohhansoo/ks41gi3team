@@ -21,4 +21,17 @@ public class K3ShippingService {
 		List<K3Shipping> shippingList = k3ShippingMapper.getShippingList();
 		return shippingList;
 	}
+	
+	public Integer addShipping(K3Shipping k3Shipping) {
+		Integer result = k3ShippingMapper.addShipping(k3Shipping);
+		return result;
+	}
+	
+	public K3Shipping getModifyShipping(String shippingCode) {
+		return k3ShippingMapper.getModifyShipping(shippingCode);
+	}
+	
+	public Integer modifyShipping(K3Shipping k3Shipping) {
+		return k3ShippingMapper.modifyShipping(k3Shipping);
+	}
 }

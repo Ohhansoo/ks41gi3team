@@ -3,21 +3,156 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.inout.ahs.mapper.K3InoutMapper">
+<resultMap type="K3Inout" id="inoutResultMap">
+		<result column="inoutRec" property="inoutRec"/>
+		<result column="mainBusinessCode" property="mainBusinessCode"/>
+		<result column="memberId" property="memberId"/>
+		<result column="memberName" property="memberName"/>
+		<result column="inoutRegDate" property="inoutRegDate"/>
+		<result column="contractorDevision" property="contractorDevision"/>
+		<result column="inoutTradeDate" property="inoutTradeDate"/>
+		<result column="inoutName" property="inoutName"/>
+		<result column="inoutPrice" property="inoutPrice"/>
+		<result column="inoutPreDate" property="inoutPreDate"/>
+		<result column="inoutCategory" property="inoutCategory"/>
+		<result column="inoutMemo" property="inoutMemo"/>
+		<result column="inoutCheck" property="inoutCheck"/>
+		<result column="inoutLast" property="inoutLast"/>
+		<result column="inoutResult" property="inoutResult"/>
+	</resultMap>
+	
+	<!--  입출금 내역 삭제 처리 -->
+	<delete id ="deleteInout" parameterType="int">
+	DELETE 
+		a
+	FROM
+		k3_tb_inout AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or inoutRec =#{deleteList}
+		</foreach>	
+	</delete>
+	
+	
+	
+	<!--  입출금 내역 수정 처리 -->
+	<update id ="modifyInout" parameterType="K3Inout">
+			UPDATE k3_tb_inout
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="inoutRec != null and inoutRec != ''.toString()">			
+					 inoutRec		=#{inoutRec}
+				</if>
+				<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+					,mainBusinessCode	=#{mainBusinessCode}
+				</if>
+				<if test="memberId != null and memberId != ''.toString()">		
+					,memberId		=#{memberId}
+				</if>
+				<if test="memberName != null and memberName != ''.toString()">
+					,memberName	=#{memberName}
+				</if>
+				<if test="inoutRegDate != null and inoutRegDate != ''.toString()">
+					,inoutRegDate		=#{inoutRegDate}
+				</if>
+				<if test="contractorDevision != null and contractorDevision != ''.toString()">
+					,contractorDevision		=#{contractorDevision}
+				</if>
+				<if test="inoutTradeDate != null and inoutTradeDate != ''.toString()">
+					,inoutTradeDate		=#{inoutTradeDate}
+				</if>
+				<if test="inoutName != null and inoutName != ''.toString()">
+					,inoutName		=#{inoutName}
+				</if>
+				<if test="inoutPrice != null and inoutPrice != ''.toString()">
+					,inoutPrice		=#{inoutPrice}
+				</if>
+				<if test="inoutPreDate != null and inoutPreDate != ''.toString()">
+					,inoutPreDate		=#{inoutPreDate}
+				</if>
+				<if test="inoutCategory != null and inoutCategory != ''.toString()">
+					,inoutCategory		=#{inoutCategory}
+				</if>
+				<if test="inoutMemo != null and inoutMemo != ''.toString()">
+					,inoutMemo		=#{inoutMemo}
+				</if>
+				<if test="inoutCheck != null and inoutCheck != ''.toString()">
+					,inoutCheck		=#{inoutCheck}
+				</if>
+				<if test="inoutLast != null and inoutLast != ''.toString()">
+					,inoutLast		=#{inoutLast}
+				</if>
+				<if test="inoutResult != null and inoutResult != ''.toString()">
+					,inoutResult		=#{inoutResult}
+				</if>
+			</trim>
+			WHERE
+				inoutRec =#{inoutRec};
+	</update>
+	
+	
+	
+	
+	<!-- 입출금 내역 수정 폼 -->
+	<select id="getModifyInout" resultType="K3Inout">
+		SELECT 
+			 inoutRec
+			,mainBusinessCode
+			,memberId
+			,memberName
+			,inoutRegDate
+			,contractorDevision
+			,inoutTradeDate
+			,inoutName
+			,inoutPrice
+			,inoutPreDate
+			,inoutCategory
+			,inoutMemo
+			,inoutCheck
+			,inoutLast
+			,inoutResult
+		FROM k3_tb_inout
+		where
+			inoutRec = #{inoutRec};
+	</select>
+	
+	
+	<!-- 입출금 내역 등록 -->
 	
 	<insert id="addInout">
-	INSERT INTO k3_tb_as
+	INSERT INTO k3_tb_inout
 	(
 		inoutRec,
 		mainBusinessCode,
-		memberId
-		
+		memberId,
+		memberName,
+		inoutRegDate,
+		contractorDevision,
+		inoutTradeDate,
+		inoutName,
+		inoutPrice,
+		inoutPreDate,
+		inoutCategory,
+		inoutMemo,
+		inoutCheck,
+		inoutLast,
+		inoutResult
 		)
 	VALUES
 	(
 		#{inoutRec},
 		#{mainBusinessCode},
 		#{memberId},
-		
+		#{memberName},
+		#{inoutRegDate},
+		#{contractorDevision},
+		#{inoutTradeDate},
+		#{inoutName},
+		#{inoutPrice},
+		#{inoutPreDate},
+		#{inoutCategory},
+		#{inoutMemo},
+		#{inoutCheck},
+		#{inoutLast},
+		#{inoutResult}
 	); 
 	
 	<!-- (
@@ -34,7 +169,7 @@
 	</insert>
 	
 		
-	
+	<!--  입출금 내역 조회 -->
 	<select id="getInoutList" resultType="K3Inout">
 	SELECT
 		 inoutRec
@@ -52,6 +187,7 @@
 		,inoutCheck
 		,inoutLast
 		,inoutResult
+		
 	FROM k3_tb_inout;
 	</select>
 

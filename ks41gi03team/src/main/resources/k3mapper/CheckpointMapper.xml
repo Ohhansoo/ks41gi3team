@@ -63,5 +63,44 @@
 		WHERE
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</select>
+	
+	<update id="modifyCheckpoint" parameterType="K3Checkpoint">
+		UPDATE k3_tb_vehicle_checkpoint
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				vehicleCheckpointCode = #{vehicleCheckpointCode},
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				mainBusinessCode = "공장A공장_서울_1",
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				contractorCode = "partners-driver-a",
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				driverId = #{driverId},
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				vehicleCode = #{vehicleCode},
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				vehicleArrivalDate = #{vehicleArrivalDate},
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				vehicleShipmentDate = #{vehicleShipmentDate}
+			</if>
+		</trim>
+		WHERE
+			vehicleCheckpointCode = #{vehicleCheckpointCode};
+	</update>
+	
+	<delete id="k3DeleteCheckpoint" parameterType="Integer">
+		DELECT
+			vc
+		FROM
+			k3_tb_vehicle_checkpoint AS vc
+			<foreach collection="list" item="deleteList" open="WHERE 1=2">
+				or vehicleCheckpointCode = #{deleteList}
+			</foreach>
+	</delete>
 
 </mapper>

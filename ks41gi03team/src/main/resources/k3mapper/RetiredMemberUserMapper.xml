@@ -10,16 +10,45 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 
+	<insert id="AddRetiredMemberUser">
+		INSERT INTO 
+			k3_tb_retiredMember
+				(
+				memberRetiredCode,
+				mainBusinessCode,
+				memberId,
+				memberRetiredReason,
+				memberRetiredDate,
+				memberRetirementSignedDate
+			)VALUES(
+				#{memberRetiredCode},
+				"물류센터A물류센터_전북_1",
+				#{memberId},
+				#{memberRetiredReason},
+				#{memberRetiredDate},
+				#{memberRetirementSignedDate}
+			);
+	</insert>
 		
 	<select id="getRetiredMemberUserList" resultType="K3RetiredMemberUser">
 		SELECT 
-			 rm.memberRetiredCode					AS memberRetiredCode
-			,rm.mainBusinessCode						AS mainBusinessCode
-			,rm.memberId								AS memberId
-			,rm.memberRetiredReason					AS memberRetiredReason
-			,rm.memberRetiredDate					AS memberRetiredDate
-			,rm.memberRetirementSignedDate		AS memberRetirementSignedDate
-		FROM k3_tb_retiredMember AS rm
+			 m.memberId									AS memberId
+			,m.memberPassword							AS memberPassword
+			,m.mainBusinessCode							AS mainBusinessCode
+			,m.levelMemberCode							AS levelMemberCode
+			,m.memberName								AS memberName
+			,m.memberGender								AS memberGender
+			,m.memberPhone								AS memberPhone
+			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
+			,m.memberState								AS memberState
+			,m.memberRegDate							AS memberRegDate
+			,m.memberHiredDate							AS memberHiredDate
+			,m.memberpostaladdress						AS memberpostaladdress
+			,m.memberstreetaddress						AS memberstreetaddress
+		FROM 
+			k3_tb_member	AS m
+		WHERE
+			memberState = "퇴사";
 	</select>
 
 </mapper>

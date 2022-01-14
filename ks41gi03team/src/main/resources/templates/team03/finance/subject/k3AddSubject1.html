@@ -5,17 +5,27 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	
 	<th:block layout:fragment="customContents">
+		<script>
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					history.back();
+				});
+			});
+		</script>	 
+	
+	
 		<div id="representative-button">
 			<div id="representative-button">
-				<form id="subjectAdd" th:action="@{k3SubjectAdd}" method="post">
+				<form id="addSubject" th:action="@{/team03/finance/subject/k3SubjectList}" method="post">
 					<table border="1">
 							<tr>
 								<td>
 									<label for="subjectCodeInput">계정과목 코드</label>
 								</td>
 								<td>
-									<input type="text" id="subjectCodeInput" name="subjectCode">
+									<input type="text" id="subjectCodeInput" name="asCode">
 								</td>
 							</tr>
 							<tr>
@@ -23,7 +33,7 @@
 									<label for="subjectNameInput">계정과목 이름</label>
 								</td>
 								<td>
-									<input type="text" id="subjectNameInput" name="subjectName">
+									<input type="text" id="subjectNameInput" name="asName">
 								</td>
 							</tr>
 							<tr>
@@ -31,7 +41,7 @@
 									<label for="subjectGCodeInput">통합계정과목 코드</label>
 								</td>
 								<td>
-									<input type="text" id="subjectGCodeInput" name="subjectGCode">
+									<input type="text" id="subjectGCodeInput" name="asGCode">
 								</td>
 							</tr>
 							<tr>
@@ -39,7 +49,7 @@
 									<label for="subjectUseInput">계정과목 사용여부</label>
 								</td>
 								<td>
-									<input type="text" id="subjectUseInput" name="isUse">
+									<input type="text" id="subjectUseInput" name="asUse">
 								</td>
 							</tr>
 							<tr>
@@ -47,7 +57,7 @@
 									<label for="subjectCorrectInput">계정과목 수정여부</label>
 								</td>
 								<td>
-									<input type="text" id="subjectCorrectInput" name="isCorrect">
+									<input type="text" id="subjectCorrectInput" name="asCorrect">
 								</td>
 							</tr>
 							<tr>
@@ -55,7 +65,7 @@
 									<label for="subjectMemberId">등록자아이디</label>
 								</td>
 								<td>
-									<input type="text" id="subjectMemberInput" name="regName">
+									<input type="text" id="subjectMemberInput" name="memberId">
 								</td>
 							</tr>
 							<tr>
@@ -63,7 +73,7 @@
 									<label for="subjectRegDateInput">등록날짜</label>
 								</td>
 								<td>
-									<input type="text" id="subjectRegDateInput" name="regDate">
+									<input type="text" id="subjectRegDateInput" name="asRegDate">
 								</td>
 							</tr>
 							<tr>
@@ -71,7 +81,7 @@
 									<label for="subjectApplyDateInput">적용연도</label>
 								</td>
 								<td>
-									<input type="text" id="subjectApplyDateInput" name="applyYear">
+									<input type="text" id="subjectApplyDateInput" name="asYear">
 								</td>
 							</tr>
 							<tr>

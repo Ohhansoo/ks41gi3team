@@ -17,5 +17,10 @@ public interface K3CheckpointMapper {
 	
 	//수정
 	public K3Checkpoint getModifyCheckpoint(String vehicleCheckpointCode);
-
+	
+	//수정 진행
+	public Integer modifyCheckpoint(K3Checkpoint k3Checkpoint);
+	
+	//삭제
+	public Integer k3DeleteCheckpoint(List<String> deleteList);
 }

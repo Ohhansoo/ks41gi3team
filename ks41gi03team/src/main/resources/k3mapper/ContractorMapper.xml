@@ -12,6 +12,153 @@
 		<result column="contractorId"     property="contractorId"/>
 		<result column="memberId"     property="memberId"/>
 	</resultMap> -->
+
+	<!-- 거래처 삭제처리(체크박스) -->
+	<delete id="k3DeleteContractor">
+		DELETE 
+			c,cs
+		FROM
+			k3_tb_contractor AS c
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			c.contractorId = cs.contractorId				
+		WHERE
+			c.contractorCode = #{contractorCode}; 
+	</delete>
+	
+	
+	<!-- 거래처 수정처리 k3_tb_contractor_staff -->
+	<update id="k3ModifyContractor" parameterType="K3DetailContractor">
+		UPDATE k3_tb_contractor_staff
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="mainBusinessCode != null and mainBusinessCode !=''.toString()">
+				, mainBusinessCode = #{mainBusinessCode}
+			</if>
+			<if test="contractorPw != null and contractorPw !=''.toString()">
+				, contractorPw = #{contractorPw}
+			</if>
+			<if test="memberId != null and memberId !=''.toString()">
+				, memberId = #{memberId}
+			</if>
+			<if test="contractorType != null and contractorType !=''.toString()">
+				, contractorType = #{contractorType}
+			</if>
+			<if test="contractorName != null and contractorName !=''.toString()">
+				, contractorName = #{contractorName}
+			</if>
+			<if test="contractorRepresentative != null and contractorRepresentative !=''.toString()">
+				, contractorRepresentative = #{contractorRepresentative}
+			</if>
+			<if test="contractorPhone != null and contractorPhone !=''.toString()">
+				, contractorPhone = #{contractorPhone}
+			</if>
+			<if test="contractorSuperviser != null and contractorSuperviser !=''.toString()">
+				, contractorSuperviser = #{contractorSuperviser}
+			</if>
+			<if test="contractorSuperviserPhone != null and contractorSuperviserPhone !=''.toString()">
+				, contractorSuperviserPhone = #{contractorSuperviserPhone}
+			</if>
+		</trim>
+		WHERE contractorId=#{contractorId};
+	</update>
+	
+	<!-- 거래처 수정처리 k3_tb_contractor-->
+	<update id="k3ModifyDetailContractor" parameterType="K3DetailContractor">
+		UPDATE k3_tb_contractor
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="mainBusinessCode != null and !''.toString()">
+				, mainBusinessCode = #{mainBusinessCode}
+			</if>
+			<if test="contractorBusinessNum != null and !''.toString()">
+				, contractorBusinessNum = #{contractorBusinessNum}
+			</if>
+			<if test="contractorAddr != null and !''.toString()">
+				, contractorAddr = #{contractorAddr}
+			</if>
+			<if test="contractorEmail != null and !''.toString()">
+				, contractorEmail = #{contractorEmail}
+			</if>
+			<if test="contractorSuperviserEmail != null and !''.toString()">
+				, contractorSuperviserEmail = #{contractorSuperviserEmail}
+			</if>
+			<if test="contractorItem != null and !''.toString()">
+				, contractorItem = #{contractorItem}
+			</if>
+			<if test="contractorStatus != null and !''.toString()">
+				, contractorStatus = #{contractorStatus}
+			</if>
+			<if test="contractorProfitBank != null and !''.toString()">
+				, contractorProfitBank = #{contractorProfitBank}
+			</if>
+			<if test="contractorProfitAccount != null and !''.toString()">
+				, contractorProfitAccount = #{contractorProfitAccount}
+			</if>
+			<if test="contractorAccountHolder != null and !''.toString()">
+				, contractorAccountHolder = #{contractorAccountHolder}
+			</if>
+			<if test="memberId != null and !''.toString()">
+				, memberId = #{memberId}
+			</if>
+			<if test="contractorRegistrationDate != null and !''.toString()">
+				, contractorRegistrationDate = CURDATE()
+			</if>
+			<if test="contractorBusinessClientNum != null and !''.toString()">
+				, contractorBusinessClientNum = #{contractorBusinessClientNum}
+			</if>
+			<if test="contractorDevision != null and !''.toString()">
+				, contractorDevision = #{contractorDevision}
+			</if>
+			<if test="contractorFax != null and !''.toString()">
+				, contractorFax = #{contractorFax}
+			</if>
+			<if test="contractorState != null and !''.toString()">
+				, contractorState = #{contractorState}
+			</if>
+		</trim>
+		WHERE contractorCode = #{contractorCode};
+	</update>
+	
+
+	
+	<!-- 거래처 수정화면 -->
+	<select id="k3GetModifyContractor" parameterType="String" resultType="K3DetailContractor">
+		SELECT	
+			c.contractorCode
+			, cs.contractorName
+			, c.contractorBusinessNum
+			, cs.mainBusinessCode	
+			, c.contractorDevision
+			, cs.contractorType
+			, c.contractorItem
+			, c.contractorStatus
+			, cs.contractorRepresentative
+			, c.contractorBusinessClientNum
+			, c.contractorAddr
+			, cs.contractorPhone
+			, c.contractorEmail
+			, cs.contractorSuperviser
+			, cs.contractorSuperviserPhone
+			, c.contractorSuperviserEmail
+			, c.contractorFax
+			, c.contractorProfitBank
+			, c.contractorProfitAccount
+			, c.contractorAccountHolder
+			, cs.contractorId
+			, cs.contractorPw
+			, cs.levelCode
+			, c.contractorState
+			, cs.memberId
+			, c.contractorRegistrationDate
+		FROM 
+			k3_tb_contractor_staff AS cs
+			INNER join
+			k3_tb_contractor AS c
+			on
+			cs.contractorId = c.contractorId
+		where
+			c.contractorCode = #{contractorCode};
+	</select>
 	
 	<!-- 거래처 등록하기 -->
 	<insert id="k3AddContractor" parameterType="K3DetailContractor">
@@ -44,6 +191,85 @@
 					'm_c17', curdate(), #{contractorBusinessClientNum}, 
 					#{contractorDevision}, #{contractorFax}, #{contractorState});
 	</insert>
+	
+	
+	<!-- 검색된 거래처 투플수(동적 페이징)  -->
+	<select id="K3SearchContractorCount" parameterType="map" resultType="map">
+		SELECT
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
+						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
+				 contractorRegistrationDate
+	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			
+			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
+				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			c.contractorRegistrationDate DESC
+	</select>
+	
+	<!-- 검색된 거래처 정보(동적 페이징) -->
+	<select id="K3SearchContractorList" parameterType="map" resultType="map">
+		SELECT
+			c.contractorCode
+			,cs.contractorName
+			,c.contractorItem
+			,c.contractorStatus
+			,c.contractorDevision
+			,cs.contractorPhone
+			,c.contractorRegistrationDate
+			,c.contractorId
+			,c.contractorState
+			,c.memberId
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
+						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
+				 contractorRegistrationDate
+	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			
+			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
+				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			c.contractorRegistrationDate DESC
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
+		</if>
+	</select>
+
 
 	<!-- 거래처 상세정보 불러오기 -->
 	<select id="K3GetDetailContractor" parameterType="String" resultType="K3DetailContractor">
@@ -82,9 +308,21 @@
 		where
 			c.contractorCode = #{contractorCode};
 	</select>
+	
+	<!-- 거래처 투플 수(페이징) -->
+	<select id="K3GetContractorCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId;					
+	</select>
 
-	<!-- 거래처 목록 간단 현황으로 불러오기 -->
-	<select id="K3GetContractorList" resultType="K3Contractor">
+	<!-- 거래처 목록 간단 현황으로 불러오기(페이징) -->
+	<select id="K3GetContractorList" parameterType="map" resultType="map" >
 		SELECT
 			c.contractorCode
 			,cs.contractorName
@@ -101,7 +339,12 @@
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			c.contractorId = cs.contractorId;
+			c.contractorId = cs.contractorId
+		ORDER BY
+			c.contractorRegistrationDate DESC
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>			
 	</select>
 
 </mapper>

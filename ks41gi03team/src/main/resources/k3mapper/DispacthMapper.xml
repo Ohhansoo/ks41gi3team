@@ -141,6 +141,22 @@
 				dockName = #{dockName}
 			</if>
 		</trim>
+
+		WHERE
+			dispatchCode = #{dispatchCode};
 	</update>
+	
+	<select id="k3SearchDispatchList" resultType="K3Dispatch">
+		SELECT
+			*
+		FROM
+			k3_tb_dispatch_management
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="dispatchValue != null and dispatchValue != ''.toString()">
+				${dispatchKey} LIKE CONCAT('%', #{dispatchValue}, '%');
+			</if>
+		</trim>
+	</select>
+
 
 </mapper>

@@ -4,67 +4,162 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.out.ahs.mapper.K3OutMapper">
  	<!-- <resultMap type="K3Subject" id="subjectResultMap">
-		<result column="subjectName" property="subjectName" />
+		<result column="asCode" property="asCode" />
 		<result column="regName" property="subjectRegMember" />
 		<result column="regDate" property="subjectRegDate" />
-		<result column="subjectCode" property="subjectCode" />
-		<result column="subjectGCode" property="subjectGCode" />
-		<result column="isUse" property="subjectIsUse" />
+		<result column="outCode" property="outCode" />
+		<result column="asName" property="asName" />
+		<result column="mainbusinessCode" property="subjectmainbusinessCode" />
 		<result column="isCorrect" property="subjectIsCorrect" />
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap> -->
+
+<!-- 비용 검색 -->	
+	<select id="searchOutList" resultType="K3Out">
+			SELECT
+			outCode
+			,asCode
+			,asName
+			,mainBusinessCode
+			,outName
+			,memberId
+			,outRegDate
+			,outMemo
+			,outPrice
+			,outMethod
+			,outReceipe
+			FROM
+				k3_tb_out
+		<trim prefix="WHERE" prefixOverrides="AND \OR">
+			<if test="outValue != null and outValue != ''.toString()">
+				${outKey} LIKE CONCAT('%', #{outValue}, '%');
+			</if>
+		</trim>
+	</select>	
 	
-	<insert id="outAdd">
-	INSERT INTO k3_tb_as
+	
+	
+	<!--  비용 삭제 처리 -->
+	<delete id ="deleteOut" parameterType="int">
+	
+	DELETE 
+		a
+	FROM
+		k3_tb_out AS a 
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or outCode=#{deleteList}
+		</foreach>	
+	</delete>
+	
+	<!--  비용 수정 처리 -->
+	<update id ="modifyOut" parameterType="K3Out">
+			UPDATE k3_tb_out
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="outCode != null and outCode!= ''.toString()">			
+					 outCode		=#{outCode}
+				</if>
+				<if test="asCode != null and asCode != ''.toString()">
+					,asCode	=#{asCode}
+				</if>
+				<if test="asName != null and asName != ''.toString()">		
+					,asName		=#{asName}
+				</if>
+				<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+					,mainBusinessCode	=#{mainBusinessCode}
+				</if>
+				<if test="outName != null and outName != ''.toString()">
+					,outName		=#{outName}
+				</if>
+				<if test="memberId != null and memberId != ''.toString()">
+					,memberId		=#{memberId}
+				</if>
+				<if test="outRegDate != null and outRegDate != ''.toString()">
+					,outRegDate		=#{outRegDate}
+				</if>
+				<if test="outMemo != null and outMemo != ''.toString()">
+					,outMemo		=#{outMemo}
+				</if>
+				<if test="outPrice != null and outPrice != ''.toString()">
+					,outPrice		=#{outPrice}
+				</if>
+				<if test="outMethod != null and outMethod != ''.toString()">
+					,outMethod		=#{outMethod}
+				</if>
+				<if test="outReceipe != null and outReceipe != ''.toString()">
+					,outReceipe		=#{outReceipe}
+				</if>
+			</trim>
+			WHERE
+				outCode =#{outCode};
+	</update>	
+	
+	<select id="getModifyOut" resultType="K3Out">
+		select
+			outCode,
+			asCode,
+			asName,
+			mainBusinessCode,
+			outName,
+			memberId,
+			outRegDate,
+			outMemo,
+			outPrice,
+			outMethod,
+			outReceipe
+		FROM
+			k3_tb_out
+		where
+			outCode = #{outCode};
+	</select>
+	
+	<!-- 비용 등록처리 -->
+	<insert id="addOut">
+	INSERT INTO k3_tb_out
 	(
+		outCode,
 		asCode,
 		asName,
-		asGCode,
-		asUse,
-		asCorrect,
+		mainBusinessCode,
+		outName,
 		memberId,
-		asRegDate,
-		asYear
+		outRegDate,
+		outMemo,
+		outPrice,
+		outMethod,
+		outReceipe
 		)
 	VALUES
 	(
-		#{subjectCode},
-		#{subjectName},
-		#{subjectGCode},
-		#{isUse},
-		#{isCorrect},
-		#{regName},
-		#{regDate},
-		#{applyYear}
+		#{outCode},
+		#{asCode},
+		#{asName},
+		#{mainBusinessCode},
+		#{outName},
+		#{memberId},
+		#{outRegDate},
+		#{outMemo},
+		#{outPrice},
+		#{outMethod},
+		#{outReceipe}
 	);
-	
-	<!-- (
-		97999,
-		"임의",
-		90000,
-		"Y",
-		"N",
-		"m_c01",
-		"2021-12-22",
-		"2022-01-01"
-	); -->
-
 	</insert>
 	
-		
-	
+	<!-- 비용 (시작화면) -->
 	<select id="getOutList" resultType="K3Out">
 	select
-		a.asName AS subjectName,
-		a.memberId AS regName,
-		a.asRegDate AS regDate,
-		a.asCode AS subjectCode,
-		a.asGCode AS subjectGCode,
-		a.asUse AS isUse,
-		a.asCorrect AS isCorrect,
-		a.asYear AS applyYear
+		outCode,
+		asCode,
+		asName,
+		mainBusinessCode,
+		outName,
+		memberId,
+		outRegDate,
+		outMemo,
+		outPrice,
+		outMethod,
+		outReceipe
 	FROM
-		k3_tb_as AS a;
+		k3_tb_out;
 	</select>
 
 </mapper>

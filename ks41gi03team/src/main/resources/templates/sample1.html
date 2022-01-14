@@ -2,9 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-<th:block layout:fragment="customTitle">
-	<title>ksmart41</title>
-</th:block>
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customJs">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+				<script>
+				$(function(){
+					$('#login').on('click', function(){
+						location.href = 'team03/companymanagement/login/k3MemberUserLogin';
+					});
+					$('#sample1').on('click', function(){
+						location.href = 'sample1';
+					});
+					$('#sample2').on('click', function(){
+						location.href = 'sample2';
+					});
+					$('#sample3').on('click', function(){
+						location.href = 'sample3';
+					});
+				});
+			</script>
+	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<!-- 콘텐츠 콘테이너 시작 -->
@@ -30,7 +60,6 @@
 								
 					</div>	
 				<!--End 버튼 영역 -->
-				<!--상위 카드 영역 -->
 				<div class="card cardColor">
 					<!--card header -->
 					<div class="card-header">
@@ -75,7 +104,7 @@
 					<!-- card body Start -->	
 							<div class="card-body-p0">
 								<div class="table-responsive mailbox-messages">
-									<table class="table table-holder mailbox-messages">
+									<table class="table table-head-fixed text-nowrap table-striped"  >
 										<thead>
 											<tr>
 												<th>

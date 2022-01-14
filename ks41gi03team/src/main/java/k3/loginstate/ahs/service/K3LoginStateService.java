@@ -15,7 +15,7 @@ public class K3LoginStateService {
 	public K3LoginStateService(K3LoginStateMapper loginstateMapper) {
 		this.loginstateMapper = loginstateMapper;
 	}
-	//로그인 현황(초기화면)
+	//01 로그인 현황(초기화면)
 	public List<K3LoginState> getLoginStateList(){
 		List<K3LoginState> loginstateList = loginstateMapper.getLoginStateList();
 			return loginstateList;

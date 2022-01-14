@@ -2,99 +2,286 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customJs">
+			<script type="text/javascript">
+			$(function(){				
+				$('#addWarehousingBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
+				});
+				$('#allowWarehousingBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3AllowWarehousing';
+				});
+				$('#addlLaydownCheckBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
+				});
+				
+				$(document).on('click', '#deleteCategoryBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+					<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart"></i>
+							입고요청
+						</button>
+						<button id="allowWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart-check"></i>
+							요청승인
+						</button>
+						<button id="addlLaydownCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-clipboard-check"></i>
+							검수등록
+						</button>						
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							입고 결과
-						</div>
-						<!--End card header -->
+						<!--입고 및 검수조회 card header-->
+						<nav>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">검수조회</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="nav-home" aria-selected="true">입고조회</a>
+							</div>
+						</nav>
+						<!--End 입고 및 검수조회 card header -->					
 						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{#}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="categoryKey" class="input-group-text">
-												<option value="large">거래처명</option>
-												<option value="medium">검수자</option>
-												<option value="small">소분류</option>
-											</select>
-										</div>
-										<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-										<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-										<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
-									</div>
-								</form>
-								<!--End inputbox 1 -->
-	 						</div>
-						</div>					
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane active" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<form class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+											<!--inputbox 1 -->
+											<div class="input-group input-group-sm col-sm-5">
+												<select name="warehousingKey" class="input-group-text form-control-sm">
+													<option value="laydownGoodsName">상품명</option>
+													<option value="contractorName">회사명</option>
+													<option value="warehousingCode">입고코드</option>
+												</select>
+												<input type="text" name="warehousingValue" class="form-control">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="categorySearcch" type="submit">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 1 -->
+											<!--inputbox 2 -->
+											<div class="input-group input-group-sm col-sm-4">
+												<select name="warehousingDateKey" class="input-group-text form-control-sm">
+													<option value="manufacturedDate">제조일자</option>
+													<option value="expiratonDate">유통기한</option>
+													<option value="laydownCheckDate">입하날짜</option>
+												</select>
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 2 -->
+											~
+											<!--inputbox 3 -->
+											<div class="col-sm-3" style="padding-left: 0px">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+														<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+														</div>
+													</div>
+						                   		</div>
+											</div>
+											<!--End inputbox 3 -->
+										</form>
+			 						</div>
+								</div>					
+			 					<!--End card body 묶음 -->								
+							</div>
+							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<!--inputbox 1 -->
+										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
+											<div class="input-group input-group-sm">
+												<select name="categoryKey" class="input-group-text form-control-sm">
+													<option value="large">상품명</option>
+													<option value="medium">회사명</option>
+													<option value="small">검수코드</option>
+												</select>
+												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="categorySearcch" type="submit">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!--End inputbox 1 -->
+			 						</div>
+								</div>					
+			 					<!--End card body 묶음 -->								
+							</div>
+						</div>						
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							입고 현황
+						<!--입고조회 및 검수조회 현황  header-->
+						<nav>
+							<div class="nav nav-tabs" id="nav-tab" role="tablist">
+								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">입하검수현황</a>
+								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">입고현황</a>
+							</div>
+						</nav>
+						<!--End 입고조회 및 검수조회 현황  header-->
+						<!--입고조회 및 검수조회 현황 body-->
+						<div class="tab-content" id="nav-tabContent">
+							<!--입고조회 현황-->
+							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+								<!--card body -->
+								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+									<form id="" method="post">
+										<table class="table table-head-fixed text-nowrap">
+											<thead>
+												<tr>
+													<th>삭제</th>
+													<th>수정</th>	
+													<th>입고코드</th>
+													<th>입하검수코드</th>	
+													<th>입고물품명</th>
+													<th>입고물품개수</th>
+													<th>제조일자</th>
+													<th>유통기한</th>					
+													<th>거래처명</th>									
+													<th>입하날짜</th>													
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:if="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+													<td>
+														<input type="checkbox" value="선택">
+													</td>
+													<td>
+														<a th:href="@{#}">수정</a>
+													</td>
+													<td th:text="${l.warehousingCode}"></td>
+													<td th:text="${l.laydownCheckCode}"></td>
+													<td th:text="${l.laydownGoodsName}"></td>
+													<td th:text="${l.laydownGoodsCount}"></td>
+													<td th:text="${l.manufacturedDate}"></td>
+													<td th:text="${l.expiratonDate}"></td>
+													<td th:text="${l.contractorName}"></td>
+													<td th:text="${l.laydownDate}"></td>
+												</tr>
+												<tr th:unless="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+													<td> 입하검수 목록이 없습니다. </td>
+												</tr>
+											</tbody>						
+										</table>
+									</form>
+								</div>
+								<!--End card body -->
+							</div>
+							<!--End 입고조회 재고현황-->
+							<!--검수조회 재고현황-->		
+							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+								<!--card body -->
+								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>삭제</th>
+												<th>수정</th>	
+												<th>분류등록</th>
+												<th>입하검수코드</th>
+												<th>입하물품명</th>
+												<th>입하물품개수</th>					
+												<th>거래처명</th>					
+												<th>검수자</th>					
+												<th>입하날짜</th>					
+												<th>검수일자</th>					
+												<th>검수결과</th>									
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
+												<td>
+													<input type="checkbox" value="선택">
+												</td>
+												<td>
+													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">수정</a>
+												</td>
+												<td>
+													<a th:if="${l.laydownCheckResult} == 'Y'" th:href="@{/team03/goodsManagement/warehousing/k3AddSort(warehousingCode=${l.warehousingCode})}">등록</a>
+												</td>
+												<td th:text="${l.laydownCheckCode}"></td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.laydownGoodsCount}"></td>
+												<td th:text="${l.contractorName}"></td>
+												<td th:text="${l.memberName}"></td>
+												<td th:text="${l.laydownDate}"></td>
+												<td th:text="${l.laydownCheckDate}"></td>
+												<td th:text="${l.laydownCheckResult}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
+												<td> 입하검수 목록이 없습니다. </td>
+											</tr>
+										</tbody>						
+									</table>
+								</div>
+								<!--End card body -->
+							</div>
+							<!--End 검수조회 현황-->
 						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-							<table class="table table-head-fixed text-nowrap">
-								<thead>
-									<tr>
-										<th>삭제</th>
-										<th>수정</th>	
-										<th>분류등록</th>	
-										<th>입고물품명</th>
-										<th>입고물품개수</th>
-										<th>제조일자</th>
-										<th>유통기한</th>					
-										<th>거래처명</th>									
-										<th>입하날짜</th>													
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:if="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
-										<td>
-											<input type="checkbox" value="선택">
-										</td>
-										<td>
-											<a th:href="@{#}">수정</a>
-										</td>
-										<td>
-											<a th:href="@{/team03/goodsManagement/warehousing/k3AddSort}">등록</a>
-										</td>
-										<td th:text="${l.laydownGoodsName}"></td>
-										<td th:text="${l.laydownGoodsCount}"></td>
-										<td th:text="${l.manufacturedDate}"></td>
-										<td th:text="${l.expiratonDate}"></td>
-										<td th:text="${l.contractorName}"></td>
-										<td th:text="${l.laydownDate}"></td>
-									</tr>
-									<tr th:unless="${not #lists.isEmpty(K3LaydownCheck)}" th:each="l : ${K3LaydownCheck}">
-										<td> 입하검수 목록이 없습니다. </td>
-									</tr>
-								</tbody>						
-							</table>
-						</div>
-						<!--End card body -->
+						<!--End 입고조회 및 검수조회 현황 body-->
 					</div>
 					<!--End 하위 카드 영역 -->
-
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
 	</th:block>
-</head>

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import k3.contract.ahs.dto.K3Contract;
 import k3.contract.ahs.mapper.K3ContractMapper;
+import k3.contractor.ahs.dto.K3Contractor;
 
 @Service
 @Transactional
@@ -24,4 +25,5 @@ public class K3ContractService {
 		
 		return contractList;
 	}
+
 }

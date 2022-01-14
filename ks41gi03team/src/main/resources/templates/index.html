@@ -20,6 +20,14 @@
 				$('#sample3').on('click', function(){
 					location.href = 'sample3';
 				});
+				
+				$('#sample5').on('click', function(){
+					location.href = 'sample5';
+				});
+				
+				$('#sample_kjw').on('click', function(){
+					location.href = 'sample_kjw';
+				});
 			});
 		</script>
 	 
@@ -28,15 +36,12 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--버튼 영역 -->
-					<div th:if="${session.SID != null}">
-						<button type="button" id="login" class="ahsbtn3 btn btn-outline-info">로그아웃</button>
-					</div>
 					<div style="margin:15px;">
-						<span>[[${session.SID}]]</span>
-						<button id="login" type="button" class="ahsbtn3 btn btn-outline-info">로그인</button>
-						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">sample1 이동</button>
-						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">sample2 이동</button>				
+						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-primary me-2">sample1 이동</button>
+						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-primary me-2">sample2 이동</button>				
 						<button id="sample3" type="button" class="ahsbtn3 btn btn-outline-info">sample3 이동</button>				
+						<button id="sample5" type="button" class="ahsbtn3 btn btn-outline-info">sample5 이동</button>	
+						<button id="sample_kjw" type="button" class="ahsbtn3 btn btn-outline-info">sample_kjw 이동</button>				
 					</div>
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->

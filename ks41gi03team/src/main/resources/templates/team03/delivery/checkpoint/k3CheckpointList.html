@@ -5,36 +5,85 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customJs">
+			<script>
+			$(function(){				
+				$('#addCategoryBtn').on('click', function(){
+					location.href = '/team03/delivery/checkpoint/k3AddChekcpoint';
+				});
+				
+				$(document).on('click', '#deleteCheckpointBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
+	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
-			<div id="representative-button">
-				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							조회
-						</div>
-						<!--End card header -->
+			<!-- 콘텐츠 콘테이너 시작 -->
+			<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/delivery/checkpoint/k3AddCheckpoint'">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="submit">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+								
+					</div>	
+				<!--End 버튼 영역 -->
+				<div class="card cardColor">
+					<!--card header -->
+					<div class="card-header">
+						조회
+					</div>
+					<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{#}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="checkpoints" class="input-group-text">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
 												<option value="checkpoint">입출하 기록 코드</option>
 												<option value="driver">기사 아이디</option>
 												<option value="vehicle">차량 코드</option>
 											</select>
+									<input type="text" class="form-control" placeholder="검색">
+									<div class="input-group-append">
+										<div class="btn btn-default">
+											<i class="fas fa-search icon"></i>
 										</div>
-										<input type="text" name="checkpoint" class="form-control" placeholder="입력">
-										<button id="searchCheck" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
-										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
 									</div>
-								</form>
+								</div>
+							</form>
 								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
@@ -50,7 +99,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
+							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
 										<th>삭제</th>
@@ -65,10 +114,12 @@
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(checkpointList)}" th:each="l : ${checkpointList}">
 										<td>
-											<input type="checkbox" value="선택">
+											<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.vehicleCheckpointCode}">
 										</td>	
 										<td>
-										<a th:href="@{/team03/delivery/checkpoint/k3ModifyCheckpoint(vehicleCheckpointCode=${l.vehicleCheckpointCode})}">수정</a>
+											<a id="modifyCheck" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/checkpoint/k3ModifyCheckpoint(vehicleCheckpointCode=${l.vehicleCheckpointCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+											</a>
 										</td>
 										<td th:text="${l.vehicleCheckpointCode}"></td>
 										<td th:text="${l.driverId}"></td>
@@ -84,16 +135,8 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
-						<a th:href="@{/team03/delivery/checkpoint/k3AddCheckpoint}" id="moveAddPage">등록페이지로 이동 --></a>					
-					</div>
-					<!--End 버튼 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
 	</th:block>
 </head>

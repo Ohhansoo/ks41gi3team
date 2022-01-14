@@ -4,6 +4,7 @@ import k3.check.ahs.dto.K3LaydownCheck;
 
 public class K3Warehousing {
 	private String laydownCheckCode;
+	private String warehousingCode;
 	private String mainBusinessCode;
 	private String contractorName;
 	private String contractorId;
@@ -11,6 +12,7 @@ public class K3Warehousing {
 	private int laydownGoodsCount;
 	private String manufacturedDate;
 	private String expiratonDate;
+	private String laydownRequestDate;
 	private String laydownDate;
 	private String laydownCheckResult;
 	private String laydownCheckManager;
@@ -22,6 +24,12 @@ public class K3Warehousing {
 	}
 	public void setLaydownCheckCode(String laydownCheckCode) {
 		this.laydownCheckCode = laydownCheckCode;
+	}
+	public String getWarehousingCode() {
+		return warehousingCode;
+	}
+	public void setWarehousingCode(String warehousingCode) {
+		this.warehousingCode = warehousingCode;
 	}
 	public String getMainBusinessCode() {
 		return mainBusinessCode;
@@ -65,6 +73,12 @@ public class K3Warehousing {
 	public void setExpiratonDate(String expiratonDate) {
 		this.expiratonDate = expiratonDate;
 	}
+	public String getLaydownRequestDate() {
+		return laydownRequestDate;
+	}
+	public void setLaydownRequestDate(String laydownRequestDate) {
+		this.laydownRequestDate = laydownRequestDate;
+	}
 	public String getLaydownDate() {
 		return laydownDate;
 	}
@@ -102,6 +116,17 @@ public class K3Warehousing {
 		this.memberName = memberName;
 	}
 	@Override
+	public String toString() {
+		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
+				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
+				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
+				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate
+				+ ", laydownRequestDate=" + laydownRequestDate + ", laydownDate=" + laydownDate
+				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
+				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
+				+ "]";
+	}
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -116,9 +141,11 @@ public class K3Warehousing {
 		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
 		result = prime * result + laydownGoodsCount;
 		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
+		result = prime * result + ((laydownRequestDate == null) ? 0 : laydownRequestDate.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
 	@Override
@@ -182,6 +209,11 @@ public class K3Warehousing {
 				return false;
 		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
 			return false;
+		if (laydownRequestDate == null) {
+			if (other.laydownRequestDate != null)
+				return false;
+		} else if (!laydownRequestDate.equals(other.laydownRequestDate))
+			return false;
 		if (mainBusinessCode == null) {
 			if (other.mainBusinessCode != null)
 				return false;
@@ -197,17 +229,12 @@ public class K3Warehousing {
 				return false;
 		} else if (!memberName.equals(other.memberName))
 			return false;
+		if (warehousingCode == null) {
+			if (other.warehousingCode != null)
+				return false;
+		} else if (!warehousingCode.equals(other.warehousingCode))
+			return false;
 		return true;
-	}
-	@Override
-	public String toString() {
-		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", mainBusinessCode=" + mainBusinessCode
-				+ ", contractorName=" + contractorName + ", contractorId=" + contractorId + ", laydownGoodsName="
-				+ laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount + ", manufacturedDate="
-				+ manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate=" + laydownDate
-				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
-				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
-				+ "]";
 	}
 	
 }

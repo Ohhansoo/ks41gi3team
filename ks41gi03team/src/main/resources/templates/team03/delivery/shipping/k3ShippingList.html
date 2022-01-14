@@ -7,9 +7,28 @@
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
-			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/delivery/shipping/k3AddShipping'">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-boxes"></i>
+							분류등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>			
+					</div>
+				<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -22,16 +41,17 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{#}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="shippings" class="input-group-text">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm">
 												<option value="shipping">배송 번호</option>
 												<option value="driver">기사 아이디</option>
 											</select>
-										</div>
-										<input type="text" name="shipping" class="form-control" placeholder="">
-										<button id="searchShipping" type="submit" class="ahsbtn1 btn btn-outline-info">조회</button>
-										<button type="button" class="ahsbtn1 btn btn-outline-info printBtn">출력</button>
+										<input type="text" class="form-control" placeholder="검색">
+										<div class="input-group-append">
+											<div class="btn btn-default">
+												<i class="fas fa-search icon"></i>
+											</div>
+									</div>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -49,7 +69,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
+							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
 										<th>삭제</th>
@@ -59,8 +79,8 @@
 										<th>배송지역 코드</th>
 										<th>상품출고 통합코드</th>
 										<th>배송지</th>
+										<th>배송지 세부주소</th>
 										<th>확인 담당자</th>
-										<th>담당자 전화번호</th>
 										<th>배송 세부유형</th>
 										<th>차량 기사</th>
 										<th>배송 현황</th>
@@ -72,15 +92,17 @@
 											<input type="checkbox" value="선택">
 										</td>	
 										<td>
-										<a th:href="@{/team03/delivery/shipping/k3ModifyShipping(shippingCode=${l.shippingCode})}">수정</a>
+										<a id="modifyShipping" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/shipping/k3ModifyShipping(shippingCode=${l.shippingCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+										</a>
 										</td>
 										<td th:text="${l.shippingCode}"></td>
 										<td th:text="${l.vehicleCheckpointCode}"></td>
 										<td th:text="${l.areaCode}"></td>
 										<td th:text="${l.releaseMergeCode}"></td>
 										<td th:text="${l.shippingAddress}"></td>
+										<td th:text="${l.shippingDetailAddress}"></td>
 										<td th:text="${l.memberId}"></td>
-										<td th:text="${l.memberPhone}"></td>
 										<td th:text="${l.shippingDetail}"></td>
 										<td th:text="${l.driverId}"></td>
 										<td th:text="${l.shippingTracking}"></td>
@@ -93,16 +115,9 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>
-						<a th:href="@{/team03/delivery/shipping/k3AddShipping}" id="moveAddPage">등록페이지로 이동 --></a>					
-					</div>
-					<!--End 버튼 영역 -->
+					
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-		</div>
 	</th:block>
 </head>

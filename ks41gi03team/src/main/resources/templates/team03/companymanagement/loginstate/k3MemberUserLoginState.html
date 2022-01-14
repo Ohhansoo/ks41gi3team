@@ -5,11 +5,31 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	<style>
+      table {
+        width: 1000px;
+        height: 200px;
+      }
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+					</div>	
+					<!--End 버튼 영역 -->
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
@@ -38,8 +58,14 @@
 												<option value="loginMacAddress">MacAddress</option>
 											</select>
 										</div>
-										<input type="text" name="retiredMemberUserValue" class="form-control" >
-										<button id="retiredMemberUserSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+										<input type="text" name="loginstateValue" class="form-control" placeholder="로그인 코드"  style="height: 38px;  font-size: 15px;">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="loginstateSearch" type="submit" style="width: 35px; height: 35px;">
+													<i class="fas fa-search icon" ></i>
+												</button>
+											</div>
+										</div>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -61,8 +87,6 @@
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<th>삭제</td>	
-											<th>수정</th>
 											<th>로그인 코드</th>
 						                    <th>사업장별대표코드</th>
 						                    <th>직원ID</th>
@@ -76,13 +100,7 @@
 										</tr>
 									</thead>
 									<tbody>								
-										<tr th:if="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
-						   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.loginCode}">
-											</td>
-							   				<td>
-												<a th:href="@{/team03/companymanagement/loginstate/k3MemberUserLoginState(loginCode=${l.loginCode})}">수정</a>
-											</td>	
+										<tr th:if="${not #lists.isEmpty(loginstateList)}" th:each="l : ${loginstateList}">		
 						   				<td th:text="${l.loginCode}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberId}"></td>
@@ -102,10 +120,6 @@
 							</form>	
 						</div>
 						<!--End card body -->
-					</div>
-					<div class="row" style="margin:15px;">
-						<!-- <button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button> -->
-						<button type="button" class="ahsbtn1 btn btn-outline-info deleteBbtn">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<!--End 하위 카드 영역 -->
 				</div>

@@ -3,6 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.vehicle.ahs.mapper.K3VehicleMapper">
+	<resultMap type="K3Vehicle" id="vehicleResultMap">
+		<result column="vehicleCode" 		property="vehicleCode"/>
+		<result column="mainBusinessCode" 		property="mainBusinessCode"/>
+		<result column="vehicleTonage" 	property="vehicleTonage"/>
+		<result column="vehicleType" 	property="vehicleType"/>
+		<result column="vehicleInspectionDate" 	property="vehicleInspectionDate"/>
+		<result column="memberId" 	property="memberId"/>
+		<result column="vehicleManufacturer" property="vehicleManufacturer"/>
+		<result column="vehicleDriveAvailability" property="vehicleDriveAvailability"/>
+	</resultMap>
 
 	<select id="getVehicleList" resultType="K3Vehicle">
 		SELECT
@@ -40,9 +50,8 @@
 			,#{vehicleManufacturer}
 			,#{vehicleDriveAvailability}
 			);
-			
-	
 	</select>
+	
 	<select id="getModifyVehicle" resultType="K3Vehicle">
 		SELECT
 			vehicleCode,
@@ -57,6 +66,62 @@
 			k3_tb_vehicle
 		WHERE
 			vehicleCode = #{vehicleCode};
-
 	</select>
+	
+	<update id="modifyVehicle" parameterType="K3Vehicle">
+		UPDATE k3_tb_vehicle
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleCode = #{vehicleCode},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				mainBusinessCode = "공장A공장_서울_1",
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleTonage = #{vehicleTonage},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleInspectionDate = #{vehicleInspectionDate},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				memberId = #{memberId},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleManufacturer = #{vehicleManufacturer},
+			</if>
+			<if test="vehicleCode != null and vehicleCode != ''.toString()">
+				vehicleDriveAvailability = #{vehicleDriveAvailability}
+			</if>
+		</trim>
+		WHERE
+			vehicleCode = #{vehicleCode};
+	</update>
+	
+	<select id="k3SearchVehicleList" resultType="K3Vehicle">
+		SELECT
+			*
+		FROM
+			k3_tb_vehicle
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="vehicleValue != null and vehicleValue != ''.toString()">
+				${vehicleKey} LIKE CONCAT('%', #{vehicleValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
+	<delete id="k3DeleteVehicle" parameterType="String">
+		DELETE FROM
+			k3_tb_vehicle
+		WHERE
+			vehicleCode = #{vehicleList};
+	</delete>
+	
+	<!-- <select id="k3SelectVehicleMemberId" resultType="map" parameterType="map">
+		SELECT
+			memberId
+		FROM
+			k3_tb_vehicle;
+	</select> -->
+
+	
 </mapper>

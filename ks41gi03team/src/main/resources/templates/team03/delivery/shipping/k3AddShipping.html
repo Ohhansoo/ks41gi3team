@@ -8,14 +8,9 @@
 	<th:block layout:fragment="customContents">
 		<script>
 			$(function(){
-				$('#sample1').on('click', function(){
-					location.href = 'sample1.html';
+				$('#cancelBtn').on('click', function(){
+					history.back();
 				});
-				$('#sample2').on('click', function(){
-					location.href = 'sample2.html';
-				});
-			
-				
 			});
 		</script>
 	 
@@ -23,16 +18,12 @@
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button id="sample1" type="button" class="ahsbtn3 btn btn-outline-info">배송현황 등록</button>
-						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">배송현황 삭제</button>				
-						<button id="sample2" type="button" class="ahsbtn3 btn btn-outline-info">배송현황 출력</button>				
-					</div>
-					<!--End 버튼 영역 -->
+					
 					<!--카드 영역 -->
+					<div class="col-md-8">
 					<div class="card cardColor">
 						<!--card header -->
+						
 						<div class="card-header cardHeadBorder">
 							<h4>배송현황 등록</h4>
 						</div>
@@ -40,51 +31,51 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-								<form id="userInfo">
+								<form id="userInfo" th:action="@{/team03/delivery/shipping/k3AddShipping}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="memberId" class="inputName">배송 번호</label>
-										<input class="inputBox" type="text" id="memberId" name="memberId"/>
+										<label for="shippingCode" class="inputName">배송 번호</label>
+										<input class="inputBox" type="text" id="shippingCode" name="shippingCode"/>
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberPw" class="inputName">입출차 기록 코드</label>
-										<input class="inputBox" type="text" id="memberPw" name="memberPw"/>
+										<label for="vehicleCheckpointCode" class="inputName">입출차 기록 코드</label>
+										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="memberName" class="inputName">지역 코드</label>
-										<input class="inputBox" type="text" id="memberName" name="memberName" />
+										<label for="areaCode" class="inputName">지역 코드</label>
+										<input class="inputBox" type="text" id="areaCode" name="areaCode" />
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberEmail" class="inputName">상품출고 통합코드</label>
-										<input class="inputBox" type="text" id="memberEmail" name="memberEmail"/>
+										<label for="releaseMergeCode" class="inputName">상품출고 통합코드</label>
+										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">배송지</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+										<label for="shippingAddress" class="inputName">배송지</label>
+										<input class="inputBox" type="text" id="shippingAddress" name="shippingAddress"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">배송지 상세주소</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+										<label for="shippingDetailAddress" class="inputName">배송지 상세주소</label>
+										<input class="inputBox" type="text" id="shippingDetailAddress" name="shippingDetailAddress"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">확인 담당자</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+										<label for="memberId" class="inputName">확인 담당자</label>
+										<input class="inputBox" type="text" id="memberId" name="memberId"/>
+									</div>													
+									<div class="inputwrap col-md-12">
+										<label for="shippingDetail" class="inputName">배송 세부유형</label>
+										<input class="inputBox" type="text" id="shippingDetail" name="shippingDetail"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">담당자 전화번호</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+										<label for="driverId" class="inputName">배송 기사</label>
+										<input class="inputBox" type="text" id="driverId" name="driverId"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">배송 세부유형</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
-									</div>								
-									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName"> 배송 기사</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
-									</div>								
-									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">배송 현황</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr"/>
+										<label for="shippingTracking" class="inputName">배송 현황</label>
+										<input class="inputBox" type="text" id="shippingTracking" name="shippingTracking"/>
+									</div>
+									<div class="d-flex justify-content-center" style="margin-top:25px;">
+										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
+										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
 									</div>								
 																	
 								</form>
@@ -92,11 +83,8 @@
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
+					</div>
 					<!--End 카드 영역 -->
-					<div class="d-flex justify-content-center">					
-						<button class="ahsbtn3 btn btn-outline-info" type="button">등록</button>			
-						<button class="ahsbtn3 btn btn-block bg-gradient-warning" type="button">취소</button>			
-					</div>	
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

@@ -10,6 +10,11 @@ import k3.warehouse.ahs.dto.K3Warehouses;
 public interface K3WarehouseMapper {
 	
 	/**
+	 * 창고목록조회
+	 */
+	public List<K3Warehouses> getWarehouseListBySearchKey(String warehouseKey, String warehouseValue);
+		
+	/**
 	 * 창고등록처리
 	 */
 	public int k3AddWarehouse(K3Warehouses k3Warehouses);
@@ -23,12 +28,12 @@ public interface K3WarehouseMapper {
 	 * 창고수정
 	 */
 	//창고코드로 조회
-	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(int warehouseCode);
+	public K3Warehouses getK3ModifyWarehouseInfoByWarehouseCode(String warehouseCode);
 	//창고수정처리
 	public int k3ModifyWarehouseInfo(K3Warehouses k3Warehouses);
 	
 	/**
 	 * 창고고유코드로 삭제
 	 */
-	public int deleteWarehouseCode(int warehouseCode);
+	public int deleteWarehouseCode(String warehouseCode);
 }

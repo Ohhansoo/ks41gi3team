@@ -2,18 +2,88 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title>
-	</th:block>
+   <th:block layout:fragment="customTitle">
+      <title th:text="${title}"></title>
+   </th:block>
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:inline="javascript">
+		<!-- 거래처 삭제처리(체크박스) -->
+		function checkDeleteContractor(){
+			var url = "/team03/contractorContract/Contractor/k3SearchContractor";
+			var checkArr = new Array();
+			var list = $("input[name=checkContract]");
+			
+			console.log("변수내부 확인  list : "+ list +"확인끝");
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked){
+					checkArr.push(list[i].value);
+				}
+			}
+			console.log("변수내부 확인  checkArr : "+ checkArr +"확인끝");
+			if(checkArr.length == 0){
+				alert("선택한 글이 없습니다.");
+			}
+			else{
+				var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : { checkArr : checkArr },
+					success : function(data){
+						if(data = 1){
+							alert("삭제 성공");
+							location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
+						}
+						else{
+							alert("삭제 실패");
+						}
+					}
+				});
+			}
+		}					
+		<!--END 거래처 삭제처리(체크박스) -->						
+		
+		$(document).ready(function(){ 
+				
+					<!-- 검색된 거래처 경로설정 -->					
+					var searchKey = [[${searchKey}]];
+					var searchValue = [[${searchValue}]];
+					var contractorRegistrationDateStart = [[${contractorRegistrationDateStart}]];
+					var contractorRegistrationDateEnd = []
+					var num = [[${num}]];
+					num *= 1;
+					var currentPage = [[${currentPage}]];
+					var previous = [[${currentPage}]]-1;
+					var next = [[${currentPage}]]+1;
+					
+					console.log("변수확인 num : " + num);
+					console.log("변수확인 previous : " + previous);
+					console.log("변수확인 next : " + next);
+					console.log("변수 확인 searchKey : " + searchKey);
+					console.log("변수 확인 searchValue : " + searchValue);
+						
+					if(searchValue != null){
+						$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue);
 
-		<script type="text/javascript">
-			$(document).ready(function(){ 
+					}
+					else if(contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
+						$('.searchDateForm').attr('action','k3SearchContractor?&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
+					}
+					else if(searchValue != null && contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
+						$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue +'&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
+					}
+					<!-- END 검색된 거래처 경로설정 -->		
+					
+
+					
+				<!-- 거래처 상세정보 모달창 스크립트 -->				
 				$('.searchDetailContractor').click(function(){
 					var contractorCode = $(this).attr('data-contractorCode');
 					$.ajax({ 
-						url: "/team03/contractorContract/Contractor/k3SearchContractor", 
-						type:"POST", 
+						url: "/team03/contractorContract/Contractor/k3SearchContractorAjax", 
+						type:"GET", 
 						data: {"contractorCode": contractorCode},
 						dataType:'json', 
 						success:function(response){ 
@@ -23,10 +93,11 @@
 						} 
 					});
 						console.log(contractorCode);
+						
 				}); 
-				
 				function showList(data){ 
 					var tmodal = ''; 
+					console.log('data=>'+JSON.stringify(data))
 					$("#tmodal").empty();
 					tmodal += '<tr><th>거래처 사업장 코드</th><td>'+ data.contractorCode +'</td>';
 					tmodal += '<th>거래처 상호명</th><td>'+ data.contractorName +'</td></tr>';
@@ -66,17 +137,36 @@
 					
 					tmodal += '<tr><th>등록직원아이디</th><td>'+ data.memberId +'</td>';
 					tmodal += '<th>등록일자</th><td>'+ data.contractorRegistrationDate +'</td></tr>';
+					
+					
+					$('.modifyModalBtn').attr('href','/team03/contractorContract/Contractor/k3ModifyContractor?contractorCode='+data.contractorCode);
 					$("#tmodal").append(tmodal);
 					$('#detailContractorModal').modal('show');
 				}
 			}); 
-	
 		</script>
+		<!-- END 거래처 상세정보 모달창 스크립트 -->
 	</th:block>
 
 	<th:block layout:fragment="customContents"> 
 		<!-- 콘텐츠 콘테이너 시작 -->
-		<div class="container-fluid">
+		<div class="container-fluid" >
+			<!--버튼 영역 -->			
+				<div class="d-flex justify-content-end">					
+					<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Contractor/k3AddContractor}">
+						<i class="bi bi-file-earmark-plus"></i>
+						등록
+					</a>			
+					<a class="btn btn-outline-info ahsbtn4" type="button">
+						<i class="bi bi-printer"></i>
+						출력
+					</a>						
+					<button id="checkDeleteContractor" class="btn btn-outline-info ahsbtn4" type="button" th:onclick="|javascript:checkDeleteContractor()|">
+						<i class="bi bi-trash"></i>
+						삭제
+					</button>			
+				</div>	
+			<!--End 버튼 영역 -->
 			<!--거래처 검색 카드 영역 -->
 			<div class="card cardColor">
 				<!--card header -->
@@ -84,148 +174,168 @@
 					거래처 검색
 				</div>
 				<!--End card header -->
+				
 				<!--card body -->
 				<div class="card-body">
 					<div class="row" style="margin: 12px">
 						<!--inputbox 1 -->
-						<div class="col-sm-6" style="padding-left: 0px">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<select class="form-control">
-										<option selected>통합검색</option>
-										<option>거래처 사업장 코드</option>
-										<option>거래처 상호명</option>
-										<option>거래처 종목</option>
-										<option>거래처 업태</option>
-										<option>거래 구분</option>             
-										<option>거래처 전화번호</option>
-										<option>거래처아이디</option>
-										<option>거래처 계정상태</option>
-										<option>등록직원</option>
-        								</select>
-        							</div>
-								<input type="text" class="form-control" placeholder="거래처정보입력">
-								<div class=" input-group-append">
-									<button type="button" class="ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
+						<div class="col-sm-5" style="padding-left: 0px">
+							<form class="searchForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractor}" method="Get">
+								<div class="input-group  d-flex justify-content-start">
+									<div class="input-group-prepend">
+										<select class="form-control" name="searchKey">
+											<option value="contractorCode" selected th:selected="${searchKey} == contractorCode">거래처 사업장 코드</option>
+											<option value="contractorName" th:selected="${searchKey} == contractorName">거래처 상호명</option>
+											<option value="contractorItem" th:selected="${searchKey} == contractorItem">거래처 종목</option>
+											<option value="contractorStatus" th:selected="${searchKey} == contractorStatus">거래처 업태</option>
+											<option value="contractorDevision" th:selected="${searchKey} == contractorDevision">거래 구분</option>             
+											<option value="contractorPhone" th:selected="${searchKey} == contractorPhone">거래처 전화번호</option>
+											<option value="contractorId" th:selected="${searchKey} == contractorId">거래처아이디</option>
+											<option value="contractorState" th:selected="${searchKey} == contractorState">거래처 계정상태</option>
+											<option value="memberId" th:selected="${searchKey} == memberId">등록직원</option>
+	        							</select>
+	        						</div>
+									<input type="text" class="form-control" placeholder="거래처정보입력" name="searchValue" th:value="${searchValue}">
+									<div class=" input-group-append">
+										<button id="searchDetailContractor" type="submit" class="btn btn-default searchContractor">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 						<!--End inputbox 1 -->
+						<div  class="col-sm-1">
+						</div>
 						<!--inputbox 2 -->
 						<div class="col-sm-6" style="padding-left: 0px">
-							<div class="input-group">
-								<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-									<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractorList}" method="Get" id="contractorSearchDate">
+								<div class="input-group d-flex justify-content-end">
+									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
 									</div>
-								</div>
-								<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-									<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									<div>
+										~
 									</div>
-								</div>
-								<button type="button" class="ahsbtn3 btn btn-outline-info">등록날짜조회</button>
-                   			</div>
+									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+										<input name="contractorRegistrationDateEnd" value="contractorRegistrationDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="등록날짜선택">
+										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div class=" input-group-append">
+										<button type="submit" class="searchContractorDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
+                   				</div>
+							</form>
 						</div>
 						<!--End inputbox 2 -->
-						</div>
-				</div>					
+					</div>
 					<!--End card body 묶음 -->
+				</div>
 			</div>
 			<!--End 거래처 검색 카드 영역 -->
 			<!--조회 카드 영역 -->
-			<div class="card cardColor">
+			<div class="card cardColor" >
 				<!--card header -->
 				<div class="card-header">
 					거래처 목록
 				</div>
 				<!-- End card header -->
 				<!--card body -->
-				<div class="card-body  table-responsive">
-					<table class="table table-head-fixed table-hover text-nowrap">
+				<div class="card-body"  style="text-align:center">
+					<table class="table table-head-fixed table-responsive table-hover text-nowrap" style="overflow: auto">
 						<thead>
 						<tr>
-				            <th>선택</th>
-							<th>수정</th>
+							<th>
+								<input type="checkbox" name="checkContract"/>
+							</th>
 							<th>상세정보</th>						            
+							<th>수정</th>
+							<th>삭제</th>						            
 				            <th>거래처 사업장 코드</th>
 				            <th>거래처 상호명</th>
 				            <th>거래처 종목</th>
 				            <th>거래처 업태</th>
 				            <th>거래 구분</th>
 				            <th>거래처 전화번호</th>
-				            <th>등록일자</th>
 				            <th>거래처 아이디</th>
 				            <th>거래처 계정 상태</th>
 				            <th>등록직원아이디</th>
-
+				            <th>등록일자</th>
 						</tr>
 					</thead>
-						<tbody>
-							<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
-								<td>
-										<label>
-											<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
-										</label>
-								</td>
-								<td>
-									<a id="modifyContractor" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">
-										수정
-									</a>
-								</td>
-								<td>
-									<a href="#" class="searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
-										상세조회
-									</a>
-								</td>										
-								<td  th:text="${c.contractorCode}"></td>
-								<td  th:text="${c.contractorName}"></td>
-								<td  th:text="${c.contractorItem}"></td>
-								<td  th:text="${c.contractorStatus}"></td>
-								<td  th:text="${c.contractorDevision}"></td>
-								<td  th:text="${c.contractorPhone}"></td>
-								<td  th:text="${c.contractorRegistrationDate}"></td>
-								<td  th:text="${c.contractorId}"></td>
-								<td  th:text="${c.contractorState}"></td>
-								<td  th:text="${c.memberId}"></td>
-							</tr>
-						</tbody>						
+					<tbody>
+						<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
+							<td>
+								<label>
+									<input name="checkContract" type="checkbox"  th:value="${c.contractorCode}"/>
+								</label>
+							</td>
+							<td>
+								<a href="#"  type="button"  class="btn btn-default btn-sm searchDetailContractor" th:data-contractorCode="${c.contractorCode}">
+									<i class="bi bi-eye"></i>
+								</a>
+							</td>										
+							<td>
+								<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor(contractorCode=${c.contractorCode})}">
+									<i class="fas fa-pencil-alt icon"></i>
+								</a>
+							</td>
+							<td>
+								<a name="deleteContractor" type="button"  class="btn btn-default btn-sm" th:data-contractorCode="${c.contractorCode}" >
+									<i class="bi bi-trash-fill"></i>
+								</a>
+							</td>
+							<td  th:text="${c.contractorCode}"></td>
+							<td  th:text="${c.contractorName}"></td>
+							<td  th:text="${c.contractorItem}"></td>
+							<td  th:text="${c.contractorStatus}"></td>
+							<td  th:text="${c.contractorDevision}"></td>
+							<td  th:text="${c.contractorPhone}"></td>
+							<td  th:text="${c.contractorId}"></td>
+							<td  th:text="${c.contractorState}"></td>
+							<td  th:text="${c.memberId}"></td>
+							<td  th:text="${c.contractorRegistrationDate}"></td>
+						</tr>
+						<tr th:unless="${not #lists.isEmpty(contractorList)}">
+							<td colspan="4">
+								등록된 거래처가 없습니다.
+							</td>
+						</tr>							
+					</tbody>						
 					</table>
-					<ul class="pagination center">
-						<li class="paginate_button page-item previous disabled" id="example1_previous">
-							<a th:if="${currentPage > 1}" th:href="@{loginHistory2(currentPage=${currentPage - 1})}" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">
+					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+						<li class="paginate_button page-item previous" id="contractorList_previous">
+							<a th:if="${currentPage > 1} and ${searchValue} != null" id="contractorListPreviousA" th:href="@{k3SearchContractor(currentPage=${currentPage-1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractorList" class="page-link">
+								이전
+							</a>
+							<a th:if="${currentPage > 1} and ${contractorRegistrationDateStart} != null and ${contractorRegistrationDateEnd} != null" id="contractorListPreviousA" th:href="@{k3SearchContractor(currentPage=${currentPage-1},contractorRegistrationDateStart=${contractorRegistrationDateStart},contractorRegistrationDateEnd=${contractorRegistrationDateEnd})}" aria-controls="contractorList" class="page-link">
+								이전
+							</a>
+							<a th:if="${currentPage > 1} and ${searchValue} == null and ${contractorRegistrationDateStart} == null and ${contractorRegistrationDateEnd} == null" id="contractorListPreviousA" th:href="@{k3SearchContractor(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
 								이전
 							</a>
 						</li>
-					    <li class="paginate_button page-item active">
-							<a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">
-								1
+						<li class="paginate_button page-item" id="contractorList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+							<a  th:if="${num != currentPage} and ${searchValue} != null " id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${num}" aria-controls="contractorList" class="page-link"></a>
+							<a  th:if="${num != currentPage} and ${contractorRegistrationDateStart} != null and ${contractorRegistrationDateEnd} != null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},contractorRegistrationDateStart=${contractorRegistrationDateStart},contractorRegistrationDateEnd=${contractorRegistrationDateEnd})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+							<a  th:if="${num != currentPage} and ${searchValue} == null and ${contractorRegistrationDateStart} == null and ${contractorRegistrationDateEnd} == null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+							<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link" th:text="${num}"></span>
+						</li>
+					    <li class="paginate_button page-item next" id="contractorList_next">
+							<a th:if="${currentPage < lastPage} and ${searchValue} != null" id="contractorListNextA" th:href="@{k3SearchContractor(currentPage=${currentPage+1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractorList" class="page-link">
+								다음
 							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">
-								2
+							<a th:if="${currentPage < lastPage} and ${contractorRegistrationDateStart} != null and ${contractorRegistrationDateEnd} != null" id="contractorListNextA" th:href="@{k3SearchContractor(currentPage=${currentPage+1},contractorRegistrationDateStart=${contractorRegistrationDateStart},contractorRegistrationDateEnd=${contractorRegistrationDateEnd})}" aria-controls="contractorList" class="page-link">
+								다음
 							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">
-								3
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">
-								4
-							</a>
-					    </li>
-					    <li class="paginate_button page-item ">
-							<a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">
-								5
-							</a>
-					    </li>
-					     <li class="paginate_button page-item next" id="example1_next">
-							<a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">
+							<a th:if="${currentPage < lastPage} and ${searchValue} == null and ${contractorRegistrationDateStart} == null and ${contractorRegistrationDateEnd} == null" id="contractorListNextA" th:href="@{k3SearchContractor(currentPage=${currentPage+1})}" aria-controls="contractorList" class="page-link">
 								다음
 							</a>
 					    </li>
@@ -234,41 +344,43 @@
 				<!--End card body -->
 			</div>
 			<!--End 조회 카드 영역 -->
-			<!--버튼 영역 -->
-			<div class="row" style="margin:15px;">
-					<button type="button" class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</button>
-					<button type="button" class="ahsbtn1 btn btn-outline-info">출력</button>
-					<a th:href="@{/team03/contractorContract/Contractor/k3AddContractor}" id="moveAddPage">등록페이지로 이동 --></a>					
-			</div>
-			<!--End 버튼 영역 -->
-			
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
-	
-	<!-- 거래처 상세 정보 모달창 -->
-	<div class="modal" style="text-align: center" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel"
-     aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title font-weight-bold" style="color:#286273">거래처 상세정보</h5>
-		        <a type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">X</a>
-		      </div>
-		      <div class="modal-body">
-				<div class=" card card-body bg-light container-fluid" id="modifyContractor">
-					<table id="tmodal" class="table table-striped table-hover">
-
-					</table>
+		
+	   <!-- 거래처 상세 정보 모달창 -->
+		<div class="modal" style="text-align: center" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">거래처 상세정보</h5>
+						<a type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">
+							<i class="bi bi-x-circle"></i>
+						</a>
+					</div>
+					<div class="modal-body">
+						<div class=" card card-body bg-light container-fluid" id="modifyContractor">
+							<table id="tmodal" class="table table-striped table-hover">
+	               
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="ahsbtn2 btn btn-outline-info modifyModalBtn">
+							<i class="bi bi-pencil"></i>
+							수정
+						</a>
+						<a class="ahsbtn2 btn btn-outline-info deleteBtn">
+							<i class="bi bi-trash"></i>
+							삭제
+						</a>
+						<a class="ahsbtn2 btn btn-outline-info">
+							<i class="bi bi-printer"></i>
+							출력
+						</a>               
+					</div>
 				</div>
-		      </div>
-		      <div class="modal-footer">
-				<a class="ahsbtn1 btn btn-outline-info modifyBtn" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor}">수정</a>
-				<a class="ahsbtn1 btn btn-outline-info deleteBtn">삭제</a>
-				<a class="ahsbtn1 btn btn-outline-info">출력</a>					
-		      </div>
-		    </div>
-		  </div>
+			</div>
 		</div>
-	<!--END 거래처 상세 정보 모달창 -->
+	   <!--END 거래처 상세 정보 모달창 -->
 	</th:block>
 </html>

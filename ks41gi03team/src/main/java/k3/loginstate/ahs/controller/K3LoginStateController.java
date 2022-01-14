@@ -19,11 +19,11 @@ public class K3LoginStateController {
 	public K3LoginStateController(K3LoginStateService loginstateService) {
 		this.loginstateService = loginstateService;
 	}
-	//로그인현황 조회
+	//01 로그인현황 조회
 	@GetMapping("k3MemberUserLoginState")
 	public String getLoginStateList(Model model) {
 		List<K3LoginState> loginstateList = loginstateService.getLoginStateList();
-		
+		System.out.println(loginstateList);
 		model.addAttribute("title","로그인정보 조회");
 		model.addAttribute("loginstateList",loginstateList);
 		return "team03/companymanagement/loginstate/k3MemberUserLoginState";
