@@ -62,16 +62,6 @@ public class K3DispatchController {
 
 	//수정 화면
 
-	@PostMapping("/k3ModifyDispatch")
-	public String modifyDispatch(K3Dispatch k3Dispatch) {
-		
-		k3DispatchService.modifyDispatch(k3Dispatch);
-		
-		return "redirect:/team/delivery/dispatch/k3DispatchList";
-	}
-  
-	//수정 진행
-
 	@GetMapping("/k3ModifyDispatch")
 	public String k3ModifyDispatch(@RequestParam(value="dispatchCode", required = false) String dispatchCode, Model model) {
 		
