@@ -267,7 +267,8 @@
 		   w.manufacturedDate,
 		   w.expiratonDate,
 		   c.contractorName,
-		   w.laydownDate
+		   w.laydownDate,
+		   w.laydownCheckResult
 		FROM
 		   k3_tb_warehousing AS w
 		   INNER JOIN

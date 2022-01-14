@@ -35,6 +35,14 @@ public class K3CheckController {
 		this.k3CheckService = k3CheckService;
 
 	}
+	//입하검수 수정처리
+	@PostMapping("/k3ModifyLaydownCheck") 
+	public String k3ModifyLaydownCheck(K3LaydownCheck K3LaydownCheck){
+		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", K3LaydownCheck);
+		int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
+		return "redirect:/team03/goodsManagement/warehousing/k3WarehousingList"; 
+	}
+	
 	 //입하검수 수정폼이동
 	 @GetMapping("/k3ModifyLaydownCheck")
 	 public String K3ModifyLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 

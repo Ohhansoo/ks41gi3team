@@ -58,15 +58,15 @@
 				,W.laydownDate
 				,W.laydownCheckManager
 				,W.laydownCheckDate
-				,cs.contractorName
+				,m.memberName
 			</if>
 		FROM
 			k3_tb_warehousing AS W
 			<if test="type eq 'modify'.toString()">
 				INNER JOIN
-				k3_tb_contractor_staff AS cs
-				ON
-				W.contractorId = cs.contractorId
+				k3_tb_member AS m
+				on
+				W.laydownCheckManager = m.memberId
 			</if>
 		WHERE
 			warehousingCode = #{warehousingCode};

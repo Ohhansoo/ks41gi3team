@@ -15,7 +15,7 @@
 				$(document).on('click', '#laydownCheckBtn', function(){
 					
 					var submitCheck = true;
-					var inputObj = $('#assorList').find('input');
+					var inputObj = $('#modifyLaydownTable').find('input');
 							
 					$.each(inputObj, function(){
 		   				var inputDate = $(this).val();
@@ -29,7 +29,7 @@
 		   					return false;
 		   				}		
 					});  						
-						if(submitCheck) $('#addLaydownTable').submit();
+						if(submitCheck) $('#modifyLaydownTable').submit();
 				});
 				//모달 시작
 				var modal = $('#laydownCheckCodeModal');
@@ -196,7 +196,7 @@
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckManager" class="inputName">검수담당자</label>
-											<input class="inputBox" type="text" id="laydownCheckManagerName" name="laydownCheckManagerName" th:value="${l.contractorName}" disabled="disabled"/>
+											<input class="inputBox" type="text" id="laydownCheckManagerName" name="laydownCheckManagerName" th:value="${l.memberName}" disabled="disabled"/>
 											<input class="inputBox" type="hidden" id="laydownCheckManager" name="laydownCheckManager" th:value="${l.laydownCheckManager}" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>	
