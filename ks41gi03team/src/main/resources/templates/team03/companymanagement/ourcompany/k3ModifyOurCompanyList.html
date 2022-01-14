@@ -8,8 +8,33 @@
 	<th:block layout:fragment="customContents"> 
 		<script>
 			$(function(){
-				$('#cancelBtn').on('click', function(){
+				$('#categoryCancelBtn').on('click', function(){
 					history.back();
+				});
+				$(document).on('click', '#categoryModifyBtn', function(){
+					//빈칸 유효성 검사
+					var submitCheck = true;
+					var inputObj = $('input');
+					var categorybtn = $(this);
+					
+					$.each(inputObj, function(){
+						var inputData = $(this).val();
+						var inputId = $(this).attr('id');
+						var labelText = $('label[for = ' + inputId + ']').text();
+						
+						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){
+							alert(labelText + '을 입력해주세요');
+							$(this).focus();
+							submitCheck = false;
+							return false;
+						}
+					});
+					//중복 유효성 검사
+										
+					// submit
+					if(submitCheck){
+						$('#ourCompanyCode').submit();
+					}						
 				});
 			});
 		</script>
@@ -29,7 +54,8 @@
 						<div class="card-body">
 							<div class="row">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyInfo}" method="post">
+								<form id="ourCompanyCode" class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyInfo}" method="post">
+									<input id="ourCompanyCode" type="hidden" name="ourCompanyCode" th:value="${K3OurCompany.ourCompanyCode}">
 									<div class="inputwrap col-md-12">
 										<label for="ourCompanyCode" class="inputName">자사 등록번호</label>
 										<input class="inputBox" type="text" id="ourCompanyCode" name="ourCompanyCode" th:value="${k3OurCompanyInfo.ourCompanyCode}"/>
@@ -63,8 +89,8 @@
 										<input class="inputBox" type="text" id="ourCompanyEmail" name="ourCompanyEmail" th:value="${k3OurCompanyInfo.ourCompanyEmail}"/>
 									</div><br>
 									<div class="d-flex justify-content-center">					
-										<button class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
-										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+										<button type="button" id="categoryModifyBtn" class="ahsbtn4 btn btn-outline-info" >수정</button>			
+										<button type="button" id="categoryCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
 									</div>		
 								</form>
 								<!--End inputbox 1 -->
