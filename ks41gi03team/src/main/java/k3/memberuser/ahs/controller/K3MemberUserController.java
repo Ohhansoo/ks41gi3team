@@ -113,7 +113,7 @@ public class K3MemberUserController {
 	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
 		  System.out.println("04 220106 k3DeleteMemberUser K3MemberUserController.java");
 		  int result = memberuserService.k3RemoveMemberUser(removeList);
-		  return "redirect:/team03/companymanagement/member/k3MemberUserList";
+		  return "redirect:/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList	";
 	  }
 	  
 	
@@ -134,8 +134,6 @@ public class K3MemberUserController {
 				  memberuserKey = "levelMemberCode"; 
 			  }else if(memberuserKey != null && "memberGender".equals(memberuserKey)) {
 		          memberuserKey = "memberGender";
-			  }else if(memberuserKey != null && "memberAddr".equals(memberuserKey)) { 
-				  memberuserKey = "memberAddr"; 
 			  }else if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
 		          memberuserKey = "memberPhone"; 
 		      }else if(memberuserKey != null &&"memberResidentRegistrationNumber".equals(memberuserKey)) { 
@@ -146,6 +144,18 @@ public class K3MemberUserController {
 		          memberuserKey = "memberRegDate"; 
 		      }else if(memberuserKey != null && "memberHiredDate".equals(memberuserKey)) { 
 		    	  memberuserKey = "memberHiredDate";
+		      }else if(memberuserKey != null && "memberRetiredReason".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberRetiredReason";
+		      }else if(memberuserKey != null && "memberRetiredDate".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberRetiredDate";
+		      }else if(memberuserKey != null && "memberRetirementSignedDate".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberRetirementSignedDate";
+		      }else if(memberuserKey != null && "memberpostaladdress".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberpostaladdress";
+		      }else if(memberuserKey != null && "memberstreetaddress".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberstreetaddress";
+		      }else if(memberuserKey != null && "memberdetailaddress".equals(memberuserKey)) { 
+		    	  memberuserKey = "memberdetailaddress";
 		      } 
 		  		System.out.println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
 		  		
