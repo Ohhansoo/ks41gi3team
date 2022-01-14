@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.damageError.ahs.mapper.K3DamageErrorMapper">
+	<select id="k3DamageErrorListIn" resultType="K3DamageError">
+		SELECT
+			 d.receiptNumber 
+			,w.laydownCheckDate
+			,staff.contractorName
+			,w.laydownGoodsName
+			,w.laydownGoodsCount
+			,w.laydownCheckResult
+			,w.laydownCheckManager
+			,d.actionDetails
+			,d.actionDate 
+			,d.repairCost
+			,d.repairState
+		FROM
+			k3_tb_damageError AS d
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			d.warehousingCode = w.warehousingCode
+			INNER JOIN 
+			k3_tb_contractor_staff AS staff
+			on
+			w.contractorId  = staff.contractorId
+		WHERE
+			w.laydownCheckResult NOT LIKE CONCAT('%','Y','%');	
+	</select>
+	<select id="k3DamageErrorListOut" resultType="K3DamageError">
+		SELECT
+			 d.receiptNumber
+			,r.shipmentCheckRegDate
+			,staff.contractorName
+			,w.laydownGoodsName 
+			,w.laydownGoodsCount 
+			,r.shipmentCheckResult 
+			,r.releaseManager 
+			,d.actionDetails 
+			,d.actionDate 
+			,d.repairCost 
+			,d.repairState 
+		FROM
+			k3_tb_damageError AS d
+			INNER JOIN
+			k3_tb_release AS r
+			on
+			d.releaseCode = r.releaseCode
+			INNER JOIN
+			k3_tb_pileup AS p
+			on
+			r.pileupCode = p.pileupCode
+			INNER join
+			k3_tb_warehousing AS w
+			on
+			p.warehousingCode = w.warehousingCode
+			INNER join
+			k3_tb_contractor_staff AS staff
+			ON
+			w.contractorId = staff.contractorId
+		WHERE
+			 r.shipmentCheckResult NOT LIKE CONCAT('%','Y','%');
+	</select>
+</mapper>
