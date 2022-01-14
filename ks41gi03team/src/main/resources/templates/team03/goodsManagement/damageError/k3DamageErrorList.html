@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title th:text="${title}"></title>
+</th:block>
+<th:block layout:fragment="customContents"> 
+	<div id="representative-button">
+		<div id="representative-button">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="card cardColor">
+							<div class="card-header">
+								<h2 class="card-title">AS</h2>
+							</div>
+							<div class="card-body">
+								<div class="row" style="margin: 12px">
+									<form class="col-lg-6" th:action="@{#}" method="post">
+										
+									</form>
+			 					</div>
+							</div>					
+						</div>
+						<div class="card cardColor">
+							<nav>
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">입고AS</a>
+									<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">출고AS</a>
+								</div>
+							</nav>
+								<!-- AS입고현황 -->
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+									<!--card body -->
+									<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+										<form id="" method="post"> 
+											<table class="table table-head-fixed text-nowrap">
+												<thead>
+													<tr>
+														<th>접수번호</th>
+														<th>접수날짜</th>
+														<th>거래처</th>
+														<th>입고물품</th>
+														<th>개수</th>
+														<th>사유</th>
+														<th>접수자</th>
+														<th>조치내용</th>
+														<th>완료날짜</th>
+														<th>발생비용</th>
+														<th>상태</th>													
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:if="${not #lists.isEmpty(k3DamageErrorListIn)}" th:each="din :${k3DamageErrorListIn}">	
+														<td th:text="${din.receiptNumber}"></td>	
+														<td th:text="${din.laydownCheckDate}"></td>
+														<td th:text="${din.contractorName}"></td>
+														<td th:text="${din.laydownGoodsName}"></td>
+														<td th:text="${din.laydownGoodsCount}"></td>
+														<td th:text="${din.laydownCheckResult}"></td>
+														<td th:text="${din.laydownCheckManager}"></td>
+														<td th:text="${din.actionDetails}"></td>
+														<td th:text="${din.actionDate}"></td>
+														<td th:text="${din.repairCost}"></td>
+														<td th:text="${din.repairState}"></td>
+													</tr>	
+													<tr th:unless="${not #lists.isEmpty(k3DamageErrorListIn)}" th:each="din :${k3DamageErrorListIn}">
+														<td>목록이 없습니다.</td>
+													</tr>
+												</tbody>					
+											</table>
+										</form>
+									</div>
+								</div>
+									<!-- AS입고현황 -->		
+								<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+									<!--card body -->
+									<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+										<table class="table table-head-fixed text-nowrap">
+											<thead>
+												<tr>
+													<th>접수번호</th>
+													<th>접수날짜</th>
+													<th>거래처</th>
+													<th>출고물품</th>
+													<th>개수</th>
+													<th>사유</th>
+													<th>접수자</th>
+													<th>조치내용</th>
+													<th>완료날짜</th>
+													<th>발생비용</th>
+													<th>상태</th>							
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:if="${not #lists.isEmpty(k3DamageErrorListOut)}" th:each="dout : ${k3DamageErrorListOut}">
+													<td th:text="${dout.receiptNumber}"></td>
+													<td th:text="${dout.shipmentCheckRegDate}"></td>
+													<td th:text="${dout.contractorName}"></td>
+													<td th:text="${dout.laydownGoodsName}"></td>
+													<td th:text="${dout.laydownGoodsCount}"></td>
+													<td th:text="${dout.shipmentCheckResult}"></td>
+													<td th:text="${dout.releaseManager}"></td>
+													<td th:text="${dout.actionDetails}"></td>
+													<td th:text="${dout.actionDate}"></td>
+													<td th:text="${dout.repairCost}"></td>
+													<td th:text="${dout.repairState}"></td>
+												</tr>
+												<tr th:unless="${not #lists.isEmpty(k3DamageErrorListOut)}" th:each="dout : ${k3DamageErrorListOut}">
+													<td> 목록이 없습니다. </td>
+												</tr>
+											</tbody>				
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</head>
