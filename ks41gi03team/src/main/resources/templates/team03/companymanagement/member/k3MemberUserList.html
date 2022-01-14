@@ -5,8 +5,15 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
+	<style>
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style> 
 	<script>
 			$(function(){				
 				$('#addmemberuserBtn').on('click', function(){
@@ -14,11 +21,14 @@
 				});
 				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
+					/* location.href = '/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList'; */
+					var check = $('.removeList:checked');
+					var removeCheckList = [];
+					//console.log(check);
+					
 					
 					$.each(check, function(){
-						deleteCheckList.push($(this).val());
+						removeCheckList.push($(this).val());
 					});
 
 					
@@ -33,73 +43,37 @@
 					}
 				});
 			});
+			/* end 퇴사처리 */
+			
+/* 			<!-- 검색된 거래처 경로설정 -->					
+					var searchKey = [[${searchKey}]];
+					var searchValue = [[${searchValue}]];
+					var memberRegDateStart = [[${memberRegDateStart}]];
+					var memberHiredDateEnd = []
+					var num = [[${num}]];
+					num *= 1;
+					var currentPage = [[${currentPage}]];
+					var previous = [[${currentPage}]]-1;
+					var next = [[${currentPage}]]+1;
+					
+					console.log("변수확인 num : " + num);
+					console.log("변수확인 previous : " + previous);
+					console.log("변수확인 next : " + next);
+					console.log("변수 확인 searchKey : " + searchKey);
+					console.log("변수 확인 searchValue : " + searchValue);
+						
+					if(searchValue != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue);
+
+					}
+					else if(memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?&contractorRegistrationDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					else if(searchValue != null && memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue +'&memberRegDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					<!-- END 검색된 거래처 경로설정 -->	 */
 		</script>
-		 <th:block layout:fragment="customCss">
-		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">
-	</th:block>
-	<th:block layout:fragment="customJs">
-	<script>	
-		$(function(){
-
-				var modal = $('.modal');
-				
-				$(".exitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-		
-				$(document).on('click', '#checkbtn', function(){ 
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
-					
-					 $('#k3membermodal').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/companymanagement/member/k3membermodal',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-					},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "memberId"},
-							{ "data": "memberName"}
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
-									return htmlbtn;
-								}
-							}
-						]
-					}); 
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-					
-						
-				});
-				 $(document).on('click', '#checkmemberBtn', function(){
-					var checkedBox = $('.memberId:checked');
-	 				var levelMemberCodeInput = $('#levelMemberCodeInput');
-	 				
-	 				var levelMemberCodeInpuValue = checkedBox.parent().parent().children().eq(2).text();
-	 				
-	 				levelMemberCodeInput.attr('value',levelMemberCodeInpuValue);
-
-					modal.addClass('hidden');
-				}); 
-			});
-			</script>
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -116,8 +90,8 @@
 							출력
 						</button>						
 						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-trash"></i>
-							삭제
+							<i class="bi bi-person-dash"></i>
+							퇴사
 						</button>					
 					</div>	
 					<!--End 버튼 영역 -->
@@ -126,14 +100,14 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							퇴사 직원 조회
+							직원 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}"  method="post">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
@@ -148,19 +122,48 @@
 												<option value="memberState">직원계정상태</option>
 												<option value="memberRegDate">등록일자</option>
 												<option value="memberHiredDate">입사일자</option>
-												<option value="memberpostaladdress">우편번호</option>
-												<option value="memberstreetaddress">도로명주소</option>
 										</select>
 										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-										<button type="submit">검색</button>
-											</div>
-									</div>
+										<button type="submit" class="searchMemberUserDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+										</div>
+										</div>
 									</form>
 								<!--End inputbox 1 -->
-	 						</div>
-						</div>					
+								
+								<!--inputbox 2 -->
+						<div class="col-sm-6" style="padding-left: 0px">
+							<form class="searchDateForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="Get" id="memberuserSearchDate">
+								<div class="input-group d-flex justify-content-end">
+									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+										<input name="memberRegDateStart" value="memberRegDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div>
+										&nbsp~&nbsp
+									</div>
+									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+										<input name="memberHiredDateEnd" value="memberHiredDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
+										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div class=" input-group-append">
+										<button type="submit" class="memberRegDateDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
+                   				</div>
+							</form>
+						</div>
+						<!--End inputbox 2 -->
+	 				</div>
 	 					<!--End card body 묶음 -->
-					</div>
+				</div>					
+			</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
@@ -170,11 +173,12 @@
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<div class="card-body table-responsive p-0 table-hover"style="height: 450px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<th>삭제</th>
+											<th>선택</th>
 											<th>한줄삭제</th>
 											<th>수정</th>	
 											<th>직원ID</th>
@@ -202,7 +206,7 @@
 											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
 										</td>
 						   				<td>
-										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
+										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>										
 										</td>	
@@ -234,34 +238,5 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-		<!-- 모달창 -->
-		<div class="modal hidden">
-			<div class="modal_overlay"></div>		
-			<div class="modal_content">
-				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">카테고리 선택</div>
-					<button class="exitBtn" type="button">
-						<i class="fas fa-times-circle"></i>
-					</button>
-				</div>
-				<div class="modal_body">
-					<form>	
-						<table border="1" id="k3membermodal" class="dataTable">
-							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>회원코드</th>
-									<th>회원명</th>
-								</tr>
-							</thead>
-						</table>				
-					</form>
-				</div>
-				<div class="modal_fotter">
-					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
-				</div>			
-			</div>
-		</div>
-		<!-- End 모달창 -->
 	</th:block>
 </head>
