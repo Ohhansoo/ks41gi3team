@@ -7,14 +7,16 @@
 	</th:block>
 	<th:block layout:fragment="customContents">
 		<script>
+			// 취소 버튼
 			$(function(){
 				$('#cancelBtn').on('click', function(){
 					history.back();
 				});
 			});
 			
+			// 견적서 번호 
 			$(function(){
-				$('#estimatePriceInput').val($('#estimateNum').val());
+				/* $('#estimatePriceInput').val($('#estimateNum').val()); */
 				
 				$(document).on('change', '#estimateNum', function(){
 					var test = $('#estimateNum').val()
@@ -49,7 +51,7 @@
 									
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
-										<select name="">
+										<select name ="mainBusinessCode">
 											<th:block th:if="${not #lists.isEmpty(getMainBusinessCodeList)}" th:each="l : ${getMainBusinessCodeList}">							
 												<option th:text="${l.mainBusinessCode}" th:value="${l.mainBusinessCode}"> </option>
 											</th:block>	
@@ -65,15 +67,16 @@
 										<label for="estimateNumInput" class="inputName">견적번호</label>
 										<select id = "estimateNum">
 											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
-											<option th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>										
+											<option th:text="${e.estimateNum}" th:value="${e.estimateNum}"> </option>										
 										</select>
 									</div>				
 									
 									
 									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
-										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice" readonly="readonly">
-									</div>								
+										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
+									</div>
+																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
 										<input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod">
