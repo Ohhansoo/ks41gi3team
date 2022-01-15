@@ -119,16 +119,16 @@
 		   ON
 		   w.laydownCheckManager = m.memberId
 			<choose>
-			   	<when test="searchLaydownType != null and searchLaydownType != ''.toString()">
+			   	<when test="searchCondition.searchLaydownType != null and searchCondition.searchLaydownType != ''.toString()">
 				   <trim prefix="WHERE" prefixOverrides="AND |OR">
-						<if test="laydownValue != null and laydownValue != ''.toString()">
-				   			${laydownKey} LIKE CONCAT('%',#{laydownValue},'%') 
+						<if test="searchCondition.laydownValue != null and searchCondition.laydownValue != ''.toString()">
+				   			${searchCondition.laydownKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
 						</if>	
 						<if test="searchStartDate != null and searchStartDate != ''.toString()">
-				   			AND ${laydownDateKey} >= #{searchStartDate}
+				   			AND ${searchCondition.laydownDateKey} >= #{searchCondition.searchStartDate}
 						</if>	
-						<if test="searchEndDate != null and searchEndDate != ''.toString()">
-				   			AND #{searchEndDate} >=  ${laydownDateKey}
+						<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+				   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.laydownDateKey}
 						</if>
 				   </trim>
 				</when>
@@ -137,8 +137,8 @@
 						w.laydownCheckResult is not null;
 				</otherwise>
 			</choose>
-		<if test="startNum != null">
-			LIMIT #{startNum}, #{rowPerPage};
+		<if test="searchCondition.startNum != null">
+			LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
 		</if>
 	</select>
 	
@@ -170,16 +170,16 @@
 		   ON
 		   w.laydownCheckManager = m.memberId
 		   <choose>
-			   <when test="searchWarehousingType != null and searchWarehousingType != ''.toString()">
+			   <when test="searchCondition.searchWarehousingType != null and searchCondition.searchWarehousingType != ''.toString()">
 				   <trim prefix="WHERE" prefixOverrides="AND |OR">
-						<if test="warehousingValue != null and warehousingValue != ''.toString()">
-				   			${warehousingKey} LIKE CONCAT('%',#{warehousingValue},'%') 
+						<if test="searchCondition.warehousingValue != null and searchCondition.warehousingValue != ''.toString()">
+				   			${searchCondition.warehousingKey} LIKE CONCAT('%',#{searchCondition.warehousingValue},'%') 
 						</if>	
-						<if test="searchStartDate != null and searchStartDate != ''.toString()">
-				   			AND ${warehousingDateKey} >= #{searchStartDate}
+						<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+				   			AND ${searchCondition.warehousingDateKey} >= #{searchCondition.searchStartDate}
 						</if>	
-						<if test="searchEndDate != null and searchEndDate != ''.toString()">
-				   			AND #{searchEndDate} >=  ${warehousingDateKey}
+						<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+				   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.warehousingDateKey}
 						</if>
 				   </trim>
 			   </when>
@@ -188,8 +188,8 @@
 					w.warehousingAllow = 'Y'
 			   </otherwise>
 		   </choose>
-			<if test="startNum != null">
-				LIMIT #{startNum}, #{rowPerPage};
+			<if test="searchCondition.startNum != null">
+				LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
 			</if>		   
 	</select>
 		<!--입고 등록처리  -->
@@ -339,25 +339,17 @@
 		WHERE
 			w.laydownCheckResult is not null
 		<if	test="countType eq 'search'.toString()">
-			<choose>
-			   	<when test="searchLaydownType != null and searchLaydownType != ''.toString()">
-				   <trim prefixOverrides="AND |OR">
-						<if test="laydownValue != null and laydownValue != ''.toString()">
-				   			AND ${laydownKey} LIKE CONCAT('%',#{laydownValue},'%') 
-						</if>	
-						<if test="searchStartDate != null and searchStartDate != ''.toString()">
-				   			AND ${laydownDateKey} >= #{searchStartDate}
-						</if>	
-						<if test="searchEndDate != null and searchEndDate != ''.toString()">
-				   			AND #{searchEndDate} >=  ${laydownDateKey}
-						</if>
-				   </trim>
-				</when>
-				<otherwise>
-					WHERE
-						w.laydownCheckResult is not null;
-				</otherwise>
-			</choose>			
+		   	<if test="searchCondition.searchLaydownType != null and searchCondition.searchLaydownType != ''.toString()">
+				<if test="searchCondition.laydownValue != null and searchCondition.laydownValue != ''.toString()">
+		   			AND ${searchCondition.laydownKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
+				</if>	
+				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+		   			AND ${searchCondition.laydownDateKey} >= #{searchCondition.searchStartDate}
+				</if>	
+				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.laydownDateKey}
+				</if>
+			</if>		
 		</if>
 	</select>
 	
@@ -401,25 +393,17 @@
 		WHERE
 			w.warehousingAllow = 'Y'
 		<if	test="countType eq 'search'.toString()">
-		   <choose>
-			   <when test="searchWarehousingType != null and searchWarehousingType != ''.toString()">
-				   <trim prefixOverrides="AND |OR">
-						<if test="warehousingValue != null and warehousingValue != ''.toString()">
-				   			AND ${warehousingKey} LIKE CONCAT('%',#{warehousingValue},'%') 
-						</if>	
-						<if test="searchStartDate != null and searchStartDate != ''.toString()">
-				   			AND ${warehousingDateKey} >= #{searchStartDate}
-						</if>	
-						<if test="searchEndDate != null and searchEndDate != ''.toString()">
-				   			AND #{searchEndDate} >=  ${warehousingDateKey}
-						</if>
-				   </trim>
-			   </when>
-			   <otherwise>
-				WHERE 
-					w.warehousingAllow = 'Y'
-			   </otherwise>
-		   </choose>			
+		   <if test="searchCondition.searchWarehousingType != null and searchCondition.searchWarehousingType != ''.toString()">
+				<if test="searchCondition.warehousingValue != null and searchCondition.warehousingValue != ''.toString()">
+		   			AND ${searchCondition.warehousingKey} LIKE CONCAT('%',#{searchCondition.warehousingValue},'%') 
+				</if>	
+				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+		   			AND ${searchCondition.warehousingDateKey} >= #{searchCondition.searchStartDate}
+				</if>	
+				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.warehousingDateKey}
+				</if>
+		   </if>		
 		</if>
 	</select>
 
