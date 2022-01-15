@@ -28,7 +28,7 @@ public interface K3CategoryMapper {
 	//카테고리 현황(초기화면)
 	public List<K3Category> getCategoryList();
 	//카테고리 현황(초기화면2)
-	public List<Map<String, Object>> getCategoryListByMap(Map<String,Object> paramMap);
+	public List<Map<String, Object>> getCategoryListByMap(Map<String,Object> categoryMap);
 
 
 
