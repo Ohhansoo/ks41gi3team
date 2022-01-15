@@ -19,6 +19,7 @@ public class K3Warehousing {
 	private String laydownCheckDate;
 	private String dockName;
 	private String memberName;
+	private String sorting;
 	public String getLaydownCheckCode() {
 		return laydownCheckCode;
 	}
@@ -115,6 +116,12 @@ public class K3Warehousing {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+	public String getSorting() {
+		return sorting;
+	}
+	public void setSorting(String sorting) {
+		this.sorting = sorting;
+	}
 	@Override
 	public String toString() {
 		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
@@ -124,7 +131,7 @@ public class K3Warehousing {
 				+ ", laydownRequestDate=" + laydownRequestDate + ", laydownDate=" + laydownDate
 				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
 				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
-				+ "]";
+				+ ", sorting=" + sorting + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -145,6 +152,7 @@ public class K3Warehousing {
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((sorting == null) ? 0 : sorting.hashCode());
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
 	}
@@ -228,6 +236,11 @@ public class K3Warehousing {
 			if (other.memberName != null)
 				return false;
 		} else if (!memberName.equals(other.memberName))
+			return false;
+		if (sorting == null) {
+			if (other.sorting != null)
+				return false;
+		} else if (!sorting.equals(other.sorting))
 			return false;
 		if (warehousingCode == null) {
 			if (other.warehousingCode != null)
