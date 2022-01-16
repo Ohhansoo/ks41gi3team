@@ -12,10 +12,6 @@
 			,w.laydownGoodsCount
 			,w.laydownCheckResult
 			,w.laydownCheckManager
-			,d.actionDetails
-			,d.actionDate 
-			,d.repairCost
-			,d.repairState
 		FROM
 			k3_tb_damageError AS d
 			INNER JOIN
@@ -37,11 +33,7 @@
 			,w.laydownGoodsName 
 			,w.laydownGoodsCount 
 			,r.shipmentCheckResult 
-			,r.releaseManager 
-			,d.actionDetails 
-			,d.actionDate 
-			,d.repairCost 
-			,d.repairState 
+			,r.releaseManager  
 		FROM
 			k3_tb_damageError AS d
 			INNER JOIN
