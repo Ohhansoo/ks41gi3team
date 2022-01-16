@@ -7,7 +7,7 @@
 	</th:block>
 	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbinAdd.css}">
    </th:block>
 	
 	<th:block layout:fragment="customContents"> 
@@ -67,111 +67,152 @@
 				});
 			})
 		</script>  -->
-	<form class=" card cardColor card-body container-fluid" id="addContractorForm" th:action="@{/team03/contractorContract/Contractor/k3AddContractor}" method="post">
-		<h4>거래처 정보입력</h4>
-		<div id="contractorCode">
-			<label for="contractorCode">거래처사업장코드</label>
- 			<input type="text" name="contractorCode" placeholder="거래처사업장코드"/>
- 			<button type="button" id="contractorCodeCheckBtn">중복확인 </button> 
- 			<label id="contractorCodeAlert" style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    
+		<!--카드 영역 -->
+		<div class="container container-fluid ">
+			<form id="addContractorForm" th:action="@{/team03/contractorContract/Contractor/k3AddContractor}" method="post">
+				<div class="d-flex">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+						<div class="contractorLabel">
+							<label>| 거래처 계정정보 |</label>
+						</div>						
+						<div id="contractorId" class="input-group">
+				  			<span class="input-group-text" for="contractorId">거래처 아이디</span>
+				  			<input class="form-control" type="text" name="contractorId" id="contractorId" placeholder="거래처아이디"/>
+				  			<button type="button" id="contractorIdBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
+				  		</div>
+				  		<div id="contractorPw" class="input-group">
+				  			<span class="input-group-text" for="contractorPw">거래처 비밀번호</span>
+				  			<input class="form-control" type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호"/>
+				  		</div>
+				  		<div id="contractorState" class="input-group">
+				  			<span class="input-group-text" for="contractorState">거래처 계정 상태</span>
+				  			<input class="form-control" type="text" name="contractorState" id="contractorState" value="일반" readonly style="background-color:#BDBDBD"/>
+				  		</div>
+				  		<div id="memberId" class="input-group" >
+				  			<span class="input-group-text" for="memberId">등록직원 아이디</span>
+				  			<input class="form-control" type="text" name="memberId" id="memberId" value="m_c17" readonly style="background-color:#BDBDBD" />
+				  		</div>
+				  		<div id="levelCode" class="input-group" >
+				  			<span class="input-group-text" for="levelCode">거래처 권한번호</span>
+				  			<input class="form-control" type="text" name="levelCode" id="levelCode" value="CT" readonly style="background-color:#BDBDBD"/>
+				  		</div>
+					</div>		
+					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
+						<div class="contractorLabel">
+							<label>| 거래처 사업자 정보 |</label>							
+						</div>					  	
+						<div id="contractorCode" class="input-group">
+							<span class="input-group-text" for="contractorCode">거래처사업장코드</span>
+				 			<input  class="form-control"  type="text" name="contractorCode" placeholder="거래처사업장코드"/>
+				 			<button type="button" id="contractorCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
+						</div>
+				  		<div id="contractorBusinessNum" class="input-group">
+				  			<span class="input-group-text" for="contractorBusinessNum">거래처 사업자등록번호</span>
+				  			<input  class="form-control" type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
+				  			<button type="button" id="contractorBusinessNumCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button>
+				  		</div>
+				  		<div id="contractorBusinessClientNum" class="input-group">
+				  			<span class="input-group-text" for="contractorBusinessClientNum">거래처 종사업장번호</span>
+				  			<input class="form-control" type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
+				  		</div>
+				  		<div id="contractorName" class=" input-group">
+				  			<span class="input-group-text" for="contractorName">거래처 상호명</span>
+				  			<input  class="form-control"  type="text" name="contractorName" placeholder="거래처 상호명"/>
+				  		</div>
+				  		<div id="contractorRepresentative" class=" input-group">
+				  			<span class="input-group-text" for="contractorRepresentative">거래처 대표자명</span>
+				  			<input class="form-control" type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명"/>
+				  		</div>
+					</div>
+				</div>
+				<div class="d-flex">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+						<div class="contractorLabel">
+							<label>| 거래처 업종 형태 |</label>							
+						</div>
+				  		<div id="contractorDevision" class="input-group">
+				  			<span class="input-group-text" for="contractorDevision">거래 구분</span>
+				  			<select class="form-control" type="text" name="contractorDevision" id="contractorDevision" placeholder="거래 구분">
+				  				<option>매출</option>
+				  				<option>비용</option>
+				  			</select>
+				  		</div>
+				  		<div id="contractorType" class="input-group">
+				  			<span class="input-group-text" for="contractorType">거래처 유형</span>
+				  			<input class="form-control"  type="text" name="contractorType" id="contractorType" placeholder="거래처 유형"/>
+				  		</div>
+				  		<div id="contractorItem" class="input-group">
+				  			<span class="input-group-text" for="contractorItem">거래처 종목</span>
+				  			<input class="form-control" type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목"/>
+				  		</div>
+				  		<div id="contractorStatus" class="input-group">
+				  			<span class="input-group-text" for="contractorStatus">거래처 업태</span>
+				  			<input class="form-control" type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태"/>
+				  		</div>
+					</div>			
+					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
+						<div class="contractorLabel">
+							<label>| 거래처 연락 정보 |</label>							
+						</div>
+				  		<div id="contractorAddr" class="input-group">
+				  			<span class="input-group-text" for="contractorAddr">거래처 주소</span>
+				  			<input class="form-control" type="text" name="contractorAddr" id="contractorAddr" placeholder="거래처 주소"/>
+				  		</div>
+				 		<div id="contractorPhone" class="input-group">
+				 			<span class="input-group-text" for="contractorPhone">거래처 전화번호</span>
+				 			<input class="form-control" type="text" name="contractorPhone" id="contractorPhone" placeholder="거래처 전화번호"/>
+				 		</div>
+				 		<div id=contractorEmail class="input-group">
+				  			<span class="input-group-text" for="contractorEmail">거래처 이메일</span>
+				  			<input class="form-control" type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일"/>
+				  		</div>
+				  		<div id="contractorFax" class="input-group">
+				  			<span class="input-group-text" for="contractorFax">거래처 Fax</span>
+				  			<input class="form-control" type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax"/>
+				  		</div>
+					</div>			
+				</div>
+				<div class="d-flex">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+						<div class=" contractorLabel">
+							<label>| 거래처 담당자 정보 |</label>							
+						</div>
+				  		<div id="contractorSuperviser" class=" input-group">
+				  			<span class="input-group-text" for="contractorSuperviser">거래처 담당자</span>
+				  			<input class="form-control" type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자"/>
+				  		</div>
+				  		<div id="contractorSuperviserPhone" class=" input-group">
+				  			<span class="input-group-text" for="contractorSuperviserPhone">담당자 연락처</span>
+				  			<input class="form-control" type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처"/>
+				  		</div>
+				  		<div id="contractorSuperviserEmail" class=" input-group">
+				  			<span class="input-group-text" for="contractorSuperviserEmail">담당자 이메일</span>
+				  			<input class="form-control" type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="담당자 이메일"/>
+				  		</div>
+					</div>
+					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
+						<div class=" contractorLabel">
+							<label>| 거래처 은행 정보 |</label>							
+						</div>
+				  		<div id="contractorProfitBank" class=" input-group">
+				  			<span class="input-group-text" for="contractorProfitBank">거래처 은행명</span>
+				  			<input class="form-control" type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명"/>
+				  		</div>
+				  		<div id="contractorProfitAccount" class=" input-group">
+				  			<span class="input-group-text" for="contractorProfitAccount">거래처 계좌번호</span>
+				  			<input class="form-control" type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호"/>
+				  		</div>
+				  		<div id="contractorAccountHolder" class=" input-group">
+				  			<span class="input-group-text" for="contractorAccountHolder">거래처 예금주</span>
+				  			<input class="form-control" type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주"/>
+				  		</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
+					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddContractorBtn" type="button" th:href="@{k3SearchContractor}">등록취소</a>
+					<button class="ahsbtn4 btn btn-outline-info" id="addContractorBtn" type="submit">등록</button>
+				</div>
+			</form>
 		</div>
-  		<div id="contractorName">
-  			<label for="contractorName">거래처 상호명</label>
-  			<input type="text" name="contractorName" placeholder="거래처 상호명"/>
-  		</div>
-  		<div id="contractorBusinessNum">
-  			<label for="contractorBusinessNum">거래처 사업자등록번호</label>
-  			<input type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
-  			<button type="button" id="contractorBusinessNumCheckBtn">중복확인 </button>
-  			<label style="color:red; font-size:8px;" type="hidden">중복확인 해주세요</label>    				
-  		</div>
-  		<div id="contractorDevision">
-  			<label for="contractorDevision">거래 구분</label>
-  			<input type="text" name="contractorDevision" id="contractorDevision" placeholder="거래 구분"/>
-  		</div>
-  		<div id="contractorType">
-  			<label for="contractorType">거래처 유형</label>
-  			<input type="text" name="contractorType" id="contractorType" placeholder="거래처 유형"/>
-  		</div>
-  		<div id="contractorItem">
-  			<label for="contractorItem">거래처 종목</label>
-  			<input type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목"/>
-  		</div>
-  		<div id="contractorStatus">
-  			<label for="contractorStatus">거래처 업태</label>
-  			<input type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태"/>
-  		</div>
-  		<div id="contractorRepresentative">
-  			<label for="contractorRepresentative">거래처 대표자명</label>
-  			<input type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명"/>
-  		</div>
-  		<div id="contractorBusinessClientNum">
-  			<label for="contractorBusinessClientNum">거래처 종사업장번호</label>
-  			<input type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
-  		</div>
-  		<div id="contractorAddr">
-  			<label for="contractorAddr">거래처 주소</label>
-  			<input type="text" name="contractorAddr" id="contractorAddr" placeholder="거래처 주소"/>
-  		</div>
- 		<div id="contractorPhone">
- 			<label for="contractorPhone">거래처 전화번호</label>
- 			<input type="text" name="contractorPhone" id="contractorPhone" placeholder="거래처 전화번호"/>
- 		</div>
- 		<div id=contractorEmail>
-  			<label for="contractorEmail">거래처 이메일</label>
-  			<input type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일"/>
-  		</div>
-  		<div id="contractorSuperviser">
-  			<label for="contractorSuperviser">거래처 담당자</label>
-  			<input type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자"/>
-  		</div>
-  		<div id="contractorSuperviserPhone">
-  			<label for="contractorSuperviserPhone">담당자 연락처</label>
-  			<input type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처"/>
-  		</div>
-  		<div id="contractorSuperviserEmail">
-  			<label for="contractorSuperviserEmail">담당자 이메일</label>
-  			<input type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="담당자 이메일"/>
-  		</div>
-  		<div id="contractorFax">
-  			<label for="contractorFax">거래처 Fax</label>
-  			<input type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax"/>
-  		</div>
-  		<div id="contractorProfitBank">
-  			<label for="contractorProfitBank">거래처 은행명</label>
-  			<input type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명"/>
-  		</div>
-  		<div id="contractorProfitAccount">
-  			<label for="contractorProfitAccount">거래처 계좌번호</label>
-  			<input type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호"/>
-  		</div>
-  		<div id="contractorAccountHolder">
-  			<label for="contractorAccountHolder">거래처 예금주</label>
-  			<input type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주"/>
-  		</div>
-		<div id="contractorId">
-  			<label for="contractorId">거래처아이디</label>
-  			<input type="text" name="contractorId" id="contractorId" placeholder="거래처아이디"/>
-  			<button type="button" id="btn">중복확인 </button> 
-  		</div>
-  		<div id="contractorPw">
-  			<label for="contractorPw">거래처 비밀번호</label>
-  			<input type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호"/>
-  		</div>
-  		<div id="levelCode">
-  			<label for="levelCode">거래처 권한번호</label>
-  			<input type="text" name="levelCode" id="levelCode" value="C01" readonly style="background-color:#BDBDBD"/>
-  		</div>
-  		<div id="contractorState">
-  			<label for="contractorState">거래처 계정 상태</label>
-  			<input type="text" name="contractorState" id="contractorState" placeholder="거래처 계정 상태"/>
-  		</div>
-  		<div id="memberId">
-  			<label for="memberId">등록직원 아이디</label>
-  			<input type="text" name="memberId" id="memberId" value="m_c17" />
-  		</div>
-		<div class="row">
-			<a  class="ahsbtn2 btn btn-outline-info" id="cancleAddContractorBtn" type="button" th:href="@{k3SearchContractor}">등록취소</a>
-			<button  class="ahsbtn2 btn btn-outline-info" id="addContractorBtn" type="submit">등록</button>
-		</div>
-	</form>
+	</th:block>			
+</html>		

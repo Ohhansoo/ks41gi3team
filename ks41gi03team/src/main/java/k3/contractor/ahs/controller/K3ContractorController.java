@@ -32,13 +32,19 @@ public class K3ContractorController {
 	//거래처 삭제처리(체크박스)
 	@PostMapping("/k3SearchContractor")
 	public String k3DeleteContractor(HttpServletRequest request) {
-		String[] checkArr = request.getParameterValues("checkArr");
-		
-		int size = checkArr.length;
-		for(int i=0; i < size; i++) {
-			k3ContractorService.k3DeleteContractor(checkArr[i]);
+		if(request.getParameter("removeContractorArr") != null) {
+			
+			String[] removeContractorArr = request.getParameterValues("removeContractorArr");
+			
+			int size = removeContractorArr.length;
+			for(int i=0; i < size; i++) {
+				k3ContractorService.k3DeleteContractor(removeContractorArr[i]);
+			}
+		}else if(request.getParameter("removeContractor") != null){
+			String removeContractor = request.getParameter("removeContractor");
+			k3ContractorService.k3DeleteContractor(removeContractor);
 		}
-		return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
+			return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
 	
 	//거래처 수정처리

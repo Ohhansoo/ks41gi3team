@@ -88,7 +88,8 @@ public class K3CheckController {
 	}
 	//입하검수 리스트이동
 	@GetMapping("/k3LaydownCheckList")
-	public String k3GetLaydownCheckList(Model model){
+	public String k3GetLaydownCheckList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+										Model model){
 		List<K3LaydownCheck> laydownCheck = k3CheckService.k3GetLaydownCheckList();
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입하현황");

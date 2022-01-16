@@ -2,24 +2,37 @@ package k3.dispatch.ahs.dto;
 
 public class K3Dispatch {
 	private String dispatchCode;
+	private String mainBusinessCode;
+	private String contractorCode;
 	private String releaseCode;
 	private String releaseMergeCode;
+	private String shippingAddress;
+	private String shippingDetailAddress;
 	private String driverId;
 	private String vehicleCode;
 	private String dispatchStartDate;
 	private String dispatchDueDate;
-	private String areaCode;
 	private String memberId;
 	private String dispatchAcceptDate;
-	private String shippingAddress;
-	private String shippingDetailAddress;
 	private String dispatchConsignee;
-	private String dockName;
+	
 	public String getDispatchCode() {
 		return dispatchCode;
 	}
 	public void setDispatchCode(String dispatchCode) {
 		this.dispatchCode = dispatchCode;
+	}
+	public String getMainBusinessCode() {
+		return mainBusinessCode;
+	}
+	public void setMainBusinessCode(String mainBusinessCode) {
+		this.mainBusinessCode = mainBusinessCode;
+	}
+	public String getContractorCode() {
+		return contractorCode;
+	}
+	public void setContractorCode(String contractorCode) {
+		this.contractorCode = contractorCode;
 	}
 	public String getReleaseCode() {
 		return releaseCode;
@@ -32,6 +45,18 @@ public class K3Dispatch {
 	}
 	public void setReleaseMergeCode(String releaseMergeCode) {
 		this.releaseMergeCode = releaseMergeCode;
+	}
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+	public String getShippingDetailAddress() {
+		return shippingDetailAddress;
+	}
+	public void setShippingDetailAddress(String shippingDetailAddress) {
+		this.shippingDetailAddress = shippingDetailAddress;
 	}
 	public String getDriverId() {
 		return driverId;
@@ -57,12 +82,6 @@ public class K3Dispatch {
 	public void setDispatchDueDate(String dispatchDueDate) {
 		this.dispatchDueDate = dispatchDueDate;
 	}
-	public String getAreaCode() {
-		return areaCode;
-	}
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -75,76 +94,34 @@ public class K3Dispatch {
 	public void setDispatchAcceptDate(String dispatchAcceptDate) {
 		this.dispatchAcceptDate = dispatchAcceptDate;
 	}
-	public String getShippingAddress() {
-		return shippingAddress;
-	}
-	public void setShippingAddress(String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-	public String getShippingDetailAddress() {
-		return shippingDetailAddress;
-	}
-	public void setShippingDetailAddress(String shippingDetailAddress) {
-		this.shippingDetailAddress = shippingDetailAddress;
-	}
 	public String getDispatchConsignee() {
 		return dispatchConsignee;
 	}
 	public void setDispatchConsignee(String dispatchConsignee) {
 		this.dispatchConsignee = dispatchConsignee;
 	}
-	public String getDockName() {
-		return dockName;
-	}
-	public void setDockName(String dockName) {
-		this.dockName = dockName;
-	}
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("K3Dispatch [dispatchCode=");
-		builder.append(dispatchCode);
-		builder.append(", releaseCode=");
-		builder.append(releaseCode);
-		builder.append(", releaseMergeCode=");
-		builder.append(releaseMergeCode);
-		builder.append(", driverId=");
-		builder.append(driverId);
-		builder.append(", vehicleCode=");
-		builder.append(vehicleCode);
-		builder.append(", dispatchStartDate=");
-		builder.append(dispatchStartDate);
-		builder.append(", dispatchDueDate=");
-		builder.append(dispatchDueDate);
-		builder.append(", areaCode=");
-		builder.append(areaCode);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append(", dispatchAcceptDate=");
-		builder.append(dispatchAcceptDate);
-		builder.append(", shippingAddress=");
-		builder.append(shippingAddress);
-		builder.append(", shippingDetailAddress=");
-		builder.append(shippingDetailAddress);
-		builder.append(", dispatchConsignee=");
-		builder.append(dispatchConsignee);
-		builder.append(", dockName=");
-		builder.append(dockName);
-		builder.append("]");
-		return builder.toString();
+		return "K3Dispatch [dispatchCode=" + dispatchCode + ", mainBusinessCode=" + mainBusinessCode
+				+ ", contractorCode=" + contractorCode + ", releaseCode=" + releaseCode + ", releaseMergeCode="
+				+ releaseMergeCode + ", shippingAddress=" + shippingAddress + ", shippingDetailAddress="
+				+ shippingDetailAddress + ", driverId=" + driverId + ", vehicleCode=" + vehicleCode
+				+ ", dispatchStartDate=" + dispatchStartDate + ", dispatchDueDate=" + dispatchDueDate + ", memberId="
+				+ memberId + ", dispatchAcceptDate=" + dispatchAcceptDate + ", dispatchConsignee=" + dispatchConsignee
+				+ "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((areaCode == null) ? 0 : areaCode.hashCode());
+		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((dispatchAcceptDate == null) ? 0 : dispatchAcceptDate.hashCode());
 		result = prime * result + ((dispatchCode == null) ? 0 : dispatchCode.hashCode());
 		result = prime * result + ((dispatchConsignee == null) ? 0 : dispatchConsignee.hashCode());
 		result = prime * result + ((dispatchDueDate == null) ? 0 : dispatchDueDate.hashCode());
 		result = prime * result + ((dispatchStartDate == null) ? 0 : dispatchStartDate.hashCode());
-		result = prime * result + ((dockName == null) ? 0 : dockName.hashCode());
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
+		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + ((releaseCode == null) ? 0 : releaseCode.hashCode());
 		result = prime * result + ((releaseMergeCode == null) ? 0 : releaseMergeCode.hashCode());
@@ -162,10 +139,10 @@ public class K3Dispatch {
 		if (getClass() != obj.getClass())
 			return false;
 		K3Dispatch other = (K3Dispatch) obj;
-		if (areaCode == null) {
-			if (other.areaCode != null)
+		if (contractorCode == null) {
+			if (other.contractorCode != null)
 				return false;
-		} else if (!areaCode.equals(other.areaCode))
+		} else if (!contractorCode.equals(other.contractorCode))
 			return false;
 		if (dispatchAcceptDate == null) {
 			if (other.dispatchAcceptDate != null)
@@ -192,15 +169,15 @@ public class K3Dispatch {
 				return false;
 		} else if (!dispatchStartDate.equals(other.dispatchStartDate))
 			return false;
-		if (dockName == null) {
-			if (other.dockName != null)
-				return false;
-		} else if (!dockName.equals(other.dockName))
-			return false;
 		if (driverId == null) {
 			if (other.driverId != null)
 				return false;
 		} else if (!driverId.equals(other.driverId))
+			return false;
+		if (mainBusinessCode == null) {
+			if (other.mainBusinessCode != null)
+				return false;
+		} else if (!mainBusinessCode.equals(other.mainBusinessCode))
 			return false;
 		if (memberId == null) {
 			if (other.memberId != null)
@@ -234,6 +211,7 @@ public class K3Dispatch {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

@@ -4,6 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.in.ahs.mapper.K3InMapper">
 
+
+
+
+	<!-- 견적액 가져오기 -->
+	<select id = "getEstimatePrice" resultType = "K3Estimate">	
+	
+	
+	</select>
+
+
+	<!-- 견적번호 가져오기 -->
+	<select id="getEstimateNum" resultType = "K3Estimate">
+		SELECT
+			 estimateNum,
+			 estimatePrice
+		FROM
+			 k3_tb_estimate;
+	</select>
+
+
+	<!-- 사업장별등록코드 가져오기 -->
+	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
+		SELECT
+			mainBusinessCode
+		FROM 
+			k0tbSw_businessManagement;
+	</select>
+
+
 	<!-- 매출 검색 -->	
 	<select id="searchInList" resultType="K3In">
 		SELECT
@@ -168,6 +197,8 @@
 			k3_tb_estimate AS e
 		ON
 			e.estimateNum = i.estimateNum;
+		
+		
 	</select>
 
 </mapper>
