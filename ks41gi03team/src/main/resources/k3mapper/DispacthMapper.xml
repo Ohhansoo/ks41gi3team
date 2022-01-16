@@ -9,21 +9,21 @@
 			m.dispatchCode,
 			m.mainBusinessCode,
 			m.contractorCode,
-			m.releaseCode,
-			m.releaseMergeCode,
-			m.driverId,
+			r.releaseMergeCode,
+			r.shippingAddress,
+			r.shippingDetailAddress,
 			m.vehicleCode,
 			m.dispatchStartDate,
 			m.dispatchDueDate,
-			m.areaCode,
 			m.dispatchAcceptDate,
 			m.memberId,
-			m.shippingAddress,
-			m.shippingDetailAddress,
-			m.dispatchConsignee,
-			m.dockName
+			m.dispatchConsignee
 		FROM
-			k3_tb_dispatch_management AS m;
+			k3_tb_dispatch_management AS m
+		INNER JOIN
+			k3_tb_release AS r
+		ON
+			m.releaseCode = r.releaseCode;
 	</select>
 	
 	<select id="addDispatch" parameterType="K3Dispatch">
@@ -38,13 +38,11 @@
 			vehicleCode,
 			dispatchStartDate,
 			dispatchDueDate,
-			areaCode,
 			dispatchAcceptDate,
 			memberId,
 			shippingAddress,
 			shippingDetailAddress,
 			dispatchConsignee,
-			dockName
 		)VALUES(
 			#{dispatchCode},
 			"공장A공장_서울_1",
@@ -55,13 +53,11 @@
 			#{vehicleCode},
 			#{dispatchStartDate},
 			#{dispatchDueDate},
-			#{areaCode},
 			#{dispatchAcceptDate},
 			#{memberId},
 			#{shippingAddress},
 			#{shippingDetailAddress},
 			#{dispatchConsignee},
-			#{dockName}
 		);
 	</select>
 	
@@ -76,13 +72,11 @@
 			vehicleCode,
 			dispatchStartDate,
 			dispatchDueDate,
-			areaCode,
 			dispatchAcceptDate,
 			memberId,
 			shippingAddress,
 			shippingDetailAddress,
 			dispatchConsignee,
-			dockName
 		FROM
 			k3_tb_dispatch_management
 		WHERE
@@ -120,9 +114,6 @@
 				dispatchDueDate = #{dispatchDueDate},
 			</if>
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				areaCode = #{areaCode},
-			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
 				dispatchAcceptDate = #{dispatchAcceptDate},
 			</if>
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
@@ -137,9 +128,7 @@
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
 				dispatchConsignee = #{dispatchConsignee},
 			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				dockName = #{dockName}
-			</if>
+
 		</trim>
 
 		WHERE

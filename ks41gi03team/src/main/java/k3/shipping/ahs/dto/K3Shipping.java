@@ -14,6 +14,7 @@ public class K3Shipping {
 	private String shippingDetail;
 	private String driverId;
 	private String shippingTracking;
+	
 	public String getShippingCode() {
 		return shippingCode;
 	}
