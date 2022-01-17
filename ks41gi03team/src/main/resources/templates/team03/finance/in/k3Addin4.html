@@ -21,9 +21,7 @@
 					$('#estimatePriceInput').val($('#estimateNum').val());
 					var test = $('#estimateNum').val()
 						console.log(test);
-					
-					var test2 = $('#estimateNum option:checked').text()
-					$('#estimateNum2').val(test2)
+					var test2 = $('#estimateNum').text()
 						console.log(test2);
 					
 				})
@@ -67,21 +65,23 @@
 										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${session.SID}" readonly="readonly">
 									</div>	
 									
+									
 									<div class="inputwrap col-md-12">
 										<label for="estimateNumInput" class="inputName">견적번호</label>
 										<select id = "estimateNum">
 											<option> :: 선택 :: </option>
 											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
-											<option class="estiamtePick" th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>
+											<option	th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>
 											</th:block>
 										</select>
 									</div>
-									
-									<!-- 보이지 않는 견적번호 담기 -->				
-									<div style="display:none" class="inputwrap col-md-12">
+													
+													
+									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">담을견적번호</label>
 										<input class="inputBox" type="text" id="estimateNum2" name="estimateNum">
 									</div>
+																						
 													
 									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
@@ -90,7 +90,7 @@
 																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
-										<select name = "inPayMethod">
+										<select>
 											<option value="현금">현금</option>
 											<option value="카드">카드</option>
 										</select>
