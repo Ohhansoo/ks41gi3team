@@ -78,16 +78,14 @@ public class K3MemberUserService {
 		}
 	
 		//07 직원여부체크
-		public int getMemberUserByMemberId(String memberId) {
-			int result = 0;
-			result += memberuserMapper.getMemberUserByMemberId(memberId);
-			return result;
+		public int getMemberByMemberId(String memberId) {
+			return memberuserMapper.getMemberInfoByMemberId(memberId);
 		}
 		
 		//08 직원검색
-		public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue){
-			List<K3MemberUser> memberuserList = memberuserMapper.k3GetMemberUserSearchList(memberuserKey, memberuserValue);
-			return memberuserList;
+		public List<K3MemberUser> k3GetMemberUserSearchList(Map<String, Object> searchCondition){
+			List<K3MemberUser> memberuserSearchList = memberuserMapper.k3GetMemberUserSearchList(searchCondition);
+			return memberuserSearchList;
 		}
 		
 		//09 모달
