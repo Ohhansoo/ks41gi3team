@@ -22,7 +22,7 @@ public class K3DamageErrorController {
 	}
 	
 	/**
-	 * AS대기현황
+	 * AS입출고현황
 	 */
 	@GetMapping("/k3DamageErrorList")
 	public String k3DamageErrorList(K3DamageError k3DamageErrorIn,K3DamageError k3DamageErrorOut,  Model model) {
