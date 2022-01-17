@@ -84,8 +84,8 @@ public class K3WarehousingController {
 		model.addAttribute("laydownCheck", laydownCheckMap.get("laydownCheck"));
 		model.addAttribute("startPageNum", laydownCheckMap.get("startPageNum"));
 		model.addAttribute("endPageNum", laydownCheckMap.get("endPageNum"));
-		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", warehousingMap);
-		log.info(" post 입하검수현황 조회 리스트 warehousingSearchList ----------------", laydownCheckMap);
+		log.info(" post 입고현황 조회 리스트 warehousingMap ----------------", warehousingMap);
+		log.info(" post 입하검수현황 조회 리스트 laydownCheckMap ----------------", laydownCheckMap);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}

@@ -145,14 +145,14 @@
 				});
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.memberId:checked');
-	 				var pileupManager = $('#pileupManager');
-	 				var pileupManagerName = $('#pileupManagerName');
+	 				var sortingManager = $('#sortingManager');
+	 				var sortingManagerName = $('#sortingManagerName');
 
-	 				var pileupManagerValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var pileupManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var sortingManagerValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var sortingManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
 
-	 				pileupManager.attr('value',pileupManagerValue);
-	 				pileupManagerName.attr('value',pileupManagerNameValue);
+	 				sortingManager.attr('value',sortingManagerValue);
+	 				sortingManagerName.attr('value',sortingManagerNameValue);
 
 
 	 				memberModal.addClass('hidden');
@@ -225,24 +225,24 @@
 						<div class="addForm">
 							<!--card header -->
 							<div class="card-header cardHeadBorder">
-								<h4>재고 등록</h4>
+								<h4>재고 수정</h4>
 							</div>
 							<!--End card header -->
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="assorList" th:action="@{/team03/goodsManagement/warehousing/k3AddSort}" method="post" th:if="${not #lists.isEmpty(warehousingSort)}" th:each="l : ${warehousingSort}">
+									<form id="assorList" th:action="@{/team03/goodsManagement/warehousing/k3AddSort}" method="post" >
 										<div class="inputwrap col-md-12">
 											<label for="warehousingCode" class="inputName">입고코드</label>
-											<input class="inputBox" type="text" id="warehousingCode" name="warehousingCode" th:value="${l.warehousingCode}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="warehousingCode" name="warehousingCode" readonly="readonly"/>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="laydownGoodsName" class="inputName">물품명</label>
-											<input class="inputBox" type="text" id="laydownGoodsName" name="laydownGoodsName" th:value="${l.laydownGoodsName}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="laydownGoodsName" name="laydownGoodsName" readonly="readonly"/>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="stockQuantity" class="inputName">물품개수</label>
-											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" th:value="${l.laydownGoodsCount}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" readonly="readonly"/>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="largeCategory" class="inputName">대분류</label>
@@ -272,14 +272,14 @@
 											<button type="button" id="selectLocation">로케이션 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="pileupManagerName" class="inputName">분류담당자</label>
-											<input class="inputBox" type="text" id="pileupManagerName" name="pileupManagerName" readonly="readonly"/>
-											<input class="hidden" type="text" id="pileupManager" name="pileupManager" readonly="readonly"/>
+											<label for="sortingManagerName" class="inputName">분류담당자</label>
+											<input class="inputBox" type="text" id="sortingManagerName" name="sortingManagerName" readonly="readonly"/>
+											<input class="hidden" type="text" id="sortingManager" name="sortingManager" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="pileupDate" class="inputName">분류일시</label>
-											<input class="inputBox" type="date" id="pileupDate" name="pileupDate"/>
+											<label for="sortingDate" class="inputName">분류일시</label>
+											<input class="inputBox" type="date" id="sortingDate" name="sortingDate"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
 											<button id="addWarehousingSortBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
