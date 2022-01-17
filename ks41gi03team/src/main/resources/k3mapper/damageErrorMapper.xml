@@ -33,7 +33,7 @@
 			,w.laydownGoodsName 
 			,w.laydownGoodsCount 
 			,r.shipmentCheckResult 
-			,r.releaseManager  
+			,r.releaseManager
 		FROM
 			k3_tb_damageError AS d
 			INNER JOIN
