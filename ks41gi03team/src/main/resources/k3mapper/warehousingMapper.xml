@@ -41,29 +41,29 @@
 	
 	<!-- 분류등록 -->
 	<insert id="k3AddWarehousingSort">
-	INSERT INTO k3_tb_pileup
-		(pileupCode, 
+	INSERT INTO k3_tb_stock
+		(stockCode, 
 		warehousingCode, 
 		locationCode, 
 		categoryCode, 
 		stockQuantity, 
 		productFrequency, 
-		sortingManager, 
-		sortingDate)
+		pileupManager, 
+		pileupDate)
 	SELECT 
-		   CONCAT(MAX(SUBSTRING(pileupCode,1,6)), MAX(CAST(SUBSTRING(pileupCode,7)AS DECIMAL))+ 1),
+		   CONCAT(MAX(SUBSTRING(stockCode,1,5)), MAX(CAST(SUBSTRING(stockCode,6)AS DECIMAL))+ 1),
 		   #{warehousingCode},
 		   #{locationCode},
 		   #{categoryCode},
 		   #{stockQuantity},
 		   #{productFrequency},
-		   #{sortingManager},
-		   #{sortingDate}
+		   #{pileupManager},
+		   #{pileupDate}
 		FROM 
-		  k3_tb_pileup;
+		  k3_tb_stock;
 	
 	</insert>
-	
+	<!--입고승인  -->
 	<update id="k3AllowWarehousing" parameterType="map">
 		UPDATE
 			k3_tb_warehousing
@@ -80,7 +80,7 @@
 		</trim>
 	</update>
 	
-
+	<!--계약처 아이디로 계약처 이름 찾기(map)  -->
 	<select id="k3FindContractorName" parameterType="map" resultType="map">
 		SELECT
 			cs.contractorId,
@@ -103,7 +103,7 @@
 		   c.contractorName,
 		   w.laydownDate,
 		   w.laydownCheckCode,
-		   w.laydownCheckResult,
+		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
 		   w.warehousingDay,
 		   w.laydownCheckDate,
 		   m.memberName,
@@ -124,7 +124,7 @@
 						<if test="searchCondition.laydownValue != null and searchCondition.laydownValue != ''.toString()">
 				   			${searchCondition.laydownKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
 						</if>	
-						<if test="searchStartDate != null and searchStartDate != ''.toString()">
+						<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
 				   			AND ${searchCondition.laydownDateKey} >= #{searchCondition.searchStartDate}
 						</if>	
 						<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
@@ -153,7 +153,7 @@
 		   c.contractorName,
 		   w.laydownDate,
 		   w.laydownCheckCode,
-		   w.laydownCheckResult,
+		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
 		   w.warehousingDay,
 		   w.laydownCheckDate,
 		   m.memberName,
@@ -192,7 +192,7 @@
 				LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
 			</if>		   
 	</select>
-		<!--입고 등록처리  -->
+	<!--입고 등록처리  -->
 	<insert id="k3AddWarehousing">
 		INSERT INTO
 		   k3_tb_warehousing
@@ -209,7 +209,7 @@
 		FROM 
 		  k3_tb_warehousing;
 	</insert>
-	
+	<!--계약처아이디로 계약처 이름찾아오기  -->
 	<select id="k3FindContractorNameByCode" resultType="K3Contract">
 		SELECT
 			cs.contractorId,
@@ -220,6 +220,7 @@
 			k3_tb_contractor_staff AS cs;
 	</select>
 	
+	<!--입고요청 목록  -->
 	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
 		SELECT
 			w.warehousingCode,
@@ -237,7 +238,7 @@
 		WHERE w.warehousingAllow = 'N'	
 	</select>
 	
-	
+	<!--재고등록이 가능한 데이터 출력  -->
 	<select id="k3GetWarehousingRequestSort" resultType="K3WarehousingSort">
 		SELECT
 			w.laydownCheckCode,
@@ -255,6 +256,7 @@
 			w.sorting = 'N' AND w.laydownCheckResult = 'Y';
 	</select>
 	
+	<!--재고 분류  -->
 	<select id="k3GetWarehousingSortList" resultType="K3WarehousingSort">
 		SELECT
 			w.laydownCheckCode,
@@ -267,9 +269,9 @@
 			p.productFrequency,
 			p.locationCode,
 			m.memberName,
-			p.sortingDate		
+			p.pileupDate		
 		FROM
-			k3_tb_pileup AS p
+			k3_tb_stock AS p
 			INNER JOIN
 			k3_tb_warehousing AS w
 			on
@@ -281,7 +283,7 @@
 			INNER JOIN
 			k3_tb_member AS m
 			on
-			p.sortingManager = m.memberId			
+			p.pileupManager = m.memberId			
 			INNER JOIN
 			k3_tb_total_category AS t
 			on
@@ -365,7 +367,7 @@
 		   w.expiratonDate,
 		   c.contractorName,
 		   w.laydownDate,
-		   w.laydownCheckResult,
+		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
 		   w.sorting
 		FROM
 		   k3_tb_warehousing AS w

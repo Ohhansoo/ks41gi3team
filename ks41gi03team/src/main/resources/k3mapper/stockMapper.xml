@@ -12,28 +12,29 @@
 		<result column="mediumCategory" property="mediumCategory" />
 		<result column="smallCategory" property="smallCategory" />
 		<result column="locationCode" property="locationCode" />
-		<result column="sortingDate" property="sortingDate" />
-		<result column="sortingManagerName" property="sortingManagerName" />
+		<result column="pileupDate" property="pileupDate" />
+		<result column="pileupManager" property="pileupManager" />
+		<result column="pileupManagerName" property="pileupManagerName" />
 	</resultMap>
 
 	<select id="k3GetStockByLocation" resultType="K3Stock">
 		SELECT
 			w.laydownCheckCode,
 			w.laydownGoodsName,
-			p.stockQuantity,
+			s.stockQuantity,
 			c.contractorName,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
-			p.locationCode,
-			p.sortingDate,
-			m.memberName AS sortingManagerName
+			s.locationCode,
+			s.pileupDate,
+			m.memberName AS pileupManagerName
 		FROM
-			k3_tb_pileup AS p
+			k3_tb_stock AS s
 			INNER JOIN
 			k3_tb_warehousing AS w
 			ON
-			p.warehousingCode = w.warehousingCode
+			s.warehousingCode = w.warehousingCode
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			ON
@@ -41,29 +42,29 @@
 			INNER JOIN
 			k3_tb_total_category AS t
 			ON
-			p.categoryCode = t.categoryCode
+			s.categoryCode = t.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON
-			p.sortingManager = m.memberId;
+			s.pileupManager = m.memberId;
 	</select>
 	
 	<select id="k3GetStockByStockName" resultType="K3Stock">
 		SELECT
 			w.laydownGoodsName,
-			s.contractorName,
-			SUM(p.stockQuantity) AS stockQuantity
+			cs.contractorName,
+			SUM(s.stockQuantity) AS stockQuantity
 		FROM
-			k3_tb_pileup AS p
+			k3_tb_stock AS s
 			INNER JOIN
 			k3_tb_warehousing AS w
 			ON
-			p.warehousingCode = w.warehousingCode
+			s.warehousingCode = w.warehousingCode
 			INNER JOIN
-			k3_tb_contractor_staff AS s
+			k3_tb_contractor_staff AS cs
 			ON
-			w.contractorId = s.contractorId
-			GROUP BY s.contractorName, w.laydownGoodsName;
+			w.contractorId = cs.contractorId
+			GROUP BY cs.contractorName, w.laydownGoodsName;
 	</select>
 
 </mapper>
