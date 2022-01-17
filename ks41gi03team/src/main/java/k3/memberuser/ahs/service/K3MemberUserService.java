@@ -78,8 +78,10 @@ public class K3MemberUserService {
 		}
 	
 		//07 직원여부체크
-		public int getMemberByMemberId(String memberId) {
-			return memberuserMapper.getMemberInfoByMemberId(memberId);
+		public int getMemberUserByMemberId(String memberId) {
+			int result = 0;
+			result += memberuserMapper.getMemberUserByMemberId(memberId);
+			return result;
 		}
 		
 		//08 직원검색

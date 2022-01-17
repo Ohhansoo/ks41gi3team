@@ -9,6 +9,49 @@
 	<th:block layout:fragment="customJs">
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
+		
+		$('#btn').click(function(){
+	
+			var memberId = $('#memberId').val();
+			
+			if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+				// ajax 호출
+				var request = $.ajax({
+					  url: '/member/idCheck', 
+					  method: 'POST', 
+					  data: { 'memberId' : memberId },
+					  dataType: 'text' 
+					});				
+				request.done(function(data) {
+					// 중복여부 체크(true: 중복, false: 등록가능)
+					var idConfirm = data;
+					
+					if(idConfirm){
+						alert('중복된 아이디입니다.');
+						$('#addMemberForm input').not('#memberId').prop('disabled', true);
+						$('#addMemberForm select').prop('disabled', true);
+						$('#addMemberForm button').not('#btn').prop('disabled', true);
+					}else{
+						alert('등록이 가능한 아이디입니다.');
+						$('#addMemberForm input').prop('disabled', false);
+						$('#addMemberForm select').prop('disabled', false);
+						$('#addMemberForm button').prop('disabled', false);
+					}
+					
+					
+				});				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+			}else{
+				alert('아이디를 입력해주세요')
+				return false;
+			}
+			
+			
+		});
+	});
+
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -132,7 +175,7 @@
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
+				<div class="container-fluid d-flex justify-content-center">
 					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->

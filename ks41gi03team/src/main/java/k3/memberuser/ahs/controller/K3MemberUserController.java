@@ -29,19 +29,18 @@ public class K3MemberUserController {
 		this.memberuserService = memberuserService;
 	}
 
-	//중복확인 
+	//아이디 중복체크
 	@PostMapping("/k3IdCheck")
 	@ResponseBody
 	public boolean idCheck(@RequestParam(value="memberId", required = false) String memberId) {
 		boolean checkResult = false;
 		
-		int check = memberuserService.getMemberByMemberId(memberId);
+		int check = memberuserService.getMemberUserByMemberId(memberId);
 		
 		if(check > 0) checkResult = true;
 		
 		return checkResult;
 	}
-	 
 	 
 	//01 직원조회(초기화면)
 	@GetMapping("/k3MemberUserList")
