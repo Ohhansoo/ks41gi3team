@@ -1,4 +1,4 @@
-package k3.damegeError.ahs.dto;
+package k3.damageError.ahs.dto;
 
 public class K3DamageError {
 	private String receiptNumber;

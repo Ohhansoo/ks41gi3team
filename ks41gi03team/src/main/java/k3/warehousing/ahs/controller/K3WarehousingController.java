@@ -46,38 +46,46 @@ public class K3WarehousingController {
 		this.k3MemberUserService = k3MemberUserService;
 		this.k3LocationServise = k3LocationServise;
 	}
-	//입고현황 조회처리
+	//입고 및 입하검수 현황 조회처리
 	@PostMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(@RequestParam(value="warehousingKey", required = false) String warehousingKey,
 									   @RequestParam(value="warehousingValue", required = false) String warehousingValue,
 									   @RequestParam(value="searchStartDate", required = false) String searchStartDate,
 									   @RequestParam(value="searchEndDate", required = false) String searchEndDate,
 									   @RequestParam(value="warehousingDateKey", required = false) String warehousingDateKey,
+									   @RequestParam(value="laydownKey", required = false) String laydownKey,
+									   @RequestParam(value="laydownValue", required = false) String laydownValue,
+									   @RequestParam(value="laydownDateKey", required = false) String laydownDateKey,
+									   @RequestParam(value="searchLaydownType", required = false) String searchLaydownType,
+									   @RequestParam(value="searchWarehousingType", required = false) String searchWarehousingType,
+									   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 									   Model model) {
 		Map<String, Object> searchCondition = new HashMap<String, Object>();
-		if(warehousingKey != null && "laydownGoodsName".equals(warehousingKey)) {
-			warehousingKey = "laydownGoodsName";
-		}else if(warehousingKey != null && "contractorName".equals(warehousingKey)) {
-			warehousingKey = "contractorName";
-		}else if(warehousingKey != null && "warehousingCode".equals(warehousingKey)) {
-			warehousingKey = "warehousingCode";
-		}
-		if(warehousingDateKey != null && "manufacturedDate".equals(warehousingDateKey)) {
-			warehousingDateKey = "manufacturedDate";
-		}else if(warehousingDateKey != null && "expiratonDate".equals(warehousingDateKey)) {
-			warehousingDateKey = "expiratonDate";
-		}else if(warehousingDateKey != null && "laydownCheckDate".equals(warehousingDateKey)) {
-			warehousingDateKey = "laydownCheckDate";
-		}
 		searchCondition.put("warehousingKey", warehousingKey);
 		searchCondition.put("warehousingValue", warehousingValue);
 		searchCondition.put("searchStartDate", searchStartDate);
 		searchCondition.put("searchEndDate", searchEndDate);
 		searchCondition.put("warehousingDateKey", warehousingDateKey);
+		searchCondition.put("laydownKey", laydownKey);
+		searchCondition.put("laydownValue", laydownValue);
+		searchCondition.put("laydownDateKey", laydownDateKey);
+		searchCondition.put("searchLaydownType", searchLaydownType);
+		searchCondition.put("searchWarehousingType", searchWarehousingType);
 		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
-		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingSearchList(searchCondition);
-		model.addAttribute("warehousingList", warehousingList);
-		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", warehousingList);
+		
+		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingSearchList(searchCondition, currentPage);
+		Map<String, Object> laydownCheckMap = k3WarehousingService.k3GetLaydownSearchList(searchCondition, currentPage);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", warehousingMap.get("lastPage"));
+		model.addAttribute("warehousingList", warehousingMap.get("warehousingList"));
+		model.addAttribute("startPageNum", warehousingMap.get("startPageNum"));
+		model.addAttribute("endPageNum", warehousingMap.get("endPageNum"));
+		model.addAttribute("lastPage", laydownCheckMap.get("lastPage"));
+		model.addAttribute("laydownCheck", laydownCheckMap.get("laydownCheck"));
+		model.addAttribute("startPageNum", laydownCheckMap.get("startPageNum"));
+		model.addAttribute("endPageNum", laydownCheckMap.get("endPageNum"));
+		log.info(" post 입고현황 조회 리스트 warehousingSearchList ----------------", warehousingMap);
+		log.info(" post 입하검수현황 조회 리스트 warehousingSearchList ----------------", laydownCheckMap);
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}
@@ -90,7 +98,6 @@ public class K3WarehousingController {
 		Map<String, Object> warehousingList = new HashMap<String, Object>();
 		warehousingList.put("allowList", allowList);
 		warehousingList.put("YesOrNo", YesOrNo);
-
 		int result = k3WarehousingService.k3AllowWarehousing(warehousingList);
 		log.info("컨트롤러//////입고 승인처리 결과 result------ " + result);
 		return "redirect:/team03/goodsManagement/warehousing/k3AllowWarehousing";
@@ -204,14 +211,23 @@ public class K3WarehousingController {
 	}
 	//입고 현황이동
 	@GetMapping("/k3WarehousingList")
-	public String k3GetWarehousingList(Model model) {
-		List<K3Warehousing> warehousingList = k3WarehousingService.k3GetWarehousingList();
-		List<K3Warehousing> laydownCheck = k3WarehousingService.k3GetLaydownCheck();
-		log.info("입고 현황이동 컨트롤러 K3LaydownCheck------ " + warehousingList);
+	public String k3GetWarehousingList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+										Model model) {
+		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingList(currentPage);
+		Map<String, Object> laydownCheckMap = k3WarehousingService.k3GetLaydownCheck(currentPage);
+		log.info("입고 현황이동 컨트롤러 warehousingMap------ " + warehousingMap);
+		log.info("입고 현황이동 컨트롤러 laydownCheckMap------ " + laydownCheckMap);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고현황");
-		model.addAttribute("warehousingList", warehousingList);
-		model.addAttribute("laydownCheck", laydownCheck);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", warehousingMap.get("lastPage"));
+		model.addAttribute("warehousingList", warehousingMap.get("warehousingList"));
+		model.addAttribute("startPageNum", warehousingMap.get("startPageNum"));
+		model.addAttribute("endPageNum", warehousingMap.get("endPageNum"));
+		model.addAttribute("lastPage", laydownCheckMap.get("lastPage"));
+		model.addAttribute("laydownCheck", laydownCheckMap.get("laydownCheck"));
+		model.addAttribute("startPageNum", laydownCheckMap.get("startPageNum"));
+		model.addAttribute("endPageNum", laydownCheckMap.get("endPageNum"));
 		
 		return "team03/goodsManagement/warehousing/k3WarehousingList";
 	}

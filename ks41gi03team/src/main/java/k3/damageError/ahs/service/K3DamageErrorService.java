@@ -1,11 +1,11 @@
-package k3.damegeError.ahs.service;
+package k3.damageError.ahs.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import k3.damageError.ahs.dto.K3DamageError;
 import k3.damageError.ahs.mapper.K3DamageErrorMapper;
-import k3.damegeError.ahs.dto.K3DamageError;
 
 
 

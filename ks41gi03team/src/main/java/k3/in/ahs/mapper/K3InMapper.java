@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.inout.ahs.dto.K3Inout;
 import k3.out.ahs.dto.K3Out;
 
@@ -12,6 +14,16 @@ import k3.out.ahs.dto.K3Out;
 	
 	@Mapper
 	public interface K3InMapper {
+		
+	
+		//견적번호의 견적액 가져오기
+		public List<K3Estimate> getEstimatePrice();
+		
+		//견적번호 가져오기
+		public List<K3Estimate> getEstimateNum();
+		
+		//사업장별 등록코드 가져오기
+		public List<K3MainBusinessCode> getMainBusinessCodeList();
 		
 		//매출 검색
 		public List<K3In> searchInList(String inKey, String inValue);

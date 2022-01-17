@@ -15,6 +15,9 @@ public class K3In {
 	private String inReceipeDate;
 	private String memberName;
 	
+	
+	
+	
 	public String getMemberName() {
 		return memberName;
 	}

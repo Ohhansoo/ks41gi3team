@@ -7,12 +7,27 @@
 	</th:block>
 	<th:block layout:fragment="customContents">
 		<script>
+			// 취소 버튼
 			$(function(){
 				$('#cancelBtn').on('click', function(){
 					history.back();
 				});
 			});
+			
+			// 견적서 번호 
+			$(function(){
+				/* $('#estimatePriceInput').val($('#estimateNum').val()); */
+				
+				$(document).on('change', '#estimateNum', function(){
+					var test = $('#estimateNum').val()
+					$('#estimatePriceInput').val(test);
+					console.log(test);
+				})
+			})
 		</script>	 
+		
+		
+		
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -32,29 +47,36 @@
 										<label for="inCodeInput" class="inputName">매출코드</label>
 										<input class="inputBox" type="text" id="inCodeInput" name="inCode"> 
 									</div>
+									
+									
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
-										<input class="inputBox" type="text" id="mainBusinessCodeInput" name="mainBusinessCode">
+										<select name ="mainBusinessCode">
+											<th:block th:if="${not #lists.isEmpty(getMainBusinessCodeList)}" th:each="l : ${getMainBusinessCodeList}">							
+												<option th:text="${l.mainBusinessCode}" th:value="${l.mainBusinessCode}"> </option>
+											</th:block>	
+										</select>
 									</div>								
+									
 									<div class="inputwrap col-md-12">
 										<label for="memberIdInput" class="inputName">등록자아이디 </label>
-										<input class="inputBox" type="text" id="memberIdInput" name="memberId">
+										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${session.SID}" readonly="readonly">
 									</div>	
-									
 									
 									<div class="inputwrap col-md-12">
 										<label for="estimateNumInput" class="inputName">견적번호</label>
-										<input class="inputBox" type="text" id="estimateNumInput" name="estimateNum">
+										<select id = "estimateNum">
+											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
+											<option th:text="${e.estimateNum}" th:value="${e.estimateNum}"> </option>										
+										</select>
 									</div>				
 									
-									<!-- <select name="estimateNum" th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
-									    <option th:text="${l.estimateNum}" th:value="${l.estimateNum}"></option>
-									</select> -->
-
+									
 									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
 										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
-									</div>								
+									</div>
+																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
 										<input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod">

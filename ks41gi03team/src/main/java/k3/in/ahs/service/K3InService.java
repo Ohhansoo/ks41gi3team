@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.in.ahs.mapper.K3InMapper;
 import k3.inout.ahs.dto.K3Inout;
 import k3.out.ahs.dto.K3Out;
@@ -19,6 +21,16 @@ public class K3InService {
 	
 	public K3InService(K3InMapper k3InMapper) {
 		this.k3InMapper=k3InMapper;
+	}
+	
+	//견적번호 가져오기
+	public List<K3Estimate> getEstimateNum() {
+		return k3InMapper.getEstimateNum();
+	}
+	
+	//사업장별 대표코드 가져오기
+	public List<K3MainBusinessCode> getMainBusinessCodeList() {
+		return k3InMapper.getMainBusinessCodeList();
 	}
 	
 	//매출 내역 검색
