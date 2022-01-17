@@ -68,16 +68,11 @@ public class K3ContractorService {
 		
 		List<Map<String,Object>> contractorListCount = k3ContractorMapper.K3SearchContractorCount(paramMap, searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
 		
-		System.out.println("뭐가 담겨있나 : " + contractorListCount);		
 		
 		currentPage = 1;
 		
 		// 검색된 거래처 투플 수(페이징)
 		double rowCount = contractorListCount.size();
-		
-		System.out.println("얼마나 보여줄까 : " + rowCount);
-		
-		System.out.println("현재페이지는? : " + currentPage);
 		
 		// 보여줄 행의 개수
 		int rowPerPage = 1;
@@ -118,8 +113,6 @@ public class K3ContractorService {
 		paramMap.put("startNum", startNum);
 		paramMap.put("rowPerPage", rowPerPage);
 		
-		System.out.println("paramMap 내부확인"+ paramMap);
-		
 		List<Map<String,Object>> contractorList = k3ContractorMapper.K3SearchContractorList(paramMap, searchKey, contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue);
 
 		paramMap.clear();
@@ -128,8 +121,6 @@ public class K3ContractorService {
 		paramMap.put("contractorList", contractorList);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
-		
-		System.out.println("paramMap 내부확인2"+ paramMap);		
 		
 		return paramMap;
 		

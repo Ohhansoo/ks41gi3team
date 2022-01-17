@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+   	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">	
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			//유효성검사(인풋박스 내용물 작성여부)
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+				});
+				$(document).on('click', '#addWarehousingSortBtn', function(){
+					
+					var submitCheck = true;
+					var inputObj = $('#assorList').find('input');
+							
+					$.each(inputObj, function(){
+		   				var inputDate = $(this).val();
+		   				var inputId = $(this).attr('id');
+		   				var labelText = $('label[for=' + inputId + ']').text();
+							
+		   				if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+		   					alert(labelText + ' 입력해주세요');
+		   					$(this).focus();
+		   					submitCheck = false;
+		   					return false;
+		   				}		
+					});  						
+						if(submitCheck) $('#assorList').submit();
+				});
+				//모달 시작
+				var modal = $('#categoryModal');
+				var memberModal = $('#memberModal');
+				var locationModal = $('#locationModal');
+				///카테고리 모달
+				$("#categoryExitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+				
+				$(document).on('click', '#selectCategory', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#dataTableAjax').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/getCategoryList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "largeCategory"},
+							{ "data": "mediumCategory"},
+							{ "data": "smallCategory"}								
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="categoryCode" name="categoryCode" value="'+ row.categoryCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.categoryCode:checked');
+	 				var largeCategory = $('#largeCategory');
+	 				var mediumCategory = $('#mediumCategory');
+	 				var smallCategory = $('#smallCategory');
+	 				var categoryCode = $('#categoryCode');
+
+	 				var largeCategoryValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var mediumCategoryValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var smallCategoryValue = checkedBox.parent().parent().children().eq(3).text();
+	 				var categoryCodeValue = checkedBox.val();
+					
+	 				largeCategory.attr('value',largeCategoryValue);
+	 				mediumCategory.attr('value',mediumCategoryValue);
+	 				smallCategory.attr('value',smallCategoryValue);
+	 				categoryCode.attr('value', categoryCodeValue);
+	 				
+					modal.addClass('hidden');
+				});
+				///멤버이름 모달
+				$(document).on('click', '#selectMember', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#memberCode').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/MemberList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					memberModal.removeClass('hidden');
+					
+				});
+				$("#memberExitBtn").click(function(){
+					
+					memberModal.addClass('hidden');
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var sortingManager = $('#sortingManager');
+	 				var sortingManagerName = $('#sortingManagerName');
+
+	 				var sortingManagerValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var sortingManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+
+	 				sortingManager.attr('value',sortingManagerValue);
+	 				sortingManagerName.attr('value',sortingManagerNameValue);
+
+
+	 				memberModal.addClass('hidden');
+				});
+				///로케이션 모달
+				$(document).on('click', '#selectLocation', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#locationCodeTable').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/locationList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "locationCode"},
+							{ "data": "locationState"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="locationCodes" name="locationCodes" value="'+ row.locationCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					locationModal.removeClass('hidden');
+					
+				});
+				$("#locationExitBtn").click(function(){
+					
+					locationModal.addClass('hidden');
+				});
+				$(document).on('click', '#locationConfirmBtn', function(){
+					var checkedBox = $('.locationCodes:checked');
+	 				var location = $('#locationCode');
+
+	 				var locationValue = checkedBox.parent().parent().children().eq(1).text();
+
+	 				location.attr('value',locationValue);
+
+
+	 				locationModal.addClass('hidden');
+				});
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents">	 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!-- 등록 영역 -->
+						<div class="addForm">
+							<!--card header -->
+							<div class="card-header cardHeadBorder">
+								<h4>재고 수정</h4>
+							</div>
+							<!--End card header -->
+							<!--card body -->
+							<div class="card-body">
+								<div class="row">
+									<form id="assorList" th:action="@{/team03/goodsManagement/warehousing/k3AddSort}" method="post" >
+										<div class="inputwrap col-md-12">
+											<label for="warehousingCode" class="inputName">입고코드</label>
+											<input class="inputBox" type="text" id="warehousingCode" name="warehousingCode" readonly="readonly"/>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="laydownGoodsName" class="inputName">물품명</label>
+											<input class="inputBox" type="text" id="laydownGoodsName" name="laydownGoodsName" readonly="readonly"/>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="stockQuantity" class="inputName">물품개수</label>
+											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" readonly="readonly"/>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="largeCategory" class="inputName">대분류</label>
+											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" readonly="readonly"/>
+											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode"/>
+											<button type="button" id="selectCategory">카테고리 선택</button>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="mediumCategory" class="inputName">중분류</label>
+											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" readonly="readonly"/>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="smallCategory" class="inputName">소분류</label>
+											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" readonly="readonly"/>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="productFrequency" class="inputName">상품빈도</label>
+											<select name="productFrequency">
+												<option value="high">고빈도</option>
+												<option value="medium">중빈도</option>
+												<option value="low">저빈도</option>											
+											</select>	
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="locationCode" class="inputName">로케이션</label>
+											<input class="inputBox" type="text" id="locationCode" name="locationCode" readonly="readonly"/>
+											<button type="button" id="selectLocation">로케이션 선택</button>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="sortingManagerName" class="inputName">분류담당자</label>
+											<input class="inputBox" type="text" id="sortingManagerName" name="sortingManagerName" readonly="readonly"/>
+											<input class="hidden" type="text" id="sortingManager" name="sortingManager" readonly="readonly"/>
+											<button type="button" id="selectMember">담당자 선택</button>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="sortingDate" class="inputName">분류일시</label>
+											<input class="inputBox" type="date" id="sortingDate" name="sortingDate"/>
+										</div>								
+										<div class="d-flex justify-content-center">					
+											<button id="addWarehousingSortBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+										</div>	
+									</form>
+		 						</div>
+							</div>					
+		 					<!--End card body 묶음 -->
+						</div>
+						<!-- END 등록 영역 -->
+					</div>	
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+		<!-- 모달창 -->
+		<div id="categoryModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">카테고리 선택</div>
+					<button id="categoryExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>대분류</th>
+									<th>중분류</th>
+									<th>소분류</th>							
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		<!-- 모달창 -->
+		<div id="memberModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">거래처명 선택</div>
+					<button id="memberExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="memberCode" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회원코드</th>
+									<th>회원명</th>						
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		<!-- 모달창 -->
+		<div id="locationModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">로케이션 선택</div>
+					<button id="locationExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="locationCodeTable" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>로케이션코드</th>
+									<th>상태</th>						
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="locationConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+	</th:block>

@@ -15,7 +15,7 @@
 					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
 				});
 				
-				$(document).on('click', '#deleteCategoryBtn', function(){
+				$(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
@@ -33,6 +33,15 @@
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
 					}
+				});
+				
+				$('#warehousingSearchBtn').on('click', function(){
+					$('#searchWarehousingType').attr('value', 'warehousing');
+					$('#warehousingSearchForm').submit();
+				});
+				$('#laydownSearcchBtn').on('click', function(){
+					$('#searchLaydownType').attr('value', 'laydown');
+					$('#laydownSearchForm').submit();
 				});
 			});
 		</script>
@@ -82,7 +91,7 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<form class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+										<form id="warehousingSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
 												<select name="warehousingKey" class="input-group-text form-control-sm">
@@ -91,9 +100,10 @@
 													<option value="warehousingCode">입고코드</option>
 												</select>
 												<input type="text" name="warehousingValue" class="form-control">
+												<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="categorySearcch" type="submit">
+														<button id="warehousingSearchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -105,7 +115,7 @@
 												<select name="warehousingDateKey" class="input-group-text form-control-sm">
 													<option value="manufacturedDate">제조일자</option>
 													<option value="expiratonDate">유통기한</option>
-													<option value="laydownCheckDate">입하날짜</option>
+													<option value="laydownCheckDate">검수날짜</option>
 												</select>
 												<div class="col-sm-3" style="padding-left: 0px">
 													<div class="input-group">
@@ -141,25 +151,59 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
-											<div class="input-group input-group-sm">
-												<select name="categoryKey" class="input-group-text form-control-sm">
-													<option value="large">상품명</option>
-													<option value="medium">회사명</option>
-													<option value="small">검수코드</option>
+										<form id="laydownSearchForm" class="d-flex align-items-center"  th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+											<!--inputbox 1 -->
+											<div class="input-group input-group-sm col-sm-5">
+												<select name="laydownKey" class="input-group-text form-control-sm">
+													<option value="laydownGoodsName">상품명</option>
+													<option value="contractorName">회사명</option>
+													<option value="laydownCheckCode">검수코드</option>
+													<option value="memberName">검수자</option>
+													<option value="laydownCheckResult">검수결과</option>
 												</select>
-												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<input type="text" name="laydownValue" class="form-control">
+												<input type="hidden" id="searchLaydownType" name="searchLaydownType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="categorySearcch" type="submit">
+														<button id="laydownSearcchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
 												</div>
 											</div>
+											<!--End inputbox 1 -->
+											<!--inputbox 2 -->
+											<div class="input-group input-group-sm col-sm-4">
+												<select name="laydownDateKey" class="input-group-text form-control-sm">
+													<option value="laydownCheckDate">검수날짜</option>
+													<option value="laydownDate">입하날짜</option>
+												</select>
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate3" data-target-input="nearest">
+															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+															<div class="input-group-append" data-target="#reservationdate3" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 2 -->
+											~
+											<!--inputbox 3 -->
+											<div class="col-sm-3" style="padding-left: 0px">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate4" data-target-input="nearest">
+														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+														<div class="input-group-append" data-target="#reservationdate4" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+														</div>
+													</div>
+						                   		</div>
+											</div>
+											<!--End inputbox 3 -->
 										</form>
-										<!--End inputbox 1 -->
 			 						</div>
 								</div>					
 			 					<!--End card body 묶음 -->								
@@ -184,45 +228,66 @@
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<form id="" method="post">
-										<table class="table table-head-fixed text-nowrap">
-											<thead>
-												<tr>
-													<th>삭제</th>	
-													<th>재고등록</th>
-													<th>입고코드</th>
-													<th>입하검수코드</th>	
-													<th>입고물품명</th>
-													<th>입고물품개수</th>
-													<th>제조일자</th>
-													<th>유통기한</th>					
-													<th>거래처명</th>									
-													<th>입하날짜</th>													
-												</tr>
-											</thead>
-											<tbody>
-												<tr th:if="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
-													<td>
-														<input type="checkbox" value="선택">
-													</td>
-													<td>
-													<a th:if="${l.laydownCheckResult} == 'Y'" th:href="@{/team03/goodsManagement/warehousing/k3AddSort(warehousingCode=${l.warehousingCode})}">등록</a>
-													</td>
-													<td th:text="${l.warehousingCode}"></td>
-													<td th:text="${l.laydownCheckCode}"></td>
-													<td th:text="${l.laydownGoodsName}"></td>
-													<td th:text="${l.laydownGoodsCount}"></td>
-													<td th:text="${l.manufacturedDate}"></td>
-													<td th:text="${l.expiratonDate}"></td>
-													<td th:text="${l.contractorName}"></td>
-													<td th:text="${l.laydownDate}"></td>
-												</tr>
-												<tr th:unless="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
-													<td> 입하검수 목록이 없습니다. </td>
-												</tr>
-											</tbody>						
-										</table>
-									</form>
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>삭제</th>
+												<th>수정</th>	
+												<th>재고등록</th>
+												<th>입고코드</th>
+												<th>입하검수코드</th>	
+												<th>입고물품명</th>
+												<th>입고물품개수</th>
+												<th>제조일자</th>
+												<th>유통기한</th>					
+												<th>거래처명</th>									
+												<th>입하날짜</th>													
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+												<td>
+													<input type="checkbox" value="선택">
+												</td>
+												<td>
+													<a th:href="@{#}">수정</a>
+												</td>
+												<td>
+												<a th:if="${l.laydownCheckResult} == 'Y' and ${l.sorting} == 'N'" th:href="@{/team03/goodsManagement/warehousing/k3AddSort(warehousingCode=${l.warehousingCode})}">등록</a>
+												</td>
+												<td th:text="${l.warehousingCode}"></td>
+												<td th:text="${l.laydownCheckCode}"></td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.laydownGoodsCount}"></td>
+												<td th:text="${l.manufacturedDate}"></td>
+												<td th:text="${l.expiratonDate}"></td>
+												<td th:text="${l.contractorName}"></td>
+												<td th:text="${l.laydownDate}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(warehousingList)}" th:each="l : ${warehousingList}">
+												<td> 입하검수 목록이 없습니다. </td>
+											</tr>
+										</tbody>						
+									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousLaydownList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+											이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextLaydownList">
+											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->
+>>>>>>> branch 'develop' of https://github.com/Ohhansoo/ks41gi3team.git
 								</div>
 								<!--End card body -->
 							</div>
@@ -268,6 +333,24 @@
 											</tr>
 										</tbody>						
 									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousLaydownList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+												이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextLaydownList">
+											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->									
 								</div>
 								<!--End card body -->
 							</div>

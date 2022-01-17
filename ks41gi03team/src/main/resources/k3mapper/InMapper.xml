@@ -4,23 +4,72 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.in.ahs.mapper.K3InMapper">
 
-	<!--  입출금 내역 삭제 처리 -->
+
+
+
+	<!-- 견적액 가져오기 -->
+	<select id = "getEstimatePrice" resultType = "K3Estimate">	
+	</select>
+
+
+	<!-- 견적번호 가져오기 -->
+	<select id="getEstimateNum" resultType = "K3Estimate">
+		SELECT
+			 e.estimateNum,
+			 e.estimatePrice
+		FROM
+			 k3_tb_estimate as e;
+	</select>
+
+
+	<!-- 사업장별등록코드 가져오기 -->
+	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
+		SELECT
+			mainBusinessCode
+		FROM 
+			k0tbSw_businessManagement;
+	</select>
+
+
+	<!-- 매출 검색 -->	
+	<select id="searchInList" resultType="K3In">
+		SELECT
+			inCode
+			,mainBusinessCode
+			,memberId
+			,estimateNum
+			,estimatePrice
+			,inPayMethod
+			,inPayDate
+			,inPayCheck
+			,inCheck
+			,inPayRemain
+			,inReceipe
+			,inReceipeDate
+		FROM
+				k3_tb_in
+		<trim prefix="WHERE" prefixOverrides="AND \OR">
+			<if test="inValue != null and inValue != ''.toString()">
+				${inKey} LIKE CONCAT('%', #{inValue}, '%');
+			</if>
+		</trim>
+	</select>		
+	
+	
+	
+	<!--  매출 내역 삭제 처리 -->
 	<delete id ="deleteIn" parameterType="int">
-	
-	SET foreign_key_checks=0;
-	
 	DELETE 
 		a
 	FROM
 		k3_tb_in AS a 
 		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
-			or inCode =#{deleteList}
+			or inCode=#{deleteList}
 		</foreach>	
-	SET FOreign_key_checks=1;
 	</delete>
 
 
-	<!--  입출금 내역 수정 처리 -->
+	<!--  매출 내역 수정 처리 -->
 	<update id ="modifyIn" parameterType="K3In">
 			UPDATE k3_tb_in
 			<trim prefix="SET" prefixOverrides=",">
@@ -32,21 +81,6 @@
 				</if>
 				<if test="memberId != null and memberId != ''.toString()">
 					,memberId	=#{memberId}
-				</if>
-				<if test="memberName != null and memberName != ''.toString()">
-					,memberName		=#{memberName}
-				</if>
-				<if test="inRegDate != null and inRegDate != ''.toString()">
-					,inRegDate		=#{inRegDate}
-				</if>
-				<if test="estimateContractorName != null and estimateContractorName != ''.toString()">		
-					,estimateContractorName		=#{estimateContractorName}
-				</if>
-				<if test="contractorCode != null and contractorCode != ''.toString()">
-					,contractorCode		=#{contractorCode}
-				</if>
-				<if test="contractCode != null and contractCode != ''.toString()">
-					,contractCode		=#{contractCode}
 				</if>
 				<if test="estimateNum != null and estimateNum != ''.toString()">
 					,estimateNum		=#{estimateNum}
@@ -62,6 +96,9 @@
 				</if>
 				<if test="inPayCheck != null and inPayCheck != ''.toString()">
 					,inPayCheck		=#{inPayCheck}
+				</if>
+				<if test="inCheck != null and inCheck != ''.toString()">
+					,inCheck		=#{inCheck}
 				</if>
 				<if test="inPayRemain != null and inPayRemain != ''.toString()">
 					,inPayRemain		=#{inPayRemain}
@@ -84,16 +121,12 @@
 			 inCode
 			,mainBusinessCode
 			,memberId
-			,memberName
-			,inRegDate
-			,estimateContractorName
-			,contractorCode
-			,contractCode
 			,estimateNum
 			,estimatePrice
 			,inPayMethod
 			,inPayDate
 			,inPayCheck
+			,inCheck
 			,inPayRemain
 			,inReceipe
 			,inReceipeDate
@@ -108,16 +141,12 @@
 		inCode
 		,mainBusinessCode
 		,memberId
-		,memberName
-		,inRegDate
-		,estimateContractorName
-		,contractorCode
-		,contractCode
 		,estimateNum
 		,estimatePrice
 		,inPayMethod
 		,inPayDate
 		,inPayCheck
+		,inCheck
 		,inPayRemain
 		,inReceipe
 		,inReceipeDate
@@ -127,44 +156,47 @@
 		#{inCode},
 		#{mainBusinessCode},
 		#{memberId},
-		#{memberName},
-		#{inRegDate},
-		#{estimateContractorName},
-		#{contractorCode},
-		#{contractCode},
-		#{estimateNum}
-		#{estimatePrice}
-		#{inPayMethod}
-		#{inPayDate}
-		#{inPayCheck}
-		#{inPayRemain}
-		#{inReceipe}
+		#{estimateNum},
+		#{estimatePrice},
+		#{inPayMethod},
+		#{inPayDate},
+		#{inPayCheck},
+		#{inCheck},
+		#{inPayRemain},
+		#{inReceipe},
 		#{inReceipeDate}
 	);
 
 	</insert>
 	
-		
-	
 	<select id="getInList" resultType="K3In">
 		SELECT 
-			 inCode
-			,mainBusinessCode
-			,memberId
-			,memberName
-			,inRegDate
-			,estimateContractorName
-			,contractorCode
-			,contractCode
-			,estimateNum
-			,estimatePrice
-			,inPayMethod
-			,inPayDate
-			,inPayCheck
-			,inPayRemain
-			,inReceipe
-			,inReceipeDate
-		FROM k3_tb_in;
+			i.inCode 					as inCode
+			,i.mainBusinessCode 		as mainBusinessCode
+			,i.memberId					as memberId
+			,i.estimateNum				as estimateNum
+			,e.estimatePrice			as estimatePrice
+			,i.inPayMethod				as inPayMethod
+			,i.inPayDate				as inPayDate
+			,i.inPayCheck				as inPayCheck
+			,i.inCheck					as inCheck
+			,i.inPayRemain				as inPayRemain
+			,i.inReceipe				as inReceipe
+			,i.inReceipeDate			as inReceipeDate
+			,m.memberName				as memberName
+		FROM k3_tb_in AS i
+		
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			i.memberId = m.memberId
+			
+		INNER JOIN
+			k3_tb_estimate AS e
+		ON
+			e.estimateNum = i.estimateNum;
+		
+		
 	</select>
 
 </mapper>

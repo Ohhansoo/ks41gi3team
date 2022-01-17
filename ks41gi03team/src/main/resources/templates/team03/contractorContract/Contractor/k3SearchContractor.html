@@ -7,18 +7,50 @@
    </th:block>
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:inline="javascript">
+		
+		<!-- 거래처 삭제처리(버튼) -->
+
+		
+		function deleteContractor(){
+			var url = "/team03/contractorContract/Contractor/k3SearchContractor";
+			var removeContractor = $("td[name = contractorCode]");
+			
+			console.log("변수내부 확인 contractorCode : "+ contractorCode + "확인끝");
+			var checkConfirm = confirm("정말 삭제하시겠습니까?"); 			
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : { removeContractor : removeContractor },
+				success : function(data){
+					if(data = 1){
+						alert("삭제 성공");
+						location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
+					}
+					else{
+						alert("삭제 실패");
+					}
+				}
+			});
+		}
+		
+
+		
 		<!-- 거래처 삭제처리(체크박스) -->
 		function checkDeleteContractor(){
 			var url = "/team03/contractorContract/Contractor/k3SearchContractor";
-			var checkArr = new Array();
+			var removeContractorArr = new Array();
 			var list = $("input[name=checkContract]");
-
+			
+			console.log("변수내부 확인  list : "+ list +"확인끝");
+			
 			for(var i = 0; i < list.length; i++){
 				if(list[i].checked){
-					checkArr.push(list[i].value);
+					removeContractorArr.push(list[i].value);
 				}
 			}
-			if(checkArr.length == 0){
+			console.log("변수내부 확인  checkArr : "+ removeContractorArr +"확인끝");
+			if(removeCheckContractor.length == 0){
 				alert("선택한 글이 없습니다.");
 			}
 			else{
@@ -27,7 +59,7 @@
 					url : url,
 					type : 'POST',
 					traditional : true,
-					data : { checkArr : checkArr },
+					data : { removeContractorArr : removeContractorArr },
 					success : function(data){
 						if(data = 1){
 							alert("삭제 성공");
@@ -73,7 +105,6 @@
 					}
 					<!-- END 검색된 거래처 경로설정 -->		
 					
-
 					
 				<!-- 거래처 상세정보 모달창 스크립트 -->				
 				$('.searchDetailContractor').click(function(){
@@ -194,7 +225,7 @@
 	        						</div>
 									<input type="text" class="form-control" placeholder="거래처정보입력" name="searchValue" th:value="${searchValue}">
 									<div class=" input-group-append">
-										<button type="submit" class="btn btn-default searchContractor">
+										<button id="searchDetailContractor" type="submit" class="btn btn-default searchContractor">
 											<i class="fas fa-search icon"></i>
 										</button>
 									</div>
@@ -250,15 +281,15 @@
 						<thead>
 						<tr>
 							<th>
-								<input type="checkbox" id="allCheck" name="allCheck"/>
+								<input type="checkbox" name="checkContract"/>
 							</th>
 							<th>상세정보</th>						            
 							<th>수정</th>
 							<th>삭제</th>						            
 				            <th>거래처 사업장 코드</th>
 				            <th>거래처 상호명</th>
-				            <th>거래처 종목</th>
 				            <th>거래처 업태</th>
+				            <th>거래처 종목</th>
 				            <th>거래 구분</th>
 				            <th>거래처 전화번호</th>
 				            <th>거래처 아이디</th>
@@ -271,7 +302,7 @@
 						<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
 							<td>
 								<label>
-									<input name="checkContract" type="checkbox"/>
+									<input name="checkContract" type="checkbox"  th:value="${c.contractorCode}"/>
 								</label>
 							</td>
 							<td>
@@ -285,14 +316,14 @@
 								</a>
 							</td>
 							<td>
-								<a name="deleteContractor" type="button"  class="btn btn-default btn-sm" th:data-contractorCode="${c.contractorCode}">
+								<a name="deleteContractor" type="button"  class="btn btn-default btn-sm" th:data-contractorCode="${c.contractorCode}"  th:onclick="|javascript:deleteContractor()|" >
 									<i class="bi bi-trash-fill"></i>
 								</a>
 							</td>
-							<td  th:text="${c.contractorCode}"></td>
+							<td name="contractorCode"  th:text="${c.contractorCode}"></td>
 							<td  th:text="${c.contractorName}"></td>
-							<td  th:text="${c.contractorItem}"></td>
 							<td  th:text="${c.contractorStatus}"></td>
+							<td  th:text="${c.contractorItem}"></td>
 							<td  th:text="${c.contractorDevision}"></td>
 							<td  th:text="${c.contractorPhone}"></td>
 							<td  th:text="${c.contractorId}"></td>
@@ -366,7 +397,7 @@
 							<i class="bi bi-pencil"></i>
 							수정
 						</a>
-						<a class="ahsbtn2 btn btn-outline-info deleteBtn">
+						<a class="ahsbtn2 btn btn-outline-info deleteBtn" th:onclick="|javascript:deleteContractor()|">
 							<i class="bi bi-trash"></i>
 							삭제
 						</a>

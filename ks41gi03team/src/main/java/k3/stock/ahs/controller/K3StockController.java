@@ -19,6 +19,13 @@ public class K3StockController {
 	public K3StockController(K3StockService k3StockService) {
 		this.k3StockService = k3StockService;
 	}
+	//재고 수정폼 이동
+	@GetMapping("/K3ModifyStock")
+	public String K3ModifyStock(){
+		
+		return "team03/goodsManagement/stock/K3ModifyStock";
+	}
+	
 	
 	//재고 등록폼 이동
 	@GetMapping("/k3AddStock")
@@ -30,7 +37,9 @@ public class K3StockController {
 	//재고 현황 이동
 	@GetMapping("/k3StockList")
 	public String k3StockList(Model model) {
+		//재고현황 간단조회
 		List<K3Stock> stockList = k3StockService.k3GetStockByLocation();
+		//재고현황 상세조회
 		List<K3Stock> stockList2 = k3StockService.k3GetStockByStockName();
 		model.addAttribute("title", "재고관리");
 		model.addAttribute("subtitle", "재고현황");

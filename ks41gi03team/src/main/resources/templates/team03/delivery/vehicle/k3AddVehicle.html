@@ -105,6 +105,7 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--카드 영역 -->
+					<div class="col-md-8">
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
@@ -121,31 +122,31 @@
 										<button type="button" id="vehicleCodeCheck" class="vehicleCodeCheck">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="vehicleTonage" class="inputName">톤수</label>
-										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage"/>
-									</div>	
-									<div class="inputwrap col-md-12">
-										<label for="vehicleType" class="inputName">차종</label>
-										<input class="inputBox" type="text" id="vehicleType" name="vehicleType" />
-									</div>
-									<div class="inputwrap col-md-12">
-										<label for="vehicleInspectionDate" class="inputName">점검일시</label>
-										<input class="inputBox" type="text" id="vehicleInspectionDate" name="vehicleInspectionDate"/>
-									</div>								
-									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">점검 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId"/>
 										<button class="vehicleMemberId_btn" type="button">담당자 등록</button> 
-									</div>	
+									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
 										<input class="inputBox" type="text" id="vehicleManufacturer" name="vehicleManufacturer"/>
 									</div>
 									<div class="inputwrap col-md-12">
+										<label for="vehicleType" class="inputName">차종</label>
+										<input class="inputBox" type="text" id="vehicleType" name="vehicleType" />
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="vehicleTonage" class="inputName">톤수</label>
+										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="vehicleInspectionDate" class="inputName">점검일시</label>
+										<input class="inputBox" type="text" id="vehicleInspectionDate" name="vehicleInspectionDate"/>
+									</div>								
+									<div class="inputwrap col-md-12">
 										<label for="vehicleDriveAvailability" class="inputName">운행 가능 여부</label>
 										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability"/>
 									</div>							
-									<div class="d-flex justify-content-center">
+									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
 										<button id="cancelBtn" type="button" class="ahsbtn5 btn btn-primary">취소</button>
 									</div>	
@@ -153,8 +154,11 @@
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
+	 					
+					</div>
 					</div>
 					<!--End 카드 영역 -->
+					
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

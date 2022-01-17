@@ -5,5 +5,22 @@
 .page-link{
 	color:#3F72AF;
 }
+.input-group{
+	
+}
+.addGroup{
+	padding-top:15px;
+	padding-bottom:15px;
+}
 
-
+.contractorLabel{
+	padding-top:15px;
+	padding-bottom:10px;
+	border-bottom: 1px solid #D8D8D8;	
+	border-top: 1px solid #D8D8D8;
+	font-size: 20px; 
+	text-align: center;
+}
+.ahsbtn2{
+	margin-left:0px;
+}

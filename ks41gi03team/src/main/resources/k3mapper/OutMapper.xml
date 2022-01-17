@@ -14,7 +14,7 @@
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap> -->
 
-<!-- 계정과목 검색 -->	
+<!-- 비용 검색 -->	
 	<select id="searchOutList" resultType="K3Out">
 			SELECT
 			outCode

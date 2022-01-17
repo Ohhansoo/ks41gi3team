@@ -145,14 +145,14 @@
 				});
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.memberId:checked');
-	 				var sortingManager = $('#sortingManager');
-	 				var sortingManagerName = $('#sortingManagerName');
+	 				var pileupManager = $('#pileupManager');
+	 				var pileupManagerName = $('#pileupManagerName');
 
-	 				var sortingManagerValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var sortingManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var pileupManagerValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var pileupManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
 
-	 				sortingManager.attr('value',sortingManagerValue);
-	 				sortingManagerName.attr('value',sortingManagerNameValue);
+	 				pileupManager.attr('value',pileupManagerValue);
+	 				pileupManagerName.attr('value',pileupManagerNameValue);
 
 
 	 				memberModal.addClass('hidden');
@@ -225,7 +225,7 @@
 						<div class="addForm">
 							<!--card header -->
 							<div class="card-header cardHeadBorder">
-								<h4>입고분류 등록</h4>
+								<h4>재고 등록</h4>
 							</div>
 							<!--End card header -->
 							<!--card body -->
@@ -272,14 +272,14 @@
 											<button type="button" id="selectLocation">로케이션 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="sortingManagerName" class="inputName">분류담당자</label>
-											<input class="inputBox" type="text" id="sortingManagerName" name="sortingManagerName" readonly="readonly"/>
-											<input class="hidden" type="text" id="sortingManager" name="sortingManager" readonly="readonly"/>
+											<label for="pileupManagerName" class="inputName">분류담당자</label>
+											<input class="inputBox" type="text" id="pileupManagerName" name="pileupManagerName" readonly="readonly"/>
+											<input class="hidden" type="text" id="pileupManager" name="pileupManager" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="sortingDate" class="inputName">분류일시</label>
-											<input class="inputBox" type="date" id="sortingDate" name="sortingDate"/>
+											<label for="pileupDate" class="inputName">분류일시</label>
+											<input class="inputBox" type="date" id="pileupDate" name="pileupDate"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
 											<button id="addWarehousingSortBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			

@@ -49,7 +49,9 @@
 			k3_tb_member
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="memberuserValue != null and memberuserValue != ''.toString()">
-				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%');
+				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
+		AND 
+			memberState = "일반";
 			</if>
 		</trim>
 	</select>
