@@ -32,6 +32,15 @@
 		WHERE
 			m.memberId = #{memberId};
 	</select>-->
+	<select id="getMemberUserByMemberId" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_member AS m
+		WHERE
+			m.memberId = #{memberId};
+		
+	</select>
 	
 	<!-- 모달 -->
 	<select id="k3GetModalList" resultType="map" parameterType="map">
