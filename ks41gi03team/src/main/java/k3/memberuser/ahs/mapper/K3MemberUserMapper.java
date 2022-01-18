@@ -29,10 +29,10 @@ public interface K3MemberUserMapper {
 	public int k3RemoveMemberUser(List<String> removeList);
 		
 	//07. 직원 검색
-	public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue);
+	public List<K3MemberUser> k3GetMemberUserSearchList(Map<String, Object> searchCondition);
 
 	//08. 직원중복체크
-	public int getMemberUserByMemberId(String memberId);
+	public int getMemberByMemberId(String memberId);
 	
 	// 직원조회 로그인?
 	public K3MemberUser K3MemberUserInfoBycode(String memberId);

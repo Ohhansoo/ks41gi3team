@@ -9,18 +9,16 @@
 
 	<!-- 견적액 가져오기 -->
 	<select id = "getEstimatePrice" resultType = "K3Estimate">	
-	
-	
 	</select>
 
 
 	<!-- 견적번호 가져오기 -->
 	<select id="getEstimateNum" resultType = "K3Estimate">
 		SELECT
-			 estimateNum,
-			 estimatePrice
+			 e.estimateNum,
+			 e.estimatePrice
 		FROM
-			 k3_tb_estimate;
+			 k3_tb_estimate as e;
 	</select>
 
 
