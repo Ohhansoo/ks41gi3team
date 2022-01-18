@@ -22,11 +22,9 @@
 					<div class="info">
 						<h4 class="userName font-weight-bold" th:if="${session.SID != null}">[[${session.SID}]]</h4>
 						<h5 class="userName font-weight-bold" th:if="${session.SID == null}">로그인 해주세요</h5>
-						<div>
-							<p class="part" th:if="${session.SID != null}">운송지원팀 </p>   
-							<a th:href="@{team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID == null}" style="color: white;">로그인</a>&nbsp;
+							<p class="part" th:if="${session.SID != null}">[[${session.SLEVEL}]] 권한</p>   
+							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID == null}" style="color: white;">로그인</a>&nbsp;
 					        <a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" th:if="${session.SID == null}" style="color: white;">| 직원등록</a>
-						</div>
 						<div>
 							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogout}" th:if="${session.SID != null}" style="color: white;">로그아웃</a>&nbsp;
 							<a href="#" class="link" th:if="${session.SID != null}">| 정보변경</a>
@@ -42,7 +40,7 @@
 						<!-- User Management Menu -->
 						
 				<!-- companymanagement Menu -->
-						<li class="nav-item">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-angle-right"></i>
 								<p>회원관리-아현</p>
@@ -120,7 +118,7 @@
 						<!-- End Contract Management Menu -->
 	            		
 	            		<!-- Goods Management Menu -->
-						<li class="nav-item">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-angle-right"></i>
 								<p>상품관리-한수</p>
@@ -168,7 +166,7 @@
 						<!-- End Goods Management Menu -->
 						
 	          			<!-- Warehouse Management Menu -->
-						<li class="nav-item">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
 							<a href="#" class="nav-link">
 							<i class="nav-icon fas fa-angle-right"></i>
 							<p>공간사업-재홍</p>
@@ -196,7 +194,7 @@
 						<!-- End Warehouse Management Menu -->
 						
 	          			<!-- Delivery Management Menu -->
-						<li class="nav-item">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
 							<a href="#" class="nav-link">
 							<i class="nav-icon fas fa-angle-right"></i>
 							<p>배송통합관리-지원</p>
@@ -244,7 +242,7 @@
 						<!-- End Vehicle Management Menu -->
 						
 	          			<!-- Finance Management Menu -->
-						<li class="nav-item">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
 							<a href="#" class="nav-link">
 							<i class="nav-icon fas fa-angle-right"></i>
 							<p>재무관리-상현</p>
