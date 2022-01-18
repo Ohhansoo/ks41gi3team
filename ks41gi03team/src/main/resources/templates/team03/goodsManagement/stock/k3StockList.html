@@ -200,13 +200,13 @@
 												이전
 											</a>
 										</li>
-										<li class="paginate_button page-item" id="currentStockList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+										<li class="paginate_button page-item" id="currentStockList" th:each="num : ${#numbers.sequence(simpleStartPageNum, simpleEndPageNum)}">
 											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${num})}" th:text="${num}"  aria-controls="stockList" class="page-link"></a>
 											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="stockList" class="page-link"></span>
 										</li>
 										<li class="paginate_button page-item next" id="nextStockList">
-											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage + 1})}"  aria-controls="stockList" class="page-link">
-											다음[[${endPageNum}]]
+											<a th:if="${currentPage < simpleLastPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage + 1})}"  aria-controls="stockList" class="page-link">
+											다음
 											</a>
 										</li>
 									</ul>
