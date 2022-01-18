@@ -81,7 +81,7 @@
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">
 						<!-- <button type="button" id="checkbtn">직원선택</button>  -->					
-						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -89,7 +89,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-person-dash"></i>
 							퇴사
 						</button>					
@@ -124,20 +124,25 @@
 												<option value="memberHiredDate">입사일자</option>
 										</select>
 										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-										<button type="submit" class="searchMemberUserDate btn btn-default">
-											<i class="fas fa-search icon"></i>
-										</button>
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="memberuserInfoSearch" type="submit">
+													<i class="fas fa-search icon"></i>
+												</button>
+											</div>
 										</div>
-										</div>
-									</form>
 								<!--End inputbox 1 -->
 								
 								<!--inputbox 2 -->
 						<div class="col-sm-6" style="padding-left: 0px">
 							<form class="searchDateForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="Get" id="memberuserSearchDate">
 								<div class="input-group d-flex justify-content-end">
+								<select name="memberuserDateKey" class="input-group-text form-control-sm">
+										<option value="memberRegDate">등록일자</option>
+										<option value="memberHiredDate">입사일자</option>
+									</select>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="memberRegDateStart" value="memberRegDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<input name="searchStartDate" value="searchStartDate" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
 										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -146,7 +151,7 @@
 										&nbsp~&nbsp
 									</div>
 									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="memberHiredDateEnd" value="memberHiredDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
+										<input name="searchEndDate" value="searchEndDate" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
 										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -179,7 +184,7 @@
 									<thead>
 										<tr>
 											<th>선택</th>
-											<th>한줄삭제</th>
+										<!--<th>한줄삭제</th>-->
 											<th>수정</th>	
 											<th>직원ID</th>
 						                     <th>직원PW</th>
@@ -202,11 +207,11 @@
 											<input type="checkbox" class="removeList" name="removeList[]" th:value="${l.memberId}">
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
-										<td>
+									<!--<td>
 											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
-										</td>
+										</td> -->
 						   				<td>
-										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">
+										<a id="modifyMemberUser" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>										
 										</td>	

@@ -5,6 +5,7 @@
    	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/modal.css}">	
+		<link rel="stylesheet" th:href="@{/css/addAndModify.css}">	
 	</th:block>
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript">
@@ -13,7 +14,7 @@
 				$('#cancelBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
-				$(document).on('click', '#addWarehousingSortBtn', function(){
+				$(document).on('click', '#modifyStockBtn', function(){
 					
 					var submitCheck = true;
 					var inputObj = $('#assorList').find('input');
@@ -30,7 +31,7 @@
 		   					return false;
 		   				}		
 					});  						
-						if(submitCheck) $('#assorList').submit();
+						if(submitCheck) $('#modifyStockList').submit();
 				});
 				//모달 시작
 				var modal = $('#categoryModal');
@@ -71,7 +72,7 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="categoryCode" name="categoryCode" value="'+ row.categoryCode +'">'
+									var htmlbtn = '<input type="radio" class="categoryCode" name="categoryCodes" value="'+ row.categoryCode +'">'
 									return htmlbtn;
 								}
 							}
@@ -145,14 +146,14 @@
 				});
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.memberId:checked');
-	 				var sortingManager = $('#sortingManager');
-	 				var sortingManagerName = $('#sortingManagerName');
+	 				var pileupManager = $('#pileupManager');
+	 				var pileupManagerName = $('#pileupManagerName');
 
-	 				var sortingManagerValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var sortingManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var pileupManagerValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var pileupManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
 
-	 				sortingManager.attr('value',sortingManagerValue);
-	 				sortingManagerName.attr('value',sortingManagerNameValue);
+	 				pileupManager.attr('value',pileupManagerValue);
+	 				pileupManagerName.attr('value',pileupManagerNameValue);
 
 
 	 				memberModal.addClass('hidden');
@@ -231,58 +232,59 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="assorList" th:action="@{/team03/goodsManagement/warehousing/k3AddSort}" method="post" >
+									<form id="modifyStockList" th:action="@{/team03/goodsManagement/stock/k3ModifyStock}" method="post" th:if="${not #lists.isEmpty(modifyList)}" th:each="l : ${modifyList}">
 										<div class="inputwrap col-md-12">
-											<label for="warehousingCode" class="inputName">입고코드</label>
-											<input class="inputBox" type="text" id="warehousingCode" name="warehousingCode" readonly="readonly"/>
+											<label for="stockCode" class="inputName">재고코드</label>
+											<input class="inputBox notUse" type="text" id="stockCode" name="stockCode" th:value="${l.stockCode}" readonly="readonly"/>
 										</div>
 										<div class="inputwrap col-md-12">
-											<label for="laydownGoodsName" class="inputName">물품명</label>
-											<input class="inputBox" type="text" id="laydownGoodsName" name="laydownGoodsName" readonly="readonly"/>
+											<label for="laydownGoodsName" class="inputName">상품명</label>
+											<input class="inputBox notUse" type="text" id="laydownGoodsName" name="laydownGoodsName" th:value="${l.laydownGoodsName}" readonly="readonly"/>
 										</div>	
 										<div class="inputwrap col-md-12">
-											<label for="stockQuantity" class="inputName">물품개수</label>
-											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" readonly="readonly"/>
+											<label for="stockQuantity" class="inputName">재고량</label>
+											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" th:value="${l.stockQuantity}"/>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="largeCategory" class="inputName">대분류</label>
-											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" readonly="readonly"/>
-											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode"/>
+											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" th:value="${l.largeCategory}" readonly="readonly"/>
+											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode" th:value="${l.categoryCode}"/>
 											<button type="button" id="selectCategory">카테고리 선택</button>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="mediumCategory" class="inputName">중분류</label>
-											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" readonly="readonly"/>
+											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" th:value="${l.mediumCategory}" readonly="readonly"/>
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="smallCategory" class="inputName">소분류</label>
-											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" readonly="readonly"/>
+											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" th:value="${l.smallCategory}" readonly="readonly"/>
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="productFrequency" class="inputName">상품빈도</label>
 											<select name="productFrequency">
-												<option value="high">고빈도</option>
-												<option value="medium">중빈도</option>
-												<option value="low">저빈도</option>											
+												<option value="high" th:selected="${l.productFrequency} == 'high'">고빈도</option>
+												<option value="medium" th:selected="${l.productFrequency} == 'medium'">중빈도</option>
+												<option value="low" th:selected="${l.productFrequency} == 'low'">저빈도</option>											
 											</select>	
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="locationCode" class="inputName">로케이션</label>
-											<input class="inputBox" type="text" id="locationCode" name="locationCode" readonly="readonly"/>
+											<input class="inputBox" type="text" id="locationCode" name="locationCode" th:value="${l.locationCode}" readonly="readonly"/>
+											<input class="inputBox" type="hidden" id="beforelocationCode" name="beforelocationCode" th:value="${l.locationCode}" readonly="readonly"/>
 											<button type="button" id="selectLocation">로케이션 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="sortingManagerName" class="inputName">분류담당자</label>
-											<input class="inputBox" type="text" id="sortingManagerName" name="sortingManagerName" readonly="readonly"/>
-											<input class="hidden" type="text" id="sortingManager" name="sortingManager" readonly="readonly"/>
+											<label for="pileupManagerName" class="inputName">재고담당자</label>
+											<input class="inputBox" type="text" id="pileupManagerName" name="pileupManagerName" th:value="${l.pileupManagerName}" readonly="readonly"/>
+											<input class="hidden" type="text" id="pileupManager" name="pileupManager" th:value="${l.pileupManager}" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>								
 										<div class="inputwrap col-md-12">
-											<label for="sortingDate" class="inputName">분류일시</label>
-											<input class="inputBox" type="date" id="sortingDate" name="sortingDate"/>
+											<label for="pileupDate" class="inputName">재고일시</label>
+											<input class="inputBox" type="date" id="pileupDate" name="pileupDate" th:value="${l.pileupDate}"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
-											<button id="addWarehousingSortBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button id="modifyStockBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 											<button class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 										</div>	
 									</form>

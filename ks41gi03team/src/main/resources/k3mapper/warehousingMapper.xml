@@ -63,6 +63,7 @@
 		  k3_tb_stock;
 	
 	</insert>
+	
 	<!--입고승인  -->
 	<update id="k3AllowWarehousing" parameterType="map">
 		UPDATE
@@ -134,11 +135,11 @@
 				</when>
 				<otherwise>
 					WHERE
-						w.laydownCheckResult is not null;
+						w.laydownCheckResult is not null
 				</otherwise>
 			</choose>
-		<if test="searchCondition.startNum != null">
-			LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 		</if>
 	</select>
 	
@@ -188,8 +189,8 @@
 					w.warehousingAllow = 'Y'
 			   </otherwise>
 		   </choose>
-			<if test="searchCondition.startNum != null">
-				LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
+			<if test="paramMap.startNum != null">
+				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 			</if>		   
 	</select>
 	<!--입고 등록처리  -->

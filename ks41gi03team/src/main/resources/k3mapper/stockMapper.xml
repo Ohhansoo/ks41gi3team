@@ -16,13 +16,16 @@
 		<result column="pileupManager" property="pileupManager" />
 		<result column="pileupManagerName" property="pileupManagerName" />
 	</resultMap>
-
-	<select id="k3GetStockByLocation" resultType="K3Stock">
+	
+	<!--상세재고현황 조회처리  -->
+	<select id="k3GetDetailStockSearchList" resultType="map" parameterType="map">
 		SELECT
+			s.stockCode,
 			w.laydownCheckCode,
 			w.laydownGoodsName,
 			s.stockQuantity,
 			c.contractorName,
+			s.categoryCode,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
@@ -46,10 +49,30 @@
 			INNER JOIN
 			k3_tb_member AS m
 			ON
-			s.pileupManager = m.memberId;
+			s.pileupManager = m.memberId
+			<if test="searchCondition.searchDetailStockType != null and searchCondition.searchDetailStockType != ''.toString()">
+				<trim prefix="WHERE" prefixOverrides="AND |OR">
+					<if test="searchCondition.detailStockValue != null and searchCondition.detailStockValue != ''.toString()">
+			   			AND ${searchCondition.detailStockKey} LIKE CONCAT('%',#{searchCondition.detailStockValue},'%') 
+					</if>	
+					<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString()">
+			   			AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%') 
+					</if>	
+					<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+			   			AND ${searchCondition.stockDateKey} >= #{searchCondition.searchStartDate}
+					</if>	
+					<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+			   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.stockDateKey}
+					</if>
+				</trim>
+			</if>
+			<if test="paramMap.startNum != null">
+				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+			</if>
 	</select>
 	
-	<select id="k3GetStockByStockName" resultType="K3Stock">
+	<!--간단재고현황 조회처리  -->
+	<select id="k3GetSimpleStockSearchList" resultType="map" parameterType="map">
 		SELECT
 			w.laydownGoodsName,
 			cs.contractorName,
@@ -64,7 +87,205 @@
 			k3_tb_contractor_staff AS cs
 			ON
 			w.contractorId = cs.contractorId
-			GROUP BY cs.contractorName, w.laydownGoodsName;
+			<if test="searchCondition.searchSimpleStockType != null and searchCondition.searchSimpleStockType != ''.toString()">
+				<trim prefix="WHERE" prefixOverrides="AND |OR">
+					<if test="searchCondition.simpleStockValue != null and searchCondition.simpleStockValue != ''.toString()">
+			   			AND ${searchCondition.simpleStockKey} LIKE CONCAT('%',#{searchCondition.simpleStockValue},'%') 
+					</if>	
+				</trim>
+			</if>	
+			<if test="paramMap.startNum != null">
+				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+			</if>
 	</select>
+	
+	<!-- 재고수정처리 로케이션 상태 바꾸기(비었음 -> 사용중) -->
+	<update id="K3InputLocationState">
+		UPDATE k3_tb_stock
+		SET
+			locationState = "사용중"
+		WHERE
+			locationCode = #{locationCode};
+	</update>
+	
+	<!-- 재고수정처리 //로케이션 상태 바꾸기(사용중 -> 비었음) -->
+	<update id="K3ReturnLocationState">
+		UPDATE k3_tb_stock
+		SET
+			locationState = "비었음"
+		WHERE
+			locationCode = #{beforelocationCode};
+	</update>
+	
+	<!--재고 수정처리  -->
+	<update id="K3ModifyStock" parameterType="k3Stock">
+		UPDATE k3_tb_stock
+		SET
+			locationCode = #{locationCode},
+			categoryCode = #{categoryCode},
+			stockQuantity = #{stockQuantity},
+			productFrequency = #{productFrequency},
+			pileupManager = #{pileupManager},
+			pileupDate = #{pileupDate}
+		WHERE
+			stockCode = #{stockCode};
+	</update>
+	
+	<!--재고 수정폼으로 이동 -->
+	<select id="K3GetStockInfo" resultType="K3Stock">
+		SELECT
+			s.stockCode,
+			w.laydownGoodsName,
+			s.stockQuantity,
+			s.categoryCode,
+			tc.largeCategory,
+			tc.mediumCategory,
+			tc.smallCategory,
+			s.productFrequency,
+			s.locationCode,
+			s.pileupManager,
+			m.memberName AS pileupManagerName,
+			s.pileupDate
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_total_category AS tc
+			ON
+			s.categoryCode = tc.categoryCode
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			s.pileupManager = m.memberId
+		WHERE
+			s.stockCode = #{stockCode};
+	</select>
+	
 
+	<!--상세조회 재고현황 (초기화면)  -->
+	<select id="k3GetStockByLocation" resultType="map" parameterType="map">
+		SELECT
+			s.stockCode,
+			w.laydownCheckCode,
+			w.laydownGoodsName,
+			s.stockQuantity,
+			c.contractorName,
+			s.categoryCode,
+			t.largeCategory,
+			t.mediumCategory,
+			t.smallCategory,
+			s.locationCode,
+			s.pileupDate,
+			m.memberName AS pileupManagerName
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			ON
+			w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_total_category AS t
+			ON
+			s.categoryCode = t.categoryCode
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			s.pileupManager = m.memberId
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
+	</select>
+	
+	<!--상세조회 재고현황 튜플 구하기(초기화면)  -->
+	<select id="k3GetDetailCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			ON
+			w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_total_category AS t
+			ON
+			s.categoryCode = t.categoryCode
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			s.pileupManager = m.memberId
+		<if	test="countType eq 'search'.toString()">
+		   	<if test="searchCondition.searchDetailStockType != null and searchCondition.searchDetailStockType != ''.toString()">
+				<if test="searchCondition.detailStockValue != null and searchCondition.detailStockValue != ''.toString()">
+		   			AND ${searchCondition.detailStockKey} LIKE CONCAT('%',#{searchCondition.detailStockValue},'%') 
+				</if>	
+				<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString()">
+		   			AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%') 
+				</if>	
+				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+		   			AND ${searchCondition.stockDateKey} >= #{searchCondition.searchStartDate}
+				</if>	
+				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.stockDateKey}
+				</if>
+			</if>		
+		</if>	
+	</select>
+	
+	<!--간단조회 재고현황 (초기화면)  -->
+	<select id="k3GetStockByStockName" resultType="map" parameterType="map">
+		SELECT
+			w.laydownGoodsName,
+			cs.contractorName,
+			SUM(s.stockQuantity) AS stockQuantity
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+			GROUP BY cs.contractorName, w.laydownGoodsName
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
+	</select>
+	
+	<!--간단조회 재고현황 튜플 구하기(초기화면)  -->
+	<select id="k3GetSimpleCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		<if	test="countType eq 'search'.toString()">
+		   	<if test="searchCondition.searchSimpleStockType != null and searchCondition.searchSimpleStockType != ''.toString()">
+				<if test="searchCondition.simpleStockValue != null and searchCondition.simpleStockValue != ''.toString()">
+		   			AND ${searchCondition.simpleStockKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
+				</if>	
+			</if>		
+		</if>
+	
+	</select>
 </mapper>

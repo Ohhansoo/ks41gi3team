@@ -30,18 +30,16 @@ public class WebConfig implements WebMvcConfigurer{
 					.excludePathPatterns("/js/**")
 					.excludePathPatterns("/favicon.ico");
 			
-//			registry.addInterceptor(loginInterceptor)
-//						.addPathPatterns("/**")
-//						.excludePathPatterns("/adminLTE/**")
-//						.excludePathPatterns("/css/**")
-//						.excludePathPatterns("/image/**")
-//						.excludePathPatterns("/js/**")
-//						.excludePathPatterns("/favicon.ico")
-//						.excludePathPatterns("/k3AddMemberUserList")
-//						.excludePathPatterns("/team03/ourcompany/k3AddOurCompanyList")
-//						.excludePathPatterns("/team03/retiredmemberuser/k3AddRetiredMemberUserList")
-//						.excludePathPatterns("/team03/loginstate/k3AddMemberUserLoginState");
-//			
+			registry.addInterceptor(loginInterceptor)
+						.addPathPatterns("/**")
+						.excludePathPatterns("/adminLTE/**")
+						.excludePathPatterns("/css/**")
+						.excludePathPatterns("/image/**")
+						.excludePathPatterns("/js/**")
+						.excludePathPatterns("/favicon.ico")
+						.excludePathPatterns("/")
+				        .excludePathPatterns("/team03/companymanagement/login/k3MemberUserLogin")
+				        .excludePathPatterns("/team03/companymanagement/member/k3AddMemberUserList");
 			
 			
 			WebMvcConfigurer.super.addInterceptors(registry);

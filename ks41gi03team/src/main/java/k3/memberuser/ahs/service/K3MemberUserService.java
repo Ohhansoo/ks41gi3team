@@ -77,15 +77,17 @@ public class K3MemberUserService {
 			return result;
 		}
 	
-		//07 직원여부체크
+		//07 직원여부체크(중복확인) 
 		public int getMemberByMemberId(String memberId) {
-			return memberuserMapper.getMemberInfoByMemberId(memberId);
+			int result = 0;
+			result += memberuserMapper.getMemberByMemberId(memberId);
+			return result;
 		}
 		
 		//08 직원검색
-		public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue){
-			List<K3MemberUser> memberuserList = memberuserMapper.k3GetMemberUserSearchList(memberuserKey, memberuserValue);
-			return memberuserList;
+		public List<K3MemberUser> k3GetMemberUserSearchList(Map<String, Object> searchCondition){
+			List<K3MemberUser> memberuserSearchList = memberuserMapper.k3GetMemberUserSearchList(searchCondition);
+			return memberuserSearchList;
 		}
 		
 		//09 모달
@@ -93,8 +95,6 @@ public class K3MemberUserService {
 			List<Map<String, Object>> modalList = memberuserMapper.k3GetModalList(null);
 			return modalList;
 		}
-	  
-	
 	 
 	
 	
