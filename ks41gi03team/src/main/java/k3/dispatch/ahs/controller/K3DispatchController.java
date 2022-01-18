@@ -108,11 +108,17 @@ public class K3DispatchController {
 	}
 	
 	//담당자 선택처리 (@ResponseBody 중요)
-		@PostMapping("/dispatchMemberId")
-		@ResponseBody
+	@PostMapping("/dispatchMemberId")
+	@ResponseBody
 		public List<Map<String, Object>> k3SelectDispatchMemberId(){
 			List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
 			return searchId;
 		}
 	
+	@PostMapping("/dispatchDriverName")
+	@ResponseBody
+		public List<Map<String, Object>> k3SelectDispatchDriverName(){
+			List<Map<String, Object>> searchName = k3DispatchService.k3SelectDispatchDriverName();
+			return searchName;
+	}
 }

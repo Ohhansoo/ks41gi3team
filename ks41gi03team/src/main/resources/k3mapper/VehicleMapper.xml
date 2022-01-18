@@ -13,7 +13,8 @@
 		<result column="vehicleManufacturer" property="vehicleManufacturer"/>
 		<result column="vehicleDriveAvailability" property="vehicleDriveAvailability"/>
 	</resultMap>
-
+	
+	<!-- 현황 -->
 	<select id="getVehicleList" resultType="K3Vehicle">
 		SELECT
 			vehicleCode,
@@ -27,7 +28,8 @@
 		FROM
 			k3_tb_vehicle;
 	</select>
-
+	
+	<!-- 등록 -->
 	<select id="addVehicle" parameterType="K3Vehicle">
 		INSERT INTO
 			k3_tb_vehicle
@@ -52,6 +54,7 @@
 			);
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyVehicle" resultType="K3Vehicle">
 		SELECT
 			vehicleCode,
@@ -68,6 +71,7 @@
 			vehicleCode = #{vehicleCode};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyVehicle" parameterType="K3Vehicle">
 		UPDATE k3_tb_vehicle
 		<trim prefix="SET" prefixOverrides=",">
@@ -97,6 +101,7 @@
 			vehicleCode = #{vehicleCode};
 	</update>
 	
+	<!-- 검색 -->
 	<select id="k3SearchVehicleList" resultType="K3Vehicle">
 		SELECT
 			*
