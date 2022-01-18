@@ -1,14 +1,13 @@
 package k3.in.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
 import k3.in.ahs.dto.K3MainBusinessCode;
-import k3.inout.ahs.dto.K3Inout;
-import k3.out.ahs.dto.K3Out;
 
 
 	
@@ -26,7 +25,7 @@ import k3.out.ahs.dto.K3Out;
 		public List<K3MainBusinessCode> getMainBusinessCodeList();
 		
 		//매출 검색
-		public List<K3In> searchInList(String inKey, String inValue);
+		public List<Map<String,Object>> getSearchInList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
 		
 		//매출 내역 삭제처리
 		public int deleteIn(List<String> deleteList);
@@ -41,5 +40,8 @@ import k3.out.ahs.dto.K3Out;
 		public int addIn(K3In k3In);
 		
 		//매출 내역 현황(초기화면)
-		List<K3In> getInList();
+		public List<Map<String,Object>> getInList(Map<String,Object> paramMap);
+		//매출내역 튜플 수
+		public int getInCount(String countType, Map<String, Object> searchCondition);
+
 }
