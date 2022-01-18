@@ -5,15 +5,14 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
-		<div id="representative-button">
-			<div id="representative-button">
+	
+	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<!--상위 카드 영역 -->
+				<div class="d-flex justify-content-center" >
+					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
+						<div class="card-header cardHeadBorder">
 							<h4>직원 수정</h4>
 						</div>
 						<!--End card header -->
@@ -47,8 +46,12 @@
 										<input class="inputBox" type="text" id="memberGender" name="memberGender" th:value="${k3MemberUserInfo.memberGender}"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberAddr" class="inputName">주소</label>
-										<input class="inputBox" type="text" id="memberAddr" name="memberAddr" th:value="${k3MemberUserInfo.memberAddr}"/>
+										<label for="memberpostaladdress" class="inputName">우편번호</label>
+										<input class="inputBox" type="text" id=memberpostaladdress name="memberpostaladdress" th:value="${k3MemberUserInfo.memberpostaladdress}"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberstreetaddress" class="inputName">도로명주소</label>
+										<input class="inputBox" type="text" id="memberstreetaddress" name="memberstreetaddress" th:value="${k3MemberUserInfo.memberstreetaddress}"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberPhone" class="inputName">전화번호</label>
@@ -69,10 +72,10 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberHiredDate" class="inputName">입사일자</label>
 										<input class="inputBox" type="text" id="memberHiredDate" name="memberHiredDate" th:value="${k3MemberUserInfo.memberHiredDate}"/>
-									</div>
-									<div class="d-flex justify-content-center">					
-										<button class="ahsbtn4 btn btn-outline-info" type="submit">수정</button>			
-										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div><br>									<div class="d-flex justify-content-center">					
+										<div class="d-flex justify-content-center">					
+										<button class="ahsbtn4 btn btn-outline-primary" type="submit">수정</button>			
+										<button id="cancelBtn" class="ahsbtn4 btn btn-outline-warning" type="button">취소</button>			
 									</div>	
 								</form>
 								<!--End inputbox 1 -->
@@ -83,7 +86,5 @@
 					<!--End 상위 카드 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
-			</div>
-		</div>
 	</th:block>
 </head>

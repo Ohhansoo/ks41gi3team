@@ -83,9 +83,9 @@ public class K3MemberUserService {
 		}
 		
 		//08 직원검색
-		public List<K3MemberUser> k3GetMemberUserSearchList(String memberuserKey, String memberuserValue){
-			List<K3MemberUser> memberuserList = memberuserMapper.k3GetMemberUserSearchList(memberuserKey, memberuserValue);
-			return memberuserList;
+		public List<K3MemberUser> k3GetMemberUserSearchList(Map<String, Object> searchCondition){
+			List<K3MemberUser> memberuserSearchList = memberuserMapper.k3GetMemberUserSearchList(searchCondition);
+			return memberuserSearchList;
 		}
 		
 		//09 모달

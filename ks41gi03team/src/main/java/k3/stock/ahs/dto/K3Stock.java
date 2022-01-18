@@ -1,23 +1,70 @@
 package k3.stock.ahs.dto;
 
 public class K3Stock {
+	private String stockCode;
+	private String warehousingCode;  
+	private String locationCode;  
+	private String categoryCode;  
+	private int stockQuantity;  
+	private String productFrequency;
+	private String pileupManager;  
+	private String pileupDate;  
 	private String laydownCheckCode;  
 	private String laydownGoodsName;  
 	private String contractorName;  
-	private int stockQuantity;  
 	private String largeCategory;  
 	private String mediumCategory;  
 	private String smallCategory;  
-	private String locationCode;  
-	private String sortingDate;  
-	private String sortingManager;  
-	private String sortingManagerName;  
-	private String warehousingCode;  
-	private String contractorId;  
-	private String assortCode;  
-	private String categoryCode;  
-	private String memberId;
-	private String productFrequency;
+	private String contractorId;   
+	private String pileupManagerName;
+	public String getStockCode() {
+		return stockCode;
+	}
+	public void setStockCode(String stockCode) {
+		this.stockCode = stockCode;
+	}
+	public String getWarehousingCode() {
+		return warehousingCode;
+	}
+	public void setWarehousingCode(String warehousingCode) {
+		this.warehousingCode = warehousingCode;
+	}
+	public String getLocationCode() {
+		return locationCode;
+	}
+	public void setLocationCode(String locationCode) {
+		this.locationCode = locationCode;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
+	public String getProductFrequency() {
+		return productFrequency;
+	}
+	public void setProductFrequency(String productFrequency) {
+		this.productFrequency = productFrequency;
+	}
+	public String getPileupManager() {
+		return pileupManager;
+	}
+	public void setPileupManager(String pileupManager) {
+		this.pileupManager = pileupManager;
+	}
+	public String getPileupDate() {
+		return pileupDate;
+	}
+	public void setPileupDate(String pileupDate) {
+		this.pileupDate = pileupDate;
+	}
 	public String getLaydownCheckCode() {
 		return laydownCheckCode;
 	}
@@ -35,12 +82,6 @@ public class K3Stock {
 	}
 	public void setContractorName(String contractorName) {
 		this.contractorName = contractorName;
-	}
-	public int getStockQuantity() {
-		return stockQuantity;
-	}
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity = stockQuantity;
 	}
 	public String getLargeCategory() {
 		return largeCategory;
@@ -60,71 +101,22 @@ public class K3Stock {
 	public void setSmallCategory(String smallCategory) {
 		this.smallCategory = smallCategory;
 	}
-	public String getLocationCode() {
-		return locationCode;
-	}
-	public void setLocationCode(String locationCode) {
-		this.locationCode = locationCode;
-	}
-	public String getSortingDate() {
-		return sortingDate;
-	}
-	public void setSortingDate(String sortingDate) {
-		this.sortingDate = sortingDate;
-	}
-	public String getSortingManager() {
-		return sortingManager;
-	}
-	public void setSortingManager(String sortingManager) {
-		this.sortingManager = sortingManager;
-	}
-	public String getSortingManagerName() {
-		return sortingManagerName;
-	}
-	public void setSortingManagerName(String sortingManagerName) {
-		this.sortingManagerName = sortingManagerName;
-	}
-	public String getWarehousingCode() {
-		return warehousingCode;
-	}
-	public void setWarehousingCode(String warehousingCode) {
-		this.warehousingCode = warehousingCode;
-	}
 	public String getContractorId() {
 		return contractorId;
 	}
 	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
-	public String getAssortCode() {
-		return assortCode;
+	public String getPileupManagerName() {
+		return pileupManagerName;
 	}
-	public void setAssortCode(String assortCode) {
-		this.assortCode = assortCode;
-	}
-	public String getCategoryCode() {
-		return categoryCode;
-	}
-	public void setCategoryCode(String categoryCode) {
-		this.categoryCode = categoryCode;
-	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public String getProductFrequency() {
-		return productFrequency;
-	}
-	public void setProductFrequency(String productFrequency) {
-		this.productFrequency = productFrequency;
+	public void setPileupManagerName(String pileupManagerName) {
+		this.pileupManagerName = pileupManagerName;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assortCode == null) ? 0 : assortCode.hashCode());
 		result = prime * result + ((categoryCode == null) ? 0 : categoryCode.hashCode());
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
@@ -133,12 +125,12 @@ public class K3Stock {
 		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
 		result = prime * result + ((locationCode == null) ? 0 : locationCode.hashCode());
 		result = prime * result + ((mediumCategory == null) ? 0 : mediumCategory.hashCode());
-		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((pileupDate == null) ? 0 : pileupDate.hashCode());
+		result = prime * result + ((pileupManager == null) ? 0 : pileupManager.hashCode());
+		result = prime * result + ((pileupManagerName == null) ? 0 : pileupManagerName.hashCode());
 		result = prime * result + ((productFrequency == null) ? 0 : productFrequency.hashCode());
 		result = prime * result + ((smallCategory == null) ? 0 : smallCategory.hashCode());
-		result = prime * result + ((sortingDate == null) ? 0 : sortingDate.hashCode());
-		result = prime * result + ((sortingManager == null) ? 0 : sortingManager.hashCode());
-		result = prime * result + ((sortingManagerName == null) ? 0 : sortingManagerName.hashCode());
+		result = prime * result + ((stockCode == null) ? 0 : stockCode.hashCode());
 		result = prime * result + stockQuantity;
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
@@ -152,11 +144,6 @@ public class K3Stock {
 		if (getClass() != obj.getClass())
 			return false;
 		K3Stock other = (K3Stock) obj;
-		if (assortCode == null) {
-			if (other.assortCode != null)
-				return false;
-		} else if (!assortCode.equals(other.assortCode))
-			return false;
 		if (categoryCode == null) {
 			if (other.categoryCode != null)
 				return false;
@@ -197,10 +184,20 @@ public class K3Stock {
 				return false;
 		} else if (!mediumCategory.equals(other.mediumCategory))
 			return false;
-		if (memberId == null) {
-			if (other.memberId != null)
+		if (pileupDate == null) {
+			if (other.pileupDate != null)
 				return false;
-		} else if (!memberId.equals(other.memberId))
+		} else if (!pileupDate.equals(other.pileupDate))
+			return false;
+		if (pileupManager == null) {
+			if (other.pileupManager != null)
+				return false;
+		} else if (!pileupManager.equals(other.pileupManager))
+			return false;
+		if (pileupManagerName == null) {
+			if (other.pileupManagerName != null)
+				return false;
+		} else if (!pileupManagerName.equals(other.pileupManagerName))
 			return false;
 		if (productFrequency == null) {
 			if (other.productFrequency != null)
@@ -212,20 +209,10 @@ public class K3Stock {
 				return false;
 		} else if (!smallCategory.equals(other.smallCategory))
 			return false;
-		if (sortingDate == null) {
-			if (other.sortingDate != null)
+		if (stockCode == null) {
+			if (other.stockCode != null)
 				return false;
-		} else if (!sortingDate.equals(other.sortingDate))
-			return false;
-		if (sortingManager == null) {
-			if (other.sortingManager != null)
-				return false;
-		} else if (!sortingManager.equals(other.sortingManager))
-			return false;
-		if (sortingManagerName == null) {
-			if (other.sortingManagerName != null)
-				return false;
-		} else if (!sortingManagerName.equals(other.sortingManagerName))
+		} else if (!stockCode.equals(other.stockCode))
 			return false;
 		if (stockQuantity != other.stockQuantity)
 			return false;
@@ -238,15 +225,15 @@ public class K3Stock {
 	}
 	@Override
 	public String toString() {
-		return "K3Stock [laydownCheckCode=" + laydownCheckCode + ", laydownGoodsName=" + laydownGoodsName
-				+ ", contractorName=" + contractorName + ", stockQuantity=" + stockQuantity + ", largeCategory="
-				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory
-				+ ", locationCode=" + locationCode + ", sortingDate=" + sortingDate + ", sortingManager="
-				+ sortingManager + ", sortingManagerName=" + sortingManagerName + ", warehousingCode=" + warehousingCode
-				+ ", contractorId=" + contractorId + ", assortCode=" + assortCode + ", categoryCode=" + categoryCode
-				+ ", memberId=" + memberId + ", productFrequency=" + productFrequency + "]";
+		return "K3Stock [stockCode=" + stockCode + ", warehousingCode=" + warehousingCode + ", locationCode="
+				+ locationCode + ", categoryCode=" + categoryCode + ", stockQuantity=" + stockQuantity
+				+ ", productFrequency=" + productFrequency + ", pileupManager=" + pileupManager + ", pileupDate="
+				+ pileupDate + ", laydownCheckCode=" + laydownCheckCode + ", laydownGoodsName=" + laydownGoodsName
+				+ ", contractorName=" + contractorName + ", largeCategory=" + largeCategory + ", mediumCategory="
+				+ mediumCategory + ", smallCategory=" + smallCategory + ", contractorId=" + contractorId
+				+ ", pileupManagerName=" + pileupManagerName + "]";
 	}
-	
+
 	
 	
 }

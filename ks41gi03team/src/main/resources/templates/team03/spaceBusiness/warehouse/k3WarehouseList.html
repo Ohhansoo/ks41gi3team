@@ -7,61 +7,96 @@
 		<title th:text="${title}"></title>	
 	</th:block>
 	<th:block layout:fragment="customJs">
-	
+			<script type="text/javascript">
+			$(function(){
+				
+				// delete Action
+				$('#deletewarehouseBtn').click(function(){
+					var warehouseCode = $('#warehouseCode').val();
+					if($('#warehouseCode').val() == '') {
+						swal('고유코드 확인','고유코드를 입력해 주세요.','info');
+						return false;
+					}
+					swal({
+						title: "창고삭제",
+						text: "창고를 삭제하시겠습니까?",
+						// icon: "warning",
+						buttons: true,
+						dangerMode: true,
+						buttons: {
+							cancel: {
+								text: "취소",
+								value: null,
+								visible: true,
+								className: "btn btn-outline-primary btn-fix",
+								closeModal: true,
+							},
+							confirm: {
+								text: "삭제하기",
+								value: true,
+								visible: true,
+								className: "btn btn-primary btn-fix",
+								closeModal: true
+							}
+						}
+					})
+					.then((value) => {
+						if(value){
+
+		 					if(warehouseCode != ''){
+		 						$.ajax({
+		 							url : '/team03/spaceBusiness/warehouse/k3DeleteWarehouse',
+		 							type : 'POST',
+		 							traditional : true,
+		 							data : { warehouseCode : warehouseCode },
+		 							success : function(data){
+		 								if(data){
+		 									swal("삭제완료~",{icon:"success",button:"확인"});
+		 									
+		 									// delete row that deleted
+		 									$('td[rel=warehouseCode]').each(function() {
+		 										if($.trim($(this).text()) == warehouseCode) {
+		 											$(this).parents('tr').remove();
+		 										}
+		 									})
+		 									
+		 									// hide modal
+		 									$('#myModal').modal('hide');
+		 								}
+		 								else{
+		 									swal("해당코드가 없습니다",{icon:"warning",button:"확인"});
+		 								}
+		 							}
+		 						});
+		 					}
+		 					else{
+		 						swal("코드를 입력해주세요",{icon:"warning",button:"확인"});
+		 					}
+						}	
+					})
+		
+				});
+			});	
+		</script>
 	</th:block>
 	</th:block>
 	<th:block layout:fragment="customContents">
-		<script type="text/javascript">
-			$(function(){
-				$('#addWarehouseBtn').click(function(){
-					location.href = "/team03/spaceBusiness/warehouse/k3AddWarehouse";
-				});
-				$('#deletewarehouseBtn').click(function(){
-					var warehouseCode = $('#warehouseCode').val();
-		
-					if(warehouseCode != ''){
-						$.ajax({
-							url : '/team03/spaceBusiness/warehouse/k3DeleteWarehouse',
-							type : 'POST',
-							traditional : true,
-							data : { warehouseCode : warehouseCode },
-							success : function(data){
-								if(data){
-									swal("삭제완료~",{icon:"success",button:"확인"});
-									location.href = "/team03/spaceBusiness/warehouse/k3WarehouseList";
-								}
-								else{
-									swal("해당코드가 없습니다",{icon:"warning",button:"확인"});
-									
-								}
-							}
-						});
-					}
-					else{
-						swal("코드를 입력해주세요",{icon:"warning",button:"확인"});
-					}
-				});
-				
-				
-			});	
-		</script>
 		<div id="representative-button">
 			<div id="representative-button">
 					<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
-							<div class="d-flex justify-content-end">					
-								<button class="btn btn-outline-info ahsbtn4" type="button" id="addWarehouseBtn">
+							<div class="d-flex justify-content-end">
+								<a href="/team03/spaceBusiness/warehouse/k3AddWarehouse" class="btn btn-outline-info ahsbtn4" id="addWarehouseBtn">
 									<i class="bi bi-house-door">창고등록</i>	
-								</button>			
+								</a>			
 								<button class="btn btn-outline-info ahsbtn4" type="button">
 									<i class="bi bi-printer">출력</i>
 								</button>						
 								<button class="btn btn-outline-info ahsbtn4" type="button"  data-toggle="modal" data-target="#myModal">
 									<i class="bi bi-trash">창고삭제</i>
 								</button>
-								
 							</div>	
 							<div class="card cardColor">
 								<!--card header -->
@@ -118,7 +153,7 @@
 														<i class="fas fa-pencil-alt icon"></i>
 													</a>
 												</td>
-												<td th:text="${w.warehouseCode}"></td>
+												<td rel="warehouseCode" th:text="${w.warehouseCode}"></td>
 												<td th:text="${w.warehouseName}"></td>	
 												<td th:text="${w.floorNumber}"></td>
 												<td th:text="${w.warehouseNumber}"></td>
@@ -143,7 +178,7 @@
 									      		<!-- 모달헤드 -->
 											<div class="modal-header">
 												<h4 class="modal-title">창고 삭제</h4>
-												<button type="button" class="close " data-dismiss="modal">&times;</button>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
 											</div>
 												<!-- 모달 바디 -->
 											<div class="modal-body">

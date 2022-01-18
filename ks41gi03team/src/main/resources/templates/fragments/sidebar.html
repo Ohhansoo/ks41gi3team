@@ -25,7 +25,7 @@
 						<div>
 							<p class="part" th:if="${session.SID != null}">운송지원팀 </p>   
 							<a th:href="@{team03/companymanagement/login/k3MemberUserLogin}" th:if="${session.SID == null}" style="color: white;">로그인</a>&nbsp;
-					        <a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" th:if="${session.SID == null}" style="color: white;">|직원등록</a>
+					        <a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" th:if="${session.SID == null}" style="color: white;">| 직원등록</a>
 						</div>
 						<div>
 							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogout}" th:if="${session.SID != null}" style="color: white;">로그아웃</a>&nbsp;

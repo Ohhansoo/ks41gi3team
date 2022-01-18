@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-
-import k3.damegeError.ahs.dto.K3DamageError;
+import k3.damageError.ahs.dto.K3DamageError;
 
 
 @Mapper

@@ -108,10 +108,12 @@ public class K3InController {
 			model.addAttribute("subtitle", "매출 내역 등록");
 			
 			List<K3MainBusinessCode>  getMainBusinessCodeList =	k3InService.getMainBusinessCodeList();
+			System.out.println("-----메인지즈니스코드----");
 			System.out.println(getMainBusinessCodeList + "메인비즈니스코드");
 			model.addAttribute("getMainBusinessCodeList", getMainBusinessCodeList);
 			
 			List<K3Estimate> getEstimateNum = k3InService.getEstimateNum();
+			System.out.println("-----견적번호-----");
 			System.out.println(getEstimateNum + "견적번호");
 			model.addAttribute("getEstimateNum", getEstimateNum);
 			

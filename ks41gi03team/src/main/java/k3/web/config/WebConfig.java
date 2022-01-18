@@ -41,7 +41,8 @@ public class WebConfig implements WebMvcConfigurer{
 //						.excludePathPatterns("/team03/ourcompany/k3AddOurCompanyList")
 //						.excludePathPatterns("/team03/retiredmemberuser/k3AddRetiredMemberUserList")
 //						.excludePathPatterns("/team03/loginstate/k3AddMemberUserLoginState");
-//			
+//						.excludePathPatterns("/k3MemberUserLogin")
+//						.excludePathPatterns("/k3MemberUserLogout");
 			
 			
 			WebMvcConfigurer.super.addInterceptors(registry);
