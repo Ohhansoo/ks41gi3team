@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
+
 					location.href = '/team03/delivery/dispatch/k3DispatchList';
 				});
 				$(document).on('click', '#submitBtn', function(){
@@ -92,6 +93,7 @@
 	 				memberId.attr('value', dispatchMemberIdValue);	
 
 					modal.addClass('hidden');
+
 				});
 			});
 		</script>
@@ -102,6 +104,7 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--카드 영역 -->
+					<div class="col-md-8">
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
@@ -170,7 +173,8 @@
 										<label for="dockName" class="inputName">도크명</label>
 										<input class="inputBox" type="text" id="dockName" name="dockName"/>
 									</div>								
-									<div class="d-flex justify-content-center">
+
+									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
 										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>	
@@ -178,6 +182,7 @@
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
+					</div>
 					</div>
 					<!--End 카드 영역 -->
 				</div>

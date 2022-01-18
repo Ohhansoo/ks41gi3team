@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>매출 내역 등록</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script>
+			// 취소 버튼
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					history.back();
+				});
+			});
+			
+			// 견적서 번호 
+			$(function(){
+				
+				$(document).on('change', '#estimateNum',function(){
+					$('#estimatePriceInput').val($('#estimateNum').val());
+					var test = $('#estimateNum').val()
+						console.log(test);
+					var test2 = $('#estimateNum').text()
+						console.log(test2);
+					
+				})
+			})
+		</script>	 
+		
+		
+		
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header cardHeadBorder">
+							<h4>매출 내역 등록</h4>
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row">
+								<form id="inInfo" th:action="@{/team03/finance/in/k3AddIn}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="inCodeInput" class="inputName">매출코드</label>
+										<input class="inputBox" type="text" id="inCodeInput" name="inCode"> 
+									</div>
+									
+									
+									<div class="inputwrap col-md-12">
+										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
+										<select name ="mainBusinessCode">
+											<th:block th:if="${not #lists.isEmpty(getMainBusinessCodeList)}" th:each="l : ${getMainBusinessCodeList}">							
+												<option th:text="${l.mainBusinessCode}" th:value="${l.mainBusinessCode}"> </option>
+											</th:block>	
+										</select>
+									</div>								
+									
+									<div class="inputwrap col-md-12">
+										<label for="memberIdInput" class="inputName">등록자아이디 </label>
+										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${session.SID}" readonly="readonly">
+									</div>	
+									
+									
+									<div class="inputwrap col-md-12">
+										<label for="estimateNumInput" class="inputName">견적번호</label>
+										<select id = "estimateNum">
+											<option> :: 선택 :: </option>
+											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
+											<option	th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>
+											</th:block>
+										</select>
+									</div>
+													
+													
+									<div class="inputwrap col-md-12">
+										<label for="estimatePriceInput" class="inputName">담을견적번호</label>
+										<input class="inputBox" type="text" id="estimateNum2" name="estimateNum">
+									</div>
+																						
+													
+									<div class="inputwrap col-md-12">
+										<label for="estimatePriceInput" class="inputName">견적금액</label>
+										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
+									</div>
+																	
+									<div class="inputwrap col-md-12">
+										<label for="inPayMethodInput" class="inputName">결제방법</label>
+										<select>
+											<option value="현금">현금</option>
+											<option value="카드">카드</option>
+										</select>
+										<!-- <input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod"> -->
+									</div>								
+									
+									<div class="inputwrap col-md-12">
+										<label for="inPayDateInput" class="inputName">결제일</label>
+										<input class="inputBox" type="text" id="inPayDateInput" name="inPayDate">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="inPayCheckInput" class="inputName">수금확인금액</label>
+										<input class="inputBox" type="text" id="inPayCheckInput" name="inPayCheck">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="inCheckInput" class="inputName">입금확인</label>
+										<input class="inputBox" type="text" id="inCheckInput" name="inCheck">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="inPayRemainInput" class="inputName">미수금금액</label>
+										<input class="inputBox" type="text" id="inPayRemainInput" name="inPayRemain">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="inReceipeInput" class="inputName">증빙서류발행</label>
+										<input class="inputBox" type="text" id="inReceipeInput" name="inReceipe">
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="inReceipeDateInput" class="inputName">발행일시</label>
+										<input class="inputBox" type="text" id="inReceipeDateInput" name="inReceipeDate">
+									</div>								
+									<div class="d-flex justify-content-center">					
+										<button class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
+										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>	
+								</form>
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
+</head>

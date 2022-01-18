@@ -10,6 +10,10 @@ import k3.contractor.ahs.dto.K3DetailContractor;
 @Mapper
 public interface K3ContractorMapper {
 	
+	//거래처 삭제처리(체크박스)
+	public void k3DeleteContractor(String contractorCode);
+
+
 	//거래처 수정처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor);
 	

@@ -12,18 +12,19 @@
 	
 	<select id="getMemberUserLevelList"  resultType="K3MemberUserLevel">
 		SELECT 
-			 m.memberId
-			,m.memberPassword	
-			,m.mainBusinessCode
-			,m.levelMemberCode
-			,m.memberName
-			,m.memberGender
-			,m.memberAddr
-			,m.memberPhone
-			,m.memberResidentRegistrationNumber
-			,m.memberState
-			,m.memberRegDate
-			,m.memberHiredDate
+			 m.memberId									AS memberId
+			,m.memberPassword							AS memberPassword
+			,m.mainBusinessCode							AS mainBusinessCode
+			,m.levelMemberCode							AS levelMemberCode
+			,m.memberName								AS memberName
+			,m.memberGender								AS memberGender
+			,m.memberPhone								AS memberPhone
+			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
+			,m.memberState								AS memberState
+			,m.memberRegDate							AS memberRegDate
+			,m.memberHiredDate							AS memberHiredDate
+			,m.memberpostaladdress						AS memberpostaladdress
+			,m.memberstreetaddress						AS memberstreetaddress
 		FROM 
 			k3_tb_member	AS m;
 	</select>

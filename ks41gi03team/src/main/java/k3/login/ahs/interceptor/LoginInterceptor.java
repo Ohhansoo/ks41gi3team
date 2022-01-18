@@ -1,5 +1,8 @@
 package k3.login.ahs.interceptor;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		
 		String sessionId = (String) session.getAttribute("SID");
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
-		System.out.println("01 220112 sessionLevel");
+		System.out.println("01 220112 sessionLevel"+  sessionLevel);
 		
 		if(sessionId == null) {
 			response.sendRedirect("/k3MemberUserLogin");

@@ -11,6 +11,7 @@ import k3.dispatch.ahs.dto.K3Dispatch;
 @Mapper
 public interface K3DispatchMapper {
 	
+
 	//현황
 	public List<K3Dispatch> getDispatchList();
 	
@@ -28,4 +29,5 @@ public interface K3DispatchMapper {
 	
 	//모달
 	public List<Map<String, Object>> k3SelectDispatchMemberId(Map<String,Object> paraMap);
+
 }

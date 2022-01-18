@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+   </th:block>
+   
+
+		
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/delivery/vehicle/k3VehicleList';
+				});
+				$(document).on('click', '#submitBtn', function(){
+					
+						var submitCheck = true;
+						var inputObj = $('#userInfo').find('input');
+							
+						$.each(inputObj, function(){	
+	   					var inputDate = $(this).val();
+	   					var inputId = $(this).attr('id');
+	   					var labelText = $('label[for=' + inputId + ']').text();
+							
+	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+	   						alert(labelText + ' 입력해주세요');
+	   						$(this).focus();
+	   						submitCheck = false;
+	   						return false;
+	   					}		
+						});  						
+						if(submitCheck) $('#userInfo').submit();
+					});
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '.vehicleMemberId_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#vehicleMemberId').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/vehicle/vehicleMemberId',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var memberId = $('#memberId');
+					
+	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				memberId.attr('value',vehicleMemberIdValue);
+
+					modal.addClass('hidden');
+				});
+				
+			});
+		</script>
+		</th:block>
+		
+		<th:block layout:fragment="customContents">	
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid pb-3">
+    <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+      <div class="bg-light border rounded-3">
+        <br><br><br><br><br><br><br><br><br><br>
+      </div>
+      <div class="bg-light border rounded-3">
+        <br><br><br><br><br><br><br><br><br><br>
+      </div>
+    </div>
+  </div>
+				<!-- End 콘텐츠 콘테이너 -->
+				</div>
+			</div>
+	
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">거래처명 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="vehicleMemberId" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>	
+									<th>회원코드</th>
+									<th>회원명</th>				
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+	</th:block>
+</head>
