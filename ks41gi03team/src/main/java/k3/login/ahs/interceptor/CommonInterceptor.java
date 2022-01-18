@@ -32,11 +32,11 @@ public class CommonInterceptor implements HandlerInterceptor{
 		
 		log.info("CommonInterceptor =======================================Start");
 		log.info("Access Info ==============================================Start");
-		log.info("SEVERNAME =============================================Start");
-		log.info("HTTP METHOD ===========================================Start");
-		log.info("URI ====================================================Start");
-		log.info("PARAMETER =============================================Start");
-		log.info("CommonInterceptor =======================================Start");
+		log.info("PORT 		  ::::::: {}", request.getLocalPort());
+		log.info("SERVERNAME  ::::::: {}", request.getServerName());
+		log.info("HTTP METHOD ::::::: {}", request.getMethod());
+		log.info("URI 		  ::::::: {}", request.getRequestURI());
+		log.info("PARAMETER   ::::::: {}", param);
 		log.info("Access Info ======= =======================================end");
 		
 		return true;

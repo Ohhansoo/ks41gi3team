@@ -33,9 +33,5 @@ public class K3LoginService {
 	 * { k3memberuser.setLevelMemberCode("거래처"); } } } } return memberuserList; }
 	 */
 
-	public K3MemberUser getMemberInfoByMemberId(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
-}

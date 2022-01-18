@@ -32,7 +32,17 @@
 		WHERE
 			m.memberId = #{memberId};
 	</select>-->
+	<select id="getMemberByMemberId" parameterType="String"  resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_member AS m
+		WHERE
+			m.memberId = #{memberId};
+		
+	</select>
 	
+	<!-- 모달 -->
 	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT 
 			 m.memberId									
@@ -42,15 +52,35 @@
 	</select>
 	
 <!--  직원검색 -->
-	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
-		SELECT
-			*
-		FROM
-			k3_tb_member
+	<select id="k3GetMemberUserSearchList" parameterType="Map" resultType="K3MemberUser">
+		SELECT 
+			 m.memberId
+			,m.memberPassword
+			,m.mainBusinessCode
+			,m.levelMemberCode
+			,m.memberName
+			,m.memberGender
+			,m.memberPhone
+			,m.memberResidentRegistrationNumber
+			,m.memberState
+			,m.memberRegDate
+			,m.memberHiredDate
+			,m.memberRetiredReason
+			,m.memberRetiredDate
+			,m.memberRetirementSignedDate
+			,m.memberpostaladdress
+			,m.memberstreetaddress
+		FROM 
+			k3_tb_member AS m 
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="memberuserValue != null and memberuserValue != ''.toString()">
-				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%');
+				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
 			</if>
+				m.memberRegDate >= #{memberRegDate} 
+			AND
+				#{memberRegDate} >= m.memberRegDate
+			AND
+				m.memberState = '일반'
 		</trim>
 	</select>
 
@@ -86,12 +116,16 @@
 			m.levelMemberCode,
 			m.memberName,
 			m.memberGender,
-			m.memberAddr,
 			m.memberPhone,
 			m.memberResidentRegistrationNumber,
 			m.memberState,
 			m.memberRegDate,
 			m.memberHiredDate
+			m.memberRetiredReason
+			m.memberRetiredDate
+			m.memberRetirementSignedDate
+			m.memberpostaladdress
+			m.memberstreetaddress
 		FROM 
 			k3_tb_member AS m 
 		WHERE
@@ -107,7 +141,7 @@
 			m.memberPassword = #{memberPassword},
 			</if>	
 			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
-			m.mainBusinessCode ='물류센터A물류센터_전북_1',
+			m.mainBusinessCode = #{mainBusinessCode},
 			</if>	
 			<if test="levelMemberCode != null and levelMemberCode != ''.toString()">
 			m.levelMemberCode = #{levelMemberCode},
@@ -117,9 +151,6 @@
 			</if>	
 			<if test="memberGender != null and memberGender != ''.toString()">
 			m.memberGender = #{memberGender},
-			</if>	
-			<if test="memberAddr != null and memberAddr != ''.toString()">
-			m.memberAddr = #{memberAddr},
 			</if>	
 			<if test="memberPhone != null and memberGender != ''.toString()">
 			m.memberPhone = #{memberPhone},
@@ -134,7 +165,22 @@
 			m.memberRegDate = #{memberRegDate},
 			</if>	
 			<if test="memberHiredDate != null and memberHiredDate != ''.toString()">
-			m.memberHiredDate = #{memberHiredDate}
+			m.memberHiredDate = #{memberHiredDate},
+			</if>
+			<if test="memberRetiredReason != null and memberRetiredReason != ''.toString()">
+			m.memberRetiredReason = #{memberRetiredReason},
+			</if>
+			<if test="memberRetiredDate != null and memberRetiredDate != ''.toString()">
+			m.memberRetiredDate = #{memberRetiredDate},
+			</if>
+			<if test="memberRetirementSignedDate != null and memberRetirementSignedDate != ''.toString()">
+			m.memberRetirementSignedDate = #{memberRetirementSignedDate},
+			</if>
+			<if test="memberpostaladdress != null and memberHiredDate != ''.toString()">
+			m.memberpostaladdress = #{memberpostaladdress},
+			</if>
+			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
+			m.memberstreetaddress = #{memberstreetaddress}
 			</if>
 		</trim>		
 		WHERE 
@@ -148,7 +194,9 @@
 		FROM
 			k3_tb_member AS m
 		WHERE
-			m.memberId = #{memberId};
+			m.memberId = #{memberId}
+		AND 
+			m.memberState = "일반";
 	</select>
 
 <!-- 직원등록 -->
@@ -162,12 +210,13 @@
 		,levelMemberCode
 		,memberName
 		,memberGender
-		,memberAddr
 		,memberPhone
 		,memberResidentRegistrationNumber
 		,memberState
 		,memberRegDate
 		,memberHiredDate
+		,memberpostaladdress
+		,memberstreetaddress
 	)VALUES(
 		 #{memberId}
 		,#{memberPassword}
@@ -175,12 +224,13 @@
 		,#{levelMemberCode}
 		,#{memberName}
 		,#{memberGender}
-		,#{memberAddr}
 		,#{memberPhone}
 		,#{memberResidentRegistrationNumber}
 		,"일반"
 		,#{memberRegDate}
 		,#{memberHiredDate}
+		,#{memberpostaladdress}
+		,#{memberstreetaddress}
 	);
 	</insert>
 	
@@ -193,12 +243,13 @@
 			,m.levelMemberCode							AS levelMemberCode
 			,m.memberName								AS memberName
 			,m.memberGender								AS memberGender
-			,m.memberAddr								AS memberAddr
 			,m.memberPhone								AS memberPhone
 			,m.memberResidentRegistrationNumber			AS memberResidentRegistrationNumber
 			,m.memberState								AS memberState
 			,m.memberRegDate							AS memberRegDate
 			,m.memberHiredDate							AS memberHiredDate
+			,m.memberpostaladdress						AS memberpostaladdress
+			,m.memberstreetaddress						AS memberstreetaddress
 		FROM 
 			k3_tb_member	AS m
 		WHERE

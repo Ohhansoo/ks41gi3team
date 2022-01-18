@@ -44,7 +44,7 @@
 			});
 		</script>
 	</th:block>
-	<th:block layout:fragment="customContents"> 
+	<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -76,6 +76,7 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
+							<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 								<!--inputbox 1 -->
 									<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 										<div class="input-group  d-flex justify-content-start">
@@ -102,89 +103,81 @@
 										</button>
 										</div>
 									</div>
-									</div>
-								</form>
+								</div>
 								<!--End inputbox 1 -->
+								<!--inputbox 2 -->
+											<div class="input-group input-group-sm col-sm-4">
+												<select name="warehousingDateKey" class="input-group-text form-control-sm">
+													<option value="manufacturedDate">제조일자</option>
+													<option value="expiratonDate">유통기한</option>
+													<option value="laydownCheckDate">입하날짜</option>
+												</select>
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 2 -->
+											~
+									<!--inputbox 3 -->
+											<div class="col-sm-3" style="padding-left: 0px">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+														<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+														</div>
+													</div>
+						                   		</div>
+											</div>
+											<!--End inputbox 3 -->		
+								</form>
 	 						</div>
 						</div>					
+	 					<!--End card body 묶음 -->								
+							</div>
+							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+								<!--card body -->
+								<div class="card-body">
+									<div class="row" style="margin: 12px">
+										<!--inputbox 1 -->
+										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
+											<div class="input-group input-group-sm">
+												<select name="categoryKey" class="input-group-text form-control-sm">
+													<option value="large">상품명</option>
+													<option value="medium">회사명</option>
+													<option value="small">검수코드</option>
+												</select>
+												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="categorySearcch" type="submit">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!--End inputbox 1 -->
+			 						</div>
+								</div>					
+			 					<!--End card body 묶음 -->								
+							</div>
+						</div>						
 	 					<!--End card body 묶음 -->
-					</div>
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
-					<div class="card cardColor"  >
+					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
 							직원 현황
-						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover">
-							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
-									<thead>
-										<tr>
-											<th>삭제</th>
-											<th>한줄삭제</th>	
-											<th>수정</th>
-											<th>직원ID</th>
-						                     <th>직원PW</th>
-						                     <th>사업장별대표코드</th>
-						                     <th>권한번호</th>
-						                     <th>직원이름</th>
-						                     <th>성별</th>
-						                     <th>주소</th>
-						                     <th>전화번호</th>
-						                     <th>주민번호</th>
-						                     <th>직원계정상태</th>
-						                     <th>등록일자</th>
-						                     <th>입사일자</th>		
-										</tr>
-									</thead>
-									<tbody>								
-										<tr th:if="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
-						   				<td>
-											<input type="checkbox" class="removeList" name="removeList[]" th:value="${l.memberId}">
-											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
-										</td>
-										<td>
-											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
-										</td>
-						   				<td>
-										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
-												<i class="fas fa-pencil-alt icon"></i>
-										</a>										
-										</td>	
-						   				<td th:text="${l.memberId}"></td>
-						   				<td th:text="${l.memberPassword}"></td>
-						   				<td th:text="${l.mainBusinessCode}"></td>
-						   				<td th:text="${l.levelMemberCode}"></td>
-						   				<td th:text="${l.memberName}"></td>
-						   				<td th:text="${l.memberGender}"></td>
-						   				<td th:text="${l.memberAddr}"></td>
-						   				<td th:text="${l.memberPhone}"></td>
-						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
-						   				<td th:text="${l.memberState}"></td>
-						   				<td th:text="${l.memberRegDate}"></td>
-						   				<td th:text="${l.memberHiredDate}"></td>
-						   			</tr>
-						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
-						   				<td colspan="9">등록된 직원이 없습니다.</td>
-						   			</tr>
-									</tbody>						
-								</table>
-							</form>	
-						</div>
-						<!--End card body -->
-					</div>
-					</div>
-					<!--End 하위 카드 영역 -->
-					
-					<div>
-					<div class="card cardColor"  style="float: right; width: 43%; padding:10px;">
-						<!--card header -->
-						<div class="card-header">
-							직원 권한현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -246,8 +239,9 @@
 						</div>
 						<!--End card body -->
 					</div>
+					</div>
 					<!--End 하위 카드 영역 -->
-				</div>
+					
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 	</th:block>

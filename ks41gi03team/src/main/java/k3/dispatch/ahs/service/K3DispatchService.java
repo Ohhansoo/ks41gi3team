@@ -32,11 +32,14 @@ public class K3DispatchService {
 		return result;
 	}
 	
+
 	//수정 화면
+
 	public K3Dispatch getModifyDispatch(String dispatchCode) {
 		return k3DispatchMapper.getModifyDispatch(dispatchCode);
 	}
 	
+
 	//수정
 	public Integer modifyDispatch(K3Dispatch k3Dispatch) {
 		return k3DispatchMapper.modifyDispatch(k3Dispatch);
@@ -53,4 +56,5 @@ public class K3DispatchService {
 			List<Map<String, Object>> searchId = k3DispatchMapper.k3SelectDispatchMemberId(null);
 			return searchId;
 		}
+
 }
