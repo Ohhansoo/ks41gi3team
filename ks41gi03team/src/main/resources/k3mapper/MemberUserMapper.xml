@@ -76,11 +76,7 @@
 			<if test="memberuserValue != null and memberuserValue != ''.toString()">
 				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
 			</if>
-				m.memberRegDate >= #{memberRegDate} 
-			AND
-				#{memberRegDate} >= m.memberRegDate
-			AND
-				m.memberState = '일반'
+				AND m.memberState = '일반'
 		</trim>
 	</select>
 
