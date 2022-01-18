@@ -26,12 +26,9 @@ public class K3ContractorController {
 	}
 	
 	//거래처 삭제처리
-	
-	
-	
-	//거래처 삭제처리(체크박스)
 	@PostMapping("/k3SearchContractor")
 	public String k3DeleteContractor(HttpServletRequest request) {
+		//체크박스
 		if(request.getParameter("removeContractorArr") != null) {
 			
 			String[] removeContractorArr = request.getParameterValues("removeContractorArr");
@@ -40,12 +37,36 @@ public class K3ContractorController {
 			for(int i=0; i < size; i++) {
 				k3ContractorService.k3DeleteContractor(removeContractorArr[i]);
 			}
-		}else if(request.getParameter("removeContractor") != null){
-			String removeContractor = request.getParameter("removeContractor");
-			k3ContractorService.k3DeleteContractor(removeContractor);
+		//버튼
+		}else if(request.getParameter("deleteContractorCode") != null){
+			String deleteContractorCode = request.getParameter("deleteContractorCode");
+			k3ContractorService.k3DeleteContractor(deleteContractorCode);
 		}
 			return "redirect:/team03/contractorContract/Contractor/k3SearchContractor";
 	}
+
+	//거래처 중복확인
+	@PostMapping("/contractorCheck")
+	@ResponseBody
+	public boolean k3ContractorCheck(@RequestParam(value="contractorCode", required = false)String contractorCode
+									,@RequestParam(value="contractorBusinessNum", required = false)String contractorBusinessNum
+									) {
+		System.out.println("ajax로 받은 파라미터 contractorCode확인 : " + contractorCode + "-> 확인끝");
+		System.out.println("ajax로 받은 파라미터 concontractorBusinessNum확인 : " + contractorBusinessNum + "-> 확인끝");
+		
+		boolean checkResult = false;
+		
+		if(contractorCode != "undefined" && contractorCode != null && contractorCode != "".toString()) {
+			int check = k3ContractorService.k3ContractorCodeCheck(contractorCode);
+			if(check > 0) checkResult = true;
+		}else if(contractorBusinessNum != "undefined" && contractorBusinessNum != null && contractorBusinessNum != "".toString()) {
+			int check = k3ContractorService.k3ContractorBusinessNumCheck(contractorBusinessNum);
+			if(check > 0) checkResult = true;
+		}
+		
+		return checkResult;
+	}
+
 	
 	//거래처 수정처리
 	@PostMapping("/k3ModifyContractor")
@@ -69,10 +90,11 @@ public class K3ContractorController {
 
 		return "/team03/contractorContract/Contractor/k3ModifyContractor";
 	}
+	
 
 	// 거래처 등록으로 화면전환
 	@GetMapping("/k3AddContractor")
-	public String K3GetAddContractor(Model model) {
+	public String k3GetAddContractor(Model model) {
 		model.addAttribute("title", "거래처 관리");
 		model.addAttribute("subtitle", "거래처 등록");
 

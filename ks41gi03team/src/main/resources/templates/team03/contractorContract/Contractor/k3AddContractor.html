@@ -9,64 +9,108 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/eunbinAddModify.css}">
    </th:block>
-	
-	<th:block layout:fragment="customContents"> 
-		 <!-- <script>
+   
+   <th:block layout:fragment="customJs">
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
-				//거래처 사업장코드 중복확인 스크립트
-				$(document).on('click', "#addContractorBtn", function(){
-					var submitCheck = true;
-					var inputObj = $("#addContractorForm").find('input');
-					$.each(inputObj, function(){
-						var inputData = $(this).val();
-						var inputId = $(this.).attr('id');
-						var labelText = $('label[for=]' + inputId + ']').text();
-						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){
-							alert(labelText + '입력해주세요');
-							$(this.)focus();
-							submitCehck = false;
-							return false;
-						}
-					});
-					if(submitCheck) $('#addContractorForm').submit();
+				
+				<!-- 숫자, 하이픈(-) 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[telOnly]", function(){
+					$(this).val($(this).val().replace(/[^0-9-]/gi,"") );
 				});
-				$('#contractorCodeCheckBtn').click(function(){
-					var contractorCode = $('#contractorCode').val();
-					console.log("거래처사업장코드 중복체크 버튼");
+
+				<!-- 숫자 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[numOnly]", function(){
+					$(this).val($(this).val().replace(/[^0-9]/gi,"") );
+				});
+				
+				<!-- 문자(한글,영문) 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[stringOnly]", function() {
+					$(this).val($(this).val().replace(/[^가-힣a-zA-Z]/gi,""));
+				});
+				
+				<!-- 특수문자 입력 제한 기능-->
+				$(document).on("keyup", "input[noSpecial]", function() {
+					$(this).val( $(this).val().replace(/[^가-힣a-zA-Z0-9]/gi,"") );
+				});
+				
+				<!-- 선택값 입력 기능 -->
+				$("#contractorSuperviserEmailSelect").change(function(){
+					console.log("선택한 값확인 : "+ $(this).val());
+					$("#contractorSuperviserEmailAddr").val($(this).val());
+				});
+				
+				$("#contractorEmailSelect").change(function(){
+					console.log("선택한 값확인 : "+ $(this).val());
+					$("#contractorEmailAddr").val($(this).val());
+				});
+				
+				$("#contractorProfitBankSelect").change(function(){
+					console.log("선택한 값확인 contractorProfitBankSelect : "+ $(this).val());
+					$("#contractorProfitBanka").val($(this).val());
+					console.log("바뀐 값확인 contractorProfitBanka :"+ $("#contractorProfitBanka").val());
+				});
+				<!-- END 선택값 입력 기능 -->
+				
+			<!-- 중복 검사 기능 -->
+				<!-- 거래처 사업장 코드 중복검사 -->
+				$(document).on('click', '#contractorCodeCheckBtn', function(){
+					var contractorCode = $("input[name=contractorCode]").val();
+					console.log("변수 contractorCode내부 확인 : " + contractorCode + "-> 확인끝")
 					if(typeof contractorCode != 'undefined' && contractorCode != null && contractorCode != ''){
-						//ajax호출
+						//ajax 호출
 						var request = $.ajax({
-							url: '/contractorContract/Check/k3AddContractorCheck',
-							method : 'POST',
-							data: { 'contractorCode' : contractorCode},
-							dataType: 'json'
+							url: 'contractorCheck',
+							method: 'Post',
+							data: {'contractorCode':contractorCode},
+							dataType:'json'
 						});
 						request.done(function(data){
-							//중복여부 체크(true: 중복, false: 등록가능)
-							var CodeConfirm = data;
-							
-							if(CodeConfirm){
-								alert('중복된 거래처사업장코드입니다.');		
-								$('#addContractorBtn').prop('disabled', true);
-								$('#contractorCodeAlert').prop('type', false);
+							//중복여부 체크 (true: 중복, false : 등록가능)
+							var contractorCode = data;
+							if(contractorCode){
+								alert('중복된 거래처 사업장 코드 입니다.');
 							}else{
-								alert('등록이 가능한 거래처사업장코드입니다.');
-								$('#addContractorForm input').prop('disabled', false);
-								$('#addContractorForm select').prop('disabled', false);
-								$('#addContractorForm button').prop('disabled', false);
+								alert('등록이 가능한 사업장 코드 입니다.');
 							}
 						});
-						request.fail(function(jqXHR, textStatus){
-							alert("Request failed: " + textStatus);
-							
-						});
-					}else{
-						alert('거래처사업장 코드를 입력해주세요')
-						return false;
 					}
 				});
-			})
-		</script>  -->
+				<!-- END 거래처 사업장 코드 중복검사 -->
+				<!-- 거래처 사업장 등록번호 중복검사 -->
+				$(document).on('click', '#contractorBusinessNumCheckBtn', function(){
+					var contractorBusinessNum = $("input[name=contractorBusinessNum]").val();
+					
+					console.log("변수 contractorBusinessNum내부 확인 : " + contractorBusinessNum + "-> 확인끝")
+					
+					if(typeof contractorBusinessNum != 'undefined' && contractorBusinessNum != null && contractorBusinessNum != ''){
+						//ajax 호출
+						var request = $.ajax({
+							url: 'contractorCheck',
+							method: 'Post',
+							data: {'contractorBusinessNum' : contractorBusinessNum},
+							dataType:'json'
+						});
+						request.done(function(data){
+							//중복여부 체크 (true: 중복, false : 등록가능)
+							var contractorBusinessNum = data;
+							if(contractorBusinessNum){
+								alert('중복된 거래처 사업자 등록번호입니다.');
+							}else{
+								alert('등록이 가능한 거래처 사업자 등록번호입니다.');
+							}
+						});
+					}
+				});
+				<!-- END 거래처 사업장 등록번호 중복검사 -->
+			<!-- END 중복 검사 기능 -->
+			});
+		</script>
+   </th:block>
+	
+	<th:block layout:fragment="customContents"> 
+
+
 		<!--카드 영역 -->
 		<div class="container container-fluid ">
 			<form id="addContractorForm" th:action="@{/team03/contractorContract/Contractor/k3AddContractor}" method="post">
@@ -76,24 +120,23 @@
 							<label>| 거래처 계정정보 |</label>
 						</div>						
 						<div id="contractorId" class="input-group">
-				  			<span class="input-group-text" for="contractorId">거래처 아이디</span>
-				  			<input class="form-control" type="text" name="contractorId" id="contractorId" placeholder="거래처아이디"/>
-				  			<button type="button" id="contractorIdBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
+				  			<span class="input-group-text">거래처 아이디</span>
+				  			<input class="form-control" noSpecial type="text" name="contractorId" id="contractorId" placeholder="거래처 아이디(특수문자 입력불가)"/>
 				  		</div>
 				  		<div id="contractorPw" class="input-group">
-				  			<span class="input-group-text" for="contractorPw">거래처 비밀번호</span>
-				  			<input class="form-control" type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호"/>
+				  			<span class="input-group-text">거래처 비밀번호</span>
+				  			<input class="form-control" noSpecial type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호(특수문자 입력불가)"/>
 				  		</div>
 				  		<div id="contractorState" class="input-group">
-				  			<span class="input-group-text" for="contractorState">거래처 계정 상태</span>
+				  			<span class="input-group-text">거래처 계정 상태</span>
 				  			<input class="form-control" type="text" name="contractorState" id="contractorState" value="일반" readonly style="background-color:#BDBDBD"/>
 				  		</div>
 				  		<div id="memberId" class="input-group" >
-				  			<span class="input-group-text" for="memberId">등록직원 아이디</span>
+				  			<span class="input-group-text">등록직원 아이디</span>
 				  			<input class="form-control" type="text" name="memberId" id="memberId" value="m_c17" readonly style="background-color:#BDBDBD" />
 				  		</div>
 				  		<div id="levelCode" class="input-group" >
-				  			<span class="input-group-text" for="levelCode">거래처 권한번호</span>
+				  			<span class="input-group-text">거래처 권한번호</span>
 				  			<input class="form-control" type="text" name="levelCode" id="levelCode" value="CT" readonly style="background-color:#BDBDBD"/>
 				  		</div>
 					</div>		
@@ -102,26 +145,26 @@
 							<label>| 거래처 사업자 정보 |</label>							
 						</div>					  	
 						<div id="contractorCode" class="input-group">
-							<span class="input-group-text" for="contractorCode">거래처사업장코드</span>
-				 			<input  class="form-control"  type="text" name="contractorCode" placeholder="거래처사업장코드"/>
+							<span class="input-group-text">거래처 사업장 코드</span>
+				 			<input  class="form-control" telOnly type="text" name="contractorCode" placeholder="거래처 사업장 코드"/>
 				 			<button type="button" id="contractorCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
 						</div>
 				  		<div id="contractorBusinessNum" class="input-group">
-				  			<span class="input-group-text" for="contractorBusinessNum">거래처 사업자등록번호</span>
-				  			<input  class="form-control" type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
+				  			<span class="input-group-text">거래처 사업자등록번호</span>
+				  			<input  class="form-control" telOnly type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
 				  			<button type="button" id="contractorBusinessNumCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button>
 				  		</div>
 				  		<div id="contractorBusinessClientNum" class="input-group">
-				  			<span class="input-group-text" for="contractorBusinessClientNum">거래처 종사업장번호</span>
-				  			<input class="form-control" type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
+				  			<span class="input-group-text">거래처 종사업장번호</span>
+				  			<input class="form-control" telOnly type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
 				  		</div>
 				  		<div id="contractorName" class=" input-group">
-				  			<span class="input-group-text" for="contractorName">거래처 상호명</span>
-				  			<input  class="form-control"  type="text" name="contractorName" placeholder="거래처 상호명"/>
+				  			<span class="input-group-text">거래처 상호명</span>
+				  			<input  class="form-control" type="text" name="contractorName" placeholder="거래처 상호명"/>
 				  		</div>
 				  		<div id="contractorRepresentative" class=" input-group">
-				  			<span class="input-group-text" for="contractorRepresentative">거래처 대표자명</span>
-				  			<input class="form-control" type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명"/>
+				  			<span class="input-group-text">거래처 대표자명</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명"/>
 				  		</div>
 					</div>
 				</div>
@@ -131,23 +174,23 @@
 							<label>| 거래처 업종 형태 |</label>							
 						</div>
 				  		<div id="contractorDevision" class="input-group">
-				  			<span class="input-group-text" for="contractorDevision">거래 구분</span>
+				  			<span class="input-group-text">거래 구분</span>
 				  			<select class="form-control" type="text" name="contractorDevision" id="contractorDevision" placeholder="거래 구분">
 				  				<option>매출</option>
 				  				<option>비용</option>
 				  			</select>
 				  		</div>
 				  		<div id="contractorType" class="input-group">
-				  			<span class="input-group-text" for="contractorType">거래처 유형</span>
-				  			<input class="form-control"  type="text" name="contractorType" id="contractorType" placeholder="거래처 유형"/>
+				  			<span class="input-group-text">거래처 유형</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorType" id="contractorType" placeholder="거래처 유형"/>
 				  		</div>
 				  		<div id="contractorItem" class="input-group">
-				  			<span class="input-group-text" for="contractorItem">거래처 종목</span>
-				  			<input class="form-control" type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목"/>
+				  			<span class="input-group-text">거래처 종목</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목"/>
 				  		</div>
 				  		<div id="contractorStatus" class="input-group">
-				  			<span class="input-group-text" for="contractorStatus">거래처 업태</span>
-				  			<input class="form-control" type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태"/>
+				  			<span class="input-group-text">거래처 업태</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태"/>
 				  		</div>
 					</div>			
 					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
@@ -155,20 +198,44 @@
 							<label>| 거래처 연락 정보 |</label>							
 						</div>
 				  		<div id="contractorAddr" class="input-group">
-				  			<span class="input-group-text" for="contractorAddr">거래처 주소</span>
+				  			<span class="input-group-text">거래처 주소</span>
 				  			<input class="form-control" type="text" name="contractorAddr" id="contractorAddr" placeholder="거래처 주소"/>
 				  		</div>
 				 		<div id="contractorPhone" class="input-group">
-				 			<span class="input-group-text" for="contractorPhone">거래처 전화번호</span>
-				 			<input class="form-control" type="text" name="contractorPhone" id="contractorPhone" placeholder="거래처 전화번호"/>
+				 			<span class="input-group-text">거래처 전화번호</span>
+				 			<input class="form-control" numOnly type="text" name="contractorPhone1" id="contractorPhone" maxLength="4"/>
+				  			<div style="margin:3px">
+				  				<b>-</b>
+				  			</div>
+				 			<input class="form-control" numOnly type="text" name="contractorPhone2" id="contractorPhone" maxLength="4"/>
+				  			<div style="margin:3px">
+				  				<b>-</b>
+				  			</div>
+				 			<input class="form-control" numOnly type="text" name="contractorPhone3" id="contractorPhone" maxLength="4"/>
 				 		</div>
 				 		<div id=contractorEmail class="input-group">
-				  			<span class="input-group-text" for="contractorEmail">거래처 이메일</span>
-				  			<input class="form-control" type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일"/>
+				  			<span class="input-group-text">거래처 이메일</span>
+				  			<input class="form-control" noSpecial type="text" name="contractorEmail" id="contractorEmail" placeholder="이메일 아이디"/>
+				  			<div style="margin:3px">
+				  				<b>@</b>
+				  			</div>
+				  			<input class="form-control" type="text" name="contractorEmailAddr" id="contractorEmailAddr" placeholder="이메일 도메인"/>
+				  			<select class="form-control" type="text" id="contractorEmailSelect">
+				  				<option value="">직접입력</option>
+				  				<option value="daum.net">daum.net</option>
+				  				<option value="gmail.com">gmail.com</option>
+				  				<option value="hanmail.net">hanmail.net</option>
+				  				<option value="kakao.com">kakao.com</option>
+				  				<option value="nate.com">nate.com</option>
+				  				<option value="naver.com">naver.com</option>
+				  				<option value="tistory.com">tistory.com</option>
+				  				<option value="yahoo.com">yahoo.com</option>
+				  			</select>
+
 				  		</div>
 				  		<div id="contractorFax" class="input-group">
-				  			<span class="input-group-text" for="contractorFax">거래처 Fax</span>
-				  			<input class="form-control" type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax"/>
+				  			<span class="input-group-text">거래처 Fax</span>
+				  			<input class="form-control" telOnly type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax(하이픈(-)포함 작성)"/>
 				  		</div>
 					</div>			
 				</div>
@@ -178,33 +245,69 @@
 							<label>| 거래처 담당자 정보 |</label>							
 						</div>
 				  		<div id="contractorSuperviser" class=" input-group">
-				  			<span class="input-group-text" for="contractorSuperviser">거래처 담당자</span>
-				  			<input class="form-control" type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자"/>
+				  			<span class="input-group-text">거래처 담당자</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자"/>
 				  		</div>
 				  		<div id="contractorSuperviserPhone" class=" input-group">
-				  			<span class="input-group-text" for="contractorSuperviserPhone">담당자 연락처</span>
-				  			<input class="form-control" type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처"/>
+				  			<span class="input-group-text">담당자 연락처</span>
+				 			<input class="form-control" numOnly type="text" name="contractorSuperviserPhone1" id="contractorSuperviserPhone" maxLength="4"/>
+				  			<div style="margin:3px">
+				  				<b>-</b>
+				  			</div>
+				 			<input class="form-control" numOnly type="text" name="contractorSuperviserPhone2" id="contractorSuperviserPhone" maxLength="4"/>
+				  			<div style="margin:3px">
+				  				<b>-</b>
+				  			</div>
+				 			<input class="form-control" numOnly type="text" name="contractorSuperviserPhone3" id="contractorPhone" maxLength="4"/>
 				  		</div>
-				  		<div id="contractorSuperviserEmail" class=" input-group">
-				  			<span class="input-group-text" for="contractorSuperviserEmail">담당자 이메일</span>
-				  			<input class="form-control" type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="담당자 이메일"/>
+				  		<div id="contractorSuperviserEmail" class="input-group">
+				  			<span class="input-group-text">담당자 이메일</span>
+				  			<input class="form-control" noSpecial type="text" name="contractorSuperviserEmail" id="contractorSuperviserEmail" placeholder="이메일 아이디"/>
+				  			<div style="margin:3px">
+				  				<b>@</b>
+				  			</div>
+				  			<input class="form-control" type="text" name="contractorSuperviserEmailAddr" id="contractorSuperviserEmailAddr" placeholder="이메일 도메인"/>
+				  			<select class="form-control" type="text" id="contractorSuperviserEmailSelect">
+				  				<option value="">직접입력</option>
+				  				<option value="daum.net">daum.net</option>
+				  				<option value="gmail.com">gmail.com</option>
+				  				<option value="hanmail.net">hanmail.net</option>
+				  				<option value="kakao.com">kakao.com</option>
+				  				<option value="nate.com">nate.com</option>
+				  				<option value="naver.com">naver.com</option>
+				  				<option value="tistory.com">tistory.com</option>
+				  				<option value="yahoo.com">yahoo.com</option>
+				  			</select>
 				  		</div>
 					</div>
 					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
 						<div class=" contractorLabel">
 							<label>| 거래처 은행 정보 |</label>							
 						</div>
-				  		<div id="contractorProfitBank" class=" input-group">
-				  			<span class="input-group-text" for="contractorProfitBank">거래처 은행명</span>
-				  			<input class="form-control" type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명"/>
+				  		<div id="contractorProfitBank" class="input-group">
+				  			<span class="input-group-text">거래처 은행명</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorProfitBank" id="contractorProfitBanka" placeholder="은행명"/>
+				  			<select class="form-control" type="text" id="contractorProfitBankSelect">
+				  				<option value="">직접입력</option>
+				  				<option value="KB국민은행">KB국민은행</option>
+				  				<option value="신한은행">신한은행</option>
+				  				<option value="우리은행">우리은행</option>
+				  				<option value="하나은행">하나은행</option>
+				  				<option value="대구은행">대구은행</option>
+				  				<option value="부산은행">부산은행</option>
+				  				<option value="경남은행">경남은행</option>
+				  				<option value="광주은행">광주은행</option>
+				  				<option value="전북은행">전북은행</option>
+				  				<option value="제주은행">제주은행</option>
+				  			</select>
 				  		</div>
 				  		<div id="contractorProfitAccount" class=" input-group">
-				  			<span class="input-group-text" for="contractorProfitAccount">거래처 계좌번호</span>
-				  			<input class="form-control" type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호"/>
+				  			<span class="input-group-text">거래처 계좌번호</span>
+				  			<input class="form-control" telOnly type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호(하이픈(-)포함 작성)"/>
 				  		</div>
 				  		<div id="contractorAccountHolder" class=" input-group">
-				  			<span class="input-group-text" for="contractorAccountHolder">거래처 예금주</span>
-				  			<input class="form-control" type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주"/>
+				  			<span class="input-group-text">거래처 예금주</span>
+				  			<input class="form-control" stringOnly type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주"/>
 				  		</div>
 					</div>
 				</div>
