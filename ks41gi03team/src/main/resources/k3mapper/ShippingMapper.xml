@@ -14,21 +14,16 @@
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			s.memberId,
-			s.areaCode,
 			s.shippingDetail,
 			s.driverId,
 			s.shippingTracking
 		FROM
 			k3_tb_shipping AS s
-		inner JOIN
+		INNER JOIN
 			k3_tb_release AS r
 		ON
 			s.releaseCode = r.releaseCode;
 
-	
-		
-		
-		
 	</select>
 	
 	<select id="addShipping" parameterType="K3Shipping">
