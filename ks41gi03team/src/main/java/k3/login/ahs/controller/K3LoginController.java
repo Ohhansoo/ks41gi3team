@@ -29,20 +29,20 @@ public class K3LoginController {
 	//01 로그인화면
 		@GetMapping("/k3MemberUserLogin")
 		public String K3Login() {
-			System.out.println("01 K3Login 220111");
+			System.out.println("01 K3Login 220111 로그인 성공");
 			return "team03/companymanagement/login/k3MemberUserLogin";
 	}
 		
 	//02 로그인처리
 	@PostMapping("/k3MemberUserLogin")
 	public String K3LoginId(@RequestParam(value="loginId", required=false) String memberId,
-										@RequestParam(value="loginPw", required=false) String memberPassword,
-										HttpSession session) {
+										  @RequestParam(value="loginPw", required=false) String memberPassword,
+										  HttpSession session) {
 		System.out.println(memberId + memberPassword);
 		
 
 		
-		 if(				memberId 				!=null && !"".equals(memberId)
+		 if(					memberId 				!=null && !"".equals(memberId)
 			      && 		memberPassword	!=null && !"".equals(memberPassword)){
 			 
 			 		K3MemberUser k3memberuser = memberuserService.K3MemberUserInfoBycode(memberId);
@@ -53,10 +53,10 @@ public class K3LoginController {
 			     		System.out.println("비번일치");
 
 			        	 //로그인 비밀번호 일치시  세션에 정보값을 넣는다.
-			            session.setAttribute("SID", k3memberuser.getMemberId());
+			            session.setAttribute("SID", memberId);
 			            session.setAttribute("SNAME", k3memberuser.getMemberName());
 			            session.setAttribute("SLEVEL", k3memberuser.getLevelMemberCode());
-			            System.out.println(session.getAttribute("SID"));
+			            System.out.println("로그인 세션에 담겼는지 확인" + session.getAttribute("SID"));
 			            return "redirect:/";
 			         }
 			      }
@@ -67,17 +67,11 @@ public class K3LoginController {
 	//04 로그아웃
 	@GetMapping("/k3MemberUserLogout")
 	public String K3Logout(HttpSession session) {
-		System.out.println("03 K3logout 220111");
+		System.out.println("03 K3logout 220111 로그아웃 성공");
 		session.invalidate();
 		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
 	}
-	
-	//로그인 결과 페이지
-		@GetMapping("/k3MemberUserLoginSuccess")
-		public String K3LoginSuccess() {
-			return "/team03/companymanagement/login/k3MemberUserLoginSuccess";
-			
-		}
+
 	
 	
 	

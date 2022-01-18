@@ -10,7 +10,7 @@
 		<div id="representative-button">
 		<script type="text/javascript">
 			$(function(){
-				$('input:text[name=warehouseArea]').keyup(function() {
+				$(document).on('keyup','input:text[name=warehouseArea]',function() {
 					var area = parseInt($(this).val());		
 				   	if(area > 0) {
 				       	var flat = Math.round(area / 3.3058);

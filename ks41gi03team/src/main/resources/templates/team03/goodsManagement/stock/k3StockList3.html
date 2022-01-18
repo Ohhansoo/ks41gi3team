@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/k3SortList.css}">
+	</th:block>
+	<th:block layout:fragment="customJs">
+			<script type="text/javascript">
+			$(function(){
+				var simpleSearch = $('#simpleSearch');
+				var simpleSearchHeader = $('#simpleSearchHeader');
+				var simpleSearchBody = $('#simpleSearchBody');
+				var simpleSearchResult = $('#simpleSearchResult');
+				var simpleSearchResultHeader = $('#simpleSearchResultHeader');
+				var simpleSearchResultBody = $('#simpleSearchResultBody');
+				var detailSearch = $('#detailSearch');
+				var detailSearchHeader = $('#detailSearchHeader');
+				var detailSearchResult = $('#detailSearchResult');
+				var detailSearchResultBody = $('#detailSearchResultBody');
+				$(document).on('click','#simpleSearchHeader',function(){
+					simpleSearch.removeClass('col-sm-1').addClass('col-sm-4');
+					simpleSearchResult.removeClass('col-sm-1').addClass('col-sm-4');
+					simpleSearchHeader.css('font-size','15px');
+					simpleSearchResultHeader.css('font-size','15px');
+					simpleSearchBody.css('visibility','visible');
+					simpleSearchResultBody.css('visibility','visible');
+					detailSearch.removeClass('col-sm-11').addClass('col-sm-7');
+					detailSearchResult.removeClass('col-sm-11').addClass('col-sm-7');
+				});
+				$(document).on('click','#detailSearchHeader',function(){
+					simpleSearch.removeClass('col-sm-4').addClass('col-sm-1');
+					simpleSearchResult.removeClass('col-sm-4').addClass('col-sm-1');
+					simpleSearchHeader.css('font-size','14px');
+					simpleSearchResultHeader.css('font-size','14px');
+					simpleSearchBody.css('visibility','hidden');
+					simpleSearchResultBody.css('visibility','hidden');
+					detailSearch.removeClass('col-sm-7').addClass('col-sm-11');
+					detailSearchResult.removeClass('col-sm-7').addClass('col-sm-11');
+				});
+			});
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">						
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
+					<!-- 상위카드 전체  -->
+					<div class="row justify-content-between">
+						<!--상위 카드 영역 1(간단 조회) -->
+						<div id="simpleSearch" class="card cardColor col-sm-1">
+							<!--card header -->
+							<div id="simpleSearchHeader" class="card-header" style="font-size: 14px;">
+								간단조회
+							</div>
+							<!--End card header -->
+							<!--card body -->
+							<div id="simpleSearchBody" class="card-body" style="visibility: hidden;">
+								<div class="row" style="margin: 12px;">
+									<form class="d-flex align-items-center">
+										<!--inputbox 1 -->
+										<div class="input-group input-group-sm col-sm-12">
+											<select name="warehousingKey" class="input-group-text form-control-sm">
+												<option value="laydownGoodsName">상품명</option>
+												<option value="contractorName">회사명</option>
+												<option value="warehousingCode">입고코드</option>
+											</select>
+											<input type="text" name="warehousingValue" class="form-control">
+											<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
+											<div class="input-group-append">
+												<div class="btn btn-default" style="padding:0;">
+													<button id="warehousingSearchBtn" type="button">
+														<i class="fas fa-search icon"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<!--End inputbox 1 -->
+									</form>
+		 						</div>
+							</div>					
+		 					<!--End card body 묶음 -->
+						</div>
+						<!--End 상위 카드 영역 1(간단조회) -->
+						<!--상위 카드 영역 2(상세 조회) -->
+						<div id="detailSearch" class="card cardColor col-sm-11">
+							<!--card header -->
+							<div id="detailSearchHeader" class="card-header">
+								상세조회
+							</div>
+							<!--End card header -->
+							<!--card body -->
+							<div class="card-body">
+								<div class="row" style="margin: 12px">
+									<form id="warehousingSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+										<!--inputbox 1 -->
+										<div class="input-group input-group-sm col-sm-5">
+											<select name="warehousingKey" class="input-group-text form-control-sm">
+												<option value="laydownGoodsName">상품명</option>
+												<option value="contractorName">회사명</option>
+												<option value="warehousingCode">입고코드</option>
+											</select>
+											<input type="text" name="warehousingValue" class="form-control">
+											<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
+											<div class="input-group-append">
+												<div class="btn btn-default" style="padding:0;">
+													<button id="warehousingSearchBtn" type="button">
+														<i class="fas fa-search icon"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<!--End inputbox 1 -->
+										<!--inputbox 2 -->
+										<div class="input-group input-group-sm col-sm-4">
+											<select name="warehousingDateKey" class="input-group-text form-control-sm">
+												<option value="manufacturedDate">제조일자</option>
+												<option value="expiratonDate">유통기한</option>
+												<option value="laydownCheckDate">검수날짜</option>
+											</select>
+											<div class="col-sm-3" style="padding-left: 0px">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+														<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+														<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--End inputbox 2 -->
+										~
+										<!--inputbox 3 -->
+										<div class="col-sm-3" style="padding-left: 0px">
+											<div class="input-group">
+												<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+													<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+													<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+														<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+													</div>
+												</div>
+					                   		</div>
+										</div>
+										<!--End inputbox 3 -->
+									</form>
+		 						</div>
+							</div>					
+		 					<!--End card body 묶음 -->
+						</div>
+						<!--End 상위 카드 영역 2(상세조회) -->
+					</div>
+					<!--End 상위 카드 영역 전체  -->
+					<!--하위 카드 영역 전체 -->
+					<div class="row justify-content-between">
+						<!--하위 카드 영역 1(간단조회현황) -->
+						<div id="simpleSearchResult" class="card cardColor col-sm-1">
+							<!--card header -->
+							<div id="simpleSearchResultHeader" class="card-header" style="font-size: 14px;">
+								간단조회
+								재고현황
+							</div>
+							<!-- End card header -->
+							<!--card body -->
+							<div id="simpleSearchResultBody" class="card-body table-responsive p-0 table-hover" style="height: 450px; visibility: hidden;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>번호</th>
+												<th>상품명</th>
+												<th>재고</th>
+												<th>회사명</th>																	
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(stockList2)}" th:each="l, i : ${stockList2}">
+												<td th:text="${i.index+1}"></td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.stockQuantity}"></td>
+												<td th:text="${l.contractorName}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
+												<td> 상품을 등록해주세요. </td>
+											</tr>
+										</tbody>						
+									</table>
+								</div>
+							<!--End card body -->
+						</div>
+						<!--End 하위 카드 영역 1(간단조회현황) -->
+						<!--하위 카드 영역 2(상세조회현황) -->
+						<div id="detailSearchResult" class="card cardColor col-sm-11">
+							<!--card header -->
+							<div class="card-header">
+								상세조회 재고현황
+							</div>
+							<!-- End card header -->
+							<!--card body -->
+							<div id="detailSearchResultBody" class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+									<table class="table table-head-fixed text-nowrap">
+										<thead>
+											<tr>
+												<th>삭제</th>
+												<th>수정</th>	
+												<th>로케이션코드</th>													
+												<th>상품명</th>
+												<th>개수</th>
+												<th>회사명</th>					
+												<th>대분류</th>
+												<th>중분류</th>
+												<th>소분류</th>																		
+												<th>분류담당자</th>													
+												<th>재고일시</th>													
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+												<td>
+													<input type="checkbox" value="선택">
+												</td>
+												<td>
+													<a th:href="@{#}">수정</a>
+												</td>
+												<td th:text="${l.locationCode}"></td>
+												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.stockQuantity}"></td>
+												<td th:text="${l.contractorName}"></td>
+												<td th:text="${l.largeCategory}"></td>
+												<td th:text="${l.mediumCategory}"></td>
+												<td th:text="${l.smallCategory}"></td>
+												<td th:text="${l.sortingManagerName}"></td>
+												<td th:text="${l.sortingDate}"></td>
+											</tr>
+											<tr th:unless="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+												<td> 상품을 등록해주세요. </td>
+											</tr>
+										</tbody>						
+									</table>
+								</div>
+							<!--End card body -->
+						</div>
+						<!--End 하위 카드 영역 2(상세조회현황) -->
+					</div>
+					<!-- End 하위 카드 전체1 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>

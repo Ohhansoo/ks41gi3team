@@ -1,4 +1,4 @@
-package k3.damegeError.ahs.controller;
+package k3.damageError.ahs.controller;
 
 import java.util.List;
 
@@ -7,23 +7,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import k3.damegeError.ahs.dto.K3DamageError;
-import k3.damegeError.ahs.service.K3DamageErrorService;
+import k3.damageError.ahs.dto.K3DamageError;
+import k3.damageError.ahs.service.K3DamageErrorService;
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/damageError")
-public class K3DamegeErrorController {
+public class K3DamageErrorController {
 	/**
 	 * 의존성 주입 생성자 메소드
 	 */
 	private K3DamageErrorService k3DamageErrorService;
-	public K3DamegeErrorController(K3DamageErrorService k3DamageErrorService) {
+	public K3DamageErrorController(K3DamageErrorService k3DamageErrorService) {
 		this.k3DamageErrorService = k3DamageErrorService;
 	}
 	
 	/**
-	 * AS대기현황
+	 * AS입출고현황
 	 */
 	@GetMapping("/k3DamageErrorList")
 	public String k3DamageErrorList(K3DamageError k3DamageErrorIn,K3DamageError k3DamageErrorOut,  Model model) {

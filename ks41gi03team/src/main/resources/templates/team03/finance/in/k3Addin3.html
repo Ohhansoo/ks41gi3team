@@ -16,16 +16,12 @@
 			
 			// 견적서 번호 
 			$(function(){
+				/* $('#estimatePriceInput').val($('#estimateNum').val()); */
 				
-				$(document).on('change', '#estimateNum',function(){
-					$('#estimatePriceInput').val($('#estimateNum').val());
+				$(document).on('change', '#estimateNum', function(){
 					var test = $('#estimateNum').val()
-						console.log(test);
-					
-					var test2 = $('#estimateNum option:checked').text()
-					$('#estimateNum2').val(test2)
-						console.log(test2);
-					
+					$('#estimatePriceInput').val(test);
+					console.log(test);
 				})
 			})
 		</script>	 
@@ -67,22 +63,17 @@
 										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${session.SID}" readonly="readonly">
 									</div>	
 									
+									
 									<div class="inputwrap col-md-12">
 										<label for="estimateNumInput" class="inputName">견적번호</label>
 										<select id = "estimateNum">
-											<option> :: 선택 :: </option>
 											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
-											<option class="estiamtePick" th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>
-											</th:block>
+											<option th:text="${e.estimateNum}" th:value="${e.estimateNum}"> </option>
+											</th:block>										
 										</select>
-									</div>
+									</div>				
 									
-									<!-- 보이지 않는 견적번호 담기 -->				
-									<div style="display:none" class="inputwrap col-md-12">
-										<label for="estimatePriceInput" class="inputName">담을견적번호</label>
-										<input class="inputBox" type="text" id="estimateNum2" name="estimateNum">
-									</div>
-													
+									
 									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
 										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
@@ -90,13 +81,8 @@
 																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
-										<select name = "inPayMethod">
-											<option value="현금">현금</option>
-											<option value="카드">카드</option>
-										</select>
-										<!-- <input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod"> -->
+										<input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod">
 									</div>								
-									
 									<div class="inputwrap col-md-12">
 										<label for="inPayDateInput" class="inputName">결제일</label>
 										<input class="inputBox" type="text" id="inPayDateInput" name="inPayDate">

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/******* 거래처 관리페이지 ********/
+/******* 거래 관리페이지 ********/
 
 .page-link{
 	color:#3F72AF;
@@ -27,4 +27,8 @@
 
 .addForm{
 	padding : 15px;
+}
+
+.modifyForm{
+	padding : 15px;	
 }

@@ -5,12 +5,18 @@
 <th:block layout:fragment="customTitle">
 	<title th:text="${title}"></title>
 </th:block>
+<th:block layout:fragment="customJs">
+	<script type="text/javascript">
+		
+	</script>	
+</th:block>
+	
 <th:block layout:fragment="customContents"> 
 	<div id="representative-button">
 		<div id="representative-button">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-lg-12">
 						<div class="card cardColor">
 							<div class="card-header">
 								<h2 class="card-title">AS</h2>
@@ -35,7 +41,7 @@
 								<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 									<!--card body -->
 									<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-										<form id="" method="post"> 
+										<form th:action="@{/team03/goodsManagement/damageError/k3DamageErrorList}" method="post">	 
 											<table class="table table-head-fixed text-nowrap">
 												<thead>
 													<tr>
@@ -46,14 +52,17 @@
 														<th>개수</th>
 														<th>사유</th>
 														<th>접수자</th>
-														<th>조치내용</th>
-														<th>완료날짜</th>
-														<th>발생비용</th>
-														<th>상태</th>													
+														<th>조치내용</th>											
+														<th>조치날짜</th>											
+														<th>발생비용</th>											
+														<th>상태</th>	
+														<th>처리</th>							
 													</tr>
 												</thead>
+											
 												<tbody>
 													<tr th:if="${not #lists.isEmpty(k3DamageErrorListIn)}" th:each="din :${k3DamageErrorListIn}">	
+														
 														<td th:text="${din.receiptNumber}"></td>	
 														<td th:text="${din.laydownCheckDate}"></td>
 														<td th:text="${din.contractorName}"></td>
@@ -61,15 +70,44 @@
 														<td th:text="${din.laydownGoodsCount}"></td>
 														<td th:text="${din.laydownCheckResult}"></td>
 														<td th:text="${din.laydownCheckManager}"></td>
-														<td th:text="${din.actionDetails}"></td>
-														<td th:text="${din.actionDate}"></td>
-														<td th:text="${din.repairCost}"></td>
-														<td th:text="${din.repairState}"></td>
+														<td>
+															<div class="form-group">
+																<input type="text" class="form-control" style="height:30px;" name="actionDetails"/>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<div class="input-group date" id="reservationdate" data-target-input="nearest">
+																<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" style="height:30px;" name="actionDate" />
+																<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+																	<div class="input-group-text">
+																		<i class="fa fa-calendar"></i>
+																	</div>
+																</div>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<input type="number" class="form-control" style="height:30px;" name="repairCost"/>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<input type="text" class="form-control" style="height:30px;" name="repairState"/>
+															</div>
+														</td>
+														<td>
+															<a type="button"  class="btn btn-default btn-sm" th:href="@{#}">
+																<i class="bi bi-arrow-right-square-fill"></i>
+															</a>
+														</td>
+													
 													</tr>	
-													<tr th:unless="${not #lists.isEmpty(k3DamageErrorListIn)}" th:each="din :${k3DamageErrorListIn}">
+													<tr th:unless="${not #lists.isEmpty(k3DamageErrorListIn)}" style="height:30px;" th:each="din :${k3DamageErrorListIn}">
 														<td>목록이 없습니다.</td>
 													</tr>
-												</tbody>					
+												</tbody>		
 											</table>
 										</form>
 									</div>
@@ -87,11 +125,8 @@
 													<th>출고물품</th>
 													<th>개수</th>
 													<th>사유</th>
-													<th>접수자</th>
-													<th>조치내용</th>
-													<th>완료날짜</th>
-													<th>발생비용</th>
-													<th>상태</th>							
+													<th>접수자</th>						
+													<th>수정</th>						
 												</tr>
 											</thead>
 											<tbody>
@@ -103,10 +138,11 @@
 													<td th:text="${dout.laydownGoodsCount}"></td>
 													<td th:text="${dout.shipmentCheckResult}"></td>
 													<td th:text="${dout.releaseManager}"></td>
-													<td th:text="${dout.actionDetails}"></td>
-													<td th:text="${dout.actionDate}"></td>
-													<td th:text="${dout.repairCost}"></td>
-													<td th:text="${dout.repairState}"></td>
+													<td>
+														<a type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#outModifyModal">
+															<i class="fas fa-pencil-alt icon"></i>
+														</a>
+													</td>
 												</tr>
 												<tr th:unless="${not #lists.isEmpty(k3DamageErrorListOut)}" th:each="dout : ${k3DamageErrorListOut}">
 													<td> 목록이 없습니다. </td>
@@ -119,6 +155,56 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="modal fade" id="inModifyModal">
+			    <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      		<!-- 모달헤드 -->
+						<div class="modal-header">
+							<h4 class="modal-title">창고 삭제</h4>
+							<button type="button" class="close " data-dismiss="modal">&times;</button>
+						</div>
+							<!-- 모달 바디 -->
+						<div class="modal-body">
+							<form th:action="@{/team03/spaceBusiness/warehouse/k3WarehouseList}" method="post">
+								<div class="form-group">
+									<label for="warehouseCode">고유코드</label>
+									<input type="text" class="form-control" id="warehouseCode" name="warehouseCode" placeholder="코드를 입력해주세요"/>
+								</div>
+							</form>
+						</div>
+							<!-- 모달 발 -->
+				        <div class="modal-footer">
+				        	<button id="deletewarehouseBtn" type="submit" class="btn btn-outline-info ahsbtn4">삭제</button>
+				        	<button type="button" class="btn btn-outline-danger ahsbtn4" data-dismiss="modal">취소</button>
+				        </div>
+			    	</div>
+			    </div>
+			</div>
+			<div class="modal fade" id="outModifyModal">
+			    <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      		<!-- 모달헤드 -->
+						<div class="modal-header">
+							<h4 class="modal-title">창고 삭제</h4>
+							<button type="button" class="close " data-dismiss="modal">&times;</button>
+						</div>
+							<!-- 모달 바디 -->
+						<div class="modal-body">
+							<form th:action="@{/team03/spaceBusiness/warehouse/k3WarehouseList}" method="post">
+								<div class="form-group">
+									<label for="warehouseCode">고유코드</label>
+									<input type="text" class="form-control" id="warehouseCode" name="warehouseCode" placeholder="코드를 입력해주세요"/>
+								</div>
+							</form>
+						</div>
+							<!-- 모달 발 -->
+				        <div class="modal-footer">
+				        	<button id="deletewarehouseBtn" type="submit" class="btn btn-outline-info ahsbtn4">삭제</button>
+				        	<button type="button" class="btn btn-outline-danger ahsbtn4" data-dismiss="modal">취소</button>
+				        </div>
+			    	</div>
+			    </div>
 			</div>
 		</div>
 	</div>
