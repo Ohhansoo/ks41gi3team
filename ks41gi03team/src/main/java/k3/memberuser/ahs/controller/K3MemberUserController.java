@@ -31,9 +31,11 @@ public class K3MemberUserController {
 	}
 
 	//중복확인 
-	@PostMapping("/k3IdCheck")
+	@PostMapping("/idCheck")
 	@ResponseBody
 	public boolean idCheck(@RequestParam(value="memberId", required = false) String memberId) {
+		System.out.println("ajax 통신으로 요청 받은 파라미터 memberId : " + memberId);
+		
 		boolean checkResult = false;
 		
 		int check = memberuserService.getMemberByMemberId(memberId);

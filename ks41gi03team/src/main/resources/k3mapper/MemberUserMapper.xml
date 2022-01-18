@@ -32,7 +32,7 @@
 		WHERE
 			m.memberId = #{memberId};
 	</select>-->
-	<select id="getMemberUserByMemberId" resultType="int">
+	<select id="getMemberByMemberId" parameterType="String"  resultType="int">
 		SELECT
 			COUNT(1)
 		FROM
@@ -141,7 +141,7 @@
 			m.memberPassword = #{memberPassword},
 			</if>	
 			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
-			m.mainBusinessCode ='물류센터A물류센터_전북_1',
+			m.mainBusinessCode = #{mainBusinessCode},
 			</if>	
 			<if test="levelMemberCode != null and levelMemberCode != ''.toString()">
 			m.levelMemberCode = #{levelMemberCode},
@@ -165,19 +165,19 @@
 			m.memberRegDate = #{memberRegDate},
 			</if>	
 			<if test="memberHiredDate != null and memberHiredDate != ''.toString()">
-			m.memberHiredDate = #{memberHiredDate}
+			m.memberHiredDate = #{memberHiredDate},
 			</if>
 			<if test="memberRetiredReason != null and memberRetiredReason != ''.toString()">
-			m.memberRetiredReason = #{memberRetiredReason}
+			m.memberRetiredReason = #{memberRetiredReason},
 			</if>
 			<if test="memberRetiredDate != null and memberRetiredDate != ''.toString()">
-			m.memberRetiredDate = #{memberRetiredDate}
+			m.memberRetiredDate = #{memberRetiredDate},
 			</if>
 			<if test="memberRetirementSignedDate != null and memberRetirementSignedDate != ''.toString()">
-			m.memberRetirementSignedDate = #{memberRetirementSignedDate}
+			m.memberRetirementSignedDate = #{memberRetirementSignedDate},
 			</if>
 			<if test="memberpostaladdress != null and memberHiredDate != ''.toString()">
-			m.memberpostaladdress = #{memberpostaladdress}
+			m.memberpostaladdress = #{memberpostaladdress},
 			</if>
 			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
 			m.memberstreetaddress = #{memberstreetaddress}
