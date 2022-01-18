@@ -39,9 +39,6 @@ public class K3LoginController {
 										  @RequestParam(value="loginPw", required=false) String memberPassword,
 										  HttpSession session) {
 		System.out.println(memberId + memberPassword);
-		
-
-		
 		 if(					memberId 				!=null && !"".equals(memberId)
 			      && 		memberPassword	!=null && !"".equals(memberPassword)){
 			 

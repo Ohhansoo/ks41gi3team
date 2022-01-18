@@ -272,16 +272,16 @@
 									<!-- 페이징  시작-->
 									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
 										<li class="paginate_button page-item previous" id="previousLaydownList">
-											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="warehousingList" class="page-link">
 											이전
 											</a>
 										</li>
 										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
-											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="warehousingList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="warehousingList" class="page-link"></span>
 										</li>
 										<li class="paginate_button page-item next" id="nextLaydownList">
-											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="warehousingList" class="page-link">
 											다음
 											</a>
 										</li>
