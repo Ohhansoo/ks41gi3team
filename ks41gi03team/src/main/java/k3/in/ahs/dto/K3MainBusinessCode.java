@@ -8,6 +8,7 @@ public class K3MainBusinessCode {
 	private String businessDeleteDate;
 	
 	
+	
 	public String getMainBusinessCode() {
 		return mainBusinessCode;
 	}
