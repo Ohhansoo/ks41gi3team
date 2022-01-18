@@ -63,10 +63,11 @@ public class K3StockController {
 		Map<String, Object> detailStockListMap = k3StockService.k3GetDetailStockSearchList(searchCondition, currentPage);
 		
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPage", simpleStockListMap.get("lastPage"));
+		model.addAttribute("simpleLastPage", simpleStockListMap.get("lastPage"));
 		model.addAttribute("simpleStockList", simpleStockListMap.get("simpleStockList"));
-		model.addAttribute("startPageNum", simpleStockListMap.get("startPageNum"));
-		model.addAttribute("endPageNum", simpleStockListMap.get("endPageNum"));
+		model.addAttribute("simpleStartPageNum", simpleStockListMap.get("startPageNum"));
+		model.addAttribute("simpleEndPageNum", simpleStockListMap.get("endPageNum"));
+		
 		model.addAttribute("lastPage", detailStockListMap.get("lastPage"));
 		model.addAttribute("detailStockList", detailStockListMap.get("detailStockList"));
 		model.addAttribute("startPageNum", detailStockListMap.get("startPageNum"));
@@ -148,13 +149,13 @@ public class K3StockController {
 		model.addAttribute("subtitle", "재고현황");
 		model.addAttribute("currentPage", currentPage);	
 		model.addAttribute("simpleStockList", simpleStockListMap.get("simpleStockList"));
-		model.addAttribute("startPageNum", simpleStockListMap.get("startPageNum"));
-		model.addAttribute("endPageNum", simpleStockListMap.get("endPageNum"));
-		model.addAttribute("lastPage", simpleStockListMap.get("lastPage"));
+		model.addAttribute("simpleStartPageNum", simpleStockListMap.get("startPageNum"));
+		model.addAttribute("simpleEndPageNum", simpleStockListMap.get("endPageNum"));
+		model.addAttribute("simpleLastPage", simpleStockListMap.get("lastPage"));
 
 		model.addAttribute("detailStockList", detailStockListMap.get("detailStockList"));
 		model.addAttribute("startPageNum", detailStockListMap.get("startPageNum"));
-		//model.addAttribute("endPageNum", detailStockListMap.get("endPageNum"));
+		model.addAttribute("endPageNum", detailStockListMap.get("endPageNum"));
 		model.addAttribute("lastPage", detailStockListMap.get("lastPage"));
 		return "team03/goodsManagement/stock/k3StockList";
 	}
