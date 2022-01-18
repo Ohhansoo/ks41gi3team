@@ -1,6 +1,8 @@
 package k3.in.ahs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +17,6 @@ import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
 import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.in.ahs.service.K3InService;
-import k3.inout.ahs.controller.K3InoutController;
-import k3.inout.ahs.dto.K3Inout;
-import k3.inout.ahs.service.K3InoutService;
-import k3.out.ahs.dto.K3Out;
 
 @Controller
 @RequestMapping(value="/team03/finance/in")
@@ -33,31 +31,27 @@ public class K3InController {
 		public K3InController(K3InService k3InService) {
 			this.k3InService = k3InService;
 		}
-		
-		
-		
-	/*
-	 * HttpServletRequest request
-	 * 
-	 * session = request.getSession(); session
-	 */
+
 		
 		
 		//매출내역 검색
 		@PostMapping("/k3SearchInList")
-		public String searchInList(@RequestParam(value="inKey", required = false) String inKey,
-									@RequestParam(value="inValue", required = false) String inValue,
-									Model model) {
-			if(inKey != null && "inCode".equals(inKey)) {
-				inKey = "inCode";
-			}else if(inKey != null && "estimateNum".equals(inKey)){
-				inKey = "estimateNum";
-			}
-			List<K3In> inList = k3InService.searchInList(inKey, inValue);
+		public String k3GetInList(@RequestParam(value="inKey", required = false) String inKey,
+								   @RequestParam(value="inValue", required = false) String inValue,
+								   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+								   Model model) {
+			Map<String, Object> searchCondition = new HashMap<String, Object>();
+			searchCondition.put("inKey", inKey);
+			searchCondition.put("inValue", inValue);
+		
 			
-			model.addAttribute("inList", inList);
-			System.out.println(inKey +"inKey");
-			System.out.println(inValue +"inValue");
+			Map<String, Object> inListMap = k3InService.getSearchInList(searchCondition, currentPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", inListMap.get("lastPage"));
+			model.addAttribute("inList", inListMap.get("inList"));
+			model.addAttribute("startPageNum", inListMap.get("startPageNum"));
+			model.addAttribute("endPageNum", inListMap.get("endPageNum"));
+
 			return "team03/finance/in/k3InList";
 		}
 
@@ -125,12 +119,18 @@ public class K3InController {
 
 		//매출 내역 조회
 		@GetMapping("/k3InList")
-		public String InList(Model model) {
-			List<K3In> inList = k3InService.getInList();
+		public String InList(@RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage,
+							Model model) {
+			
+			Map<String, Object> inListMap = k3InService.getInList(currentPage);
 			model.addAttribute("title", "매출 내역 관리");
 			model.addAttribute("subtitle", "매출 내역 조회");
-			model.addAttribute("inList", inList);
-			System.out.println(inList + "inList값");
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", inListMap.get("lastPage"));
+			model.addAttribute("inList", inListMap.get("inList"));
+			model.addAttribute("startPageNum", inListMap.get("startPageNum"));
+			model.addAttribute("endPageNum", inListMap.get("endPageNum"));		
+			System.out.println(inListMap + "inList값");
 			System.out.println("매출 내역 조회 컨트롤러 실행");
 			return "/team03/finance/in/k3InList";
 		}
