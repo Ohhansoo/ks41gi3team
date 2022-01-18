@@ -16,6 +16,7 @@ public class K3Dispatch {
 	private String memberName;
 	private String dispatchAcceptDate;
 	private String dispatchConsignee;
+
 	public String getDispatchCode() {
 		return dispatchCode;
 	}
@@ -113,8 +114,10 @@ public class K3Dispatch {
 				+ releaseMergeCode + ", shippingAddress=" + shippingAddress + ", shippingDetailAddress="
 				+ shippingDetailAddress + ", driverId=" + driverId + ", vehicleCode=" + vehicleCode
 				+ ", dispatchStartDate=" + dispatchStartDate + ", dispatchDueDate=" + dispatchDueDate + ", memberId="
+
 				+ memberId + ", memberName=" + memberName + ", dispatchAcceptDate=" + dispatchAcceptDate
 				+ ", dispatchConsignee=" + dispatchConsignee + "]";
+
 	}
 	@Override
 	public int hashCode() {

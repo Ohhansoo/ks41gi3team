@@ -81,7 +81,7 @@
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">
 						<!-- <button type="button" id="checkbtn">직원선택</button>  -->					
-						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -89,7 +89,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-person-dash"></i>
 							퇴사
 						</button>					
@@ -142,7 +142,7 @@
 										<option value="memberHiredDate">입사일자</option>
 									</select>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="memberRegDateStart" value="memberRegDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<input name="searchStartDate" value="searchStartDate" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
 										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -151,7 +151,7 @@
 										&nbsp~&nbsp
 									</div>
 									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="memberHiredDateEnd" value="memberHiredDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
+										<input name="searchEndDate" value="searchEndDate" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
 										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>

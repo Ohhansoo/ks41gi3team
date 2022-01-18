@@ -9,8 +9,7 @@ public class K3DamageError {
 	private int laydownGoodsCount;
 	private String laydownCheckResult;
 	private String shipmentCheckResult;
-	private String laydownCheckManager;
-	private String releaseManager;
+	private String memberName;
 	private String actionDetails;
 	private String actionDate;
 	private String repairCost;
@@ -63,17 +62,11 @@ public class K3DamageError {
 	public void setShipmentCheckResult(String shipmentCheckResult) {
 		this.shipmentCheckResult = shipmentCheckResult;
 	}
-	public String getLaydownCheckManager() {
-		return laydownCheckManager;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setLaydownCheckManager(String laydownCheckManager) {
-		this.laydownCheckManager = laydownCheckManager;
-	}
-	public String getReleaseManager() {
-		return releaseManager;
-	}
-	public void setReleaseManager(String releaseManager) {
-		this.releaseManager = releaseManager;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	public String getActionDetails() {
 		return actionDetails;
@@ -118,10 +111,8 @@ public class K3DamageError {
 		builder.append(laydownCheckResult);
 		builder.append(", shipmentCheckResult=");
 		builder.append(shipmentCheckResult);
-		builder.append(", laydownCheckManager=");
-		builder.append(laydownCheckManager);
-		builder.append(", releaseManager=");
-		builder.append(releaseManager);
+		builder.append(", memberName=");
+		builder.append(memberName);
 		builder.append(", actionDetails=");
 		builder.append(actionDetails);
 		builder.append(", actionDate=");
@@ -133,4 +124,97 @@ public class K3DamageError {
 		builder.append("]");
 		return builder.toString();
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((actionDate == null) ? 0 : actionDate.hashCode());
+		result = prime * result + ((actionDetails == null) ? 0 : actionDetails.hashCode());
+		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
+		result = prime * result + ((laydownCheckDate == null) ? 0 : laydownCheckDate.hashCode());
+		result = prime * result + ((laydownCheckResult == null) ? 0 : laydownCheckResult.hashCode());
+		result = prime * result + laydownGoodsCount;
+		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((receiptNumber == null) ? 0 : receiptNumber.hashCode());
+		result = prime * result + ((repairCost == null) ? 0 : repairCost.hashCode());
+		result = prime * result + ((repairState == null) ? 0 : repairState.hashCode());
+		result = prime * result + ((shipmentCheckRegDate == null) ? 0 : shipmentCheckRegDate.hashCode());
+		result = prime * result + ((shipmentCheckResult == null) ? 0 : shipmentCheckResult.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		K3DamageError other = (K3DamageError) obj;
+		if (actionDate == null) {
+			if (other.actionDate != null)
+				return false;
+		} else if (!actionDate.equals(other.actionDate))
+			return false;
+		if (actionDetails == null) {
+			if (other.actionDetails != null)
+				return false;
+		} else if (!actionDetails.equals(other.actionDetails))
+			return false;
+		if (contractorName == null) {
+			if (other.contractorName != null)
+				return false;
+		} else if (!contractorName.equals(other.contractorName))
+			return false;
+		if (laydownCheckDate == null) {
+			if (other.laydownCheckDate != null)
+				return false;
+		} else if (!laydownCheckDate.equals(other.laydownCheckDate))
+			return false;
+		if (laydownCheckResult == null) {
+			if (other.laydownCheckResult != null)
+				return false;
+		} else if (!laydownCheckResult.equals(other.laydownCheckResult))
+			return false;
+		if (laydownGoodsCount != other.laydownGoodsCount)
+			return false;
+		if (laydownGoodsName == null) {
+			if (other.laydownGoodsName != null)
+				return false;
+		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
+			return false;
+		if (memberName == null) {
+			if (other.memberName != null)
+				return false;
+		} else if (!memberName.equals(other.memberName))
+			return false;
+		if (receiptNumber == null) {
+			if (other.receiptNumber != null)
+				return false;
+		} else if (!receiptNumber.equals(other.receiptNumber))
+			return false;
+		if (repairCost == null) {
+			if (other.repairCost != null)
+				return false;
+		} else if (!repairCost.equals(other.repairCost))
+			return false;
+		if (repairState == null) {
+			if (other.repairState != null)
+				return false;
+		} else if (!repairState.equals(other.repairState))
+			return false;
+		if (shipmentCheckRegDate == null) {
+			if (other.shipmentCheckRegDate != null)
+				return false;
+		} else if (!shipmentCheckRegDate.equals(other.shipmentCheckRegDate))
+			return false;
+		if (shipmentCheckResult == null) {
+			if (other.shipmentCheckResult != null)
+				return false;
+		} else if (!shipmentCheckResult.equals(other.shipmentCheckResult))
+			return false;
+		return true;
+	}
+	
 }

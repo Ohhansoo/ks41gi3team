@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		System.out.println("01 220112 sessionLevel"+  sessionLevel);
 		
 		if(sessionId == null) {
-			response.sendRedirect("/k3MemberUserLogin");
+			response.sendRedirect("/team03/companymanagement/login/k3MemberUserLogin");
 			
 			return false;
 		}else {
@@ -36,12 +36,23 @@ public class LoginInterceptor implements HandlerInterceptor{
 			//ST	사원
 			//CT	거래처
 			
-			//ST
-			//조회만 가능 
+			//TM
+			//권한수정 이외 가능  
+//		if("ST".equals(sessionLevel)) {
+//			if(requestUri.indexOf("k3MemberUserList") > -1 ||
+//				requestUri.indexOf("k3OurCompanyList") > -1 ||
+//				requestUri.indexOf("k3RetiredMemberUserList") > -1) {
+//				
+//				response.sendRedirect("/");
+//				return false;
+//			}
+//		}
+		//ST
+		//조회만 가능 
 		if("ST".equals(sessionLevel)) {
 			if(requestUri.indexOf("k3MemberUserList") > -1 ||
-				requestUri.indexOf("k3OurCompanyList") > -1 ||
-				requestUri.indexOf("k3RetiredMemberUserList") > -1) {
+					requestUri.indexOf("k3OurCompanyList") > -1 ||
+					requestUri.indexOf("k3RetiredMemberUserList") > -1) {
 				
 				response.sendRedirect("/");
 				return false;

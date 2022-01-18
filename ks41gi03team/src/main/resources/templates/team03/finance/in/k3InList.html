@@ -19,7 +19,6 @@
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
@@ -107,7 +106,7 @@
 											<td>미수금금액</td>
 											<td>증빙서류발행</td>
 											<td>발행일시</td>
-											<td>memberName</td>
+											<td>등록자이름</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -137,6 +136,27 @@
 									</tbody>						
 								</table>
 							</form>
+							
+							
+						 	
+						<!-- 	페이징  시작  -->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousInList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/finance/in/k3InList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+												이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentInList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/finance/in/k3InList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextInList">
+											<a th:if="${currentPage < lastPage}" th:href="@{/team03/finance/in/k3InList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+												다음
+											</a>
+										</li>
+									</ul>
+								<!-- END 페이징 -->										
 						</div>
 						<!--End card body -->
 					</div>

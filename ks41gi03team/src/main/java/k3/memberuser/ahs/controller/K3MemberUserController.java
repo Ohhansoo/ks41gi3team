@@ -31,9 +31,11 @@ public class K3MemberUserController {
 	}
 
 	//중복확인 
-	@PostMapping("/k3IdCheck")
+	@PostMapping("/idCheck")
 	@ResponseBody
 	public boolean idCheck(@RequestParam(value="memberId", required = false) String memberId) {
+		System.out.println("ajax 통신으로 요청 받은 파라미터 memberId : " + memberId);
+		
 		boolean checkResult = false;
 		
 		int check = memberuserService.getMemberByMemberId(memberId);
@@ -121,11 +123,11 @@ public class K3MemberUserController {
 	  //08 직원정보 검색
 	  @PostMapping("/k3MemberUserList") 
 	  public String k3GetMemberUserSearchList(@RequestParam(value="memberuserKey", required = false) String memberuserKey,
-			  								  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
-			  								  @RequestParam(value="searchStartDate", required = false) String searchStartDate,
-			  								  @RequestParam(value="searchEndDate", required = false) String searchEndDate,
-			  								  @RequestParam(value="memberuserDateKey", required = false) String memberuserDateKey,
-			  								  Model model) { 
+										  	  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
+										  	  @RequestParam(value="searchStartDate", required = false) String searchStartDate,
+										  	  @RequestParam(value="searchEndDate", required = false) String searchEndDate,
+										  	  @RequestParam(value="memberuserDateKey", required = false) String memberuserDateKey,
+										  	  Model model) { 
 		  
 			  Map<String, Object> searchCondition = new HashMap<String, Object>();
 

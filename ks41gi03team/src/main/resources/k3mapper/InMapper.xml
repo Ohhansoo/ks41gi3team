@@ -32,27 +32,38 @@
 
 
 	<!-- 매출 검색 -->	
-	<select id="searchInList" resultType="K3In">
+	<select id="getSearchInList" parameterType="Map" resultType="Map">
 		SELECT
-			inCode
-			,mainBusinessCode
-			,memberId
-			,estimateNum
-			,estimatePrice
-			,inPayMethod
-			,inPayDate
-			,inPayCheck
-			,inCheck
-			,inPayRemain
-			,inReceipe
-			,inReceipeDate
+			i.inCode
+			,m.mainBusinessCode
+			,i.memberId
+			,i.estimateNum
+			,i.estimatePrice
+			,i.inPayMethod
+			,i.inPayDate
+			,i.inPayCheck
+			,i.inCheck
+			,i.inPayRemain
+			,i.inReceipe
+			,i.inReceipeDate
+			,m.memberName
+			
 		FROM
-				k3_tb_in
+			k3_tb_in AS i
+		INNER join
+			k3_tb_member AS m
+		ON
+			i.memberId = m.memberId
+			
 		<trim prefix="WHERE" prefixOverrides="AND \OR">
-			<if test="inValue != null and inValue != ''.toString()">
-				${inKey} LIKE CONCAT('%', #{inValue}, '%');
-			</if>
+			<if test="searchCondition.inValue != null and searchCondition.inValue != ''.toString()">
+				${searchCondition.inKey} LIKE CONCAT('%', #{searchCondition.inValue}, '%')
+			</if> 
 		</trim>
+		<!--  이번에 서치컨디션 추가한 코드 -->
+		<if test="searchCondition.startNum != null">
+			LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
+		</if>  
 	</select>		
 	
 	
@@ -169,7 +180,9 @@
 
 	</insert>
 	
-	<select id="getInList" resultType="K3In">
+	
+	<!--입고 현황(초기화면) - 입고리스트  -->
+	<select id="getInList" resultType="map" parameterType="map">
 		SELECT 
 			i.inCode 					as inCode
 			,i.mainBusinessCode 		as mainBusinessCode
@@ -194,9 +207,30 @@
 		INNER JOIN
 			k3_tb_estimate AS e
 		ON
-			e.estimateNum = i.estimateNum;
+			e.estimateNum = i.estimateNum
+
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
 		
+	</select>
+	
+	<!--입고 현황(초기화면) - 입고리스트 튜플 수  -->
+	<select id="getInCount" resultType="int" fetchSize="1000">
+		SELECT 
+			count(1)
+		FROM k3_tb_in AS i
 		
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			i.memberId = m.memberId
+			
+		INNER JOIN
+			k3_tb_estimate AS e
+		ON
+			e.estimateNum = i.estimateNum
+
 	</select>
 
 </mapper>

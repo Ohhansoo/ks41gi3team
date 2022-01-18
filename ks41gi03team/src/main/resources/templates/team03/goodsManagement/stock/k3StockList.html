@@ -4,12 +4,18 @@
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/k3SortList.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
 			<script type="text/javascript">
 			$(function(){				
-
+				$('#simpleStockSearchBtn').on('click', function(){
+					$('#searchSimpleStockType').attr('value', 'simpleStock');
+					$('#simpleStockSearchForm').submit();
+				});
+				$('.detailStockSearchBtn').on('click', function(){
+					$('#searchDetailStockType').attr('value', 'detailStock');
+					$('#detailStockSearchForm').submit();
+				});
 			});
 		</script>
 	</th:block>
@@ -47,18 +53,18 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<form class="d-flex align-items-center">
+										<form id="simpleStockSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/stock/k3StockList}" method="post">
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-12">
-												<select name="warehousingKey" class="input-group-text form-control-sm">
+												<select name="simpleStockKey" class="input-group-text form-control-sm">
 													<option value="laydownGoodsName">상품명</option>
 													<option value="contractorName">회사명</option>
 												</select>
-												<input type="text" name="warehousingValue" class="form-control">
-												<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
+												<input type="text" name="simpleStockValue" class="form-control">
+												<input type="hidden" name="searchSimpleStockType" id="searchSimpleStockType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="warehousingSearchBtn" type="button">
+														<button id="simpleStockSearchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -74,19 +80,19 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row">
-										<form id="warehousingSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
+										<form id="detailStockSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/stock/k3StockList}" method="post">
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-4">
-												<select name="warehousingKey" class="input-group-text form-control-sm">
+												<select name="detailStockKey" class="input-group-text form-control-sm">
 													<option value="laydownGoodsName">상품명</option>
 													<option value="contractorName">회사명</option>
-													<option value="warehousingCode">입고코드</option>
+													<option value="stockCode">재고코드</option>
 												</select>
-												<input type="text" name="warehousingValue" class="form-control">
-												<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
+												<input type="text" name="detailStockValue" class="form-control">
+												<input type="hidden" name="searchDetailStockType" id="searchDetailStockType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="warehousingSearchBtn" type="button">
+														<button class="detailStockSearchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -95,16 +101,16 @@
 											<!--End inputbox 1 -->
 											<!--inputbox 2 -->
 											<div class="input-group input-group-sm col-sm-4">
-												<select name="warehousingKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">대분류</option>
-													<option value="contractorName">중분류</option>
-													<option value="warehousingCode">소분류</option>
+												<select name="categoryKey" class="input-group-text form-control-sm">
+													<option value="largeCategory">대분류</option>
+													<option value="mediumCategory">중분류</option>
+													<option value="smallCategory">소분류</option>
 												</select>
-												<input type="text" name="warehousingValue" class="form-control">
-												<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
+												<input type="text" name="categoryValue" class="form-control">
+												<input type="hidden" name="searchcategoryType" id="searchWarehousingType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="warehousingSearchBtn" type="button">
+														<button class="detailStockSearchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -113,10 +119,10 @@
 											<!--End inputbox 2 -->
 											<!--inputbox 3 -->
 											<div class="input-group input-group-sm col-sm-6">
-												<select name="warehousingDateKey" class="input-group-text form-control-sm">
+												<select name="stockDateKey" class="input-group-text form-control-sm">
 													<option value="manufacturedDate">제조일자</option>
 													<option value="expiratonDate">유통기한</option>
-													<option value="laydownCheckDate">재고일시</option>
+													<option value="pileupDate">재고일시</option>
 												</select>
 												<div class="col-sm-4" style="padding-left: 0px;">
 													<div class="input-group">
@@ -176,17 +182,35 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${not #lists.isEmpty(stockList2)}" th:each="l,i : ${stockList2}">
+											<tr th:if="${not #lists.isEmpty(simpleStockList)}" th:each="l,i : ${simpleStockList}">
 												<td th:text="${i.index+1}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
 												<td th:text="${l.stockQuantity}"></td>
 												<td th:text="${l.contractorName}"></td>
 											</tr>
-											<tr th:unless="${not #lists.isEmpty(stockList2)}" th:each="l : ${stockList2}">
+											<tr th:unless="${not #lists.isEmpty(simpleStockList)}" th:each="l : ${simpleStockList}">
 												<td> 상품을 등록해주세요. </td>
 											</tr>
 										</tbody>						
 									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousStockList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage-1})}" aria-controls="stockList" class="page-link">
+												이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentStockList" th:each="num : ${#numbers.sequence(simpleStartPageNum, simpleEndPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${num})}" th:text="${num}"  aria-controls="stockList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="stockList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextStockList">
+											<a th:if="${currentPage < simpleLastPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage + 1})}"  aria-controls="stockList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->
 								</div>
 								<!--End card body -->
 							</div>
@@ -212,12 +236,12 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+											<tr th:if="${not #lists.isEmpty(detailStockList)}" th:each="l : ${detailStockList}">
 												<td>
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
-													<a th:href="@{/team03/goodsManagement/stock/K3ModifyStock}">수정</a>
+													<a th:href="@{/team03/goodsManagement/stock/k3ModifyStock(stockCode=${l.stockCode})}">수정</a>
 												</td>
 												<td th:text="${l.locationCode}"></td>
 												<td th:text="${l.laydownGoodsName}"></td>
@@ -229,11 +253,29 @@
 												<td th:text="${l.pileupManagerName}"></td>
 												<td th:text="${l.pileupDate}"></td>
 											</tr>
-											<tr th:unless="${not #lists.isEmpty(stockList)}" th:each="l : ${stockList}">
+											<tr th:unless="${not #lists.isEmpty(detailStockList)}" th:each="l : ${detailStockList}">
 												<td> 상품을 등록해주세요. </td>
 											</tr>
 										</tbody>						
 									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousStockList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage-1})}" aria-controls="stockList" class="page-link">
+												이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentStockList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${num})}" th:text="${num}"  aria-controls="stockList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="stockList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextStockList">
+											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/stock/k3StockList(currentPage=${currentPage + 1})}"  aria-controls="stockList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->
 								</div>
 								<!--End card body -->
 							</div>

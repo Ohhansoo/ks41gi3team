@@ -7,6 +7,7 @@
 	<!-- 현황 -->
 	<select id="getDispatchList" resultType="K3Dispatch">
 		SELECT
+
 			m.dispatchCode,
 			m.mainBusinessCode,
 			m.contractorCode,
@@ -32,7 +33,7 @@
 			k3_tb_member AS t
 		ON
 			m.memberId = t.memberId;
-		
+	
 	</select>
 	
 	<!-- 추가 -->
@@ -49,7 +50,8 @@
 			dispatchDueDate,
 			dispatchAcceptDate,
 			memberId,
-			dispatchConsignee
+		dispatchConsignee
+
 		)VALUES(
 			#{dispatchCode},
 			"공장A공장_서울_1",
@@ -82,6 +84,7 @@
 			m.dispatchAcceptDate,
 			m.memberId,
 			m.dispatchConsignee
+
 		FROM
 			k3_tb_dispatch_management AS m
 		INNER JOIN

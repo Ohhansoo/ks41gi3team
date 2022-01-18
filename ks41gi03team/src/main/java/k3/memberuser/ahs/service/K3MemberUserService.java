@@ -77,9 +77,11 @@ public class K3MemberUserService {
 			return result;
 		}
 	
-		//07 직원여부체크
+		//07 직원여부체크(중복확인) 
 		public int getMemberByMemberId(String memberId) {
-			return memberuserMapper.getMemberInfoByMemberId(memberId);
+			int result = 0;
+			result += memberuserMapper.getMemberByMemberId(memberId);
+			return result;
 		}
 		
 		//08 직원검색
@@ -93,8 +95,6 @@ public class K3MemberUserService {
 			List<Map<String, Object>> modalList = memberuserMapper.k3GetModalList(null);
 			return modalList;
 		}
-	  
-	
 	 
 	
 	

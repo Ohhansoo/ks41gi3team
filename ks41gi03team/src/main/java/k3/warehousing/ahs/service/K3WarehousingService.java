@@ -31,6 +31,7 @@ public class K3WarehousingService {
 		int soringResult = k3WarehousingMapper.k3UpdateSorting(k3Stock);
 		return soringResult;
 	}
+	
 	//입고분류 등록처리
 	public int k3AddWarehousingSort(K3Stock k3Stock) {		
 		int result = k3WarehousingMapper.k3AddWarehousingSort(k3Stock);
@@ -65,7 +66,7 @@ public class K3WarehousingService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);
@@ -109,7 +110,7 @@ public class K3WarehousingService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);
@@ -198,7 +199,7 @@ public class K3WarehousingService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);
@@ -243,7 +244,7 @@ public class K3WarehousingService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);

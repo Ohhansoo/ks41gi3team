@@ -13,10 +13,14 @@ public class K3DetailContractor {
 	private String contractorRepresentative;
 	private String contractorBusinessClientNum;
 	private String contractorAddr;
-	private String contractorPhone;
+	private String contractorPhone1;
+	private String contractorPhone2;
+	private String contractorPhone3;
 	private String contractorEmail;
 	private String contractorSuperviser;
-	private String contractorSuperviserPhone;
+	private String contractorSuperviserPhone1;
+	private String contractorSuperviserPhone2;
+	private String contractorSuperviserPhone3;
 	private String contractorSuperviserEmail;
 	private String contractorFax;
 	private String contractorProfitBank;
@@ -28,7 +32,8 @@ public class K3DetailContractor {
 	private String contractorState;
 	private String memberId;
 	private String contractorRegistrationDate;
-	
+	private String contractorEmailAddr;
+	private String contractorSuperviserEmailAddr;
 	public String getContractorCode() {
 		return contractorCode;
 	}
@@ -95,11 +100,23 @@ public class K3DetailContractor {
 	public void setContractorAddr(String contractorAddr) {
 		this.contractorAddr = contractorAddr;
 	}
-	public String getContractorPhone() {
-		return contractorPhone;
+	public String getContractorPhone1() {
+		return contractorPhone1;
 	}
-	public void setContractorPhone(String contractorPhone) {
-		this.contractorPhone = contractorPhone;
+	public void setContractorPhone1(String contractorPhone1) {
+		this.contractorPhone1 = contractorPhone1;
+	}
+	public String getContractorPhone2() {
+		return contractorPhone2;
+	}
+	public void setContractorPhone2(String contractorPhone2) {
+		this.contractorPhone2 = contractorPhone2;
+	}
+	public String getContractorPhone3() {
+		return contractorPhone3;
+	}
+	public void setContractorPhone3(String contractorPhone3) {
+		this.contractorPhone3 = contractorPhone3;
 	}
 	public String getContractorEmail() {
 		return contractorEmail;
@@ -113,11 +130,23 @@ public class K3DetailContractor {
 	public void setContractorSuperviser(String contractorSuperviser) {
 		this.contractorSuperviser = contractorSuperviser;
 	}
-	public String getContractorSuperviserPhone() {
-		return contractorSuperviserPhone;
+	public String getContractorSuperviserPhone1() {
+		return contractorSuperviserPhone1;
 	}
-	public void setContractorSuperviserPhone(String contractorSuperviserPhone) {
-		this.contractorSuperviserPhone = contractorSuperviserPhone;
+	public void setContractorSuperviserPhone1(String contractorSuperviserPhone1) {
+		this.contractorSuperviserPhone1 = contractorSuperviserPhone1;
+	}
+	public String getContractorSuperviserPhone2() {
+		return contractorSuperviserPhone2;
+	}
+	public void setContractorSuperviserPhone2(String contractorSuperviserPhone2) {
+		this.contractorSuperviserPhone2 = contractorSuperviserPhone2;
+	}
+	public String getContractorSuperviserPhone3() {
+		return contractorSuperviserPhone3;
+	}
+	public void setContractorSuperviserPhone3(String contractorSuperviserPhone3) {
+		this.contractorSuperviserPhone3 = contractorSuperviserPhone3;
 	}
 	public String getContractorSuperviserEmail() {
 		return contractorSuperviserEmail;
@@ -185,10 +214,22 @@ public class K3DetailContractor {
 	public void setContractorRegistrationDate(String contractorRegistrationDate) {
 		this.contractorRegistrationDate = contractorRegistrationDate;
 	}
+	public String getContractorEmailAddr() {
+		return contractorEmailAddr;
+	}
+	public void setContractorEmailAddr(String contractorEmailAddr) {
+		this.contractorEmailAddr = contractorEmailAddr;
+	}
+	public String getContractorSuperviserEmailAddr() {
+		return contractorSuperviserEmailAddr;
+	}
+	public void setContractorSuperviserEmailAddr(String contractorSuperviserEmailAddr) {
+		this.contractorSuperviserEmailAddr = contractorSuperviserEmailAddr;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("K3ContractorDetail [contractorCode=");
+		builder.append("K3DetailContractor [contractorCode=");
 		builder.append(contractorCode);
 		builder.append(", contractorName=");
 		builder.append(contractorName);
@@ -210,14 +251,22 @@ public class K3DetailContractor {
 		builder.append(contractorBusinessClientNum);
 		builder.append(", contractorAddr=");
 		builder.append(contractorAddr);
-		builder.append(", contractorPhone=");
-		builder.append(contractorPhone);
+		builder.append(", contractorPhone1=");
+		builder.append(contractorPhone1);
+		builder.append(", contractorPhone2=");
+		builder.append(contractorPhone2);
+		builder.append(", contractorPhone3=");
+		builder.append(contractorPhone3);
 		builder.append(", contractorEmail=");
 		builder.append(contractorEmail);
 		builder.append(", contractorSuperviser=");
 		builder.append(contractorSuperviser);
-		builder.append(", contractorSuperviserPhone=");
-		builder.append(contractorSuperviserPhone);
+		builder.append(", contractorSuperviserPhone1=");
+		builder.append(contractorSuperviserPhone1);
+		builder.append(", contractorSuperviserPhone2=");
+		builder.append(contractorSuperviserPhone2);
+		builder.append(", contractorSuperviserPhone3=");
+		builder.append(contractorSuperviserPhone3);
 		builder.append(", contractorSuperviserEmail=");
 		builder.append(contractorSuperviserEmail);
 		builder.append(", contractorFax=");
@@ -240,6 +289,10 @@ public class K3DetailContractor {
 		builder.append(memberId);
 		builder.append(", contractorRegistrationDate=");
 		builder.append(contractorRegistrationDate);
+		builder.append(", contractorEmailAddr=");
+		builder.append(contractorEmailAddr);
+		builder.append(", contractorSuperviserEmailAddr=");
+		builder.append(contractorSuperviserEmailAddr);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -254,11 +307,14 @@ public class K3DetailContractor {
 		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((contractorDevision == null) ? 0 : contractorDevision.hashCode());
 		result = prime * result + ((contractorEmail == null) ? 0 : contractorEmail.hashCode());
+		result = prime * result + ((contractorEmailAddr == null) ? 0 : contractorEmailAddr.hashCode());
 		result = prime * result + ((contractorFax == null) ? 0 : contractorFax.hashCode());
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorItem == null) ? 0 : contractorItem.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
-		result = prime * result + ((contractorPhone == null) ? 0 : contractorPhone.hashCode());
+		result = prime * result + ((contractorPhone1 == null) ? 0 : contractorPhone1.hashCode());
+		result = prime * result + ((contractorPhone2 == null) ? 0 : contractorPhone2.hashCode());
+		result = prime * result + ((contractorPhone3 == null) ? 0 : contractorPhone3.hashCode());
 		result = prime * result + ((contractorProfitAccount == null) ? 0 : contractorProfitAccount.hashCode());
 		result = prime * result + ((contractorProfitBank == null) ? 0 : contractorProfitBank.hashCode());
 		result = prime * result + ((contractorPw == null) ? 0 : contractorPw.hashCode());
@@ -268,7 +324,11 @@ public class K3DetailContractor {
 		result = prime * result + ((contractorStatus == null) ? 0 : contractorStatus.hashCode());
 		result = prime * result + ((contractorSuperviser == null) ? 0 : contractorSuperviser.hashCode());
 		result = prime * result + ((contractorSuperviserEmail == null) ? 0 : contractorSuperviserEmail.hashCode());
-		result = prime * result + ((contractorSuperviserPhone == null) ? 0 : contractorSuperviserPhone.hashCode());
+		result = prime * result
+				+ ((contractorSuperviserEmailAddr == null) ? 0 : contractorSuperviserEmailAddr.hashCode());
+		result = prime * result + ((contractorSuperviserPhone1 == null) ? 0 : contractorSuperviserPhone1.hashCode());
+		result = prime * result + ((contractorSuperviserPhone2 == null) ? 0 : contractorSuperviserPhone2.hashCode());
+		result = prime * result + ((contractorSuperviserPhone3 == null) ? 0 : contractorSuperviserPhone3.hashCode());
 		result = prime * result + ((contractorType == null) ? 0 : contractorType.hashCode());
 		result = prime * result + ((levelCode == null) ? 0 : levelCode.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
@@ -319,6 +379,11 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorEmail.equals(other.contractorEmail))
 			return false;
+		if (contractorEmailAddr == null) {
+			if (other.contractorEmailAddr != null)
+				return false;
+		} else if (!contractorEmailAddr.equals(other.contractorEmailAddr))
+			return false;
 		if (contractorFax == null) {
 			if (other.contractorFax != null)
 				return false;
@@ -339,10 +404,20 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorName.equals(other.contractorName))
 			return false;
-		if (contractorPhone == null) {
-			if (other.contractorPhone != null)
+		if (contractorPhone1 == null) {
+			if (other.contractorPhone1 != null)
 				return false;
-		} else if (!contractorPhone.equals(other.contractorPhone))
+		} else if (!contractorPhone1.equals(other.contractorPhone1))
+			return false;
+		if (contractorPhone2 == null) {
+			if (other.contractorPhone2 != null)
+				return false;
+		} else if (!contractorPhone2.equals(other.contractorPhone2))
+			return false;
+		if (contractorPhone3 == null) {
+			if (other.contractorPhone3 != null)
+				return false;
+		} else if (!contractorPhone3.equals(other.contractorPhone3))
 			return false;
 		if (contractorProfitAccount == null) {
 			if (other.contractorProfitAccount != null)
@@ -389,10 +464,25 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorSuperviserEmail.equals(other.contractorSuperviserEmail))
 			return false;
-		if (contractorSuperviserPhone == null) {
-			if (other.contractorSuperviserPhone != null)
+		if (contractorSuperviserEmailAddr == null) {
+			if (other.contractorSuperviserEmailAddr != null)
 				return false;
-		} else if (!contractorSuperviserPhone.equals(other.contractorSuperviserPhone))
+		} else if (!contractorSuperviserEmailAddr.equals(other.contractorSuperviserEmailAddr))
+			return false;
+		if (contractorSuperviserPhone1 == null) {
+			if (other.contractorSuperviserPhone1 != null)
+				return false;
+		} else if (!contractorSuperviserPhone1.equals(other.contractorSuperviserPhone1))
+			return false;
+		if (contractorSuperviserPhone2 == null) {
+			if (other.contractorSuperviserPhone2 != null)
+				return false;
+		} else if (!contractorSuperviserPhone2.equals(other.contractorSuperviserPhone2))
+			return false;
+		if (contractorSuperviserPhone3 == null) {
+			if (other.contractorSuperviserPhone3 != null)
+				return false;
+		} else if (!contractorSuperviserPhone3.equals(other.contractorSuperviserPhone3))
 			return false;
 		if (contractorType == null) {
 			if (other.contractorType != null)
@@ -416,7 +506,7 @@ public class K3DetailContractor {
 			return false;
 		return true;
 	}
-	
-	
-	
+
+
+
 }

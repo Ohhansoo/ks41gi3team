@@ -5,110 +5,120 @@
    <th:block layout:fragment="customTitle">
       <title th:text="${title}"></title>
    </th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+   </th:block>
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:inline="javascript">
-		
-		<!-- 거래처 삭제처리(버튼) -->
 
-		
-		function deleteContractor(){
-			var url = "/team03/contractorContract/Contractor/k3SearchContractor";
-			var removeContractor = $("td[name = contractorCode]");
-			
-			console.log("변수내부 확인 contractorCode : "+ contractorCode + "확인끝");
-			var checkConfirm = confirm("정말 삭제하시겠습니까?"); 			
-			$.ajax({
-				url : url,
-				type : 'POST',
-				traditional : true,
-				data : { removeContractor : removeContractor },
-				success : function(data){
-					if(data = 1){
-						alert("삭제 성공");
-						location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
-					}
-					else{
-						alert("삭제 실패");
-					}
-				}
-			});
-		}
-		
-
-		
 		<!-- 거래처 삭제처리(체크박스) -->
-		function checkDeleteContractor(){
-			var url = "/team03/contractorContract/Contractor/k3SearchContractor";
-			var removeContractorArr = new Array();
-			var list = $("input[name=checkContract]");
-			
-			console.log("변수내부 확인  list : "+ list +"확인끝");
-			
-			for(var i = 0; i < list.length; i++){
-				if(list[i].checked){
-					removeContractorArr.push(list[i].value);
-				}
-			}
-			console.log("변수내부 확인  checkArr : "+ removeContractorArr +"확인끝");
-			if(removeCheckContractor.length == 0){
-				alert("선택한 글이 없습니다.");
-			}
-			else{
-				var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
-				$.ajax({
-					url : url,
-					type : 'POST',
-					traditional : true,
-					data : { removeContractorArr : removeContractorArr },
-					success : function(data){
-						if(data = 1){
-							alert("삭제 성공");
-							location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
-						}
-						else{
-							alert("삭제 실패");
-						}
-					}
-				});
-			}
-		}					
-		<!--END 거래처 삭제처리(체크박스) -->						
-		
-		$(document).ready(function(){ 
+			function checkDeleteContractor(){
+				var url = "/team03/contractorContract/Contractor/k3SearchContractor";
+				var removeContractorArr = new Array();
+				var list = $("input[name=checkContract]");
 				
-					<!-- 검색된 거래처 경로설정 -->					
-					var searchKey = [[${searchKey}]];
-					var searchValue = [[${searchValue}]];
-					var contractorRegistrationDateStart = [[${contractorRegistrationDateStart}]];
-					var contractorRegistrationDateEnd = []
-					var num = [[${num}]];
-					num *= 1;
-					var currentPage = [[${currentPage}]];
-					var previous = [[${currentPage}]]-1;
-					var next = [[${currentPage}]]+1;
-					
-					console.log("변수확인 num : " + num);
-					console.log("변수확인 previous : " + previous);
-					console.log("변수확인 next : " + next);
-					console.log("변수 확인 searchKey : " + searchKey);
-					console.log("변수 확인 searchValue : " + searchValue);
-						
-					if(searchValue != null){
-						$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue);
+				console.log("변수내부 확인  list : "+ list +"확인끝");
+				
+				for(var i = 0; i < list.length; i++){
+					if(list[i].checked){
+						removeContractorArr.push(list[i].value);
+					}
+				}
+				console.log("변수내부 확인  checkArr : "+ removeContractorArr +"확인끝");
+				if(removeCheckContractor.length == 0){
+					alert("선택한 글이 없습니다.");
+				}
+				else{
+					var checkConfirm = confirm("정말 삭제하시겠습니까?"); 
+					$.ajax({
+						url : url,
+						type : 'POST',
+						traditional : true,
+						data : { removeContractorArr : removeContractorArr },
+						success : function(data){
+							if(data == 1){
+								alert("삭제 성공");
+								location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
+							}
+							else{
+								alert("삭제 실패");
+							}
+						}
+					});
+				}
+			}					
+			<!--END 거래처 삭제처리(체크박스) -->						
 
+			
+			$(document).ready(function(){ 
+
+				<!-- 거래처 삭제처리(버튼) -->	
+				$('.deleteContractorBtn').click(function(){
+					var url = "/team03/contractorContract/Contractor/k3SearchContractor";
+					var deleteContractorCode = $(this).attr('data-deleteContractorCode');
+					console.log("변수내부 확인 deleteContractorCode : " + deleteContractorCode + "확인끝");
+		
+					var checkConfirm = confirm("정말 삭제하시겠습니까?"); 			
+					
+					if(checkConfirm == true){
+						$.ajax({
+							url : url,
+							type : 'POST',
+							traditional : true,
+							data : { "deleteContractorCode" : deleteContractorCode },
+							success : function(data){
+								if(data){
+									alert("삭제 성공");
+									location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
+								}
+								else{
+									alert("삭제 실패");
+								}
+							}
+						});
+						
+					}else{
+						alert("삭제 취소");
 					}
-					else if(contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
-						$('.searchDateForm').attr('action','k3SearchContractor?&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
-					}
-					else if(searchValue != null && contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
-						$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue +'&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
-					}
-					<!-- END 검색된 거래처 경로설정 -->		
+				});			
+				<!--END 거래처 삭제처리(버튼) -->	
+				
+				<!-- 검색된 거래처 경로설정 -->					
+				var searchKey = [[${searchKey}]];
+				var searchValue = [[${searchValue}]];
+				var contractorRegistrationDateStart = [[${contractorRegistrationDateStart}]];
+				var contractorRegistrationDateEnd = []
+				var num = [[${num}]];
+				num *= 1;
+				var currentPage = [[${currentPage}]];
+				var previous = [[${currentPage}]]-1;
+				var next = [[${currentPage}]]+1;
+				
+				console.log("변수확인 num : " + num);
+				console.log("변수확인 previous : " + previous);
+				console.log("변수확인 next : " + next);
+				console.log("변수 확인 searchKey : " + searchKey);
+				console.log("변수 확인 searchValue : " + searchValue);
+					
+				if(searchValue != null){
+					$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue);
+	
+				}
+				else if(contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
+					$('.searchDateForm').attr('action','k3SearchContractor?&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
+				}
+				else if(searchValue != null && contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
+					$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue +'&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
+				}
+				<!-- END 검색된 거래처 경로설정 -->		
 					
 					
 				<!-- 거래처 상세정보 모달창 스크립트 -->				
 				$('.searchDetailContractor').click(function(){
 					var contractorCode = $(this).attr('data-contractorCode');
+					console.log("모달창 변수내부 확인 contractorCode : "+ contractorCode + "확인끝");
+
 					$.ajax({ 
 						url: "/team03/contractorContract/Contractor/k3SearchContractorAjax", 
 						type:"GET", 
@@ -168,6 +178,38 @@
 					
 					
 					$('.modifyModalBtn').attr('href','/team03/contractorContract/Contractor/k3ModifyContractor?contractorCode='+data.contractorCode);
+
+					<!-- 거래처 삭제처리(모달버튼) -->	
+					$('.deleteContractorModalBtn').click(function(){
+						var url = "/team03/contractorContract/Contractor/k3SearchContractor";
+						var deleteContractorCode = data.contractorCode;
+						console.log("변수내부 확인 deleteContractorCode : " + deleteContractorCode + "확인끝");
+			
+						var checkConfirm = confirm("정말 삭제하시겠습니까?"); 			
+						
+						if(checkConfirm == true){
+							$.ajax({
+								url : url,
+								type : 'POST',
+								traditional : true,
+								data : { "deleteContractorCode" : deleteContractorCode },
+								success : function(data){
+									if(data){
+										alert("삭제 성공");
+										location.replace("/team03/contractorContract/Contractor/k3SearchContractor");
+									}
+									else{
+										alert("삭제 실패");
+									}
+								}
+							});
+							
+						}else{
+							alert("삭제 취소");
+						}
+					});			
+					<!--END 거래처 삭제처리(모달버튼) -->	
+					
 					$("#tmodal").append(tmodal);
 					$('#detailContractorModal').modal('show');
 				}
@@ -240,16 +282,16 @@
 							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractorList}" method="Get" id="contractorSearchDate">
 								<div class="input-group d-flex justify-content-end">
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="number" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
 										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
 									</div>
-									<div>
-										~
+									<div style="margin:3px">
+										<b>~</b>
 									</div>
 									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="contractorRegistrationDateEnd" value="contractorRegistrationDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="등록날짜선택">
+										<input name="contractorRegistrationDateEnd" value="contractorRegistrationDateEnd" type="number" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="등록날짜선택">
 										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -316,9 +358,9 @@
 								</a>
 							</td>
 							<td>
-								<a name="deleteContractor" type="button"  class="btn btn-default btn-sm" th:data-contractorCode="${c.contractorCode}"  th:onclick="|javascript:deleteContractor()|" >
+								<button type="button" class="deleteContractorBtn btn btn-default btn-sm" th:data-deleteContractorCode="${c.contractorCode}" >
 									<i class="bi bi-trash-fill"></i>
-								</a>
+								</button>
 							</td>
 							<td name="contractorCode"  th:text="${c.contractorCode}"></td>
 							<td  th:text="${c.contractorName}"></td>
@@ -351,7 +393,6 @@
 							</a>
 						</li>
 						<li class="paginate_button page-item" id="contractorList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-							<a  th:if="${num != currentPage} and ${searchValue} != null " id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${num}" aria-controls="contractorList" class="page-link"></a>
 							<a  th:if="${num != currentPage} and ${contractorRegistrationDateStart} != null and ${contractorRegistrationDateEnd} != null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},contractorRegistrationDateStart=${contractorRegistrationDateStart},contractorRegistrationDateEnd=${contractorRegistrationDateEnd})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 							<a  th:if="${num != currentPage} and ${searchValue} == null and ${contractorRegistrationDateStart} == null and ${contractorRegistrationDateEnd} == null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 							<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link" th:text="${num}"></span>
@@ -375,7 +416,7 @@
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
 		
-	   <!-- 거래처 상세 정보 모달창 -->
+		<!-- 거래처 상세 정보 모달창 -->
 		<div class="modal" style="text-align: center" id="detailContractorModal" tabindex="-1"  role="dialog" aria-labelledby="detailContractorModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 				<div class="modal-content">
@@ -397,7 +438,7 @@
 							<i class="bi bi-pencil"></i>
 							수정
 						</a>
-						<a class="ahsbtn2 btn btn-outline-info deleteBtn" th:onclick="|javascript:deleteContractor()|">
+						<a class="ahsbtn2 btn btn-outline-info deleteContractorModalBtn">
 							<i class="bi bi-trash"></i>
 							삭제
 						</a>

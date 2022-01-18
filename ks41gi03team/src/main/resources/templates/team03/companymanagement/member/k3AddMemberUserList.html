@@ -67,74 +67,45 @@
     }
 </script>
 	<script>	
-	$(function(){
-		
-		$(document).on('click', '#addMemberBtn', function(){
-			var submitCheck = true;
-			
-			var inputObj = $('#userInfo').find('input');
-			
-			$.each(inputObj, function(){
-				var inputData = $(this).val();
-				var inputId = $(this).attr('id');
-				var labelText = $('label[for=' + inputId + ']').text();
-				if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
-					alert(labelText + ' 입력해주세요');
-					$(this).focus();
-					submitCheck = false;
-					return false;
-				}
-			});
-			
-			if(submitCheck) $('#userInfo').submit();
-		});
-		
-		$('#dupclicate_btn').click(function(){
+	//아이디 중복체크
+         $(document).on('click', '#dupclicate_btn', function(){
+            var memberId = $('#memberId').val();
+            console.log("아이디 변수 memberId 내부 확인 : " + memberId + "-> 확인");
+        
 
-			var memberId = $('#memberId').val();
-			
-			if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
-				// ajax 호출
-				var request = $.ajax({
-					  url: '/member/idCheck', 
-					  method: 'POST', 
-					  data: { 'memberId' : memberId },
-					  dataType: 'text' 
-					});				
-				request.done(function(data) {
-					// 중복여부 체크(true: 중복, false: 등록가능)
-					var idConfirm = data;
-					
-					if(idConfirm){
-						alert('중복된 아이디입니다.');
-						$('#userInfo input').not('#memberId').prop('disabled', true);
-						$('#userInfo select').prop('disabled', true);
-						$('#userInfo button').not('#btn').prop('disabled', true);
-					}else{
-						alert('등록이 가능한 아이디입니다.');
-						$('#userInfo input').prop('disabled', false);
-						$('#userInfo select').prop('disabled', false);
-						$('#userInfo button').prop('disabled', false);
-					}
-					
-					
-				});				
-				request.fail(function( jqXHR, textStatus ) {
-				  alert( "Request failed: " + textStatus );
-				});
-			}else{
-				alert('아이디를 입력해주세요')
-				return false;
-			}
-			
-			
-		});
-	});
+            if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+               var request = $.ajax({
+                  url: '/team03/companymanagement/member/idCheck',
+                  method: 'POST',
+                  data: {'memberId' : memberId},
+                  dataType: 'text'
+               });
+               request.done(function(data){
+				var idConfirm = data;
+                  console.log(data);
+                  if(idConfirm == 'true'){
+                     alert("이미 사용하고 있는 아이디입니다.");
+                     $('userInfo input').not('#memberId').prop('disabled', true);
+                     $('userInfo select').prop('disabled', true);
+                     $('userInfo button').not('#dupclicate_btn').prop('disabled', true);
+                  }else{
+                     alert("사용 가능한 아이디입니다.");
+ 					 $('userInfo input').prop('disabled', false);
+                     $('userInfo select').prop('disabled', false);
+                     $('userInfo button').prop('disabled', false);                  
+                  }
+               });
+               request.fail(function( jqXHR, textStatus ){
+					alert( jqXHR, textStatus  );
+			   });
+            }else{
+               alert("아이디를 입력해주세요.")
+               return false;
+            }
+         });
 			</script>
 	</th:block>	
 	<th:block layout:fragment="customContents">
-		<div id="representative-button">
-			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid d-flex justify-content-center">
 					<!--카드 영역 -->
@@ -149,8 +120,8 @@
 							<div class="row">
 								<form id="userInfo" th:action="@{/team03/companymanagement/member/k3AddMemberUserList}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="memberuserIdInput" class="inputName">직원ID</label>
-										<input class="inputBox" type="text" id="memberIdInput" name="memberId"> 
+										<label for="memberId" class="inputName">직원ID</label>
+										<input class="inputBox" type="text" id="memberId" name="memberId"> 
 										<button type="button" id="dupclicate_btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
@@ -175,7 +146,7 @@
 										<input class="inputBox" type="text" id="memberGenderInput" name="memberGender" placeholder="예시) 남 /여/무응답">
 									</div>
 									<div class="inputwrap col-md-12">
-									<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
 										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호">
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 									</div>
