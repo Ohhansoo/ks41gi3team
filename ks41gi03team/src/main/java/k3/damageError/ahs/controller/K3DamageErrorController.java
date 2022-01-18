@@ -2,10 +2,15 @@ package k3.damageError.ahs.controller;
 
 import java.util.List;
 
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.damageError.ahs.dto.K3DamageError;
 import k3.damageError.ahs.service.K3DamageErrorService;
@@ -34,5 +39,15 @@ public class K3DamageErrorController {
 		model.addAttribute("k3DamageErrorListIn",k3DamageErrorListIn);
 		model.addAttribute("k3DamageErrorListOut",k3DamageErrorListOut);
 		return "/team03/goodsManagement/damageError/k3DamageErrorList";
+	}
+	
+	/**
+	 * 입고AS처리등록
+	 */
+	@PostMapping("/k3DamageErrorList")
+	@ResponseBody
+	public String k3DamageErrorList() {
+	
+		return "redirect:/team03/goodsManagement/damageError/k3DamageErrorList";
 	}
 }

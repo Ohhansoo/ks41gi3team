@@ -6,9 +6,31 @@
 	<title th:text="${title}"></title>
 </th:block>
 <th:block layout:fragment="customJs">
-	<script type="text/javascript">
-		
-	</script>	
+		<script type="text/javascript">
+			$(function(){
+				$('#inAddDamageError').click(function(){
+					var actionDetails = $('input[name=actionDetails]').val();
+					var actionDate = $('input[name=actionDate]').val();
+					var repairCost = $('input[name=repairCost]').val();
+					console.log(actionDetails);
+					console.log(actionDate);
+					console.log(repairCost);
+					$.ajax({
+							url : '/team03/goodsManagement/damageError/k3DamageErrorList',
+							type : 'POST',
+							data : { 
+									actionDetails : actionDetails 
+									actionDate : actionDate	
+									repairCost : repairCost
+									},
+							success : function(data){
+								console.log(data)
+							}
+						});
+				});
+			});
+			
+		</script>
 </th:block>
 	
 <th:block layout:fragment="customContents"> 
@@ -22,7 +44,7 @@
 								<h2 class="card-title">AS</h2>
 							</div>
 							<div class="card-body">
-								<div class="row" style="margin: 12px">
+								<div class="row" style="margin:12px;">
 									<form class="col-lg-6" th:action="@{#}" method="post">
 										
 									</form>
@@ -41,7 +63,7 @@
 								<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 									<!--card body -->
 									<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-										<form th:action="@{/team03/goodsManagement/damageError/k3DamageErrorList}" method="post">	 
+										<form th:action="@{/team03/goodsManagement/damageError/k3DamageErrorList}" method="post" id="inAddDamageError">	 
 											<table class="table table-head-fixed text-nowrap">
 												<thead>
 													<tr>
@@ -54,22 +76,19 @@
 														<th>접수자</th>
 														<th>조치내용</th>											
 														<th>조치날짜</th>											
-														<th>발생비용</th>											
-														<th>상태</th>	
+														<th>발생비용</th>				
 														<th>처리</th>							
 													</tr>
 												</thead>
-											
 												<tbody>
 													<tr th:if="${not #lists.isEmpty(k3DamageErrorListIn)}" th:each="din :${k3DamageErrorListIn}">	
-														
-														<td th:text="${din.receiptNumber}"></td>	
+														<td th:text="${din.receiptNumber}" id="inText"></td>
 														<td th:text="${din.laydownCheckDate}"></td>
 														<td th:text="${din.contractorName}"></td>
 														<td th:text="${din.laydownGoodsName}"></td>
 														<td th:text="${din.laydownGoodsCount}"></td>
 														<td th:text="${din.laydownCheckResult}"></td>
-														<td th:text="${din.laydownCheckManager}"></td>
+														<td th:text="${din.memberName}"></td>
 														<td>
 															<div class="form-group">
 																<input type="text" class="form-control" style="height:30px;" name="actionDetails"/>
@@ -77,15 +96,8 @@
 														</td>
 														<td>
 															<div class="form-group">
-																<div class="input-group date" id="reservationdate" data-target-input="nearest">
-																<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" style="height:30px;" name="actionDate" />
-																<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-																	<div class="input-group-text">
-																		<i class="fa fa-calendar"></i>
-																	</div>
-																</div>
-																</div>
-															</div>
+											                	<input type="date" class="form-control" style="height:30px;"  name="actionDate"/>
+											                </div>
 														</td>
 														<td>
 															<div class="form-group">
@@ -93,16 +105,10 @@
 															</div>
 														</td>
 														<td>
-															<div class="form-group">
-																<input type="text" class="form-control" style="height:30px;" name="repairState"/>
-															</div>
-														</td>
-														<td>
-															<a type="button"  class="btn btn-default btn-sm" th:href="@{#}">
+															<button type="button"  class="btn btn-default btn-sm" >
 																<i class="bi bi-arrow-right-square-fill"></i>
-															</a>
+															</button>
 														</td>
-													
 													</tr>	
 													<tr th:unless="${not #lists.isEmpty(k3DamageErrorListIn)}" style="height:30px;" th:each="din :${k3DamageErrorListIn}">
 														<td>목록이 없습니다.</td>
@@ -126,7 +132,10 @@
 													<th>개수</th>
 													<th>사유</th>
 													<th>접수자</th>						
-													<th>수정</th>						
+													<th>조치내용</th>											
+													<th>조치날짜</th>											
+													<th>발생비용</th>
+													<th>처리</th>						
 												</tr>
 											</thead>
 											<tbody>
@@ -137,11 +146,27 @@
 													<td th:text="${dout.laydownGoodsName}"></td>
 													<td th:text="${dout.laydownGoodsCount}"></td>
 													<td th:text="${dout.shipmentCheckResult}"></td>
-													<td th:text="${dout.releaseManager}"></td>
+													<td th:text="${dout.memberName}"></td>
 													<td>
-														<a type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#outModifyModal">
-															<i class="fas fa-pencil-alt icon"></i>
-														</a>
+														<div class="form-group">
+															<input type="text" class="form-control" style="height:30px;" name="actionDetails"/>
+														</div>
+													</td>
+													<td>
+														<div class="form-group">
+										                	<input type="date" class="form-control" style="height:30px;" name="actionDate"/>
+											  
+										                </div>
+													</td>
+													<td>
+														<div class="form-group">
+															<input type="number" class="form-control" style="height:30px;" name="repairCost"/>
+														</div>
+													</td>
+													<td>
+														<button type="button"  class="btn btn-default btn-sm" >
+															<i class="bi bi-arrow-right-square-fill"></i>
+														</button>
 													</td>
 												</tr>
 												<tr th:unless="${not #lists.isEmpty(k3DamageErrorListOut)}" th:each="dout : ${k3DamageErrorListOut}">
