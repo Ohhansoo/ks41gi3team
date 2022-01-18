@@ -149,7 +149,7 @@
 										<tbody>
 											<tr  th:if="${not #lists.isEmpty(K3Warehouses)}" th:each="w :${K3Warehouses}">
 												<td>
-													<a type="button"  class="btn btn-default btn-sm" th:href="@{/team03/spaceBusiness/warehouse/k3ModifyWarehouse(warehouseCode=${w.warehouseCode})}">
+													<a type="button"  class="btn btn-default btn-sm" th:href="@{/team03/spaceBusiness/warehouse/k3WarehouseList(warehouseCode=${w.warehouseCode})}">
 														<i class="fas fa-pencil-alt icon"></i>
 													</a>
 												</td>

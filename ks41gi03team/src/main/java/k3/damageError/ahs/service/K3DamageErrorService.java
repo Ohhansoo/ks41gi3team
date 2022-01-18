@@ -34,4 +34,8 @@ public class K3DamageErrorService {
 			System.out.println("service---------->>>"+k3DamageErrorOutList);
 		return k3DamageErrorOutList;	
 	}
+	public int k3InAddDamageError(K3DamageError k3DamageError) {
+		
+		return k3DamageErrorMapper.k3InAddDamageError(k3DamageError);
+	}
 }
