@@ -13,9 +13,10 @@ public class K3Dispatch {
 	private String dispatchStartDate;
 	private String dispatchDueDate;
 	private String memberId;
+	private String memberName;
 	private String dispatchAcceptDate;
 	private String dispatchConsignee;
-	
+
 	public String getDispatchCode() {
 		return dispatchCode;
 	}
@@ -88,6 +89,12 @@ public class K3Dispatch {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public String getDispatchAcceptDate() {
 		return dispatchAcceptDate;
 	}
@@ -107,8 +114,10 @@ public class K3Dispatch {
 				+ releaseMergeCode + ", shippingAddress=" + shippingAddress + ", shippingDetailAddress="
 				+ shippingDetailAddress + ", driverId=" + driverId + ", vehicleCode=" + vehicleCode
 				+ ", dispatchStartDate=" + dispatchStartDate + ", dispatchDueDate=" + dispatchDueDate + ", memberId="
-				+ memberId + ", dispatchAcceptDate=" + dispatchAcceptDate + ", dispatchConsignee=" + dispatchConsignee
-				+ "]";
+
+				+ memberId + ", memberName=" + memberName + ", dispatchAcceptDate=" + dispatchAcceptDate
+				+ ", dispatchConsignee=" + dispatchConsignee + "]";
+
 	}
 	@Override
 	public int hashCode() {
@@ -123,6 +132,7 @@ public class K3Dispatch {
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
 		result = prime * result + ((releaseCode == null) ? 0 : releaseCode.hashCode());
 		result = prime * result + ((releaseMergeCode == null) ? 0 : releaseMergeCode.hashCode());
 		result = prime * result + ((shippingAddress == null) ? 0 : shippingAddress.hashCode());
@@ -183,6 +193,11 @@ public class K3Dispatch {
 			if (other.memberId != null)
 				return false;
 		} else if (!memberId.equals(other.memberId))
+			return false;
+		if (memberName == null) {
+			if (other.memberName != null)
+				return false;
+		} else if (!memberName.equals(other.memberName))
 			return false;
 		if (releaseCode == null) {
 			if (other.releaseCode != null)

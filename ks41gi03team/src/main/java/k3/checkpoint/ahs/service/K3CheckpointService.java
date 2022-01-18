@@ -1,6 +1,7 @@
 package k3.checkpoint.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,12 @@ public class K3CheckpointService {
 		Integer result = k3CheckpointMapper.k3DeleteCheckpoint(deleteList);
 		return result;
 	}
+	
+	//검색
+	public List<K3Checkpoint> k3SearchCheckpointList(String checkpointKey, String checkpointValue){
+		List<K3Checkpoint> k3CheckpointList = k3CheckpointMapper.k3SearchCheckpointList(checkpointKey, checkpointValue);
+		return k3CheckpointList;
+	}
+	
 	
 }

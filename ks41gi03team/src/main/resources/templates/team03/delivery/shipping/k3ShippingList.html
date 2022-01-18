@@ -18,11 +18,7 @@
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
-						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-boxes"></i>
-							분류등록
-						</button>			
+						</button>				
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
@@ -40,18 +36,15 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{#}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/delivery/shipping/k3ShippingList}" method="post">
 								<div class="input-group input-group-sm">
-									<select class="form-control-sm">
+									<select class="form-control-sm" name="shippingKey">
 												<option value="shipping">배송 번호</option>
 												<option value="driver">기사 아이디</option>
 											</select>
-										<input type="text" class="form-control" placeholder="검색">
-										<div class="input-group-append">
-											<div class="btn btn-default">
-												<i class="fas fa-search icon"></i>
-											</div>
-									</div>
+										<input type="text" class="form-control" placeholder="검색" name="shippingValue">
+											<button type="submit">검색</button>
+
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -76,7 +69,6 @@
 										<th>수정</th>	
 										<th>배송 번호</th>
 										<th>입출차 기록 코드</th>
-										<th>배송지역 코드</th>
 										<th>상품출고 통합코드</th>
 										<th>배송지</th>
 										<th>배송지 세부주소</th>
@@ -98,7 +90,6 @@
 										</td>
 										<td th:text="${l.shippingCode}"></td>
 										<td th:text="${l.vehicleCheckpointCode}"></td>
-										<td th:text="${l.areaCode}"></td>
 										<td th:text="${l.releaseMergeCode}"></td>
 										<td th:text="${l.shippingAddress}"></td>
 										<td th:text="${l.shippingDetailAddress}"></td>

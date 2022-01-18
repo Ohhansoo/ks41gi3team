@@ -5,7 +5,6 @@ public class K3Shipping {
 	private String mainBusinessCode;
 	private String contractorCode;
 	private String vehicleCheckpointCode;
-	private String areaCode;
 	private String releaseCode;
 	private String releaseMergeCode;
 	private String shippingAddress;
@@ -38,12 +37,6 @@ public class K3Shipping {
 	}
 	public void setVehicleCheckpointCode(String vehicleCheckpointCode) {
 		this.vehicleCheckpointCode = vehicleCheckpointCode;
-	}
-	public String getAreaCode() {
-		return areaCode;
-	}
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
 	}
 	public String getReleaseCode() {
 		return releaseCode;
@@ -97,7 +90,7 @@ public class K3Shipping {
 	public String toString() {
 		return "K3Shipping [shippingCode=" + shippingCode + ", mainBusinessCode=" + mainBusinessCode
 				+ ", contractorCode=" + contractorCode + ", vehicleCheckpointCode=" + vehicleCheckpointCode
-				+ ", areaCode=" + areaCode + ", releaseCode=" + releaseCode + ", releaseMergeCode=" + releaseMergeCode
+				+ ", releaseCode=" + releaseCode + ", releaseMergeCode=" + releaseMergeCode
 				+ ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
 				+ ", memberId=" + memberId + ", shippingDetail=" + shippingDetail + ", driverId=" + driverId
 				+ ", shippingTracking=" + shippingTracking + "]";
@@ -106,7 +99,6 @@ public class K3Shipping {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((areaCode == null) ? 0 : areaCode.hashCode());
 		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
@@ -130,11 +122,6 @@ public class K3Shipping {
 		if (getClass() != obj.getClass())
 			return false;
 		K3Shipping other = (K3Shipping) obj;
-		if (areaCode == null) {
-			if (other.areaCode != null)
-				return false;
-		} else if (!areaCode.equals(other.areaCode))
-			return false;
 		if (contractorCode == null) {
 			if (other.contractorCode != null)
 				return false;

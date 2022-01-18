@@ -11,7 +11,7 @@
 		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
 	</resultMap> -->
 	
-	
+	<!-- 현황 -->
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
 			vehicleCheckpointCode,
@@ -26,6 +26,7 @@
 	
 	</select>
 	
+	<!-- 추가 -->
 	<select id="addCheck" parameterType="K3Checkpoint">
 		INSERT INTO k3_tb_vehicle_checkpoint
 		(
@@ -45,10 +46,9 @@
 			#{vehicleArrivalDate},
 			#{vehicleShipmentDate}
 		);
-		
-	
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyCheckpoint" resultType="K3Checkpoint">
 		SELECT
 			vehicleCheckpointCode,
@@ -64,6 +64,7 @@
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyCheckpoint" parameterType="K3Checkpoint">
 		UPDATE k3_tb_vehicle_checkpoint
 		<trim prefix="SET" prefixOverrides=",">
@@ -93,6 +94,7 @@
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</update>
 	
+	<!-- 삭제 -->
 	<delete id="k3DeleteCheckpoint" parameterType="Integer">
 		DELECT
 			vc
@@ -102,5 +104,19 @@
 				or vehicleCheckpointCode = #{deleteList}
 			</foreach>
 	</delete>
+	
+	<!-- 검색 -->
+	<select id="k3SearchCheckpointList" resultType="K3Checkpoint">
+		SELECT
+			*
+		FROM
+			k3_tb_vehicle_checkpoint
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="checkpointValue != null and checkpointValue!= ''.toString()">
+				${checkpointKey} LIKE CONCAT('%', #{checkpointValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
 
 </mapper>
