@@ -36,14 +36,14 @@ public class K3LoginController {
 	//02 로그인처리
 	@PostMapping("/k3MemberUserLogin")
 	public String K3LoginId(@RequestParam(value="loginId", required=false) String memberId,
-										@RequestParam(value="loginPw", required=false) String memberPassword,
-										HttpSession session) {
+							@RequestParam(value="loginPw", required=false) String memberPassword,
+							HttpSession session) {
 		System.out.println(memberId + memberPassword);
 		
 
 		
 		 if(				memberId 				!=null && !"".equals(memberId)
-			      && 		memberPassword	!=null && !"".equals(memberPassword)){
+			      && 		memberPassword	!= null && !"".equals(memberPassword)){
 			 
 			 		K3MemberUser k3memberuser = memberuserService.K3MemberUserInfoBycode(memberId);
 		     		System.out.println("아이디 입력완료, 비번도입력완");
@@ -56,7 +56,7 @@ public class K3LoginController {
 			            session.setAttribute("SID", k3memberuser.getMemberId());
 			            session.setAttribute("SNAME", k3memberuser.getMemberName());
 			            session.setAttribute("SLEVEL", k3memberuser.getLevelMemberCode());
-			            System.out.println(session.getAttribute("SID"));
+			            System.out.println("세션에 담긴 ID: " + session.getAttribute("SID"));
 			            return "redirect:/";
 			         }
 			      }

@@ -29,13 +29,13 @@
 		FROM
 			k3_tb_release AS r
 			INNER JOIN
-			k3_tb_pileup AS p
+			k3_tb_stock AS s
 			ON
-			r.pileupCode = p.pileupCode
+			r.stockCode = s.stockCode
 			INNER JOIN
 			k3_tb_warehousing AS w
 			ON
-			p.warehousingCode = w.warehousingCode
+			s.warehousingCode = w.warehousingCode
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
@@ -59,13 +59,13 @@
 		FROM
 			k3_tb_release AS r
 			INNER JOIN
-			k3_tb_pileup AS p
+			k3_tb_stock AS s
 			ON
-			r.pileupCode = p.pileupCode
+			r.stockCode = s.stockCode
 			INNER JOIN
 			k3_tb_warehousing AS w
 			ON
-			p.warehousingCode = w.warehousingCode
+			s.warehousingCode = w.warehousingCode
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON

@@ -13,6 +13,7 @@ public class K3Login {
 	private String memberState;
 	private String memberRegDate;
 	private String memberHiredDate;
+
 	public String getMemberId() {
 		return memberId;
 	}
