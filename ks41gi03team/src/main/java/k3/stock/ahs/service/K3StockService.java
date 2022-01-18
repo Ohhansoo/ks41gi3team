@@ -44,7 +44,7 @@ public class K3StockService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);
@@ -89,7 +89,7 @@ public class K3StockService {
 				endPageNum = lastPage;
 			}
 		}
-		
+		if(lastPage < 11) endPageNum = lastPage;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startNum", startNum);
@@ -156,7 +156,7 @@ public class K3StockService {
 					endPageNum = lastPage;
 				}
 			}
-			
+			if(lastPage < 11) endPageNum = lastPage;
 			
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("startNum", startNum);
