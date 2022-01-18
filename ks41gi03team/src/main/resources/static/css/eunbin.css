@@ -24,3 +24,6 @@
 .ahsbtn2{
 	margin-left:0px;
 }
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
