@@ -37,50 +37,7 @@ public class K3WarehousingService {
 		int result = k3WarehousingMapper.k3AddWarehousingSort(k3Stock);
 		return result;
 	}
-	
-	//입하검수현황 조회 처리
-	public Map<String, Object> k3GetLaydownSearchList(Map<String, Object> searchCondition, int currentPage) {
-		// 보여줄 행의 개수
-		int rowPerPage = 7;
-		
-		// 로그인 이력 테이블 행의 개수
-		String countType = "search";
-		double rowCount = k3WarehousingMapper.k3GetLaydownCheckCount(countType, searchCondition);
-		
-		// 마지막 페이지
-		int lastPage = (int) Math.ceil((rowCount / rowPerPage));
-		
-		// 페이지 알고리즘
-		int startNum = (currentPage - 1) * rowPerPage;
-		
-		//보여줄 시작 페이지 번호
-		int startPageNum = 1;
-		//보여줄 마지막 페이지 번호
-		int endPageNum = 10;
-		// 동적 페이지 구정( 7페이지 부터)
-		if(currentPage > 6) {
-			startPageNum = currentPage - 5;
-			endPageNum = currentPage + 4;
-			if(endPageNum >= lastPage) {
-				startPageNum = lastPage - 9;
-				endPageNum = lastPage;
-			}
-		}
-		if(lastPage < 11) endPageNum = lastPage;
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("startNum", startNum);
-		paramMap.put("rowPerPage", rowPerPage);
-		
-		List<Map<String, Object>> laydownCheck = k3WarehousingMapper.k3GetLaydownSearchList(searchCondition, paramMap);
-		paramMap.clear();
-		paramMap.put("lastPage", lastPage);
-		paramMap.put("laydownCheck", laydownCheck);
-		paramMap.put("startPageNum", startPageNum);
-		paramMap.put("endPageNum", endPageNum);
 
-		return paramMap;
-	}
 	
 	//입고 현황 조회 처리
 	public Map<String, Object> k3GetWarehousingSearchList(Map<String, Object> searchCondition, int currentPage){
@@ -169,51 +126,6 @@ public class K3WarehousingService {
 	public List<K3WarehousingSort> k3GetWarehousingSortList() {
 		List<K3WarehousingSort> sortList = k3WarehousingMapper.k3GetWarehousingSortList();
 		return sortList;
-	}
-	
-	//검수 현황(초기화면)
-	public Map<String, Object> k3GetLaydownCheck(int currentPage) {
-		// 보여줄 행의 개수
-		int rowPerPage = 7;
-		
-		// 로그인 이력 테이블 행의 개수
-		String countType = "normal";
-		double rowCount = k3WarehousingMapper.k3GetLaydownCheckCount(countType, null);
-		
-		// 마지막 페이지
-		int lastPage = (int) Math.ceil((rowCount / rowPerPage));
-		
-		// 페이지 알고리즘
-		int startNum = (currentPage - 1) * rowPerPage;
-		
-		//보여줄 시작 페이지 번호
-		int startPageNum = 1;
-		//보여줄 마지막 페이지 번호
-		int endPageNum = 10;
-		// 동적 페이지 구정( 7페이지 부터)
-		if(currentPage > 6) {
-			startPageNum = currentPage - 5;
-			endPageNum = currentPage + 4;
-			if(endPageNum >= lastPage) {
-				startPageNum = lastPage - 9;
-				endPageNum = lastPage;
-			}
-		}
-		if(lastPage < 11) endPageNum = lastPage;
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("startNum", startNum);
-		paramMap.put("rowPerPage", rowPerPage);
-		
-		List<Map<String, Object>> laydownCheck = k3WarehousingMapper.k3GetLaydownCheck(paramMap);
-		
-		paramMap.clear();
-		paramMap.put("lastPage", lastPage);
-		paramMap.put("laydownCheck", laydownCheck);
-		paramMap.put("startPageNum", startPageNum);
-		paramMap.put("endPageNum", endPageNum);
-		
-		return paramMap;
 	}
 	
 	//입고 현황(초기화면)

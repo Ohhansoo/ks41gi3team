@@ -18,8 +18,7 @@ public interface K3WarehousingMapper {
 	public int k3UpdateSorting(K3Stock k3Stock);
 	//입고분류 등록처리
 	public int k3AddWarehousingSort(K3Stock k3Stock);
-	//입하검수현황 조회처리
-	public List<Map<String,Object>> k3GetLaydownSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
+
 	//입고현황 조회처리
 	public List<Map<String,Object>> k3GetWarehousingSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
 	//입고 승인/반려 처리
@@ -38,10 +37,7 @@ public interface K3WarehousingMapper {
 	public List<K3WarehousingSort> k3GetWarehousingRequestSort();
 	//입고 분류 현황(완료목록)
 	public List<K3WarehousingSort> k3GetWarehousingSortList();
-	//검수현황 초기화면
-	public List<Map<String,Object>> k3GetLaydownCheck(Map<String,Object> paramMap);
-	//검수현황 튜플 수
-	public int k3GetLaydownCheckCount(String countType, Map<String, Object> searchCondition);
+
 	//입고현황 초기화면
 	public List<Map<String,Object>> k3GetWarehousingList(Map<String,Object> paramMap);
 	//입고현황 튜플 수

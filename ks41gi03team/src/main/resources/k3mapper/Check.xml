@@ -5,7 +5,7 @@
 <mapper namespace="k3.check.ahs.mapper.K3CheckMapper">
 	<resultMap type="K3ShipmentCheck" id="shipmentResultMap">
  		<result column="releaseCode" property="releaseCode" />
-		<result column="laydownGoodsName" property="laydownGoodsName" />
+		<result column="productName" property="productName" />
 		<result column="releaseGoodsCount" property="releaseGoodsCount" />
 		<result column="contractorName" property="contractorName" />
 		<result column="accepDate" property="accepDate" />
@@ -16,67 +16,11 @@
 		<result column="shipmentCheckResult" property="shipmentCheckResult" />
 	</resultMap>
 	
-	<update id="k3AddLaydownCheck">
-		UPDATE
-			k3_tb_warehousing
-		SET
-			laydownCheckCode = #{laydownCheckCode},
-			laydownCheckResult = #{laydownCheckResult},
-			laydownCheckManager = #{laydownCheckManager},
-			laydownDate = #{laydownDate},
-			laydownCheckDate = #{laydownCheckDate}
-		WHERE
-			warehousingCode = #{warehousingCode};
-	</update>
-	
-	<select id="k3GetLaydownCheckCodeList" resultType="map" parameterType="map">
-		SELECT
-			w.laydownCheckCode,
-			w.warehousingCode,	
-			w.laydownGoodsName,
-			cs.contractorName,
-			w.laydownRequestDate
-		FROM
-			k3_tb_warehousing AS w
-			INNER JOIN
-			k3_tb_contractor_staff AS cs
-			ON
-			w.contractorId = cs.contractorId
-		WHERE
-			w.warehousingAllow = 'Y' AND w.laydownCheckCode IS NOT NULL
-		ORDER BY w.laydownCheckCode;
-	</select>
-	
-	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
-		SELECT
-			W.warehousingCode
-			,W.laydownGoodsName
-			,W.laydownGoodsCount
-			<if test="type eq 'modify'.toString()">
-				,W.laydownCheckCode
-				,W.laydownCheckResult
-				,W.laydownDate
-				,W.laydownCheckManager
-				,W.laydownCheckDate
-				,cs.contractorName
-			</if>
-		FROM
-			k3_tb_warehousing AS W
-			<if test="type eq 'modify'.toString()">
-				INNER JOIN
-				k3_tb_contractor_staff AS cs
-				ON
-				W.contractorId = cs.contractorId
-			</if>
-		WHERE
-			warehousingCode = #{warehousingCode};
-	</select>
-	
-	
+	<!-- 출하검수현황  -->
 	<select id="k3GetShipmentCheckList" resultType="K3ShipmentCheck">
 		SELECT
 			r.releaseCode,
-			w.laydownGoodsName,
+			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
 			r.accepDate,
@@ -99,15 +43,147 @@
 			k3_tb_contractor_staff AS cs
 			ON
 			w.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
 		WHERE
 			r.releaseAllow = 'Y';
 	</select>
 	
+	                                                          <!--입하검수  -->
+	
+	<!--입하검수조회  -->
+	<select id="k3GetLaydownSearchList" parameterType="Map" resultType="Map">
+		SELECT
+		   w.warehousingCode,
+		   p.productName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate,
+		   w.laydownCheckCode,
+		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
+		   w.warehousingDay,
+		   w.laydownCheckDate,
+		   m.memberName,
+		   w.laydownCheckResult
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			w.laydownCheckManager = m.memberId
+			<choose>
+				<when test="searchCondition.searchLaydownType != null and searchCondition.searchLaydownType != ''.toString()">
+					<trim prefix="WHERE" prefixOverrides="AND |OR">
+						<if test="searchCondition.laydownValue != null and searchCondition.laydownValue != ''.toString()">
+							${searchCondition.laydownKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
+						</if>	
+						<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+							AND ${searchCondition.laydownDateKey} >= #{searchCondition.searchStartDate}
+						</if>	
+						<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+				   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.laydownDateKey}
+						</if>
+							AND w.laydownCheckResult is not null
+					</trim>
+				</when>
+				<otherwise>
+					WHERE
+						w.laydownCheckResult is not null
+				</otherwise>
+			</choose>
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>
+	</select>
+	
+	<!-- 입하검수 등록하기 -->
+	<update id="k3AddLaydownCheck">
+		UPDATE
+			k3_tb_warehousing
+		SET
+			laydownCheckCode = #{laydownCheckCode},
+			laydownCheckResult = #{laydownCheckResult},
+			laydownCheckManager = #{laydownCheckManager},
+			laydownDate = #{laydownDate},
+			laydownCheckDate = #{laydownCheckDate}
+		WHERE
+			warehousingCode = #{warehousingCode};
+	</update>
+	
+	<!--<모달>-입하검수 등록을 위한 입하검수코드 조회 -->
+	<select id="k3GetLaydownCheckCodeList" resultType="map" parameterType="map">
+		SELECT
+			w.laydownCheckCode,
+			w.warehousingCode,	
+			p.productName,
+			cs.contractorName,
+			w.laydownRequestDate
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+		WHERE
+			w.warehousingAllow = 'Y' AND w.laydownCheckCode IS NOT NULL
+		ORDER BY w.laydownCheckCode;
+	</select>
+	
+	<!--입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)  -->
+	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
+		SELECT
+			w.warehousingCode
+			,p.productName
+			,w.laydownGoodsCount
+			<if test="type eq 'modify'.toString()">
+				,w.laydownCheckCode
+				,w.laydownCheckResult
+				,w.laydownDate
+				,w.laydownCheckManager
+				,w.laydownCheckDate
+				,cs.contractorName
+			</if>
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			<if test="type eq 'modify'.toString()">
+				INNER JOIN
+				k3_tb_contractor_staff AS cs
+				ON
+				w.contractorId = cs.contractorId
+			</if>
+		WHERE
+			warehousingCode = #{warehousingCode};
+	</select>
+	
+	
+
+	
+	<!--입하현황  이동(입하검수 할 목록)  -->	
 	<select id="k3GetLaydownCheckList" resultType="K3LaydownCheck">
 		SELECT
 		   w.warehousingCode,
 		   w.laydownCheckCode,
-		   w.laydownGoodsName,
+		   p.productName,
 		   w.laydownGoodsCount,
 		   c.contractorName,
 		   w.laydownDate
@@ -117,7 +193,83 @@
 		   k3_tb_contractor_staff AS c
 		   on
 		   w.contractorId = c.contractorId
+		   INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
 		WHERE
 			w.warehousingAllow = 'Y' AND w.laydownCheckResult IS NULL;
+
+	</select>
+	
+	<!--입하검수 현황(초기화면) - 입하검수리스트  -->	
+	<select id="k3GetLaydownCheck" resultType="map" parameterType="map">
+		SELECT
+		   w.warehousingCode,
+		   w.laydownCheckCode,
+		   w.mainBusinessCode,
+		   p.productName,
+		   w.laydownGoodsCount,
+		   w.manufacturedDate,
+		   w.expiratonDate,
+		   c.contractorName,
+		   w.laydownDate,
+		   m.memberName,
+		   w.laydownCheckDate,
+		   w.laydownCheckResult
+		FROM
+		   k3_tb_warehousing AS w
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+		   INNER JOIN
+		   k3_tb_member AS m
+		   ON
+		   w.laydownCheckManager = m.memberId
+		WHERE
+			w.laydownCheckResult is not null
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
+	</select>
+	
+	<!--입하검수 현황(초기화면) - 입하검수리스트 튜플 수  -->
+	<select id="k3GetLaydownCheckCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			w.laydownCheckManager = m.memberId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+		WHERE
+			w.laydownCheckResult is not null
+		<if	test="countType eq 'search'.toString()">
+		   	<if test="searchCondition.searchLaydownType != null and searchCondition.searchLaydownType != ''.toString()">
+				<if test="searchCondition.laydownValue != null and searchCondition.laydownValue != ''.toString()">
+		   			AND ${searchCondition.laydownKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
+				</if>	
+				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+		   			AND ${searchCondition.laydownDateKey} >= #{searchCondition.searchStartDate}
+				</if>	
+				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.laydownDateKey}
+				</if>
+			</if>		
+		</if>
 	</select>
 </mapper>
