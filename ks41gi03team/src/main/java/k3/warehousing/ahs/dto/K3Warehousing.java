@@ -1,14 +1,13 @@
 package k3.warehousing.ahs.dto;
 
-import k3.check.ahs.dto.K3LaydownCheck;
-
 public class K3Warehousing {
 	private String laydownCheckCode;
 	private String warehousingCode;
 	private String mainBusinessCode;
-	private String contractorName;
+	private String productCode;
+	private String productName;
 	private String contractorId;
-	private String laydownGoodsName;
+	private String contractorname;
 	private int laydownGoodsCount;
 	private String manufacturedDate;
 	private String expiratonDate;
@@ -17,7 +16,6 @@ public class K3Warehousing {
 	private String laydownCheckResult;
 	private String laydownCheckManager;
 	private String laydownCheckDate;
-	private String dockName;
 	private String memberName;
 	private String sorting;
 	public String getLaydownCheckCode() {
@@ -38,11 +36,17 @@ public class K3Warehousing {
 	public void setMainBusinessCode(String mainBusinessCode) {
 		this.mainBusinessCode = mainBusinessCode;
 	}
-	public String getContractorName() {
-		return contractorName;
+	public String getProductCode() {
+		return productCode;
 	}
-	public void setContractorName(String contractorName) {
-		this.contractorName = contractorName;
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public String getContractorId() {
 		return contractorId;
@@ -50,11 +54,11 @@ public class K3Warehousing {
 	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
-	public String getLaydownGoodsName() {
-		return laydownGoodsName;
+	public String getContractorname() {
+		return contractorname;
 	}
-	public void setLaydownGoodsName(String laydownGoodsName) {
-		this.laydownGoodsName = laydownGoodsName;
+	public void setContractorname(String contractorname) {
+		this.contractorname = contractorname;
 	}
 	public int getLaydownGoodsCount() {
 		return laydownGoodsCount;
@@ -104,12 +108,6 @@ public class K3Warehousing {
 	public void setLaydownCheckDate(String laydownCheckDate) {
 		this.laydownCheckDate = laydownCheckDate;
 	}
-	public String getDockName() {
-		return dockName;
-	}
-	public void setDockName(String dockName) {
-		this.dockName = dockName;
-	}
 	public String getMemberName() {
 		return memberName;
 	}
@@ -123,23 +121,11 @@ public class K3Warehousing {
 		this.sorting = sorting;
 	}
 	@Override
-	public String toString() {
-		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
-				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
-				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
-				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate
-				+ ", laydownRequestDate=" + laydownRequestDate + ", laydownDate=" + laydownDate
-				+ ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager
-				+ ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName + ", memberName=" + memberName
-				+ ", sorting=" + sorting + "]";
-	}
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
-		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
-		result = prime * result + ((dockName == null) ? 0 : dockName.hashCode());
+		result = prime * result + ((contractorname == null) ? 0 : contractorname.hashCode());
 		result = prime * result + ((expiratonDate == null) ? 0 : expiratonDate.hashCode());
 		result = prime * result + ((laydownCheckCode == null) ? 0 : laydownCheckCode.hashCode());
 		result = prime * result + ((laydownCheckDate == null) ? 0 : laydownCheckDate.hashCode());
@@ -147,11 +133,12 @@ public class K3Warehousing {
 		result = prime * result + ((laydownCheckResult == null) ? 0 : laydownCheckResult.hashCode());
 		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
 		result = prime * result + laydownGoodsCount;
-		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
 		result = prime * result + ((laydownRequestDate == null) ? 0 : laydownRequestDate.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((productCode == null) ? 0 : productCode.hashCode());
+		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ((sorting == null) ? 0 : sorting.hashCode());
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
@@ -170,15 +157,10 @@ public class K3Warehousing {
 				return false;
 		} else if (!contractorId.equals(other.contractorId))
 			return false;
-		if (contractorName == null) {
-			if (other.contractorName != null)
+		if (contractorname == null) {
+			if (other.contractorname != null)
 				return false;
-		} else if (!contractorName.equals(other.contractorName))
-			return false;
-		if (dockName == null) {
-			if (other.dockName != null)
-				return false;
-		} else if (!dockName.equals(other.dockName))
+		} else if (!contractorname.equals(other.contractorname))
 			return false;
 		if (expiratonDate == null) {
 			if (other.expiratonDate != null)
@@ -212,11 +194,6 @@ public class K3Warehousing {
 			return false;
 		if (laydownGoodsCount != other.laydownGoodsCount)
 			return false;
-		if (laydownGoodsName == null) {
-			if (other.laydownGoodsName != null)
-				return false;
-		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
-			return false;
 		if (laydownRequestDate == null) {
 			if (other.laydownRequestDate != null)
 				return false;
@@ -237,6 +214,16 @@ public class K3Warehousing {
 				return false;
 		} else if (!memberName.equals(other.memberName))
 			return false;
+		if (productCode == null) {
+			if (other.productCode != null)
+				return false;
+		} else if (!productCode.equals(other.productCode))
+			return false;
+		if (productName == null) {
+			if (other.productName != null)
+				return false;
+		} else if (!productName.equals(other.productName))
+			return false;
 		if (sorting == null) {
 			if (other.sorting != null)
 				return false;
@@ -249,5 +236,17 @@ public class K3Warehousing {
 			return false;
 		return true;
 	}
-	
+	@Override
+	public String toString() {
+		return "K3Warehousing [laydownCheckCode=" + laydownCheckCode + ", warehousingCode=" + warehousingCode
+				+ ", mainBusinessCode=" + mainBusinessCode + ", productCode=" + productCode + ", productName="
+				+ productName + ", contractorId=" + contractorId + ", contractorname=" + contractorname
+				+ ", laydownGoodsCount=" + laydownGoodsCount + ", manufacturedDate=" + manufacturedDate
+				+ ", expiratonDate=" + expiratonDate + ", laydownRequestDate=" + laydownRequestDate + ", laydownDate="
+				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
+				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", memberName=" + memberName
+				+ ", sorting=" + sorting + "]";
+	}
+
+
 }

@@ -74,7 +74,7 @@ public class K3WarehousingController {
 		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
 		
 		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingSearchList(searchCondition, currentPage);
-		Map<String, Object> laydownCheckMap = k3WarehousingService.k3GetLaydownSearchList(searchCondition, currentPage);
+		Map<String, Object> laydownCheckMap = k3CheckService.k3GetLaydownSearchList(searchCondition, currentPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("warehousingLastPage", warehousingMap.get("lastPage"));
 		model.addAttribute("warehousingList", warehousingMap.get("warehousingList"));
@@ -94,13 +94,13 @@ public class K3WarehousingController {
 	@PostMapping("/k3AllowWarehousing")
 	public String k3AllowWarehousing(@RequestParam(value="allowList[]", required=false)List<String> allowList,
 									 @RequestParam(value="YesOrNo", required=false)String YesOrNo){
-		log.info("컨트롤러//////입고 승인처리  allowList ------ " + allowList);
-		log.info("컨트롤러//////입고 반려처리  YesOrNo ------ " + YesOrNo);
+		log.info("컨트롤러//////입고 승인처리  allowList{} ------ " + allowList);
+		log.info("컨트롤러//////입고 반려처리  YesOrNo{} ------ " + YesOrNo);
 		Map<String, Object> warehousingList = new HashMap<String, Object>();
 		warehousingList.put("allowList", allowList);
 		warehousingList.put("YesOrNo", YesOrNo);
 		int result = k3WarehousingService.k3AllowWarehousing(warehousingList);
-		log.info("컨트롤러//////입고 승인처리 결과 result------ " + result);
+		log.info("컨트롤러//////입고 승인처리 결과 result{}------ " + result);
 		return "redirect:/team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
 	
@@ -108,7 +108,7 @@ public class K3WarehousingController {
 	@GetMapping("/k3AllowWarehousing")
 	public String k3AllowWarehousing(Model model){
 		List<K3Warehousing> K3RequestAllow = k3WarehousingService.k3RequestAllowWarehousing();
-		log.info("입고요청 승인 이동 컨트롤러 K3RequestAllow ------ " + K3RequestAllow);
+		log.info("입고요청 승인 이동 컨트롤러 K3RequestAllow{} ------ " + K3RequestAllow);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고승인");
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
@@ -117,7 +117,7 @@ public class K3WarehousingController {
 	//입고분류 등록처리
 	@PostMapping("/k3AddSort")
 	public String k3AddWarehousingSort(K3Stock k3Stock) {
-		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode ------.>>>>", k3Stock);
+		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode{} ------.>>>>", k3Stock);
 		System.out.println("입고분류 등록처리 ->>>>------------>>>>" + k3Stock);
 		//재고 테이블에 등록
 		int pileupResult = k3WarehousingService.k3AddWarehousingSort(k3Stock);
@@ -210,22 +210,26 @@ public class K3WarehousingController {
 		model.addAttribute("requestSort", requestSort);	
 		return "team03/goodsManagement/warehousing/k3SortList";
 	}
-	//입고 현황이동
+	
+	//입고 현황이동(초기화면)
 	@GetMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 										Model model) {
+		//입고현황(초기화면)
 		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingList(currentPage);
-		Map<String, Object> laydownCheckMap = k3WarehousingService.k3GetLaydownCheck(currentPage);
-		log.info("입고 현황이동 컨트롤러 warehousingMap------ " + warehousingMap);
-		log.info("입고 현황이동 컨트롤러 laydownCheckMap------ " + laydownCheckMap);
+		//입하검수현황(초기화면)
+		Map<String, Object> laydownCheckMap = k3CheckService.k3GetLaydownCheck(currentPage);
+		log.info("입고 현황이동 컨트롤러 warehousingMap------ {}" + warehousingMap);
+		log.info("입하검수 현황이동 컨트롤러 laydownCheckMap------ {}" + laydownCheckMap);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고현황");
 		model.addAttribute("currentPage", currentPage);
+		//입고현황 페이징 및 리스트
 		model.addAttribute("warehousingLastPage", warehousingMap.get("lastPage"));
 		model.addAttribute("warehousingList", warehousingMap.get("warehousingList"));
 		model.addAttribute("warehousingStartPageNum", warehousingMap.get("startPageNum"));
 		model.addAttribute("warehousingEndPageNum", warehousingMap.get("endPageNum"));
-		
+		//입하검수현황 페이징 및 리스트
 		model.addAttribute("laydownCheckLastPage", laydownCheckMap.get("lastPage"));
 		model.addAttribute("laydownCheck", laydownCheckMap.get("laydownCheck"));
 		model.addAttribute("laydownCheckStartPageNum", laydownCheckMap.get("startPageNum"));

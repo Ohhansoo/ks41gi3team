@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-   <th:block layout:fragment="customJs">
-			<script type="text/javascript">
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
 			$(function(){				
 				$('#addWarehousingBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
@@ -22,7 +22,6 @@
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
@@ -95,7 +94,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
 												<select name="warehousingKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="warehousingCode">입고코드</option>
 												</select>
@@ -155,7 +154,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
 												<select name="laydownKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="laydownCheckCode">검수코드</option>
 													<option value="memberName">검수자</option>
@@ -257,7 +256,7 @@
 												</td>
 												<td th:text="${l.warehousingCode}"></td>
 												<td th:text="${l.laydownCheckCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
 												<td th:text="${l.manufacturedDate}"></td>
 												<td th:text="${l.expiratonDate}"></td>
@@ -321,7 +320,7 @@
 													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">수정</a>
 												</td>
 												<td th:text="${l.laydownCheckCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.memberName}"></td>
