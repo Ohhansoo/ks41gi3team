@@ -32,13 +32,10 @@
 				});
 			});
 		</script>	
-		
-		<!--  page Start -->
+	
 		<div id="representative-button">
-		
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-				
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
 						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/finance/in/k3AddIn'">
@@ -55,7 +52,6 @@
 						</button>			
 					</div>
 				<!--End 버튼 영역 -->
-				
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -68,13 +64,13 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/finance/in/k3SearchInList}" method="post">
-									<div class="input-group input-group-sm">
-										<select class="form-control-sm" name="inKey">
-											<option value="inCode">매출코드</option>
-											<option value="estimateNum">견적번호</option>
-										</select>
-											<input type="text" class="form-control" placeholder="검색" name="inValue">
-											<button type="submit">검색</button>
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm" name="inKey">
+										<option value="inCode">매출코드</option>
+										<option value="estimateNum">견적번호</option>
+									</select>
+										<input type="text" class="form-control" placeholder="검색" name="inValue">
+										<button type="submit">검색</button>
 									</div>
 								</form>
 								<!--End inputbox 1 -->
@@ -83,34 +79,14 @@
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
-					
-					<!-- 하위 카드 영역 -->
+					<!--하위 카드 영역 -->
 					<div class="card underCard">
 						<!--card header -->
 						<div class="card-header deprbtn">
 							매출 내역
 						</div>
-						
-						<!-- 매출 조회 및 결제 현황  header-->
-						
-						<!-- 매출 조회 및 결제 현황 body -->
-						<div class="tab-content" id="nav-tabContent">
-						
-						<nav>
-							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">매출 조회</a>
-								<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">결제 현황</a>
-								<a class="nav-link" id="nav-remain-tab" data-toggle="tab" href="#nav-remain" role="tab" aria-controls="nav-remain" aria-selected="false">미수금 현황</a>
-							</div>
-						</nav>
-						
 						<!-- End card header -->
-						
-						
-						<!-- 매출 조회 tab -->
-						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-						
-						<!--매출 조회 card body -->
+						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
@@ -156,8 +132,6 @@
 											<td th:text="${l.inReceipe}"></td>
 											<td th:text="${l.inReceipeDate}"></td>
 											<td th:text="${l.memberName}"></td>
-											
-											
 										</tr>
 									</tbody>						
 								</table>
@@ -182,126 +156,10 @@
 									</ul>
 								<!-- END 페이징 -->										
 						</div>
-						<!--End 매출조회 card body -->
-						</div>
-						<!-- 매출 조회 tab END -->
-						
-						
-						<!-- 결제 조회 tab -->
-						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-						<!-- 결제 조회 card body -->		
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
-									<thead>
-										<tr>
-											<td>삭제</td>
-											<td>수정</td>
-											<td>매출코드</td>
-											<td>사업장별대표코드</td>
-											<td>등록자아이디</td>
-											<td>견적번호</td>
-											<td>견적금액</td>
-											<td>결제방법</td>
-											<td>결제일</td>
-											<td>수금확인금액</td>
-											<td>입금확인</td>
-											<td>미수금금액</td>
-											<td>증빙서류발행</td>
-											<td>발행일시</td>
-											<td>등록자이름</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
-											<td>
-												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
-											</td>
-											<td>
-											<a id="modifyIn" type="button" class="btn btn-default btn-sm" th:href="@{/team03/finance/in/k3ModifyIn(inCode=${l.inCode})}">
-													<i class="fas fa-pencil-alt icon"></i>
-											</a>
-											</td>
-											
-											
-										</tr>
-									</tbody>							
-								</table>
-							</form>
-						<!-- 페이징  시작-->
-						<ul>
-						</ul>
-						<!-- END 페이징 -->									
-						
-						
-						</div>
-						<!-- 결제 조회 card body -->
-						</div>
-						<!-- 결제 조회 tab end-->
-								
-								
-								
-						<!-- 미수금 조회 tab -->
-						<div class="tab-pane fade" id="nav-remain" role="tabpanel" aria-labelledby="nav-remain-tab">		
-						<!-- 미수금 조회 card body -->		
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
-									<thead>
-										<tr>
-											<td>삭제</td>
-											<td>수정</td>
-											<td>매출코드</td>
-											<td>사업장별대표코드</td>
-											<td>등록자아이디</td>
-											<td>견적번호</td>
-											<td>견적금액</td>
-											<td>결제방법</td>
-											<td>결제일</td>
-											<td>수금확인금액</td>
-											<td>입금확인</td>
-											<td>미수금금액</td>
-											<td>증빙서류발행</td>
-											<td>발행일시</td>
-											<td>등록자이름</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
-											<td>
-												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
-											</td>
-											<td>
-											<a id="modifyIn" type="button" class="btn btn-default btn-sm" th:href="@{/team03/finance/in/k3ModifyIn(inCode=${l.inCode})}">
-													<i class="fas fa-pencil-alt icon"></i>
-											</a>
-											</td>
-											
-										</tr>
-									</tbody>						
-								</table>
-							</form>
-						<!-- 페이징  시작-->
-						<ul>
-						</ul>
-						<!-- END 페이징 -->						
-
-						</div>
-						<!-- 미수금 card body End -->
-						</div>
-						<!-- 미수금 tab End -->
-					
-				
-				
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
 			</div>
-			<!-- End 매출 및 결제 및 미수금 조회 현황 body-->
-			
-		</div>
-		<!-- End 하위 카드 영역 -->
-	
-	</div>
-	<!-- End 콘텐츠 콘테이너 -->
-
-</div>
-<!-- page End -->
-
+	</th:block>

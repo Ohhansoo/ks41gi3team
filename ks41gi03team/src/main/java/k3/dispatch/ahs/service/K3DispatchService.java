@@ -58,8 +58,10 @@ public class K3DispatchService {
 	}
 
 	//모달2
-	public List<Map<String, Object>> k3SelectDispatchDriverName(){
-		List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null);
-		return searchName;
-	}
+	
+	  public List<Map<String, Object>> k3SelectDispatchDriverName(){
+		  List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null); 
+		  return searchName; 
+	  }
+	 
 }

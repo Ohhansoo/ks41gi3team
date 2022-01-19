@@ -5,7 +5,7 @@
 <mapper namespace="k3.stock.ahs.mapper.K3StockMapper">
 	<resultMap type="K3Stock" id="warehousingResultMap">
  		<result column="laydownCheckCode" property="laydownCheckCode" />
- 		<result column="laydownGoodsName" property="laydownGoodsName" />
+ 		<result column="productName" property="productName" />
 		<result column="stockQuantity" property="stockQuantity" />
 		<result column="contractorName" property="contractorName" />
 		<result column="largeCategory" property="largeCategory" />
@@ -22,7 +22,7 @@
 		SELECT
 			s.stockCode,
 			w.laydownCheckCode,
-			w.laydownGoodsName,
+			p.productName,
 			s.stockQuantity,
 			c.contractorName,
 			s.categoryCode,
@@ -38,6 +38,10 @@
 			k3_tb_warehousing AS w
 			ON
 			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			ON
@@ -74,7 +78,7 @@
 	<!--간단재고현황 조회처리  -->
 	<select id="k3GetSimpleStockSearchList" resultType="map" parameterType="map">
 		SELECT
-			w.laydownGoodsName,
+			p.productName,
 			cs.contractorName,
 			SUM(s.stockQuantity) AS stockQuantity
 		FROM
@@ -83,6 +87,10 @@
 			k3_tb_warehousing AS w
 			ON
 			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
@@ -93,7 +101,8 @@
 			   			AND ${searchCondition.simpleStockKey} LIKE CONCAT('%',#{searchCondition.simpleStockValue},'%') 
 					</if>	
 				</trim>
-			</if>	
+			</if>
+			GROUP BY cs.contractorName, p.productName	
 			<if test="paramMap.startNum != null">
 				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 			</if>
@@ -170,7 +179,7 @@
 		SELECT
 			s.stockCode,
 			w.laydownCheckCode,
-			w.laydownGoodsName,
+			p.productName,
 			s.stockQuantity,
 			c.contractorName,
 			s.categoryCode,
@@ -186,6 +195,10 @@
 			k3_tb_warehousing AS w
 			ON
 			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
 			INNER JOIN
 			k3_tb_contractor_staff AS c
 			ON
@@ -214,6 +227,10 @@
 			ON
 			s.warehousingCode = w.warehousingCode
 			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
+			INNER JOIN
 			k3_tb_contractor_staff AS c
 			ON
 			w.contractorId = c.contractorId
@@ -227,18 +244,20 @@
 			s.pileupManager = m.memberId
 		<if	test="countType eq 'search'.toString()">
 		   	<if test="searchCondition.searchDetailStockType != null and searchCondition.searchDetailStockType != ''.toString()">
-				<if test="searchCondition.detailStockValue != null and searchCondition.detailStockValue != ''.toString()">
-		   			AND ${searchCondition.detailStockKey} LIKE CONCAT('%',#{searchCondition.detailStockValue},'%') 
-				</if>	
-				<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString()">
-		   			AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%') 
-				</if>	
-				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
-		   			AND ${searchCondition.stockDateKey} >= #{searchCondition.searchStartDate}
-				</if>	
-				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
-		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.stockDateKey}
-				</if>
+		   	<trim prefix="WHERE" prefixOverrides="AND |OR">
+					<if test="searchCondition.detailStockValue != null and searchCondition.detailStockValue != ''.toString()">
+			   			AND ${searchCondition.detailStockKey} LIKE CONCAT('%',#{searchCondition.detailStockValue},'%') 
+					</if>	
+					<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString()">
+			   			AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%') 
+					</if>	
+					<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+			   			AND ${searchCondition.stockDateKey} >= #{searchCondition.searchStartDate}
+					</if>	
+					<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+			   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.stockDateKey}
+					</if>
+				</trim>
 			</if>		
 		</if>	
 	</select>
@@ -246,7 +265,7 @@
 	<!--간단조회 재고현황 (초기화면)  -->
 	<select id="k3GetStockByStockName" resultType="map" parameterType="map">
 		SELECT
-			w.laydownGoodsName,
+			p.productName,
 			cs.contractorName,
 			SUM(s.stockQuantity) AS stockQuantity
 		FROM
@@ -256,10 +275,14 @@
 			ON
 			s.warehousingCode = w.warehousingCode
 			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
+			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
 			w.contractorId = cs.contractorId
-			GROUP BY cs.contractorName, w.laydownGoodsName
+			GROUP BY cs.contractorName, p.productName
 		<if test="startNum != null">
 			LIMIT #{startNum}, #{rowPerPage};
 		</if>
@@ -270,22 +293,31 @@
 		SELECT
 			COUNT(1)
 		FROM
-			k3_tb_stock AS s
-			INNER JOIN
-			k3_tb_warehousing AS w
-			ON
-			s.warehousingCode = w.warehousingCode
-			INNER JOIN
-			k3_tb_contractor_staff AS cs
-			ON
-			w.contractorId = cs.contractorId
-		<if	test="countType eq 'search'.toString()">
-		   	<if test="searchCondition.searchSimpleStockType != null and searchCondition.searchSimpleStockType != ''.toString()">
-				<if test="searchCondition.simpleStockValue != null and searchCondition.simpleStockValue != ''.toString()">
-		   			AND ${searchCondition.simpleStockKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
-				</if>	
-			</if>		
-		</if>
-	
+			(SELECT
+				COUNT(1)
+			FROM
+				k3_tb_stock AS s
+				INNER JOIN
+				k3_tb_warehousing AS w
+				ON
+				s.warehousingCode = w.warehousingCode
+				INNER JOIN
+				k3_tb_product AS p
+				ON
+				w.productCode = p.productCode			
+				INNER JOIN
+				k3_tb_contractor_staff AS cs
+				ON
+				w.contractorId = cs.contractorId		
+			<if	test="countType eq 'search'.toString()">
+			   	<if test="searchCondition.searchSimpleStockType != null and searchCondition.searchSimpleStockType != ''.toString()">
+			   		<trim prefix="WHERE" prefixOverrides="AND |OR">
+						<if test="searchCondition.simpleStockValue != null and searchCondition.simpleStockValue != ''.toString()">
+				   			AND ${searchCondition.simpleStockKey} LIKE CONCAT('%',#{searchCondition.laydownValue},'%') 
+						</if>
+					</trim>	
+				</if>		
+			</if>
+			GROUP BY cs.contractorName, p.productName) as totalStock
 	</select>
 </mapper>

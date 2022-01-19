@@ -57,7 +57,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-12">
 												<select name="simpleStockKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 												</select>
 												<input type="text" name="simpleStockValue" class="form-control">
@@ -84,7 +84,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-4">
 												<select name="detailStockKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="stockCode">재고코드</option>
 												</select>
@@ -184,7 +184,7 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(simpleStockList)}" th:each="l,i : ${simpleStockList}">
 												<td th:text="${i.index+1}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.stockQuantity}"></td>
 												<td th:text="${l.contractorName}"></td>
 											</tr>
@@ -244,7 +244,7 @@
 													<a th:href="@{/team03/goodsManagement/stock/k3ModifyStock(stockCode=${l.stockCode})}">수정</a>
 												</td>
 												<td th:text="${l.locationCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.stockQuantity}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.largeCategory}"></td>

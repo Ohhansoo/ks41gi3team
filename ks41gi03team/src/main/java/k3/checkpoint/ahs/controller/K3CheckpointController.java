@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.checkpoint.ahs.dto.K3Checkpoint;
 import k3.checkpoint.ahs.service.K3CheckpointService;
-import k3.shipping.ahs.dto.K3Shipping;
+import k3.driver.ahs.service.K3DriverService;
 
 @Controller
 @RequestMapping(value="/team03/delivery/checkpoint")
@@ -24,9 +24,11 @@ public class K3CheckpointController {
 	private static final Logger log = LoggerFactory.getLogger(K3CheckpointController.class);
 	
 	private K3CheckpointService k3CheckpointService;
+	private K3DriverService k3DriverService;
 	
-	public K3CheckpointController(K3CheckpointService k3CheckpointService) {
+	public K3CheckpointController(K3CheckpointService k3CheckpointService, K3DriverService k3DriverService) {
 		this.k3CheckpointService = k3CheckpointService;
+		this.k3DriverService = k3DriverService;
 	}
 	
 	//현황
@@ -105,6 +107,14 @@ public class K3CheckpointController {
 		model.addAttribute("checkpointList", checkpointList);
 		
 		return "team03/delivery/checkpoint/k3CheckpointList";
+	}
+	
+	//모달
+	@PostMapping("/checkpointDriverName")
+	@ResponseBody
+		public List<Map<String, Object>> k3SelectCheckpointDriverName(){
+			List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList();
+			return searchName;
 	}
 	
 	

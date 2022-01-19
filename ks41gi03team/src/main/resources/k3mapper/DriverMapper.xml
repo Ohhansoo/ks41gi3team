@@ -115,15 +115,17 @@
 		</trim>	
 	</select>
 
-	<select id="k3GetDriverModalList" resultType="map" parameterType="map">
+	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT
 			d.driverId,
 			d.driverName,
 			d.driverPhone,
-			d.driverAddr,
 			d.driverRegDate
 		FROM
 			k3_tb_driver AS d
 	</select>
+	
+	
+
 	
 </mapper>

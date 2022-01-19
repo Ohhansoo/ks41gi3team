@@ -9,6 +9,7 @@ public class K3Dispatch {
 	private String shippingAddress;
 	private String shippingDetailAddress;
 	private String driverId;
+	private String driverName;
 	private String vehicleCode;
 	private String dispatchStartDate;
 	private String dispatchDueDate;
@@ -16,7 +17,8 @@ public class K3Dispatch {
 	private String memberName;
 	private String dispatchAcceptDate;
 	private String dispatchConsignee;
-
+	
+	
 	public String getDispatchCode() {
 		return dispatchCode;
 	}
@@ -65,6 +67,12 @@ public class K3Dispatch {
 	public void setDriverId(String driverId) {
 		this.driverId = driverId;
 	}
+	public String getDriverName() {
+		return driverName;
+	}
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
 	public String getVehicleCode() {
 		return vehicleCode;
 	}
@@ -112,12 +120,10 @@ public class K3Dispatch {
 		return "K3Dispatch [dispatchCode=" + dispatchCode + ", mainBusinessCode=" + mainBusinessCode
 				+ ", contractorCode=" + contractorCode + ", releaseCode=" + releaseCode + ", releaseMergeCode="
 				+ releaseMergeCode + ", shippingAddress=" + shippingAddress + ", shippingDetailAddress="
-				+ shippingDetailAddress + ", driverId=" + driverId + ", vehicleCode=" + vehicleCode
-				+ ", dispatchStartDate=" + dispatchStartDate + ", dispatchDueDate=" + dispatchDueDate + ", memberId="
-
-				+ memberId + ", memberName=" + memberName + ", dispatchAcceptDate=" + dispatchAcceptDate
+				+ shippingDetailAddress + ", driverId=" + driverId + ", driverName=" + driverName + ", vehicleCode="
+				+ vehicleCode + ", dispatchStartDate=" + dispatchStartDate + ", dispatchDueDate=" + dispatchDueDate
+				+ ", memberId=" + memberId + ", memberName=" + memberName + ", dispatchAcceptDate=" + dispatchAcceptDate
 				+ ", dispatchConsignee=" + dispatchConsignee + "]";
-
 	}
 	@Override
 	public int hashCode() {
@@ -130,6 +136,7 @@ public class K3Dispatch {
 		result = prime * result + ((dispatchDueDate == null) ? 0 : dispatchDueDate.hashCode());
 		result = prime * result + ((dispatchStartDate == null) ? 0 : dispatchStartDate.hashCode());
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
+		result = prime * result + ((driverName == null) ? 0 : driverName.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
@@ -184,6 +191,11 @@ public class K3Dispatch {
 				return false;
 		} else if (!driverId.equals(other.driverId))
 			return false;
+		if (driverName == null) {
+			if (other.driverName != null)
+				return false;
+		} else if (!driverName.equals(other.driverName))
+			return false;
 		if (mainBusinessCode == null) {
 			if (other.mainBusinessCode != null)
 				return false;
@@ -226,6 +238,8 @@ public class K3Dispatch {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 	
