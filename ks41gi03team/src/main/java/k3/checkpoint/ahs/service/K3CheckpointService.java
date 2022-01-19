@@ -53,5 +53,10 @@ public class K3CheckpointService {
 		return k3CheckpointList;
 	}
 	
+	//모달
+	public List<Map<String, Object>> k3SelectCheckpointDriverName(){
+		  List<Map<String, Object>> searchName = k3CheckpointMapper.k3SelectCheckpointDriverName(null); 
+		  return searchName; 
+	  }
 	
 }

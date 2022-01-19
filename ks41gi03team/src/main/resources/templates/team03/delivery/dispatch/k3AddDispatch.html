@@ -37,11 +37,13 @@
 	   						return false;
 	   					}		
 						});  						
+						
 						if(submitCheck) $('#userInfo').submit();
 					});
-				var modal = $('.modal');
 				
-				$(".exitBtn").click(function(){
+				var modal = $('#memberModal');
+				
+				$(".memberExitBtn").click(function(){
 						
 					modal.addClass('hidden');
 				});
@@ -100,47 +102,25 @@
 			
 			//모달2
 			$(function(){
-				$('#cancelBtn').on('click', function(){
-
-					location.href = '/team03/delivery/dispatch/k3DispatchList';
-				});
-				$(document).on('click', '#submitBtn', function(){
-					
-						var submitCheck = true;
-						var inputObj = $('#userInfo').find('input');
-							
-						$.each(inputObj, function(){	
-	   					var inputDate = $(this).val();
-	   					var inputId = $(this).attr('id');
-	   					var labelText = $('label[for=' + inputId + ']').text();
-							
-	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
-	   						alert(labelText + ' 입력해주세요');
-	   						$(this).focus();
-	   						submitCheck = false;
-	   						return false;
-	   					}		
-						});  						
-						if(submitCheck) $('#userInfo').submit();
-					});
-				var modal = $('.modal');
 				
-				$(".exitBtn").click(function(){
+				var modal = $('#driverModal');
+				
+				$(".driverExitBtn").click(function(){
 						
 					modal.addClass('hidden');
 				});
 		
-				$(document).on('click', '.dispatchMemberId_btn', function(){
+				$(document).on('click', '.dispatchDriverName_btn', function(){
 					var aLengthMenuArray = [];
 					aLengthMenuArray.push([5,10,-1]);
 					aLengthMenuArray.push([5,10,'ALL']);
 					
-					$('#dispatchMemberId').DataTable({
+					$('#dispatchDriverName').DataTable({
 						destroy: true,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/delivery/dispatch/dispatchMemberId',
+							url: '/team03/delivery/dispatch/dispatchDriverName',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -149,8 +129,10 @@
 						},
 						columns: [
 							{ "data": "선택"},
-							{ "data": "memberId"},
-							{ "data": "memberName"}							
+							{ "data": "driverId"},
+							{ "data": "driverName"},
+							{ "data": "driverPhone"},
+							{ "data": "driverRegDate"}
 						],
 						columnDefs: [
 							{
@@ -158,7 +140,7 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									var htmlbtn = '<input type="radio" class="driverId" name="driverId" value="'+ row.driverId +'">'
 									return htmlbtn;
 								}
 							}
@@ -168,19 +150,19 @@
 					modal.removeClass('hidden');
 						
 				});
-				$(document).on('click', '#memberConfirmBtn', function(){
-					var checkedBox = $('.memberId:checked');
-	 				var memberId = $('#memberId');
-	 				var memberName = $('#memberName');
+				$(document).on('click', '#driverConfirmBtn', function(){
+					var checkedBox = $('.driverId:checked');
+	 				var driverId = $('#driverId');
+	 				var driverName = $('#driverName');
 					
-	 				var dispatchMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
-	 				memberName.attr('value', dispatchMemberIdValue);	
-	 				memberId.attr('value', checkedBox.val());	
+	 				var dispatchDriverNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				driverName.attr('value', dispatchDriverNameValue);	
+	 				driverId.attr('value', checkedBox.val());	
 
 					modal.addClass('hidden');
 
 				});
-			});
+			}); 
 		</script>
 		</th:block>
 		<th:block layout:fragment="customContents">	
@@ -210,7 +192,7 @@
 										<input class="inputBox" type="text" id="releaseCode" name="releaseCode"/>
 									</div>									
 									<div class="inputwrap col-md-12">
-										<label for="driverId" class="inputName">기사 아이디</label>
+										<label for="driverId" class="inputName">차량기사 이름</label>
 										<input class="inputBox" type="hidden" id="driverId" name="driverId"/>
 										<input class="inputBox" type="text" id="driverName" name="driverName"/>
 										<button class="dispatchDriverName_btn" type="button">차량기사 등록</button> 
@@ -261,12 +243,12 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id="memberModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
 					<div class="textTitle">거래처명 선택</div>
-					<button class="exitBtn" type="button">
+					<button class="memberExitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
@@ -290,36 +272,33 @@
 		</div>
 		<!-- End 모달창 -->
 		
-		<!-- 모달창 -->
-		<div class="modal hidden">
+		<!-- 모달창2 -->
+		<div id="driverModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
-					<button class="exitBtn" type="button">
+					<div class="textTitle">차량기사 선택</div>
+					<button class="driverExitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="dispatchMemberId" class="dataTable">
+						<table border="1" id="dispatchDriverName" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>	
-									<th>회원코드</th>
-									<th>회원명</th>				
+									<th>기사 아이디</th>
+									<th>기사 이름</th>
+									<th>기사 전화번호</th>
+									<th>등록일자</th>
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="memberConfㅅ3
-					
-					
-					
-					+-
-					-irmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="driverConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>

@@ -7,7 +7,6 @@
 	<!-- 현황 -->
 	<select id="getDispatchList" resultType="K3Dispatch">
 		SELECT
-
 			m.dispatchCode,
 			m.mainBusinessCode,
 			m.contractorCode,
@@ -16,6 +15,7 @@
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			m.driverId,
+			d.driverName,
 			m.vehicleCode,
 			m.dispatchStartDate,
 			m.dispatchDueDate,
@@ -32,7 +32,11 @@
 		INNER JOIN
 			k3_tb_member AS t
 		ON
-			m.memberId = t.memberId;
+			m.memberId = t.memberId
+		INNER JOIN
+			k3_tb_driver as d
+		ON
+			m.driverId = d.driverId;
 	
 	</select>
 	
@@ -50,7 +54,7 @@
 			dispatchDueDate,
 			dispatchAcceptDate,
 			memberId,
-		dispatchConsignee
+			dispatchConsignee
 
 		)VALUES(
 			#{dispatchCode},
@@ -153,15 +157,8 @@
 	</select>
 	
 	
-	<select id="k3SelectDispatchDriverName" resultType="map" parameterType="map">
-		SELECT 
-			d.driverId,
-			d.driverName,
-			d.driverPhone,
-			d.driverRegDate		
-		FROM 
-			k3_tb_driver as d
-	</select>
+
+	
 
 
 </mapper>

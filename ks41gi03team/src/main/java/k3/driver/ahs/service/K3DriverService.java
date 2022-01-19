@@ -49,5 +49,10 @@ public class K3DriverService {
 		return k3DriverList;
 	}
 
+	public List<Map<String, Object>> k3GetDriverNameModalList() {
+		List<Map<String, Object>> modalList = k3DriverMapper.k3GetModalList(null);
+		return modalList;
+	}
+
 	
 }
