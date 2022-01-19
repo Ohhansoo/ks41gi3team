@@ -144,15 +144,19 @@
 											</a>
 											</td>
 											<td th:text="${l.inCode}"></td>
-											<td th:text="${l.mainBusinessCode}"></td>
+											<td th:text="${l.mainBusinessCode}">
 											<td th:text="${l.memberId}"></td>
 											<td th:text="${l.estimateNum}"></td>
 											<td th:text="${l.estimatePrice}"></td>
 											<td th:text="${l.inPayMethod}"></td>
 											<td th:text="${l.inPayDate}"></td>
-											
-											
+											<td th:text="${l.inPayCheck}"></td>
+											<td th:text="${l.inCheck}"></td>
+											<td th:text="${l.inPayRemain}"></td>
+											<td th:text="${l.inReceipe}"></td>
+											<td th:text="${l.inReceipeDate}"></td>
 											<td th:text="${l.memberName}"></td>
+											
 											
 										</tr>
 									</tbody>						
@@ -208,7 +212,7 @@
 											<td>등록자이름</td>
 										</tr>
 									</thead>
-									<tbody>가짜화면2!
+									<tbody>
 										<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
 											<td>
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
@@ -218,19 +222,8 @@
 													<i class="fas fa-pencil-alt icon"></i>
 											</a>
 											</td>
-											<td th:text="${l.inCode}"></td>
-											<td th:text="${l.mainBusinessCode}"></td>
-											<td th:text="${l.memberId}"></td>
-											<td th:text="${l.estimateNum}"></td>
-											<td th:text="${l.estimatePrice}"></td>
-											<td th:text="${l.inPayMethod}"></td>
-											<td th:text="${l.inPayDate}"></td>
-											<td th:text="${l.inPayCheck}"></td>
-											<td th:text="${l.inCheck}"></td>
-											<td th:text="${l.inPayRemain}"></td>
-											<td th:text="${l.inReceipe}"></td>
-											<td th:text="${l.inReceipeDate}"></td>
-											<td th:text="${l.memberName}"></td>
+											
+											
 										</tr>
 									</tbody>							
 								</table>
@@ -273,7 +266,7 @@
 											<td>등록자이름</td>
 										</tr>
 									</thead>
-									<tbody>가짜화면3!
+									<tbody>
 										<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
 											<td>
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
