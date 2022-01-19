@@ -15,6 +15,9 @@ import k3.in.ahs.dto.K3MainBusinessCode;
 	public interface K3InMapper {
 		
 	
+		//견적정보 모달
+		public List<Map<String,Object>> findEstimateInfo(Map<String,Object> paramMap);
+		
 		//견적번호의 견적액 가져오기
 		public List<K3Estimate> getEstimatePrice();
 		

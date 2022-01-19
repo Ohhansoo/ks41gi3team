@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
@@ -32,6 +33,16 @@ public class K3InController {
 			this.k3InService = k3InService;
 		}
 
+		
+		
+		//견적정보 모달 컨트롤러
+		@PostMapping("/findEstimateInfo")
+		@ResponseBody
+		public List<Map<String, Object>> k3FindEstimateInfo() {
+			List<Map<String, Object>> resultList = k3InService.findEstimateInfo();
+			System.out.println(resultList + "findEstimateInfo resultList");
+			return resultList;
+		}
 		
 		
 		//매출내역 검색
@@ -130,6 +141,7 @@ public class K3InController {
 			model.addAttribute("inList", inListMap.get("inList"));
 			model.addAttribute("startPageNum", inListMap.get("startPageNum"));
 			model.addAttribute("endPageNum", inListMap.get("endPageNum"));		
+			System.out.println(model+ "model--------------------");
 			System.out.println(inListMap + "inList값");
 			System.out.println("매출 내역 조회 컨트롤러 실행");
 			return "/team03/finance/in/k3InList";
