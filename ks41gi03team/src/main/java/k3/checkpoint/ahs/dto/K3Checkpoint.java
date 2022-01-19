@@ -3,6 +3,7 @@ package k3.checkpoint.ahs.dto;
 public class K3Checkpoint {
 	private String vehicleCheckpointCode;
 	private String driverId;
+	private String driverName;
 	private String vehicleCode;
 	private String vehicleArrivalDate;
 	private String vehicleShipmentDate;
@@ -17,6 +18,12 @@ public class K3Checkpoint {
 	}
 	public void setDriverId(String driverId) {
 		this.driverId = driverId;
+	}
+	public String getDriverName() {
+		return driverName;
+	}
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
 	}
 	public String getVehicleCode() {
 		return vehicleCode;
@@ -39,14 +46,15 @@ public class K3Checkpoint {
 	@Override
 	public String toString() {
 		return "K3Checkpoint [vehicleCheckpointCode=" + vehicleCheckpointCode + ", driverId=" + driverId
-				+ ", vehicleCode=" + vehicleCode + ", vehicleArrivalDate=" + vehicleArrivalDate
-				+ ", vehicleShipmentDate=" + vehicleShipmentDate + "]";
+				+ ", driverName=" + driverName + ", vehicleCode=" + vehicleCode + ", vehicleArrivalDate="
+				+ vehicleArrivalDate + ", vehicleShipmentDate=" + vehicleShipmentDate + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
+		result = prime * result + ((driverName == null) ? 0 : driverName.hashCode());
 		result = prime * result + ((vehicleArrivalDate == null) ? 0 : vehicleArrivalDate.hashCode());
 		result = prime * result + ((vehicleCheckpointCode == null) ? 0 : vehicleCheckpointCode.hashCode());
 		result = prime * result + ((vehicleCode == null) ? 0 : vehicleCode.hashCode());
@@ -66,6 +74,11 @@ public class K3Checkpoint {
 			if (other.driverId != null)
 				return false;
 		} else if (!driverId.equals(other.driverId))
+			return false;
+		if (driverName == null) {
+			if (other.driverName != null)
+				return false;
+		} else if (!driverName.equals(other.driverName))
 			return false;
 		if (vehicleArrivalDate == null) {
 			if (other.vehicleArrivalDate != null)

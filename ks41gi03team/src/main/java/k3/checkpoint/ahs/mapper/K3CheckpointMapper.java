@@ -28,5 +28,8 @@ public interface K3CheckpointMapper {
 	//검색
 	public List<K3Checkpoint> k3SearchCheckpointList(String checkpointKey, String checkpointValue);
 	
+	//모달
+	public List<Map<String, Object>> k3SelectCheckpointDriverName(Map<String, Object> paraMap);
+
 	
 }

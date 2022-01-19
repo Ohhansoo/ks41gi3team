@@ -24,5 +24,8 @@ public interface K3DriverMapper {
 	
 	//검색
 	public List<K3Driver> k3SearchDriverList(String driverKey, String driverValue);
+	
+	//모달
+	public List<Map<String, Object>> k3GetModalList(Map<String, Object> paramMap);
 
 }

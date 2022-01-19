@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.driver.ahs.dto.K3Driver;
 import k3.driver.ahs.service.K3DriverService;
-import k3.shipping.ahs.dto.K3Shipping;
 
 
 @Controller
@@ -101,5 +100,11 @@ public class K3DriverController {
 		return "team03/delivery/driver/k3DriverList";
 	}
 	
+	@PostMapping("/k3drivermodal")
+	@ResponseBody
+		public List<Map<String, Object>> k3GetDriverNameModalList(){
+			List<Map<String, Object>> modalList = k3DriverService.k3GetDriverNameModalList();
+			return modalList;
+	}
 
 }

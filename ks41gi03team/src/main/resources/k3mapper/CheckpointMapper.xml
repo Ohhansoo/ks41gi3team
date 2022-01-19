@@ -14,15 +14,20 @@
 	<!-- 현황 -->
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
-			vehicleCheckpointCode,
-			mainBusinessCode,
-			contractorCode,
-			driverId, 
-			vehicleCode,
-			vehicleArrivalDate,
-			vehicleShipmentDate
+			c.vehicleCheckpointCode,
+			c.mainBusinessCode,
+			c.contractorCode,
+			c.driverId, 
+			d.driverName,
+			c.vehicleCode,
+			c.vehicleArrivalDate,
+			c.vehicleShipmentDate
 		FROM
-			k3_tb_vehicle_checkpoint;
+			k3_tb_vehicle_checkpoint as c
+		INNER JOIN
+			k3_tb_driver as d
+		ON 
+			c.driverId = d.driverId;
 	
 	</select>
 	
