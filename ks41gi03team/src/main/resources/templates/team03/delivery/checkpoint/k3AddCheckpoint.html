@@ -5,6 +5,148 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+   </th:block>
+   
+
+		
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/delivery/vehicle/k3VehicleList';
+				});
+				$(document).on('click', '#submitBtn', function(){
+					
+						var submitCheck = true;
+						var inputObj = $('#userInfo').find('input');
+							
+						$.each(inputObj, function(){	
+	   					var inputDate = $(this).val();
+	   					var inputId = $(this).attr('id');
+	   					var labelText = $('label[for=' + inputId + ']').text();
+							
+	   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+	   						alert(labelText + ' 입력해주세요');
+	   						$(this).focus();
+	   						submitCheck = false;
+	   						return false;
+	   					}		
+						});  						
+						if(submitCheck) $('#userInfo').submit();
+					});
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '.vehicleDriverName_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#vehicleMemberId').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/chekpoint/vehicleDriverName',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var memberId = $('#memberId');
+					
+	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				memberId.attr('value',vehicleMemberIdValue);
+
+					modal.addClass('hidden');
+				});
+				
+				//차량 기사 등록
+				$(document).on('click', '.vehicleMemberId_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#vehicleMemberId').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/vehicle/vehicleMemberId',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var memberId = $('#memberId');
+					
+	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				memberId.attr('value',vehicleMemberIdValue);
+
+					modal.addClass('hidden');
+				});
+				
+			});
+		</script>
+		</th:block>
 	<th:block layout:fragment="customContents">
 
 		<div id="representative-button">
@@ -30,8 +172,9 @@
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="driverId" class="inputName">기사 아이디</label>
-										<input class="inputBox" type="text" id="driverId" name="driverId"/>
+										<label for="driverName" class="inputName">기사 이름</label>
+										<input class="inputBox" type="text" id="driverName" name="driverName"/>
+										<button class="vehicleDriverName_btn" type="button">차량기사 등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="memberName" class="inputName">차량 코드</label>

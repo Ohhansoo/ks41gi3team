@@ -1,6 +1,7 @@
 package k3.checkpoint.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.checkpoint.ahs.dto.K3Checkpoint;
 import k3.checkpoint.ahs.service.K3CheckpointService;
+import k3.shipping.ahs.dto.K3Shipping;
 
 @Controller
 @RequestMapping(value="/team03/delivery/checkpoint")
@@ -61,8 +64,6 @@ public class K3CheckpointController {
 	
 
 	//수정 화면
-
-
 	@GetMapping("/k3ModifyCheckpoint")
 	public String k3ModifyCheckpoint(@RequestParam(value="vehicleCheckpointCode", required = false) String vehicleCheckpointCode, Model model) {
 		
@@ -84,6 +85,26 @@ public class K3CheckpointController {
 		k3CheckpointService.modifyCheckpoint(k3Checkpoint);
 		
 		return "redirect:/team03/delivery/checkpoint/k3CheckpointList";
+	}
+	
+	//검색
+	@PostMapping("/k3CheckpointList")
+	public String k3SearchCheckpointList(@RequestParam(value="checkpointKey", required = false) String checkpointKey,
+										@RequestParam(value="checkpointValue", required = false) String checkpointValue,
+										Model model) {
+		if(checkpointKey != null && "checkpoint".equals(checkpointKey)) {
+			checkpointKey = "vehicleCheckpointCode";
+		}else if(checkpointKey != null && "name".equals(checkpointKey)) {
+			checkpointKey = "driverName";
+		}else if(checkpointKey != null && "vehicle".equals(checkpointKey)) {
+			checkpointKey = "vehicleCode";
+		}
+		List<K3Checkpoint> checkpointList = k3CheckpointService.k3SearchCheckpointList(checkpointKey, checkpointValue);
+		
+		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("checkpointList", checkpointList);
+		
+		return "team03/delivery/checkpoint/k3CheckpointList";
 	}
 	
 	

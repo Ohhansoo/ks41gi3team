@@ -1,6 +1,7 @@
 package k3.driver.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.driver.ahs.dto.K3Driver;
 import k3.driver.ahs.service.K3DriverService;
+import k3.shipping.ahs.dto.K3Shipping;
 
 
 @Controller
@@ -80,5 +83,23 @@ public class K3DriverController {
 		
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
+	
+	@PostMapping("/k3DriverList")
+	public String k3SearchDriverList(@RequestParam(value="driverKey", required = false) String driverKey,
+										@RequestParam(value="driverValue", required = false) String driverValue,
+										Model model) {
+		if(driverKey != null && "driver".equals(driverKey)) {
+			driverKey = "driverCode";
+		}else if(driverKey != null && "name".equals(driverKey)) {
+			driverKey = "driverName";
+		}
+		List<K3Driver> driverList = k3DriverService.k3SearchDriverList(driverKey, driverValue);
+		
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("driverList", driverList);
+		
+		return "team03/delivery/driver/k3DriverList";
+	}
+	
 
 }
