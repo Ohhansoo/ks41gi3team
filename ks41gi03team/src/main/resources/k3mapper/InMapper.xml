@@ -6,6 +6,14 @@
 
 
 
+	<!-- 견적번호로 견적가격 찾기(map)  -->
+	<select id="findEstimateInfo" parameterType="map" resultType="map">
+		SELECT
+			 e.estimateNum,
+			 e.estimatePrice
+		FROM
+			 k3_tb_estimate as e;
+	</select>
 
 	<!-- 견적액 가져오기 -->
 	<select id = "getEstimatePrice" resultType = "K3Estimate">	

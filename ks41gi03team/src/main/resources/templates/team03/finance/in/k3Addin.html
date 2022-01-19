@@ -14,20 +14,26 @@
 					history.back();
 				});
 				
-				///멤버이름 모달
 				
-				var memberModal = $('#memberModal');
-				$(document).on('click', '#selectMember', function(){
+				//견적정보 관련 모달	
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '#selectEstimateNum', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10]);
-					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
 					
-					$('#memberCode').DataTable({
+					$('#dataTableAjax').DataTable({
 						destroy: true,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/finance/in/inList',
+							url: '/team03/finance/in/findEstimateInfo',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -36,8 +42,8 @@
 						},
 						columns: [
 							{ "data": "선택"},
-							{ "data": "memberId"},
-							{ "data": "memberName"}							
+							{ "data": "estimateNum"},
+							{ "data": "estimatePrice"},
 						],
 						columnDefs: [
 							{
@@ -45,38 +51,35 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									var htmlbtn = '<input type="radio" class="estimateNum" name="estimateNum" value="'+ row.estimateNum +'">'
+									
 									return htmlbtn;
 								}
 							}
 						]
 					});
 					var overlay = $('.modal_overlay');
-					memberModal.removeClass('hidden');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.estimateNum:checked');
+	 				var estimatePrice = $('#estimatePriceInput');
+	 				var estimateNum = $('#estimateNumInput');
+	 				//var checkedTrName = checkedBox.parent().parent().children().eq(1).text();
+	 				var checkedEstimatePrice = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				estimateNum.attr('value',checkedBox.val());
+	 				estimatePrice.attr('value',checkedEstimatePrice);
+	 				
+					console.log(checkedBox);
 					
-				});
-				$("#memberExitBtn").click(function(){
 					
-					memberModal.addClass('hidden');
+					modal.addClass('hidden');
 				});
-				$(document).on('click', '#memberConfirmBtn', function(){
-					var checkedBox = $('.memberId:checked');
-	 				var pileupManager = $('#pileupManager');
-	 				var pileupManagerName = $('#pileupManagerName');
-
-	 				var pileupManagerValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var pileupManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
-
-	 				pileupManager.attr('value',pileupManagerValue);
-	 				pileupManagerName.attr('value',pileupManagerNameValue);
-
-	 				memberModal.addClass('hidden');
-				});
-				
 			});
 			
-			
-			
+		/* 	
 			// 견적서 번호 
 			$(function(){
 				
@@ -90,7 +93,7 @@
 						console.log(test2);
 					
 				})
-			})
+			}) */
 		</script>	
 	
 	</th:block>
@@ -135,15 +138,23 @@
 									</div>	
 									
 									
-									<div class="inputwrap col-md-12">
-											<label for="pileupManagerName" class="inputName">분류담당자</label>
-											<input class="inputBox" type="text" id="pileupManagerName" name="pileupManagerName" readonly="readonly"/>
-											<input class="hidden" type="text" id="pileupManager" name="pileupManager" readonly="readonly"/>
-											<button type="button" id="selectMember">담당자 선택</button>
-									</div>	
-									
 									
 									<div class="inputwrap col-md-12">
+										<label for="estimateNum" class="inputName">견적번호</label>
+										<input type="hidden" id="contractorIdInput" name="contractorId">
+										<input class="inputBox" type="text" id="estimateNumInput" name="estimateNum" placeholder="견적번호" readonly="readonly">
+										<button id="selectEstimateNum" class="findContractorModal" type="button">선택</button> 
+									</div>
+									
+									<div class="inputwrap col-md-12">
+										<label for="estimatePrice" class="inputName">견적가격</label>
+										<input type="hidden" id="contractorIdInput" name="contractorId">
+										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice" placeholder="견적가격" readonly="readonly">
+									</div>
+									
+									
+									
+								<!-- 	<div class="inputwrap col-md-12">
 										<label for="estimateNumInput" class="inputName">견적번호</label>
 										<select id = "estimateNum">
 											<option> :: 선택 :: </option>
@@ -153,7 +164,7 @@
 										</select>
 									</div>
 									
-									<!-- 보이지 않는 견적번호 담기 -->				
+									보이지 않는 견적번호 담기				
 									<div style="display:none" class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">담을견적번호</label>
 										<input class="inputBox" type="text" id="estimateNum2" name="estimateNum">
@@ -163,6 +174,9 @@
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
 										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
 									</div>
+									
+									 -->
+									
 																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
@@ -170,7 +184,6 @@
 											<option value="현금">현금</option>
 											<option value="카드">카드</option>
 										</select>
-										<!-- <input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod"> -->
 									</div>								
 									
 									<div class="inputwrap col-md-12">
@@ -211,31 +224,32 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		
 		<!-- 모달창 -->
-		<div id="memberModal" class="modal hidden">
+		<div class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
-					<button id="memberExitBtn" class="exitBtn" type="button">
+					<div class="textTitle">견적번호 선택</div>
+					<button class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="memberCode" class="dataTable">
+						<table border="1" id="dataTableAjax" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>
-									<th>견적서번호</th>
-									<th>거래처</th>						
+									<th>견적번호</th>
+									<th>금액</th>
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>

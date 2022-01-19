@@ -26,6 +26,13 @@ public class K3InService {
 	
 	
 	
+	//견적정보 모달
+		public List<Map<String, Object>> findEstimateInfo() {
+			List<Map<String, Object>> resultList = k3InMapper.findEstimateInfo(null);
+			return resultList;
+		}
+		
+	
 	//매출 내역 현황 조회 처리
 		public Map<String, Object> getSearchInList(Map<String, Object> searchCondition, int currentPage){
 			// 보여줄 행의 개수
