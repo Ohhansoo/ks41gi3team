@@ -2,137 +2,246 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-	<th:block layout:fragment="customContents"> 
-	  <style>
-      td {
-        text-align: center;
-      }
-      th {
-        text-align: center;
-      }
-    </style>
-	<script>
-			$(function(){				
-				$('#addmemberuserBtn').on('click', function(){
-				});
-				
-				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
+	<th:block layout:fragment="customJs">
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('memberpostaladdress').value = data.zonecode;
+                document.getElementById("memberstreetaddress").value = roadAddr;
+                document.getElementById("memberdetailaddress").value = data.jibunAddress;
+         
+                       
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
+	<script>	
+	$(function(){
+		
+		$(document).on('click', '#addMemberBtn', function(){
+			var submitCheck = true;
+			
+			var inputObj = $('#userInfo').find('input');
+			
+			$.each(inputObj, function(){
+				var inputData = $(this).val();
+				var inputId = $(this).attr('id');
+				var labelText = $('label[for=' + inputId + ']').text();
+				if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
+					alert(labelText + ' 입력해주세요');
+					$(this).focus();
+					submitCheck = false;
+					return false;
+				}
 			});
-		</script>
-		<div id="representative-button">
-			<div id="representative-button">
+			
+			if(submitCheck) $('#userInfo').submit();
+		});
+		
+		$('#dupclicate_btn').click(function(){
+
+			var memberId = $('#memberId').val();
+			
+			if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+				// ajax 호출
+				var request = $.ajax({
+					  url: '/member/idCheck', 
+					  method: 'POST', 
+					  data: { 'memberId' : memberId },
+					  dataType: 'text' 
+					});				
+				request.done(function(data) {
+					// 중복여부 체크(true: 중복, false: 등록가능)
+					var idConfirm = data;
+					
+					if(idConfirm){
+						alert('중복된 아이디입니다.');
+						$('#userInfo input').not('#memberId').prop('disabled', true);
+						$('#userInfo select').prop('disabled', true);
+						$('#userInfo button').not('#btn').prop('disabled', true);
+					}else{
+						alert('등록이 가능한 아이디입니다.');
+						$('#userInfo input').prop('disabled', false);
+						$('#userInfo select').prop('disabled', false);
+						$('#userInfo button').prop('disabled', false);
+					}
+					
+					
+				});				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+			}else{
+				alert('아이디를 입력해주세요')
+				return false;
+			}
+			
+			
+		});
+	});
+			</script>
+	</th:block>	
+	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-				<!--버튼 영역 -->			
-					<div class="d-flex justify-content-end">					
-						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-file-earmark-plus"></i>
-							등록
-						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-printer"></i>
-							출력
-						</button>						
-						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-trash"></i>
-							삭제
-						</button>					
-					</div>	
-					<!--End 버튼 영역 -->
-					<!--상위 카드 영역 -->
+				<div class="container-fluid d-flex justify-content-center">
+					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
-							권한 조회
+						<div class="card-header cardHeadBorder">
+							<h4>직원수정</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/level/k3MemberUserLevelList}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="memberuserlevelKey" class="input-group-text">
-												<option value="levelCode">권한번호</option>
-												<option value="levelName">권한이름</option>
-											</select>
-										</div>
-										<input type="text" name="memberuserlevelValue" class="form-control" >
-										<button id="memberuserlevelSearch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
+							<div class="row">
+								<form id="userInfo" th:action="@{/team03/companymanagement/member/k3ModifyMemberUserInfo}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="memberuserIdInput" class="inputName">직원ID</label>
+										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${k3MemberUserInfo.memberId}" readonly style="background-color: grey;"/> 
 									</div>
+									<div class="inputwrap col-md-12">
+										<label for="membersuserpasswordInput" class="inputName">직원PW</label>
+										<input class="inputBox" type="text" id="memberPasswordInput" name="memberPassword" th:value="${k3MemberUserInfo.memberPassword}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="mainbusinesscodeInput" class="inputName">사업장별대표코드</label>
+										<input class="inputBox" type="text" id="mainBusinessCodeInput" name="mainBusinessCode" th:value="${k3MemberUserInfo.mainBusinessCode}"/>
+									
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="levelcodeInput" class="inputName">권한번호</label>
+										<input class="inputBox" type="text" id="levelMemberCodeInput" name="levelMemberCode" th:value="${k3MemberUserInfo.levelMemberCode}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberusernameInput" class="inputName">직원이름</label>
+										<input class="inputBox" type="text" id="memberNameInput" name=memberName th:value="${k3MemberUserInfo.memberName}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberusergenderInput" class="inputName">성별</label>
+										<input class="inputBox" type="text" id="memberGenderInput" name="memberGender" placeholder="예시) 남 /여/무응답" th:value="${k3MemberUserInfo.memberGender}"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" th:value="${k3MemberUserInfo.memberpostaladdress}"/>
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>
+										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48" th:value="${k3MemberUserInfo.memberstreetaddress}"/><br>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="phoneInput" class="inputName">전화번호</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberPhone" placeholder=" 예시) 010-1234-4567" th:value="${k3MemberUserInfo.memberPhone}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="registCodeInput" class="inputName">주민번호</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" th:value="${k3MemberUserInfo.memberResidentRegistrationNumber}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberStateInput" class="inputName">직원계정상태</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberState" value="일반" th:value="${k3MemberUserInfo.memberState}" readonly style="background-color:#BDBDBD" >
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberRegDateInput" class="inputName">등록일자</label>
+										<input class="inputBox" type="date" id="memberRegDateInput" name="memberRegDate" th:value="${k3MemberUserInfo.memberRegDate}"/>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberHiredDateInput" class="inputName">입사일자</label>
+										<input class="inputBox" type="date" id="memberHiredDateInput" name="memberHiredDate" th:value="${k3MemberUserInfo.memberHiredDate}"/>
+									</div><br>							
+									<div class="d-flex justify-content-center">					
+										<button class="ahsbtn4 btn btn-outline-info" type="submit">수정</button>			
+										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>	
 								</form>
-								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
-					<!--End 상위 카드 영역 -->
-					<!--하위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							권한 현황
-						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/tteam03/companymanagement/level/k3MemberUserLevelList}" method="post">
-								<table class="table table-head-fixed text-nowrap">
-									<thead>
-										<tr>
-											<th>삭제</th>	
-											<th>수정</th>
-											<th>권한번호</th>
-											<th>권한이름</th>
-										</tr>
-									</thead>
-									<tbody>								
-			   							<tr th:if="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
-							   				<td>
-												<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.levelCode}">
-												<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
-											</td>
-							   				<td>
-												<a th:href="@{/team03/companymanagement/level/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">수정</a>
-											</td>	
-							   				<td th:text="${l.levelCode}"></td>
-							   				<td th:text="${l.levelName}"></td>
-						   			</tr>
-			   						<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
-						   				<td colspan="9">등록된 직원이 없습니다.</td>
-						   			</tr>
-									</tbody>						
-								</table>
-							</form>	
-						</div>
-						<!--End card body -->
-					</div>
-					<!--End 하위 카드 영역 -->
+					<!--End 카드 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">카테고리 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="k3membermodal" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회원코드</th>
+									<th>회원명</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 	</th:block>
 </head>
