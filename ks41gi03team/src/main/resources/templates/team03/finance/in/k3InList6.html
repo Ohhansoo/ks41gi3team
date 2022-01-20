@@ -47,7 +47,7 @@
 					modal.addClass('hidden');
 				});
 		
-				$(document).on('click', '#inPayInfo', function(){
+				$(document).on('click', '#selectEstimateNum', function(){
 					var aLengthMenuArray = [];
 					aLengthMenuArray.push([5,10,-1]);
 					aLengthMenuArray.push([5,10,'ALL']);
@@ -65,6 +65,7 @@
 		        			}
 						},
 						columns: [
+							{ "data": "선택"},
 							{ "data": "estimateNum"},
 							{ "data": "estimatePrice"},
 						],
@@ -74,7 +75,7 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="text" class="estimateNum" name="estimateNum" value="'+ row.estimateNum +'">'
+									var htmlbtn = '<input type="radio" class="estimateNum" name="estimateNum" value="'+ row.estimateNum +'">'
 									
 									return htmlbtn;
 								}
@@ -186,7 +187,7 @@
 						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 						
 						<!--매출 조회 card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
@@ -218,7 +219,7 @@
 											<td th:text="${i.index+1}"></td>
 									
 											<td>
-											<button id="inPayInfo" class="inPayInfoModal" type="button">선택</button> 
+											<button id="selectEstimateNum" class="findContractorModal" type="button">선택</button> 
 											</td>
 											
 											<td th:text="${l.inCode}"></td>
@@ -263,7 +264,7 @@
 						<!-- 결제 조회 tab -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 						<!-- 결제 조회 card body -->		
-						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
@@ -302,7 +303,7 @@
 						<!-- 미수금 조회 tab -->
 						<div class="tab-pane fade" id="nav-remain" role="tabpanel" aria-labelledby="nav-remain-tab">		
 						<!-- 미수금 조회 card body -->		
-						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
 							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
@@ -352,7 +353,7 @@
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">결제 정보</div>
+					<div class="textTitle">견적번호 선택</div>
 					<button class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
@@ -362,13 +363,11 @@
 						<table border="1" id="dataTableAjax" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
 									<th>견적번호</th>
-									<th>매출번호</th>
-									<th>견적금액</th>
-									<th>결제금액</th>
+									<th>금액</th>
 								</tr>
 							</thead>
-							
 						</table>				
 					</form>
 				</div>

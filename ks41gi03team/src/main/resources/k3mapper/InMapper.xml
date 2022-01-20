@@ -5,6 +5,14 @@
 <mapper namespace="k3.in.ahs.mapper.K3InMapper">
 
 
+	<!-- 결제 중 입력값 넣기(map) -->
+	<select id="inPayInfo" parameterType="map" resultType="map">
+	
+	
+	
+	
+	</select>
+	
 
 	<!-- 견적번호로 견적가격 찾기(map)  -->
 	<select id="findEstimateInfo" parameterType="map" resultType="map">
@@ -157,36 +165,52 @@
 	<insert id="addIn">
 	INSERT INTO k3_tb_in
 	(
-		inCode
+		 inCode
 		,mainBusinessCode
 		,memberId
 		,estimateNum
 		,estimatePrice
 		,inPayMethod
 		,inPayDate
-		,inPayCheck
-		,inCheck
-		,inPayRemain
-		,inReceipe
-		,inReceipeDate
 		)
 	VALUES
 	(
-		#{inCode},
+	 	#{inCode},
 		#{mainBusinessCode},
 		#{memberId},
 		#{estimateNum},
 		#{estimatePrice},
 		#{inPayMethod},
-		#{inPayDate},
-		#{inPayCheck},
-		#{inCheck},
-		#{inPayRemain},
-		#{inReceipe},
-		#{inReceipeDate}
+		#{inPayDate}
+		
 	);
-
 	</insert>
+	
+	
+	
+	
+	
+	<!-- 입고요청 등록처리  
+	<insert id="addIn">
+		INSERT INTO
+		   k3_tb_in
+			(inCode, mainBusinessCode, memberId, estimateNum, estimatePrice, inPayMethod, inPayDate, inPayCheck, inCheck, inPayRemain, inReceipe, inReceipeDate)
+		SELECT 
+		   	CONCAT(MAX(SUBSTRING(inCode,1,2)), MAX(CAST(SUBSTRING(inCode,3)AS DECIMAL))+ 1),
+		  	#{mainBusinessCode},
+			#{memberId},
+			#{estimateNum},
+			#{estimatePrice},
+			#{inPayMethod},
+			#{inPayDate},
+			#{inPayCheck},
+			#{inCheck},
+			#{inPayRemain},
+			#{inReceipe},
+			#{inReceipeDate}
+		FROM 
+		  k3_tb_in;
+	</insert> -->
 	
 	
 	<!--입고 현황(초기화면) - 입고리스트  -->
