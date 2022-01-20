@@ -33,6 +33,18 @@ public class K3InController {
 			this.k3InService = k3InService;
 		}
 
+		//결제 정보 모달 컨트롤러
+		@PostMapping("/findInPayInfo")
+		@ResponseBody
+		public List<Map<String, Object>> k3FindInPayInfo() {
+			
+			List<Map<String, Object>> result = k3InService.findEstimateInfo();
+			System.out.println(result + "findPayInfo controller");
+			
+			return result;
+		}
+		
+		
 		
 		
 		//견적정보 모달 컨트롤러
@@ -43,7 +55,6 @@ public class K3InController {
 			System.out.println(resultList + "findEstimateInfo resultList");
 			return resultList;
 		}
-		
 		
 		//매출내역 검색
 		@PostMapping("/k3SearchInList")
