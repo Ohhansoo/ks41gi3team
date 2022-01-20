@@ -19,6 +19,7 @@ public class K3MemberUser {
 	private String memberpostaladdress;
 	private String memberstreetaddress;
 	private String memberdetailaddress;
+	private String memberEmail;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -121,6 +122,12 @@ public class K3MemberUser {
 	public void setMemberdetailaddress(String memberdetailaddress) {
 		this.memberdetailaddress = memberdetailaddress;
 	}
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
 	@Override
 	public String toString() {
 		return "K3MemberUser [memberId=" + memberId + ", memberPassword=" + memberPassword + ", mainBusinessCode="
@@ -131,8 +138,9 @@ public class K3MemberUser {
 				+ ", memberRetiredReason=" + memberRetiredReason + ", memberRetiredDate=" + memberRetiredDate
 				+ ", memberRetirementSignedDate=" + memberRetirementSignedDate + ", memberpostaladdress="
 				+ memberpostaladdress + ", memberstreetaddress=" + memberstreetaddress + ", memberdetailaddress="
-				+ memberdetailaddress + "]";
+				+ memberdetailaddress + ", memberEmail=" + memberEmail + "]";
 	}
-
+	
+	
 	
 }

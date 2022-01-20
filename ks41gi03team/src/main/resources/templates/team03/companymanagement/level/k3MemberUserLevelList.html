@@ -2,19 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customJs">
-			<script>
+	<th:block layout:fragment="customTitle">
+		<title>ksmart41</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+	<style>
+      td {
+        text-align: center;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+    <script>
 			$(function(){				
-				$('#addCategoryBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/category/k3AddCategory';
+				$('#addmemberuserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
 				
-				$(document).on('click', '#deleteCategoryBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
+				$(document).on('click', '#deleteMemberUserBtn', function(){
+					/* location.href = '/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList'; */
+					var check = $('.removeList:checked');
+					var removeCheckList = [];
+					//console.log(check);
+					
 					
 					$.each(check, function(){
-						deleteCheckList.push($(this).val());
+						removeCheckList.push($(this).val());
 					});
 
 					
@@ -29,16 +43,45 @@
 					}
 				});
 			});
+			/* end 퇴사처리 */
+			
+/* 			<!-- 검색된 거래처 경로설정 -->					
+					var searchKey = [[${searchKey}]];
+					var searchValue = [[${searchValue}]];
+					var memberRegDateStart = [[${memberRegDateStart}]];
+					var memberHiredDateEnd = []
+					var num = [[${num}]];
+					num *= 1;
+					var currentPage = [[${currentPage}]];
+					var previous = [[${currentPage}]]-1;
+					var next = [[${currentPage}]]+1;
+					
+					console.log("변수확인 num : " + num);
+					console.log("변수확인 previous : " + previous);
+					console.log("변수확인 next : " + next);
+					console.log("변수 확인 searchKey : " + searchKey);
+					console.log("변수 확인 searchValue : " + searchValue);
+						
+					if(searchValue != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue);
+
+					}
+					else if(memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?&contractorRegistrationDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					else if(searchValue != null && memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue +'&memberRegDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					<!-- END 검색된 거래처 경로설정 -->	 */
 		</script>
-	</th:block>
-	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
-					<!--버튼 영역 -->			
-					<div class="d-flex justify-content-end">					
-						<button id="addCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+				<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">
+						<!-- <button type="button" id="checkbtn">직원선택</button>  -->					
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -46,40 +89,43 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteCheckpointBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-trash"></i>
-							삭제
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
+							<i class="bi bi-person-dash"></i>
+							퇴사
 						</button>					
 					</div>	
 					<!--End 버튼 영역 -->
+					
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							카테고리 조회
+							직원 권한 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/level/k3MemberUserLevelList}" method="post">
-									<div class="input-group input-group-sm">
-											<select name="memberuserlevelKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
 												<option value="memberPassword">직원PW</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="levelMemberCode">권한번호</option>
 												<option value="memberName">직원이름</option>
 												<option value="memberGender">성별</option>
-												<option value="memberAddr">주소</option>
 												<option value="memberPhone">전화번호</option>
 												<option value="memberResidentRegistrationNumber">주민번호</option>
 												<option value="memberState">직원계정상태</option>
 												<option value="memberRegDate">등록일자</option>
 												<option value="memberHiredDate">입사일자</option>
 										</select>
-									<input type="text" class="form-control" placeholder="검색" name="memberuserlevelValue">
+										</div>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
+										<div class="input-group-append">
 											<div class="btn btn-default" style="padding:0;">
 												<button id="categorySearcch" type="submit">
 													<i class="fas fa-search icon"></i>
@@ -98,28 +144,29 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							직원 현황
+							직원 권한 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{#}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<th>수정</th>
 											<th>직원ID</th>
-						                     <th>직원PW</th>
-						                     <th>사업장별대표코드</th>
 						                     <th>권한번호</th>
 						                     <th>직원이름</th>
+						                     <th>직원PW</th>
+						                     <th>사업장별대표코드</th>
 						                     <th>성별</th>
-						                     <th>주소</th>
 						                     <th>전화번호</th>
 						                     <th>주민번호</th>
 						                     <th>직원계정상태</th>
 						                     <th>등록일자</th>
-						                     <th>입사일자</th>									
+						                     <th>입사일자</th>	
+						                     <th>우편번호</th>	
+						                     <th>도로명주소</th>		
 										</tr>
 									</thead>
 									<tbody>								
@@ -130,12 +177,11 @@
 										</a>										
 										</td>	
 						   				<td th:text="${l.memberId}"></td>
-						   				<td th:text="${l.memberPassword}"></td>
-						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.levelMemberCode}"></td>
 						   				<td th:text="${l.memberName}"></td>
+						   				<td th:text="${l.memberPassword}"></td>
+						   				<td th:text="${l.mainBusinessCode}"></td>
 						   				<td th:text="${l.memberGender}"></td>
-						   				<td th:text="${l.memberAddr}"></td>
 						   				<td th:text="${l.memberPhone}"></td>
 						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
 						   				<td th:text="${l.memberState}"></td>
@@ -143,8 +189,8 @@
 						   				<td th:text="${l.memberHiredDate}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserlevelList)}" th:each="l : ${memberuserlevelList}">		
-											<td>등록된 카테고리가 없습니다.</td>
-										</tr>
+						   				<td colspan="9">등록된 직원이 없습니다.</td>
+											</tr>
 									</tbody>						
 								</table>
 							</form>	
@@ -152,7 +198,7 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-				</div>
+				</div>	
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>

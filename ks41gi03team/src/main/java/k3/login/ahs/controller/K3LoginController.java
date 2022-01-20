@@ -68,7 +68,11 @@ public class K3LoginController {
 		session.invalidate();
 		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
 	}
-
+	
+	/*
+	 * @GetMapping("/loginHistory1") public String loginHistory1
+	 * (@RequestParam(value="curren"))
+	 */
 	
 	
 	

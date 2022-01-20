@@ -13,8 +13,8 @@
       th {
         text-align: center;
       }
-    </style> 
-	<script>
+    </style>
+    <script>
 			$(function(){				
 				$('#addmemberuserBtn').on('click', function(){
 					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
@@ -95,7 +95,7 @@
 						</button>					
 					</div>	
 					<!--End 버튼 영역 -->
-					<!--End 버튼 영역 -->
+					
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -123,62 +123,32 @@
 												<option value="memberRegDate">등록일자</option>
 												<option value="memberHiredDate">입사일자</option>
 										</select>
+										</div>
 										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
 										<div class="input-group-append">
 											<div class="btn btn-default" style="padding:0;">
-												<button id="memberuserInfoSearch" type="submit">
+												<button id="memberuserInfoSearch" type="submit" style="height:36px; width: 36px;">
 													<i class="fas fa-search icon"></i>
 												</button>
 											</div>
 										</div>
+									</div>
+								</form>
 								<!--End inputbox 1 -->
-								
-								<!--inputbox 2 -->
-						<div class="col-sm-6" style="padding-left: 0px">
-							<form class="searchDateForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="Get" id="memberuserSearchDate">
-								<div class="input-group d-flex justify-content-end">
-								<select name="memberuserDateKey" class="input-group-text form-control-sm">
-										<option value="memberRegDate">등록일자</option>
-										<option value="memberHiredDate">입사일자</option>
-									</select>
-									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="searchStartDate" value="searchStartDate" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
-										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-										</div>
-									</div>
-									<div>
-										&nbsp~&nbsp
-									</div>
-									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="searchEndDate" value="searchEndDate" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
-										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-										</div>
-									</div>
-									<div class=" input-group-append">
-										<button type="submit" class="memberRegDateDate btn btn-default">
-											<i class="fas fa-search icon"></i>
-										</button>
-									</div>
-                   				</div>
-							</form>
-						</div>
-						<!--End inputbox 2 -->
-	 				</div>
+	 						</div>
+						</div>					
 	 					<!--End card body 묶음 -->
-				</div>					
-			</div>
+					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header deprbtn">
+						<div class="card-header">
 							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover"style="height: 450px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
@@ -192,6 +162,7 @@
 						                     <th>권한번호</th>
 						                     <th>직원이름</th>
 						                     <th>성별</th>
+						                     <th>이메일</th>
 						                     <th>전화번호</th>
 						                     <th>주민번호</th>
 						                     <th>직원계정상태</th>
@@ -221,6 +192,7 @@
 						   				<td th:text="${l.levelMemberCode}"></td>
 						   				<td th:text="${l.memberName}"></td>
 						   				<td th:text="${l.memberGender}"></td>
+						   				<td th:text="${l.memberEmail}"></td>
 						   				<td th:text="${l.memberPhone}"></td>
 						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
 						   				<td th:text="${l.memberState}"></td>
@@ -239,7 +211,7 @@
 						<!--End card body -->
 					</div>
 					<!--End 하위 카드 영역 -->
-				</div>
+				</div>	
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
