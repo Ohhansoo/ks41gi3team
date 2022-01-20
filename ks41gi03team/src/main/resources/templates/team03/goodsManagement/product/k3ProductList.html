@@ -8,6 +8,14 @@
 				$('#addCategoryBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/category/k3AddCategory';
 				});
+				$('#searchProductBtn').on('click', function(){
+					$('#searchType').attr('value','product');
+					$('#searchForm').submit();
+				});
+				$('#searchCategoryBtn').on('click', function(){
+					$('#searchType').attr('value','product');
+					$('#searchForm').submit();
+				});
 				
 				$(document).on('click', '#deleteCategoryBtn', function(){
 					var check = $('.deleteList:checked');
@@ -56,31 +64,49 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							카테고리 조회
+							상품 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
-									<div class="input-group input-group-sm">
-										<select name="categoryKey" class="input-group-text form-control-sm">
-											<option value="large">대분류</option>
-											<option value="medium">중분류</option>
-											<option value="small">소분류</option>
+								<form id="searchForm" class="d-flex justify-content-around" th:action="@{/team03/goodsManagement/product/k3ProductList}" method="post">
+									<!--inputbox 1 상품 -->
+									<div class="input-group input-group-sm p-2 bd-highlight">
+										<input type="hidden" name="searchType" id="searchType">
+										<select name="productKey" class="input-group-text form-control-sm">
+											<option value="productName">상품명</option>
+											<option value="manufacturer">제조사</option>
+											<option value="productCode">상품코드</option>
 										</select>
-										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+										<input type="text" name="productValue" class="form-control">
 										<div class="input-group-append">
 											<div class="btn btn-default" style="padding:0;">
-												<button id="categorySearcch" type="submit">
+												<button id="searchProductBtn" type="button">
 													<i class="fas fa-search icon"></i>
 												</button>
 											</div>
 										</div>
 									</div>
+									<!--End inputbox 1 상품 -->
+									<!--inputbox 2 카테고리-->
+									<div class="input-group input-group-sm p-2 bd-highlight">
+										<select name="categoryKey" class="input-group-text form-control-sm">
+											<option value="largeCategory">대분류</option>
+											<option value="mediumCategory">중분류</option>
+											<option value="smallCategory">소분류</option>
+										</select>
+										<input type="text" name="categoryValue" class="form-control">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="searchCategoryBtn" type="button">
+													<i class="fas fa-search icon"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<!--End inputbox 2 카테고리 -->
 								</form>
-								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
@@ -90,39 +116,63 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							카테고리 현황
+							상품 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="searchForm" th:action="@{/team03/goodsManagement/category/k3DeleteCategory}" method="post">
+							<form id="searchForm" th:action="@{/team03/goodsManagement/product/k3ProductList}" method="post">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
 											<th>삭제</th>	
 											<th>수정</th>										
-											<th>카테고리 대분류</th>
-											<th>카테고리 중분류</th>
-											<th>카테고리 소분류</th>										
+											<th>상품코드</th>
+											<th>상품명</th>
+											<th>대분류</th>
+											<th>중분류</th>										
+											<th>소분류</th>										
+											<th>제조사</th>										
 										</tr>
 									</thead>
 									<tbody>								
-										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
+										<tr th:if="${not #lists.isEmpty(productList)}" th:each="l : ${productList}">
 											<td>
-												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
+												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.productCode}">
 											</td>
 											<td>
-												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>
-											</td>		
+												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(productCode=${l.productCode})}">수정</a>
+											</td>
+											<td th:text="${l.productCode}"></td>		
+											<td th:text="${l.productName}"></td>		
 											<td th:text="${l.largeCategory}"></td>
 											<td th:text="${l.mediumCategory}"></td>
-											<td th:text="${l.smallCategory}"></td>	
+											<td th:text="${l.smallCategory}"></td>
+											<td th:text="${l.manufacturer}"></td>
 										</tr>
-										<tr th:unless="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
-											<td>등록된 카테고리가 없습니다.</td>
+										<tr th:unless="${not #lists.isEmpty(productList)}" th:each="l : ${productList}">
+											<td>등록된 상품이 없습니다.</td>
 										</tr>
 									</tbody>						
 								</table>
+								<!-- 페이징  시작-->
+								<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+									<li class="paginate_button page-item previous" id="previousProductList">
+										<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/product/k3ProductList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+											이전
+										</a>
+									</li>
+									<li class="paginate_button page-item" id="currentProductList" th:each="num : ${#numbers.sequence(productStartPageNum, productCheckEndPageNum)}">
+										<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/product/k3k3ProductListList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+										<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+									</li>
+									<li class="paginate_button page-item next" id="nextProductList">
+										<a th:if="${currentPage < productLastPage}" th:href="@{/team03/goodsManagement/product/k3k3ProductListList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+										다음
+										</a>
+									</li>
+								</ul>
+								<!-- END 페이징 -->
 							</form>	
 						</div>
 						<!--End card body -->

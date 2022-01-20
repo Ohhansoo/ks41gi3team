@@ -44,7 +44,7 @@ public class K3WarehousingService {
 		// 보여줄 행의 개수
 		int rowPerPage = 7;
 		
-		// 로그인 이력 테이블 행의 개수
+		// 입고 현황 테이블 행의 개수
 		String countType = "search";
 		double rowCount = k3WarehousingMapper.k3GetWarehousingCount(countType, searchCondition);
 		
@@ -133,7 +133,7 @@ public class K3WarehousingService {
 		// 보여줄 행의 개수
 		int rowPerPage = 7;
 		
-		// 로그인 이력 테이블 행의 개수
+		// 입고 현황 테이블 행의 개수
 		String countType = "normal";
 		double rowCount = k3WarehousingMapper.k3GetWarehousingCount(countType, null);
 		
