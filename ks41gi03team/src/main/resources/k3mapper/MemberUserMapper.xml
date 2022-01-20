@@ -73,19 +73,21 @@
 			,m.memberEmail
 		FROM 
 			k3_tb_member AS m 
-				<trim prefix="WHERE" prefixOverrides="AND /OR">
-					<if test="memberuserValue != null and memberuserValue != ''.toString()">
-						${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
-					</if>
-					<!-- <if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
-				   		AND ${searchCondition.memberuserDateKey} >= #{searchCondition.searchStartDate}
-					</if>	
-					<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
-				   		AND #{searchCondition.searchEndDate} >=  ${searchCondition.memberuserDateKey}
-					</if> -->
-						AND m.memberState = '일반'
-				</trim>
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="searchStartDate != null and searchEndDate != ''.toString() 
+						and searchStartDate != null and searchEndDate != ''.toString()">
+				 contractorRegistrationDate
+	 			BETWEEN DATE('#{searchStartDate}') AND DATE('#{searchEndDate}');
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "memberId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
+		</if>
 	</select>
+	
 
 <!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">
