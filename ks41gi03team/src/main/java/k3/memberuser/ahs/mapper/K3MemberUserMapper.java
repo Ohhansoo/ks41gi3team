@@ -28,8 +28,15 @@ public interface K3MemberUserMapper {
 	//06. 직원정보 삭제처리
 	public int k3RemoveMemberUser(List<String> removeList);
 		
-	//07. 직원 검색
-	public List<K3MemberUser> k3GetMemberUserSearchList(Map<String, Object> searchCondition);
+	/*
+	 * //07. 직원 검색 public List<K3MemberUser> k3GetMemberUserSearchList(Map<String,
+	 * Object> searchCondition);
+	 */
+	//검색된 직원 튜플수 (동적페이징)
+	public List<Map<String, Object>> k3MemberUserCount(Map<String, Object> paramMap, String searchKey, String searchValue, String searchStartDate, String searchEndDate);
+
+	//직원현황 조회(검색) 
+	public List<Map<String, Object>> k3GetMemberUserSearchList(Map<String, Object> paramMap, String searchKey, String searchValue, String searchStartDate, String searchEndDate);
 
 	//08. 직원중복체크
 	public int getMemberByMemberId(String memberId);

@@ -45,11 +45,11 @@
 			});
 			/* end 퇴사처리 */
 			
-/* 			<!-- 검색된 거래처 경로설정 -->					
+			<!-- 검색된 거래처 경로설정 -->					
 					var searchKey = [[${searchKey}]];
 					var searchValue = [[${searchValue}]];
-					var memberRegDateStart = [[${memberRegDateStart}]];
-					var memberHiredDateEnd = []
+					var searchStartDate = [[${searchStartDate}]];
+					var searchEndDate = []
 					var num = [[${num}]];
 					num *= 1;
 					var currentPage = [[${currentPage}]];
@@ -66,13 +66,13 @@
 						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue);
 
 					}
-					else if(memberRegDateStart != null && memberHiredDateEnd != null){
-						$('.searchDateForm').attr('action','k3MemberUserList?&contractorRegistrationDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					else if(searchStartDate != null && searchEndDate != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?&searchStartDate=' + searchStartDate + '&searchEndDate=' + searchEndDate);
 					}
-					else if(searchValue != null && memberRegDateStart != null && memberHiredDateEnd != null){
-						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue +'&memberRegDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					else if(searchValue != null && searchStartDate != null && searchEndDate != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue +'&searchStartDate=' + searchStartDate + '&searchEndDate=' + searchEndDate);
 					}
-					<!-- END 검색된 거래처 경로설정 -->	 */
+					<!-- END 검색된 거래처 경로설정 -->	 
 		</script>
 		<div id="representative-button">
 			<div id="representative-button">
@@ -107,38 +107,68 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-												<option value="memberId">직원ID</option>
-												<option value="memberPassword">직원PW</option>
-												<option value="mainBusinessCode">사업장별대표코드</option>
-												<option value="levelMemberCode">권한번호</option>
-												<option value="memberName">직원이름</option>
-												<option value="memberGender">성별</option>
-												<option value="memberPhone">전화번호</option>
-												<option value="memberResidentRegistrationNumber">주민번호</option>
-												<option value="memberState">직원계정상태</option>
-												<option value="memberRegDate">등록일자</option>
-												<option value="memberHiredDate">입사일자</option>
-										</select>
-										</div>
-										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-										<div class="input-group-append">
-											<div class="btn btn-default" style="padding:0;">
-												<button id="memberuserInfoSearch" type="submit" style="height:36px; width: 36px;">
+								<div class="col-sm-5" style="padding-left: 0px">
+									<form class="searchForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+										<div class="input-group  d-flex justify-content-start">
+											<div class="input-group-prepend">
+												<select name="memberuserKey" class="form-control" style="height: 38px; font-size: 15px;">
+													<option value="memberId">직원ID</option>
+													<option value="memberPassword">직원PW</option>
+													<option value="mainBusinessCode">사업장별대표코드</option>
+													<option value="levelMemberCode">권한번호</option>
+													<option value="memberName">직원이름</option>
+													<option value="memberGender">성별</option>
+													<option value="memberPhone">전화번호</option>
+													<option value="memberResidentRegistrationNumber">주민번호</option>
+													<option value="memberState">직원계정상태</option>
+													<option value="memberRegDate">등록일자</option>
+													<option value="memberHiredDate">입사일자</option>
+												</select>
+											</div>
+											<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
+											<div class="input-group-append">
+												<button id="memberuserInfoSearch" type="submit" class="btn btn-default searchMemberUser">
 													<i class="fas fa-search icon"></i>
 												</button>
 											</div>
 										</div>
+									</form>
+	 							</div>
+	   					<!--End inputbox 1 -->
+						<div  class="col-sm-1">
+						</div>
+						<!--inputbox 2 -->
+						<div class="col-sm-6" style="padding-left: 0px">
+							<form class="searchDateForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="Get" id="contractorSearchDate">
+								<div class="input-group d-flex justify-content-end">
+									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+										<input name="memberuserDateStart" value="memberuserDateStart" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="시작날짜선택">
+										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
 									</div>
-								</form>
-								<!--End inputbox 1 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
-					</div>
+									<div style="margin:3px">
+										<b>~</b>
+									</div>
+									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+										<input name="memberuserDateEnd" value="memberuserDateEnd" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="종료날짜선택">
+										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div class=" input-group-append">
+										<button type="submit" class="searchmemberuserDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
+                   				</div>
+							</form>
+						</div>
+						<!--End inputbox 2 -->
+							</div>
+					<!--End card body 묶음 -->
+				</div>
+			</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
@@ -202,17 +232,47 @@
 						   				<td th:text="${l.memberstreetaddress}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
-						   				<td colspan="9">등록된 직원이 없습니다.</td>
-						   			</tr>
-									</tbody>						
+						   				<td colspan="9">
+						   				등록된 직원이 없습니다.
+						   				</td>
+									</tr>							
+								</tbody>						
 								</table>
-							</form>	
+								<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+									<li class="paginate_button page-item previous" id="memberuserList_previous">
+										<a th:if="${currentPage > 1} and ${searchValue} != null" id="memberuserListNextA" th:href="@{k3MemberUserList(currentPage=${currentPage-1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractorList" class="page-link">
+											이전
+										</a>
+										<a th:if="${currentPage > 1} and ${searchStartDate} != null and ${searchEndDate} != null" id="memberListPreviousA" th:href="@{k3MemberUserList(currentPage=${currentPage-1},searchStartDate=${searchStartDate},searchEndDate=${searchEndDate})}" aria-controls="memberuserList" class="page-link">
+											이전
+										</a>
+										<a th:if="${currentPage > 1} and ${searchValue} == null and ${searchStartDate} == null and ${searchEndDate} == null" id="contractorListPreviousA" th:href="@{k3MemberUserList(currentPage=${currentPage-1})}" aria-controls="memberuserList" class="page-link">
+											이전
+										</a>
+									</li>
+									<li class="paginate_button page-item" id="memberuserList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+										<a  th:if="${num != currentPage} and ${searchStartDate} != null and ${searchEndDate} != null" id="contractorListCurrentA" th:href="@{k3MemberUserList(currentPage=${num},searchStartDate=${searchStartDate},searchEndDate=${searchEndDate})}" th:text="${num}"  aria-controls="memberuserList" class="page-link"></a>
+										<a  th:if="${num != currentPage} and ${searchValue} == null and ${searchStartDate} == null and ${searchEndDate} == null" id="memberuserListCurrentA" th:href="@{k3MemberUserList(currentPage=${num})}" th:text="${num}"  aria-controls="memberuserList" class="page-link"></a>
+										<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="memberuserList" class="page-link" th:text="${num}"></span>
+									</li>
+								    <li class="paginate_button page-item next" id="memberuserList_next">
+										<a th:if="${currentPage < lastPage} and ${searchValue} != null" id="memberuserListNextA" th:href="@{k3MemberUserList(currentPage=${currentPage+1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="memberuserList" class="page-link">
+											다음
+										</a>
+										<a th:if="${currentPage < lastPage} and ${searchStartDate} != null and ${searchEndDate} != null" id="memberuserListNextA" th:href="@{k3MemberUserList(currentPage=${currentPage+1},searchStartDate=${searchStartDate},searchEndDate=${searchEndDate})}" aria-controls="memberuserList" class="page-link">
+											다음
+										</a>
+										<a th:if="${currentPage < lastPage} and ${searchValue} == null and ${searchStartDate} == null and ${searchEndDate} == null" id="memberuserListNextA" th:href="@{k3MemberUserList(currentPage=${currentPage+1})}" aria-controls="memberuserList" class="page-link">
+											<!-- 다음 --> 다음
+										</a>
+								    </li>
+								</ul>
+							</div>
+							<!--End card body -->
 						</div>
-						<!--End card body -->
+						<!--End 조회 카드 영역 -->
 					</div>
-					<!--End 하위 카드 영역 -->
-				</div>	
-				<!-- End 콘텐츠 콘테이너 -->
+					<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
 	</th:block>
