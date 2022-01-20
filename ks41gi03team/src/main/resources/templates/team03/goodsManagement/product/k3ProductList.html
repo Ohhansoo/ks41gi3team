@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customJs">
+			<script>
+			$(function(){				
+				$('#addCategoryBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/category/k3AddCategory';
+				});
+				
+				$(document).on('click', '#deleteCategoryBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->			
+					<div class="d-flex justify-content-end">					
+						<button id="addCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>			
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteCheckpointBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
+					</div>	
+					<!--End 버튼 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							카테고리 조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
+									<div class="input-group input-group-sm">
+										<select name="categoryKey" class="input-group-text form-control-sm">
+											<option value="large">대분류</option>
+											<option value="medium">중분류</option>
+											<option value="small">소분류</option>
+										</select>
+										<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="categorySearcch" type="submit">
+													<i class="fas fa-search icon"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							카테고리 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="searchForm" th:action="@{/team03/goodsManagement/category/k3DeleteCategory}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>삭제</th>	
+											<th>수정</th>										
+											<th>카테고리 대분류</th>
+											<th>카테고리 중분류</th>
+											<th>카테고리 소분류</th>										
+										</tr>
+									</thead>
+									<tbody>								
+										<tr th:if="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
+											<td>
+												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
+											</td>
+											<td>
+												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>
+											</td>		
+											<td th:text="${l.largeCategory}"></td>
+											<td th:text="${l.mediumCategory}"></td>
+											<td th:text="${l.smallCategory}"></td>	
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(categoryList)}" th:each="l : ${categoryList}">
+											<td>등록된 카테고리가 없습니다.</td>
+										</tr>
+									</tbody>						
+								</table>
+							</form>	
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>
