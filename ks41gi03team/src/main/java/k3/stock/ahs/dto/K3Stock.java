@@ -4,6 +4,7 @@ import k3.category.ahs.dto.K3Category;
 import k3.contractor.ahs.dto.K3Contractor;
 import k3.memberuser.ahs.dto.K3MemberUser;
 import k3.product.ahs.dto.K3Product;
+import k3.warehousing.ahs.dto.K3Warehousing;
 
 public class K3Stock {
 	private String stockCode;
@@ -16,7 +17,8 @@ public class K3Stock {
 	private K3MemberUser k3MemberUser;
 	private K3Product k3Product;
 	private K3Contractor k3Contractor;
-	private K3Category k3Category;
+	private K3Category k3Category;	
+	private K3Warehousing k3Warehousing;
 	
 	public String getStockCode() {
 		return stockCode;
@@ -78,14 +80,20 @@ public class K3Stock {
 	public void setK3Category(K3Category k3Category) {
 		this.k3Category = k3Category;
 	}
+	public K3Warehousing getK3Warehousing() {
+		return k3Warehousing;
+	}
+	public void setK3Warehousing(K3Warehousing k3Warehousing) {
+		this.k3Warehousing = k3Warehousing;
+	}
 	@Override
 	public String toString() {
 		return "K3Stock [stockCode=" + stockCode + ", warehousingCode=" + warehousingCode + ", locationCode="
 				+ locationCode + ", stockQuantity=" + stockQuantity + ", pileupManager=" + pileupManager
 				+ ", pileupDate=" + pileupDate + ", k3MemberUser=" + k3MemberUser + ", k3Product=" + k3Product
-				+ ", k3Contractor=" + k3Contractor + ", k3Category=" + k3Category + "]";
+				+ ", k3Contractor=" + k3Contractor + ", k3Category=" + k3Category + ", k3Warehousing=" + k3Warehousing
+				+ "]";
 	}
-	
 
 	
 }

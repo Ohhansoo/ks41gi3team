@@ -23,6 +23,12 @@ public interface K3StockMapper {
 	public int K3ModifyStock(K3Stock k3Stock);
 	//재고 수정폼 이동
 	public List<K3Stock> K3GetStockInfo(String stockCode);
+	//로케이션 테이블에 사용현황 업데이트
+	public int k3UpdateLocationState(K3Stock k3Stock);
+	//입고분류여부 업데이트
+	public int k3UpdateSorting(K3Stock k3Stock);
+	//입고분류 등록처리
+	public int k3AddStock(K3Stock k3Stock);
 	//재고 등록 리스트(등록 가능한 리스트)
 	public List<K3Stock> k3AddStockList();
 	//재고현황 상세조회(초기화면)

@@ -13,10 +13,10 @@
 				$('#cancelBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
-				$(document).on('click', '#addWarehousingSortBtn', function(){
+				$(document).on('click', '#addStockBtn', function(){
 					
 					var submitCheck = true;
-					var inputObj = $('#assorList').find('input');
+					var inputObj = $('#stockList').find('input');
 							
 					$.each(inputObj, function(){
 		   				var inputDate = $(this).val();
@@ -30,7 +30,7 @@
 		   					return false;
 		   				}		
 					});  						
-						if(submitCheck) $('#assorList').submit();
+						if(submitCheck) $('#stockList').submit();
 				});
 				//모달 시작
 				var memberModal = $('#memberModal');
@@ -167,7 +167,7 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="assorList" th:action="@{/team03/goodsManagement/warehousing/k3AddSort}" method="post" th:if="${not #lists.isEmpty(warehousingSort)}" th:each="l : ${warehousingSort}">
+									<form id="stockList" th:action="@{/team03/goodsManagement/stock/k3AddStock}" method="post" th:if="${not #lists.isEmpty(warehousingSort)}" th:each="l : ${warehousingSort}">
 										<div class="inputwrap col-md-12">
 											<label for="warehousingCode" class="inputName">입고코드</label>
 											<input class="inputBox" type="text" id="warehousingCode" name="warehousingCode" th:value="${l.warehousingCode}" readonly="readonly"/>
@@ -196,7 +196,7 @@
 											<input class="inputBox" type="date" id="pileupDate" name="pileupDate"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
-											<button id="addWarehousingSortBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button id="addStockBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 											<button class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 										</div>	
 									</form>

@@ -114,24 +114,8 @@ public class K3WarehousingController {
 		model.addAttribute("K3RequestAllow", K3RequestAllow);
 		return "team03/goodsManagement/warehousing/k3AllowWarehousing";
 	}
-	//입고분류 등록처리
-	@PostMapping("/k3AddSort")
-	public String k3AddWarehousingSort(K3Stock k3Stock) {
-		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode{} ------.>>>>", k3Stock);
-		System.out.println("입고분류 등록처리 ->>>>------------>>>>" + k3Stock);
-		//재고 테이블에 등록
-		int pileupResult = k3WarehousingService.k3AddWarehousingSort(k3Stock);
-		if(pileupResult > 0) {
-			//입고 테이블에 분류 승인 업데이트
-			int soringResult = k3WarehousingService.k3UpdateSorting(k3Stock);
-			//로케이션 테이블에 사용현황 업데이트
-			int locationStateResult = k3WarehousingService.k3UpdateLocationState(k3Stock);
-		}
-		log.info("입고분류 등록폼 처리 값받아오기 warehousingCode ------.>>>>", pileupResult);
-		return "redirect:/team03/goodsManagement/warehousing/k3WarehousingList";
-	}
-	
-	//입고분류 모달 로케이션 선택처리
+
+	//모달 로케이션 선택처리
 	@PostMapping("/locationList")
 	@ResponseBody
 	public List<Map<String, Object>> locationList() {
@@ -140,7 +124,7 @@ public class K3WarehousingController {
 		return locationList;
 	}
 	
-	//입고분류 모달 담당자 선택처리
+	//모달 담당자 선택처리
 	@PostMapping("/MemberList")
 	@ResponseBody
 	public List<Map<String, Object>> memberList() {
@@ -148,7 +132,7 @@ public class K3WarehousingController {
 		
 		return memberList;
 	}
-	//입고분류 모달 카테고리 선택처리
+	//모달 카테고리 선택처리
 	@PostMapping("/getCategoryList")
 	@ResponseBody
 	public List<Map<String, Object>> getCategoryList() {
@@ -156,20 +140,7 @@ public class K3WarehousingController {
 		return categoryList;
 	}
 	
-	//입고분류 등록폼 이동
-	@GetMapping("/k3AddSort")
-	public String k3AddWarehousingSort(@RequestParam(value="warehousingCode", required= false) String warehousingCode,
-									   Model model) {
-		log.info("입고분류 등록폼 이동 값받아오기 warehousingCode ------.>>>>", warehousingCode);
-		//입고분류 등록 받아오기
-		String type = "add";
-		List<K3Warehousing> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
-		model.addAttribute("warehousingSort", warehousingSort);
-		model.addAttribute("title", "입고관리");
-		model.addAttribute("subtitle", "입고분류");
-		
-		return "team03/goodsManagement/warehousing/k3AddSort";
-	}
+
 	//입고 요청 등록 처리
 	@PostMapping("/k3AddWarehousing")
 	public String k3AddWarehousing(K3Warehousing k3Warehousing) {

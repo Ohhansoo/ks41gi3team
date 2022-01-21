@@ -129,6 +129,23 @@ public class K3StockService {
 		return modifyList;
 	}
 	
+	//로케이션 테이블에 사용현황 업데이트
+	public int k3UpdateLocationState(K3Stock k3Stock) {
+		int locationStateResult = k3StockMapper.k3UpdateLocationState(k3Stock);
+		return locationStateResult;
+	}
+	//입고분류여부 업데이트
+	public int k3UpdateSorting(K3Stock k3Stock) {
+		int soringResult = k3StockMapper.k3UpdateSorting(k3Stock);
+		return soringResult;
+	}
+	
+	//입고분류 등록처리
+	public int k3AddStock(K3Stock k3Stock) {		
+		int result = k3StockMapper.k3AddStock(k3Stock);
+		return result;
+	}
+	
 	//재고 등록 리스트 이동
 	public List<K3Stock> k3AddStockList() {
 		List<K3Stock> requestSort = k3StockMapper.k3AddStockList();
