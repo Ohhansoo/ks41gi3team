@@ -87,75 +87,59 @@ public class K3MemberUserService {
 			return result;
 		}
 		
+	
+	  //08 직원검색 
+	  public List<K3MemberUser> k3GetMemberUserSearchList(Map<String,Object> searchCondition){ 
+		  List<K3MemberUser> memberuserSearchList = memberuserMapper.k3GetMemberUserSearchList(searchCondition); 
+		  
+		  return memberuserSearchList; 
+	  }
+	 
 	/*
-	 * //08 직원검색 public List<K3MemberUser> k3GetMemberUserSearchList(Map<String,
-	 * Object> searchCondition){ List<K3MemberUser> memberuserSearchList =
-	 * memberuserMapper.k3GetMemberUserSearchList(searchCondition); return
-	 * memberuserSearchList; }
+	 * // 검색 public Map<String, Object> k3GetMemberUserSearchList(String searchKey,
+	 * String searchValue, String searchStartDate, String searchEndDate, int
+	 * currentPage) { Map<String, Object> paramMap = new HashMap<String, Object>();
+	 * 
+	 * List<Map<String, Object>> memberuserListCount =
+	 * memberuserMapper.k3GetMemberUserSearchList(paramMap, searchKey, searchValue,
+	 * searchStartDate, searchEndDate);
+	 * 
+	 * currentPage = 1;
+	 * 
+	 * double rowCount = memberuserListCount.size();
+	 * 
+	 * //보여줄 행의 개수 int rowPerPage = 1; if(rowCount < 5) { rowPerPage = (int)
+	 * rowCount; }else { rowPerPage = 5; } System.out.println("몇개인지 " + rowCount +
+	 * "얼마나 보여주는지 " + rowPerPage);
+	 * 
+	 * //마지막 페이지 int lastPage = (int) Math.ceil((rowCount / rowPerPage));
+	 * if(rowPerPage == 0) { lastPage = 1; }
+	 * 
+	 * //페이지 알고리즘 int startNum = (currentPage - 1) * rowPerPage;
+	 * 
+	 * // 보여줄 시작 페이지 번호 int startPageNum = 1;
+	 * 
+	 * // 보여줄 마지막 페이지 번호 int endPageNum = 0; if(lastPage > 5) { endPageNum = 5;
+	 * }else { endPageNum = lastPage; }
+	 * 
+	 * // 동적 페이지 구성 (7페이지 부터) if(currentPage > 5) { startPageNum = currentPage - 2;
+	 * endPageNum = currentPage + 2; if(endPageNum > lastPage) { startPageNum =
+	 * lastPage - 4; endPageNum = lastPage; } }
+	 * 
+	 * paramMap.put("startNum", startNum); paramMap.put("rowPerPage", rowPerPage);
+	 * 
+	 * List<Map<String, Object>> memberuserList =
+	 * memberuserMapper.k3GetMemberUserSearchList(paramMap, searchKey, searchValue,
+	 * searchStartDate, searchEndDate);
+	 * 
+	 * paramMap.clear();
+	 * 
+	 * paramMap.put("lastPage", lastPage); paramMap.put("memberuserList",
+	 * memberuserList); paramMap.put("startPageNum", startPageNum);
+	 * paramMap.put("endPageNum", endPageNum);
+	 * 
+	 * return paramMap; }
 	 */
-		// 검색
-		public Map<String, Object> k3GetMemberUserSearchList(String searchKey, String searchValue, String searchStartDate, String searchEndDate, int currentPage) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			
-			List<Map<String, Object>> memberuserListCount = memberuserMapper.k3GetMemberUserSearchList(paramMap, searchKey, searchValue, searchStartDate, searchEndDate);
-			
-			currentPage = 1;
-			
-			double rowCount = memberuserListCount.size();
-			
-			//보여줄 행의 개수 
-			int rowPerPage = 1;
-			if(rowCount < 5) {
-				rowPerPage = (int) rowCount;
-			}else {
-				rowPerPage = 5;
-			}
-			System.out.println("몇개인지 " + rowCount + "얼마나 보여주는지 " + rowPerPage);
-			
-			//마지막 페이지
-			int lastPage = (int) Math.ceil((rowCount / rowPerPage));
-			if(rowPerPage == 0) {
-				lastPage = 1;
-			}
-			
-			//페이지 알고리즘
-			int startNum = (currentPage - 1) * rowPerPage;
-			
-			// 보여줄 시작 페이지 번호
-			int startPageNum = 1;
-			
-			// 보여줄 마지막 페이지 번호
-			int endPageNum = 0;
-			if(lastPage > 5) {
-				endPageNum = 5;
-			}else {
-				endPageNum = lastPage;
-			}
-			
-			// 동적 페이지 구성 (7페이지 부터)
-			if(currentPage > 5) {
-				startPageNum = currentPage - 2;
-				endPageNum = currentPage + 2;
-				if(endPageNum > lastPage) {
-					startPageNum = lastPage - 4;
-					endPageNum = lastPage;
-				}
-			}
-			
-			paramMap.put("startNum", startNum);
-			paramMap.put("rowPerPage", rowPerPage);
-			
-			List<Map<String, Object>> memberuserList = memberuserMapper.k3GetMemberUserSearchList(paramMap, searchKey, searchValue, searchStartDate, searchEndDate);
-			
-			paramMap.clear();
-			
-			paramMap.put("lastPage", lastPage);
-			paramMap.put("memberuserList", memberuserList);
-			paramMap.put("startPageNum", startPageNum);
-			paramMap.put("endPageNum", endPageNum);
-			
-			return paramMap;
-		}
 		
 		//09 모달
 		public List<Map<String, Object>> k3GetMemberUserModalList() {

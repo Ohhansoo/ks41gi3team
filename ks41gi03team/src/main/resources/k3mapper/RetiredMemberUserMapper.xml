@@ -29,6 +29,21 @@
 				#{memberRetirementSignedDate}
 			);
 	</insert>
+	
+	<!--  쾨사직원검색 -->
+	<select id="k3GetRetiredMemberUserSearch" resultType="K3RetiredMemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="retiredmemberuserValue != null and retiredmemberuserValue != ''.toString()">
+				${retiredmemberuserKey} LIKE CONCAT('%', #{retiredmemberuserValue}, '%') 
+		AND 
+			memberState = "퇴사";
+			</if>
+		</trim>
+	</select>
 		
 	<select id="getRetiredMemberUserList" resultType="K3RetiredMemberUser">
 		SELECT 
