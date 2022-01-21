@@ -7,20 +7,39 @@
 
 	<!-- 결제 중 입력값 넣기(map) -->
 	<select id="inPayInfo" parameterType="map" resultType="map">
-	
-	
-	
-	
+		SELECT
+			i.inCode,
+			e.estimateNum,
+			e.estimatePrice
+			
+		FROM
+			k3_tb_in AS i
+			INNER join
+			k3_tb_estimate AS e
+			on
+			i.estimateNum = e.estimateNum
+		
+		WHERE
+			i.inCode = #{inCode};
 	</select>
 	
 
 	<!-- 견적번호로 견적가격 찾기(map)  -->
 	<select id="findEstimateInfo" parameterType="map" resultType="map">
 		SELECT
-			 e.estimateNum,
-			 e.estimatePrice
+		
+			e.estimateNum,
+			e.estimatePrice
+			
 		FROM
-			 k3_tb_estimate as e;
+			k3_tb_in AS i
+			INNER join
+			k3_tb_estimate AS e
+			on
+			i.estimateNum = e.estimateNum
+		<!-- 
+		WHERE
+			e.estimateNum = #{estimateNum}; -->
 	</select>
 
 	<!-- 견적액 가져오기 -->

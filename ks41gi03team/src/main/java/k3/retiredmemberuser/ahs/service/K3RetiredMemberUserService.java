@@ -1,8 +1,14 @@
 package k3.retiredmemberuser.ahs.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.retiredmemberuser.ahs.dto.K3RetiredMemberUser;
 import k3.retiredmemberuser.ahs.mapper.K3RetiredMemberUserMapper;
@@ -27,5 +33,11 @@ public class K3RetiredMemberUserService {
 	  List<K3RetiredMemberUser> retiredmemberuserList =retiredmemberuserMapper.getRetiredMemberUserList(); 
 	  return retiredmemberuserList; 
 	  }
-	 
+	  
+	  //퇴사직원 검색
+	  public List<K3RetiredMemberUser> k3GetRetiredMemberUserSearch(Map<String, Object> searchCondition){
+		  List<K3RetiredMemberUser> retiredmemberuserList = retiredmemberuserMapper.k3GetRetiredMemberUserSearch(searchCondition);
+		  
+		  return retiredmemberuserList;
+	  }
 }

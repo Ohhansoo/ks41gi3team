@@ -163,71 +163,63 @@
     }
 </script>
 	<script>
-			$(function(){
-				
-				$(document).on('click', '#addBtn', function(){
-					var submitCheck = true;
-					
-					var inputObj = $('#userInfo').find('input');
-					
-					$.each(inputObj, function(){
-						var inputData = $(this).val();
-						var inputId = $(this).attr('id');
-						var labelText = $('label[for=' + inputId + ']').text();
-						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
-							alert(labelText + ' 입력해주세요');
-							$(this).focus();
-							submitCheck = false;
-							return false;
-						}
-					});
-					
-					if(submitCheck) $('#userInfo').submit();
-				});
-				
-				$('#dupclicate_btn').click(function(){
-
-					var memberId = $('#memberId').val();
-					
-					if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
-						// ajax 호출
-						var request = $.ajax({
-							  url: '/team03/companymanagement/member/idCheck', 
-							  method: 'POST', 
-							  data: { 'memberId' : memberId },
-							  dataType: 'json' 
-							});				
-						request.done(function(data) {
-							// 중복여부 체크(true: 중복, false: 등록가능)
-							var idConfirm = data;
-							
-							if(idConfirm){
-								alert('중복된 아이디입니다.');
-		 						$('#userInfo input').not('#memberId').prop('disabled', true);
-								$('#userInfo select').prop('disabled', true);
-								$('#userInfo button').not('#dupclicate_btn').prop('disabled', true);
-							}else{
-								alert('등록이 가능한 아이디입니다.');
-								$('#userInfo input').prop('disabled', false);
-								$('#userInfo select').prop('disabled', false);
-								$('#userInfo button').prop('disabled', false);
-							}
-							
-							
-						});				
-						request.fail(function( jqXHR, textStatus ) {
-						  alert( "Request failed: " + textStatus );
-						});
-					}else{
-						alert('아이디를 입력해주세요')
-						return false;
-					}
-					
-					
-				});
+		$(document).on('click', '#addBtn', function(){
+			var submitCheck = true;
+			
+			var inputObj = $('#userInfo').find('input');
+			
+			$.each(inputObj, function(){
+				var inputData = $(this).val();
+				var inputId = $(this).attr('id');
+				var labelText = $('label[for=' + inputId + ']').text();
+				if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
+					alert(labelText + ' 입력해주세요');
+					$(this).focus();
+					submitCheck = false;
+					return false;
+				}
 			});
-		
-		</script>
+			
+			if(submitCheck) $('#userInfo').submit();
+		});
+	
+	//아이디 중복체크
+         $(document).on('click', '#dupclicate_btn', function(){
+            var memberId = $('#memberId').val();
+            console.log("아이디 변수 memberId 내부 확인 : " + memberId + "-> 확인");
+        
+
+            if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+               var request = $.ajax({
+                  url: '/team03/companymanagement/member/idCheck',
+                  method: 'POST',
+                  data: {'memberId' : memberId},
+                  dataType: 'text'
+               });
+               request.done(function(data){
+				var idConfirm = data;
+                  console.log(data);
+                  if(idConfirm == 'true'){
+                     alert("이미 사용하고 있는 아이디입니다.");
+                     $('userInfo input').not('#memberId').prop('disabled', true);
+                     $('userInfo select').prop('disabled', true);
+                     $('userInfo button').not('#dupclicate_btn').prop('disabled', true);
+                  }else{
+                     alert("사용 가능한 아이디입니다.");
+ 					 $('userInfo input').prop('disabled', false);
+                     $('userInfo select').prop('disabled', false);
+                     $('userInfo button').prop('disabled', false);                  
+                  }
+               });
+               request.fail(function( jqXHR, textStatus ){
+					alert( jqXHR, textStatus  );
+			   });
+            }else{
+               alert("아이디를 입력해주세요.")
+               return false;
+            }
+         });
+			</script>
 	</th:block>	
 	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -303,7 +295,7 @@
 										<input class="inputBox" type="date" id="memberHiredDate" name="memberHiredDate" disabled="disabled"/>
 									</div><br>							
 									<div class="d-flex justify-content-center">					
-										<button id="addBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+										<button id="addBtn" class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
 										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 									</div>	
 								</form>

@@ -40,6 +40,13 @@ public class K3ContractorService {
 		result += k3ContractorMapper.k3ContractorBusinessNumCheck(contractorBusinessNum);
 		return result;
 	}
+	
+	//거래처 종사업장 번호 중복확인
+	public int k3ContractorBusinessClientNumCheck(String contractorBusinessClientNum){
+		int result = 0;
+		result += k3ContractorMapper.k3ContractorBusinessClientNumCheck(contractorBusinessClientNum);
+		return result;
+	}
 
 	//거래처 수정 처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor) {
@@ -57,6 +64,17 @@ public class K3ContractorService {
 		K3DetailContractor k3DetailContractor = k3ContractorMapper.k3GetModifyContractor(contractorCode);
 		
 		return k3DetailContractor;
+	}
+	
+	//등록페이지에 거래처 아이디 정해주기
+	public List<Map<String, Object>> getContractorIdPw() {
+		
+		List<Map<String, Object>> contractorIdPw = k3ContractorMapper.getContractorIdPw();
+
+		System.out.println("서비스 변수 내부 확인 contractorIdPw : " + contractorIdPw);
+
+		
+		return contractorIdPw;
 	}
 
 	//거래처 등록 k3_tb_contractor_staff
@@ -185,6 +203,8 @@ public class K3ContractorService {
 		}else {
 			endPageNum = lastPage;
 		}
+		
+		System.out.println("보여줄 페이지 마지막번호 : "+ endPageNum+ "-->끝");
 		
 		// 동적 페이지 구성 (7페이지 부터)
 		if(currentPage > 5) {
