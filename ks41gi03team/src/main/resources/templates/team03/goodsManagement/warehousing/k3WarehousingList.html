@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-   <th:block layout:fragment="customJs">
-			<script type="text/javascript">
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
 			$(function(){				
 				$('#addWarehousingBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
@@ -22,7 +22,6 @@
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
@@ -95,7 +94,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
 												<select name="warehousingKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="warehousingCode">입고코드</option>
 												</select>
@@ -155,7 +154,7 @@
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
 												<select name="laydownKey" class="input-group-text form-control-sm">
-													<option value="laydownGoodsName">상품명</option>
+													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="laydownCheckCode">검수코드</option>
 													<option value="memberName">검수자</option>
@@ -257,7 +256,7 @@
 												</td>
 												<td th:text="${l.warehousingCode}"></td>
 												<td th:text="${l.laydownCheckCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
 												<td th:text="${l.manufacturedDate}"></td>
 												<td th:text="${l.expiratonDate}"></td>
@@ -272,16 +271,16 @@
 									<!-- 페이징  시작-->
 									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
 										<li class="paginate_button page-item previous" id="previousLaydownList">
-											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="contractorList" class="page-link">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage-1})}" aria-controls="warehousingList" class="page-link">
 											이전
 											</a>
 										</li>
-										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
-											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
-											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
+										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(warehousingStartPageNum, warehousingEndPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="warehousingList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="warehousingList" class="page-link"></span>
 										</li>
 										<li class="paginate_button page-item next" id="nextLaydownList">
-											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+											<a th:if="${currentPage < warehousingLastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="warehousingList" class="page-link">
 											다음
 											</a>
 										</li>
@@ -291,6 +290,8 @@
 								<!--End card body -->
 							</div>
 							<!--End 입고조회 재고현황-->
+							
+							
 							<!--검수조회 재고현황-->		
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
@@ -319,7 +320,7 @@
 													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">수정</a>
 												</td>
 												<td th:text="${l.laydownCheckCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.laydownGoodsCount}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.memberName}"></td>
@@ -339,12 +340,12 @@
 												이전
 											</a>
 										</li>
-										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+										<li class="paginate_button page-item" id="currentLaydownList" th:each="num : ${#numbers.sequence(laydownCheckStartPageNum, laydownCheckEndPageNum)}">
 											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
 										</li>
 										<li class="paginate_button page-item next" id="nextLaydownList">
-											<a th:if="${currentPage < lastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+											<a th:if="${currentPage < laydownCheckLastPage}" th:href="@{/team03/goodsManagement/warehousing/k3WarehousingList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
 											다음
 											</a>
 										</li>

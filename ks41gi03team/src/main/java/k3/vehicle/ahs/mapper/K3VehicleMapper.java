@@ -26,7 +26,10 @@ public interface K3VehicleMapper {
 	public List<K3Vehicle> k3SearchVehicleList(String vehicleKey, String vehicleValue);
 	
 	//단건 삭제
-	public Integer k3DeleteVehicle(String vehicleCode);
+	//public Integer k3DeleteVehicle(String vehicleCode);
+	
+	//체크 삭제
+	public Integer k3DeleteVehicle(List<String> deleteList);
 	
 	//모달
 	public List<Map<String, Object>> k3SelectVehicleMemberId(Map<String,Object> paraMap);

@@ -10,6 +10,60 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap> -->
 	
+	<update id="k3ModifyMemberUserLevelInfo" parameterType="int">
+		UPDATE 
+			k3_tb_member AS m
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="memberPassword != null and memberPassword != ''.toString()">
+			m.memberPassword = #{memberPassword},
+			</if>	
+			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+			m.mainBusinessCode = #{mainBusinessCode},
+			</if>	
+			<if test="levelMemberCode != null and levelMemberCode != ''.toString()">
+			m.levelMemberCode = #{levelMemberCode},
+			</if>	
+			<if test="memberName != null and memberName != ''.toString()">
+			m.memberName = #{memberName},
+			</if>	
+			<if test="memberGender != null and memberGender != ''.toString()">
+			m.memberGender = #{memberGender},
+			</if>	
+			<if test="memberPhone != null and memberGender != ''.toString()">
+			m.memberPhone = #{memberPhone},
+			</if>	
+			<if test="memberResidentRegistrationNumber != null and memberResidentRegistrationNumber != ''.toString()">
+			m.memberResidentRegistrationNumber = #{memberResidentRegistrationNumber},
+			</if>	
+			<if test="memberState != null and memberState != ''.toString()">
+			m.memberState = #{memberState},
+			</if>	
+			<if test="memberRegDate != null and memberGender != ''.toString()">
+			m.memberRegDate = #{memberRegDate},
+			</if>	
+			<if test="memberHiredDate != null and memberHiredDate != ''.toString()">
+			m.memberHiredDate = #{memberHiredDate},
+			</if>
+			<if test="memberRetiredReason != null and memberRetiredReason != ''.toString()">
+			m.memberRetiredReason = #{memberRetiredReason},
+			</if>
+			<if test="memberRetiredDate != null and memberRetiredDate != ''.toString()">
+			m.memberRetiredDate = #{memberRetiredDate},
+			</if>
+			<if test="memberRetirementSignedDate != null and memberRetirementSignedDate != ''.toString()">
+			m.memberRetirementSignedDate = #{memberRetirementSignedDate},
+			</if>
+			<if test="memberpostaladdress != null and memberHiredDate != ''.toString()">
+			m.memberpostaladdress = #{memberpostaladdress},
+			</if>
+			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
+			m.memberstreetaddress = #{memberstreetaddress}
+			</if>
+		</trim>		
+		WHERE 
+			m.memberId = #{memberId};
+	</update>
+	
 	<select id="getMemberUserLevelList"  resultType="K3MemberUserLevel">
 		SELECT 
 			 m.memberId									AS memberId
@@ -26,7 +80,9 @@
 			,m.memberpostaladdress						AS memberpostaladdress
 			,m.memberstreetaddress						AS memberstreetaddress
 		FROM 
-			k3_tb_member	AS m;
+			k3_tb_member	AS m
+		WHERE
+			memberState = "일반";
 	</select>
 
 </mapper>

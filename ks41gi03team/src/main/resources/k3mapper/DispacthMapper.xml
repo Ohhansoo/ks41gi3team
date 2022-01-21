@@ -4,85 +4,92 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.dispatch.ahs.mapper.K3DispatchMapper">
 
+	<!-- 현황 -->
 	<select id="getDispatchList" resultType="K3Dispatch">
 		SELECT
-			dm.dispatchCode,
-			dm.mainBusinessCode,
-			dm.contractorCode,
+			m.dispatchCode,
+			m.mainBusinessCode,
+			m.releaseCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
 			r.shippingDetailAddress,
-			dm.vehicleCode,
-			dm.dispatchStartDate,
-			dm.dispatchDueDate,
-			dm.dispatchAcceptDate,
-			dm.memberId,
-			dm.dispatchConsignee
+			m.driverId,
+			d.driverName,
+			m.vehicleCode,
+			m.dispatchStartDate,
+			m.dispatchDueDate,
+			m.dispatchAcceptDate,
+			m.memberId,
+			t.memberName,
+			m.dispatchConsignee
 		FROM
-			k3_tb_dispatch_management AS dm
+			k3_tb_dispatch_management AS m
 		INNER JOIN
 			k3_tb_release AS r
 		ON
-			dm.releaseCode = r.releaseCode;
+			m.releaseCode = r.releaseCode
+		INNER JOIN
+			k3_tb_member AS t
+		ON
+			m.memberId = t.memberId
+		INNER JOIN
+			k3_tb_driver as d
+		ON
+			m.driverId = d.driverId;
+	
 	</select>
 	
+	<!-- 추가 -->
 	<select id="addDispatch" parameterType="K3Dispatch">
 		INSERT INTO k3_tb_dispatch_management
 		(
 			dispatchCode,
 			mainBusinessCode,
-			contractorCode,
 			releaseCode,
-			releaseMergeCode,
 			driverId,
 			vehicleCode,
 			dispatchStartDate,
 			dispatchDueDate,
 			dispatchAcceptDate,
 			memberId,
-			shippingAddress,
-			shippingDetailAddress,
-			dispatchConsignee,
+			dispatchConsignee
+
 		)VALUES(
 			#{dispatchCode},
 			"공장A공장_서울_1",
-			"partners-driver-a",
 			#{releaseCode},
-			#{releaseMergeCode},
 			#{driverId},
 			#{vehicleCode},
 			#{dispatchStartDate},
 			#{dispatchDueDate},
 			#{dispatchAcceptDate},
 			#{memberId},
-			#{shippingAddress},
-			#{shippingDetailAddress},
-			#{dispatchConsignee},
+			#{dispatchConsignee}
 		);
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyDispatch" resultType="K3Dispatch">
 		SELECT
-			dispatchCode,
-			mainBusinessCode,
-			contractorCode,
-			releaseCode,
-			releaseMergeCode,
-			driverId,
-			vehicleCode,
-			dispatchStartDate,
-			dispatchDueDate,
-			dispatchAcceptDate,
-			memberId,
-			shippingAddress,
-			shippingDetailAddress,
-			dispatchConsignee,
+			m.dispatchCode,
+			m.mainBusinessCode,
+			m.releaseCode,
+			m.driverId,
+			m.vehicleCode,
+			m.dispatchStartDate,
+			m.dispatchDueDate,
+			m.dispatchAcceptDate,
+			m.memberId,
+			m.dispatchConsignee
+
 		FROM
-			k3_tb_dispatch_management
+			k3_tb_dispatch_management AS m
+
 		WHERE
 			dispatchCode = #{dispatchCode};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyDispatch" parameterType="K3Dispatch">
 		UPDATE k3_tb_dispatch_management
 		<trim prefix="SET" prefixOverrides=",">
@@ -93,13 +100,7 @@
 				mainBusinessCode = "공장A공장_서울_1",
 			</if>
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				contractorCode = "partners-driver-a",
-			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
 				releaseCode = #{releaseCode},
-			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				releaseMergeCode = #{releaseMergeCode},
 			</if>
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
 				driverId = #{driverId},
@@ -120,13 +121,7 @@
 				memberId = #{memberId},
 			</if>
 			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				shippingAddress = #{shippingAddress},
-			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				shippingDetailAddress = #{shippingDetailAddress},
-			</if>
-			<if test="dispatchCode != null and dispatchCode != ''.toString()">
-				dispatchConsignee = #{dispatchConsignee},
+				dispatchConsignee = #{dispatchConsignee}
 			</if>
 
 		</trim>
@@ -135,6 +130,7 @@
 			dispatchCode = #{dispatchCode};
 	</update>
 	
+	<!-- 검색 -->
 	<select id="k3SearchDispatchList" resultType="K3Dispatch">
 		SELECT
 			*
@@ -146,6 +142,21 @@
 			</if>
 		</trim>
 	</select>
+	
+	<!-- 체크 삭제 -->
+	<delete id="k3DeleteDispatch" parameterType="Integer">
+		DELETE
+			d
+		FROM
+			k3_tb_dispatch_management AS d
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or dispatchCode=#{deleteList}
+		</foreach>
+	</delete>
+	
+	
+
+	
 
 
 </mapper>

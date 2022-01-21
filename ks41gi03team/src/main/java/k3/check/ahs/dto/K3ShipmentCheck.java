@@ -2,7 +2,7 @@ package k3.check.ahs.dto;
 
 public class K3ShipmentCheck {
 	private String releaseCode;
-	private String laydownGoodsName;
+	private String productName;
 	private String releaseGoodsCount;
 	private String contractorName;
 	private String accepDate;
@@ -17,11 +17,11 @@ public class K3ShipmentCheck {
 	public void setReleaseCode(String releaseCode) {
 		this.releaseCode = releaseCode;
 	}
-	public String getLaydownGoodsName() {
-		return laydownGoodsName;
+	public String getProductName() {
+		return productName;
 	}
-	public void setLaydownGoodsName(String laydownGoodsName) {
-		this.laydownGoodsName = laydownGoodsName;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public String getReleaseGoodsCount() {
 		return releaseGoodsCount;
@@ -72,20 +72,12 @@ public class K3ShipmentCheck {
 		this.shipmentCheckResult = shipmentCheckResult;
 	}
 	@Override
-	public String toString() {
-		return "K3ShipmentCheck [releaseCode=" + releaseCode + ", laydownGoodsName=" + laydownGoodsName
-				+ ", releaseGoodsCount=" + releaseGoodsCount + ", contractorName=" + contractorName + ", accepDate="
-				+ accepDate + ", releaseDate=" + releaseDate + ", recipientName=" + recipientName
-				+ ", shipmentCheckManager=" + shipmentCheckManager + ", shipmentCheckRegDate=" + shipmentCheckRegDate
-				+ ", shipmentCheckResult=" + shipmentCheckResult + "]";
-	}
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accepDate == null) ? 0 : accepDate.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
-		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
+		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ((recipientName == null) ? 0 : recipientName.hashCode());
 		result = prime * result + ((releaseCode == null) ? 0 : releaseCode.hashCode());
 		result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
@@ -114,10 +106,10 @@ public class K3ShipmentCheck {
 				return false;
 		} else if (!contractorName.equals(other.contractorName))
 			return false;
-		if (laydownGoodsName == null) {
-			if (other.laydownGoodsName != null)
+		if (productName == null) {
+			if (other.productName != null)
 				return false;
-		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
+		} else if (!productName.equals(other.productName))
 			return false;
 		if (recipientName == null) {
 			if (other.recipientName != null)
@@ -156,5 +148,14 @@ public class K3ShipmentCheck {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "K3ShipmentCheck [releaseCode=" + releaseCode + ", productName=" + productName + ", releaseGoodsCount="
+				+ releaseGoodsCount + ", contractorName=" + contractorName + ", accepDate=" + accepDate
+				+ ", releaseDate=" + releaseDate + ", recipientName=" + recipientName + ", shipmentCheckManager="
+				+ shipmentCheckManager + ", shipmentCheckRegDate=" + shipmentCheckRegDate + ", shipmentCheckResult="
+				+ shipmentCheckResult + "]";
+	}
+	
 	
 }

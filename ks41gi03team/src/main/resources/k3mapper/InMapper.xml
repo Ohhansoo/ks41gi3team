@@ -5,7 +5,23 @@
 <mapper namespace="k3.in.ahs.mapper.K3InMapper">
 
 
+	<!-- 결제 중 입력값 넣기(map) -->
+	<select id="inPayInfo" parameterType="map" resultType="map">
+	
+	
+	
+	
+	</select>
+	
 
+	<!-- 견적번호로 견적가격 찾기(map)  -->
+	<select id="findEstimateInfo" parameterType="map" resultType="map">
+		SELECT
+			 e.estimateNum,
+			 e.estimatePrice
+		FROM
+			 k3_tb_estimate as e;
+	</select>
 
 	<!-- 견적액 가져오기 -->
 	<select id = "getEstimatePrice" resultType = "K3Estimate">	
@@ -32,27 +48,38 @@
 
 
 	<!-- 매출 검색 -->	
-	<select id="searchInList" resultType="K3In">
+	<select id="getSearchInList" parameterType="Map" resultType="Map">
 		SELECT
-			inCode
-			,mainBusinessCode
-			,memberId
-			,estimateNum
-			,estimatePrice
-			,inPayMethod
-			,inPayDate
-			,inPayCheck
-			,inCheck
-			,inPayRemain
-			,inReceipe
-			,inReceipeDate
+			i.inCode
+			,m.mainBusinessCode
+			,i.memberId
+			,i.estimateNum
+			,i.estimatePrice
+			,i.inPayMethod
+			,i.inPayDate
+			,i.inPayCheck
+			,i.inCheck
+			,i.inPayRemain
+			,i.inReceipe
+			,i.inReceipeDate
+			,m.memberName
+			
 		FROM
-				k3_tb_in
+			k3_tb_in AS i
+		INNER join
+			k3_tb_member AS m
+		ON
+			i.memberId = m.memberId
+			
 		<trim prefix="WHERE" prefixOverrides="AND \OR">
-			<if test="inValue != null and inValue != ''.toString()">
-				${inKey} LIKE CONCAT('%', #{inValue}, '%');
-			</if>
+			<if test="searchCondition.inValue != null and searchCondition.inValue != ''.toString()">
+				${searchCondition.inKey} LIKE CONCAT('%', #{searchCondition.inValue}, '%')
+			</if> 
 		</trim>
+		<!--  이번에 서치컨디션 추가한 코드 -->
+		<if test="searchCondition.startNum != null">
+			LIMIT #{searchCondition.startNum}, #{searchCondition.rowPerPage};
+		</if>  
 	</select>		
 	
 	
@@ -138,38 +165,56 @@
 	<insert id="addIn">
 	INSERT INTO k3_tb_in
 	(
-		inCode
+		 inCode
 		,mainBusinessCode
 		,memberId
 		,estimateNum
 		,estimatePrice
 		,inPayMethod
 		,inPayDate
-		,inPayCheck
-		,inCheck
-		,inPayRemain
-		,inReceipe
-		,inReceipeDate
 		)
 	VALUES
 	(
-		#{inCode},
+	 	#{inCode},
 		#{mainBusinessCode},
 		#{memberId},
 		#{estimateNum},
 		#{estimatePrice},
 		#{inPayMethod},
-		#{inPayDate},
-		#{inPayCheck},
-		#{inCheck},
-		#{inPayRemain},
-		#{inReceipe},
-		#{inReceipeDate}
+		#{inPayDate}
+		
 	);
-
 	</insert>
 	
-	<select id="getInList" resultType="K3In">
+	
+	
+	
+	
+	<!-- 입고요청 등록처리  
+	<insert id="addIn">
+		INSERT INTO
+		   k3_tb_in
+			(inCode, mainBusinessCode, memberId, estimateNum, estimatePrice, inPayMethod, inPayDate, inPayCheck, inCheck, inPayRemain, inReceipe, inReceipeDate)
+		SELECT 
+		   	CONCAT(MAX(SUBSTRING(inCode,1,2)), MAX(CAST(SUBSTRING(inCode,3)AS DECIMAL))+ 1),
+		  	#{mainBusinessCode},
+			#{memberId},
+			#{estimateNum},
+			#{estimatePrice},
+			#{inPayMethod},
+			#{inPayDate},
+			#{inPayCheck},
+			#{inCheck},
+			#{inPayRemain},
+			#{inReceipe},
+			#{inReceipeDate}
+		FROM 
+		  k3_tb_in;
+	</insert> -->
+	
+	
+	<!--입고 현황(초기화면) - 입고리스트  -->
+	<select id="getInList" resultType="map" parameterType="map">
 		SELECT 
 			i.inCode 					as inCode
 			,i.mainBusinessCode 		as mainBusinessCode
@@ -194,9 +239,30 @@
 		INNER JOIN
 			k3_tb_estimate AS e
 		ON
-			e.estimateNum = i.estimateNum;
+			e.estimateNum = i.estimateNum
+
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
 		
+	</select>
+	
+	<!--입고 현황(초기화면) - 입고리스트 튜플 수  -->
+	<select id="getInCount" resultType="int" fetchSize="1000">
+		SELECT 
+			count(1)
+		FROM k3_tb_in AS i
 		
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			i.memberId = m.memberId
+			
+		INNER JOIN
+			k3_tb_estimate AS e
+		ON
+			e.estimateNum = i.estimateNum
+
 	</select>
 
 </mapper>

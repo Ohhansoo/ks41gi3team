@@ -22,12 +22,25 @@ public class K3ContractorService {
 		this.k3ContractorMapper = k3ContractorMapper;
 	}
 	
-	//거래처 삭제 처리(체크박스)
+	//거래처 삭제 처리
 	public void k3DeleteContractor(String contractorCode) {
 		k3ContractorMapper.k3DeleteContractor(contractorCode);
 	}
 	
+	//거래처 사업장 코드 중복 확인
+	public int k3ContractorCodeCheck(String contractorCode){
+		int result = 0;
+		result += k3ContractorMapper.k3ContractorCodeCheck(contractorCode);
+		return result;
+	}
 	
+	//거래처 사업자 등록번호 중복 확인
+	public int k3ContractorBusinessNumCheck(String contractorBusinessNum){
+		int result = 0;
+		result += k3ContractorMapper.k3ContractorBusinessNumCheck(contractorBusinessNum);
+		return result;
+	}
+
 	//거래처 수정 처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor) {
 		int result = k3ContractorMapper.k3ModifyDetailContractor(k3DetailContractor);
@@ -85,6 +98,9 @@ public class K3ContractorService {
 		
 		//마지막 페이지
 		int lastPage = (int) Math.ceil((rowCount / rowPerPage));
+		if(rowPerPage == 0) {
+			lastPage = 1;
+		}
 		
 		//페이지 알고리즘
 		int startNum = (currentPage - 1) * rowPerPage;
@@ -152,6 +168,9 @@ public class K3ContractorService {
 		
 		//마지막 페이지
 		int lastPage = (int) Math.ceil((rowCount / rowPerPage));
+		if(rowPerPage == 0) {
+			lastPage = 1;
+		}
 		
 		//페이지 알고리즘
 		int startNum = (currentPage - 1) * rowPerPage;

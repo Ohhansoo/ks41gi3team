@@ -3,10 +3,9 @@ package k3.check.ahs.dto;
 public class K3LaydownCheck {
 	private String warehousingCode;
 	private String laydownCheckCode;
-	private String mainBusinessCode;
 	private String contractorName;
 	private String contractorId;
-	private String laydownGoodsName;
+	private String productName;
 	private int laydownGoodsCount;
 	private String manufacturedDate;
 	private String expiratonDate;
@@ -14,7 +13,6 @@ public class K3LaydownCheck {
 	private String laydownCheckResult;
 	private String laydownCheckManager;
 	private String laydownCheckDate;
-	private String dockName;
 	private String memberName;
 	private String type;
 	public String getWarehousingCode() {
@@ -29,12 +27,6 @@ public class K3LaydownCheck {
 	public void setLaydownCheckCode(String laydownCheckCode) {
 		this.laydownCheckCode = laydownCheckCode;
 	}
-	public String getMainBusinessCode() {
-		return mainBusinessCode;
-	}
-	public void setMainBusinessCode(String mainBusinessCode) {
-		this.mainBusinessCode = mainBusinessCode;
-	}
 	public String getContractorName() {
 		return contractorName;
 	}
@@ -47,11 +39,11 @@ public class K3LaydownCheck {
 	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
-	public String getLaydownGoodsName() {
-		return laydownGoodsName;
+	public String getProductName() {
+		return productName;
 	}
-	public void setLaydownGoodsName(String laydownGoodsName) {
-		this.laydownGoodsName = laydownGoodsName;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public int getLaydownGoodsCount() {
 		return laydownGoodsCount;
@@ -95,12 +87,6 @@ public class K3LaydownCheck {
 	public void setLaydownCheckDate(String laydownCheckDate) {
 		this.laydownCheckDate = laydownCheckDate;
 	}
-	public String getDockName() {
-		return dockName;
-	}
-	public void setDockName(String dockName) {
-		this.dockName = dockName;
-	}
 	public String getMemberName() {
 		return memberName;
 	}
@@ -114,12 +100,20 @@ public class K3LaydownCheck {
 		this.type = type;
 	}
 	@Override
+	public String toString() {
+		return "K3LaydownCheck [warehousingCode=" + warehousingCode + ", laydownCheckCode=" + laydownCheckCode
+				+ ", contractorName=" + contractorName + ", contractorId=" + contractorId + ", productName="
+				+ productName + ", laydownGoodsCount=" + laydownGoodsCount + ", manufacturedDate=" + manufacturedDate
+				+ ", expiratonDate=" + expiratonDate + ", laydownDate=" + laydownDate + ", laydownCheckResult="
+				+ laydownCheckResult + ", laydownCheckManager=" + laydownCheckManager + ", laydownCheckDate="
+				+ laydownCheckDate + ", memberName=" + memberName + ", type=" + type + "]";
+	}
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
-		result = prime * result + ((dockName == null) ? 0 : dockName.hashCode());
 		result = prime * result + ((expiratonDate == null) ? 0 : expiratonDate.hashCode());
 		result = prime * result + ((laydownCheckCode == null) ? 0 : laydownCheckCode.hashCode());
 		result = prime * result + ((laydownCheckDate == null) ? 0 : laydownCheckDate.hashCode());
@@ -127,10 +121,9 @@ public class K3LaydownCheck {
 		result = prime * result + ((laydownCheckResult == null) ? 0 : laydownCheckResult.hashCode());
 		result = prime * result + ((laydownDate == null) ? 0 : laydownDate.hashCode());
 		result = prime * result + laydownGoodsCount;
-		result = prime * result + ((laydownGoodsName == null) ? 0 : laydownGoodsName.hashCode());
-		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((manufacturedDate == null) ? 0 : manufacturedDate.hashCode());
 		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
+		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((warehousingCode == null) ? 0 : warehousingCode.hashCode());
 		return result;
@@ -153,11 +146,6 @@ public class K3LaydownCheck {
 			if (other.contractorName != null)
 				return false;
 		} else if (!contractorName.equals(other.contractorName))
-			return false;
-		if (dockName == null) {
-			if (other.dockName != null)
-				return false;
-		} else if (!dockName.equals(other.dockName))
 			return false;
 		if (expiratonDate == null) {
 			if (other.expiratonDate != null)
@@ -191,16 +179,6 @@ public class K3LaydownCheck {
 			return false;
 		if (laydownGoodsCount != other.laydownGoodsCount)
 			return false;
-		if (laydownGoodsName == null) {
-			if (other.laydownGoodsName != null)
-				return false;
-		} else if (!laydownGoodsName.equals(other.laydownGoodsName))
-			return false;
-		if (mainBusinessCode == null) {
-			if (other.mainBusinessCode != null)
-				return false;
-		} else if (!mainBusinessCode.equals(other.mainBusinessCode))
-			return false;
 		if (manufacturedDate == null) {
 			if (other.manufacturedDate != null)
 				return false;
@@ -210,6 +188,11 @@ public class K3LaydownCheck {
 			if (other.memberName != null)
 				return false;
 		} else if (!memberName.equals(other.memberName))
+			return false;
+		if (productName == null) {
+			if (other.productName != null)
+				return false;
+		} else if (!productName.equals(other.productName))
 			return false;
 		if (type == null) {
 			if (other.type != null)
@@ -223,15 +206,6 @@ public class K3LaydownCheck {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "K3LaydownCheck [warehousingCode=" + warehousingCode + ", laydownCheckCode=" + laydownCheckCode
-				+ ", mainBusinessCode=" + mainBusinessCode + ", contractorName=" + contractorName + ", contractorId="
-				+ contractorId + ", laydownGoodsName=" + laydownGoodsName + ", laydownGoodsCount=" + laydownGoodsCount
-				+ ", manufacturedDate=" + manufacturedDate + ", expiratonDate=" + expiratonDate + ", laydownDate="
-				+ laydownDate + ", laydownCheckResult=" + laydownCheckResult + ", laydownCheckManager="
-				+ laydownCheckManager + ", laydownCheckDate=" + laydownCheckDate + ", dockName=" + dockName
-				+ ", memberName=" + memberName + ", type=" + type + "]";
-	}
+	
 	
 }

@@ -33,8 +33,14 @@ public class K3CheckController {
 
 	public K3CheckController(K3CheckService k3CheckService) {
 		this.k3CheckService = k3CheckService;
-
 	}
+	//출하검수 등록이동
+	@GetMapping("/k3AddShipmentCheck")
+	public String k3AddShipmentCheck(){
+		
+		return "team03/goodsManagement/check/k3AddShipmentCheck";
+	}
+	
 	 //입하검수 수정폼이동
 	 @GetMapping("/k3ModifyLaydownCheck")
 	 public String K3ModifyLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
@@ -50,6 +56,7 @@ public class K3CheckController {
 		 System.out.println(laydownModifyList);
 		 return "team03/goodsManagement/check/k3ModifyLaydownCheck";
 	 }
+	 
 	//입하검수 등록처리
 	@PostMapping("/k3AddLaydownCheck") 
 	public String k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck){
@@ -57,6 +64,7 @@ public class K3CheckController {
 		int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
 		return "redirect:/team03/goodsManagement/check/k3LaydownCheckList"; 
 	}
+	
 	//모달 입하검수 등록을 위한 입하검수코드 조회
 	@PostMapping("/k3GetLaydownCheckCodeList") 
 	@ResponseBody
@@ -65,6 +73,7 @@ public class K3CheckController {
 		List<Map<String, Object>> laydownCheckCodeList = k3CheckService.k3GetLaydownCheckCodeList();  
 		return laydownCheckCodeList; 
 	}
+	
 	 //입하검수 등록폼이동
 	 @GetMapping("/k3AddLaydownCheck")
 	 public String k3AddLaydownCheck(@RequestParam(value="warehousingCode", required=false)String warehousingCode, 
@@ -80,13 +89,7 @@ public class K3CheckController {
 		 return "team03/goodsManagement/check/k3AddLaydownCheck";
 	 }
 	
-	//출하검수 등록이동
-	@GetMapping("/k3AddShipmentCheck")
-	public String k3AddShipmentCheck(){
-		
-		return "team03/goodsManagement/check/k3AddShipmentCheck";
-	}
-	//입하검수 리스트이동
+	//입하현황  이동(입하검수 할 목록)
 	@GetMapping("/k3LaydownCheckList")
 	public String k3GetLaydownCheckList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 										Model model){

@@ -1,6 +1,7 @@
 package k3.driver.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.driver.ahs.dto.K3Driver;
 import k3.driver.ahs.service.K3DriverService;
@@ -32,7 +34,8 @@ public class K3DriverController {
 	@GetMapping("/k3DriverList")
 	public String getDriverList(Model model) {
 		List<K3Driver> driverList = k3DriverService.getDriverList();
-		model.addAttribute("title", "기사 관리");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 현황");
 		model.addAttribute("driverList", driverList);
 		
 		return "team03/delivery/driver/k3DriverList";
@@ -41,7 +44,8 @@ public class K3DriverController {
 	//등록 화면
 	@GetMapping("/k3AddDriver")
 	public String driverCheck(Model model) {
-		model.addAttribute("title", "차량기사 등록");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 등록");
 		return "team03/delivery/driver/k3AddDriver";
 	}
 	
@@ -66,7 +70,8 @@ public class K3DriverController {
 			K3Driver driverInfo = k3DriverService.getModifyDriver(driverId);
 			model.addAttribute("driverInfo", driverInfo);
 		}
-		model.addAttribute("title", "기사수정화면");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 수정");
 		
 		return "team03/delivery/driver/k3ModifyDriver";
 	}
@@ -79,6 +84,40 @@ public class K3DriverController {
 		k3DriverService.modifyDriver(k3Driver);
 		
 		return "redirect:/team03/delivery/driver/k3DriverList";
+	}
+	
+	//체크 삭제
+	@PostMapping("/k3DeleteDriver")
+	public String k3DeleteDriver(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		Integer result = k3DriverService.k3DeleteDriver(deleteList);
+		log.info("DeleteDriver" + result);
+		return "redirect:/team03/delivery/driver/k3DriverList";
+	}
+	
+	//검색
+	@PostMapping("/k3DriverList")
+	public String k3SearchDriverList(@RequestParam(value="driverKey", required = false) String driverKey,
+										@RequestParam(value="driverValue", required = false) String driverValue,
+										Model model) {
+		if(driverKey != null && "driver".equals(driverKey)) {
+			driverKey = "driverCode";
+		}else if(driverKey != null && "name".equals(driverKey)) {
+			driverKey = "driverName";
+		}
+		List<K3Driver> driverList = k3DriverService.k3SearchDriverList(driverKey, driverValue);
+		
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("driverList", driverList);
+		
+		return "team03/delivery/driver/k3DriverList";
+	}
+	
+	//모달
+	@PostMapping("/k3drivermodal")
+	@ResponseBody
+		public List<Map<String, Object>> k3GetDriverNameModalList(){
+			List<Map<String, Object>> modalList = k3DriverService.k3GetDriverNameModalList();
+			return modalList;
 	}
 
 }

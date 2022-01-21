@@ -18,7 +18,7 @@
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
+				<div class="container-fluid d-flex justify-content-center">
 					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -39,22 +39,6 @@
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${shippingInfo.vehicleCheckpointCode}"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="areaCode" class="inputName">배송지역 코드</label>
-										<input class="inputBox" type="text" id="areaCode" name="areaCode" th:value="${shippingInfo.areaCode}"/>
-									</div>
-									<div class="inputwrap col-md-12">
-										<label for="releaseMergeCode" class="inputName">상품출고 통합코드</label>
-										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" th:value="${shippingInfo.releaseMergeCode}"/>
-									</div>								
-									<div class="inputwrap col-md-12">
-										<label for="shippingAddress" class="inputName">배송지</label>
-										<input class="inputBox" type="text" id="shippingAddress" name="shippingAddress" th:value="${shippingInfo.shippingAddress}"/>
-									</div>	
-									<div class="inputwrap col-md-12">
-										<label for="shippingDetailAddress" class="inputName">배송지 세부주소</label>
-										<input class="inputBox" type="text" id="shippingDetailAddress" name="shippingDetailAddress" th:value="${shippingInfo.shippingDetailAddress}"/>
-									</div>
-									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId" th:value="${shippingInfo.memberId}"/>
 									</div>
@@ -70,7 +54,7 @@
 										<label for="shippingTracking" class="inputName">배송 현황</label>
 										<input class="inputBox" type="text" id="shippingTracking" name="shippingTracking" th:value="${shippingInfo.shippingTracking}"/>
 									</div>		
-									<div class="d-flex justify-content-center">
+									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
 										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
 									</div>										

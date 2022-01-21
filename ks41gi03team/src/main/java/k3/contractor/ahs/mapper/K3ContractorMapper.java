@@ -13,6 +13,11 @@ public interface K3ContractorMapper {
 	//거래처 삭제처리(체크박스)
 	public void k3DeleteContractor(String contractorCode);
 
+	//거래처 사업장 코드 중복확인
+	public int k3ContractorCodeCheck(String contractorCode);
+	
+	//거래처 사업장 등록번호 중복확인
+	public int k3ContractorBusinessNumCheck(String contractorBusinessNum);
 
 	//거래처 수정처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor);

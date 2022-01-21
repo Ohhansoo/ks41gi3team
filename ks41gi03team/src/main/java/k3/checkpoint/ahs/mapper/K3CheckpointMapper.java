@@ -1,6 +1,7 @@
 package k3.checkpoint.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,12 @@ public interface K3CheckpointMapper {
 	
 	//삭제
 	public Integer k3DeleteCheckpoint(List<String> deleteList);
+	
+	//검색
+	public List<K3Checkpoint> k3SearchCheckpointList(String checkpointKey, String checkpointValue);
+	
+	//모달
+	public List<Map<String, Object>> k3SelectCheckpointDriverName(Map<String, Object> paraMap);
+
+	
 }

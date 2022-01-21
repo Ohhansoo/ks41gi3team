@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.dispatch.ahs.dto.K3Dispatch;
 import k3.dispatch.ahs.service.K3DispatchService;
+import k3.driver.ahs.service.K3DriverService;
 import k3.memberuser.ahs.service.K3MemberUserService;
 
 
@@ -27,17 +28,20 @@ public class K3DispatchController {
 	
 	private K3DispatchService k3DispatchService;
 	private K3MemberUserService k3MemberUserService; //의존성 검사
+	private K3DriverService k3DriverService;
 	
-	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService) {
+	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService, K3DriverService k3DriverService) {
 		this.k3DispatchService = k3DispatchService;
 		this.k3MemberUserService = k3MemberUserService;
+		this.k3DriverService = k3DriverService;
 	}
 	
 	//현황
 	@GetMapping("/k3DispatchList")
 	public String getDispatchList(Model model) {
 		List<K3Dispatch> dispatchList = k3DispatchService.getDispatchList();
-		model.addAttribute("title", "일일 배차 관리");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 현황");
 		model.addAttribute("dispatchList", dispatchList);
 		
 		return "team03/delivery/dispatch/k3DispatchList";
@@ -47,6 +51,8 @@ public class K3DispatchController {
 	//등록 화면
 	@GetMapping("/k3AddDispatch")
 	public String addDispatch(Model model) {
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 등록");
 		return "team03/delivery/dispatch/k3AddDispatch";
 	}
 
@@ -71,7 +77,8 @@ public class K3DispatchController {
 			K3Dispatch dispatchInfo = k3DispatchService.getModifyDispatch(dispatchCode);
 			model.addAttribute("dispatchInfo", dispatchInfo);
 		}
-		model.addAttribute("title", "배차수정화면");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 수정");
 		
 		return "team03/delivery/dispatch/k3ModifyDispatch";
 	}
@@ -94,7 +101,7 @@ public class K3DispatchController {
 		if(dispatchKey != null && "dispatch".equals(dispatchKey)) {
 			dispatchKey = "dispatchCode";
 		}else if(dispatchKey != null && "drive".equals(dispatchKey)) {
-			dispatchKey = "driverId";
+			dispatchKey = "driverName";
 		}else if(dispatchKey != null && "vehicle".equals(dispatchKey)) {
 			dispatchKey = "vehicleCode";
 		}
@@ -107,12 +114,29 @@ public class K3DispatchController {
 		return"team03/delivery/dispatch/k3DispatchList";
 	}
 	
-	//담당자 선택처리 (@ResponseBody 중요)
-		@PostMapping("/dispatchMemberId")
-		@ResponseBody
+	//모달1 (@ResponseBody 중요)
+	@PostMapping("/dispatchMemberId")
+	@ResponseBody
 		public List<Map<String, Object>> k3SelectDispatchMemberId(){
 			List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
 			return searchId;
 		}
 	
+	//모달2
+	@PostMapping("/dispatchDriverName")
+	@ResponseBody 
+		public List<Map<String, Object>> k3SelectDispatchDriverName(){
+			List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList(); 
+			return searchName; 
+	}
+	
+	//체크 삭제
+	@PostMapping("/k3DeleteDispatch")
+	public String k3DeleteDispatch(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		
+		Integer result = k3DispatchService.k3DeleteDispatch(deleteList);
+		log.info("DeleteDipsatch" + result);
+		return "redirect:/team03/delivery/dispatch/k3DispatchList";
+	}
+	 
 }

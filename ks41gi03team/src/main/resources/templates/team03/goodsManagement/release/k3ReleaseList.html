@@ -2,8 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#addReleaseBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/release/k3AddRelease';
+				});
+				$('#allowReleaseBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/release/k3AllowRelease';
+				});
+				$('#addShipmentCheckBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/check/k3ShipmentCheckList';
+				});
+				
+			 				
+				
+				/* $(document).on('click', '#deleteBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#searchForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				}); */
+				
+				/* $('#warehousingSearchBtn').on('click', function(){
+					$('#searchWarehousingType').attr('value', 'warehousing');
+					$('#warehousingSearchForm').submit();
+				});
+				$('#laydownSearcchBtn').on('click', function(){
+					$('#searchLaydownType').attr('value', 'laydown');
+					$('#laydownSearchForm').submit();
+				}); */
+			});
+		</script>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
@@ -11,10 +54,27 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--버튼 영역 -->
-					<div class="row" style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
-						<a th:href="@{/team03/goodsManagement/release/k3AddRelease}" id="moveRealseAddPage">등록페이지로 이동 --></a>					
-						<a th:href="@{/team03/goodsManagement/release/k3AllowRelease}" id="moveRealseAllowPage">승인페이지로 이동 --></a>					
+					<div class="d-flex justify-content-end">					
+						<button id="addReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart"></i>
+							출고요청
+						</button>
+						<button id="allowReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-cart-check"></i>
+							요청승인
+						</button>
+						<button id="addShipmentCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-clipboard-check"></i>
+							검수등록
+						</button>						
+						<button class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>						
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-trash"></i>
+							삭제
+						</button>					
 					</div>
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
@@ -46,8 +106,7 @@
 													</select>
 												</div>
 												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
+							
 											</div>
 										</form>
 										<!--End inputbox 1 -->
@@ -69,9 +128,7 @@
 														<option value="small">검수코드</option>
 													</select>
 												</div>
-												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-												<button id="laydownSearcch" type="submit" class="ahsbtn2 btn btn-outline-info">조회</button>
-												<button id="laydownPrint" type="submit" class="ahsbtn2 btn btn-outline-info">출력</button>							
+												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">							
 											</div>
 										</form>
 										<!--End inputbox 1 -->
@@ -124,7 +181,7 @@
 													<a th:href="@{#}">수정</a>
 												</td>
 												<td th:text="${l.releaseMergeCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.areaCode}"></td>
@@ -171,7 +228,7 @@
 													<a th:href="@{#}">수정</a>
 												</td>
 												<td th:text="${l.releaseCode}"></td>
-												<td th:text="${l.laydownGoodsName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
 												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.accepDate}"></td>

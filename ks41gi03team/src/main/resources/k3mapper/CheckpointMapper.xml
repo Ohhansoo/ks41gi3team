@@ -11,27 +11,31 @@
 		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
 	</resultMap> -->
 	
-	
+	<!-- 현황 -->
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
-			vehicleCheckpointCode,
-			mainBusinessCode,
-			contractorCode,
-			driverId, 
-			vehicleCode,
-			vehicleArrivalDate,
-			vehicleShipmentDate
+			c.vehicleCheckpointCode,
+			c.mainBusinessCode,
+			c.driverId, 
+			d.driverName,
+			c.vehicleCode,
+			c.vehicleArrivalDate,
+			c.vehicleShipmentDate
 		FROM
-			k3_tb_vehicle_checkpoint;
+			k3_tb_vehicle_checkpoint as c
+		INNER JOIN
+			k3_tb_driver as d
+		ON 
+			c.driverId = d.driverId;
 	
 	</select>
 	
+	<!-- 추가 -->
 	<select id="addCheck" parameterType="K3Checkpoint">
 		INSERT INTO k3_tb_vehicle_checkpoint
 		(
 			vehicleCheckpointCode,
 			mainBusinessCode,
-			contractorCode,
 			driverId,
 			vehicleCode,
 			vehicleArrivalDate,
@@ -39,21 +43,18 @@
 		)VALUES(
 			#{vehicleCheckpointCode},
 			"공장A공장_서울_1",
-			"partners-driver-a",
 			#{driverId},
 			#{vehicleCode},
 			#{vehicleArrivalDate},
 			#{vehicleShipmentDate}
 		);
-		
-	
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyCheckpoint" resultType="K3Checkpoint">
 		SELECT
 			vehicleCheckpointCode,
 			mainBusinessCode,
-			contractorCode,
 			driverId, 
 			vehicleCode,
 			vehicleArrivalDate,
@@ -64,6 +65,7 @@
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyCheckpoint" parameterType="K3Checkpoint">
 		UPDATE k3_tb_vehicle_checkpoint
 		<trim prefix="SET" prefixOverrides=",">
@@ -72,9 +74,6 @@
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				mainBusinessCode = "공장A공장_서울_1",
-			</if>
-			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
-				contractorCode = "partners-driver-a",
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				driverId = #{driverId},
@@ -93,14 +92,29 @@
 			vehicleCheckpointCode = #{vehicleCheckpointCode};
 	</update>
 	
+	<!-- 삭제 -->
 	<delete id="k3DeleteCheckpoint" parameterType="Integer">
-		DELECT
-			vc
+		DELETE
+			c
 		FROM
-			k3_tb_vehicle_checkpoint AS vc
-			<foreach collection="list" item="deleteList" open="WHERE 1=2">
-				or vehicleCheckpointCode = #{deleteList}
-			</foreach>
+			k3_tb_vehicle_checkpoint AS c
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or vehicleCheckpointCode=#{deleteList}
+		</foreach>	
 	</delete>
+	
+	<!-- 검색 -->
+	<select id="k3SearchCheckpointList" resultType="K3Checkpoint">
+		SELECT
+			*
+		FROM
+			k3_tb_vehicle_checkpoint
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="checkpointValue != null and checkpointValue!= ''.toString()">
+				${checkpointKey} LIKE CONCAT('%', #{checkpointValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
 
 </mapper>

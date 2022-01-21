@@ -1,6 +1,5 @@
 package k3.memberuser.ahs.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,18 +45,21 @@ public class K3MemberUserController {
 	}
 	 
 	 
-	//01 직원조회(초기화면)
-	@GetMapping("/k3MemberUserList")
-	public String getMemberUserList(Model model) {
-		System.out.println("02 220106 getMemberUserList K3MemberUserController.java");
-		
-		List<K3MemberUser> memberuserList = memberuserService.getMemberUserList();
-		
-		model.addAttribute("title", "직원관리");
-		model.addAttribute("memberuserList", memberuserList);
-		return "team03/companymanagement/member/k3MemberUserList";
-		
-	}
+	/*
+	 * //01 직원조회(초기화면)
+	 * 
+	 * @GetMapping("/k3MemberUserList") public String getMemberUserList(Model model)
+	 * {
+	 * System.out.println("02 220106 getMemberUserList K3MemberUserController.java"
+	 * );
+	 * 
+	 * List<K3MemberUser> memberuserList = memberuserService.getMemberUserList();
+	 * 
+	 * model.addAttribute("title", "직원관리"); model.addAttribute("memberuserList",
+	 * memberuserList); return "team03/companymanagement/member/k3MemberUserList";
+	 * 
+	 * }
+	 */
 	
 	//02 직원등록화면(이동)
 	@GetMapping("/k3AddMemberUserList")
@@ -119,74 +121,122 @@ public class K3MemberUserController {
 		  return "redirect:/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList	";
 	  }
 	  
-	
-	  //08 직원정보 검색
-	  @PostMapping("/k3MemberUserList") 
-	  public String k3GetMemberUserSearchList(@RequestParam(value="memberuserKey", required = false) String memberuserKey,
-										  								  @RequestParam(value="memberuserValue", required = false) String memberuserValue,
-										  								  @RequestParam(value="searchStartDate", required = false) String searchStartDate,
-										  								  @RequestParam(value="searchEndDate", required = false) String searchEndDate,
-										  								  @RequestParam(value="memberuserDateKey", required = false) String memberuserDateKey,
-										  								  Model model) { 
+	/*
+	 * //08 직원정보 검색
+	 * 
+	 * @PostMapping("/k3MemberUserList") public String
+	 * k3GetMemberUserSearchList(@RequestParam(value="memberuserKey", required =
+	 * false) String memberuserKey,
+	 * 
+	 * @RequestParam(value="memberuserValue", required = false) String
+	 * memberuserValue,
+	 * 
+	 * @RequestParam(value="searchStartDate", required = false) String
+	 * searchStartDate,
+	 * 
+	 * @RequestParam(value="searchEndDate", required = false) String searchEndDate,
+	 * 
+	 * @RequestParam(value="memberuserDateKey", required = false) String
+	 * memberuserDateKey, Model model) {
+	 * 
+	 * Map<String, Object> searchCondition = new HashMap<String, Object>();
+	 * 
+	 * if(memberuserKey != null && "memberId".equals(memberuserKey)) { memberuserKey
+	 * = "memberId"; }else if(memberuserKey != null &&
+	 * "memberPassword".equals(memberuserKey)) { memberuserKey = "memberPassword";
+	 * }else if(memberuserKey != null && "mainBusinessCode".equals(memberuserKey)) {
+	 * memberuserKey = "mainBusinessCode"; }else if(memberuserKey != null
+	 * &&"memberName".equals(memberuserKey)) { memberuserKey = "memberName"; }else
+	 * if(memberuserKey != null &&"levelMemberCode".equals(memberuserKey)) {
+	 * memberuserKey = "levelMemberCode"; }else if(memberuserKey != null &&
+	 * "memberGender".equals(memberuserKey)) { memberuserKey = "memberGender"; }else
+	 * if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
+	 * memberuserKey = "memberPhone"; }else if(memberuserKey != null
+	 * &&"memberResidentRegistrationNumber".equals(memberuserKey)) { memberuserKey
+	 * ="memberResidentRegistrationNumber"; }else if(memberuserKey != null
+	 * &&"memberState".equals(memberuserKey)) { memberuserKey = "memberState"; }else
+	 * if(memberuserKey != null && "memberRegDate".equals(memberuserKey)) {
+	 * memberuserKey = "memberRegDate"; }else if(memberuserKey != null &&
+	 * "memberHiredDate".equals(memberuserKey)) { memberuserKey = "memberHiredDate";
+	 * }else if(memberuserKey != null &&
+	 * "memberRetiredReason".equals(memberuserKey)) { memberuserKey =
+	 * "memberRetiredReason"; }else if(memberuserKey != null &&
+	 * "memberRetiredDate".equals(memberuserKey)) { memberuserKey =
+	 * "memberRetiredDate"; }else if(memberuserKey != null &&
+	 * "memberRetirementSignedDate".equals(memberuserKey)) { memberuserKey =
+	 * "memberRetirementSignedDate"; }else if(memberuserKey != null &&
+	 * "memberpostaladdress".equals(memberuserKey)) { memberuserKey =
+	 * "memberpostaladdress"; }else if(memberuserKey != null &&
+	 * "memberstreetaddress".equals(memberuserKey)) { memberuserKey =
+	 * "memberstreetaddress"; }else if(memberuserKey != null &&
+	 * "memberdetailaddress".equals(memberuserKey)) { memberuserKey =
+	 * "memberdetailaddress"; } if(memberuserDateKey != null &&
+	 * "memberuserRegDate".equals(memberuserDateKey)) { memberuserDateKey =
+	 * "memberuserRegDate"; }else if(memberuserDateKey != null &&
+	 * "memberuserHiredDate".equals(memberuserDateKey)) { memberuserDateKey =
+	 * "memberuserHiredDate"; } searchCondition.put("memberuserKey", memberuserKey);
+	 * searchCondition.put("memberuserValue", memberuserValue);
+	 * searchCondition.put("searchStarDate", searchStartDate);
+	 * searchCondition.put("searchEndDate", searchEndDate);
+	 * searchCondition.put("memberuserDateKey", memberuserDateKey); System.out.
+	 * println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
+	 * List<K3MemberUser> memberuserList =
+	 * memberuserService.k3GetMemberUserSearchList(searchCondition);
+	 * model.addAttribute("memberuserList",memberuserList);
+	 * 
+	 * return "team03/companymanagement/member/k3MemberUserList"; }
+	 */	
+	  //현황 + 검색
+	  @GetMapping("/k3MemberUserList")
+	  public String k3GetMemberUserSearchList(@RequestParam(value="searchKey", required = false) String searchKey,
+			  								  @RequestParam(value="searchValue", required = false) String searchValue,
+			  								  @RequestParam(value="searchStartDate", required = false)String searchStartDate,
+			  								  @RequestParam(value="searchEndDate", required = false) String searchEndDate,
+									  		  @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, 
+			  								  Model model) {
 		  
-			  Map<String, Object> searchCondition = new HashMap<String, Object>();
+		  if(searchValue != null && searchValue !="".toString()) {
+			  Map<String, Object> resultMap = memberuserService.k3GetMemberUserSearchList(searchKey, searchValue, searchStartDate, searchEndDate, currentPage);
+			  
+			  model.addAttribute("lastPage", resultMap.get("lastPage"));
+			  model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+			  model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			  model.addAttribute("searchKey", searchKey);
+			  model.addAttribute("searchValue", searchValue);
+			  model.addAttribute("memberuserList", resultMap.get("memberuserList"));
+		  }else if(searchStartDate != null && searchStartDate != "".toString() && searchEndDate != null && searchEndDate != "".toString()) {
+			  Map<String, Object> resultMap = memberuserService.k3GetMemberUserSearchList(searchKey, searchValue, searchStartDate, searchEndDate, currentPage);
+			  
+			  model.addAttribute("lastPage", resultMap.get("lastPage"));
+			  model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+			  model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			  model.addAttribute("searchStartDate", searchStartDate);
+			  model.addAttribute("searchEndDate", searchEndDate);
+			  model.addAttribute("memberuserList", resultMap.get("memberuserList"));
+		  }else {
+			  Map<String, Object> resultMap = memberuserService.k3GetMemberUserSearchList(searchKey, searchValue, searchStartDate, searchEndDate, currentPage);
+			  
+			  model.addAttribute("lastPage", resultMap.get("lastPage"));
+			  model.addAttribute("startPageNum", resultMap.get("startPageNum"));
+			  model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			  model.addAttribute("memberuserList", resultMap.get("memberuserList"));
 
-		  	  if(memberuserKey != null && "memberId".equals(memberuserKey)) {
-			      memberuserKey = "memberId"; 
-			  }else if(memberuserKey != null && "memberPassword".equals(memberuserKey)) {
-			     memberuserKey = "memberPassword"; 
-			  }else if(memberuserKey != null && "mainBusinessCode".equals(memberuserKey)) { 
-				 memberuserKey = "mainBusinessCode"; 
-			  }else if(memberuserKey != null &&"memberName".equals(memberuserKey)) {
-				  memberuserKey = "memberName"; 
-			  }else if(memberuserKey != null &&"levelMemberCode".equals(memberuserKey)) {
-				  memberuserKey = "levelMemberCode"; 
-			  }else if(memberuserKey != null && "memberGender".equals(memberuserKey)) {
-		          memberuserKey = "memberGender";
-			  }else if(memberuserKey != null && "memberPhone".equals(memberuserKey)) {
-		          memberuserKey = "memberPhone"; 
-		      }else if(memberuserKey != null &&"memberResidentRegistrationNumber".equals(memberuserKey)) { 
-		    	  memberuserKey ="memberResidentRegistrationNumber"; 
-		      }else if(memberuserKey != null &&"memberState".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberState"; 
-		      }else if(memberuserKey != null && "memberRegDate".equals(memberuserKey)) {
-		          memberuserKey = "memberRegDate"; 
-		      }else if(memberuserKey != null && "memberHiredDate".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberHiredDate";
-		      }else if(memberuserKey != null && "memberRetiredReason".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberRetiredReason";
-		      }else if(memberuserKey != null && "memberRetiredDate".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberRetiredDate";
-		      }else if(memberuserKey != null && "memberRetirementSignedDate".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberRetirementSignedDate";
-		      }else if(memberuserKey != null && "memberpostaladdress".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberpostaladdress";
-		      }else if(memberuserKey != null && "memberstreetaddress".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberstreetaddress";
-		      }else if(memberuserKey != null && "memberdetailaddress".equals(memberuserKey)) { 
-		    	  memberuserKey = "memberdetailaddress";
-		      } 
-		  	  if(memberuserDateKey != null && "memberuserRegDate".equals(memberuserDateKey)) {
-		  		memberuserDateKey = "memberuserRegDate";
-		  	  }else if(memberuserDateKey != null && "memberuserHiredDate".equals(memberuserDateKey)) {
-		  		memberuserDateKey = "memberuserHiredDate";
-		  	  }	
-		  	  searchCondition.put("memberuserKey", memberuserKey);
-		  	  searchCondition.put("memberuserValue", memberuserValue);
-		  	  searchCondition.put("searchStarDate", searchStartDate);
-		  	  searchCondition.put("searchEndDate", searchEndDate);
-		  	  searchCondition.put("memberuserDateKey", memberuserDateKey);
-		  	  System.out.println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
-		  	  List<K3MemberUser> memberuserList = memberuserService.k3GetMemberUserSearchList(searchCondition);
-		  	  model.addAttribute("memberuserList",memberuserList);
-		  		
-		  	  return "team03/companymanagement/member/k3MemberUserList";
-	}	
+		  }
+		  
+		  model.addAttribute("title", "회원관리");
+		  model.addAttribute("subtitle", "직원현황");
+		  model.addAttribute("currentPage", currentPage);
+
+		return "team03/companymanagement/member/k3MemberUserList"; 
+
+	  }
+	  
+	  
 	  //모달
 		@PostMapping("/k3membermodal")
 		@ResponseBody
 		public List<Map<String, Object>> k3GetMemberUserModalList(){
-			List<Map<String, Object>> modalList  =memberuserService.k3GetMemberUserModalList();
+			List<Map<String, Object>> modalList = memberuserService.k3GetMemberUserModalList();
 			return modalList;
 		}
 		

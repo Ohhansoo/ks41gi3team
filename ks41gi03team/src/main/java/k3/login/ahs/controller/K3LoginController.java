@@ -39,9 +39,6 @@ public class K3LoginController {
 										  @RequestParam(value="loginPw", required=false) String memberPassword,
 										  HttpSession session) {
 		System.out.println(memberId + memberPassword);
-		
-
-		
 		 if(					memberId 				!=null && !"".equals(memberId)
 			      && 		memberPassword	!=null && !"".equals(memberPassword)){
 			 
@@ -71,7 +68,11 @@ public class K3LoginController {
 		session.invalidate();
 		return "redirect:/team03/companymanagement/login/k3MemberUserLogin";
 	}
-
+	
+	/*
+	 * @GetMapping("/loginHistory1") public String loginHistory1
+	 * (@RequestParam(value="curren"))
+	 */
 	
 	
 	

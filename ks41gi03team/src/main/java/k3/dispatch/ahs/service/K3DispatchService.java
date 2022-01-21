@@ -51,10 +51,23 @@ public class K3DispatchService {
 		return k3DispatchList;
 	}
 	
+	//체크 삭제
+	public Integer k3DeleteDispatch(List<String> deleteList) {
+		Integer result = k3DispatchMapper.k3DeleteDispatch(deleteList);
+		return result;
+	}
+	
 	//모달
-		public List<Map<String, Object>> k3SelectDispatchMemberId() {
-			List<Map<String, Object>> searchId = k3DispatchMapper.k3SelectDispatchMemberId(null);
-			return searchId;
-		}
+	public List<Map<String, Object>> k3SelectDispatchMemberId() {
+		List<Map<String, Object>> searchId = k3DispatchMapper.k3SelectDispatchMemberId(null);
+		return searchId;
+	}
 
+	//모달2
+	
+	  public List<Map<String, Object>> k3SelectDispatchDriverName(){
+		  List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null); 
+		  return searchName; 
+	  }
+	 
 }

@@ -11,7 +11,7 @@
 			,w.laydownGoodsName
 			,w.laydownGoodsCount
 			,w.laydownCheckResult
-			,w.laydownCheckManager
+			,m.memberName
 		FROM
 			k3_tb_damageError AS d
 			INNER JOIN
@@ -22,8 +22,12 @@
 			k3_tb_contractor_staff AS staff
 			on
 			w.contractorId  = staff.contractorId
+			INNER JOIN
+			k3_tb_member AS m
+			on
+			m.memberId = w.laydownCheckManager
 		WHERE
-			w.laydownCheckResult NOT LIKE CONCAT('%','Y','%');	
+			w.laydownCheckResult NOT LIKE CONCAT('%','Y','%');		
 	</select>
 	<select id="k3DamageErrorListOut" resultType="K3DamageError">
 		SELECT
@@ -33,7 +37,7 @@
 			,w.laydownGoodsName 
 			,w.laydownGoodsCount 
 			,r.shipmentCheckResult 
-			,r.releaseManager
+			,m.memberName
 		FROM
 			k3_tb_damageError AS d
 			INNER JOIN
@@ -41,18 +45,32 @@
 			on
 			d.releaseCode = r.releaseCode
 			INNER JOIN
-			k3_tb_pileup AS p
+			k3_tb_member AS m
+			ON
+			m.memberId = r.releaseManager
+			INNER join
+			k3_tb_stock AS s
 			on
-			r.pileupCode = p.pileupCode
+			r.stockCode = s.stockCode
 			INNER join
 			k3_tb_warehousing AS w
 			on
-			p.warehousingCode = w.warehousingCode
+			s.warehousingCode = w.warehousingCode
 			INNER join
 			k3_tb_contractor_staff AS staff
 			ON
-			w.contractorId = staff.contractorId
+			w.contractorId = staff.contractorId          
 		WHERE
 			 r.shipmentCheckResult NOT LIKE CONCAT('%','Y','%');
 	</select>
+	<update id="k3InAddDamageError" parameterType="K3DamageError">
+		UPDATE k3_tb_damageError AS d
+		set
+		 	 d.actionDetails = #{actionDetails}
+		 	,d.actionDate = #{actionDate}
+		 	,d.repairCost = #{repairCost}
+		WHERE
+			d.receiptNumber = #{receiptNumber}
+	
+	</update>
 </mapper>
