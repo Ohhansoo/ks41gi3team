@@ -32,22 +32,34 @@ public class K3InController {
 		public K3InController(K3InService k3InService) {
 			this.k3InService = k3InService;
 		}
+		
+		
+		
+		
+		
 
 		//결제 정보 모달 컨트롤러
-		@PostMapping("/findInPayInfo")
+	/*
+	 * @PostMapping("/findInPayInfo")
+	 * 
+	 * @ResponseBody public List<Map<String, Object>> k3FindInPayInfo() {
+	 * 
+	 * List<Map<String, Object>> result = k3InService.findEstimateInfo();
+	 * System.out.println(result + "findPayInfo controller");
+	 * 
+	 * return result; }
+	 */
+		
+		//결제정보 등록버튼 컨트롤러
+		@PostMapping("/inPayInfo")
 		@ResponseBody
-		public List<Map<String, Object>> k3FindInPayInfo() {
-			
-			List<Map<String, Object>> result = k3InService.findEstimateInfo();
-			System.out.println(result + "findPayInfo controller");
-			
+		public List<Map<String, Object>> k3InPayInfo(@RequestParam(value="inCode")String inCode){
+			List<Map<String, Object>> result = k3InService.inPayInfo(inCode);
+			System.out.println(result + "<<inPayInfo result");
 			return result;
 		}
 		
-		
-		
-		
-		//견적정보 모달 컨트롤러
+		//견적정보 등록 버튼 모달 컨트롤러
 		@PostMapping("/findEstimateInfo")
 		@ResponseBody
 		public List<Map<String, Object>> k3FindEstimateInfo() {

@@ -33,13 +33,15 @@
 				});
 			});
 		</script>
+		
+		
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">
-						<button id="memberuserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
+						<button id="memberuserBtn" class="btn btn-outline-info ahsbtn5" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
 							직원 현황
 						</button>						
@@ -48,7 +50,6 @@
 							출력
 						</button>						
 					</div>	
-					<!--End 버튼 영역 -->
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
@@ -64,7 +65,7 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}"  method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+											<select name="retiredmemberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
 												<option value="memberPassword">직원PW</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
@@ -74,15 +75,15 @@
 												<option value="memberAddr">주소</option>
 												<option value="memberPhone">전화번호</option>
 												<option value="memberResidentRegistrationNumber">주민번호</option>
-												<option value="memberState">직원계정상태</option>
-												<option value="memberRegDate">등록일자</option>
-												<option value="memberHiredDate">입사일자</option>
 										</select>
-										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-										<button type="submit">검색</button>
-											</div>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue" style="width: 300px;">
+										<div class="input-group-append">
+											<button id="memberuserInfoSearch" type="submit">
+												<i class="fas fa-search icon"></i>
+											</button>
+										</div>
 									</div>
-									</form>
+								</form>
 								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
