@@ -14,9 +14,11 @@ import k3.in.ahs.dto.K3MainBusinessCode;
 	@Mapper
 	public interface K3InMapper {
 		
+		//결제정보 결제 버튼 모달
+		public List<Map<String,Object>> inPayInfo(Map<String,Object> paramMap);
 	
-		//견적정보 모달
-		public List<Map<String,Object>> findEstimateInfo(Map<String,Object> paramMap);
+		//견적정보 등록 버튼 모달
+		public List<Map<String,Object>> findEstimateInfo();
 		
 		//견적번호의 견적액 가져오기
 		public List<K3Estimate> getEstimatePrice();
