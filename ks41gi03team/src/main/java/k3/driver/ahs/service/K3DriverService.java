@@ -48,7 +48,15 @@ public class K3DriverService {
 		List<K3Driver> k3DriverList = k3DriverMapper.k3SearchDriverList(driverKey, driverValue);
 		return k3DriverList;
 	}
-
+	
+	//체크 삭제
+	public Integer k3DeleteDriver(List<String> deleteList) {
+		Integer result = k3DriverMapper.k3DeleteDriver(deleteList);
+		return result;
+		
+	}
+	
+	//모달
 	public List<Map<String, Object>> k3GetDriverNameModalList() {
 		List<Map<String, Object>> modalList = k3DriverMapper.k3GetModalList(null);
 		return modalList;

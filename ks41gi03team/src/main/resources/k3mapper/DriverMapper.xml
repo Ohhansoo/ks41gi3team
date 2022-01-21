@@ -114,7 +114,18 @@
 			</if>
 		</trim>	
 	</select>
-
+	
+	<!-- 삭제 -->
+	<delete id="k3DeleteDriver" parameterType="Integer">
+		DELETE
+			d
+		FROM
+			k3_tb_driver AS d
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or driverId=#{deleteList}
+		</foreach>
+	</delete>
+	<!-- 모달 -->
 	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT
 			d.driverId,

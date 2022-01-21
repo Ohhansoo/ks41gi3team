@@ -16,7 +16,6 @@
 		SELECT
 			c.vehicleCheckpointCode,
 			c.mainBusinessCode,
-			c.contractorCode,
 			c.driverId, 
 			d.driverName,
 			c.vehicleCode,
@@ -37,7 +36,6 @@
 		(
 			vehicleCheckpointCode,
 			mainBusinessCode,
-			contractorCode,
 			driverId,
 			vehicleCode,
 			vehicleArrivalDate,
@@ -45,7 +43,6 @@
 		)VALUES(
 			#{vehicleCheckpointCode},
 			"공장A공장_서울_1",
-			"partners-driver-a",
 			#{driverId},
 			#{vehicleCode},
 			#{vehicleArrivalDate},
@@ -58,7 +55,6 @@
 		SELECT
 			vehicleCheckpointCode,
 			mainBusinessCode,
-			contractorCode,
 			driverId, 
 			vehicleCode,
 			vehicleArrivalDate,
@@ -80,9 +76,6 @@
 				mainBusinessCode = "공장A공장_서울_1",
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
-				contractorCode = "partners-driver-a",
-			</if>
-			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				driverId = #{driverId},
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
@@ -101,13 +94,13 @@
 	
 	<!-- 삭제 -->
 	<delete id="k3DeleteCheckpoint" parameterType="Integer">
-		DELECT
-			vc
+		DELETE
+			c
 		FROM
-			k3_tb_vehicle_checkpoint AS vc
-			<foreach collection="list" item="deleteList" open="WHERE 1=2">
-				or vehicleCheckpointCode = #{deleteList}
-			</foreach>
+			k3_tb_vehicle_checkpoint AS c
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or vehicleCheckpointCode=#{deleteList}
+		</foreach>	
 	</delete>
 	
 	<!-- 검색 -->

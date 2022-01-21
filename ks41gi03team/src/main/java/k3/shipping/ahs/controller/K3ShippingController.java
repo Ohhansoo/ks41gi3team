@@ -33,6 +33,7 @@ public class K3ShippingController {
 	public String getShippingList(Model model) {
 		List<K3Shipping> shippingList = k3ShippingService.getShippingList();
 		model.addAttribute("title", "배송 관리");
+		model.addAttribute("subtitle", "배송 현황");
 		model.addAttribute("shippingList", shippingList);
 		
 		return "team03/delivery/shipping/k3ShippingList";
@@ -41,6 +42,10 @@ public class K3ShippingController {
 	//등록 화면
 	@GetMapping("/k3AddShipping")
 	public String addShipping(Model model) {
+		
+		model.addAttribute("title", "배송 관리");
+		model.addAttribute("subtitle", "배송 등록");
+		
 		return "team03/delivery/shipping/K3AddShipping";
 	}
 	
@@ -48,6 +53,7 @@ public class K3ShippingController {
 	@PostMapping("/k3AddShipping")
 	public String addShipping(K3Shipping k3Shipping) {
 		Integer result = k3ShippingService.addShipping(k3Shipping);
+		
 		log.info("AddShipping" + result);
 		log.info("AddShipping" + result);
 		return "redirect:/team03/delivery/shipping/k3ShippingList";
@@ -63,7 +69,8 @@ public class K3ShippingController {
 			K3Shipping shippingInfo = k3ShippingService.getModifyShipping(shippingCode);
 			model.addAttribute("shippingInfo", shippingInfo);
 		}
-		model.addAttribute("title", "배송상태수정");
+		model.addAttribute("title", "배송 관리");
+		model.addAttribute("subtitle", "배송 수정");
 		
 		return "team03/delivery/shipping/k3ModifyShipping";
 	}
@@ -90,10 +97,20 @@ public class K3ShippingController {
 		List<K3Shipping> shippingList = k3ShippingService.k3SearchShippingList(shippingKey, shippingValue);
 		
 		model.addAttribute("title", "배송 관리");
+		model.addAttribute("subtitle", "배송 검색");
 		model.addAttribute("shippingList", shippingList);
 		
 		return "team03/delivery/shipping/k3ShippingList";
 	}
+	
+	//체크 삭제
+	@PostMapping("/k3DeleteShipping")
+	public String k3Deletehipping(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		Integer result = k3ShippingService.k3DeleteShipping(deleteList);
+		log.info("DeleteShipping" + result);
+		return "redirect:/team03/delivery/shipping/k3ShippingList";
+	}
+	
 	
 	
 }

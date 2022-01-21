@@ -34,7 +34,8 @@ public class K3DriverController {
 	@GetMapping("/k3DriverList")
 	public String getDriverList(Model model) {
 		List<K3Driver> driverList = k3DriverService.getDriverList();
-		model.addAttribute("title", "기사 관리");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 현황");
 		model.addAttribute("driverList", driverList);
 		
 		return "team03/delivery/driver/k3DriverList";
@@ -43,7 +44,8 @@ public class K3DriverController {
 	//등록 화면
 	@GetMapping("/k3AddDriver")
 	public String driverCheck(Model model) {
-		model.addAttribute("title", "차량기사 등록");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 등록");
 		return "team03/delivery/driver/k3AddDriver";
 	}
 	
@@ -68,7 +70,8 @@ public class K3DriverController {
 			K3Driver driverInfo = k3DriverService.getModifyDriver(driverId);
 			model.addAttribute("driverInfo", driverInfo);
 		}
-		model.addAttribute("title", "기사수정화면");
+		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("subtitle", "차량기사 수정");
 		
 		return "team03/delivery/driver/k3ModifyDriver";
 	}
@@ -83,6 +86,15 @@ public class K3DriverController {
 		return "redirect:/team03/delivery/driver/k3DriverList";
 	}
 	
+	//체크 삭제
+	@PostMapping("/k3DeleteDriver")
+	public String k3DeleteDriver(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		Integer result = k3DriverService.k3DeleteDriver(deleteList);
+		log.info("DeleteDriver" + result);
+		return "redirect:/team03/delivery/driver/k3DriverList";
+	}
+	
+	//검색
 	@PostMapping("/k3DriverList")
 	public String k3SearchDriverList(@RequestParam(value="driverKey", required = false) String driverKey,
 										@RequestParam(value="driverValue", required = false) String driverValue,
@@ -100,6 +112,7 @@ public class K3DriverController {
 		return "team03/delivery/driver/k3DriverList";
 	}
 	
+	//모달
 	@PostMapping("/k3drivermodal")
 	@ResponseBody
 		public List<Map<String, Object>> k3GetDriverNameModalList(){
