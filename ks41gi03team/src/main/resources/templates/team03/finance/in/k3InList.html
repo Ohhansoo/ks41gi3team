@@ -39,6 +39,8 @@
 						alert("삭제할 항목을 선택해주세요.");
 					}
 				});
+			
+			
 				//견적정보 관련 모달	
 				var modal = $('.modal');
 				
@@ -46,59 +48,27 @@
 						
 					modal.addClass('hidden');
 				});
-		
-				$(document).on('click', '#inPayInfo', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
-					
-					$('#dataTableAjax').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/finance/in/findEstimateInfo',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "estimateNum"},
-							{ "data": "estimatePrice"},
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="text" class="estimateNum" name="estimateNum" value="'+ row.estimateNum +'">'
-									
-									return htmlbtn;
-								}
-							}
-						]
-					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
 				
-				$(document).on('click', '.confirmBtn', function(){
-					var checkedBox = $('.estimateNum:checked');
-	 				var estimatePrice = $('#estimatePriceInput');
-	 				var estimateNum = $('#estimateNumInput');
-	 				var checkedEstimatePrice = checkedBox.parent().parent().children().eq(2).text();
-	 				
-	 				estimateNum.attr('value',checkedBox.val());
-	 				estimatePrice.attr('value',checkedEstimatePrice);
-	 				
-					console.log(checkedBox);
-					modal.addClass('hidden');
+				$(document).on('click', '#inPayInfoBtn', function(){
+					var inCode = $(this).attr('data-inCode');
+					console.log(inCode +"data-inCode");
+					
+					//견적정보 가져오기
+					var request = $.ajax({
+						url: '/team03/finance/in/inPayInfo',
+						method: 'POST',
+						data: {'inCode' : inCode},
+						dataType: 'json'
+					});	
+					request.done(function(data){
+						data[0].inCode;
+						console.log("inCode>>>>>" +data[0].inCode);
+					});
 				});
+			
 			});
+				
+				
 			<!-- 견적정보 모달끝 -->
 				
 	</script>
@@ -218,7 +188,7 @@
 											<td th:text="${i.index+1}"></td>
 									
 											<td>
-											<button id="inPayInfo" class="inPayInfoModal" type="button">선택</button> 
+											<button id="inPayInfoBtn" class="inPayInfoModal" th:data-inCode="${l.inCode}" type="button">선택</button> 
 											</td>
 											
 											<td th:text="${l.inCode}"></td>
