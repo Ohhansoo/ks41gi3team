@@ -1,5 +1,6 @@
 package k3.contractor.ahs.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class K3ContractorController {
 			for(int i=0; i < size; i++) {
 				k3ContractorService.k3DeleteContractor(removeContractorArr[i]);
 			}
-		//버튼
+		//버튼 
 		}else if(request.getParameter("deleteContractorCode") != null){
 			String deleteContractorCode = request.getParameter("deleteContractorCode");
 			k3ContractorService.k3DeleteContractor(deleteContractorCode);
@@ -50,9 +51,11 @@ public class K3ContractorController {
 	@ResponseBody
 	public boolean k3ContractorCheck(@RequestParam(value="contractorCode", required = false)String contractorCode
 									,@RequestParam(value="contractorBusinessNum", required = false)String contractorBusinessNum
+									,@RequestParam(value="contractorBusinessClientNum", required = false)String contractorBusinessClientNum
 									) {
 		System.out.println("ajax로 받은 파라미터 contractorCode확인 : " + contractorCode + "-> 확인끝");
 		System.out.println("ajax로 받은 파라미터 concontractorBusinessNum확인 : " + contractorBusinessNum + "-> 확인끝");
+		System.out.println("ajax로 받은 파라미터 contractorBusinessClientNum확인 : " + contractorBusinessClientNum + "-> 확인끝");
 		
 		boolean checkResult = false;
 		
@@ -61,6 +64,9 @@ public class K3ContractorController {
 			if(check > 0) checkResult = true;
 		}else if(contractorBusinessNum != "undefined" && contractorBusinessNum != null && contractorBusinessNum != "".toString()) {
 			int check = k3ContractorService.k3ContractorBusinessNumCheck(contractorBusinessNum);
+			if(check > 0) checkResult = true;
+		}else if(contractorBusinessClientNum != "undefined" && contractorBusinessClientNum != null && contractorBusinessClientNum != "".toString()) {
+			int check = k3ContractorService.k3ContractorBusinessClientNumCheck(contractorBusinessClientNum);
 			if(check > 0) checkResult = true;
 		}
 		
@@ -95,9 +101,14 @@ public class K3ContractorController {
 	// 거래처 등록으로 화면전환
 	@GetMapping("/k3AddContractor")
 	public String k3GetAddContractor(Model model) {
+		List<Map<String, Object>> contractorIdPw = k3ContractorService.getContractorIdPw();
+
 		model.addAttribute("title", "거래처 관리");
 		model.addAttribute("subtitle", "거래처 등록");
-
+		model.addAttribute("contractorIdPw", contractorIdPw);
+		
+		System.out.println("변수 내부 확인 contractorIdPw : " + contractorIdPw);
+		
 		return "/team03/contractorContract/Contractor/k3AddContractor";
 	}
 
@@ -138,7 +149,7 @@ public class K3ContractorController {
 
 	// 거래처 현황에 거래처 가져오기 + 검색 기능(동적 페이징)
 	@GetMapping("/k3SearchContractor")
-	public String K3GetSearchContractor(@RequestParam(value="searchKey", required=false) String searchKey ,
+	public String K3GetSearchContractor(@RequestParam(value="searchKey", required=false, defaultValue="contractorCode") String searchKey,
 						  			@RequestParam(value="searchValue", required=false) String searchValue,
 						  			@RequestParam(value="contractorRegistrationDateStart", required=false) String contractorRegistrationDateStart,
 						  			@RequestParam(value="contractorRegistrationDateEnd", required=false) String contractorRegistrationDateEnd, 
@@ -148,8 +159,8 @@ public class K3ContractorController {
 		// model currentPage, lastPage, contractorList, startPageNum, endPageNum
 		
 		if(searchValue != null && searchValue != "".toString()) {
+			searchValue = searchValue.trim();
 			Map<String, Object> resultMap = k3ContractorService.K3SearchContractorList(searchKey,contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue, currentPage);
-
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
@@ -158,7 +169,6 @@ public class K3ContractorController {
 			model.addAttribute("contractorList", resultMap.get("contractorList"));
 		}else if(contractorRegistrationDateStart != null && contractorRegistrationDateStart != "".toString() && contractorRegistrationDateEnd != null && contractorRegistrationDateEnd != "".toString()) {
 			Map<String, Object> resultMap = k3ContractorService.K3SearchContractorList(searchKey,contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue, currentPage);
-			
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
@@ -168,15 +178,12 @@ public class K3ContractorController {
 
 		}else{
 			Map<String, Object> resultMap = k3ContractorService.K3GetContractorList(currentPage);
-
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
 			model.addAttribute("contractorList", resultMap.get("contractorList"));
 	
 		}
-		
-
 		
 		model.addAttribute("title", "거래처 관리");
 		model.addAttribute("subtitle", "거래처 현황");
