@@ -24,6 +24,12 @@
 			<result column="mediumCategory" property="mediumCategory"/>
 			<result column="smallCategory" property="smallCategory"/>
 		</association>
+		<association property="k3Warehousing" javaType="K3Warehousing">
+			<id column="warehousingCode" property="warehousingCode"/>
+			<result column="laydownCheckCode" property="laydownCheckCode"/>
+			<result column="laydownGoodsCount" property="laydownGoodsCount"/>
+			<result column="laydownDate" property="laydownDate"/>
+		</association>
 	</resultMap>
 	
 	<!--상세재고현황 조회처리  -->
@@ -182,10 +188,51 @@
 			s.pileupManager = m.memberId
 	</select>
 	
+	<!--로케이션 상태 업데이트(사용중으로) -->
+	<update id="k3UpdateLocationState">
+	UPDATE 
+		k3_tb_location
+	SET 
+		locationState = "사용중"
+	WHERE
+		locationCode = #{locationCode};
+	</update>
+	
+	<!--분류등록 입고테이블 업데이트  -->
+	<update id="k3UpdateSorting">
+	UPDATE 
+		k3_tb_warehousing
+	SET 
+		sorting = "Y"
+	WHERE
+		warehousingCode = #{warehousingCode};
+	</update>
+	
+	<!-- 분류등록 -->
+	<insert id="k3AddStock">
+		INSERT INTO k3_tb_stock
+			(stockCode, 
+			warehousingCode, 
+			locationCode, 
+			stockQuantity, 
+			pileupManager, 
+			pileupDate)
+		SELECT 
+		   CONCAT(MAX(SUBSTRING(stockCode,1,5)), MAX(CAST(SUBSTRING(stockCode,6)AS DECIMAL))+ 1),
+		   #{warehousingCode},
+		   #{locationCode},
+		   #{stockQuantity},
+		   #{pileupManager},
+		   #{pileupDate}
+		FROM 
+		  k3_tb_stock;
+	
+	</insert>
 	
 	<!--재고 등록 가능 리스트  -->
 	<select id="k3AddStockList" resultMap="stockResultMap">
 		SELECT
+			w.warehousingCode,
 			w.laydownCheckCode,
 			p.productName,
 			w.laydownGoodsCount,

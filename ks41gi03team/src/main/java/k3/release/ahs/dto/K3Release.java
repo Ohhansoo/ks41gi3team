@@ -10,6 +10,7 @@ public class K3Release {
 	private String stockCode;
 	private String releaseMergeCode;
 	private String releaseGoodsCount;
+	private String area;
 	private String shippingAddress;
 	private String shippingDetailAddress;
 	private String recipientName;
@@ -26,6 +27,7 @@ public class K3Release {
 	private K3Product k3Product;
 	private K3Contractor k3Contractor;
 	private K3Category k3Category;
+	
 	public String getReleaseCode() {
 		return releaseCode;
 	}
@@ -49,6 +51,12 @@ public class K3Release {
 	}
 	public void setReleaseGoodsCount(String releaseGoodsCount) {
 		this.releaseGoodsCount = releaseGoodsCount;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
 	}
 	public String getShippingAddress() {
 		return shippingAddress;
@@ -143,15 +151,16 @@ public class K3Release {
 	@Override
 	public String toString() {
 		return "K3Release [releaseCode=" + releaseCode + ", stockCode=" + stockCode + ", releaseMergeCode="
-				+ releaseMergeCode + ", releaseGoodsCount=" + releaseGoodsCount + ", shippingAddress=" + shippingAddress
-				+ ", shippingDetailAddress=" + shippingDetailAddress + ", recipientName=" + recipientName
-				+ ", recipientPhone=" + recipientPhone + ", releaseManager=" + releaseManager + ", releaseAllow="
-				+ releaseAllow + ", accepDate=" + accepDate + ", releaseDate=" + releaseDate + ", shipmentCheckManager="
-				+ shipmentCheckManager + ", shipmentCheckRegDate=" + shipmentCheckRegDate + ", shipmentCheckResult="
-				+ shipmentCheckResult + ", k3MemberUser=" + k3MemberUser + ", k3Product=" + k3Product
-				+ ", k3Contractor=" + k3Contractor + ", k3Category=" + k3Category + "]";
+				+ releaseMergeCode + ", releaseGoodsCount=" + releaseGoodsCount + ", area=" + area
+				+ ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
+				+ ", recipientName=" + recipientName + ", recipientPhone=" + recipientPhone + ", releaseManager="
+				+ releaseManager + ", releaseAllow=" + releaseAllow + ", accepDate=" + accepDate + ", releaseDate="
+				+ releaseDate + ", shipmentCheckManager=" + shipmentCheckManager + ", shipmentCheckRegDate="
+				+ shipmentCheckRegDate + ", shipmentCheckResult=" + shipmentCheckResult + ", k3MemberUser="
+				+ k3MemberUser + ", k3Product=" + k3Product + ", k3Contractor=" + k3Contractor + ", k3Category="
+				+ k3Category + "]";
 	}
 	
-
+	
 	
 }

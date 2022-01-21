@@ -12,12 +12,6 @@ import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Mapper
 public interface K3WarehousingMapper {
-	//로케이션 테이블에 사용현황 업데이트
-	public int k3UpdateLocationState(K3Stock k3Stock);
-	//입고분류여부 업데이트
-	public int k3UpdateSorting(K3Stock k3Stock);
-	//입고분류 등록처리
-	public int k3AddWarehousingSort(K3Stock k3Stock);
 
 	//입고현황 조회처리
 	public List<Map<String,Object>> k3GetWarehousingSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
