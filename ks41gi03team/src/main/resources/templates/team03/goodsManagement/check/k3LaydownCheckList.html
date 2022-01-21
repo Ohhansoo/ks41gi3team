@@ -66,7 +66,7 @@
 											<th>상품명</th>
 											<th>개수</th>
 											<th>회사명</th>				
-											<th>입하일자</th>						
+											<th>입고요청일자</th>						
 										</tr>
 									</thead>
 									<tbody>
@@ -75,10 +75,10 @@
 												<input type="checkbox" class="laydownCheckList" name="warehousingCode" th:value="${l.warehousingCode}">
 											</td>
 											<td th:text="${l.warehousingCode}"></td>
-											<td th:text="${l.productName}"></td>
+											<td th:text="${l.k3Product.productName}"></td>
 											<td th:text="${l.laydownGoodsCount}"></td>
-											<td th:text="${l.contractorName}"></td>
-											<td th:text="${l.laydownDate}"></td>
+											<td th:text="${l.k3Contractor.contractorName}"></td>
+											<td th:text="${l.laydownRequestDate}"></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
 											<td> 요청사항이 없습니다. </td>

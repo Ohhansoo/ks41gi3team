@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.stock.ahs.dto.K3Stock;
 import k3.stock.ahs.service.K3StockService;
+import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/stock")
@@ -93,8 +94,6 @@ public class K3StockController {
 		System.out.println(locationCode);
 		System.out.println(beforelocationCode);
 		System.out.println(k3Stock);
-		System.out.println(k3Stock.getCategoryCode());
-		System.out.println(k3Stock.getLargeCategory());
 		
 		int result = k3StockService.K3ModifyStock(k3Stock);
 		log.info("GetMapping 재고 수정처리 결과 result ----->>>>>>>>{}", result);
@@ -123,13 +122,24 @@ public class K3StockController {
 		
 		return "team03/goodsManagement/stock/k3ModifyStock";
 	}
-	
+
 	
 	//재고 등록폼 이동
 	@GetMapping("/k3AddStock")
 	public String k3AddStock(){
 		
 		return "team03/goodsManagement/stock/k3AddStock";
+	}
+	
+	//재고 등록 리스트로 이동
+	@GetMapping("/k3AddStockList")
+	public String k3AddStockList(Model model) {
+		List<K3Stock> requestSort = k3StockService.k3AddStockList();
+		log.info("입고 분류이동 컨트롤러 requestSort------ " + requestSort);
+		model.addAttribute("title", "입고관리");
+		model.addAttribute("subtitle", "입고분류현황");
+		model.addAttribute("requestSort", requestSort);	
+		return "team03/goodsManagement/stock/k3AddStockList";
 	}
 	
 	//재고 현황 이동

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import k3.stock.ahs.dto.K3Stock;
 import k3.stock.ahs.mapper.K3StockMapper;
+import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Service
 public class K3StockService {
@@ -127,6 +128,13 @@ public class K3StockService {
 		List<K3Stock> modifyList = k3StockMapper.K3GetStockInfo(stockCode);
 		return modifyList;
 	}
+	
+	//재고 등록 리스트 이동
+	public List<K3Stock> k3AddStockList() {
+		List<K3Stock> requestSort = k3StockMapper.k3AddStockList();
+		return requestSort;
+	}
+	
 	
 	//재고현황 상세조회(초기화면)2
 	public Map<String, Object> k3GetStockByLocation(int currentPage) {

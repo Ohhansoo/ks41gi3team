@@ -6,7 +6,7 @@
 			<script>
 			$(function(){				
 				$('#addCategoryBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/category/k3AddCategory';
+					location.href = '/team03/goodsManagement/product/k3AddProduct';
 				});
 				$('#searchProductBtn').on('click', function(){
 					$('#searchType').attr('value','product');
@@ -141,7 +141,7 @@
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.productCode}">
 											</td>
 											<td>
-												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(productCode=${l.productCode})}">수정</a>
+												<a th:href="@{/team03/goodsManagement/product/k3ModifyProduct(productCode=${l.productCode})}">수정</a>
 											</td>
 											<td th:text="${l.productCode}"></td>		
 											<td th:text="${l.productName}"></td>		
@@ -163,11 +163,11 @@
 										</a>
 									</li>
 									<li class="paginate_button page-item" id="currentProductList" th:each="num : ${#numbers.sequence(productStartPageNum, productCheckEndPageNum)}">
-										<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/product/k3k3ProductListList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+										<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/product/k3ProductList(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 										<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link"></span>
 									</li>
 									<li class="paginate_button page-item next" id="nextProductList">
-										<a th:if="${currentPage < productLastPage}" th:href="@{/team03/goodsManagement/product/k3k3ProductListList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
+										<a th:if="${currentPage < productLastPage}" th:href="@{/team03/goodsManagement/product/k3ProductList(currentPage=${currentPage + 1})}"  aria-controls="contractorList" class="page-link">
 										다음
 										</a>
 									</li>

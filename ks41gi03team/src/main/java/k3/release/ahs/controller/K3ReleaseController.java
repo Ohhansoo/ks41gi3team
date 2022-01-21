@@ -43,7 +43,7 @@ public class K3ReleaseController {
 	@GetMapping("/k3ReleaseList")
 	public String k3GetReleaseList(Model model) {
 		//검수리스트
-		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
+		List<K3Release> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
 		//출고리스트
 		List<K3Release>	releaseList = k3ReleaseService.k3GetReleaseList();
 		model.addAttribute("title", "출고관리");

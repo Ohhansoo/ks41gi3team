@@ -33,11 +33,6 @@ public interface K3WarehousingMapper {
 	public List<K3Warehousing> k3RequestAllowWarehousing();
 	//입고분류 등록폼 이동
 	/* public List<K3Warehousing> k3GetSortInfo(String warehousingCode); */
-	//입고 분류 현황(요청목록)
-	public List<K3WarehousingSort> k3GetWarehousingRequestSort();
-	//입고 분류 현황(완료목록)
-	public List<K3WarehousingSort> k3GetWarehousingSortList();
-
 	//입고현황 초기화면
 	public List<Map<String,Object>> k3GetWarehousingList(Map<String,Object> paramMap);
 	//입고현황 튜플 수
