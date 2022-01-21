@@ -1,6 +1,8 @@
 package k3.retiredmemberuser.ahs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k3.ourcompany.ahs.controller.K3OurcompanyController;
 import k3.retiredmemberuser.ahs.dto.K3RetiredMemberUser;
@@ -47,9 +50,44 @@ public class K3RetiredMemberUserController {
 	public String getRetiredMemberUserList(Model model) {
 		List<K3RetiredMemberUser> retiredmemberuserList = retiredmemberuserService.getRetiredMemberUserList();
 		
-		model.addAttribute("title", "퇴사회원 조회");
+		model.addAttribute("title", "퇴사직원 관리");
+		model.addAttribute("subtitle", "퇴사직원 현황");
 		model.addAttribute("retiredmemberuserList", retiredmemberuserList);
 		return "team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList";
 		
 	}
+	
+	//퇴사회원 검색
+	  @PostMapping("/k3RetiredMemberUserList")
+	  public String k3GetRetiredMemberUserSearch(@RequestParam(value="retiredmemberuserKey", required = false) String retiredmemberuserKey,
+				  								 @RequestParam(value="retiredmemberuserValue", required = false) String retiredmemberuserValue,
+				  								 Model model) {
+		  
+		  Map<String, Object> searchCondition = new HashMap<String, Object>();
+		  
+		  if(retiredmemberuserKey != null && "memberId".equals(retiredmemberuserKey)) {
+			  retiredmemberuserKey = "memberId";
+		  }else if(retiredmemberuserKey != null && "memberPassword".equals(retiredmemberuserKey)) { 
+			  retiredmemberuserKey = "memberPassword";
+		  }else if(retiredmemberuserKey != null && "mainBusinessCode".equals(retiredmemberuserKey)) {
+			  retiredmemberuserKey = "mainBusinessCode"; 
+		  }else if(retiredmemberuserKey != null &&"memberName".equals(retiredmemberuserKey)) { 
+			  retiredmemberuserKey = "memberName"; 
+		  }else if(retiredmemberuserKey != null &&"levelMemberCode".equals(retiredmemberuserKey)) {
+			  retiredmemberuserKey = "levelMemberCode"; 
+		  }else if(retiredmemberuserKey != null && "memberGender".equals(retiredmemberuserKey)) { 
+			  retiredmemberuserKey = "memberGender"; 
+		  }else if(retiredmemberuserKey != null && "memberPhone".equals(retiredmemberuserKey)) {
+			  retiredmemberuserKey = "memberPhone"; 
+		  }else if(retiredmemberuserKey != null &&"memberResidentRegistrationNumber".equals(retiredmemberuserKey)) { 
+			  retiredmemberuserKey ="memberResidentRegistrationNumber";  
+		  }
+		  searchCondition.put("retiredmemberuserKey", retiredmemberuserKey);
+		  searchCondition.put("retiredmemberuserValue", retiredmemberuserValue);
+		  
+		  List<K3RetiredMemberUser> retiredmemberuserList = retiredmemberuserService.k3GetRetiredMemberUserSearch(searchCondition);
+		  model.addAttribute("retiredmemberuserList",retiredmemberuserList);
+		  
+		  return "team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList";
+}
 }

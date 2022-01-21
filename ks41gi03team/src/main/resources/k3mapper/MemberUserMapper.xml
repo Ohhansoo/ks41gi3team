@@ -52,42 +52,19 @@
 	</select>
 	
 <!--  직원검색 -->
-	<select id="k3GetMemberUserSearchList" parameterType="Map" resultType="K3MemberUser">
-		SELECT 
-			 m.memberId
-			,m.memberPassword
-			,m.mainBusinessCode
-			,m.levelMemberCode
-			,m.memberName
-			,m.memberGender
-			,m.memberPhone
-			,m.memberResidentRegistrationNumber
-			,m.memberState
-			,m.memberRegDate
-			,m.memberHiredDate
-			,m.memberRetiredReason
-			,m.memberRetiredDate
-			,m.memberRetirementSignedDate
-			,m.memberpostaladdress
-			,m.memberstreetaddress
-			,m.memberEmail
-		FROM 
-			k3_tb_member AS m 
-		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<if test="searchStartDate != null and searchEndDate != ''.toString() 
-						and searchStartDate != null and searchEndDate != ''.toString()">
-				 contractorRegistrationDate
-	 			BETWEEN DATE('#{searchStartDate}') AND DATE('#{searchEndDate}');
+	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="memberuserValue != null and memberuserValue != ''.toString()">
+				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
+		AND 
+			memberState = "일반";
 			</if>
-			<if test='searchValue != null and searchValue != "".toString() and searchKey != "memberId" and searchKey != "memberId"'>
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
-			</if>
-		</trim>	
-		<if test="paramMap.startNum != null">
-			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
-		</if>
+		</trim>
 	</select>
-	
 
 <!-- 직원삭제(한줄) -->
 	<delete id="k3DeleteMemberUser" parameterType="String">

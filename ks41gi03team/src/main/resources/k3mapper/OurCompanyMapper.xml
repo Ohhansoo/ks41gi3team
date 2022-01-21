@@ -99,6 +99,6 @@
 			oc.ourCompanyEmail					AS ourCompanyEmail
 		FROM
 			k3_tb_our_company AS oc
-		ORDER BY ourCompanyBusinessPlaceCode ASC;
+		ORDER BY ourCompanyCode ASC;
 	</select>
 </mapper>
