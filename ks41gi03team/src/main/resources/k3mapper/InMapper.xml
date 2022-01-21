@@ -20,7 +20,9 @@
 			i.estimateNum = e.estimateNum
 		
 		WHERE
-			i.inCode = #{inCode};
+			i.inCode = #{inCode} and
+			e.estimateNum = #{estimateNum} and
+			e.estimatePrice = #{estimatePrice};
 	</select>
 	
 
