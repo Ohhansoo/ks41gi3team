@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.dispatch.ahs.dto.K3Dispatch;
 import k3.dispatch.ahs.service.K3DispatchService;
+import k3.driver.ahs.service.K3DriverService;
 import k3.memberuser.ahs.service.K3MemberUserService;
 
 
@@ -27,10 +28,12 @@ public class K3DispatchController {
 	
 	private K3DispatchService k3DispatchService;
 	private K3MemberUserService k3MemberUserService; //의존성 검사
+	private K3DriverService k3DriverService;
 	
-	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService) {
+	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService, K3DriverService k3DriverService) {
 		this.k3DispatchService = k3DispatchService;
 		this.k3MemberUserService = k3MemberUserService;
+		this.k3DriverService = k3DriverService;
 	}
 	
 	//현황
@@ -94,7 +97,7 @@ public class K3DispatchController {
 		if(dispatchKey != null && "dispatch".equals(dispatchKey)) {
 			dispatchKey = "dispatchCode";
 		}else if(dispatchKey != null && "drive".equals(dispatchKey)) {
-			dispatchKey = "driverId";
+			dispatchKey = "driverName";
 		}else if(dispatchKey != null && "vehicle".equals(dispatchKey)) {
 			dispatchKey = "vehicleCode";
 		}
@@ -108,11 +111,19 @@ public class K3DispatchController {
 	}
 	
 	//담당자 선택처리 (@ResponseBody 중요)
-		@PostMapping("/dispatchMemberId")
-		@ResponseBody
+	@PostMapping("/dispatchMemberId")
+	@ResponseBody
 		public List<Map<String, Object>> k3SelectDispatchMemberId(){
 			List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
 			return searchId;
 		}
 	
+	
+	@PostMapping("/dispatchDriverName")
+	@ResponseBody 
+		public List<Map<String, Object>> k3SelectDispatchDriverName(){
+			List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList(); 
+			return searchName; 
+	}
+	 
 }

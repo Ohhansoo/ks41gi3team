@@ -52,35 +52,17 @@
 	</select>
 	
 <!--  직원검색 -->
-	<select id="k3GetMemberUserSearchList" parameterType="Map" resultType="K3MemberUser">
-		SELECT 
-			 m.memberId
-			,m.memberPassword
-			,m.mainBusinessCode
-			,m.levelMemberCode
-			,m.memberName
-			,m.memberGender
-			,m.memberPhone
-			,m.memberResidentRegistrationNumber
-			,m.memberState
-			,m.memberRegDate
-			,m.memberHiredDate
-			,m.memberRetiredReason
-			,m.memberRetiredDate
-			,m.memberRetirementSignedDate
-			,m.memberpostaladdress
-			,m.memberstreetaddress
-		FROM 
-			k3_tb_member AS m 
+	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
+		SELECT
+			*
+		FROM
+			k3_tb_member
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="memberuserValue != null and memberuserValue != ''.toString()">
 				${memberuserKey} LIKE CONCAT('%', #{memberuserValue}, '%') 
+		AND 
+			memberState = "일반";
 			</if>
-				m.memberRegDate >= #{memberRegDate} 
-			AND
-				#{memberRegDate} >= m.memberRegDate
-			AND
-				m.memberState = '일반'
 		</trim>
 	</select>
 
@@ -120,12 +102,13 @@
 			m.memberResidentRegistrationNumber,
 			m.memberState,
 			m.memberRegDate,
-			m.memberHiredDate
-			m.memberRetiredReason
-			m.memberRetiredDate
-			m.memberRetirementSignedDate
-			m.memberpostaladdress
-			m.memberstreetaddress
+			m.memberHiredDate,
+			m.memberRetiredReason,
+			m.memberRetiredDate,
+			m.memberRetirementSignedDate,
+			m.memberpostaladdress,
+			m.memberstreetaddress,
+			m.memberEmail
 		FROM 
 			k3_tb_member AS m 
 		WHERE
@@ -182,6 +165,9 @@
 			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
 			m.memberstreetaddress = #{memberstreetaddress}
 			</if>
+			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
+			m.memberEmail = #{memberEmail}
+			</if>
 		</trim>		
 		WHERE 
 			m.memberId = #{memberId};
@@ -201,37 +187,44 @@
 
 <!-- 직원등록 -->
 	<insert id="AddMemberUser">
-		INSERT INTO 
-   		k3_tb_member
-		(
-		 memberId
-		,memberPassword
-		,mainBusinessCode
-		,levelMemberCode
-		,memberName
-		,memberGender
-		,memberPhone
-		,memberResidentRegistrationNumber
-		,memberState
-		,memberRegDate
-		,memberHiredDate
-		,memberpostaladdress
-		,memberstreetaddress
-	)VALUES(
-		 #{memberId}
-		,#{memberPassword}
-		,"물류센터A물류센터_전북_1"
-		,#{levelMemberCode}
-		,#{memberName}
-		,#{memberGender}
-		,#{memberPhone}
-		,#{memberResidentRegistrationNumber}
-		,"일반"
-		,#{memberRegDate}
-		,#{memberHiredDate}
-		,#{memberpostaladdress}
-		,#{memberstreetaddress}
-	);
+		INSERT INTO k3_tb_member
+			(
+			memberId,
+			memberPassword,
+			mainBusinessCode,
+			levelMemberCode,
+			memberName,
+			memberGender,
+			memberPhone,
+			memberResidentRegistrationNumber,
+			memberState,
+			memberRegDate,
+			memberHiredDate,
+			memberRetiredReason,
+			memberRetiredDate,
+			memberRetirementSignedDate,
+			memberpostaladdress,
+			memberstreetaddress,
+			memberEmail
+			)VALUES (
+			#{memberId},
+			#{memberPassword},
+			'물류센터A물류센터_전북_1',
+			#{levelMemberCode},
+			#{memberName},
+			#{memberGender},
+			#{memberPhone},
+			#{memberResidentRegistrationNumber},
+			'일반',
+			#{memberRegDate},	
+			#{memberHiredDate},
+			#{memberRetiredReason},
+			#{memberRetiredDate},
+			#{memberRetirementSignedDate},
+			#{memberpostaladdress},
+			#{memberstreetaddress},
+			#{memberEmail}
+			);
 	</insert>
 	
 	<!-- 전제조회 -->
@@ -250,6 +243,7 @@
 			,m.memberHiredDate							AS memberHiredDate
 			,m.memberpostaladdress						AS memberpostaladdress
 			,m.memberstreetaddress						AS memberstreetaddress
+			,m.memberEmail								AS memberEmail
 		FROM 
 			k3_tb_member	AS m
 		WHERE

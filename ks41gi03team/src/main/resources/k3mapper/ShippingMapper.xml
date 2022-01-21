@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.shipping.ahs.mapper.K3ShippingMapper">
-
+	
+	<!-- 현황 -->
 	<select id="getShippingList" resultType="K3Shipping">
 		SELECT
 			s.shippingCode,
@@ -26,6 +27,7 @@
 
 	</select>
 	
+	<!-- 추가 -->
 	<select id="addShipping" parameterType="K3Shipping">
 		INSERT INTO
 			k3_tb_shipping
@@ -34,7 +36,6 @@
 				mainBusinessCode,
 				contractorCode,
 				vehicleCheckpointCode,
-				areaCode,
 				releaseMergeCode,
 				shippingAddress,
 				shippingDetailAddress,
@@ -48,7 +49,6 @@
 				,"공장A공장_서울_1"
 			 	,"partners-driver-a"
 				,#{vehicleCheckpointCode}
-				,#{areaCode}
 				,#{releaseMergeCode}
 				,#{shippingAddress}
 				,#{shippingDetailAddress}
@@ -62,27 +62,31 @@
 			
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyShipping" resultType="K3Shipping">
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
 			s.contractorCode,
 			s.vehicleCheckpointCode,
-			s.areaCode,
-			s.releaseMergeCode,
-			s.shippingAddress,
-			s.shippingDetailAddress,
+			r.releaseMergeCode,
+			r.shippingAddress,
+			r.shippingDetailAddress,
 			s.memberId,
-			s.memberPhone,
 			s.shippingDetail,
 			s.driverId,
 			s.shippingTracking
 		FROM
 			k3_tb_shipping AS s
+		INNER JOIN
+			k3_tb_release AS r
+		ON
+			s.releaseCode = r.releaseCode
 		WHERE
 			shippingCode = #{shippingCode};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyShipping" parameterType="K3Shipping">
 		UPDATE k3_tb_shipping		
 		<trim prefix="SET" prefixOverrides=",">
@@ -97,24 +101,9 @@
 			</if>
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				vehicleCheckpointCode = #{vehicleCheckpointCode},
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				areaCode = #{areaCode},
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				releaseMergeCode = #{releaseMergeCode},
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				shippingAddress = #{shippingAddress},
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				shippingDetailAddress = #{shippingDetailAddress},
-			</if>
+			</if> 
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				memberId = #{memberId},
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				memberPhone = #{memberPhone},
 			</if>
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				shippingDetail = #{shippingDetail},
@@ -129,5 +118,18 @@
 		WHERE
 			shippingCode = #{shippingCode};
 	</update>
+	
+	<!-- 검색 -->
+	<select id="k3SearchShippingList" resultType="K3Shipping">
+		SELECT
+			*
+		FROM
+			k3_tb_shipping
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="shippingValue != null and shippingValue != ''.toString()">
+				${shippingKey} LIKE CONCAT('%', #{shippingValue}, '%');
+			</if>
+		</trim>
+	</select>
 
 </mapper>

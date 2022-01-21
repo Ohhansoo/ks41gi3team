@@ -17,4 +17,6 @@ public interface K3DamageErrorMapper {
 	public List<K3DamageError> k3DamageErrorListIn(K3DamageError K3DamageErrorIn);
 	//AS촐고대기현황
 	public List<K3DamageError> k3DamageErrorListOut(K3DamageError K3DamageErrorOut);
+	
+	public int k3InAddDamageError(K3DamageError k3DamageError);
 }

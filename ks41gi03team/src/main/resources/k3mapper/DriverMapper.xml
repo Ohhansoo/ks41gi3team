@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.driver.ahs.mapper.K3DriverMapper">
 
-<select id="getDriverList" resultType="K3Driver">
+	<!-- 현황 -->
+	<select id="getDriverList" resultType="K3Driver">
 		SELECT
 				d.driverId AS driverId,
 				d.contractorCode AS contractorCode,
@@ -19,6 +20,7 @@
 				k3_tb_driver AS d;
 	</select>
 	
+	<!-- 추가 -->
 	<select id="addDriver" parameterType="K3Driver">
 		INSERT INTO 
 	   		k3_tb_driver
@@ -46,6 +48,7 @@
 	
 	</select>
 	
+	<!-- 수정 -->
 	<select id="getModifyDriver" resultType="K3Driver">
 		SELECT
 			d.driverId AS driverId,
@@ -63,6 +66,7 @@
 			driverId = #{driverId};
 	</select>
 	
+	<!-- 수정 -->
 	<update id="modifyDriver" parameterType="K3Driver">
 		UPDATE k3_tb_driver
 		<trim prefix="SET" prefixOverrides=",">
@@ -96,7 +100,32 @@
 		</trim>
 		WHERE
 			driverId = #{driverId};
-			
 	</update>
+	
+	<!-- 검색 -->
+	<select id ="k3SearchDriverList" resultType="K3Driver">
+		SELECT
+			*
+		FROM
+			k3_tb_driver
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="driverValue != null and driverValue != ''.toString()">
+				${driverKey} LIKE CONCAT('%', #{driverValue}, '%');
+			</if>
+		</trim>	
+	</select>
 
+	<select id="k3GetModalList" resultType="map" parameterType="map">
+		SELECT
+			d.driverId,
+			d.driverName,
+			d.driverPhone,
+			d.driverRegDate
+		FROM
+			k3_tb_driver AS d
+	</select>
+	
+	
+
+	
 </mapper>

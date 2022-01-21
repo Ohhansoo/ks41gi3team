@@ -47,11 +47,7 @@
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
-						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-boxes"></i>
-							분류등록
-						</button>			
+						</button>				
 						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="submit">
 							<i class="bi bi-trash"></i>
 							삭제
@@ -69,19 +65,15 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{#}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/delivery/checkpoint/k3CheckpointList}" method="post">
 								<div class="input-group input-group-sm">
-									<select class="form-control-sm">
+									<select class="form-control-sm" name="checkpointKey">
 												<option value="checkpoint">입출하 기록 코드</option>
-												<option value="driver">기사 아이디</option>
+												<option value="name">기사 이름</option>
 												<option value="vehicle">차량 코드</option>
 											</select>
-									<input type="text" class="form-control" placeholder="검색">
-									<div class="input-group-append">
-										<div class="btn btn-default">
-											<i class="fas fa-search icon"></i>
-										</div>
-									</div>
+									<input type="text" class="form-control" placeholder="검색" name="checkpointValue">
+									<button type="submit">검색</button>
 								</div>
 							</form>
 								<!--End inputbox 1 -->
@@ -105,7 +97,7 @@
 										<th>삭제</th>
 										<th>수정</th>	
 										<th>입출하 기록 코드</th>
-										<th>기사아이디</th>
+										<th>기사 이름</th>
 										<th>차량코드</th>
 										<th>입하일시</th>
 										<th>출하일시</th>			
@@ -122,7 +114,7 @@
 											</a>
 										</td>
 										<td th:text="${l.vehicleCheckpointCode}"></td>
-										<td th:text="${l.driverId}"></td>
+										<td th:text="${l.driverName}"></td>
 										<td th:text="${l.vehicleCode}"></td>
 										<td th:text="${l.vehicleArrivalDate}"></td>
 										<td th:text="${l.vehicleShipmentDate}"></td>

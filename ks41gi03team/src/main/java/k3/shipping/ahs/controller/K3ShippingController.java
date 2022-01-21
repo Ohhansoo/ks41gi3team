@@ -28,7 +28,7 @@ public class K3ShippingController {
 		this.k3ShippingService = k3ShippingService;
 	}
 	
-
+	//현황
 	@GetMapping("/k3ShippingList")
 	public String getShippingList(Model model) {
 		List<K3Shipping> shippingList = k3ShippingService.getShippingList();
@@ -38,11 +38,13 @@ public class K3ShippingController {
 		return "team03/delivery/shipping/k3ShippingList";
 	}
 	
+	//등록 화면
 	@GetMapping("/k3AddShipping")
 	public String addShipping(Model model) {
 		return "team03/delivery/shipping/K3AddShipping";
 	}
 	
+	//등록
 	@PostMapping("/k3AddShipping")
 	public String addShipping(K3Shipping k3Shipping) {
 		Integer result = k3ShippingService.addShipping(k3Shipping);
@@ -51,6 +53,7 @@ public class K3ShippingController {
 		return "redirect:/team03/delivery/shipping/k3ShippingList";
 	}
 	
+	//수정 화면
 	@GetMapping("/k3ModifyShipping")
 	public String k3ModifyShipping(@RequestParam(value="shippingCode", required = false) String shippingCode, Model model) {
 		
@@ -65,12 +68,31 @@ public class K3ShippingController {
 		return "team03/delivery/shipping/k3ModifyShipping";
 	}
 	
+	//수정
 	@PostMapping("/k3ModifyShipping")
 	public String modifyShipping(K3Shipping k3Shipping) {
 		
 		k3ShippingService.modifyShipping(k3Shipping);
 		
 		return "redirect:/team03/delivery/shipping/k3ShippingList";
+	}
+	
+	//검색
+	@PostMapping("/k3ShippingList")
+	public String k3SearchShippingList(@RequestParam(value="shippingKey", required = false) String shippingKey,
+										@RequestParam(value="shippingValue", required = false) String shippingValue,
+										Model model) {
+		if(shippingKey != null && "shipping".equals(shippingKey)) {
+			shippingKey = "shippingCode";
+		}else if(shippingKey != null && "driver".equals(shippingKey)) {
+			shippingKey = "driverId";
+		}
+		List<K3Shipping> shippingList = k3ShippingService.k3SearchShippingList(shippingKey, shippingValue);
+		
+		model.addAttribute("title", "배송 관리");
+		model.addAttribute("shippingList", shippingList);
+		
+		return "team03/delivery/shipping/k3ShippingList";
 	}
 	
 	

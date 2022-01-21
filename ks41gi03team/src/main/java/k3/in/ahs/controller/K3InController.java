@@ -1,6 +1,8 @@
 package k3.in.ahs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.in.ahs.dto.K3In;
 import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.in.ahs.service.K3InService;
-import k3.inout.ahs.controller.K3InoutController;
-import k3.inout.ahs.dto.K3Inout;
-import k3.inout.ahs.service.K3InoutService;
-import k3.out.ahs.dto.K3Out;
 
 @Controller
 @RequestMapping(value="/team03/finance/in")
@@ -36,28 +35,57 @@ public class K3InController {
 		
 		
 		
+		
+		
+
+		//결제 정보 모달 컨트롤러
 	/*
-	 * HttpServletRequest request
+	 * @PostMapping("/findInPayInfo")
 	 * 
-	 * session = request.getSession(); session
+	 * @ResponseBody public List<Map<String, Object>> k3FindInPayInfo() {
+	 * 
+	 * List<Map<String, Object>> result = k3InService.findEstimateInfo();
+	 * System.out.println(result + "findPayInfo controller");
+	 * 
+	 * return result; }
 	 */
 		
+		//결제정보 등록버튼 컨트롤러
+		@PostMapping("/inPayInfo")
+		@ResponseBody
+		public List<Map<String, Object>> k3InPayInfo(@RequestParam(value="inCode")String inCode){
+			List<Map<String, Object>> result = k3InService.inPayInfo(inCode);
+			System.out.println(result + "<<inPayInfo result");
+			return result;
+		}
+		
+		//견적정보 등록 버튼 모달 컨트롤러
+		@PostMapping("/findEstimateInfo")
+		@ResponseBody
+		public List<Map<String, Object>> k3FindEstimateInfo() {
+			List<Map<String, Object>> resultList = k3InService.findEstimateInfo();
+			System.out.println(resultList + "findEstimateInfo resultList");
+			return resultList;
+		}
 		
 		//매출내역 검색
 		@PostMapping("/k3SearchInList")
-		public String searchInList(@RequestParam(value="inKey", required = false) String inKey,
-									@RequestParam(value="inValue", required = false) String inValue,
-									Model model) {
-			if(inKey != null && "inCode".equals(inKey)) {
-				inKey = "inCode";
-			}else if(inKey != null && "estimateNum".equals(inKey)){
-				inKey = "estimateNum";
-			}
-			List<K3In> inList = k3InService.searchInList(inKey, inValue);
+		public String k3GetInList(@RequestParam(value="inKey", required = false) String inKey,
+								   @RequestParam(value="inValue", required = false) String inValue,
+								   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+								   Model model) {
+			Map<String, Object> searchCondition = new HashMap<String, Object>();
+			searchCondition.put("inKey", inKey);
+			searchCondition.put("inValue", inValue);
+		
 			
-			model.addAttribute("inList", inList);
-			System.out.println(inKey +"inKey");
-			System.out.println(inValue +"inValue");
+			Map<String, Object> inListMap = k3InService.getSearchInList(searchCondition, currentPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", inListMap.get("lastPage"));
+			model.addAttribute("inList", inListMap.get("inList"));
+			model.addAttribute("startPageNum", inListMap.get("startPageNum"));
+			model.addAttribute("endPageNum", inListMap.get("endPageNum"));
+
 			return "team03/finance/in/k3InList";
 		}
 
@@ -125,12 +153,19 @@ public class K3InController {
 
 		//매출 내역 조회
 		@GetMapping("/k3InList")
-		public String InList(Model model) {
-			List<K3In> inList = k3InService.getInList();
+		public String InList(@RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage,
+							Model model) {
+			
+			Map<String, Object> inListMap = k3InService.getInList(currentPage);
 			model.addAttribute("title", "매출 내역 관리");
 			model.addAttribute("subtitle", "매출 내역 조회");
-			model.addAttribute("inList", inList);
-			System.out.println(inList + "inList값");
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("lastPage", inListMap.get("lastPage"));
+			model.addAttribute("inList", inListMap.get("inList"));
+			model.addAttribute("startPageNum", inListMap.get("startPageNum"));
+			model.addAttribute("endPageNum", inListMap.get("endPageNum"));		
+			System.out.println(model+ "model--------------------");
+			System.out.println(inListMap + "inList값");
 			System.out.println("매출 내역 조회 컨트롤러 실행");
 			return "/team03/finance/in/k3InList";
 		}

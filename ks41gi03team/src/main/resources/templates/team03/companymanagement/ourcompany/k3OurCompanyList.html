@@ -116,7 +116,7 @@
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<th>삭제</th>	
+											<!-- <th>삭제</th> -->	
 											<th>수정</th>
 											<th>자사 등록번호</th>
 							                <th>자사 종사업장번호</th>
@@ -130,12 +130,12 @@
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-						   				<td>
+						   				<!-- <td>
 											<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.ourCompanyCode}">
-											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
-										</td>
+											<input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}">
+										</td> -->
 						   				<td>
-										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">
+										<a id="modifyOurCompany" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>
 										</td>	

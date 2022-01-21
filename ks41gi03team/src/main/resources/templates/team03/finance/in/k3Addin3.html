@@ -2,30 +2,106 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>매출 내역 등록</title>
+   	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">	
 	</th:block>
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="customJs">
 		<script>
 			// 취소 버튼
 			$(function(){
 				$('#cancelBtn').on('click', function(){
 					history.back();
 				});
+				
+				
+				//견적정보 관련 모달	
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '#selectEstimateNum', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#dataTableAjax').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/finance/in/findEstimateInfo',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "estimateNum"},
+							{ "data": "estimatePrice"},
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="estimateNum" name="estimateNum" value="'+ row.estimateNum +'">'
+									
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.estimateNum:checked');
+	 				var estimatePrice = $('#estimatePriceInput');
+	 				var estimateNum = $('#estimateNumInput');
+	 				var checkedEstimatePrice = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				
+	 				var inCodeInput = $('#inCodeInput');
+	 				var autoIncodeInput = checkedBox.parent().parent().children().eq(1).text();
+	 				
+	 				estimateNum.attr('value',checkedBox.val());
+	 				estimatePrice.attr('value',checkedEstimatePrice);
+	 				inCodeInput.attr('value',autoIncodeInput);
+	 				
+					console.log(checkedBox);
+					modal.addClass('hidden');
+				});
 			});
 			
+		/* 	
 			// 견적서 번호 
 			$(function(){
-				/* $('#estimatePriceInput').val($('#estimateNum').val()); */
 				
-				$(document).on('change', '#estimateNum', function(){
+				$(document).on('change', '#estimateNum',function(){
+					$('#estimatePriceInput').val($('#estimateNum').val());
 					var test = $('#estimateNum').val()
-					$('#estimatePriceInput').val(test);
-					console.log(test);
+						console.log(test);
+					
+					var test2 = $('#estimateNum option:checked').text()
+					$('#estimateNum2').val(test2)
+						console.log(test2);
+					
 				})
-			})
-		</script>	 
-		
+			}) */
+		</script>	
+	
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+ 
 		
 		
 		<div id="representative-button">
@@ -44,7 +120,7 @@
 							<div class="row">
 								<form id="inInfo" th:action="@{/team03/finance/in/k3AddIn}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="inCodeInput" class="inputName">매출코드</label>
+										<label for="inCodeInput" class="inputName">매출코드 자동완성</label>
 										<input class="inputBox" type="text" id="inCodeInput" name="inCode"> 
 									</div>
 									
@@ -64,25 +140,54 @@
 									</div>	
 									
 									
+									
 									<div class="inputwrap col-md-12">
+										<label for="estimateNum" class="inputName">견적번호</label>
+										<input type="hidden" id="contractorIdInput" name="contractorId">
+										<input class="inputBox" type="text" id="estimateNumInput" name="estimateNum" placeholder="견적번호" readonly="readonly">
+										<button id="selectEstimateNum" class="findContractorModal" type="button">선택</button> 
+									</div>
+									
+									<div class="inputwrap col-md-12">
+										<label for="estimatePrice" class="inputName">견적가격</label>
+										<input type="hidden" id="contractorIdInput" name="contractorId">
+										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice" placeholder="견적가격" readonly="readonly">
+									</div>
+									
+									
+									
+								<!-- 	<div class="inputwrap col-md-12">
 										<label for="estimateNumInput" class="inputName">견적번호</label>
 										<select id = "estimateNum">
+											<option> :: 선택 :: </option>
 											<th:block th:if="${not #lists.isEmpty(getEstimateNum)}" th:each="e : ${getEstimateNum}">
-											<option th:text="${e.estimateNum}" th:value="${e.estimateNum}"> </option>
-											</th:block>										
+											<option class="estiamtePick" th:text="${e.estimateNum}" th:value="${e.estimatePrice}"> </option>
+											</th:block>
 										</select>
-									</div>				
+									</div>
 									
-									
+									보이지 않는 견적번호 담기				
+									<div style="display:none" class="inputwrap col-md-12">
+										<label for="estimatePriceInput" class="inputName">담을견적번호</label>
+										<input class="inputBox" type="text" id="estimateNum2" name="estimateNum">
+									</div>
+													
 									<div class="inputwrap col-md-12">
 										<label for="estimatePriceInput" class="inputName">견적금액</label>
 										<input class="inputBox" type="text" id="estimatePriceInput" name="estimatePrice">
 									</div>
+									
+									 -->
+									
 																	
 									<div class="inputwrap col-md-12">
 										<label for="inPayMethodInput" class="inputName">결제방법</label>
-										<input class="inputBox" type="text" id="inPayMethodInput" name="inPayMethod">
+										<select name = "inPayMethod">
+											<option value="현금">현금</option>
+											<option value="카드">카드</option>
+										</select>
 									</div>								
+									
 									<div class="inputwrap col-md-12">
 										<label for="inPayDateInput" class="inputName">결제일</label>
 										<input class="inputBox" type="text" id="inPayDateInput" name="inPayDate">
@@ -121,5 +226,35 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">견적번호 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>견적번호</th>
+									<th>금액</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 	</th:block>
 </head>

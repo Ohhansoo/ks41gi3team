@@ -5,6 +5,34 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customJs"> 
+	<script>
+			$(function(){				
+				
+				
+				$(document).on('click', '#deleteVehicleBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+
+					
+					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							
+							$('#vehicleForm').submit();
+						}
+						
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					}
+				});
+			});
+		</script>	
+		</th:block>
+		
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -19,10 +47,10 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>					
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteVehicleBtn" type="button" class="ahsbtn4 btn btn-outline-info deleteBbtn">
 							<i class="bi bi-trash"></i>
 							삭제
-						</button>			
+						</button>				
 					</div>
 				<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
@@ -60,6 +88,7 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<form id="vehicleForm" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
 							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
@@ -78,7 +107,7 @@
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(vehicleList)}" th:each="l : ${vehicleList}">
 										<td>
-											<input type="checkbox" value="선택">
+											<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.vehicleCode}">
 										</td>	
 										<td>
 											<a th:href="@{/team03/delivery/vehicle/k3DeleteVehicle(vehicleCode=${l.vehicleCode})}">삭제</a>
@@ -95,11 +124,10 @@
 										<td th:text="${l.vehicleTonage}"></td>
 										<td th:text="${l.vehicleInspectionDate}"></td>	
 										<td th:text="${l.vehicleDriveAvailability}"></td>
-   											
-										
 									</tr>
 								</tbody>						
 							</table>
+							</form>
 						</div>
 						<!--End card body -->
 					</div>
