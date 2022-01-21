@@ -13,17 +13,44 @@
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:inline="javascript">
 			$(function(){
-				<!-- 숫자, 하이픈(-)만 입력 제한 기능-->
-				$(document).on("keyup", "input[telOnly]", function() {$(this).val( $(this).val().replace(/[^0-9-]/gi,"") );})
-
-				<!-- 이메일 입력 제한 기능 -->
-				var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-				if(!emailRule.test($("input[email]").val())) {
-				    //경고
-				 	alert("이메일 형식에 맞지 않습니다. 입력한 이메일을 확인해주세요.");
-				    return flase;
-				}
+				<!-- 숫자, 하이픈(-) 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[telOnly]", function(){
+					$(this).val($(this).val().replace(/[^0-9-]/gi,"") );
+				});
+	
+				<!-- 숫자 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[numOnly]", function(){
+					$(this).val($(this).val().replace(/[^0-9]/gi,"") );
+				});
+				
+				<!-- 문자(한글,영문) 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[stringOnly]", function() {
+					$(this).val($(this).val().replace(/[^가-힣a-zA-Z]/gi,""));
+				});
+				
+				<!-- 특수문자 입력 제한 기능-->
+				$(document).on("keyup", "input[noSpecial]", function() {
+					$(this).val( $(this).val().replace(/[^가-힣a-zA-Z0-9]/gi,"") );
+				});
+				
+				<!-- 선택값 입력 기능 -->
+				$("#contractorSuperviserEmailSelect").change(function(){
+					console.log("선택한 값확인 : "+ $(this).val());
+					$("#contractorSuperviserEmailAddr").val($(this).val());
+				});
+				
+				$("#contractorEmailSelect").change(function(){
+					console.log("선택한 값확인 : "+ $(this).val());
+					$("#contractorEmailAddr").val($(this).val());
+				});
+				
+				$("#contractorProfitBankSelect").change(function(){
+					console.log("선택한 값확인 contractorProfitBankSelect : "+ $(this).val());
+					$("#contractorProfitBanka").val($(this).val());
+					console.log("바뀐 값확인 contractorProfitBanka :"+ $("#contractorProfitBanka").val());
+				});
+				<!-- END 선택값 입력 기능 -->	
+			});
 		</script>
 	</th:block>			
 
@@ -63,23 +90,23 @@
 						</div>					  	
 						<div id="contractorCode" class="input-group">
 							<span class="input-group-text">거래처사업장코드</span>
-				 			<input  class="form-control"  type="text" name="contractorCode" placeholder="거래처사업장코드" th:value="${c.contractorCode}" readonly  style="background-color:#BDBDBD"/>
+				 			<input  class="form-control" telOnly type="text" name="contractorCode" placeholder="거래처사업장코드" th:value="${c.contractorCode}" readonly  style="background-color:#BDBDBD"/>
 						</div>
 				  		<div id="contractorBusinessNum" class="input-group">
 				  			<span class="input-group-text">거래처 사업자등록번호</span>
-				  			<input  class="form-control" type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호" th:value="${c.contractorBusinessNum}" readonly  style="background-color:#BDBDBD"/>
+				  			<input  class="form-control" telOnly type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호" th:value="${c.contractorBusinessNum}" readonly  style="background-color:#BDBDBD"/>
 				  		</div>
 				  		<div id="contractorBusinessClientNum" class="input-group">
 				  			<span class="input-group-text">거래처 종사업장번호</span>
-				  			<input class="form-control" type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호" th:value="${c.contractorBusinessClientNum}" readonly  style="background-color:#BDBDBD"/>
+				  			<input class="form-control" telOnly type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호" th:value="${c.contractorBusinessClientNum}" readonly  style="background-color:#BDBDBD"/>
 				  		</div>
 				  		<div id="contractorName" class=" input-group">
 				  			<span class="input-group-text">거래처 상호명</span>
-				  			<input  class="form-control"  type="text" name="contractorName" placeholder="거래처 상호명" th:value="${c.contractorName}"/>
+				  			<input  class="form-control" noSpecial  type="text" name="contractorName" placeholder="거래처 상호명" th:value="${c.contractorName}"/>
 				  		</div>
 				  		<div id="contractorRepresentative" class=" input-group">
 				  			<span class="input-group-text">거래처 대표자명</span>
-				  			<input class="form-control" type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명" th:value="${c.contractorRepresentative}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorRepresentative" id="contractorRepresentative" placeholder="거래처 대표자명" th:value="${c.contractorRepresentative}"/>
 				  		</div>
 					</div>
 				</div>
@@ -94,15 +121,15 @@
 				  		</div>
 				  		<div id="contractorType" class="input-group">
 				  			<span class="input-group-text">거래처 유형</span>
-				  			<input class="form-control"  type="text" name="contractorType" id="contractorType" placeholder="거래처 유형" th:value="${c.contractorType}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorType" id="contractorType" placeholder="거래처 유형" th:value="${c.contractorType}"/>
 				  		</div>
 				  		<div id="contractorItem" class="input-group">
 				  			<span class="input-group-text">거래처 종목</span>
-				  			<input class="form-control" type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목" th:value="${c.contractorItem}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorItem" id="contractorItem" placeholder="거래처 종목" th:value="${c.contractorItem}"/>
 				  		</div>
 				  		<div id="contractorStatus" class="input-group">
 				  			<span class="input-group-text">거래처 업태</span>
-				  			<input class="form-control" type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태" th:value="${c.contractorStatus}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorStatus" id="contractorStatus" placeholder="거래처 업태" th:value="${c.contractorStatus}"/>
 				  		</div>
 					</div>			
 					<div class="justify-content-end modifyForm card cardColor input-group" style="margin:10px">
@@ -119,7 +146,7 @@
 				 		</div>
 				 		<div id=contractorEmail class="input-group">
 				  			<span class="input-group-text">거래처 이메일</span>
-				  			<input class="form-control" type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일" th:value="${c.contractorEmail}"/>
+				  			<input class="form-control" numOnly type="text" name="contractorEmail" id="contractorEmail" placeholder="거래처 이메일" th:value="${c.contractorEmail}"/>
 				  		</div>
 				  		<div id="contractorFax" class="input-group">
 				  			<span class="input-group-text">거래처 Fax</span>
@@ -134,11 +161,11 @@
 						</div>
 				  		<div id="contractorSuperviser" class=" input-group">
 				  			<span class="input-group-text">거래처 담당자</span>
-				  			<input class="form-control" type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자" th:value="${c.contractorSuperviser}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorSuperviser" id="contractorSuperviser" placeholder="거래처 담당자" th:value="${c.contractorSuperviser}"/>
 				  		</div>
 				  		<div id="contractorSuperviserPhone" class=" input-group">
 				  			<span class="input-group-text">담당자 연락처</span>
-				  			<input class="form-control" telOnly type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처" th:value="${c.contractorSuperviserPhone}"/>
+				  			<input class="form-control" numOnly telOnly type="text" name="contractorSuperviserPhone" id="contractorSuperviserPhone" placeholder="담당자 연락처" th:value="${c.contractorSuperviserPhone}"/>
 				  		</div>
 				  		<div id="contractorSuperviserEmail" class=" input-group">
 				  			<span class="input-group-text">담당자 이메일</span>
@@ -151,7 +178,7 @@
 						</div>
 				  		<div id="contractorProfitBank" class=" input-group">
 				  			<span class="input-group-text">거래처 은행명</span>
-				  			<input class="form-control" type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명" th:value="${c.contractorProfitBank}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorProfitBank" id="contractorProfitBank" placeholder="거래처 은행명" th:value="${c.contractorProfitBank}"/>
 				  		</div>
 				  		<div id="contractorProfitAccount" class=" input-group">
 				  			<span class="input-group-text">거래처 계좌번호</span>
@@ -159,7 +186,7 @@
 				  		</div>
 				  		<div id="contractorAccountHolder" class=" input-group">
 				  			<span class="input-group-text">거래처 예금주</span>
-				  			<input class="form-control" type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주" th:value="${c.contractorAccountHolder}"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorAccountHolder" id="contractorAccountHolder" placeholder="거래처 예금주" th:value="${c.contractorAccountHolder}"/>
 				  		</div>
 					</div>
 				</div>

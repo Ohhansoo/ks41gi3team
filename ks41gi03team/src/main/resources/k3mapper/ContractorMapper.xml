@@ -54,6 +54,21 @@
 		WHERE
 			c.contractorBusinessNum = #{contractorBusinessNum};
 	</select>
+	
+	<!-- 거래처 종사업장 번호 중복확인 -->
+	<select id="k3ContractorBusinessClientNumCheck" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId
+		WHERE
+			c.contractorBusinessClientNum = #{contractorBusinessClientNum};
+	</select>
+	
 	<!-- 거래처 수정처리 k3_tb_contractor_staff -->
 	<update id="k3ModifyContractor" parameterType="K3DetailContractor">
 		UPDATE k3_tb_contractor_staff
@@ -184,6 +199,15 @@
 			cs.contractorId = c.contractorId
 		where
 			c.contractorCode = #{contractorCode};
+	</select>
+	
+	<!-- 등록페이지에 거래처 아이디 정해주기	 -->
+	<select id="getContractorIdPw" resultType="map">
+		SELECT 
+			CONCAT('ctr',0,MAX(substring(contractorId,4))+1) as contractorId,
+			CONCAT('ctrpw',0,MAX(substring(contractorPw,6))+1) as contractorPw
+		FROM 
+			k3_tb_contractor_staff;	
 	</select>
 	
 	<!-- 거래처 등록하기 -->

@@ -1,6 +1,7 @@
 package k3.retiredmemberuser.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,6 @@ public interface K3RetiredMemberUserMapper {
 	//퇴사회원 현황(초기화면)
 	public List<K3RetiredMemberUser> getRetiredMemberUserList();
 
+	//퇴사직원 검색
+	public List<K3RetiredMemberUser> k3GetRetiredMemberUserSearch(Map<String, Object> searchCondition);
 }
