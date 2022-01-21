@@ -3,21 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.warehousing.ahs.mapper.K3WarehousingMapper">
-	<resultMap type="K3Warehousing" id="warehousingResultMap">
- 		<result column="warehousingCode" property="warehousingCode" />
- 		<result column="laydownCheckCode" property="laydownCheckCode" />
+	<resultMap id="warehousingResultMap" type="K3Warehousing" >
+ 		<id column="warehousingCode" property="warehousingCode" />
 		<result column="mainBusinessCode" property="mainBusinessCode" />
-		<result column="contractorName" property="contractorName" />
 		<result column="contractorId" property="contractorId" />
-		<result column="productName" property="productName" />
+ 		<result column="productCode" property="productCode" />
 		<result column="laydownGoodsCount" property="laydownGoodsCount" />
 		<result column="manufacturedDate" property="manufacturedDate" />
 		<result column="expiratonDate" property="expiratonDate" />
-		<result column="laydownDate" property="laydownDate" />
+ 		<result column="laydownRequestDate" property="laydownRequestDate" />
+ 		<result column="laydownDate" property="laydownDate" />
+		<result column="productFrequency" property="productFrequency" />
+ 		<result column="laydownCheckCode" property="laydownCheckCode" />
 		<result column="laydownCheckResult" property="laydownCheckResult" />
 		<result column="laydownCheckManager" property="laydownCheckManager" />
 		<result column="laydownCheckDate" property="laydownCheckDate" />
-		<result column="dockName" property="dockName" />
+		<result column="warehousingAllow" property="warehousingAllow" />
+		<result column="acceptDate" property="acceptDate" />
+		<result column="sorting" property="sorting" />
+			<association property="k3Contractor" javaType="K3Contractor">
+				<id column="contractorId" property="contractorId"/>
+				<result column="contractorName" property="contractorName" />
+			</association>
+			<association property="k3Product" javaType="K3Product">
+			<id column="productCode" property="productCode"/>
+			<result column="productName" property="productName" />
+			</association>
 	</resultMap>
 	
 	<!--로케이션 상태 업데이트(사용중으로) -->
@@ -42,16 +53,16 @@
 	
 	<!-- 분류등록 -->
 	<insert id="k3AddWarehousingSort">
-	INSERT INTO k3_tb_stock
-		(stockCode, 
-		warehousingCode, 
-		locationCode, 
-		categoryCode, 
-		stockQuantity, 
-		productFrequency, 
-		pileupManager, 
-		pileupDate)
-	SELECT 
+		INSERT INTO k3_tb_stock
+			(stockCode, 
+			warehousingCode, 
+			locationCode, 
+			categoryCode, 
+			stockQuantity, 
+			productFrequency, 
+			pileupManager, 
+			pileupDate)
+		SELECT 
 		   CONCAT(MAX(SUBSTRING(stockCode,1,5)), MAX(CAST(SUBSTRING(stockCode,6)AS DECIMAL))+ 1),
 		   #{warehousingCode},
 		   #{locationCode},
@@ -106,7 +117,6 @@
 		   w.laydownDate,
 		   w.laydownCheckCode,
 		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
-		   w.warehousingDay,
 		   w.laydownCheckDate,
 		   m.memberName,
 		   w.laydownCheckResult,
@@ -153,7 +163,7 @@
 	<insert id="k3AddWarehousing">
 		INSERT INTO
 		   k3_tb_warehousing
-			(warehousingCode, mainBusinessCode, contractorId, productCode, laydownGoodsCount, manufacturedDate, expiratonDate, laydownRequestDate)
+			(warehousingCode, mainBusinessCode, contractorId, productCode, laydownGoodsCount, manufacturedDate, expiratonDate, laydownRequestDate, productFrequency)
 		SELECT 
 		   CONCAT(MAX(SUBSTRING(warehousingCode,1,11)), MAX(CAST(SUBSTRING(warehousingCode,12)AS DECIMAL))+ 1),
 		   "물류센터A물류센터_전북_1",
@@ -162,10 +172,12 @@
 		   #{laydownGoodsCount},
 		   #{manufacturedDate},
 		   #{expiratonDate},
-		   #{laydownRequestDate}
+		   #{laydownRequestDate},
+		   #{productFrequency}
 		FROM 
 		  k3_tb_warehousing;
 	</insert>
+	
 	<!--계약처아이디로 계약처 이름찾아오기  -->
 	<select id="k3FindContractorNameByCode" resultType="K3Contract">
 		SELECT
@@ -178,7 +190,7 @@
 	</select>
 	
 	<!--입고요청 목록  -->
-	<select id="k3RequestAllowWarehousing" resultType="K3Warehousing">
+	<select id="k3RequestAllowWarehousing" resultMap="warehousingResultMap">
 		SELECT
 			w.warehousingCode,
 			p.productName,
@@ -198,72 +210,6 @@
 			w.contractorId = cs.contractorId
 		WHERE w.warehousingAllow = 'N'		
 	</select>
-	
-	<!--재고등록이 가능한 데이터 출력  -->
-	<select id="k3GetWarehousingRequestSort" resultType="K3WarehousingSort">
-		SELECT
-			w.laydownCheckCode,
-			p.productName,
-			w.laydownGoodsCount,
-			w.laydownDate,
-			c.contractorName	
-		FROM
-			k3_tb_warehousing AS w
-			INNER JOIN
-			k3_tb_product AS p
-			ON
-			w.productCode = p.productCode
-			INNER JOIN
-			k3_tb_contractor_staff AS c
-			on
-			w.contractorId = c.contractorId
-		WHERE
-			w.sorting = 'N' AND w.laydownCheckResult = 'Y';
-	</select>
-	
-	<!--재고 분류  -->
-	<select id="k3GetWarehousingSortList" resultType="K3WarehousingSort">
-	SELECT
-			w.laydownCheckCode,
-			p.productName,
-			s.stockQuantity,
-			c.contractorName,
-			t.largeCategory,
-			t.mediumCategory,
-			t.smallCategory,
-			s.productFrequency,
-			s.locationCode,
-			m.memberName,
-			s.pileupDate		
-		FROM
-			k3_tb_stock AS s
-			INNER JOIN
-			k3_tb_warehousing AS w
-			on
-			w.warehousingCode = s.warehousingCode
-			INNER JOIN
-			k3_tb_product AS p
-			ON
-			w.productCode = p.productCode
-			INNER JOIN
-			k3_tb_contractor_staff AS c
-			on
-			w.contractorId = c.contractorId
-			INNER JOIN
-			k3_tb_member AS m
-			on
-			s.pileupManager = m.memberId			
-			INNER JOIN
-			k3_tb_total_category AS t
-			on
-			p.categoryCode = t.categoryCode
-		WHERE
-			w.sorting = 'Y' AND w.laydownCheckResult = 'Y'	
-	</select>
-	
-
-	
-
 	
 	<!--입고 현황(초기화면) - 입고리스트  -->
 	<select id="k3GetWarehousingList" resultType="map" parameterType="map">

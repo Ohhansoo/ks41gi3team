@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import k3.stock.ahs.dto.K3Stock;
+import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Mapper
 public interface K3StockMapper {
@@ -22,6 +23,8 @@ public interface K3StockMapper {
 	public int K3ModifyStock(K3Stock k3Stock);
 	//재고 수정폼 이동
 	public List<K3Stock> K3GetStockInfo(String stockCode);
+	//재고 등록 리스트(등록 가능한 리스트)
+	public List<K3Stock> k3AddStockList();
 	//재고현황 상세조회(초기화면)
 	public List<Map<String,Object>> k3GetStockByLocation(Map<String,Object> paramMap);
 	//재고현황 간단조회 테이블 튜플 수(초기화면)

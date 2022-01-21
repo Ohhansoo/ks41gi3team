@@ -33,73 +33,9 @@
 						if(submitCheck) $('#assorList').submit();
 				});
 				//모달 시작
-				var modal = $('#categoryModal');
 				var memberModal = $('#memberModal');
 				var locationModal = $('#locationModal');
-				///카테고리 모달
-				$("#categoryExitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
 				
-				$(document).on('click', '#selectCategory', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
-					
-					$('#dataTableAjax').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/goodsManagement/warehousing/getCategoryList',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "largeCategory"},
-							{ "data": "mediumCategory"},
-							{ "data": "smallCategory"}								
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="categoryCode" name="categoryCode" value="'+ row.categoryCode +'">'
-									return htmlbtn;
-								}
-							}
-						]
-					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
-				$(document).on('click', '.confirmBtn', function(){
-					var checkedBox = $('.categoryCode:checked');
-	 				var largeCategory = $('#largeCategory');
-	 				var mediumCategory = $('#mediumCategory');
-	 				var smallCategory = $('#smallCategory');
-	 				var categoryCode = $('#categoryCode');
-
-	 				var largeCategoryValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var mediumCategoryValue = checkedBox.parent().parent().children().eq(2).text();
-	 				var smallCategoryValue = checkedBox.parent().parent().children().eq(3).text();
-	 				var categoryCodeValue = checkedBox.val();
-					
-	 				largeCategory.attr('value',largeCategoryValue);
-	 				mediumCategory.attr('value',mediumCategoryValue);
-	 				smallCategory.attr('value',smallCategoryValue);
-	 				categoryCode.attr('value', categoryCodeValue);
-	 				
-					modal.addClass('hidden');
-				});
 				///멤버이름 모달
 				$(document).on('click', '#selectMember', function(){
 					var aLengthMenuArray = [];
@@ -238,34 +174,12 @@
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="productName" class="inputName">물품명</label>
-											<input class="inputBox" type="text" id="productName" name="productName" th:value="${l.productName}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="productName" name="productName" th:value="${l.k3Product.productName}" readonly="readonly"/>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="stockQuantity" class="inputName">물품개수</label>
 											<input class="inputBox" type="text" id="stockQuantity" name="stockQuantity" th:value="${l.laydownGoodsCount}" readonly="readonly"/>
-										</div>	
-										<div class="inputwrap col-md-12">
-											<label for="largeCategory" class="inputName">대분류</label>
-											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" readonly="readonly"/>
-											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode"/>
-											<button type="button" id="selectCategory">카테고리 선택</button>
-										</div>
-										<div class="inputwrap col-md-12">
-											<label for="mediumCategory" class="inputName">중분류</label>
-											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" readonly="readonly"/>
-										</div>								
-										<div class="inputwrap col-md-12">
-											<label for="smallCategory" class="inputName">소분류</label>
-											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" readonly="readonly"/>
-										</div>								
-										<div class="inputwrap col-md-12">
-											<label for="productFrequency" class="inputName">상품빈도</label>
-											<select name="productFrequency">
-												<option value="high">고빈도</option>
-												<option value="medium">중빈도</option>
-												<option value="low">저빈도</option>											
-											</select>	
-										</div>								
+										</div>														
 										<div class="inputwrap col-md-12">
 											<label for="locationCode" class="inputName">로케이션</label>
 											<input class="inputBox" type="text" id="locationCode" name="locationCode" readonly="readonly"/>
@@ -297,36 +211,6 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-		<!-- 모달창 -->
-		<div id="categoryModal" class="modal hidden">
-			<div class="modal_overlay"></div>		
-			<div class="modal_content">
-				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">카테고리 선택</div>
-					<button id="categoryExitBtn" class="exitBtn" type="button">
-						<i class="fas fa-times-circle"></i>
-					</button>
-				</div>
-				<div class="modal_body">
-					<form>	
-						<table border="1" id="dataTableAjax" class="dataTable">
-							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>대분류</th>
-									<th>중분류</th>
-									<th>소분류</th>							
-								</tr>
-							</thead>
-						</table>				
-					</form>
-				</div>
-				<div class="modal_fotter">
-					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
-				</div>			
-			</div>
-		</div>
-		<!-- End 모달창 -->
 		<!-- 모달창 -->
 		<div id="memberModal" class="modal hidden">
 			<div class="modal_overlay"></div>		

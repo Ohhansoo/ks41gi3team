@@ -116,17 +116,7 @@ public class K3WarehousingService {
 	 * List<K3Warehousing> warehousingSort =
 	 * k3WarehousingMapper.k3GetSortInfo(warehousingCode); return warehousingSort; }
 	 */
-	//입고 분류 현황(요청목록)
-	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
-		List<K3WarehousingSort> requestSort = k3WarehousingMapper.k3GetWarehousingRequestSort();
-		return requestSort;
-	}
-	
-	//입고 분류 현황(완료목록)
-	public List<K3WarehousingSort> k3GetWarehousingSortList() {
-		List<K3WarehousingSort> sortList = k3WarehousingMapper.k3GetWarehousingSortList();
-		return sortList;
-	}
+
 	
 	//입고 현황(초기화면)
 	public Map<String, Object> k3GetWarehousingList(int currentPage) {

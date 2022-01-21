@@ -163,7 +163,7 @@ public class K3WarehousingController {
 		log.info("입고분류 등록폼 이동 값받아오기 warehousingCode ------.>>>>", warehousingCode);
 		//입고분류 등록 받아오기
 		String type = "add";
-		List<K3LaydownCheck> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
+		List<K3Warehousing> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
 		model.addAttribute("warehousingSort", warehousingSort);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입고분류");
@@ -194,21 +194,6 @@ public class K3WarehousingController {
 		List<K3Contract> nameList = k3WarehousingService.k3FindContractorNameByCode();
 		model.addAttribute("nameList", nameList);
 		return "team03/goodsManagement/warehousing/k3AddWarehousing";
-	}
-
-	
-	//입고분류 현황이동
-	@GetMapping("/k3SortList")
-	public String k3GetWarehousingSortList(Model model) {
-		List<K3WarehousingSort> sortList = k3WarehousingService.k3GetWarehousingSortList();
-		List<K3WarehousingSort> requestSort = k3WarehousingService.k3GetWarehousingRequestSort();
-		log.info("입고 분류이동 컨트롤러 sortList ------ " + sortList);
-		log.info("입고 분류이동 컨트롤러 requestSort------ " + requestSort);
-		model.addAttribute("title", "입고관리");
-		model.addAttribute("subtitle", "입고분류현황");
-		model.addAttribute("sortList", sortList);	
-		model.addAttribute("requestSort", requestSort);	
-		return "team03/goodsManagement/warehousing/k3SortList";
 	}
 	
 	//입고 현황이동(초기화면)
