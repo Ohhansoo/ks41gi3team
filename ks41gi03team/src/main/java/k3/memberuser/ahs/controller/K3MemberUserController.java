@@ -45,8 +45,6 @@ public class K3MemberUserController {
 		return checkResult;
 	}
 	 
-	 
-	
 	  //01 직원조회(초기화면)
 	  
 	  @GetMapping("/k3MemberUserList") 

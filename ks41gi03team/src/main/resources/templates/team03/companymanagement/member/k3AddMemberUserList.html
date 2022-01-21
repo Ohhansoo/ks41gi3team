@@ -175,7 +175,7 @@
 						var inputId = $(this).attr('id');
 						var labelText = $('label[for=' + inputId + ']').text();
 						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
-							alert(labelText + ' 입력해주세요');
+							alert(labelText + ' 빈칸을 입력해주세요');
 							$(this).focus();
 							submitCheck = false;
 							return false;
@@ -255,7 +255,6 @@
 									<div class="inputwrap col-md-12">
 										<label for="mainbusinesscodeInput" class="inputName">사업장별대표코드</label>
 										<input class="inputBox" type="text" id="mainBusinessCode" name="mainBusinessCode" value="물류센터A물류센터_전북_1" readonly style="background-color:#BDBDBD">
-									
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="levelcodeInput" class="inputName">권한번호</label>
@@ -276,7 +275,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
 										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" disabled="disabled"/>
-										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>

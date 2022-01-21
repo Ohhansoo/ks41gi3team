@@ -139,7 +139,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
-							<h4>직원수정</h4>
+							<h4>자사정보 수정</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -147,42 +147,59 @@
 							<div class="row">
 								<form id="userInfo" th:action="@{/team03/companymanagement/member/k3ModifyMemberUserInfo}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyCode" class="inputName">자사 등록번호</label>
-										<input class="inputBox" type="text" id="ourCompanyCode" name="ourCompanyCode" th:value="${k3OurCompanyInfo.ourCompanyCode}"/>
+										<label for="memberuserIdInput" class="inputName">직원ID</label>
+										<input class="inputBox" type="text" id="memberIdInput" name="memberId" th:value="${k3MemberUserInfo.memberId}" readonly style="background-color: grey;"/> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyBusinessPlaceCode" class="inputName">자사 종사업장번호</label>
-										<input class="inputBox" type="text" id="ourCompanyBusinessPlaceCode" name="ourCompanyBusinessPlaceCode" th:value="${k3OurCompanyInfo.ourCompanyBusinessPlaceCode}"/>
-									</div>
+										<label for="membersuserpasswordInput" class="inputName">직원PW</label>
+										<input class="inputBox" type="text" id="memberPasswordInput" name="memberPassword" th:value="${k3MemberUserInfo.memberPassword}"/>
+									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyBusinessName" class="inputName">자사 상호</label>
-										<input class="inputBox" type="text" id="ourCompanyBusinessName" name="ourCompanyBusinessName" th:value="${k3OurCompanyInfo.ourCompanyBusinessName}"/>
-									</div>
+										<label for="mainbusinesscodeInput" class="inputName">사업장별대표코드</label>
+										<input class="inputBox" type="text" id="mainBusinessCodeInput" name="mainBusinessCode" th:value="${k3MemberUserInfo.mainBusinessCode}"/>
+									
+									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyBusinessCheifName" class="inputName">자사 대표 성명</label>
-										<input class="inputBox" type="text" id="ourCompanyBusinessCheifName" name="ourCompanyBusinessCheifName" th:value="${k3OurCompanyInfo.ourCompanyBusinessCheifName}"/>
+										<label for="levelcodeInput" class="inputName">권한번호</label>
+										<input class="inputBox" type="text" id="levelMemberCodeInput" name="levelMemberCode" th:value="${k3MemberUserInfo.levelMemberCode}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="memberusernameInput" class="inputName">직원이름</label>
+										<input class="inputBox" type="text" id="memberNameInput" name=memberName th:value="${k3MemberUserInfo.memberName}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberusergenderInput" class="inputName">성별</label>
+										<input class="inputBox" type="text" id="memberGenderInput" name="memberGender" placeholder="예시) 남 /여/무응답" th:value="${k3MemberUserInfo.memberGender}"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
-										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" th:value="${k3OurCompanyInfo.ourcompanypostaladdress}"/>
+										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" th:value="${k3MemberUserInfo.memberpostaladdress}"/>
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>
-										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48" th:value="${k3OurCompanyInfo.ourcompanystreetaddress}"/><br>
+										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48" th:value="${k3MemberUserInfo.memberstreetaddress}"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyStatus" class="inputName">자사 업태</label>
-										<input class="inputBox" type="text" id="ourCompanyStatus" name="ourCompanyStatus" th:value="${k3OurCompanyInfo.ourCompanyStatus}"/>
+										<label for="phoneInput" class="inputName">전화번호</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberPhone" placeholder=" 예시) 010-1234-4567" th:value="${k3MemberUserInfo.memberPhone}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="registCodeInput" class="inputName">주민번호</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" th:value="${k3MemberUserInfo.memberResidentRegistrationNumber}"/>
+									</div>								
+									<div class="inputwrap col-md-12">
+										<label for="memberStateInput" class="inputName">직원계정상태</label>
+										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberState" value="일반" th:value="${k3MemberUserInfo.memberState}" readonly style="background-color:#BDBDBD" >
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyWorkType" class="inputName">자사 종목</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkType" name="ourCompanyWorkType" th:value="${k3OurCompanyInfo.ourCompanyWorkType}"/>
+										<label for="memberRegDateInput" class="inputName">등록일자</label>
+										<input class="inputBox" type="date" id="memberRegDateInput" name="memberRegDate" th:value="${k3MemberUserInfo.memberRegDate}"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyEmail" class="inputName">자사 이메일</label>
-										<input class="inputBox" type="text" id="ourCompanyEmail" name="ourCompanyEmail" th:value="${k3OurCompanyInfo.ourCompanyEmail}"/>
-									</div><br>
+										<label for="memberHiredDateInput" class="inputName">입사일자</label>
+										<input class="inputBox" type="date" id="memberHiredDateInput" name="memberHiredDate" th:value="${k3MemberUserInfo.memberHiredDate}"/>
+									</div><br>							
 									<div class="d-flex justify-content-center">					
 										<button class="ahsbtn4 btn btn-outline-info" type="submit">수정</button>			
 										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
