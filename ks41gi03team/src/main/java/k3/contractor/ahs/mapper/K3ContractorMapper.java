@@ -18,6 +18,9 @@ public interface K3ContractorMapper {
 	
 	//거래처 사업장 등록번호 중복확인
 	public int k3ContractorBusinessNumCheck(String contractorBusinessNum);
+	
+	//거래처 종사업장 번호 중복확인
+	public int k3ContractorBusinessClientNumCheck(String contractorBusinessClientNum);
 
 	//거래처 수정처리 k3_tb_contractor
 	public int k3ModifyDetailContractor(K3DetailContractor k3DetailContractor);
@@ -27,6 +30,9 @@ public interface K3ContractorMapper {
 	
 	//거래처 수정으로 화면 전환
 	public K3DetailContractor k3GetModifyContractor(String contractorCode);
+	
+	//등록페이지에 거래처 아이디 정해주기
+	public List<Map<String, Object>> getContractorIdPw();
 	
 	//거래처 등록
 	public int k3AddContractor(K3DetailContractor k3DetailContractor);
