@@ -48,7 +48,7 @@ public class K3CheckController {
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동----->>>>>>>>>>", warehousingCode);
 		 //수정 관련 정보 받아오기
 		 String type = "modify";
-		 List<K3LaydownCheck> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
+		 List<K3Warehousing> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동 처리결과----->>>>>>>>>>", laydownModifyList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수수정");
@@ -59,9 +59,9 @@ public class K3CheckController {
 	 
 	//입하검수 등록처리
 	@PostMapping("/k3AddLaydownCheck") 
-	public String k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck){
-		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", K3LaydownCheck);
-		int result = k3CheckService.k3AddLaydownCheck(K3LaydownCheck);  
+	public String k3AddLaydownCheck(K3Warehousing k3Warehousing){
+		log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", k3Warehousing);
+		int result = k3CheckService.k3AddLaydownCheck(k3Warehousing);  
 		return "redirect:/team03/goodsManagement/check/k3LaydownCheckList"; 
 	}
 	
@@ -81,7 +81,7 @@ public class K3CheckController {
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
 		 //등록 관련 정보 받아오기
 		 String type = "add";
-		 List<K3LaydownCheck> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
+		 List<K3Warehousing> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수등록");
@@ -93,7 +93,8 @@ public class K3CheckController {
 	@GetMapping("/k3LaydownCheckList")
 	public String k3GetLaydownCheckList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 										Model model){
-		List<K3LaydownCheck> laydownCheck = k3CheckService.k3GetLaydownCheckList();
+		List<K3Warehousing> laydownCheck = k3CheckService.k3GetLaydownCheckList();
+		log.info("chech 컨트롤러 --- 입하현황 이동 결과값 --- >>>>> {}", laydownCheck);
 		model.addAttribute("title", "입고관리");
 		model.addAttribute("subtitle", "입하현황");
 		model.addAttribute("laydownCheck", laydownCheck);

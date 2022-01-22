@@ -1,10 +1,12 @@
 package k3.release.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import k3.check.ahs.dto.K3ShipmentCheck;
@@ -22,6 +24,12 @@ public class K3ReleaseController {
 	public K3ReleaseController(K3ReleaseService k3ReleaseService, K3CheckService k3CheckService){
 		this.k3ReleaseService = k3ReleaseService;
 		this.k3CheckService = k3CheckService;
+	}
+	//<모달>-출하 상품명 리스트 가져오기
+	@PostMapping("/findProductNameList")	
+	public List<Map<String, Object>> findProductNameList(){
+		List<Map<String, Object>> ProductNameList = k3ReleaseService.findProductNameList();
+		 return ProductNameList;
 	}
 	
 	//출하 승인폼 이동
@@ -43,7 +51,7 @@ public class K3ReleaseController {
 	@GetMapping("/k3ReleaseList")
 	public String k3GetReleaseList(Model model) {
 		//검수리스트
-		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
+		List<K3Release> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
 		//출고리스트
 		List<K3Release>	releaseList = k3ReleaseService.k3GetReleaseList();
 		model.addAttribute("title", "출고관리");

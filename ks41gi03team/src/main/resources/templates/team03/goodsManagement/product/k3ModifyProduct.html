@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+   	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">	
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			//유효성검사(인풋박스 내용물 작성여부)
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+				});
+				$(document).on('click', '#addProductBtn', function(){
+					
+					var submitCheck = true;
+					var inputObj = $('#productInfoForm').find('input');
+							
+					$.each(inputObj, function(){
+		   				var inputDate = $(this).val();
+		   				var inputId = $(this).attr('id');
+		   				var labelText = $('label[for=' + inputId + ']').text();
+							
+		   				if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+		   					alert(labelText + ' 입력해주세요');
+		   					$(this).focus();
+		   					submitCheck = false;
+		   					return false;
+		   				}		
+					});  						
+						if(submitCheck) $('#productInfoForm').submit();
+				});
+				
+				///카테고리 모달
+				var modal = $('#categoryModal');
+
+				$("#categoryExitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+				
+				$(document).on('click', '#selectCategory', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#dataTableAjax').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/getCategoryList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "largeCategory"},
+							{ "data": "mediumCategory"},
+							{ "data": "smallCategory"}								
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="categoryCode" name="categoryCodes" value="'+ row.categoryCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.categoryCode:checked');
+	 				var largeCategory = $('#largeCategory');
+	 				var mediumCategory = $('#mediumCategory');
+	 				var smallCategory = $('#smallCategory');
+	 				var categoryCode = $('#categoryCode');
+
+	 				var largeCategoryValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var mediumCategoryValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var smallCategoryValue = checkedBox.parent().parent().children().eq(3).text();
+	 				var categoryCodeValue = checkedBox.val();
+					
+	 				largeCategory.attr('value',largeCategoryValue);
+	 				mediumCategory.attr('value',mediumCategoryValue);
+	 				smallCategory.attr('value',smallCategoryValue);
+	 				categoryCode.attr('value', categoryCodeValue);
+	 				
+					modal.addClass('hidden');
+				});		
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents">	 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!-- 등록 영역 -->
+						<div class="addForm">
+							<!--card header -->
+							<div class="card-header cardHeadBorder">
+								<h4>상품 수정</h4>
+							</div>
+							<!--End card header -->
+							<!--card body -->
+							<div class="card-body">
+								<div class="row">
+									<form id="productInfoForm" th:action="@{/team03/goodsManagement/product/k3ModifyProduct}" method="post" th:if="${not #lists.isEmpty(productInfo)}" th:each="l : ${productInfo}">
+										<div class="inputwrap col-md-12">
+											<label for="productCode" class="inputName">상품코드</label>
+											<input class="inputBox" type="text" id="productCode" name="productCode" th:value="${l.productCode}" readonly="readonly"/>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="productName" class="inputName">상품명</label>
+											<input class="inputBox" type="text" id="productName" name="productName" th:value="${l.productName}"/>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="largeCategory" class="inputName">대분류</label>
+											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" th:value="${l.k3Category.largeCategory}" readonly="readonly"/>
+											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode" th:value="${l.k3Category.categoryCode}"/>
+											<button type="button" id="selectCategory">카테고리 선택</button>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="mediumCategory" class="inputName">중분류</label>
+											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" th:value="${l.k3Category.mediumCategory}" readonly="readonly"/>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="smallCategory" class="inputName">소분류</label>
+											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" th:value="${l.k3Category.smallCategory}" readonly="readonly"/>
+										</div>															
+										<div class="inputwrap col-md-12">
+											<label for="manufacturer" class="inputName">제조사</label>
+											<input class="inputBox" type="text" id="manufacturer" name="manufacturer" th:value="${l.manufacturer}" />
+										</div>															
+										<div class="d-flex justify-content-center">					
+											<button id="addProductBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+										</div>	
+									</form>
+		 						</div>
+							</div>					
+		 					<!--End card body 묶음 -->
+						</div>
+						<!-- END 등록 영역 -->
+					</div>	
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+		<!-- 모달창 -->
+		<div id="categoryModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">카테고리 선택</div>
+					<button id="categoryExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>대분류</th>
+									<th>중분류</th>
+									<th>소분류</th>							
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+	</th:block>

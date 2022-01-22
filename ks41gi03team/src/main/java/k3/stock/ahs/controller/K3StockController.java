@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import k3.check.ahs.service.K3CheckService;
 import k3.stock.ahs.dto.K3Stock;
 import k3.stock.ahs.service.K3StockService;
+import k3.warehousing.ahs.dto.K3Warehousing;
+import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/stock")
@@ -25,11 +28,13 @@ public class K3StockController {
 
 	
 	private K3StockService k3StockService;
+	private K3CheckService k3CheckService;
 	
-	public K3StockController(K3StockService k3StockService) {
+	public K3StockController(K3StockService k3StockService, K3CheckService k3CheckService) {
 		this.k3StockService = k3StockService;
-		
+		this.k3CheckService = k3CheckService;	
 	}
+	
 	//재고현황 조회 처리
 	@PostMapping("/k3StockList")
 	public String k3StockList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -93,8 +98,6 @@ public class K3StockController {
 		System.out.println(locationCode);
 		System.out.println(beforelocationCode);
 		System.out.println(k3Stock);
-		System.out.println(k3Stock.getCategoryCode());
-		System.out.println(k3Stock.getLargeCategory());
 		
 		int result = k3StockService.K3ModifyStock(k3Stock);
 		log.info("GetMapping 재고 수정처리 결과 result ----->>>>>>>>{}", result);
@@ -124,12 +127,48 @@ public class K3StockController {
 		return "team03/goodsManagement/stock/k3ModifyStock";
 	}
 	
+	//재고 등록
+	@PostMapping("/k3AddStock")
+	public String k3AddStock(K3Stock k3Stock) {
+		log.info("재고 등록폼 처리 값받아오기 warehousingCode ------.>>>>{}", k3Stock);
+		//재고 테이블에 등록
+		int pileupResult = k3StockService.k3AddStock(k3Stock);
+		if(pileupResult > 0) {
+			//입고 테이블에 분류 승인 업데이트
+			int soringResult = k3StockService.k3UpdateSorting(k3Stock);
+			//로케이션 테이블에 사용현황 업데이트
+			int locationStateResult = k3StockService.k3UpdateLocationState(k3Stock);
+		}
+		log.info("재고 등록폼 처리 값받아오기 warehousingCode ------.>>>>{}", pileupResult);
+		return "redirect:/team03/goodsManagement/stock/k3AddStockList";
+	}
 	
 	//재고 등록폼 이동
 	@GetMapping("/k3AddStock")
-	public String k3AddStock(){
+	public String k3AddStock(@RequestParam(value="warehousingCode", required= false) String warehousingCode,
+									   Model model) {
+		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingCode);
+		//재고등록 정보 받아오기
+		String type = "add";
+		List<K3Warehousing> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
+		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingSort);
+		model.addAttribute("warehousingSort", warehousingSort);
+		model.addAttribute("title", "재고관리");
+		model.addAttribute("subtitle", "재고등록");
 		
 		return "team03/goodsManagement/stock/k3AddStock";
+	}
+	
+
+	//재고 등록 리스트로 이동
+	@GetMapping("/k3AddStockList")
+	public String k3AddStockList(Model model) {
+		List<K3Stock> addStockList = k3StockService.k3AddStockList();
+		log.info("입고 분류이동 컨트롤러 requestSort{}------ " + addStockList);
+		model.addAttribute("title", "재고관리");
+		model.addAttribute("subtitle", "재고등록리스트");
+		model.addAttribute("addStockList", addStockList);	
+		return "team03/goodsManagement/stock/k3AddStockList";
 	}
 	
 	//재고 현황 이동

@@ -239,7 +239,7 @@
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="productName" class="inputName">상품명</label>
-											<input class="inputBox notUse" type="text" id="productName" name="productName" th:value="${l.productName}" readonly="readonly"/>
+											<input class="inputBox notUse" type="text" id="productName" name="productName" th:value="${l.k3Product.productName}" readonly="readonly"/>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="stockQuantity" class="inputName">재고량</label>
@@ -247,26 +247,18 @@
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="largeCategory" class="inputName">대분류</label>
-											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" th:value="${l.largeCategory}" readonly="readonly"/>
-											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode" th:value="${l.categoryCode}"/>
+											<input class="inputBox" type="text" id="largeCategory" name="largeCategory" th:value="${l.k3Category.largeCategory}" readonly="readonly"/>
+											<input class="inputBox" type="hidden" id="categoryCode" name="categoryCode" th:value="${l.k3Category.categoryCode}"/>
 											<button type="button" id="selectCategory">카테고리 선택</button>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="mediumCategory" class="inputName">중분류</label>
-											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" th:value="${l.mediumCategory}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="mediumCategory" name="mediumCategory" th:value="${lk3Category..mediumCategory}" readonly="readonly"/>
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="smallCategory" class="inputName">소분류</label>
-											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" th:value="${l.smallCategory}" readonly="readonly"/>
-										</div>								
-										<div class="inputwrap col-md-12">
-											<label for="productFrequency" class="inputName">상품빈도</label>
-											<select name="productFrequency">
-												<option value="high" th:selected="${l.productFrequency} == 'high'">고빈도</option>
-												<option value="medium" th:selected="${l.productFrequency} == 'medium'">중빈도</option>
-												<option value="low" th:selected="${l.productFrequency} == 'low'">저빈도</option>											
-											</select>	
-										</div>								
+											<input class="inputBox" type="text" id="smallCategory" name="smallCategory" th:value="${l.k3Category.smallCategory}" readonly="readonly"/>
+										</div>																
 										<div class="inputwrap col-md-12">
 											<label for="locationCode" class="inputName">로케이션</label>
 											<input class="inputBox" type="text" id="locationCode" name="locationCode" th:value="${l.locationCode}" readonly="readonly"/>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import k3.check.ahs.dto.K3LaydownCheck;
 import k3.check.ahs.dto.K3ShipmentCheck;
 import k3.check.ahs.mapper.K3CheckMapper;
+import k3.release.ahs.dto.K3Release;
 import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 
@@ -20,8 +21,8 @@ public class K3CheckService {
 		this.k3CheckMapper = k3CheckMapper;
 	}
 	//출하검수 현황 이동
-	public List<K3ShipmentCheck> k3GetShipmentCheckList() {
-		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckMapper.k3GetShipmentCheckList();
+	public List<K3Release> k3GetShipmentCheckList() {
+		List<K3Release> K3ShipmentCheck = k3CheckMapper.k3GetShipmentCheckList();
 		return K3ShipmentCheck;
 	}
 	
@@ -72,8 +73,8 @@ public class K3CheckService {
 	}
 	
 	//입하검수 등록처리
-	public int k3AddLaydownCheck(K3LaydownCheck K3LaydownCheck) {
-		int result = k3CheckMapper.k3AddLaydownCheck(K3LaydownCheck);
+	public int k3AddLaydownCheck(K3Warehousing k3Warehousing) {
+		int result = k3CheckMapper.k3AddLaydownCheck(k3Warehousing);
 		return result;
 	}
 	
@@ -84,14 +85,14 @@ public class K3CheckService {
 	}
 	
 	//입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
-	public List<K3LaydownCheck> getLaydownCheckList(String warehousingCode, String type) {
-		List<K3LaydownCheck> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode, type);		
+	public List<K3Warehousing> getLaydownCheckList(String warehousingCode, String type) {
+		List<K3Warehousing> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode, type);		
 		return laydownCheckList;
 	}
 	
 	//입하현황 정보 불러오기(입하검수 할 목록)
-	public List<K3LaydownCheck> k3GetLaydownCheckList() {
-		List<K3LaydownCheck> laydownCheck = k3CheckMapper.k3GetLaydownCheckList();
+	public List<K3Warehousing> k3GetLaydownCheckList() {
+		List<K3Warehousing> laydownCheck = k3CheckMapper.k3GetLaydownCheckList();
 		return laydownCheck;
 	}
 	

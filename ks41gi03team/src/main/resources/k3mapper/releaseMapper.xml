@@ -3,25 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.release.ahs.mapper.K3ReleaseMapper">
-	<resultMap type="K3Release" id="warehousingResultMap">
- 		<result column="releaseCode" property="releaseCode" />
+	<resultMap id="releaseResultMap" type="K3Release" >
+ 		<id column="releaseCode" property="releaseCode" />
+ 		<result column="stockCode" property="stockCode" />
  		<result column="releaseMergeCode" property="releaseMergeCode" />
 		<result column="releaseGoodsCount" property="releaseGoodsCount" />
-		<result column="contractorName" property="contractorName" />
-		<result column="areaCode" property="areaCode" />
+		<result column="area" property="area" />
 		<result column="shippingAddress" property="shippingAddress" />
 		<result column="shippingDetailAddress" property="shippingDetailAddress" />
 		<result column="recipientName" property="recipientName" />
 		<result column="recipientPhone" property="recipientPhone" />
+		<result column="releaseManager" property="releaseManager" />
+		<result column="releaseAllow" property="releaseAllow" />
+		<result column="accepDate" property="accepDate" />
+		<result column="releaseDate" property="releaseDate" />
+		<result column="shipmentCheckManager" property="shipmentCheckManager" />
+		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
+		<result column="shipmentCheckResult" property="shipmentCheckResult" />
+		
+		<association property="k3Contractor" javaType="K3Contractor">
+			<id column="contractorId" property="contractorId" />
+			<result column="contractorName" property="contractorName" />
+		</association>
+		<association property="k3Product" javaType="K3Product">
+			<id column="productCode" property="productCode" />
+			<result column="productName" property="productName" />
+		</association>
 	</resultMap>
 
-	<select id="k3RequestAllowRelease" resultType="K3Release">
+	<select id="k3RequestAllowRelease" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,
-			w.laydownGoodsName,
+			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.areaCode,
+			r.AREA,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.recipientName,
@@ -36,6 +52,10 @@
 			k3_tb_warehousing AS w
 			ON
 			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
@@ -44,14 +64,14 @@
 			r.releaseAllow = 'N'
 	</select>
 	
-	<select id="k3GetReleaseList" resultType="K3Release">
+	<select id="k3GetReleaseList" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,
 			r.releaseMergeCode,
-			w.laydownGoodsName,
+			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.areaCode,
+			r.AREA,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.recipientName,
@@ -66,6 +86,10 @@
 			k3_tb_warehousing AS w
 			ON
 			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON

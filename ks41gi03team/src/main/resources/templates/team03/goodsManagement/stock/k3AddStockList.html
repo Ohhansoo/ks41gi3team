@@ -6,7 +6,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+					location.href = '/team03/goodsManagement/stock/k3StockList';
 				});
 				$(document).on('click','#allowWarehousingBtn', function(){
 					$('#YesOrNo').attr('value','Y');
@@ -15,6 +15,26 @@
 				$(document).on('click','#rejectWarehousingBtn', function(){
 					$('#YesOrNo').attr('value','R');
 					$('#allowTable').submit();				
+				});
+				//한개만 선택하게 하는 유효성검사
+				$(document).on('click', '#moveAddStock', function(){
+					var check = $('.warehousingCode:checked');
+					//var ladonwCheckList = [];
+					console.log(check.val());
+					
+					/* $.each(check, function(){
+						ladonwCheckList.push($(this).val());
+					}); */
+
+					
+					if(check.length == 1){
+						$('#stockTable').submit();
+						
+					}else if(check.length > 1){
+						alert("한가지만 선택해주세요.");
+					}else{
+						alert("등록할 항목을 선택해주세요.");
+					}
 				});
 			});
 		</script>
@@ -26,13 +46,9 @@
 				<div class="container-fluid">
 					<!--버튼 영역 -->
 					<div class="d-flex justify-content-end" style="margin:15px;">
-						<button id="allowWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="moveAddStock" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-file-earmark-check"></i>
-							승인
-						</button>
-						<button id="rejectWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-file-earmark-break"></i>
-							반려
+							등록
 						</button>
 						<button id="cancelBtn" type="button" class="btn btn-outline-info ahsbtn4">
 							<i class="bi bi-box-arrow-left"></i>
@@ -44,38 +60,36 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							입고요청 현황
+							재고등록 리스트
 						</div>
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<form id="allowTable" th:action="@{/team03/goodsManagement/warehousing/k3AllowWarehousing}" method="post">
+							<form id="stockTable" th:action="@{/team03/goodsManagement/stock/k3AddStock}" method="get">
 								<table class="table table-head-fixed text-nowrap">
 									<thead>
 										<tr>
-											<th>선택
-												<input type="hidden" name="YesOrNo" id="YesOrNo">
-											</th>
-											<th>물품명</th>
+											<th>선택</th>
+											<th>입하검수코드</th>	
+											<th>상품명</th>
 											<th>개수</th>
-											<th>회사명</th>				
-											<th>제조일자</th>				
-											<th>유통기한</th>				
+											<th>회사명</th>																	
+											<th>입하날짜</th>	
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
+										<tr th:if="${not #lists.isEmpty(addStockList)}" th:each="l : ${addStockList}">
 											<td>
-												<input type="checkbox" name="allowList[]" th:value="${l.warehousingCode}">
+												<input type="checkbox" class="warehousingCode" name="warehousingCode" th:value=${l.k3Warehousing.warehousingCode}>
 											</td>
+											<td th:text="${l.k3Warehousing.laydownCheckCode}"></td>
 											<td th:text="${l.k3Product.productName}"></td>
-											<td th:text="${l.laydownGoodsCount}"></td>
+											<td th:text="${l.k3Warehousing.laydownGoodsCount}"></td>
 											<td th:text="${l.k3Contractor.contractorName}"></td>
-											<td th:text="${l.manufacturedDate}"></td>
-											<td th:text="${l.expiratonDate}"></td>
+											<td th:text="${l.k3Warehousing.laydownDate}"></td>
 										</tr>
-										<tr th:unless="${not #lists.isEmpty(K3RequestAllow)}" th:each="l : ${K3RequestAllow}">
-											<td> 요청사항이 없습니다. </td>
+										<tr th:unless="${not #lists.isEmpty(addStockList)}" th:each="l : ${addStockList}">
+											<td> 상품을 등록해주세요. </td>
 										</tr>
 									</tbody>						
 								</table>

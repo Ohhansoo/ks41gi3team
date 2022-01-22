@@ -11,7 +11,7 @@
    </th:block>
    
    <th:block layout:fragment="customJs">
-		<script type="text/javascript" th:inline="javascript">
+		<script type="text/javascript" th:inline="javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">
 			$(function(){
 				
 				<!-- 숫자, 하이픈(-) 이외 입력 제한 기능-->
@@ -103,8 +103,61 @@
 					}
 				});
 				<!-- END 거래처 사업장 등록번호 중복검사 -->
+				<!-- 거래처 종사업장 번호 중복검사 -->
+				$(document).on('click', '#contractorBusinessClientNumCheckBtn', function(){
+					var contractorBusinessClientNum = $("input[name=contractorBusinessClientNum]").val();
+					
+					console.log("변수 contractorBusinessClientNum내부 확인 : " + contractorBusinessClientNum + "-> 확인끝")
+					
+					if(typeof contractorBusinessClientNum != 'undefined' && contractorBusinessClientNum != null && contractorBusinessClientNum != ''){
+						//ajax 호출
+						var request = $.ajax({
+							url: 'contractorCheck',
+							method: 'Post',
+							data: {'contractorBusinessClientNum' : contractorBusinessClientNum},
+							dataType:'json'
+						});
+						request.done(function(data){
+							//중복여부 체크 (true: 중복, false : 등록가능)
+							var contractorBusinessClientNum = data;
+							if(contractorBusinessClientNum){
+								alert('중복된 거래처 사업자 등록번호입니다.');
+							}else{
+								alert('등록이 가능한 거래처 사업자 등록번호입니다.');
+							}
+						});
+					}
+				});
+				<!-- END 거래처 종사업장 번호 중복검사 -->
 			<!-- END 중복 검사 기능 -->
+			<!-- 빈칸 검사 기능 -->
+			$(document).on('click', '#addContractorBtn', function(){
+				var submitCheck = true;
+				var addContractorArr = new Array();
+				var list = $('input');
+				var label = $('label');
+				console.log("list 변수 내부 확인 : " + list );
+				console.log("label 변수 내부 확인 : " + label );
+				for(i=0; i<list.length; i++){
+					if(list[i].value == null || list[i].value == '' || list[i].value == 'undefined'){
+						addContractorArr.push(label[i].value);
+						submitCheck = false;
+						return false;
+					}
+				}
+				
+				console.log("addContractorArr 변수 내부 확인 : " + addContractorArr );
+				
+				if(submitCheck) {
+					alert("입력하신 거래처 정보가 등록 되었습니다.");
+					$('#addContractorForm').submit();
+				}else{
+					alert(addContractorArr + "를 입력해주세요.");
+				}
+				
 			});
+			<!-- END 빈칸 검사 기능 -->
+		});
 		</script>
    </th:block>
 	
@@ -115,17 +168,17 @@
 		<div class="container container-fluid ">
 			<form id="addContractorForm" th:action="@{/team03/contractorContract/Contractor/k3AddContractor}" method="post">
 				<div class="d-flex">
-					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" th:each="ip : ${contractorIdPw}">
 						<div class="contractorLabel">
 							<label>| 거래처 계정정보 |</label>
 						</div>						
 						<div id="contractorId" class="input-group">
 				  			<span class="input-group-text">거래처 아이디</span>
-				  			<input class="form-control" noSpecial type="text" name="contractorId" id="contractorId" placeholder="거래처 아이디(특수문자 입력불가)"/>
+				  			<input class="form-control" type="text" name="contractorId" id="contractorId" th:value="${ip.contractorId}" readonly style="background-color:#BDBDBD"/>
 				  		</div>
 				  		<div id="contractorPw" class="input-group">
 				  			<span class="input-group-text">거래처 비밀번호</span>
-				  			<input class="form-control" noSpecial type="text" name="contractorPw" id="contractorPw" placeholder="거래처 비밀번호(특수문자 입력불가)"/>
+				  			<input class="form-control" type="text" name="contractorPw" id="contractorPw" th:value="${ip.contractorPw}" readonly style="background-color:#BDBDBD"/>
 				  		</div>
 				  		<div id="contractorState" class="input-group">
 				  			<span class="input-group-text">거래처 계정 상태</span>
@@ -146,7 +199,7 @@
 						</div>					  	
 						<div id="contractorCode" class="input-group">
 							<span class="input-group-text">거래처 사업장 코드</span>
-				 			<input  class="form-control" telOnly type="text" name="contractorCode" placeholder="거래처 사업장 코드"/>
+				 			<input  class="form-control" type="text" name="contractorCode" placeholder="거래처 사업장 코드"/>
 				 			<button type="button" id="contractorCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
 						</div>
 				  		<div id="contractorBusinessNum" class="input-group">
@@ -156,7 +209,7 @@
 				  		</div>
 				  		<div id="contractorBusinessClientNum" class="input-group">
 				  			<span class="input-group-text">거래처 종사업장번호</span>
-				  			<input class="form-control" telOnly type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"/>
+				  			<input class="form-control" numOnly type="text" name="contractorBusinessClientNum" id="contractorBusinessClientNum" placeholder="거래처 종사업장번호"  maxLength="4"/>
 				  		</div>
 				  		<div id="contractorName" class=" input-group">
 				  			<span class="input-group-text">거래처 상호명</span>
@@ -203,7 +256,7 @@
 				  		</div>
 				 		<div id="contractorPhone" class="input-group">
 				 			<span class="input-group-text">거래처 전화번호</span>
-				 			<input class="form-control" numOnly type="text" name="contractorPhone1" id="contractorPhone" maxLength="4"/>
+				 			<input class="form-control" numOnly type="text" name="contractorPhone1" id="contractorPhone" maxLength="3"/>
 				  			<div style="margin:3px">
 				  				<b>-</b>
 				  			</div>
@@ -215,11 +268,11 @@
 				 		</div>
 				 		<div id=contractorEmail class="input-group">
 				  			<span class="input-group-text">거래처 이메일</span>
-				  			<input class="form-control" noSpecial type="text" name="contractorEmail" id="contractorEmail" placeholder="이메일 아이디"/>
+				  			<input class="form-control" stringOnly type="text" name="contractorEmail" id="contractorEmail" placeholder="이메일 아이디"/>
 				  			<div style="margin:3px">
 				  				<b>@</b>
 				  			</div>
-				  			<input class="form-control" type="text" name="contractorEmailAddr" id="contractorEmailAddr" placeholder="이메일 도메인"/>
+				  			<input class="form-control" noSpecial type="text" name="contractorEmailAddr" id="contractorEmailAddr" placeholder="이메일 도메인"/>
 				  			<select class="form-control" type="text" id="contractorEmailSelect">
 				  				<option value="">직접입력</option>
 				  				<option value="daum.net">daum.net</option>
@@ -235,7 +288,7 @@
 				  		</div>
 				  		<div id="contractorFax" class="input-group">
 				  			<span class="input-group-text">거래처 Fax</span>
-				  			<input class="form-control" telOnly type="text" name="contractorFax" id="contractorFax" placeholder="거래처 Fax(하이픈(-)포함 작성)"/>
+				  			<input class="form-control" telOnly type="text" name="contractorFax" id="contractorFax" placeholder="하이픈(-)포함 작성"/>
 				  		</div>
 					</div>			
 				</div>
@@ -250,7 +303,7 @@
 				  		</div>
 				  		<div id="contractorSuperviserPhone" class=" input-group">
 				  			<span class="input-group-text">담당자 연락처</span>
-				 			<input class="form-control" numOnly type="text" name="contractorSuperviserPhone1" id="contractorSuperviserPhone" maxLength="4"/>
+				 			<input class="form-control" numOnly type="text" name="contractorSuperviserPhone1" id="contractorSuperviserPhone" maxLength="3"/>
 				  			<div style="margin:3px">
 				  				<b>-</b>
 				  			</div>
@@ -303,7 +356,7 @@
 				  		</div>
 				  		<div id="contractorProfitAccount" class=" input-group">
 				  			<span class="input-group-text">거래처 계좌번호</span>
-				  			<input class="form-control" telOnly type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="거래처 계좌번호(하이픈(-)포함 작성)"/>
+				  			<input class="form-control" telOnly type="text" name="contractorProfitAccount" id="contractorProfitAccount" placeholder="하이픈(-)포함 작성"/>
 				  		</div>
 				  		<div id="contractorAccountHolder" class=" input-group">
 				  			<span class="input-group-text">거래처 예금주</span>

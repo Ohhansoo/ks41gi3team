@@ -32,8 +32,10 @@
 						});  						
 						if(submitCheck) $('#warehousingInfo').submit();
 					});
-				var modal = $('.modal');
-				
+				//모달 시작
+				var modal = $('#contractorNameModal');
+				var productModal = $('#productModal');
+				//회사명 모달
 				$(".exitBtn").click(function(){
 						
 					modal.addClass('hidden');
@@ -41,8 +43,8 @@
 		
 				$(document).on('click', '#selectContractorName', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#dataTableAjax').DataTable({
 						destroy: true,
@@ -78,7 +80,7 @@
 					modal.removeClass('hidden');
 						
 				});
-				$(document).on('click', '.confirmBtn', function(){
+				$(document).on('click', '#contractorNameConfirmBtn', function(){
 					var checkedBox = $('.contractorId:checked');
 	 				var ContractorName = $('#contractorNameInput');
 	 				var ContractorId = $('#contractorIdInput');
@@ -87,6 +89,66 @@
 	 				ContractorName.attr('value',checkedTrName);
 					console.log(checkedBox);
 					modal.addClass('hidden');
+				});
+				//상품 모달(상품명 가져오기)
+				$("#productExitBtn").click(function(){
+						
+					productModal.addClass('hidden');
+				});
+				
+				$(document).on('click', '#selectProduct', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#productTable').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/product/getModalProductList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "k3Category.largeCategory"},
+							{ "data": "k3Category.mediumCategory"},
+							{ "data": "k3Category.smallCategory"},
+							{ "data": "productName"},								
+							{ "data": "manufacturer"},								
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="productCode" name="productCodes" value="'+ row.productCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					productModal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#productConfirmBtn', function(){
+					var checkedBox = $('.productCode:checked');
+	 				var productName = $('#productName');
+	 				var productCode = $('#productCode');
+
+	 				var productNameValue = checkedBox.parent().parent().children().eq(4).text();
+	 				var productCodeCodeValue = checkedBox.val();
+					
+	 				productName.attr('value',productNameValue);
+	 				productCode.attr('value', productCodeCodeValue);
+	 				
+	 				productModal.addClass('hidden');
 				});
 			});
 		</script>
@@ -115,8 +177,10 @@
 										<button id="selectContractorName" class="findContractorModal" type="button">선택</button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="productNameInput" class="inputName">상품명</label>
-										<input class="inputBox" type="text" id="productNameInput" name="productName" placeholder="상품명">
+										<label for="productName" class="inputName">상품명</label>
+										<input class="inputBox" type="text" id="productName" name="productName" placeholder="상품명" readonly="readonly">
+										<input class="inputBox" type="hidden" id="productCode" name="productCode">
+										<button id="selectProduct" type="button">선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="laydownGoodsCountInput" class="inputName">개수</label>
@@ -133,7 +197,15 @@
 									<div class="inputwrap col-md-12">
 										<label for="laydownRequestDateInput" class="inputName">입하요청일자</label>
 										<input class="inputBox" type="date" id="laydownRequestDateInput" name="laydownRequestDate">
-									</div>								
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="productFrequency" class="inputName">상품빈도</label>
+										<select name="productFrequency">
+											<option value="high">고빈도</option>
+											<option value="medium">중빈도</option>
+											<option value="low">저빈도</option>											
+										</select>	
+									</div>									
 									<div class="d-flex justify-content-center">					
 										<button id="addWarehousing" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
@@ -149,8 +221,8 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
-			<div class="modal_overlay"></div>		
+		<div id="contractorNameModal" class="modal hidden">
+			<div id="" class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
 					<div class="textTitle">거래처명 선택</div>
@@ -173,7 +245,39 @@
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="contractorNameConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		<!-- 모달창 -->
+		<div id="productModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">상품명 선택</div>
+					<button id="productExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="productTable" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>대분류</th>
+									<th>중분류</th>
+									<th>소분류</th>							
+									<th>상품명</th>							
+									<th>제조사</th>							
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="productConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
