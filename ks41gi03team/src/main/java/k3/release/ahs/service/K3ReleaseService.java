@@ -26,6 +26,11 @@ public class K3ReleaseService {
 		List<K3Release>	RequestAllowRelease = k3ReleaseMapper.k3RequestAllowRelease();
 		return RequestAllowRelease;
 	}
+	//출고 등록처리(출고 요청)
+	public int k3AddRelease(K3Release k3Release) {
+		int result = k3ReleaseMapper.k3AddRelease(k3Release);
+		return result;
+	}
 	//출고현황
 	public List<K3Release> k3GetReleaseList() {
 		List<K3Release>	releaseList = k3ReleaseMapper.k3GetReleaseList();

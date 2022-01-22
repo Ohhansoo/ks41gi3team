@@ -31,6 +31,25 @@
 		</association>
 	</resultMap>
 	
+	<insert id="k3AddRelease">
+		INSERT INTO k3_tb_release
+			(releaseCode, stockCode, releaseMergeCode, releaseGoodsCount, area, postCode, shippingAddress, shippingDetailAddress, recipientName, recipientPhone, releaseDate)
+			VALUES (
+				'iiiii', 
+				#{stockCode}, 
+				#{releaseMergeCode}, 
+				#{releaseGoodsCount}, 
+				#{area},
+				#{postCode},
+				#{shippingAddress},
+				#{shippingDetailAddress},
+				#{recipientName},
+				#{recipientPhone},
+				#{releaseDate}
+				)	
+	</insert>
+	
+	<!-- 모달  : 상품명 찾기-->
 	<select id="findProductNameList" parameterType="map" resultType="map">
 		SELECT
 			s.stockCode,

@@ -3,6 +3,8 @@ package k3.release.ahs.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +20,13 @@ import k3.release.ahs.service.K3ReleaseService;
 @Controller
 @RequestMapping(value="/team03/goodsManagement/release")
 public class K3ReleaseController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(K3ReleaseController.class);
 
-	private K3ReleaseService k3ReleaseService;
-	private K3CheckService k3CheckService;
+	
+	private final K3ReleaseService k3ReleaseService;
+	private final K3CheckService k3CheckService;
 	
 	public K3ReleaseController(K3ReleaseService k3ReleaseService, K3CheckService k3CheckService){
 		this.k3ReleaseService = k3ReleaseService;
@@ -43,7 +49,16 @@ public class K3ReleaseController {
 		model.addAttribute("RequestAllowRelease", RequestAllowRelease);
 		return "team03/goodsManagement/release/k3AllowRelease";
 	}
-	//출고 등록폼 이동
+	//출고 등록처리(출고 요청)
+	@PostMapping("/k3AddRelease")
+	public String k3AddRelease(K3Release k3Release) {
+		log.info("출고 컨트롤러 ---- 출고 등록처리 전 k3Release----------->{}", k3Release);
+		int result = k3ReleaseService.k3AddRelease(k3Release);
+		log.info("출고 컨트롤러 ---- 출고 등록처리 후 result----------->{}", result);
+		return "redirect:/team03/goodsManagement/release/k3ReleaseList";
+	}
+	
+	//출고 등록폼 이동(출고 요청)
 	@GetMapping("/k3AddRelease")
 	public String k3AddRelease() {
 		
