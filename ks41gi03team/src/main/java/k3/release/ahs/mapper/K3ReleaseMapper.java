@@ -14,6 +14,8 @@ public interface K3ReleaseMapper {
 	public List<Map<String, Object>> findProductNameList(Map<String, Object> productMap);
 	//출고 승인
 	public List<K3Release> k3RequestAllowRelease();
+	//출고 등록처리(출고 요청)
+	public int k3AddRelease(K3Release k3Release);
 	//출고 현황
 	public List<K3Release> k3GetReleaseList();
 

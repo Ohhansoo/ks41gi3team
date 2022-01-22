@@ -11,6 +11,7 @@ public class K3Release {
 	private String releaseMergeCode;
 	private String releaseGoodsCount;
 	private String area;
+	private String postCode;
 	private String shippingAddress;
 	private String shippingDetailAddress;
 	private String recipientName;
@@ -57,6 +58,12 @@ public class K3Release {
 	}
 	public void setArea(String area) {
 		this.area = area;
+	}
+	public String getPostCode() {
+		return postCode;
+	}
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
 	}
 	public String getShippingAddress() {
 		return shippingAddress;
@@ -151,8 +158,8 @@ public class K3Release {
 	@Override
 	public String toString() {
 		return "K3Release [releaseCode=" + releaseCode + ", stockCode=" + stockCode + ", releaseMergeCode="
-				+ releaseMergeCode + ", releaseGoodsCount=" + releaseGoodsCount + ", area=" + area
-				+ ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
+				+ releaseMergeCode + ", releaseGoodsCount=" + releaseGoodsCount + ", area=" + area + ", postCode="
+				+ postCode + ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
 				+ ", recipientName=" + recipientName + ", recipientPhone=" + recipientPhone + ", releaseManager="
 				+ releaseManager + ", releaseAllow=" + releaseAllow + ", accepDate=" + accepDate + ", releaseDate="
 				+ releaseDate + ", shipmentCheckManager=" + shipmentCheckManager + ", shipmentCheckRegDate="
