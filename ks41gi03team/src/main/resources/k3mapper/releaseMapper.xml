@@ -30,7 +30,29 @@
 			<result column="productName" property="productName" />
 		</association>
 	</resultMap>
-
+	
+	<select id="findProductNameList" parameterType="map" resultType="map">
+		SELECT
+			s.stockCode,
+			p.productName,
+			s.stockQuantity,
+			w.manufacturedDate,
+			w.expiratonDate
+			
+		FROM
+			k3_tb_stock AS s
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+	
+	</select>
+	
+	<!-- 출고 승인 리스트 -->
 	<select id="k3RequestAllowRelease" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,
@@ -64,6 +86,7 @@
 			r.releaseAllow = 'N'
 	</select>
 	
+	<!-- 출고 현황 -->
 	<select id="k3GetReleaseList" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,

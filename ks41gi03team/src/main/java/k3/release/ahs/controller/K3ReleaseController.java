@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.check.ahs.dto.K3ShipmentCheck;
 import k3.check.ahs.service.K3CheckService;
@@ -26,7 +27,8 @@ public class K3ReleaseController {
 		this.k3CheckService = k3CheckService;
 	}
 	//<모달>-출하 상품명 리스트 가져오기
-	@PostMapping("/findProductNameList")	
+	@PostMapping("/findProductNameList")
+	@ResponseBody
 	public List<Map<String, Object>> findProductNameList(){
 		List<Map<String, Object>> ProductNameList = k3ReleaseService.findProductNameList();
 		 return ProductNameList;
