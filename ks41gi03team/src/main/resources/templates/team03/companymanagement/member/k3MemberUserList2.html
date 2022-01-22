@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customJs">
+	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customContents">
 	<style>
       td {
         text-align: center;
@@ -12,7 +13,7 @@
       th {
         text-align: center;
       }
-    </style>
+    </style> 
 	<script>
 			$(function(){				
 				$('#addmemberuserBtn').on('click', function(){
@@ -42,16 +43,43 @@
 					}
 				});
 			});
+			/* end 퇴사처리 */
+			
+/* 			<!-- 검색된 거래처 경로설정 -->					
+					var searchKey = [[${searchKey}]];
+					var searchValue = [[${searchValue}]];
+					var memberRegDateStart = [[${memberRegDateStart}]];
+					var memberHiredDateEnd = []
+					var num = [[${num}]];
+					num *= 1;
+					var currentPage = [[${currentPage}]];
+					var previous = [[${currentPage}]]-1;
+					var next = [[${currentPage}]]+1;
+					
+					console.log("변수확인 num : " + num);
+					console.log("변수확인 previous : " + previous);
+					console.log("변수확인 next : " + next);
+					console.log("변수 확인 searchKey : " + searchKey);
+					console.log("변수 확인 searchValue : " + searchValue);
+						
+					if(searchValue != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue);
+
+					}
+					else if(memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?&contractorRegistrationDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					else if(searchValue != null && memberRegDateStart != null && memberHiredDateEnd != null){
+						$('.searchDateForm').attr('action','k3MemberUserList?searchKey=' + searchKey + '&searchValue=' + searchValue +'&memberRegDateStart=' + memberRegDateStart + '&memberHiredDateEnd=' + memberHiredDateEnd);
+					}
+					<!-- END 검색된 거래처 경로설정 -->	 */
 		</script>
-	</th:block>
-	<th:block layout:fragment="customContents">
-		<div id="representative-button">
-			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
-					<div class="d-flex justify-content-end">					
-						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+					<div class="d-flex justify-content-end">
+						<!-- <button type="button" id="checkbtn">직원선택</button>  -->					
+						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -59,9 +87,9 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-trash"></i>
-							삭제
+						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
+							<i class="bi bi-person-dash"></i>
+							퇴사
 						</button>					
 					</div>	
 					<!--End 버튼 영역 -->
@@ -72,135 +100,102 @@
 							직원 조회
 						</div>
 						<!--End card header -->
-						
 						<!--card body -->
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
-							<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
 								<!--inputbox 1 -->
-									<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
-										<div class="input-group  d-flex justify-content-start">
-											<div class="input-group-prepend">
-												<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+								<form class="col-lg-6" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="post">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
 												<option value="memberPassword">직원PW</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="levelMemberCode">권한번호</option>
 												<option value="memberName">직원이름</option>
 												<option value="memberGender">성별</option>
-												<option value="memberAddr">주소</option>
 												<option value="memberPhone">전화번호</option>
 												<option value="memberResidentRegistrationNumber">주민번호</option>
 												<option value="memberState">직원계정상태</option>
 												<option value="memberRegDate">등록일자</option>
 												<option value="memberHiredDate">입사일자</option>
 										</select>
-									<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-									<div class=" input-group-append">
-									<div class="btn btn-default" style="padding:0;">
-										<button type="submit" class="btn btn-default">
-											<i class="fas fa-search icon"></i>
-										</button>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
+										<div class="input-group-append">
+											<div class="btn btn-default" style="padding:0;">
+												<button id="memberuserInfoSearch" type="submit">
+													<i class="fas fa-search icon"></i>
+												</button>
+											</div>
+										</div>
+								<!--End inputbox 1 -->
+								
+								<!--inputbox 2 -->
+						<div class="col-sm-6" style="padding-left: 0px">
+							<form class="searchDateForm" th:action="@{/team03/companymanagement/member/k3MemberUserList}" method="Get" id="memberuserSearchDate">
+								<div class="input-group d-flex justify-content-end">
+								<select name="memberuserDateKey" class="input-group-text form-control-sm">
+										<option value="memberRegDate">등록일자</option>
+										<option value="memberHiredDate">입사일자</option>
+									</select>
+									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+										<input name="searchStartDate" value="searchStartDate" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="등록날짜선택">
+										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
 									</div>
-								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-											<div class="input-group input-group-sm col-sm-4">
-												<select name="warehousingDateKey" class="input-group-text form-control-sm">
-													<option value="manufacturedDate">제조일자</option>
-													<option value="expiratonDate">유통기한</option>
-													<option value="laydownCheckDate">입하날짜</option>
-												</select>
-												<div class="col-sm-3" style="padding-left: 0px">
-													<div class="input-group">
-														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!--End inputbox 2 -->
-											~
-									<!--inputbox 3 -->
-											<div class="col-sm-3" style="padding-left: 0px">
-												<div class="input-group">
-													<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-														<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-														</div>
-													</div>
-						                   		</div>
-											</div>
-											<!--End inputbox 3 -->		
-								</form>
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->								
-							</div>
-							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-								<!--card body -->
-								<div class="card-body">
-									<div class="row" style="margin: 12px">
-										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{/team03/goodsManagement/category/k3CategoryList}" method="post">
-											<div class="input-group input-group-sm">
-												<select name="categoryKey" class="input-group-text form-control-sm">
-													<option value="large">상품명</option>
-													<option value="medium">회사명</option>
-													<option value="small">검수코드</option>
-												</select>
-												<input type="text" name="categoryValue" class="form-control" placeholder="카테고리명">
-												<div class="input-group-append">
-													<div class="btn btn-default" style="padding:0;">
-														<button id="categorySearcch" type="submit">
-															<i class="fas fa-search icon"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</form>
-										<!--End inputbox 1 -->
-			 						</div>
-								</div>					
-			 					<!--End card body 묶음 -->								
-							</div>
-						</div>						
+									<div>
+										&nbsp~&nbsp
+									</div>
+									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+										<input name="searchEndDate" value="searchEndDate" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="입사날짜선택">
+										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div class=" input-group-append">
+										<button type="submit" class="memberRegDateDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
+                   				</div>
+							</form>
+						</div>
+						<!--End inputbox 2 -->
+	 				</div>
 	 					<!--End card body 묶음 -->
-					</div>
+				</div>					
+			</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
+						<div class="card-header deprbtn">
 							직원 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover">
+						<div class="card-body table-responsive p-0 table-hover"style="height: 450px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped" style="overflow: auto">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<th>삭제</th>
-											<th>한줄삭제</th>	
-											<th>수정</th>
+											<th>선택</th>
+										<!--<th>한줄삭제</th>-->
+											<th>수정</th>	
 											<th>직원ID</th>
 						                     <th>직원PW</th>
 						                     <th>사업장별대표코드</th>
 						                     <th>권한번호</th>
 						                     <th>직원이름</th>
 						                     <th>성별</th>
-						                     <th>주소</th>
 						                     <th>전화번호</th>
 						                     <th>주민번호</th>
 						                     <th>직원계정상태</th>
 						                     <th>등록일자</th>
-						                     <th>입사일자</th>		
+						                     <th>입사일자</th>	
+						                     <th>우편번호</th>	
+						                     <th>도로명주소</th>	
 										</tr>
 									</thead>
 									<tbody>								
@@ -209,11 +204,11 @@
 											<input type="checkbox" class="removeList" name="removeList[]" th:value="${l.memberId}">
 											<!-- <input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}"> -->
 										</td>
-										<td>
+									<!--<td>
 											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
-										</td>
+										</td> -->
 						   				<td>
-										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">
+										<a id="modifyMemberUser" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${l.memberId})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>										
 										</td>	
@@ -223,12 +218,13 @@
 						   				<td th:text="${l.levelMemberCode}"></td>
 						   				<td th:text="${l.memberName}"></td>
 						   				<td th:text="${l.memberGender}"></td>
-						   				<td th:text="${l.memberAddr}"></td>
 						   				<td th:text="${l.memberPhone}"></td>
 						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
 						   				<td th:text="${l.memberState}"></td>
 						   				<td th:text="${l.memberRegDate}"></td>
 						   				<td th:text="${l.memberHiredDate}"></td>
+						   				<td th:text="${l.memberpostaladdress}"></td>
+						   				<td th:text="${l.memberstreetaddress}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}" th:each="l : ${memberuserList}">		
 						   				<td colspan="9">등록된 직원이 없습니다.</td>
@@ -239,10 +235,10 @@
 						</div>
 						<!--End card body -->
 					</div>
-					</div>
 					<!--End 하위 카드 영역 -->
-					
+				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
+		</div>
 	</th:block>
 </head>

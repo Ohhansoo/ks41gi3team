@@ -7,15 +7,16 @@
 		<link rel="stylesheet" th:href="@{/css/modal.css}">		
 	</th:block>
 	<th:block layout:fragment="customJs">
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
+					location.href = '/team03/goodsManagement/release/k3ReleaseList';
 				});
-				$(document).on('click', '#addWarehousing', function(){
+				$(document).on('click', '#addReleaseBtn', function(){
 					
 						var submitCheck = true;
-						var inputObj = $('#warehousingInfo').find('input');
+						var inputObj = $('#requestReleaseList').find('input');
 							
 						$.each(inputObj, function(){	
 	   					var inputDate = $(this).val();
@@ -29,10 +30,10 @@
 	   						return false;
 	   					}		
 						});  						
-						if(submitCheck) $('#warehousingInfo').submit();
+						if(submitCheck) $('#requestReleaseList').submit();
 					});
 				//모달 공통
-				var modal = $('.modal');
+				var contractorNameModal = $('#contractorNameModal');
 				var productNameModal = $('#productNameModal');
 
 				//회사명 선택 모달
@@ -72,12 +73,12 @@
 						]
 					});
 					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
+					contractorNameModal.removeClass('hidden');
 						
 				});
 				$(".exitBtn").click(function(){
 					
-					modal.addClass('hidden');
+					contractorNameModal.addClass('hidden');
 				});
 				$(document).on('click', '.confirmBtn', function(){
 					var checkedBox = $('.contractorId:checked');
@@ -87,7 +88,7 @@
 	 				ContractorId.attr('value',checkedBox.val());
 	 				ContractorName.attr('value',checkedTrName);
 					console.log(checkedBox);
-					modal.addClass('hidden');
+					contractorNameModal.addClass('hidden');
 				});
 				
 				///상품명 모달
@@ -111,7 +112,7 @@
 						columns: [
 							{ "data": "선택"},
 							{ "data": "stockCode"},
-							{ "data": "laydownGoodsName"},							
+							{ "data": "productName"},							
 							{ "data": "stockQuantity"},							
 							{ "data": "manufacturedDate"},							
 							{ "data": "expiratonDate"}							
@@ -128,39 +129,72 @@
 							}
 						]
 					});
+					
 					var overlay = $('.modal_overlay');
-					memberModal.removeClass('hidden');
+					productNameModal.removeClass('hidden');
 					
 				});
 				$("#productNameExitBtn").click(function(){
 					
-					memberModal.addClass('hidden');
+					productNameModal.addClass('hidden');
 				});
 				$(document).on('click', '#productNameConfirmBtn', function(){
 					var checkedBox = $('.stockCode:checked');
-	 				var laydownCheckManager = $('#laydownCheckManager');
-	 				var laydownCheckManagerName = $('#laydownCheckManagerName');
+	 				var stockCode = $('#stockCode');
+	 				var productName = $('#productName');
 
-	 				var laydownCheckManagerValue = checkedBox.parent().parent().children().eq(1).text();
-	 				var laydownCheckManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var stockCodeValue = checkedBox.val();
+	 				var productNameValue = checkedBox.parent().parent().children().eq(2).text();
 
-	 				laydownCheckManager.attr('value',laydownCheckManagerValue);
-	 				laydownCheckManagerName.attr('value',laydownCheckManagerNameValue);
+	 				stockCode.attr('value',stockCodeValue);
+	 				productName.attr('value',productNameValue);
 
 
-	 				memberModal.addClass('hidden');
+	 				productNameModal.addClass('hidden');
 				});
 			});
+			//다음 주소 검색
+		    function sample4_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+						autoClose: true;
+		                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		                var roadAddr = data.roadAddress; // 도로명 주소 변수
+		                var extraRoadAddr = ''; // 참고 항목 변수
+
+		                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		                    extraRoadAddr += data.bname;
+		                }
+		                // 건물명이 있고, 공동주택일 경우 추가한다.
+		                if(data.buildingName !== '' && data.apartment === 'Y'){
+		                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                }
+
+		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById('postCode').value = data.zonecode;
+		                document.getElementById("shippingAddress").value = roadAddr;
+		                document.getElementById("area").value = data.sido;
+
+		            },
+			        onclose: function(state) {
+			            //state는 우편번호 찾기 화면이 어떻게 닫혔는지에 대한 상태 변수 이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+			            if(state === 'FORCE_CLOSE'){
+			                //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
+	
+			            } else if(state === 'COMPLETE_CLOSE'){
+			                //사용자가 검색결과를 선택하여 팝업창이 닫혔을 경우, 실행될 코드를 작성하는 부분입니다.
+			                $('#shippingDetailAddress').focus();
+			            }
+			        }
+		        }).open();
+		    }
 		</script>		
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
-			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
-				});
-			});
-		</script>	 
+	<th:block layout:fragment="customContents">	 
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -175,7 +209,11 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-								<form id="requestReleaseList" th:action="@{/team03/goodsManagement/category/k3AddCategory}" method="post">
+								<form id="requestReleaseList" th:action="@{/team03/goodsManagement/release/k3AddRelease}" method="post">
+									<div class="inputwrap col-md-12">
+										<label for="releaseMergeCode" class="inputName">통합코드</label>
+										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" placeholder="함께 출고시킬 품목이 있다면 작성해주세요">
+									</div>
 									<div class="inputwrap col-md-12">
 										<label for="contractorName" class="inputName">회사명</label>
 										<input type="hidden" id="contractorIdInput" name="contractorId">
@@ -183,37 +221,46 @@
 										<button id="selectContractorName" class="findContractorModal" type="button">선택</button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="laydownGoodsNameInput" class="inputName">출고상품명</label>
-										<input type="hidden" id="stockCodeInput" name="stockCode">
-										<input class="inputBox" type="text" id="laydownGoodsNameInput" name="laydownGoodsNameInput" placeholder="출고상품명">
+										<label for="productName" class="inputName">출고상품명</label>
+										<input type="hidden" id="stockCode" name="stockCode">
+										<input class="inputBox" type="text" id="productName" name="productName" placeholder="출고상품명" readonly="readonly">
 										<button id="selectProductName" class="findContractorModal" type="button">선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="releaseGoodsCountInput" class="inputName">출고개수</label>
-										<input class="inputBox" type="text" id="releaseGoodsCountInput" name="releaseGoodsCountInput" placeholder="상품개수">
+										<label for="releaseGoodsCount" class="inputName">출고개수</label>
+										<input class="inputBox" type="text" id="releaseGoodsCount" name="releaseGoodsCount" placeholder="상품개수">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="areaCodeInput" class="inputName">배송지역</label>
-										<input class="inputBox" type="text" id="areaCodeInput" name="areaCodeInput" placeholder="지역명">
+										<label for="postCode" class="inputName">우편번호</label>								
+										<input type="text" id="postCode" name="postCode" placeholder="우편번호" readonly="readonly">
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="shippingAddressInput" class="inputName">배송지</label>
-										<input class="inputBox" type="text" id="shippingAddressInput" name="shippingAddressInput" placeholder="배송지">
+										<label for="area" class="inputName">지역명</label>
+										<input class="inputBox" type="text" id="area" name="area" placeholder="지역명" readonly="readonly">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="shippingDetailAddressInput" class="inputName">배송지 상세주소</label>
-										<input class="inputBox" type="text" id="shippingDetailAddressInput" name="shippingDetailAddressInput" placeholder="배송지 상세주소">
+										<label for="shippingAddress" class="inputName">배송지</label>
+										<input class="inputBox" type="text" id="shippingAddress" name="shippingAddress" placeholder="배송지" readonly="readonly">
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="shippingDetailAddress" class="inputName">배송지 상세주소</label>
+										<input class="inputBox" type="text" id="shippingDetailAddress" name="shippingDetailAddress" placeholder="배송지 상세주소">
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="recipientNameInput" class="inputName">받는사람</label>
-										<input class="inputBox" type="text" id="recipientNameInput" name="recipientNameInput" placeholder="받는이">
+										<label for="recipientName" class="inputName">받는사람</label>
+										<input class="inputBox" type="text" id="recipientName" name="recipientName" placeholder="받는이">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="recipientPhoneInput" class="inputName">받는사람 연락처</label>
-										<input class="inputBox" type="text" id="recipientPhoneInput" name="recipientPhoneInput" placeholder="연락처">
+										<label for="recipientPhone" class="inputName">받는사람 연락처</label>
+										<input class="inputBox" type="number" id="recipientPhone" name="recipientPhone" placeholder="-을 빼고 번호만 입력해주세요">
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="releaseDate" class="inputName">출고날짜</label>
+										<input class="inputBox" type="date" id="releaseDate" name="releaseDate">
 									</div>
 									<div class="d-flex justify-content-center">					
-										<button class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
+										<button id="addReleaseBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 									</div>	
 								</form>
@@ -227,7 +274,7 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id="contractorNameModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
@@ -261,7 +308,7 @@
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
+					<div class="textTitle">상품 선택</div>
 					<button id="productNameExitBtn" class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
@@ -272,8 +319,11 @@
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>
-									<th>회원코드</th>
-									<th>회원명</th>						
+									<th>코드</th>
+									<th>상품명</th>						
+									<th>재고</th>						
+									<th>제조일자</th>						
+									<th>유통기한</th>						
 								</tr>
 							</thead>
 						</table>				

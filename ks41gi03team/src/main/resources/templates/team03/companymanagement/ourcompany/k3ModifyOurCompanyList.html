@@ -2,60 +2,150 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-	<th:block layout:fragment="customContents"> 
-		<script>
-			$(function(){
-				$('#categoryCancelBtn').on('click', function(){
-					history.back();
-				});
-				$(document).on('click', '#categoryModifyBtn', function(){
-					//빈칸 유효성 검사
-					var submitCheck = true;
-					var inputObj = $('input');
-					var categorybtn = $(this);
-					
-					$.each(inputObj, function(){
-						var inputData = $(this).val();
-						var inputId = $(this).attr('id');
-						var labelText = $('label[for = ' + inputId + ']').text();
-						
-						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){
-							alert(labelText + '을 입력해주세요');
-							$(this).focus();
-							submitCheck = false;
-							return false;
-						}
-					});
-					//중복 유효성 검사
-										
-					// submit
-					if(submitCheck){
-						$('#ourCompanyCode').submit();
-					}						
-				});
-			});
-		</script>
+	<th:block layout:fragment="customJs">
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('memberpostaladdress').value = data.zonecode;
+                document.getElementById("memberstreetaddress").value = roadAddr;
+                document.getElementById("memberdetailaddress").value = data.jibunAddress;
+         
+                       
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
+	<script>	
+	$(function(){
 		
-		<div id="representative-button">
-			<div id="representative-button">
+		$(document).on('click', '#addMemberBtn', function(){
+			var submitCheck = true;
+			
+			var inputObj = $('#userInfo').find('input');
+			
+			$.each(inputObj, function(){
+				var inputData = $(this).val();
+				var inputId = $(this).attr('id');
+				var labelText = $('label[for=' + inputId + ']').text();
+				if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
+					alert(labelText + ' 입력해주세요');
+					$(this).focus();
+					submitCheck = false;
+					return false;
+				}
+			});
+			
+			if(submitCheck) $('#userInfo').submit();
+		});
+		
+		$('#dupclicate_btn').click(function(){
+
+			var memberId = $('#memberId').val();
+			
+			if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+				// ajax 호출
+				var request = $.ajax({
+					  url: '/member/idCheck', 
+					  method: 'POST', 
+					  data: { 'memberId' : memberId },
+					  dataType: 'text' 
+					});				
+				request.done(function(data) {
+					// 중복여부 체크(true: 중복, false: 등록가능)
+					var idConfirm = data;
+					
+					if(idConfirm){
+						alert('중복된 아이디입니다.');
+						$('#userInfo input').not('#memberId').prop('disabled', true);
+						$('#userInfo select').prop('disabled', true);
+						$('#userInfo button').not('#btn').prop('disabled', true);
+					}else{
+						alert('등록이 가능한 아이디입니다.');
+						$('#userInfo input').prop('disabled', false);
+						$('#userInfo select').prop('disabled', false);
+						$('#userInfo button').prop('disabled', false);
+					}
+					
+					
+				});				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+			}else{
+				alert('아이디를 입력해주세요')
+				return false;
+			}
+			
+			
+		});
+	});
+			</script>
+	</th:block>	
+	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<!--상위 카드 영역 -->
+				<div class="container-fluid d-flex justify-content-center">
+					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
-						<div class="card-header">
-							<h4>자사정보 수정</h4>
+						<div class="card-header cardHeadBorder">
+							<h4>직원수정</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-								<!--inputbox 1 -->
-								<form id="ourCompanyCode" class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyInfo}" method="post">
-									<input id="ourCompanyCode" type="hidden" name="ourCompanyCode" th:value="${K3OurCompany.ourCompanyCode}">
+								<form id="userInfo" th:action="@{/team03/companymanagement/member/k3ModifyMemberUserInfo}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="ourCompanyCode" class="inputName">자사 등록번호</label>
 										<input class="inputBox" type="text" id="ourCompanyCode" name="ourCompanyCode" th:value="${k3OurCompanyInfo.ourCompanyCode}"/>
@@ -73,8 +163,13 @@
 										<input class="inputBox" type="text" id="ourCompanyBusinessCheifName" name="ourCompanyBusinessCheifName" th:value="${k3OurCompanyInfo.ourCompanyBusinessCheifName}"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="ourCompanyWorkPlaceAddr" class="inputName">자사 사업장 주소</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddr" name="ourCompanyWorkPlaceAddr" th:value="${k3OurCompanyInfo.ourCompanyWorkPlaceAddr}"/>
+										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" th:value="${k3OurCompanyInfo.ourcompanypostaladdress}"/>
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>
+										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48" th:value="${k3OurCompanyInfo.ourcompanystreetaddress}"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="ourCompanyStatus" class="inputName">자사 업태</label>
@@ -89,16 +184,15 @@
 										<input class="inputBox" type="text" id="ourCompanyEmail" name="ourCompanyEmail" th:value="${k3OurCompanyInfo.ourCompanyEmail}"/>
 									</div><br>
 									<div class="d-flex justify-content-center">					
-										<button type="button" id="categoryModifyBtn" class="ahsbtn4 btn btn-outline-info" >수정</button>			
-										<button type="button" id="categoryCancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" >취소</button>			
-									</div>		
+										<button class="ahsbtn4 btn btn-outline-info" type="submit">수정</button>			
+										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+									</div>	
 								</form>
-								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
-					<!--End 상위 카드 영역 -->
+					<!--End 카드 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>

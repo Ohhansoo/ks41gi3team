@@ -26,9 +26,19 @@ public class K3InService {
 	
 	
 	
-	//견적정보 모달
+	//결제정보 버튼 모달
+	public List<Map<String, Object>> inPayInfo(String inCode, String estimateNum, String estimatePrice) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("inCode", inCode);
+		paramMap.put("estimateNum", estimateNum);
+		paramMap.put("estimatePrice", estimatePrice);
+		List<Map<String, Object>> resultList = k3InMapper.inPayInfo(paramMap);
+		return resultList;
+	}
+	
+	//견적정보 등록 버튼 모달
 		public List<Map<String, Object>> findEstimateInfo() {
-			List<Map<String, Object>> resultList = k3InMapper.findEstimateInfo(null);
+			List<Map<String, Object>> resultList = k3InMapper.findEstimateInfo();
 			return resultList;
 		}
 		

@@ -1,6 +1,8 @@
 package k3.ourcompany.ahs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
@@ -31,7 +33,8 @@ public class K3OurcompanyController {
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();
 		
-		model.addAttribute("title","자사정보 조회");
+		model.addAttribute("title","자사정보 관리");
+		model.addAttribute("subtitle","자사정보 현황");
 		model.addAttribute("ourcompanyList",ourcompanyList);
 		return "team03/companymanagement/ourcompany/k3OurCompanyList";
 		
@@ -77,4 +80,37 @@ public class K3OurcompanyController {
 		  
 		  return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
+	
+	private String ourCompanyCode;
+	private String ourCompanyBusinessPlaceCode;
+	private String ourCompanyBusinessName;
+	private String ourCompanyBusinessCheifName;
+	private String ourCompanyWorkPlaceAddr;
+	private String ourCompanyStatus;
+	private String ourCompanyWorkType;
+	private String ourCompanyEmail;
+	
+	/*
+	 * //06 자사 정보 검색
+	 * 
+	 * @PostMapping("/k3OurCompanyList") public String
+	 * k3GetOurCompanySearchList(@RequestParam(value="ourcompanyKey", required =
+	 * false) String ourcompanyKey,
+	 * 
+	 * @RequestParam(value="ourcompanyValue", required = false) String
+	 * ourcompanyValue, Model model) {
+	 * 
+	 * Map<String, Object> searchCondition = new HashMap<String, Object>();
+	 * 
+	 * if(ourcompanyKey != null && "ourCompanyCode".equals(ourcompanyKey)) {
+	 * ourcompanyKey = "ourCompanyCode"; }else if(ourcompanyKey != null &&
+	 * "ourCompanyBusinessPlaceCode".equals(ourcompanyKey)) { ourcompanyKey =
+	 * "ourCompanyBusinessPlaceCode"; }else if(ourcompanyKey != null &&
+	 * "ourCompanyBusinessName".equals(ourcompanyKey)) { ourcompanyKey =
+	 * "ourCompanyBusinessName"; }else if(ourcompanyKey != null &&
+	 * "ourCompanyWorkPlaceAddr")
+	 * 
+	 * }
+	 */
+	
 }

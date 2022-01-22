@@ -7,11 +7,12 @@ public class K3OurCompany {
 	private String ourCompanyBusinessPlaceCode;
 	private String ourCompanyBusinessName;
 	private String ourCompanyBusinessCheifName;
-	private String ourCompanyWorkPlaceAddr;
 	private String ourCompanyStatus;
 	private String ourCompanyWorkType;
 	private String ourCompanyEmail;
-	
+	private String ourcompanypostaladdress;
+	private String ourcompanystreetaddress;
+	private String ourcompanydetailaddress;
 	public String getOurCompanyCode() {
 		return ourCompanyCode;
 	}
@@ -36,12 +37,6 @@ public class K3OurCompany {
 	public void setOurCompanyBusinessCheifName(String ourCompanyBusinessCheifName) {
 		this.ourCompanyBusinessCheifName = ourCompanyBusinessCheifName;
 	}
-	public String getOurCompanyWorkPlaceAddr() {
-		return ourCompanyWorkPlaceAddr;
-	}
-	public void setOurCompanyWorkPlaceAddr(String ourCompanyWorkPlaceAddr) {
-		this.ourCompanyWorkPlaceAddr = ourCompanyWorkPlaceAddr;
-	}
 	public String getOurCompanyStatus() {
 		return ourCompanyStatus;
 	}
@@ -60,37 +55,35 @@ public class K3OurCompany {
 	public void setOurCompanyEmail(String ourCompanyEmail) {
 		this.ourCompanyEmail = ourCompanyEmail;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(ourCompanyBusinessCheifName, ourCompanyBusinessName, ourCompanyBusinessPlaceCode,
-				ourCompanyCode, ourCompanyEmail, ourCompanyStatus, ourCompanyWorkPlaceAddr, ourCompanyWorkType);
+	public String getOurcompanypostaladdress() {
+		return ourcompanypostaladdress;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		K3OurCompany other = (K3OurCompany) obj;
-		return Objects.equals(ourCompanyBusinessCheifName, other.ourCompanyBusinessCheifName)
-				&& Objects.equals(ourCompanyBusinessName, other.ourCompanyBusinessName)
-				&& Objects.equals(ourCompanyBusinessPlaceCode, other.ourCompanyBusinessPlaceCode)
-				&& Objects.equals(ourCompanyCode, other.ourCompanyCode)
-				&& Objects.equals(ourCompanyEmail, other.ourCompanyEmail)
-				&& Objects.equals(ourCompanyStatus, other.ourCompanyStatus)
-				&& Objects.equals(ourCompanyWorkPlaceAddr, other.ourCompanyWorkPlaceAddr)
-				&& Objects.equals(ourCompanyWorkType, other.ourCompanyWorkType);
+	public void setOurcompanypostaladdress(String ourcompanypostaladdress) {
+		this.ourcompanypostaladdress = ourcompanypostaladdress;
+	}
+	public String getOurcompanystreetaddress() {
+		return ourcompanystreetaddress;
+	}
+	public void setOurcompanystreetaddress(String ourcompanystreetaddress) {
+		this.ourcompanystreetaddress = ourcompanystreetaddress;
+	}
+	public String getOurcompanydetailaddress() {
+		return ourcompanydetailaddress;
+	}
+	public void setOurcompanydetailaddress(String ourcompanydetailaddress) {
+		this.ourcompanydetailaddress = ourcompanydetailaddress;
 	}
 	@Override
 	public String toString() {
 		return "K3OurCompany [ourCompanyCode=" + ourCompanyCode + ", ourCompanyBusinessPlaceCode="
 				+ ourCompanyBusinessPlaceCode + ", ourCompanyBusinessName=" + ourCompanyBusinessName
-				+ ", ourCompanyBusinessCheifName=" + ourCompanyBusinessCheifName + ", ourCompanyWorkPlaceAddr="
-				+ ourCompanyWorkPlaceAddr + ", ourCompanyStatus=" + ourCompanyStatus + ", ourCompanyWorkType="
-				+ ourCompanyWorkType + ", ourCompanyEmail=" + ourCompanyEmail + "]";
+				+ ", ourCompanyBusinessCheifName=" + ourCompanyBusinessCheifName + ", ourCompanyStatus="
+				+ ourCompanyStatus + ", ourCompanyWorkType=" + ourCompanyWorkType + ", ourCompanyEmail="
+				+ ourCompanyEmail + ", ourcompanypostaladdress=" + ourcompanypostaladdress
+				+ ", ourcompanystreetaddress=" + ourcompanystreetaddress + ", ourcompanydetailaddress="
+				+ ourcompanydetailaddress + "]";
 	}
+	
 	
 
 }

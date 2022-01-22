@@ -2,32 +2,247 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
+	<th:block layout:fragment="customJs">
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+	
+	/* function Validation(){
+	    var RegExp = /^[a-zA-Z0-9]{4,12}$/; //id와 pwassword 유효성 검사 정규식
+	    //이메일 유효성검사
+	    var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	    var n_RegExp = /^[가-힣]{2,15}$/; //이름 유효성검사 정규식
+	    
+	    var jnumArr = new Array(); // 입력 한 주민번호를 저장해줄 배열 선언
+	    var jnumplus = [2,3,4,5,6,7,8,9,2,3,4,5,1]; // 주민번호 계산할때 쓰이는 배열
+	    var jnumSum = 0; //objNum[i] * jnumplus[i] 더한 값
+	    
+	    var objId = document.getElementById("memberId"); //아이디
+	    var objPwd = document.getElementById("memberPassword"); //비밀번호
+	    var objPwd2 = document.getElementById("pwd2"); //비밀번호확인
+	    var objEmail = document.getElementById("memberuseremail");//메일
+	    var objName = document.getElementById("memberName"); //이름
+	    var objNum = document.getElementById("num"); //주민번호
+	
+	    
+	    // ================ ID 유효성검사 ================ //
+	    
+	    if(objId.value==''){
+	        alert("ID를 입력해주세요.");
+	        return false;
+	    }
+	    if(!RegExp.test(objId.value)){ //아이디 유효성검사
+	        alert("ID는 4~12자의 영문 소문자와 숫자로만 입력하여 주세요.");        
+	        return false;
+	    }
+	    
+	    // ================ PASSWORD 유효성검사 ===============//
+	    if(objPwd.value==''){ // 비밀번호 입력여부 검사
+	        alert("Password를 입력해주세요.");
+	        return false;
+	    }
+	    if(!RegExp.test(objPwd.value)){ //패스워드 유효성검사
+	        alert("Password는 4~12자의 영문 대소문자와 숫자로만 입력하여 주세요.");
+	        return false;
+	    }
+	    if(objPwd.value==objId.value){ //패스워드와 ID가 동일한지 검사
+	        alert("Password는 ID와 동일하면 안됩니다.");
+	        return false;
+	    }
+	    
+	    if(objPwd2.value!=objPwd.value){ //비밀번호와 비밀번호확인이 동일한지 검사
+	        alert("비밀번호가 틀립니다. 다시 확인하여 입력해주세요.");
+	        return false;
+	    }
+	    
+	    // ================ email 유효성검사 ================ //
+	    if(e_RegExp.value == ''){ // 이메일 입력여부 검사
+	        alert("이메일을 입력해주세요.");
+	        return false;
+	    }
+	    
+	    if(!e_RegExp.test(objEmail.value)){ //이메일 유효성 검사
+	        alert("올바른 이메일 형식이 아닙니다.");
+	        return false;
+	    }
+	    
+	    // ================ 이름 유효성검사 ================ //        
+	    if(objName.value ==''){
+	        alert("이름을 입력해주세요.");
+	        return false;
+	    }
+	    if(!n_RegExp.test(objName.value)){
+	        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
+	        return false;
+	    }
+	    
+	    // ================ 주민등록번호 유효성검사 ================ //
+	    if(objNum.value == ''){ // 주민번호입력 형식이 알맞은지 검사 
+	        alert("주민번호 형식이 올바르지 않습니다."); 
+	        
+	        return false;
+	    }
+	    
+	    for(var i = 0; i<objNum.value.length;i++){ // 입력받은 주민번호 jnumArr배열에 넣기
+	        jnumArr[i] = objNum.value.charAt(i);
+	    }
+	
+	    for(var i = 0; i<objNum.value.length-1;i++){ // 입력받은 주민번호 jnumArr배열에 넣기
+	        jnumSum+=jnumArr[i]*jnumplus[i];
+	    }
+	    jnumSum = (11-(jnumSum % 11)) % 10; //주민번호 계산
+	    
+	    if(jnumSum != jnumArr[12]){ // 계산되서 나온 결과값(jnumSum)과 입력한 주민번호의 마지막이 맞지 않으면 
+	        alert("주민번호가 올바르지 않습니다."); //alert 창 띄우기
+	        
+	        return false;
+	    } else{ //형식이 올바르면 생년월일 자동으로 입력하기
+	        
+	    }
+	} */
+
+
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('memberpostaladdress').value = data.zonecode;
+                document.getElementById("memberstreetaddress").value = roadAddr;
+                document.getElementById("memberdetailaddress").value = data.jibunAddress;
+         
+                       
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
+	<script>
 			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
+				
+				$(document).on('click', '#addBtn', function(){
+					var submitCheck = true;
+					
+					var inputObj = $('#userInfo').find('input');
+					
+					$.each(inputObj, function(){
+						var inputData = $(this).val();
+						var inputId = $(this).attr('id');
+						var labelText = $('label[for=' + inputId + ']').text();
+						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
+							alert(labelText + ' 입력해주세요');
+							$(this).focus();
+							submitCheck = false;
+							return false;
+						}
+					});
+					
+					if(submitCheck) $('#userInfo').submit();
+				});
+				
+				$('#dupclicate_btn').click(function(){
+
+					var memberId = $('#memberId').val();
+					
+					if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
+						// ajax 호출
+						var request = $.ajax({
+							  url: '/team03/companymanagement/member/idCheck', 
+							  method: 'POST', 
+							  data: { 'memberId' : memberId },
+							  dataType: 'json' 
+							});				
+						request.done(function(data) {
+							// 중복여부 체크(true: 중복, false: 등록가능)
+							var idConfirm = data;
+							
+							if(idConfirm){
+								alert('중복된 아이디입니다.');
+		 						$('#userInfo input').not('#memberId').prop('disabled', true);
+								$('#userInfo select').prop('disabled', true);
+								$('#userInfo button').not('#dupclicate_btn').prop('disabled', true);
+							}else{
+								alert('등록이 가능한 아이디입니다.');
+								$('#userInfo input').prop('disabled', false);
+								$('#userInfo select').prop('disabled', false);
+								$('#userInfo button').prop('disabled', false);
+							}
+							
+							
+						});				
+						request.fail(function( jqXHR, textStatus ) {
+						  alert( "Request failed: " + textStatus );
+						});
+					}else{
+						alert('아이디를 입력해주세요')
+						return false;
+					}
+					
+					
 				});
 			});
-		</script>	 
-		<div id="representative-button">
-			<div id="representative-button">
+		
+		</script>
+	</th:block>	
+	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
+				<div class="container-fluid d-flex justify-content-center">
 					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
-							<h4>자사정보등록</h4>
+							<h4>자사정보 등록</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-								<form id="userInfo" th:action="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" method="post">
+								<form id="ourCompanyInfo" th:action="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="largeCategoryInput" class="inputName">자사 등록 번호</label>
 										<input class="inputBox" type="text" id="ourCompanyCodeInput" name="ourCompanyCode"> 
@@ -43,11 +258,16 @@
 									<div class="inputwrap col-md-12">
 										<label for="smallCategoryInput" class="inputName">자사대표 성명</label>
 										<input class="inputBox" type="text" id="ourCompanyBusinessCheifNameInput" name="ourCompanyBusinessCheifName">
-									</div>								
+									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="smallCategoryInput" class="inputName">자사 사업장 주소</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="ourCompanyWorkPlaceAddr">
-									</div>								
+										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호">
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+									</div>
+									<div class="inputwrap col-md-12">
+										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>
+										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48"><br>
+									</div>
 									<div class="inputwrap col-md-12">
 										<label for="smallCategoryInput" class="inputName">자사 업태</label>
 										<input class="inputBox" type="text" id="ourCompanyStatusInput" name="ourCompanyStatus">
@@ -59,8 +279,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="smallCategoryInput" class="inputName">자사 이메일</label>
 										<input class="inputBox" type="text" id="ourCompanyEmailInput" name="ourCompanyEmail">
-									</div>								
-
+									</div><br>					
 									<div class="d-flex justify-content-center">					
 										<button class="ahsbtn4 btn btn-outline-info" type="submit">등록</button>			
 										<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			

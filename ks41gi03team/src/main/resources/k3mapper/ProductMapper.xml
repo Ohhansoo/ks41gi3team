@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="k3.product.ahs.mapper.K3ProductMapper">
+	<resultMap id="productResultMap" type="K3Product">
+		<id column="productCode" jdbcType="VARCHAR" property="productCode"/>
+		<result column="mainBusinessCode" jdbcType="VARCHAR" property="mainBusinessCode"/>
+		<result column="categoryCode" jdbcType="VARCHAR" property="categoryCode"/>
+		<result column="productName" jdbcType="VARCHAR" property="productName"/>
+		<result column="manufacturer" jdbcType="VARCHAR" property="manufacturer"/>
+		<association property="k3Category" javaType="K3Category">
+			<id column="categoryCode" property="categoryCode"/>
+			<result column="largeCategory" property="largeCategory"/>
+			<result column="mediumCategory" property="mediumCategory"/>
+			<result column="smallCategory" property="smallCategory"/>
+		</association>
+	</resultMap>
+	
+	<!--모달 상품 정보 리스트 조회 -->
+	<select id="getModalProductList" resultMap="productResultMap">
+		SELECT
+			p.productCode,
+			c.largeCategory,
+			c.mediumCategory,
+			c.smallCategory,
+			p.productName,
+			p.manufacturer
+		FROM
+			k3_tb_product AS p
+			INNER JOIN
+			k3_tb_total_category AS c
+			ON
+			p.categoryCode = c.categoryCode
+	</select>
+	
+	<!-- 상품 수정처리 -->
+	<update id="k3ModifyProduct">
+		UPDATE
+			k3_tb_product
+		SET
+			categoryCode = #{categoryCode},
+			productName = #{productName},
+			manufacturer = #{manufacturer}
+		WHERE
+			productCode = #{productCode}
+	</update>
+	
+	<!-- 상품 수정폼 이동  -->
+	<select id="K3GetProductInfo" resultMap="productResultMap">
+		SELECT 
+			p.productCode,
+			p.categoryCode,
+			p.productName,
+			p.manufacturer,
+			c.largeCategory,
+			c.mediumCategory,
+			c.smallCategory
+		FROM
+			k3_tb_product AS p
+			INNER JOIN
+			k3_tb_total_category AS c
+		WHERE
+			p.productCode = #{productCode} 
+		GROUP BY
+			p.productCode
+	</select>
+	
+	<!--상품 등록 처리  -->
+	<insert id="k3AddProduct">
+		INSERT INTO k3_tb_product
+			(productCode, mainBusinessCode, categoryCode, productName, manufacturer)
+		SELECT 
+			CONCAT(MAX(SUBSTRING(productCode,1,7)), MAX(CAST(SUBSTRING(productCode,8)AS DECIMAL)) + 1), 
+			'물류센터A물류센터_전북_1', 
+			#{categoryCode}, 
+			#{productName}, 
+			#{manufacturer}
+		FROM
+			k3_tb_product	
+	</insert>
+	
+	<!--상품 조회처리  -->
+	<select id="k3GetProductSearchList" parameterType="map" resultType="map" >
+		SELECT
+			p.productCode,
+			p.productName,
+			c.largeCategory,
+			c.mediumCategory,
+			c.smallCategory,
+			p.manufacturer
+		FROM
+			k3_tb_product AS p
+			INNER JOIN
+			k3_tb_total_category AS c
+			ON
+			p.categoryCode = c.categoryCode
+		<if test="searchCondition.searchType != null and searchCondition.searchType != ''.toString()">
+			<trim prefix="WHERE" prefixOverrides="AND |OR">
+				<if test="searchCondition.productValue != null and searchCondition.productValue != ''.toString() ">
+					AND ${searchCondition.productKey} LIKE CONCAT('%',#{searchCondition.productValue},'%')
+				</if>
+				<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString() ">
+					AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%')
+				</if>
+			</trim>
+		</if>
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>		
+	</select>
+	
+	<!--상품 현황(초기화면)  -->
+	<select id="k3GetProductList" parameterType="map" resultType="map" >
+		SELECT
+			p.productCode,
+			p.productName,
+			c.largeCategory,
+			c.mediumCategory,
+			c.smallCategory,
+			p.manufacturer
+		FROM
+			k3_tb_product AS p
+			INNER JOIN
+			k3_tb_total_category AS c
+			ON
+			p.categoryCode = c.categoryCode
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>		
+	</select>
+	
+	<!--상품 튜플 수 계산  -->
+	<select id="k3GetProductCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_product AS p
+			INNER JOIN
+			k3_tb_total_category AS c
+			ON
+			p.categoryCode = c.categoryCode
+		<if test="countType eq 'search'.toString()">
+			<if test="searchCondition.searchType != null and searchCondition.searchType != ''.toString()">
+				<trim prefix="WHERE" prefixOverrides="AND |OR">
+					<if test="searchCondition.productValue != null and searchCondition.productValue != ''.toString() ">
+						AND ${searchCondition.productKey} LIKE CONCAT('%',#{searchCondition.productValue},'%')
+					</if>
+					<if test="searchCondition.categoryValue != null and searchCondition.categoryValue != ''.toString() ">
+						AND ${searchCondition.categoryKey} LIKE CONCAT('%',#{searchCondition.categoryValue},'%')
+					</if>
+				</trim>
+			</if>
+		</if>		
+	</select>
+ 
+ </mapper>

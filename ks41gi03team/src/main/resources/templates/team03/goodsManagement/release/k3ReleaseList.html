@@ -181,10 +181,10 @@
 													<a th:href="@{#}">수정</a>
 												</td>
 												<td th:text="${l.releaseMergeCode}"></td>
-												<td th:text="${l.productName}"></td>
+												<td th:text="${l.k3Product.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
-												<td th:text="${l.contractorName}"></td>
-												<td th:text="${l.areaCode}"></td>
+												<td th:text="${l.k3Contractor.contractorName}"></td>
+												<td th:text="${l.area}"></td>
 												<td th:text="${l.shippingAddress}"></td>
 												<td th:text="${l.shippingDetailAddress}"></td>
 												<td th:text="${l.recipientName}"></td>
@@ -228,9 +228,9 @@
 													<a th:href="@{#}">수정</a>
 												</td>
 												<td th:text="${l.releaseCode}"></td>
-												<td th:text="${l.productName}"></td>
+												<td th:text="${l.k3Product.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
-												<td th:text="${l.contractorName}"></td>
+												<td th:text="${l.k3Contractor.contractorName}"></td>
 												<td th:text="${l.accepDate}"></td>
 												<td th:text="${l.releaseDate}"></td>
 												<td th:text="${l.shipmentCheckManager}"></td>
