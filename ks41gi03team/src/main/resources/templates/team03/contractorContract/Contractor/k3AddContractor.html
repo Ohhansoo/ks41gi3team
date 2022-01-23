@@ -11,7 +11,8 @@
    </th:block>
    
    <th:block layout:fragment="customJs">
-		<script type="text/javascript" th:inline="javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js">
+		<script type="text/javascript" th:inline="javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script>
 			$(function(){
 				
 				<!-- 숫자, 하이픈(-) 이외 입력 제한 기능-->
@@ -51,7 +52,6 @@
 					console.log("바뀐 값확인 contractorProfitBanka :"+ $("#contractorProfitBanka").val());
 				});
 				<!-- END 선택값 입력 기능 -->
-				
 			<!-- 중복 검사 기능 -->
 				<!-- 거래처 사업장 코드 중복검사 -->
 				$(document).on('click', '#contractorCodeCheckBtn', function(){
@@ -69,9 +69,11 @@
 							//중복여부 체크 (true: 중복, false : 등록가능)
 							var contractorCode = data;
 							if(contractorCode){
-								alert('중복된 거래처 사업장 코드 입니다.');
+								swal('중복된 거래처 사업장 코드','다른 거래처 사업장 코드를 입력해주세요.','error');
 							}else{
-								alert('등록이 가능한 사업장 코드 입니다.');
+								swal('등록 가능','등록이 가능한 사업장 코드 입니다.','success');
+								$('input[name=codeCheck]').attr("checked",true);
+								$("input[name=contractorCode]").attr("readonly",true);
 							}
 						});
 					}
@@ -95,64 +97,36 @@
 							//중복여부 체크 (true: 중복, false : 등록가능)
 							var contractorBusinessNum = data;
 							if(contractorBusinessNum){
-								alert('중복된 거래처 사업자 등록번호입니다.');
+								swal('중복된 사업자 등록번호','거래처 사업자 등록번호를 다시한번 확인해주세요!','error');
 							}else{
-								alert('등록이 가능한 거래처 사업자 등록번호입니다.');
+								swal('등록 가능','등록이 가능한 거래처 사업자 등록번호입니다.','success');
+								$('input[name=businessNumCheck]').attr("checked",true);
+								$("input[name=contractorBusinessNum]").attr("readonly",true);
 							}
 						});
 					}
 				});
 				<!-- END 거래처 사업장 등록번호 중복검사 -->
-				<!-- 거래처 종사업장 번호 중복검사 -->
-				$(document).on('click', '#contractorBusinessClientNumCheckBtn', function(){
-					var contractorBusinessClientNum = $("input[name=contractorBusinessClientNum]").val();
-					
-					console.log("변수 contractorBusinessClientNum내부 확인 : " + contractorBusinessClientNum + "-> 확인끝")
-					
-					if(typeof contractorBusinessClientNum != 'undefined' && contractorBusinessClientNum != null && contractorBusinessClientNum != ''){
-						//ajax 호출
-						var request = $.ajax({
-							url: 'contractorCheck',
-							method: 'Post',
-							data: {'contractorBusinessClientNum' : contractorBusinessClientNum},
-							dataType:'json'
-						});
-						request.done(function(data){
-							//중복여부 체크 (true: 중복, false : 등록가능)
-							var contractorBusinessClientNum = data;
-							if(contractorBusinessClientNum){
-								alert('중복된 거래처 사업자 등록번호입니다.');
-							}else{
-								alert('등록이 가능한 거래처 사업자 등록번호입니다.');
-							}
-						});
-					}
-				});
-				<!-- END 거래처 종사업장 번호 중복검사 -->
 			<!-- END 중복 검사 기능 -->
 			<!-- 빈칸 검사 기능 -->
 			$(document).on('click', '#addContractorBtn', function(){
 				var submitCheck = true;
-				var addContractorArr = new Array();
-				var list = $('input');
-				var label = $('label');
-				console.log("list 변수 내부 확인 : " + list );
-				console.log("label 변수 내부 확인 : " + label );
-				for(i=0; i<list.length; i++){
-					if(list[i].value == null || list[i].value == '' || list[i].value == 'undefined'){
-						addContractorArr.push(label[i].value);
+				var input = $('#addContractorForm').find('input');
+				for(i=0; i<input.length; i++){
+					if(input[i].value == null || input[i].value == "" || input[i].value == 'undefined'){
 						submitCheck = false;
-						return false;
 					}
 				}
 				
-				console.log("addContractorArr 변수 내부 확인 : " + addContractorArr );
-				
 				if(submitCheck) {
-					alert("입력하신 거래처 정보가 등록 되었습니다.");
+					swal("","입력하신 거래처 정보가 등록 되었습니다.");
 					$('#addContractorForm').submit();
+				}else if(!$('input[name=codeCheck]').is(":checked") || !$('input[name=businessNumCheck]').is(":checked")){
+					swal("등록 실패!","등록정보 중복체크를 해주세요","error");
+					return false;
 				}else{
-					alert(addContractorArr + "를 입력해주세요.");
+					swal("등록 실패!","입력되지 않은 거래처 정보가 있습니다.","error");
+					return false;
 				}
 				
 			});
@@ -200,12 +174,13 @@
 						<div id="contractorCode" class="input-group">
 							<span class="input-group-text">거래처 사업장 코드</span>
 				 			<input  class="form-control" type="text" name="contractorCode" placeholder="거래처 사업장 코드"/>
-				 			<button type="button" id="contractorCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button> 
+				 			<button type="button" id="contractorCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="codeCheck" disabled style="border:none"></button> 
 						</div>
 				  		<div id="contractorBusinessNum" class="input-group">
 				  			<span class="input-group-text">거래처 사업자등록번호</span>
 				  			<input  class="form-control" telOnly type="text" name="contractorBusinessNum" placeholder="거래처 사업자등록번호"/>
-				  			<button type="button" id="contractorBusinessNumCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인 </button>
+				  			<button type="button" id="contractorBusinessNumCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="businessNumCheck" disabled style="border:none"></button>
+							
 				  		</div>
 				  		<div id="contractorBusinessClientNum" class="input-group">
 				  			<span class="input-group-text">거래처 종사업장번호</span>
