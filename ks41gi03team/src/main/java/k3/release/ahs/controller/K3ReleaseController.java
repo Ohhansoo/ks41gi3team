@@ -1,11 +1,16 @@
 package k3.release.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.check.ahs.dto.K3ShipmentCheck;
 import k3.check.ahs.service.K3CheckService;
@@ -15,13 +20,24 @@ import k3.release.ahs.service.K3ReleaseService;
 @Controller
 @RequestMapping(value="/team03/goodsManagement/release")
 public class K3ReleaseController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(K3ReleaseController.class);
 
-	private K3ReleaseService k3ReleaseService;
-	private K3CheckService k3CheckService;
+	
+	private final K3ReleaseService k3ReleaseService;
+	private final K3CheckService k3CheckService;
 	
 	public K3ReleaseController(K3ReleaseService k3ReleaseService, K3CheckService k3CheckService){
 		this.k3ReleaseService = k3ReleaseService;
 		this.k3CheckService = k3CheckService;
+	}
+	//<모달>-출하 상품명 리스트 가져오기
+	@PostMapping("/findProductNameList")
+	@ResponseBody
+	public List<Map<String, Object>> findProductNameList(){
+		List<Map<String, Object>> ProductNameList = k3ReleaseService.findProductNameList();
+		 return ProductNameList;
 	}
 	
 	//출하 승인폼 이동
@@ -33,7 +49,16 @@ public class K3ReleaseController {
 		model.addAttribute("RequestAllowRelease", RequestAllowRelease);
 		return "team03/goodsManagement/release/k3AllowRelease";
 	}
-	//출고 등록폼 이동
+	//출고 등록처리(출고 요청)
+	@PostMapping("/k3AddRelease")
+	public String k3AddRelease(K3Release k3Release) {
+		log.info("출고 컨트롤러 ---- 출고 등록처리 전 k3Release----------->{}", k3Release);
+		int result = k3ReleaseService.k3AddRelease(k3Release);
+		log.info("출고 컨트롤러 ---- 출고 등록처리 후 result----------->{}", result);
+		return "redirect:/team03/goodsManagement/release/k3ReleaseList";
+	}
+	
+	//출고 등록폼 이동(출고 요청)
 	@GetMapping("/k3AddRelease")
 	public String k3AddRelease() {
 		
@@ -43,7 +68,7 @@ public class K3ReleaseController {
 	@GetMapping("/k3ReleaseList")
 	public String k3GetReleaseList(Model model) {
 		//검수리스트
-		List<K3ShipmentCheck> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
+		List<K3Release> K3ShipmentCheck = k3CheckService.k3GetShipmentCheckList();
 		//출고리스트
 		List<K3Release>	releaseList = k3ReleaseService.k3GetReleaseList();
 		model.addAttribute("title", "출고관리");

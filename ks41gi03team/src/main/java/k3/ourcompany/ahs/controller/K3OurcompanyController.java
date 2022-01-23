@@ -1,6 +1,8 @@
 package k3.ourcompany.ahs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
@@ -31,7 +33,8 @@ public class K3OurcompanyController {
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();
 		
-		model.addAttribute("title","자사정보 조회");
+		model.addAttribute("title","자사정보 관리");
+		model.addAttribute("subtitle","자사정보 현황");
 		model.addAttribute("ourcompanyList",ourcompanyList);
 		return "team03/companymanagement/ourcompany/k3OurCompanyList";
 		
@@ -77,4 +80,47 @@ public class K3OurcompanyController {
 		  
 		  return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
+	  //06 자사 정보 검색
+	  
+	  @PostMapping("/k3OurCompanyList") 
+	  public String k3GetOurCompanySearchList(@RequestParam(value="ourcompanyKey", required = false) String ourcompanyKey,
+			  															  @RequestParam(value="ourcompanyValue", required = false) String ourcompanyValue, 
+			  															  Model model) {
+	  
+	  Map<String, Object> searchCondition = new HashMap<String, Object>();
+	  
+	  if(ourcompanyKey != null && "ourCompanyCode".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "ourCompanyCode"; 
+	  }else if(ourcompanyKey != null && "ourCompanyBusinessPlaceCode".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "ourCompanyBusinessPlaceCode"; 
+	  }else if(ourcompanyKey != null && "ourCompanyBusinessName".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "ourCompanyBusinessName"; 
+	  }else if(ourcompanyKey != null && "ourCompanyBusinessCheifName".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourCompanyBusinessCheifName";
+	  }else if(ourcompanyKey != null && "ourCompanyStatus".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourCompanyStatus";
+	  }else if(ourcompanyKey != null && "ourCompanyWorkType".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourCompanyWorkType";
+	  }else if(ourcompanyKey != null && "ourCompanyEmail".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourCompanyEmail";
+	  }else if(ourcompanyKey != null && "ourcompanypostaladdress".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourcompanypostaladdress";
+	  }else if(ourcompanyKey != null && "ourcompanystreetaddress".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourcompanystreetaddress";
+	  }else if(ourcompanyKey != null && "ourcompanydetailaddress".equals(ourcompanyKey)) {
+		  ourcompanyKey = "ourcompanydetailaddress";
+	  }
+	 
+	  searchCondition.put("ourcompanyKey", ourcompanyKey);
+	  searchCondition.put("ourcompanyValue", ourcompanyValue);
+	  System.out.println("01 20220122 k3GetOurCompanySearchList");
+	  
+	  //public method k3GetOurCompanySearchList(String ourcompanyKey, String ourcompanyValu() { }
+	  List<K3OurCompany> ourcompanyList = ourcompanyService.k3GetOurCompanySearchList(searchCondition);
+	  model.addAttribute("ourcompanyList",ourcompanyList);
+	  
+	  return "team03/companymanagement/ourcompany/k3OurCompanyList";
+	
+	  }
 }
+	

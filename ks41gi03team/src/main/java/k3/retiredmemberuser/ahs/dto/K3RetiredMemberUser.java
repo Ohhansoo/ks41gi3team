@@ -7,12 +7,17 @@ public class K3RetiredMemberUser {
 	private String levelMemberCode;
 	private String memberName;
 	private String memberGender;
-	private String memberAddr;
 	private String memberPhone;
-	private String memberResidentRegistrationNumber;
+	private String  memberResidentRegistrationNumber;
 	private String memberState;
 	private String memberRegDate;
 	private String memberHiredDate;
+	private String memberRetiredReason;
+	private String memberRetiredDate;
+	private String memberRetirementSignedDate;
+	private String memberpostaladdress;
+	private String memberstreetaddress;
+	private String memberEmail;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -49,12 +54,6 @@ public class K3RetiredMemberUser {
 	public void setMemberGender(String memberGender) {
 		this.memberGender = memberGender;
 	}
-	public String getMemberAddr() {
-		return memberAddr;
-	}
-	public void setMemberAddr(String memberAddr) {
-		this.memberAddr = memberAddr;
-	}
 	public String getMemberPhone() {
 		return memberPhone;
 	}
@@ -85,15 +84,54 @@ public class K3RetiredMemberUser {
 	public void setMemberHiredDate(String memberHiredDate) {
 		this.memberHiredDate = memberHiredDate;
 	}
+	public String getMemberRetiredReason() {
+		return memberRetiredReason;
+	}
+	public void setMemberRetiredReason(String memberRetiredReason) {
+		this.memberRetiredReason = memberRetiredReason;
+	}
+	public String getMemberRetiredDate() {
+		return memberRetiredDate;
+	}
+	public void setMemberRetiredDate(String memberRetiredDate) {
+		this.memberRetiredDate = memberRetiredDate;
+	}
+	public String getMemberRetirementSignedDate() {
+		return memberRetirementSignedDate;
+	}
+	public void setMemberRetirementSignedDate(String memberRetirementSignedDate) {
+		this.memberRetirementSignedDate = memberRetirementSignedDate;
+	}
+	public String getMemberpostaladdress() {
+		return memberpostaladdress;
+	}
+	public void setMemberpostaladdress(String memberpostaladdress) {
+		this.memberpostaladdress = memberpostaladdress;
+	}
+	public String getMemberstreetaddress() {
+		return memberstreetaddress;
+	}
+	public void setMemberstreetaddress(String memberstreetaddress) {
+		this.memberstreetaddress = memberstreetaddress;
+	}
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
 	@Override
 	public String toString() {
 		return "K3RetiredMemberUser [memberId=" + memberId + ", memberPassword=" + memberPassword
 				+ ", mainBusinessCode=" + mainBusinessCode + ", levelMemberCode=" + levelMemberCode + ", memberName="
-				+ memberName + ", memberGender=" + memberGender + ", memberAddr=" + memberAddr + ", memberPhone="
-				+ memberPhone + ", memberResidentRegistrationNumber=" + memberResidentRegistrationNumber
-				+ ", memberState=" + memberState + ", memberRegDate=" + memberRegDate + ", memberHiredDate="
-				+ memberHiredDate + "]";
+				+ memberName + ", memberGender=" + memberGender + ", memberPhone=" + memberPhone
+				+ ", memberResidentRegistrationNumber=" + memberResidentRegistrationNumber + ", memberState="
+				+ memberState + ", memberRegDate=" + memberRegDate + ", memberHiredDate=" + memberHiredDate
+				+ ", memberRetiredReason=" + memberRetiredReason + ", memberRetiredDate=" + memberRetiredDate
+				+ ", memberRetirementSignedDate=" + memberRetirementSignedDate + ", memberpostaladdress="
+				+ memberpostaladdress + ", memberstreetaddress=" + memberstreetaddress + ", memberEmail=" + memberEmail
+				+ "]";
 	}
-
+	
 	
 }

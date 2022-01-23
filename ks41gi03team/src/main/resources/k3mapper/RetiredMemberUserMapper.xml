@@ -30,7 +30,7 @@
 			);
 	</insert>
 	
-	<!--  쾨사직원검색 -->
+	<!--  퇴사직원검색 -->
 	<select id="k3GetRetiredMemberUserSearch" resultType="K3RetiredMemberUser">
 		SELECT
 			*

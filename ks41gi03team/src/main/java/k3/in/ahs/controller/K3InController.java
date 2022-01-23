@@ -50,11 +50,14 @@ public class K3InController {
 	 * return result; }
 	 */
 		
-		//결제정보 등록버튼 컨트롤러
+		//결제정보 등록 버튼 모달 컨트롤러
 		@PostMapping("/inPayInfo")
 		@ResponseBody
-		public List<Map<String, Object>> k3InPayInfo(@RequestParam(value="inCode")String inCode){
-			List<Map<String, Object>> result = k3InService.inPayInfo(inCode);
+		public List<Map<String, Object>> k3InPayInfo(@RequestParam(value="inCode")String inCode,
+													@RequestParam(value="estimateNum")String estimateNum,
+													@RequestParam(value="estimatePrice")String estimatePrice){
+			List<Map<String, Object>> result = k3InService.inPayInfo(inCode, estimateNum, estimatePrice);
+			
 			System.out.println(result + "<<inPayInfo result");
 			return result;
 		}

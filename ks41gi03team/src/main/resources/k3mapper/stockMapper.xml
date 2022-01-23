@@ -3,18 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.stock.ahs.mapper.K3StockMapper">
-	<resultMap type="K3Stock" id="warehousingResultMap">
- 		<result column="laydownCheckCode" property="laydownCheckCode" />
- 		<result column="productName" property="productName" />
-		<result column="stockQuantity" property="stockQuantity" />
-		<result column="contractorName" property="contractorName" />
-		<result column="largeCategory" property="largeCategory" />
-		<result column="mediumCategory" property="mediumCategory" />
-		<result column="smallCategory" property="smallCategory" />
-		<result column="locationCode" property="locationCode" />
-		<result column="pileupDate" property="pileupDate" />
-		<result column="pileupManager" property="pileupManager" />
-		<result column="pileupManagerName" property="pileupManagerName" />
+	<resultMap id="stockResultMap" type="K3Stock" >
+	<id column="stockCode" jdbcType="VARCHAR" property="stockCode"/>
+ 		<result column="warehousingCode" jdbcType="VARCHAR" property="warehousingCode" />
+ 		<result column="locationCode" jdbcType="VARCHAR" property="locationCode" />
+ 		<result column="stockQuantity" jdbcType="SMALLINT" property="stockQuantity" />
+ 		<result column="pileupManager" jdbcType="VARCHAR" property="pileupManager" />
+ 		<result column="pileupDate" jdbcType="DATE" property="pileupDate" />
+		<association property="k3Contractor" javaType="K3Contractor">
+			<id column="contractorId" property="contractorId"/>
+			<result column="contractorName" property="contractorName" />
+		</association>
+		<association property="k3Product" javaType="K3Product">
+		<id column="productCode" property="productCode"/>
+		<result column="productName" property="productName" />
+		</association>
+		<association property="k3Category" javaType="K3Category">
+			<id column="categoryCode" property="categoryCode"/>
+			<result column="largeCategory" property="largeCategory"/>
+			<result column="mediumCategory" property="mediumCategory"/>
+			<result column="smallCategory" property="smallCategory"/>
+		</association>
+		<association property="k3Warehousing" javaType="K3Warehousing">
+			<id column="warehousingCode" property="warehousingCode"/>
+			<result column="laydownCheckCode" property="laydownCheckCode"/>
+			<result column="laydownGoodsCount" property="laydownGoodsCount"/>
+			<result column="laydownDate" property="laydownDate"/>
+		</association>
 	</resultMap>
 	
 	<!--상세재고현황 조회처리  -->
@@ -25,7 +40,7 @@
 			p.productName,
 			s.stockQuantity,
 			c.contractorName,
-			s.categoryCode,
+			p.categoryCode,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
@@ -49,7 +64,7 @@
 			INNER JOIN
 			k3_tb_total_category AS t
 			ON
-			s.categoryCode = t.categoryCode
+			p.categoryCode = t.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON
@@ -131,9 +146,7 @@
 		UPDATE k3_tb_stock
 		SET
 			locationCode = #{locationCode},
-			categoryCode = #{categoryCode},
 			stockQuantity = #{stockQuantity},
-			productFrequency = #{productFrequency},
 			pileupManager = #{pileupManager},
 			pileupDate = #{pileupDate}
 		WHERE
@@ -141,16 +154,16 @@
 	</update>
 	
 	<!--재고 수정폼으로 이동 -->
-	<select id="K3GetStockInfo" resultType="K3Stock">
-		SELECT
+	<select id="K3GetStockInfo" resultMap="stockResultMap">
+				SELECT
 			s.stockCode,
-			w.laydownGoodsName,
+			p.productName,
 			s.stockQuantity,
-			s.categoryCode,
+			p.categoryCode,
 			tc.largeCategory,
 			tc.mediumCategory,
 			tc.smallCategory,
-			s.productFrequency,
+			w.productFrequency,
 			s.locationCode,
 			s.pileupManager,
 			m.memberName AS pileupManagerName,
@@ -162,17 +175,82 @@
 			ON
 			s.warehousingCode = w.warehousingCode
 			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
 			k3_tb_total_category AS tc
 			ON
-			s.categoryCode = tc.categoryCode
+			p.categoryCode = tc.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON
 			s.pileupManager = m.memberId
-		WHERE
-			s.stockCode = #{stockCode};
 	</select>
 	
+	<!--로케이션 상태 업데이트(사용중으로) -->
+	<update id="k3UpdateLocationState">
+	UPDATE 
+		k3_tb_location
+	SET 
+		locationState = "사용중"
+	WHERE
+		locationCode = #{locationCode};
+	</update>
+	
+	<!--분류등록 입고테이블 업데이트  -->
+	<update id="k3UpdateSorting">
+	UPDATE 
+		k3_tb_warehousing
+	SET 
+		sorting = "Y"
+	WHERE
+		warehousingCode = #{warehousingCode};
+	</update>
+	
+	<!-- 분류등록 -->
+	<insert id="k3AddStock">
+		INSERT INTO k3_tb_stock
+			(stockCode, 
+			warehousingCode, 
+			locationCode, 
+			stockQuantity, 
+			pileupManager, 
+			pileupDate)
+		SELECT 
+		   CONCAT(MAX(SUBSTRING(stockCode,1,5)), MAX(CAST(SUBSTRING(stockCode,6)AS DECIMAL))+ 1),
+		   #{warehousingCode},
+		   #{locationCode},
+		   #{stockQuantity},
+		   #{pileupManager},
+		   #{pileupDate}
+		FROM 
+		  k3_tb_stock;
+	
+	</insert>
+	
+	<!--재고 등록 가능 리스트  -->
+	<select id="k3AddStockList" resultMap="stockResultMap">
+		SELECT
+			w.warehousingCode,
+			w.laydownCheckCode,
+			p.productName,
+			w.laydownGoodsCount,
+			w.laydownDate,
+			c.contractorName	
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS c
+			on
+			w.contractorId = c.contractorId
+		WHERE
+			w.sorting = 'N' AND w.laydownCheckResult = 'Y';
+	</select>
 
 	<!--상세조회 재고현황 (초기화면)  -->
 	<select id="k3GetStockByLocation" resultType="map" parameterType="map">
@@ -182,7 +260,7 @@
 			p.productName,
 			s.stockQuantity,
 			c.contractorName,
-			s.categoryCode,
+			p.categoryCode,
 			t.largeCategory,
 			t.mediumCategory,
 			t.smallCategory,
@@ -206,7 +284,7 @@
 			INNER JOIN
 			k3_tb_total_category AS t
 			ON
-			s.categoryCode = t.categoryCode
+			p.categoryCode = t.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON
@@ -237,7 +315,7 @@
 			INNER JOIN
 			k3_tb_total_category AS t
 			ON
-			s.categoryCode = t.categoryCode
+			p.categoryCode = t.categoryCode
 			INNER JOIN
 			k3_tb_member AS m
 			ON

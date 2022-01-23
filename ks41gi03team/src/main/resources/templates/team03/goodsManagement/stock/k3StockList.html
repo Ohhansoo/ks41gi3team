@@ -7,7 +7,10 @@
 	</th:block>
 	<th:block layout:fragment="customJs">
 			<script type="text/javascript">
-			$(function(){				
+			$(function(){
+				$('#moveAddStockBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/stock/k3AddStockList';
+				});
 				$('#simpleStockSearchBtn').on('click', function(){
 					$('#searchSimpleStockType').attr('value', 'simpleStock');
 					$('#simpleStockSearchForm').submit();
@@ -26,7 +29,11 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--버튼 영역 -->			
-					<div class="d-flex justify-content-end">						
+					<div class="d-flex justify-content-end">
+						<button id="moveAddStockBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							등록
+						</button>												
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력

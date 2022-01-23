@@ -14,13 +14,48 @@
         text-align: center;
       }
     </style>
+    
+    <script>
+			$(function(){				
+				$('#addmemberuserBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
+				});
+				$('#printLoginStateBtn').on('click', function(){
+					 	let $container = $("#searchForm").clone()    // 프린트 할 특정 영역 복사
+					    let cssText = ""                            // 스타일 복사
+					    for (const node of $("style")) {
+					        cssText += node.innerHTML
+					    }
+					    /** 팝업 */
+					    let innerHtml = $container[0].innerHTML
+					    let popupWindow = window.open("", "_blank", "width=700,height=800")
+					    popupWindow.document.write("<!DOCTYPE html>"+
+					      "<html>"+
+					        "<head>"+
+					        "<style>"+cssText+"</style>"+
+					        "</head>"+
+					        "<body>"+innerHtml+"</body>"+
+					      "</html>")
+					   
+					    popupWindow.document.close()
+					    popupWindow.focus()
+					
+					    /** 1초 지연 */
+					    setTimeout(() => {
+					        popupWindow.print()         // 팝업의 프린트 도구 시작
+					        popupWindow.close()         // 프린트 도구 닫혔을 경우 팝업 닫기
+					    }, 1000)
+					});
+			});
+		</script>
+		
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printLoginStateBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						

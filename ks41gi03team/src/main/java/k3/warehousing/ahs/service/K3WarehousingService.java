@@ -21,23 +21,6 @@ public class K3WarehousingService {
 	public K3WarehousingService(K3WarehousingMapper k3WarehousingMapper) {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
-	//로케이션 테이블에 사용현황 업데이트
-	public int k3UpdateLocationState(K3Stock k3Stock) {
-		int locationStateResult = k3WarehousingMapper.k3UpdateLocationState(k3Stock);
-		return locationStateResult;
-	}
-	//입고분류여부 업데이트
-	public int k3UpdateSorting(K3Stock k3Stock) {
-		int soringResult = k3WarehousingMapper.k3UpdateSorting(k3Stock);
-		return soringResult;
-	}
-	
-	//입고분류 등록처리
-	public int k3AddWarehousingSort(K3Stock k3Stock) {		
-		int result = k3WarehousingMapper.k3AddWarehousingSort(k3Stock);
-		return result;
-	}
-
 	
 	//입고 현황 조회 처리
 	public Map<String, Object> k3GetWarehousingSearchList(Map<String, Object> searchCondition, int currentPage){
@@ -116,17 +99,7 @@ public class K3WarehousingService {
 	 * List<K3Warehousing> warehousingSort =
 	 * k3WarehousingMapper.k3GetSortInfo(warehousingCode); return warehousingSort; }
 	 */
-	//입고 분류 현황(요청목록)
-	public List<K3WarehousingSort> k3GetWarehousingRequestSort() {
-		List<K3WarehousingSort> requestSort = k3WarehousingMapper.k3GetWarehousingRequestSort();
-		return requestSort;
-	}
-	
-	//입고 분류 현황(완료목록)
-	public List<K3WarehousingSort> k3GetWarehousingSortList() {
-		List<K3WarehousingSort> sortList = k3WarehousingMapper.k3GetWarehousingSortList();
-		return sortList;
-	}
+
 	
 	//입고 현황(초기화면)
 	public Map<String, Object> k3GetWarehousingList(int currentPage) {

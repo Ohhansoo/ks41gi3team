@@ -3,21 +3,57 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.check.ahs.mapper.K3CheckMapper">
-	<resultMap type="K3ShipmentCheck" id="shipmentResultMap">
+	<resultMap id="warehousingResultMap" type="K3Warehousing" >
+ 		<id column="warehousingCode" property="warehousingCode" />
+		<result column="mainBusinessCode" property="mainBusinessCode" />
+		<result column="contractorId" property="contractorId" />
+ 		<result column="productCode" property="productCode" />
+		<result column="laydownGoodsCount" property="laydownGoodsCount" />
+		<result column="manufacturedDate" property="manufacturedDate" />
+		<result column="expiratonDate" property="expiratonDate" />
+ 		<result column="laydownRequestDate" property="laydownRequestDate" />
+ 		<result column="laydownDate" property="laydownDate" />
+		<result column="productFrequency" property="productFrequency" />
+ 		<result column="laydownCheckCode" property="laydownCheckCode" />
+		<result column="laydownCheckResult" property="laydownCheckResult" />
+		<result column="laydownCheckManager" property="laydownCheckManager" />
+		<result column="laydownCheckDate" property="laydownCheckDate" />
+		<result column="warehousingAllow" property="warehousingAllow" />
+		<result column="acceptDate" property="acceptDate" />
+		<result column="sorting" property="sorting" />
+			<association property="k3Contractor" javaType="K3Contractor">
+				<id column="contractorId" property="contractorId"/>
+				<result column="contractorName" property="contractorName" />
+			</association>
+			<association property="k3Product" javaType="K3Product">
+			<id column="productCode" property="productCode"/>
+			<result column="productName" property="productName" />
+			</association>
+	</resultMap>
+	
+	<resultMap id="releaseResultMap" type="K3Release">
  		<result column="releaseCode" property="releaseCode" />
-		<result column="productName" property="productName" />
 		<result column="releaseGoodsCount" property="releaseGoodsCount" />
-		<result column="contractorName" property="contractorName" />
+		<result column="contractorId" property="contractorId" />
 		<result column="accepDate" property="accepDate" />
 		<result column="releaseDate" property="releaseDate" />
 		<result column="recipientName" property="recipientName" />
 		<result column="shipmentCheckManager" property="shipmentCheckManager" />
 		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
 		<result column="shipmentCheckResult" property="shipmentCheckResult" />
+			<association property="k3Contractor" javaType="K3Contractor">
+				<id column="contractorId" property="contractorId"/>
+				<result column="contractorName" property="contractorName" />
+			</association>
+			<association property="k3Product" javaType="K3Product">
+				<id column="productCode" property="productCode"/>
+				<result column="productName" property="productName" />
+			</association>
 	</resultMap>
 	
+	
 	<!-- 출하검수현황  -->
-	<select id="k3GetShipmentCheckList" resultType="K3ShipmentCheck">
+	<select id="k3GetShipmentCheckList" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,
 			p.productName,
@@ -65,7 +101,6 @@
 		   w.laydownDate,
 		   w.laydownCheckCode,
 		   IFNULL(w.laydownCheckResult,'') AS laydownCheckResult,
-		   w.warehousingDay,
 		   w.laydownCheckDate,
 		   m.memberName,
 		   w.laydownCheckResult
@@ -146,7 +181,7 @@
 	</select>
 	
 	<!--입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)  -->
-	<select id="getLaydownCheckList" resultType="K3LaydownCheck"> 
+	<select id="getLaydownCheckList" resultMap="warehousingResultMap"> 
 		SELECT
 			w.warehousingCode
 			,p.productName
@@ -179,14 +214,14 @@
 
 	
 	<!--입하현황  이동(입하검수 할 목록)  -->	
-	<select id="k3GetLaydownCheckList" resultType="K3LaydownCheck">
+	<select id="k3GetLaydownCheckList" resultMap="warehousingResultMap">
 		SELECT
 		   w.warehousingCode,
 		   w.laydownCheckCode,
 		   p.productName,
 		   w.laydownGoodsCount,
 		   c.contractorName,
-		   w.laydownDate
+		   w.laydownRequestDate
 		FROM
 		   k3_tb_warehousing AS w
 		   INNER JOIN

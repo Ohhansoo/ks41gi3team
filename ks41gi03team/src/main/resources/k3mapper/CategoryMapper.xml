@@ -23,7 +23,7 @@
 		</trim>
 	</select>
 	
-	<delete id="k3DeleteCategory" parameterType="int">
+	<delete id="k3DeleteCategory" parameterType="list">
 		DELETE
 			c
 		FROM

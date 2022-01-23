@@ -172,6 +172,10 @@
 										<input class="inputBox" type="text" id="memberGenderInput" name="memberGender" placeholder="예시) 남 /여/무응답" th:value="${k3MemberUserInfo.memberGender}"/>
 									</div>
 									<div class="inputwrap col-md-12">
+										<label for="memberuseremailInput" class="inputName">이메일</label>
+										<input class="inputBox" type="text" id="memberEmail" data-input-label="이메일" name="memberEmail" th:value="${k3MemberUserInfo.memberEmail}"/>
+									</div>
+									<div class="inputwrap col-md-12">
 										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
 										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" th:value="${k3MemberUserInfo.memberpostaladdress}"/>
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -215,7 +219,7 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+	<!-- <div class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
@@ -241,7 +245,7 @@
 					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
-		</div>
+		</div> -->
 		<!-- End 모달창 -->
 	</th:block>
 </head>

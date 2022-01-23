@@ -16,6 +16,19 @@
 	</resultMap> 
    -->
    
+  <!-- 자사정보 검색 -->
+  <select id="k3GetOurCompanySearchList"  resultType="K3OurCompany">
+  		SELECT
+			*
+		FROM
+			k3_tb_our_company
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="ourcompanyValue != null and ourcompanyValue != ''.toString()">
+				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%')
+			</if>
+		</trim>
+  </select>
+   
    <!-- 자사정보 수정처리 -->
    
    <update id="k3ModifyOurCompanyInfo" parameterType="int">
@@ -34,9 +47,6 @@
 			<if test="ourCompanyBusinessCheifName != null and ourCompanyBusinessCheifName != ''.toString()">
 			oc.ourCompanyBusinessCheifName = #{ourCompanyBusinessCheifName},
 			</if>	
-			<if test="ourCompanyWorkPlaceAddr != null and ourCompanyWorkPlaceAddr != ''.toString()">
-			oc.ourCompanyWorkPlaceAddr = #{ourCompanyWorkPlaceAddr},
-			</if>	
 			<if test="ourCompanyStatus != null and ourCompanyStatus != ''.toString()">
 			oc.ourCompanyStatus = #{ourCompanyStatus},
 			</if>	
@@ -45,6 +55,15 @@
 			</if>	
 			<if test="ourCompanyEmail != null and ourCompanyEmail != ''.toString()">
 			oc.ourCompanyEmail = #{ourCompanyEmail},
+			</if>	
+			<if test="ourcompanypostaladdress != null and ourcompanypostaladdress != ''.toString()">
+			oc.ourcompanypostaladdress = #{ourcompanypostaladdress},
+			</if>	
+			<if test="ourcompanystreetaddress != null and ourcompanystreetaddress != ''.toString()">
+			oc.ourcompanystreetaddress = #{ourcompanystreetaddress},
+			</if>	
+			<if test="ourcompanydetailaddress != null and ourcompanydetailaddress != ''.toString()">
+			oc.ourcompanydetailaddress = #{ourcompanydetailaddress},
 			</if>	
 		</trim>		
 		WHERE 
@@ -70,19 +89,23 @@
 		,ourCompanyBusinessPlaceCode
 		,ourCompanyBusinessName
 		,ourCompanyBusinessCheifName
-		,ourCompanyWorkPlaceAddr
 		,ourCompanyStatus
 		,ourCompanyWorkType
 		,ourCompanyEmail
+		,ourcompanypostaladdress
+		,ourcompanystreetaddress
+		,ourcompanydetailaddress
 	)VALUES(
 		 #{ourCompanyCode}
 		,#{ourCompanyBusinessPlaceCode}
 		,#{ourCompanyBusinessName}
 		,#{ourCompanyBusinessCheifName}
-		,#{ourCompanyWorkPlaceAddr}
 		,#{ourCompanyStatus}
 		,#{ourCompanyWorkType}
 		,#{ourCompanyEmail}
+		,#{ourcompanypostaladdress}
+		,#{ourcompanystreetaddress}
+		,#{ourcompanydetailaddress}
 	);
    </insert>
 	
@@ -93,10 +116,12 @@
 			oc.ourCompanyBusinessPlaceCode		AS ourCompanyBusinessPlaceCode,
 			oc.ourCompanyBusinessName			AS ourCompanyBusinessName,
 			oc.ourCompanyBusinessCheifName		AS ourCompanyBusinessCheifName,
-			oc.ourCompanyWorkPlaceAddr			AS ourCompanyWorkPlaceAddr,
 			oc.ourCompanyStatus					AS ourCompanyStatus,
 			oc.ourCompanyWorkType				AS ourCompanyWorkType,
-			oc.ourCompanyEmail					AS ourCompanyEmail
+			oc.ourCompanyEmail					AS ourCompanyEmail,
+			oc.ourcompanypostaladdress			AS ourcompanypostaladdress,
+			oc.ourcompanystreetaddress			AS ourcompanystreetaddress,
+			oc.ourcompanydetailaddress			AS ourcompanydetailaddress
 		FROM
 			k3_tb_our_company AS oc
 		ORDER BY ourCompanyCode ASC;

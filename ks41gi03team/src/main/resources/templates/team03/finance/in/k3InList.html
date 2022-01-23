@@ -51,18 +51,25 @@
 				
 				$(document).on('click', '#inPayInfoBtn', function(){
 					var inCode = $(this).attr('data-inCode');
+					var estimateNum = $(this).attr('data-estimateNum');
+					var estimatePrice = $(this).attr('data-estimatePrice');
 					console.log(inCode +"data-inCode");
 					
 					//견적정보 가져오기
 					var request = $.ajax({
 						url: '/team03/finance/in/inPayInfo',
 						method: 'POST',
-						data: {'inCode' : inCode},
+						data: {'inCode' : inCode, 'estimateNum':estimateNum, 'estimatePrice' : estimatePrice},
 						dataType: 'json'
 					});	
 					request.done(function(data){
 						data[0].inCode;
+						data[0].estimateNum;
+						data[0].estimatePrice;
 						console.log("inCode>>>>>" +data[0].inCode);
+						console.log("estimateNum>>>>>" +data[0].estimateNum);
+						console.log("estimatePrice>>>>>" +data[0].estimatePrice);
+						 
 					});
 				});
 			
@@ -188,7 +195,11 @@
 											<td th:text="${i.index+1}"></td>
 									
 											<td>
-											<button id="inPayInfoBtn" class="inPayInfoModal" th:data-inCode="${l.inCode}" type="button">선택</button> 
+											<button id="inPayInfoBtn" class="inPayInfoModal" 
+											th:data-inCode="${l.inCode}"
+											th:data-estimateNum="${l.estimateNum}"
+											th:data-estimatePrice="${l.estimatePrice}"
+											type="button">선택</button> 
 											</td>
 											
 											<td th:text="${l.inCode}"></td>
