@@ -27,7 +27,6 @@ public interface K3MemberUserMapper {
 	
 	//06. 직원정보 삭제처리
 	public int k3RemoveMemberUser(List<String> removeList);
-		
 	
 	//07. 직원 검색 
 	public List<K3MemberUser> k3GetMemberUserSearchList(Map<String,Object> searchCondition);

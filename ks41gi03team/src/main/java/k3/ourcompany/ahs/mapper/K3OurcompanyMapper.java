@@ -25,7 +25,8 @@ public interface K3OurcompanyMapper {
 	//05 자사 정보 검색
 	public List<K3OurCompany> k3GetOurCompanySearchList(Map<String, Object> searchCondition);
 	
-	
+	//모달
+	public List<Map<String, Object>> k3GetOurCompanyModalList(Map<String, Object> paramMap);
 	
 	
 	/*
