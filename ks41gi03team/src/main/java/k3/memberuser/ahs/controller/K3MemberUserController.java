@@ -252,7 +252,7 @@ public class K3MemberUserController {
 			return modalList;
 		}
 		
-		}
+	}
 		
 		
 		
