@@ -16,6 +16,19 @@
 	</resultMap> 
    -->
    
+  <!-- 자사정보 검색 -->
+  <select id="k3GetOurCompanySearchList"  resultType="K3OurCompany">
+  		SELECT
+			*
+		FROM
+			k3_tb_our_company
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="ourcompanyValue != null and ourcompanyValue != ''.toString()">
+				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%')
+			</if>
+		</trim>
+  </select>
+   
    <!-- 자사정보 수정처리 -->
    
    <update id="k3ModifyOurCompanyInfo" parameterType="int">

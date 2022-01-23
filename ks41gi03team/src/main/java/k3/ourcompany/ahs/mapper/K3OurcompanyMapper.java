@@ -1,6 +1,7 @@
 package k3.ourcompany.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +22,8 @@ public interface K3OurcompanyMapper {
 	//04 자사 정보 수정처리
 	public int k3ModifyOurCompanyInfo(K3OurCompany k3ourcompany);
 	
+	//05 자사 정보 검색
+	public List<K3OurCompany> k3GetOurCompanySearchList(Map<String, Object> searchCondition);
 	
 	
 	

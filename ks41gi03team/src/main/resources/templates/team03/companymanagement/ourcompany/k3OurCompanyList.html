@@ -14,21 +14,46 @@
         text-align: center;
       }
     </style>
-    
+<!--    
 	<body>
 		<h1>출력</h1>
 		
 		<p id="print">출력되는 영역</p>
 		<p id="InText">두번째 문단</p>
 		
-		<button onclick="return printPage;()">영역 지정 프린터 출력</button>
-		
+		<button onclick="return printPage;()">영역 지정 프린터 출력</button>-->
 	<script>
 			
 			$(function(){				
 				$('#addourcompanyBtn').on('click', function(){
 					location.href = '/team03/companymanagement/ourcompany/k3AddOurCompanyList';
 				});
+				$('#printOurCompanyBtn').on('click', function(){
+					 	let $container = $("#searchForm").clone()    // 프린트 할 특정 영역 복사
+					    let cssText = ""                            // 스타일 복사
+					    for (const node of $("style")) {
+					        cssText += node.innerHTML
+					    }
+					    /** 팝업 */
+					    let innerHtml = $container[0].innerHTML
+					    let popupWindow = window.open("", "_blank", "width=700,height=800")
+					    popupWindow.document.write("<!DOCTYPE html>"+
+					      "<html>"+
+					        "<head>"+
+					        "<style>"+cssText+"</style>"+
+					        "</head>"+
+					        "<body>"+innerHtml+"</body>"+
+					      "</html>")
+					   
+					    popupWindow.document.close()
+					    popupWindow.focus()
+					
+					    /** 1초 지연 */
+					    setTimeout(() => {
+					        popupWindow.print()         // 팝업의 프린트 도구 시작
+					        popupWindow.close()         // 프린트 도구 닫혔을 경우 팝업 닫기
+					    }, 1000)
+					});
 				
 				$(document).on('click', '#deleteOurCompanyBtn', function(){
 					location.href = '/team03/companymanagement/ourcompany/k3AddOurCompanyList';
@@ -53,25 +78,6 @@
 			});
 		</script>
 		</body>
-		<script>
-		
-			var initBodyHtml;
-			
-			function printPage(){
-				widow.print();
-			}
-	
-			function beforePrint(){
-				initBodyHtml = document.body.innerHTML;
-				document.body.innerHTML = document.getElementById('print').innerHTML;
-			}
-			function afterPrint(){
-				document.body.innterHTML = initBodyHtml;
-			}
-			window.onbeforeprint = beforePrint;
-			window.onafterprint = afterPrint;
-			
-		</script>
 		
 		<div id="representative-button">
 			<div id="representative-button">
@@ -110,10 +116,10 @@
 									<div class="input-group input-group-sm">
 										<div class="input-group-prepend">
 										<select name="ourCompanyKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-											<option value="ourCompanyCode">자사 등록번호</option>
+											<option value="ourCompanyCode">자사 사업자등록번호</option>
 											<option value="ourCompanyBusinessPlaceCode">자사 종사업장번호</option>
 											<option value="ourCompanyBusinessName">자사 상호</option>
-											<option value="ourCompanyBusinessCheifName">자사 성명</option>
+											<option value="ourCompanyBusinessCheifName">자사 대표성명</option>
 											<option value="ourcompanypostaladdress">자사 우편번호</option>
 											<option value="ourcompanystreetaddress">자사 도로명주소</option>
 											<option value="ourCompanyStatus">자사 업태</option>
@@ -121,9 +127,9 @@
 											<option value="ourCompanyEmail">자사 이메일</option>
 										</select>
 										</div>
-										<input type="text" name="ourcompanyValue" class="form-control" placeholder="자사 등록번호"  style="height: 38px;  font-size: 15px;">
+											<input type="text" class="form-control" placeholder="검색" name="retiredmemberuserValue" style="width: 300px; height: 38px; ">
 										<div class=" input-group-append">
-										<button id="ourCompanyInfoSearch" type="submit" class="btn btn-default ourCompanyInfoSearch">
+										<button id="retiredmemberuserInfoSearch" type="submit" class="btn btn-default retiredmemberuserInfoSearch">
 											<i class="fas fa-search icon"></i>
 										</button>
 										</div>
@@ -145,15 +151,15 @@
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
+								<table id="table" class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<!-- <th>삭제</th> -->	
 											<th>수정</th>
-											<th>자사 등록번호</th>
+											<th>자사 사업자등록번호</th>
 							                <th>자사 종사업장번호</th>
 							                <th>자사 상호</th>
-							                <th>자사 성명</th>
+							                <th>자사 대표성명</th>
 							                <th>자사 우편번호</th>
 							                <th>자사 도로명주소</th>
 							                <th>자사 업태</th>
@@ -183,7 +189,7 @@
 								   		<td th:text="${l.ourCompanyEmail}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   				<td colspan="9">등록된 정보가 없습니다.</td>
 						   			</tr>
 									</tbody>						
 								</table>
