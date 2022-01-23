@@ -9,7 +9,6 @@
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
-			s.contractorCode,
 			s.vehicleCheckpointCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
@@ -34,26 +33,18 @@
 			(
 				shippingCode,
 				mainBusinessCode,
-				contractorCode,
 				vehicleCheckpointCode,
-				releaseMergeCode,
-				shippingAddress,
-				shippingDetailAddress,
+				releaseCode,
 				memberId,
-				memberPhone,
 				shippingDetail,
 				driverId,
 				shippingTracking
 			)VALUES(
 				#{shippingCode}
 				,"공장A공장_서울_1"
-			 	,"partners-driver-a"
 				,#{vehicleCheckpointCode}
-				,#{releaseMergeCode}
-				,#{shippingAddress}
-				,#{shippingDetailAddress}
+				,#{releaseCode}
 				,#{memberId}
-				,#{memberPhone}
 				,#{shippingDetail}
 				,#{driverId}
 				,#{shippingTracking}
@@ -67,7 +58,6 @@
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
-			s.contractorCode,
 			s.vehicleCheckpointCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
@@ -95,9 +85,6 @@
 			</if>
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				mainBusinessCode = "공장A공장_서울_1",
-			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				contractorCode = "partners-driver-a",
 			</if>
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				vehicleCheckpointCode = #{vehicleCheckpointCode},
@@ -131,5 +118,16 @@
 			</if>
 		</trim>
 	</select>
+	
+	<!-- 삭제 -->
+	<delete id="k3DeleteShipping" parameterType="Integer">
+		DELETE
+			s
+		FROM
+			k3_tb_shipping AS s
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or shippingCode=#{deleteList}
+		</foreach>	
+	</delete>
 
 </mapper>

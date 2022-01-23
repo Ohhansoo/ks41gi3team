@@ -38,7 +38,7 @@
 						});  						
 						if(submitCheck) $('#userInfo').submit();
 					});
-				var modal = $('.modal');
+				var modal = $('#vehicleModal');
 				
 				$(".exitBtn").click(function(){
 						
@@ -86,9 +86,10 @@
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.memberId:checked');
 	 				var memberId = $('#memberId');
+	 				var memberName = $('#memberName');
 					
 	 				var vehicleMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
-	 				
+	 				memberName.attr('value', vehicleMemberIdValue);
 	 				memberId.attr('value',vehicleMemberIdValue);
 
 					modal.addClass('hidden');
@@ -101,13 +102,13 @@
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
+				<div class="container-fluid d-flex justify-content-center">
 					
 					<!--카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header cardHeadBorder">
-							<h4>차량기사 등록</h4>
+							<h4>차량 정보 수정</h4>
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -120,7 +121,8 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">점검 담당자</label>
-										<input class="inputBox" type="text" id="memberId" name="memberId" th:value="${vehicleInfo.memberId}"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${vehicleInfo.memberId}"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${vehicleInfo.memberName}"/>
 										<button class="vehicleMemberId_btn" type="button">담당자 수정</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
@@ -136,14 +138,14 @@
 										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage" th:value="${vehicleInfo.vehicleTonage}"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="vehicleInspectionDate" class="inputName">점검일시</label>
-										<input class="inputBox" type="text" id="vehicleInspectionDate" name="vehicleInspectionDate"th:value="${vehicleInfo.vehicleInspectionDate}"/>
+										<label for="vehicleInspectionDate" class="inputName">점검일</label>
+										<input class="inputBox" type="date" id="vehicleInspectionDate" name="vehicleInspectionDate"th:value="${vehicleInfo.vehicleInspectionDate}"/>
 									</div>								
 									<div class="inputwrap col-md-12">
 										<label for="vehicleDriveAvailability" class="inputName">운행 가능 여부</label>
 										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability" th:value="${vehicleInfo.vehicleDriveAvailability}"/>
 									</div>			
-									<div class="d-flex justify-content-center">
+									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
 										<button id="cancleBtn" type="submit" class="ahsbtn5 btn btn-primary">취소</button>
 									</div>	
@@ -158,7 +160,7 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 			<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id = "vehicleModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">

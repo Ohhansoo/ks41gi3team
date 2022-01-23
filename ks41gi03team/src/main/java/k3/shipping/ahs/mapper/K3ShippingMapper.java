@@ -23,5 +23,8 @@ public interface K3ShippingMapper {
 	
 	//검색
 	public List<K3Shipping> k3SearchShippingList(String shippingKey, String shippingValue);
+	
+	//체크 삭제
+	public Integer k3DeleteShipping(List<String> deleteList);
 }
 

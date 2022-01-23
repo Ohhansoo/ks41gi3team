@@ -16,7 +16,6 @@
 		SELECT
 			c.vehicleCheckpointCode,
 			c.mainBusinessCode,
-			c.contractorCode,
 			c.driverId, 
 			d.driverName,
 			c.vehicleCode,
@@ -27,7 +26,7 @@
 		INNER JOIN
 			k3_tb_driver as d
 		ON 
-			c.driverId = d.driverId;
+			c.driverId = d.driverId
 	
 	</select>
 	
@@ -37,7 +36,6 @@
 		(
 			vehicleCheckpointCode,
 			mainBusinessCode,
-			contractorCode,
 			driverId,
 			vehicleCode,
 			vehicleArrivalDate,
@@ -45,7 +43,6 @@
 		)VALUES(
 			#{vehicleCheckpointCode},
 			"공장A공장_서울_1",
-			"partners-driver-a",
 			#{driverId},
 			#{vehicleCode},
 			#{vehicleArrivalDate},
@@ -56,17 +53,21 @@
 	<!-- 수정 -->
 	<select id="getModifyCheckpoint" resultType="K3Checkpoint">
 		SELECT
-			vehicleCheckpointCode,
-			mainBusinessCode,
-			contractorCode,
-			driverId, 
-			vehicleCode,
-			vehicleArrivalDate,
-			vehicleShipmentDate
+			c.vehicleCheckpointCode,
+			c.mainBusinessCode,
+			c.driverId, 
+			d.driverName,
+			c.vehicleCode,
+			c.vehicleArrivalDate,
+			c.vehicleShipmentDate
 		FROM
-			k3_tb_vehicle_checkpoint
+			k3_tb_vehicle_checkpoint as c
+		INNER JOIN
+			k3_tb_driver as d
 		WHERE
-			vehicleCheckpointCode = #{vehicleCheckpointCode};
+			vehicleCheckpointCode = #{vehicleCheckpointCode}
+		GROUP BY
+			c.vehicleCheckpointCode
 	</select>
 	
 	<!-- 수정 -->
@@ -80,10 +81,10 @@
 				mainBusinessCode = "공장A공장_서울_1",
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
-				contractorCode = "partners-driver-a",
+				driverId = #{driverId},
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
-				driverId = #{driverId},
+				driverName = #{driverName},
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				vehicleCode = #{vehicleCode},
@@ -101,13 +102,13 @@
 	
 	<!-- 삭제 -->
 	<delete id="k3DeleteCheckpoint" parameterType="Integer">
-		DELECT
-			vc
+		DELETE
+			c
 		FROM
-			k3_tb_vehicle_checkpoint AS vc
-			<foreach collection="list" item="deleteList" open="WHERE 1=2">
-				or vehicleCheckpointCode = #{deleteList}
-			</foreach>
+			k3_tb_vehicle_checkpoint AS c
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or vehicleCheckpointCode=#{deleteList}
+		</foreach>	
 	</delete>
 	
 	<!-- 검색 -->

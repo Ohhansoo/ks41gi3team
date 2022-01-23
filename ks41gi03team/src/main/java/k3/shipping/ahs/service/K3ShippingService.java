@@ -44,4 +44,10 @@ public class K3ShippingService {
 		List<K3Shipping> k3ShippingList = k3ShippingMapper.k3SearchShippingList(shippingKey, shippingValue);
 		return k3ShippingList;
 	}
+	
+	//체크 삭제
+	public Integer k3DeleteShipping(List<String> deleteList) {
+		Integer result = k3ShippingMapper.k3DeleteShipping(deleteList);
+		return result;
+	}
 }
