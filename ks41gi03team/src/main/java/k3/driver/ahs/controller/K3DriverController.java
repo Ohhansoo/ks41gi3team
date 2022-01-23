@@ -30,6 +30,20 @@ public class K3DriverController {
 		this.k3DriverService = k3DriverService;
 	}
 	
+	//중복확인 
+		@PostMapping("/driverCheck")
+		@ResponseBody
+		public boolean driverCheck(@RequestParam(value="driverId", required = false) String driverId) {
+			
+			boolean checkResult = false;
+			
+			Integer check = k3DriverService.getOverlappedDriverId(driverId);
+			
+			if(check > 0) checkResult = true;
+			
+			return checkResult;
+		}
+	
 	//현황
 	@GetMapping("/k3DriverList")
 	public String getDriverList(Model model) {
@@ -100,13 +114,14 @@ public class K3DriverController {
 										@RequestParam(value="driverValue", required = false) String driverValue,
 										Model model) {
 		if(driverKey != null && "driver".equals(driverKey)) {
-			driverKey = "driverCode";
-		}else if(driverKey != null && "name".equals(driverKey)) {
+			driverKey = "driverId";
+		}else if(driverKey != null && "dname".equals(driverKey)) {
 			driverKey = "driverName";
 		}
 		List<K3Driver> driverList = k3DriverService.k3SearchDriverList(driverKey, driverValue);
 		
-		model.addAttribute("title", "차량기사 관리");
+		model.addAttribute("title", "차량 기사 관리");
+		model.addAttribute("subtitle", "차량 기사 검색");
 		model.addAttribute("driverList", driverList);
 		
 		return "team03/delivery/driver/k3DriverList";

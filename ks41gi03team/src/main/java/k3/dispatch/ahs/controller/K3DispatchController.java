@@ -100,7 +100,7 @@ public class K3DispatchController {
 										Model model) {
 		if(dispatchKey != null && "dispatch".equals(dispatchKey)) {
 			dispatchKey = "dispatchCode";
-		}else if(dispatchKey != null && "drive".equals(dispatchKey)) {
+		}else if(dispatchKey != null && "driver".equals(dispatchKey)) {
 			dispatchKey = "driverName";
 		}else if(dispatchKey != null && "vehicle".equals(dispatchKey)) {
 			dispatchKey = "vehicleCode";
@@ -108,7 +108,8 @@ public class K3DispatchController {
 		
 		List<K3Dispatch> dispatchList = k3DispatchService.k3SearchDispatchList(dispatchKey, dispatchValue);
 		
-		model.addAttribute("title", "배차 검색");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 검색");
 		model.addAttribute("dispatchList", dispatchList);
 		
 		return"team03/delivery/dispatch/k3DispatchList";

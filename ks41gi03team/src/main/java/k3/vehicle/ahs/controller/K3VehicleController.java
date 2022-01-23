@@ -97,6 +97,7 @@ public class K3VehicleController {
 		List<K3Vehicle> vehicleList = k3VehicleService.k3SearchVehicleList(vehicleKey, vehicleValue);
 		
 		model.addAttribute("title", "차량 관리");
+		model.addAttribute("subtitle", "차량 검색");
 		model.addAttribute("vehicleList", vehicleList);
 		
 		return "team03/delivery/vehicle/k3VehicleList";

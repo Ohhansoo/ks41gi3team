@@ -111,6 +111,7 @@ public class K3CheckpointController {
 		List<K3Checkpoint> checkpointList = k3CheckpointService.k3SearchCheckpointList(checkpointKey, checkpointValue);
 		
 		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("title", "입출하 차량 검색");
 		model.addAttribute("checkpointList", checkpointList);
 		
 		return "team03/delivery/checkpoint/k3CheckpointList";

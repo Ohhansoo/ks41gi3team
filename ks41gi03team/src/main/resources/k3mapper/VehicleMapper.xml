@@ -125,9 +125,21 @@
 	<!-- 검색 -->
 	<select id="k3SearchVehicleList" resultType="K3Vehicle">
 		SELECT
-			*
+			v.vehicleCode,
+			v.mainBusinessCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			m.memberName,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
 		FROM
-			k3_tb_vehicle
+			k3_tb_vehicle AS v
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			v.memberId = m.memberId;
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="vehicleValue != null and vehicleValue != ''.toString()">
 				${vehicleKey} LIKE CONCAT('%', #{vehicleValue}, '%');

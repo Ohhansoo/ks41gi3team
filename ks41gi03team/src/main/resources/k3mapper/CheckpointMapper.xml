@@ -26,7 +26,7 @@
 		INNER JOIN
 			k3_tb_driver as d
 		ON 
-			c.driverId = d.driverId;
+			c.driverId = d.driverId
 	
 	</select>
 	
@@ -53,16 +53,21 @@
 	<!-- 수정 -->
 	<select id="getModifyCheckpoint" resultType="K3Checkpoint">
 		SELECT
-			vehicleCheckpointCode,
-			mainBusinessCode,
-			driverId, 
-			vehicleCode,
-			vehicleArrivalDate,
-			vehicleShipmentDate
+			c.vehicleCheckpointCode,
+			c.mainBusinessCode,
+			c.driverId, 
+			d.driverName,
+			c.vehicleCode,
+			c.vehicleArrivalDate,
+			c.vehicleShipmentDate
 		FROM
-			k3_tb_vehicle_checkpoint
+			k3_tb_vehicle_checkpoint as c
+		INNER JOIN
+			k3_tb_driver as d
 		WHERE
-			vehicleCheckpointCode = #{vehicleCheckpointCode};
+			vehicleCheckpointCode = #{vehicleCheckpointCode}
+		GROUP BY
+			c.vehicleCheckpointCode
 	</select>
 	
 	<!-- 수정 -->
@@ -77,6 +82,9 @@
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				driverId = #{driverId},
+			</if>
+			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
+				driverName = #{driverName},
 			</if>
 			<if test="vehicleCheckpointCode != null and vehicleCheckpointCode != ''.toString()">
 				vehicleCode = #{vehicleCode},

@@ -72,7 +72,7 @@
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="dispatchKey">
 												<option value="dispatch">배차 코드</option>
-												<option value="driver">차량기사</option>
+												<option value="driver">차량 기사</option>
 												<option value="vehicle">차량 코드</option>
 											</select>
 										<input type="text" class="form-control" placeholder="검색" name="dispatchValue">
@@ -101,7 +101,6 @@
 										<th>선택</th>
 										<th>수정</th>	
 										<th>배차 코드</th>
-										<th>상품출고 코드</th>
 										<th>상품출고 통합코드</th>
 										<th>차량기사</th>
 										<th>차량 코드</th>
@@ -125,7 +124,6 @@
 										</a>
 										</td>
 										<td th:text="${l.dispatchCode}"></td>
-										<td th:text="${l.releaseCode}"></td>
 										<td th:text="${l.releaseMergeCode}"></td>
 										<td th:text="${l.driverName}"></td>
 										<td th:text="${l.vehicleCode}"></td>

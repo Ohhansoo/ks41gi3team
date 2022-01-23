@@ -3,7 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.driver.ahs.mapper.K3DriverMapper">
-
+	
+	
+	<select id="getOverlappedDriverId" parameterType="String"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_driver AS d
+		WHERE
+			d.driverId = #{driverId};
+		
+	</select>
+	
 	<!-- 현황 -->
 	<select id="getDriverList" resultType="K3Driver">
 		SELECT

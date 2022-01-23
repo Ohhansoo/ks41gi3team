@@ -21,6 +21,13 @@ public class K3DriverService {
 		this.k3DriverMapper = k3DriverMapper;
 	}
 	
+	//중복확인
+			public Integer getOverlappedDriverId(String driverId) {
+				Integer result = 0;
+				result += k3DriverMapper.getOverlappedDriverId(driverId);
+				return result;
+			}
+			
 	//현황
 	public List<K3Driver> getDriverList(){
 		List<K3Driver> driverList = k3DriverMapper.getDriverList();

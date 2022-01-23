@@ -10,6 +10,8 @@ import k3.driver.ahs.dto.K3Driver;
 @Mapper
 public interface K3DriverMapper {
 	
+	//중복 확인
+	public Integer getOverlappedDriverId(String driverId);
 	//현황
 	public List<K3Driver> getDriverList();
 	
