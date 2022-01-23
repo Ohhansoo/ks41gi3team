@@ -167,7 +167,7 @@ public class K3MemberUserController {
 		  memberuserKey = "memberstreetaddress"; 
 	  }else if(memberuserKey != null && "memberdetailaddress".equals(memberuserKey)) { 
 		  memberuserKey = "memberdetailaddress"; 
-	  } if(memberuserDateKey != null && "memberuserRegDate".equals(memberuserDateKey)) { 
+	  }else if(memberuserDateKey != null && "memberuserRegDate".equals(memberuserDateKey)) { 
 		  memberuserDateKey = "memberuserRegDate"; 
 	  }else if(memberuserDateKey != null && "memberuserHiredDate".equals(memberuserDateKey)) { 
 		  memberuserDateKey = "memberuserHiredDate"; 
@@ -176,8 +176,8 @@ public class K3MemberUserController {
 	  searchCondition.put("memberuserValue", memberuserValue);
 	  searchCondition.put("searchStarDate", searchStartDate);
 	  searchCondition.put("searchEndDate", searchEndDate);
-	  searchCondition.put("memberuserDateKey", memberuserDateKey); System.out.
-	  println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
+	  searchCondition.put("memberuserDateKey", memberuserDateKey); 
+	  System.out.println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
 	  
 	  List<K3MemberUser> memberuserList = memberuserService.k3GetMemberUserSearchList(searchCondition);
 	  model.addAttribute("memberuserList",memberuserList);

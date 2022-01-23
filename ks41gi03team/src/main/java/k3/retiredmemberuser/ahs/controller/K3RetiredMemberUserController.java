@@ -57,12 +57,12 @@ public class K3RetiredMemberUserController {
 		
 	}
 	
-	//퇴사회원 검색
+	//퇴사직원 검색
 	  @PostMapping("/k3RetiredMemberUserList")
 	  public String k3GetRetiredMemberUserSearch(@RequestParam(value="retiredmemberuserKey", required = false) String retiredmemberuserKey,
-				  								 @RequestParam(value="retiredmemberuserValue", required = false) String retiredmemberuserValue,
-				  								 Model model) {
-		  
+				  								 								@RequestParam(value="retiredmemberuserValue", required = false) String retiredmemberuserValue,
+				  								 								Model model) {
+		  System.out.println("퇴사직원 검색 20220122 k3GetRetiredMemberUserSearch");
 		  Map<String, Object> searchCondition = new HashMap<String, Object>();
 		  
 		  if(retiredmemberuserKey != null && "memberId".equals(retiredmemberuserKey)) {

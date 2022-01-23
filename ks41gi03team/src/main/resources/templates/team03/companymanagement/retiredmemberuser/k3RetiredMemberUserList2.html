@@ -6,53 +6,22 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
-	<script>
-			$(function(){				
-				$('#addmemberuserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
-				});
-				
-				$(document).on('click', '#deleteMemberUserBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
-			});
-		</script>
+		
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
-					<div class="d-flex justify-content-end">					
-						<button id="addmemberuserBtn" class="btn btn-outline-info ahsbtn4" type="button">
+					<div class="d-flex justify-content-end">
+						<button id="memberuserBtn" class="btn btn-outline-info ahsbtn5" type="button" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM'}">
 							<i class="bi bi-file-earmark-plus"></i>
-							등록
-						</button>			
+							직원 현황
+						</button>						
 						<button class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="deleteMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-trash"></i>
-							삭제
-						</button>					
 					</div>	
-					<!--End 버튼 영역 -->
 					<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
 					<div class="card cardColor">
@@ -68,25 +37,26 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList}"  method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="memberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+											<select name="retiredmemberuserKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
 												<option value="memberId">직원ID</option>
 												<option value="memberPassword">직원PW</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="levelMemberCode">권한번호</option>
 												<option value="memberName">직원이름</option>
 												<option value="memberGender">성별</option>
-												<option value="memberAddr">주소</option>
 												<option value="memberPhone">전화번호</option>
 												<option value="memberResidentRegistrationNumber">주민번호</option>
-												<option value="memberState">직원계정상태</option>
-												<option value="memberRegDate">등록일자</option>
-												<option value="memberHiredDate">입사일자</option>
+												<option value="memberResidentRegistrationNumber">우편번호</option>
+												<option value="memberResidentRegistrationNumber">도로명 주소</option>
 										</select>
-										<input type="text" class="form-control" placeholder="검색" name="memberuserValue">
-										<button type="submit">검색</button>
-											</div>
+										<input type="text" class="form-control" placeholder="검색" name="memberuserValue" style="width: 300px;">
+										<div class="input-group-append">
+											<button id="memberuserInfoSearch" type="submit">
+												<i class="fas fa-search icon"></i>
+											</button>
+										</div>
 									</div>
-									</form>
+								</form>
 								<!--End inputbox 1 -->
 	 						</div>
 						</div>					
@@ -101,7 +71,7 @@
 						</div>
 						<!-- End card header -->
 						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
 								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
@@ -111,7 +81,6 @@
 						                     <th>권한번호</th>
 						                     <th>직원이름</th>
 						                     <th>성별</th>
-						                     <th>주소</th>
 						                     <th>전화번호</th>
 						                     <th>주민번호</th>
 						                     <th>직원계정상태</th>
@@ -127,7 +96,6 @@
 						   				<td th:text="${l.levelMemberCode}"></td>
 						   				<td th:text="${l.memberName}"></td>
 						   				<td th:text="${l.memberGender}"></td>
-						   				<td th:text="${l.memberAddr}"></td>
 						   				<td th:text="${l.memberPhone}"></td>
 						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
 						   				<td th:text="${l.memberState}"></td>

@@ -19,6 +19,32 @@
 				$('#addmemberuserBtn').on('click', function(){
 					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
 				});
+				$('#printMemberUserBtn').on('click', function(){
+					 	let $container = $("#searchForm").clone()    // 프린트 할 특정 영역 복사
+					    let cssText = ""                            // 스타일 복사
+					    for (const node of $("style")) {
+					        cssText += node.innerHTML
+					    }
+					    /** 팝업 */
+					    let innerHtml = $container[0].innerHTML
+					    let popupWindow = window.open("", "_blank", "width=700,height=800")
+					    popupWindow.document.write("<!DOCTYPE html>"+
+					      "<html>"+
+					        "<head>"+
+					        "<style>"+cssText+"</style>"+
+					        "</head>"+
+					        "<body>"+innerHtml+"</body>"+
+					      "</html>")
+					   
+					    popupWindow.document.close()
+					    popupWindow.focus()
+					
+					    /** 1초 지연 */
+					    setTimeout(() => {
+					        popupWindow.print()         // 팝업의 프린트 도구 시작
+					        popupWindow.close()         // 프린트 도구 닫혔을 경우 팝업 닫기
+					    }, 1000)
+					});
 				
 				$(document).on('click', '#deleteMemberUserBtn', function(){
 					/* location.href = '/team03/companymanagement/retiredmemberuser/k3RetiredMemberUserList'; */
@@ -57,7 +83,7 @@
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printMemberUserBtn"class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
@@ -90,6 +116,8 @@
 												<option value="memberGender">성별</option>
 												<option value="memberPhone">전화번호</option>
 												<option value="memberResidentRegistrationNumber">주민번호</option>
+												<option value="memberpostaladdress">우편번호</option>
+												<option value="memberstreetaddress">도로명주소</option>
 										</select>
 										<input type="text" class="form-control" placeholder="검색" name="memberuserValue" style="width: 300px;">
 										<div class=" input-group-append">
@@ -148,7 +176,7 @@
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover"style="height: 450px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/member/k3RemoveMemberUser}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
+								<table id="table" class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<th>선택</th>
@@ -160,13 +188,15 @@
 						                     <th>권한번호</th>
 						                     <th>직원이름</th>
 						                     <th>성별</th>
+						                     <th>이메일</th>
 						                     <th>전화번호</th>
+						                     <th>우편번호</th>	
+						                     <th>도로명주소</th>	
 						                     <th>주민번호</th>
 						                     <th>직원계정상태</th>
 						                     <th>등록일자</th>
 						                     <th>입사일자</th>	
-						                     <th>우편번호</th>	
-						                     <th>도로명주소</th>	
+						                     
 										</tr>
 									</thead>
 									<tbody>								
@@ -189,13 +219,15 @@
 						   				<td th:text="${l.levelMemberCode}"></td>
 						   				<td th:text="${l.memberName}"></td>
 						   				<td th:text="${l.memberGender}"></td>
+						   				<td th:text="${l.memberEmail}"></td>
 						   				<td th:text="${l.memberPhone}"></td>
+						   				<td th:text="${l.memberpostaladdress}"></td>
+						   				<td th:text="${l.memberstreetaddress}"></td>
 						   				<td th:text="${l.memberResidentRegistrationNumber}"></td>
 						   				<td th:text="${l.memberState}"></td>
 						   				<td th:text="${l.memberRegDate}"></td>
 						   				<td th:text="${l.memberHiredDate}"></td>
-						   				<td th:text="${l.memberpostaladdress}"></td>
-						   				<td th:text="${l.memberstreetaddress}"></td>
+
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}">
 									<td colspan="100%">
