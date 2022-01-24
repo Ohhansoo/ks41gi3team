@@ -6,6 +6,8 @@
 	<resultMap id="releaseResultMap" type="K3Release" >
  		<id column="releaseCode" property="releaseCode" />
  		<result column="stockCode" property="stockCode" />
+ 		<result column="contractorId" property="contractorId" />
+ 		<result column="productCode" property="productCode" />
  		<result column="releaseMergeCode" property="releaseMergeCode" />
 		<result column="releaseGoodsCount" property="releaseGoodsCount" />
 		<result column="area" property="area" />
@@ -15,8 +17,9 @@
 		<result column="recipientPhone" property="recipientPhone" />
 		<result column="releaseManager" property="releaseManager" />
 		<result column="releaseAllow" property="releaseAllow" />
-		<result column="accepDate" property="accepDate" />
+		<result column="acceptDate" property="acceptDate" />
 		<result column="releaseDate" property="releaseDate" />
+		<result column="releaseRequestDate" property="releaseRequestDate" />
 		<result column="shipmentCheckManager" property="shipmentCheckManager" />
 		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
 		<result column="shipmentCheckResult" property="shipmentCheckResult" />
@@ -31,12 +34,39 @@
 		</association>
 	</resultMap>
 	
+	<!-- 출고 요청 등록 -->
 	<insert id="k3AddRelease">
 		INSERT INTO k3_tb_release
-			(releaseCode, stockCode, releaseMergeCode, releaseGoodsCount, area, postCode, shippingAddress, shippingDetailAddress, recipientName, recipientPhone, releaseDate)
-			VALUES (
-				'iiiii', 
-				#{stockCode}, 
+			(releaseCode, stockCode, contractorId, productCode, releaseMergeCode, releaseGoodsCount, area, postCode, shippingAddress, shippingDetailAddress, recipientName, recipientPhone, releaseRequestDate)
+			SELECT
+				CONCAT(MAX(SUBSTRING(releaseCode,1,7)),CAST(MAX(SUBSTRING(releaseCode,8))AS DECIMAL) + 1), 
+				#{stockCode},
+				(SELECT DISTINCT w.contractorId
+				 FROM
+					k3_tb_release AS r
+					INNER JOIN
+					k3_tb_stock AS s
+					ON
+					r.stockCode = s.stockCode
+					INNER JOIN
+					k3_tb_warehousing AS w
+					ON
+					s.warehousingCode = w.warehousingCode
+				 WHERE
+				 	s.stockCode = #{stockCode}) AS contractorId,				 
+				(SELECT DISTINCT w.productCode
+				 FROM
+					k3_tb_release AS r
+					INNER JOIN
+					k3_tb_stock AS s
+					ON
+					r.stockCode = s.stockCode
+					INNER JOIN
+					k3_tb_warehousing AS w
+					ON
+					s.warehousingCode = w.warehousingCode
+				 WHERE
+				 	s.stockCode = #{stockCode}) AS productCode,				 
 				#{releaseMergeCode}, 
 				#{releaseGoodsCount}, 
 				#{area},
@@ -45,8 +75,9 @@
 				#{shippingDetailAddress},
 				#{recipientName},
 				#{recipientPhone},
-				#{releaseDate}
-				)	
+				#{releaseRequestDate}
+			FROM
+				k3_tb_release
 	</insert>
 	
 	<!-- 모달  : 상품명 찾기-->
@@ -71,18 +102,35 @@
 	
 	</select>
 	
+	<!--출고승인  -->
+	<update id="k3AllowRelease" parameterType="map">
+		UPDATE
+			k3_tb_release
+		<trim prefix="SET" prefixOverrides=",">
+			,releaseAllow = #{YesOrNo}
+			<if test="YesOrNo eq 'Y'.toString()">		   			
+				,acceptDate = CURDATE()
+			</if>	
+		</trim>	
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<foreach collection="allowList" item="allowList">
+				OR releaseCode = #{allowList}
+			</foreach>			
+		</trim>
+	</update>
+	
 	<!-- 출고 승인 리스트 -->
 	<select id="k3RequestAllowRelease" resultMap="releaseResultMap">
 		SELECT
 			r.releaseCode,
+			r.releaseMergeCode,
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
 			r.AREA,
 			r.shippingAddress,
 			r.shippingDetailAddress,
-			r.recipientName,
-			r.recipientPhone
+			r.releaseRequestDate
 		FROM
 			k3_tb_release AS r
 			INNER JOIN

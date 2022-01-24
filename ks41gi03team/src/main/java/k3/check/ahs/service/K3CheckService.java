@@ -20,13 +20,7 @@ public class K3CheckService {
 	public K3CheckService(K3CheckMapper k3CheckMapper) {
 		this.k3CheckMapper = k3CheckMapper;
 	}
-	//출하검수 현황 이동
-	public List<K3Release> k3GetShipmentCheckList() {
-		List<K3Release> K3ShipmentCheck = k3CheckMapper.k3GetShipmentCheckList();
-		return K3ShipmentCheck;
-	}
-	
-	//--------------------------------------------- 입하검수 -----------------------------------------------
+
 	
 	//입하검수현황 조회 처리
 	public Map<String, Object> k3GetLaydownSearchList(Map<String, Object> searchCondition, int currentPage) {
@@ -85,8 +79,8 @@ public class K3CheckService {
 	}
 	
 	//입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
-	public List<K3Warehousing> getLaydownCheckList(String warehousingCode, String type) {
-		List<K3Warehousing> laydownCheckList = k3CheckMapper.getLaydownCheckList(warehousingCode, type);		
+	public List<K3Warehousing> k3GetLaydownCheckUpdateList(String warehousingCode, String type) {
+		List<K3Warehousing> laydownCheckList = k3CheckMapper.k3GetLaydownCheckUpdateList(warehousingCode, type);		
 		return laydownCheckList;
 	}
 	

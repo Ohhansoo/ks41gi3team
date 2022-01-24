@@ -1,18 +1,14 @@
-package k3.check.ahs.mapper;
+package k3.warehousing.ahs.mapper;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import k3.check.ahs.dto.K3LaydownCheck;
-import k3.check.ahs.dto.K3ShipmentCheck;
-import k3.release.ahs.dto.K3Release;
 import k3.warehousing.ahs.dto.K3Warehousing;
 
 @Mapper
-public interface K3CheckMapper {
-
+public interface K3LaydownCheckMapper {
 	//입하검수현황 조회처리
 	public List<Map<String,Object>> k3GetLaydownSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
 	//입하검수 등록하기
