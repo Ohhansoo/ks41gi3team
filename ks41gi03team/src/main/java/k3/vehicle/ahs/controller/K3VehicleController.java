@@ -36,7 +36,8 @@ public class K3VehicleController {
 	@GetMapping("/k3VehicleList")
 	public String getVehicleList(Model model) {
 		List<K3Vehicle> vehicleList = k3VehicleService.getVehicleList();
-		model.addAttribute("title", "입출하 기록 관리");
+		model.addAttribute("title", "차량 관리");
+		model.addAttribute("subtitle", "차량 현황");
 		model.addAttribute("vehicleList", vehicleList);
 		
 		return "team03/delivery/vehicle/k3VehicleList";
@@ -45,6 +46,8 @@ public class K3VehicleController {
 	//등록 화면
 	@GetMapping("/k3AddVehicle")
 	public String addVehicle(Model model) {
+		model.addAttribute("title", "차량 관리");
+		model.addAttribute("subtitle", "차량 등록");
 		return "team03/delivery/vehicle/k3AddVehicle";
 	}
 	
@@ -67,7 +70,8 @@ public class K3VehicleController {
 			K3Vehicle vehicleInfo = k3VehicleService.getModifyVehicle(vehicleCode);
 			model.addAttribute("vehicleInfo", vehicleInfo);
 		}
-		model.addAttribute("title", "차량수정화면");
+		model.addAttribute("title", "차량 관리");
+		model.addAttribute("subtitle", "차량 수정");
 	
 		return "team03/delivery/vehicle/k3ModifyVehicle";
 	}
@@ -93,22 +97,34 @@ public class K3VehicleController {
 		List<K3Vehicle> vehicleList = k3VehicleService.k3SearchVehicleList(vehicleKey, vehicleValue);
 		
 		model.addAttribute("title", "차량 관리");
+		model.addAttribute("subtitle", "차량 검색");
 		model.addAttribute("vehicleList", vehicleList);
 		
 		return "team03/delivery/vehicle/k3VehicleList";
 	}
 	
 	//단건 삭제
-	@GetMapping("/k3DeleteVehicle")
-	public String k3DeleteVehicle(@RequestParam(value="vehicleCode", required=false) String vehicleCode, Model model) {
+	/*
+	 * @GetMapping("/k3DeleteVehicle") public String
+	 * k3DeleteVehicle(@RequestParam(value="vehicleCode", required=false) String
+	 * vehicleCode, Model model) { System.out.println("k3DeleteVehicle");
+	 * 
+	 * Integer result = k3VehicleService.k3DeleteVehicle(vehicleCode);
+	 * log.info("DeleteVehicle" + result); return
+	 * "redirect:/team03/delivery/vehicle/k3VehicleList"; }
+	 */
+	
+	//체크 삭제
+	@PostMapping("/k3DeleteVehicle")
+	public String k3DeleteVehicle(@RequestParam(value="deleteList[]", required=false) List<String> deleteList) {
 		System.out.println("k3DeleteVehicle");
 		
-		Integer result = k3VehicleService.k3DeleteVehicle(vehicleCode);
+		Integer result = k3VehicleService.k3DeleteVehicle(deleteList);
 		log.info("DeleteVehicle" + result);
 		return "redirect:/team03/delivery/vehicle/k3VehicleList";
 	}
 	
-	//담당자 선택처리 (@ResponseBody 중요)
+	//모달 (@ResponseBody 중요)
 	@PostMapping("/vehicleMemberId")
 	@ResponseBody
 	public List<Map<String, Object>> k3SelectVehicleMemberId(){

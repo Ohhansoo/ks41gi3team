@@ -56,5 +56,11 @@ public class K3OurcompanyService {
 			return ourcompanySearchList;
 	}
 	
+	//직원 모달
+	public List<Map<String, Object>> k3GetOurCompanyModalList(){
+		List<Map<String, Object>> ourcompanymodalList = ourcompanyMapper.k3GetOurCompanyModalList(null);
+		return null;
+	}
 	
+
 }

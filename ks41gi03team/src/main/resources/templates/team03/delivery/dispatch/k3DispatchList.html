@@ -5,12 +5,44 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customJs"> 
+	<script>
+		//삭제
+		$(function(){				
+			$('#addDispatchBtn').on('click', function(){
+				location.href = '/team03/delivery/dispatch/k3AddDispatch';
+			});
+			
+			$(document).on('click', '#deleteDispatchBtn', function(){
+				var check = $('.deleteList:checked');
+				var deleteCheckList = [];
+				
+				$.each(check, function(){
+					deleteCheckList.push($(this).val());
+				});
+	
+				
+				if(check.length > 0){
+					if(confirm(check.length + "개 항목을 삭제합니다.")){
+						
+						$('#dispatchForm').submit();
+					}
+					
+				}else{
+					alert("삭제할 항목을 선택해주세요.");
+				}
+			});
+		});
+			
+			
+		</script>	
+		</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/delivery/dispatch/k3AddDispatch'">
+						<button class="btn btn-outline-info ahsbtn4" id="addDispatchBtn" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -18,7 +50,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>				
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button class="btn btn-outline-info ahsbtn4" id="deleteDispatchBtn" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>			
@@ -40,7 +72,7 @@
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="dispatchKey">
 												<option value="dispatch">배차 코드</option>
-												<option value="driver">차량기사</option>
+												<option value="driver">차량 기사</option>
 												<option value="vehicle">차량 코드</option>
 											</select>
 										<input type="text" class="form-control" placeholder="검색" name="dispatchValue">
@@ -62,19 +94,19 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<form id="dispatchForm" th:action="@{/team03/delivery/dispatch/k3DeleteDispatch}" method="post">
 							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
-										<th>삭제</th>
+										<th>선택</th>
 										<th>수정</th>	
 										<th>배차 코드</th>
-										<th>상품출고 코드</th>
 										<th>상품출고 통합코드</th>
 										<th>차량기사</th>
 										<th>차량 코드</th>
 										<th>배송 시작일</th>
 										<th>배송예정 완료일</th>
-										<th>배차 지시자</th>
+										<th>배차 담당자</th>
 										<th>담당자 승인 일시</th>
 										<th>배송지</th>
 										<th>배송지 상세주소</th>
@@ -84,7 +116,7 @@
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(dispatchList)}" th:each="l : ${dispatchList}">
 										<td>
-											<input type="checkbox" value="선택">
+											<input type="checkbox" value="선택" class="deleteList" name="deleteList[]" th:value="${l.dispatchCode}">
 										</td>	
 										<td>
 										<a id="modifyDispatch" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/dispatch/k3ModifyDispatch(dispatchCode=${l.dispatchCode})}">
@@ -92,7 +124,6 @@
 										</a>
 										</td>
 										<td th:text="${l.dispatchCode}"></td>
-										<td th:text="${l.releaseCode}"></td>
 										<td th:text="${l.releaseMergeCode}"></td>
 										<td th:text="${l.driverName}"></td>
 										<td th:text="${l.vehicleCode}"></td>
@@ -106,6 +137,7 @@
 									</tr>
 								</tbody>						
 							</table>
+							</form>
 						</div>
 						<!--End card body -->
 					</div>

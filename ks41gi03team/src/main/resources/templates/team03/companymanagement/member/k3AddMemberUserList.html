@@ -4,7 +4,7 @@
    layout:decorate="@{layout/default}">
    <th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">
+		<link rel="stylesheet" th:href="@{/css/memberusermodal.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -91,6 +91,62 @@
 					if(submitCheck) $('#userInfo').submit();
 				});
 				
+				//모달
+				var modal = $('#busuinesModal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '#mainbusinesscode_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#k3ourcompanymodal').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/companymanagement/ourcompany/k3ourcompanymodal',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "mainBusinessCode"}
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="mainBusinessCode" name="mainBusinessCode" value="'+ row.mainBusinessCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.mainBusinessCode:checked');
+	 				var mainBusinessCode = $('#mainBusinessCode');
+					
+	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				mainBusinessCode.attr('value',mainBusinessCodeValue);
+
+					modal.addClass('hidden');
+				});
+				
 				$('#dupclicate_btn').click(function(){
 
 					var memberId = $('#memberId').val();
@@ -152,55 +208,56 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">직원ID</label>
 										<input class="inputBox" type="text" data-input-label="아이디" id="memberId" name="memberId"> 
-										<button type="button" id="dupclicate_btn">중복확인 </button> 
+										<button type="button" id="dupclicate_btn" class="btn btn-primary btn-sm">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="membersuserpasswordInput" class="inputName">직원PW</label>
+										<label for="memberPassword" class="inputName">직원PW</label>
 										<input class="inputBox" type="text" data-input-label="비밀번호" id="memberPassword" name="memberPassword" disabled="disabled"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="mainbusinesscodeInput" class="inputName">사업장별대표코드</label>
-										<input class="inputBox" type="text" id="mainBusinessCode"data-input-label="사업장별대표코드" name="mainBusinessCode" value="물류센터A물류센터_전북_1" readonly style="background-color:#BDBDBD">
+										<label for="mainBusinessCode" class="inputName">사업장별대표코드</label>
+										<input class="inputBox" type="text" id="mainBusinessCode" data-input-label="사업장별대표코드" name="mainBusinessCode">
+										<button class="btn btn-primary btn-sm" type="button" id="mainbusinesscode_btn">사업장 선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="levelcodeInput" class="inputName">권한코드</label>
-										<input class="inputBox" type="text" id="levelMemberCodeInput" data-input-label="권한코드" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
+										<label for="levelMemberCode" class="inputName">권한코드</label>
+										<input class="inputBox" type="text" id="levelMemberCode" data-input-label="권한코드" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="memberusernameInput" class="inputName">직원이름</label>
+										<label for="memberName" class="inputName">직원이름</label>
 										<input class="inputBox" type="text" id="memberName" data-input-label="이름" name=memberName disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberusergenderInput" class="inputName">성별</label>
-										<input class="inputBox" type="text" id="memberGenderInput" data-input-label="성별" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
+										<label for="memberGender" class="inputName">성별</label>
+										<input class="inputBox" type="text" id="memberGender" data-input-label="성별" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberuseremailInput" class="inputName">이메일</label>
+										<label for="memberEmail" class="inputName">이메일</label>
 										<input class="inputBox" type="text" id="memberEmail" data-input-label="이메일" name="memberEmail" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<label for="memberpostaladdress" class="inputName">우편번호</label>								
 										<input type="text" id="memberpostaladdress" data-input-label="우편번호" name="memberpostaladdress" placeholder="우편번호" disabled="disabled"/>
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberstreetaddressInput" class="inputName">도로명 주소</label>
+										<label for="memberstreetaddress" class="inputName">도로명 주소</label>
 										<input type="text" id="memberstreetaddress" data-input-label="도로명 주소" name="memberstreetaddress" placeholder="도로명주소" size="48" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="phoneInput" class="inputName">전화번호</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" data-input-label="전화번호" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
+										<label for="memberPhone" class="inputName">전화번호</label>
+										<input class="inputBox" type="text" id="memberPhone" data-input-label="전화번호" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="registCodeInput" class="inputName">주민번호</label>
+										<label for="memberResidentRegistrationNumber" class="inputName">주민번호</label>
 										<input class="inputBox" type="text" id="memberResidentRegistrationNumber" data-input-label="주민번호" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberStateInput" class="inputName">직원계정 상태</label>
+										<label for="memberState" class="inputName">직원계정 상태</label>
 										<input class="inputBox" type="text" id="memberState" data-input-label="직원계정 상태" name="memberState" value="일반" readonly style="background-color:#BDBDBD">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberRegDateInput" class="inputName">등록일자</label>
+										<label for="memberRegDate" class="inputName">등록일자</label>
 										<input class="inputBox" type="date" id="memberRegDate" data-input-label="등록일자" name="memberRegDate" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
@@ -222,33 +279,31 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id="busuinesModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">카테고리 선택</div>
+					<div class="textTitle">사업장별대표코드 선택</div>
 					<button class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="k3membermodal" class="dataTable">
+						<table border="1" id="k3ourcompanymodal" class="dataTable">
 							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
+								<tr bgcolor="#3F72AF">
+									<th>선택</th>	
 									<th>사업장별 대표코드</th>
-									<th>회원명</th>
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="memberConfirmBtn" class="btn btn-primary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
 		<!-- End 모달창 -->
 	</th:block>
-</head>

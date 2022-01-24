@@ -1,9 +1,10 @@
-package k3.vehicle.ahs.service;
+   package k3.vehicle.ahs.service;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import k3.vehicle.ahs.dto.K3Vehicle;
 import k3.vehicle.ahs.mapper.K3VehicleMapper;
@@ -11,6 +12,7 @@ import k3.vehicle.ahs.mapper.K3VehicleMapper;
 
 
 @Service
+@Transactional
 public class K3VehicleService {
 	
 	private K3VehicleMapper k3VehicleMapper;
@@ -49,8 +51,14 @@ public class K3VehicleService {
 	}
 	
 	//단건 삭제
-	public Integer k3DeleteVehicle(String vehicleCode) {
-		Integer result = k3VehicleMapper.k3DeleteVehicle(vehicleCode);
+	/*
+	 * public Integer k3DeleteVehicle(String vehicleCode) { Integer result =
+	 * k3VehicleMapper.k3DeleteVehicle(vehicleCode); return result; }
+	 */
+	
+	//체크 삭제
+	public Integer k3DeleteVehicle(List<String> deleteList) {
+		Integer result = k3VehicleMapper.k3DeleteVehicle(deleteList);
 		return result;
 	}
 	

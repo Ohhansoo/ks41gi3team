@@ -5,13 +5,45 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customJs"> 
+	<script>
+		//삭제
+		$(function(){				
+			$('#addDriverBtn').on('click', function(){
+				location.href = '/team03/delivery/driver/k3AddDriver';
+			});
+			
+			$(document).on('click', '#deleteDriverBtn', function(){
+				var check = $('.deleteList:checked');
+				var deleteCheckList = [];
+				
+				$.each(check, function(){
+					deleteCheckList.push($(this).val());
+				});
+	
+				
+				if(check.length > 0){
+					if(confirm(check.length + "개 항목을 삭제합니다.")){
+						
+						$('#driverForm').submit();
+					}
+					
+				}else{
+					alert("삭제할 항목을 선택해주세요.");
+				}
+			});
+		});
+			
+			
+		</script>	
+		</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/delivery/driver/k3AddDriver'">
+						<button class="btn btn-outline-info ahsbtn4" id="addDriverBtn" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -19,7 +51,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>					
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button class="btn btn-outline-info ahsbtn4" id="deleteDriverBtn" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>			
@@ -40,7 +72,7 @@
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="driverKey">
 												<option value="driver">기사 아이디</option>
-												<option value="name">기사 이름</option>
+												<option value="dname">기사 이름</option>
 											</select>
 										<input type="text" class="form-control" placeholder="검색" name="driverValue">
 										<button type="submit">검색</button>
@@ -61,10 +93,11 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+						<form id="driverForm" th:action="@{/team03/delivery/driver/k3DeleteDriver}" method="post">
 							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
-										<th>삭제</th>
+										<th>선택</th>
 										<th>수정</th>	
 										<th>기사 아이디</th>
 										<th>기사 이름</th>
@@ -79,7 +112,7 @@
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(driverList)}" th:each="l : ${driverList}">
 										<td>
-											<input type="checkbox" value="선택">
+											<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.driverId}">
 										</td>	
 										<td>
 										<a id="modifyDriver" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/driver/k3ModifyDriver(driverId=${l.driverId})}">
@@ -99,6 +132,7 @@
 									</tr>
 								</tbody>						
 							</table>
+							</form>
 						</div>
 						<!--End card body -->
 					</div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/release/k3ReleaseList';
+				});
+				
+				$(document).on('click', '#moveAddShipmentCheckBtn', function(){
+						var check = $('.shipmentCheckList:checked');
+						//var ladonwCheckList = [];
+						
+						
+						/* $.each(check, function(){
+							ladonwCheckList.push($(this).val());
+						}); */
+
+						
+						if(check.length == 1){
+							$('#shipmentCheckTable').submit();
+							
+						}else if(check.length > 1){
+							alert("한가지만 선택해주세요.");
+						}else{
+							alert("등록할 항목을 선택해주세요.");
+						}
+				});
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--버튼 영역 -->
+					<div class="d-flex justify-content-end" style="margin:15px;">
+						<button id="moveAddShipmentCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-check"></i>
+							검수등록
+						</button>
+						<button id="cancelBtn" type="button" class="btn btn-outline-info ahsbtn4">
+							<i class="bi bi-box-arrow-left"></i>
+							돌아가기						
+						</button>					
+					</div>
+					<!--End 버튼 영역 -->
+					<!--하위 카드 영역 -->
+					<div class="card cardColor">
+						<!--card header -->
+						<div class="card-header">
+							출하 현황
+						</div>
+						<!-- End card header -->
+						<!--card body -->
+						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
+							<form id="shipmentCheckTable" th:action="@{/team03/goodsManagement/release/k3AddShipmentCheck}" method="get">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>선택</th>
+											<th>출고코드</th>
+											<th>출고통합코드</th>
+											<th>상품명</th>
+											<th>개수</th>
+											<th>회사명</th>	
+											<th>출고요청날짜</th>						
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
+											<td>
+												<input type="checkbox" class="shipmentCheckList" name="releaseCode" th:value="${l.releaseCode}">
+											</td>
+											<td th:text="${l.releaseCode}"></td>
+											<td th:text="${l.releaseMergeCode}"></td>
+											<td th:text="${l.k3Product.productName}"></td>
+											<td th:text="${l.releaseGoodsCount}"></td>
+											<td th:text="${l.k3Contractor.contractorName}"></td>
+											<td th:text="${l.releaseRequestDate}"></td>
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
+											<td> 요청사항이 없습니다. </td>
+										</tr>
+									</tbody>						
+								</table>
+							</form>
+						</div>
+						<!--End card body -->
+					</div>
+					<!--End 하위 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+	</th:block>

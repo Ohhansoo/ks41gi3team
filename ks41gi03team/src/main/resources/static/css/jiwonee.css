@@ -12,3 +12,12 @@
     cursor:pointer;
 }
  */
+ 
+ .cards-box {
+            display: flex;
+            justify-content: space-between;
+
+
+            flex-wrap: wrap;
+            {#float: left;#}
+        }

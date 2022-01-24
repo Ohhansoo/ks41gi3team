@@ -37,6 +37,9 @@ public class K3CheckpointController {
 		List<K3Checkpoint> checkpointList = k3CheckpointService.getCheckpointList();
 		model.addAttribute("checkpointList", checkpointList);
 		
+		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("subtitle", "입출하 차량 현황");
+		
 		return "team03/delivery/checkpoint/k3CheckpointList";
 	}
 	
@@ -51,7 +54,10 @@ public class K3CheckpointController {
 	//등록 화면
 	@GetMapping("/k3AddCheckpoint")
 	public String chekcpointCheck(Model model) {
-		model.addAttribute("title", "입출차 차량 기록 등록");
+		
+		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("subtitle", "입출하 차량 등록");
+		
 		return "team03/delivery/checkpoint/k3AddCheckpoint";
 	}
 	
@@ -75,7 +81,8 @@ public class K3CheckpointController {
 			K3Checkpoint checkpointInfo = k3CheckpointService.getModifyCheckpoint(vehicleCheckpointCode);
 			model.addAttribute("checkpointInfo", checkpointInfo);
 		}
-		model.addAttribute("title", "입출하수정화면");
+		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("subtitle", "입출하 차량 수정");
 		
 		return "team03/delivery/checkpoint/k3ModifyCheckpoint";
 	}
@@ -104,6 +111,7 @@ public class K3CheckpointController {
 		List<K3Checkpoint> checkpointList = k3CheckpointService.k3SearchCheckpointList(checkpointKey, checkpointValue);
 		
 		model.addAttribute("title", "입출하 차량 관리");
+		model.addAttribute("title", "입출하 차량 검색");
 		model.addAttribute("checkpointList", checkpointList);
 		
 		return "team03/delivery/checkpoint/k3CheckpointList";

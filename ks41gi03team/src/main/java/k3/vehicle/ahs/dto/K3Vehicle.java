@@ -7,8 +7,10 @@ public class K3Vehicle {
 	private String vehicleType;
 	private String vehicleInspectionDate;
 	private String memberId;
+	private String memberName;
 	private String vehicleManufacturer;
 	private String vehicleDriveAvailability;
+	
 	public String getVehicleCode() {
 		return vehicleCode;
 	}
@@ -45,6 +47,12 @@ public class K3Vehicle {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public String getVehicleManufacturer() {
 		return vehicleManufacturer;
 	}
@@ -61,8 +69,8 @@ public class K3Vehicle {
 	public String toString() {
 		return "K3Vehicle [vehicleCode=" + vehicleCode + ", mainBusinessCode=" + mainBusinessCode + ", vehicleTonage="
 				+ vehicleTonage + ", vehicleType=" + vehicleType + ", vehicleInspectionDate=" + vehicleInspectionDate
-				+ ", memberId=" + memberId + ", vehicleManufacturer=" + vehicleManufacturer
-				+ ", vehicleDriveAvailability=" + vehicleDriveAvailability + "]";
+				+ ", memberId=" + memberId + ", memberName=" + memberName + ", vehicleManufacturer="
+				+ vehicleManufacturer + ", vehicleDriveAvailability=" + vehicleDriveAvailability + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -70,6 +78,7 @@ public class K3Vehicle {
 		int result = 1;
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((memberName == null) ? 0 : memberName.hashCode());
 		result = prime * result + ((vehicleCode == null) ? 0 : vehicleCode.hashCode());
 		result = prime * result + ((vehicleDriveAvailability == null) ? 0 : vehicleDriveAvailability.hashCode());
 		result = prime * result + ((vehicleInspectionDate == null) ? 0 : vehicleInspectionDate.hashCode());
@@ -96,6 +105,11 @@ public class K3Vehicle {
 			if (other.memberId != null)
 				return false;
 		} else if (!memberId.equals(other.memberId))
+			return false;
+		if (memberName == null) {
+			if (other.memberName != null)
+				return false;
+		} else if (!memberName.equals(other.memberName))
 			return false;
 		if (vehicleCode == null) {
 			if (other.vehicleCode != null)
@@ -129,6 +143,7 @@ public class K3Vehicle {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

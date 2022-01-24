@@ -163,7 +163,7 @@
 			m.memberpostaladdress = #{memberpostaladdress},
 			</if>
 			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
-			m.memberstreetaddress = #{memberstreetaddress}
+			m.memberstreetaddress = #{memberstreetaddress},
 			</if>
 			<if test="memberstreetaddress != null and memberstreetaddress != ''.toString()">
 			m.memberEmail = #{memberEmail}

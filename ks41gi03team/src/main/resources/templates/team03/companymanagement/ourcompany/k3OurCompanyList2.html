@@ -105,7 +105,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							사업장 조회
+							자사정보 조회
 						</div>
 						<!--End card header -->
 						<!--card body -->
@@ -116,12 +116,15 @@
 									<div class="input-group input-group-sm">
 										<div class="input-group-prepend">
 										<select name="ourCompanyKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-											<option value="mainBusinessCode">사업장별 대표코드</option>
-											<option value="businessCode">거래처 구분코드</option>
-											<option value="businessLevelCode">사업장 권한</option>
-											<option value="businessCodeRegistrationDate">사업장코드 등록일자</option>
-											<option value="businessManagementpostaladdress">사업장 우편번호</option>
-											<option value="businessManagementstreetaddress">사업장 도로명주소</option>
+											<option value="ourCompanyCode">자사 사업자등록번호</option>
+											<option value="ourCompanyBusinessPlaceCode">자사 종사업장번호</option>
+											<option value="ourCompanyBusinessName">자사 상호</option>
+											<option value="ourCompanyBusinessCheifName">자사 대표성명</option>
+											<option value="ourcompanypostaladdress">자사 우편번호</option>
+											<option value="ourcompanystreetaddress">자사 도로명주소</option>
+											<option value="ourCompanyStatus">자사 업태</option>
+											<option value="ourCompanyWorkType">자사 종목</option>
+											<option value="ourCompanyEmail">자사 이메일</option>
 										</select>
 										</div>
 											<input type="text" class="form-control" placeholder="검색" name="retiredmemberuserValue" style="width: 300px; height: 38px; ">
@@ -142,7 +145,7 @@
 					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
-							사업장 현황
+							자사 현황
 						</div>
 						<!-- End card header -->
 						<!--card body -->
@@ -153,12 +156,15 @@
 										<tr>
 											<!-- <th>삭제</th> -->	
 											<th>수정</th>
-											<th>사업장별 대표코드</th>
-							                <th>거래처 구분코드</th>
-							                <th>사업장 권한</th>
-							                <th>사업장코드 등록일자</th>
-							                <th>사업장 우편번호</th>
-							                <th>사업장 도로명주소</th>
+											<th>자사 사업자등록번호</th>
+							                <th>자사 종사업장번호</th>
+							                <th>자사 상호</th>
+							                <th>자사 대표성명</th>
+							                <th>자사 우편번호</th>
+							                <th>자사 도로명주소</th>
+							                <th>자사 업태</th>
+							                <th>자사 종목</th>
+							                <th>자사 이메일</th>	
 										</tr>
 									</thead>
 									<tbody>								
@@ -168,16 +174,19 @@
 											<input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}">
 										</td> -->
 						   				<td>
-										<a id="modifyOurCompany" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.mainBusinessCode})}">
+										<a id="modifyOurCompany" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.ourCompanyCode})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>
 										</td>	
-						   				<td th:text="${l.mainBusinessCode}"></td>
-								   		<td th:text="${l.businessCode}"></td>
-								   		<td th:text="${l.businessLevelCode}"></td>
-								   		<td th:text="${l.businessCodeRegistrationDate}"></td>
-								   		<td th:text="${l.businessManagementpostaladdress}"></td>
-								   		<td th:text="${l.businessManagementstreetaddress}"></td>
+						   				<td th:text="${l.ourCompanyCode}"></td>
+								   		<td th:text="${l.ourCompanyBusinessPlaceCode}"></td>
+								   		<td th:text="${l.ourCompanyBusinessName}"></td>
+								   		<td th:text="${l.ourCompanyBusinessCheifName}"></td>
+								   		<td th:text="${l.ourcompanypostaladdress}"></td>
+								   		<td th:text="${l.ourcompanystreetaddress}"></td>
+								   		<td th:text="${l.ourCompanyStatus}"></td>
+								   		<td th:text="${l.ourCompanyWorkType}"></td>
+								   		<td th:text="${l.ourCompanyEmail}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
 						   				<td colspan="9">등록된 정보가 없습니다.</td>

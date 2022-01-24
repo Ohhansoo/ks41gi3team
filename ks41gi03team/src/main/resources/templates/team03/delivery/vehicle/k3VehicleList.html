@@ -3,33 +3,43 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+		<title>ksmart41</title>	
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+   </th:block>
 	<th:block layout:fragment="customJs"> 
 	<script>
-			$(function(){				
-				
-				
-				$(document).on('click', '#deleteVehicleBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#vehicleForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
-					}
-				});
+		//삭제
+		$(function(){				
+			$('#addVehicleBtn').on('click', function(){
+				location.href = '/team03/delivery/vehicle/k3AddVehicle';
 			});
+			
+			$(document).on('click', '#deleteVehicleBtn', function(){
+				var check = $('.deleteList:checked');
+				var deleteCheckList = [];
+				
+				$.each(check, function(){
+					deleteCheckList.push($(this).val());
+				});
+	
+				
+				if(check.length > 0){
+					if(confirm(check.length + "개 항목을 삭제합니다.")){
+						
+						$('#vehicleForm').submit();
+					}
+					
+				}else{
+					alert("삭제할 항목을 선택해주세요.");
+				}
+			});
+		});
+			
+			
 		</script>	
 		</th:block>
 		
@@ -39,7 +49,7 @@
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button class="btn btn-outline-info ahsbtn4" type="submit" onclick="location.href='/team03/delivery/vehicle/k3AddVehicle'">
+						<button class="btn btn-outline-info ahsbtn4" id="addVehicleBtn" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
@@ -47,14 +57,15 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>					
-						<button id="deleteVehicleBtn" type="button" class="ahsbtn4 btn btn-outline-info deleteBbtn">
+						<button id="deleteVehicleBtn" type="button" class="ahsbtn4 btn btn-outline-info deleteBtn">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>				
 					</div>
 				<!--End 버튼 영역 -->
 					<!--상위 카드 영역 -->
-					<div class="card cardColor">
+					 <div id="card-box" class="cards-box">
+					<div class="card cardColor col-lg-6" >
 						<!--card header -->
 						<div class="card-header">
 							조회
@@ -64,7 +75,7 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-6" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
+								<form class="col-lg-12" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="vehicleKey">
 										<option value="vehicle">차량 코드</option>
@@ -74,11 +85,40 @@
 									</div>
 								</form>
 								<!--End inputbox 1 -->
+								
 	 						</div>
 						</div>					
 	 					<!--End card body 묶음 -->
 					</div>
 					<!--End 상위 카드 영역 -->
+					<!--상위 카드 영역 -->
+					<div class="card cardColor col-lg-6" >
+						<!--card header -->
+						<div class="card-header">
+							조회
+						</div>
+						<!--End card header -->
+						<!--card body -->
+						<div class="card-body">
+							<div class="row" style="margin: 12px">
+								<!--inputbox 1 -->
+								<form class="col-lg-12" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
+								<div class="input-group input-group-sm">
+									<select class="form-control-sm" name="vehicleKey">
+										<option value="vehicle">차량 코드</option>
+									</select>
+										<input type="text" class="form-control" placeholder="검색" name="vehicleValue">
+										<button type="submit">검색</button>
+									</div>
+								</form>
+								<!--End inputbox 1 -->
+								
+	 						</div>
+						</div>					
+	 					<!--End card body 묶음 -->
+					</div>
+					<!--End 상위 카드 영역 -->
+					</div>
 					<!--하위 카드 영역 -->
 					<div class="card underCard">
 						<!--card header -->
@@ -88,12 +128,11 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-						<form id="vehicleForm" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
+						<form id="vehicleForm" th:action="@{/team03/delivery/vehicle/k3DeleteVehicle}" method="post">
 							<table class="table table-head-fixed text-nowrap table-striped">
 								<thead>
 									<tr>
-										<th>삭제</th>
-										<th>단건삭제</th>
+										<th>선택</th>
 										<th>수정</th>	
 										<th>차량 코드</th>
 										<th>차량 등록 담당자</th>
@@ -110,15 +149,12 @@
 											<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.vehicleCode}">
 										</td>	
 										<td>
-											<a th:href="@{/team03/delivery/vehicle/k3DeleteVehicle(vehicleCode=${l.vehicleCode})}">삭제</a>
-										</td>
-										<td>
 										<a id="modifyVehicle" type="button" class="btn btn-default btn-sm" th:href="@{/team03/delivery/vehicle/k3ModifyVehicle(vehicleCode=${l.vehicleCode})}">
 												<i class="fas fa-pencil-alt icon"></i>
 										</a>
 										</td>
 										<td th:text="${l.vehicleCode}"></td>
-										<td th:text="${l.memberId}"></td>
+										<td th:text="${l.memberName}"></td>
 										<td th:text="${l.vehicleManufacturer}"></td>
 										<td th:text="${l.vehicleType}"></td>
 										<td th:text="${l.vehicleTonage}"></td>

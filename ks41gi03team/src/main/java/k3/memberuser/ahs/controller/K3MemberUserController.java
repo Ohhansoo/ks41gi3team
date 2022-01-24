@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import k3.memberuser.ahs.controller.K3MemberUserController;
 import k3.memberuser.ahs.dto.K3MemberUser;
 import k3.memberuser.ahs.service.K3MemberUserService;
+import k3.ourcompany.ahs.service.K3OurcompanyService;
 
 @Controller
 @RequestMapping(value="/team03/companymanagement/member")
@@ -25,9 +26,11 @@ public class K3MemberUserController {
 	private static final Logger log = LoggerFactory.getLogger(K3MemberUserController.class);
 	
 	private K3MemberUserService memberuserService;
+	private K3OurcompanyService ourcompanyService;
 	
-	public K3MemberUserController(K3MemberUserService memberuserService) {
+	public K3MemberUserController(K3MemberUserService memberuserService, K3OurcompanyService ourcompanyService) {
 		this.memberuserService = memberuserService;
+		this.ourcompanyService = ourcompanyService;
 	}
 
 	//중복확인 
@@ -252,7 +255,15 @@ public class K3MemberUserController {
 			return modalList;
 		}
 		
+		//모달
+		@PostMapping("/k3ourcompanymodal")
+		@ResponseBody
+		public List<Map<String, Object>> k3GetOurCompanyModalList(){
+			List<Map<String, Object>> ocmodalList = ourcompanyService.k3GetOurCompanyModalList();
+			return ocmodalList;
 		}
+		
+	}
 		
 		
 		

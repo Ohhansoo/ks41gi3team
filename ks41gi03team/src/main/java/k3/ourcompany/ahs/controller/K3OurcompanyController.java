@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.ourcompany.ahs.dto.K3OurCompany;
 import k3.ourcompany.ahs.service.K3OurcompanyService;
@@ -33,8 +34,8 @@ public class K3OurcompanyController {
 	public String getOurCompanyList(Model model) {
 		List<K3OurCompany> ourcompanyList = ourcompanyService.getOurCompanyList();
 		
-		model.addAttribute("title","자사정보 관리");
-		model.addAttribute("subtitle","자사정보 현황");
+		model.addAttribute("title","사업장 관리");
+		model.addAttribute("subtitle","사업장 현황");
 		model.addAttribute("ourcompanyList",ourcompanyList);
 		return "team03/companymanagement/ourcompany/k3OurCompanyList";
 		
@@ -43,8 +44,8 @@ public class K3OurcompanyController {
 	//02 자사 등록화면(이동)
 	@GetMapping("/k3AddOurCompanyList")
 	public String AddOurCompany(Model model) {
-		model.addAttribute("title", "자사정보관리");
-		model.addAttribute("subtitle", "자사정보등록");
+		model.addAttribute("title","사업장 관리");
+		model.addAttribute("subtitle","사업장 등록");
 		//return "redirect:/team03/ourcompany/k3OurCompanyList";
 		return "team03/companymanagement/ourcompany/k3AddOurCompanyList";
 		
@@ -121,6 +122,14 @@ public class K3OurcompanyController {
 	  
 	  return "team03/companymanagement/ourcompany/k3OurCompanyList";
 	
+	  }
+	  
+	  //모달
+	  @PostMapping("/k3ourcompanymodal")
+	  @ResponseBody
+	  public List<Map<String, Object>> k3GetOurCompanyModalList(){
+		  List<Map<String, Object>> ourcompanymodalList = ourcompanyService.k3GetOurCompanyModalList();
+				  return null;
 	  }
 }
 	
