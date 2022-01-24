@@ -136,6 +136,7 @@
 			or driverId=#{deleteList}
 		</foreach>
 	</delete>
+	
 	<!-- 모달 -->
 	<select id="k3GetModalList" resultType="map" parameterType="map">
 		SELECT
