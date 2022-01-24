@@ -10,16 +10,103 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
 		<link rel="stylesheet" th:href="@{/css/modal.css}">
-	</th:block>
-	
-	<th:block layout:fragment="customContents">
-		<script>
-			$(function(){
-				$('#cancelBtn').on('click', function(){
-					history.back();
-				});
+   </th:block>
+   
+
+		
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+		$(function(){
+			$('#cancelBtn').on('click', function(){
+
+				location.href = '/team03/delivery/shipping/k3ShippingList';
 			});
+			$(document).on('click', '#submitBtn', function(){
+				
+					var submitCheck = true;
+					var inputObj = $('#userInfo').find('input');
+						
+					$.each(inputObj, function(){	
+   					var inputDate = $(this).val();
+   					var inputId = $(this).attr('id');
+   					var labelText = $('label[for=' + inputId + ']').text();
+						
+   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+   						alert(labelText + ' 입력해주세요');
+   						$(this).focus();
+   						submitCheck = false;
+   						return false;
+   					}		
+					});  						
+					
+					if(submitCheck) $('#userInfo').submit();
+				});
+			
+			var modal = $('#shppingModal');
+			
+			$(".shippingExitBtn").click(function(){
+					
+				modal.addClass('hidden');
+			});
+	
+			$(document).on('click', '.shippingDriverName_btn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10,-1]);
+				aLengthMenuArray.push([5,10,'ALL']);
+				
+				$('#shippingCheckpoint_btn').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/team03/delivery/shipping/shippingCheckpoint',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ "data": "선택"},
+						{ "data": "driverId"},
+						{ "data": "driverName"},
+						{ "data": "driverPhone"},
+						{ "data": "driverRegDate"}						
+					],
+					columnDefs: [
+						{
+							targets: [0],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<input type="radio" class="driverId" name="driverId" value="'+ row.driverId +'">'
+								return htmlbtn;
+							}
+						}
+					]
+				});
+				var overlay = $('.modal_overlay');
+				modal.removeClass('hidden');
+					
+			});
+			$(document).on('click', '#driverConfirmBtn', function(){
+				var checkedBox = $('.driverId:checked');
+ 				var driverId = $('#driverId');
+ 				var driverName = $('#driverName');
+				
+ 				var checkpointMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+ 				driverName.attr('value', checkpointMemberIdValue);	
+ 				driverId.attr('value', checkedBox.val());	
+
+				modal.addClass('hidden');
+
+			});
+		});
 		</script>
+		</th:block>
+		
+	<th:block layout:fragment="customContents">
+	
 	 
 		<div id="representative-button">
 			<div id="representative-button">
@@ -47,6 +134,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출차 기록 코드</label>
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
+										<button class="shippingCheckpoint_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="releaseCode" class="inputName">출고 코드</label>
