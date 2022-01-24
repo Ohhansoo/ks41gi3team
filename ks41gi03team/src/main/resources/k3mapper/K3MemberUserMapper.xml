@@ -32,6 +32,8 @@
 		WHERE
 			m.memberId = #{memberId};
 	</select>-->
+	
+	<!-- 중복확인 --> 
 	<select id="getMemberByMemberId" parameterType="String"  resultType="int">
 		SELECT
 			COUNT(1)
@@ -39,7 +41,6 @@
 			k3_tb_member AS m
 		WHERE
 			m.memberId = #{memberId};
-		
 	</select>
 	
 	<!-- 모달 -->
@@ -83,7 +84,7 @@
 			memberState = "퇴사"
 		<trim prefix="WHERE" prefixOverrides="AND |OR"> 
 			<foreach collection="removeList" item="removeList">
-				OR memberId = #{removeList}
+				OR memberId = #{removeList};
 			</foreach>
 		</trim>	
 	</update>
