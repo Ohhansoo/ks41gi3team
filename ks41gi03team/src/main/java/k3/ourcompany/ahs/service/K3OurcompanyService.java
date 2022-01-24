@@ -1,6 +1,7 @@
 package k3.ourcompany.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,18 @@ public class K3OurcompanyService {
 		return ourcompanyMapper.k3ModifyOurCompanyInfo(k3OurCompany);
 	}
 	
+	//05 검색
+	public List<K3OurCompany> k3GetOurCompanySearchList(Map<String, Object> searchCondition){
+		List<K3OurCompany> ourcompanySearchList = ourcompanyMapper.k3GetOurCompanySearchList(searchCondition);
+			
+			return ourcompanySearchList;
+	}
 	
+	//직원 모달
+	public List<Map<String, Object>> k3GetOurCompanyModalList(){
+		List<Map<String, Object>> ourcompanymodalList = ourcompanyMapper.k3GetOurCompanyModalList(null);
+		return null;
+	}
 	
+
 }

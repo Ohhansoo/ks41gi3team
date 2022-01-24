@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import k3.memberuser.ahs.controller.K3MemberUserController;
 import k3.memberuser.ahs.dto.K3MemberUser;
 import k3.memberuser.ahs.service.K3MemberUserService;
+import k3.ourcompany.ahs.service.K3OurcompanyService;
 
 @Controller
 @RequestMapping(value="/team03/companymanagement/member")
@@ -25,9 +26,11 @@ public class K3MemberUserController {
 	private static final Logger log = LoggerFactory.getLogger(K3MemberUserController.class);
 	
 	private K3MemberUserService memberuserService;
+	private K3OurcompanyService ourcompanyService;
 	
-	public K3MemberUserController(K3MemberUserService memberuserService) {
+	public K3MemberUserController(K3MemberUserService memberuserService, K3OurcompanyService ourcompanyService) {
 		this.memberuserService = memberuserService;
+		this.ourcompanyService = ourcompanyService;
 	}
 
 	//중복확인 
@@ -167,7 +170,7 @@ public class K3MemberUserController {
 		  memberuserKey = "memberstreetaddress"; 
 	  }else if(memberuserKey != null && "memberdetailaddress".equals(memberuserKey)) { 
 		  memberuserKey = "memberdetailaddress"; 
-	  } if(memberuserDateKey != null && "memberuserRegDate".equals(memberuserDateKey)) { 
+	  }else if(memberuserDateKey != null && "memberuserRegDate".equals(memberuserDateKey)) { 
 		  memberuserDateKey = "memberuserRegDate"; 
 	  }else if(memberuserDateKey != null && "memberuserHiredDate".equals(memberuserDateKey)) { 
 		  memberuserDateKey = "memberuserHiredDate"; 
@@ -176,8 +179,8 @@ public class K3MemberUserController {
 	  searchCondition.put("memberuserValue", memberuserValue);
 	  searchCondition.put("searchStarDate", searchStartDate);
 	  searchCondition.put("searchEndDate", searchEndDate);
-	  searchCondition.put("memberuserDateKey", memberuserDateKey); System.out.
-	  println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
+	  searchCondition.put("memberuserDateKey", memberuserDateKey); 
+	  System.out.println("05 220106 k3GetMemberUSerSearchList K3MemberUserController.java");
 	  
 	  List<K3MemberUser> memberuserList = memberuserService.k3GetMemberUserSearchList(searchCondition);
 	  model.addAttribute("memberuserList",memberuserList);
@@ -252,7 +255,15 @@ public class K3MemberUserController {
 			return modalList;
 		}
 		
+		//모달
+		@PostMapping("/k3ourcompanymodal")
+		@ResponseBody
+		public List<Map<String, Object>> k3GetOurCompanyModalList(){
+			List<Map<String, Object>> ocmodalList = ourcompanyService.k3GetOurCompanyModalList();
+			return ocmodalList;
 		}
+		
+	}
 		
 		
 		

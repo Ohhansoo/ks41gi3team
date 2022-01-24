@@ -4,107 +4,14 @@
    layout:decorate="@{layout/default}">
    <th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">
+		<link rel="stylesheet" th:href="@{/css/memberusermodal.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	
-	/* function Validation(){
-	    var RegExp = /^[a-zA-Z0-9]{4,12}$/; //id와 pwassword 유효성 검사 정규식
-	    //이메일 유효성검사
-	    var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	    var n_RegExp = /^[가-힣]{2,15}$/; //이름 유효성검사 정규식
-	    
-	    var jnumArr = new Array(); // 입력 한 주민번호를 저장해줄 배열 선언
-	    var jnumplus = [2,3,4,5,6,7,8,9,2,3,4,5,1]; // 주민번호 계산할때 쓰이는 배열
-	    var jnumSum = 0; //objNum[i] * jnumplus[i] 더한 값
-	    
-	    var objId = document.getElementById("memberId"); //아이디
-	    var objPwd = document.getElementById("memberPassword"); //비밀번호
-	    var objPwd2 = document.getElementById("pwd2"); //비밀번호확인
-	    var objEmail = document.getElementById("memberuseremail");//메일
-	    var objName = document.getElementById("memberName"); //이름
-	    var objNum = document.getElementById("num"); //주민번호
 	
-	    
-	    // ================ ID 유효성검사 ================ //
-	    
-	    if(objId.value==''){
-	        alert("ID를 입력해주세요.");
-	        return false;
-	    }
-	    if(!RegExp.test(objId.value)){ //아이디 유효성검사
-	        alert("ID는 4~12자의 영문 소문자와 숫자로만 입력하여 주세요.");        
-	        return false;
-	    }
-	    
-	    // ================ PASSWORD 유효성검사 ===============//
-	    if(objPwd.value==''){ // 비밀번호 입력여부 검사
-	        alert("Password를 입력해주세요.");
-	        return false;
-	    }
-	    if(!RegExp.test(objPwd.value)){ //패스워드 유효성검사
-	        alert("Password는 4~12자의 영문 대소문자와 숫자로만 입력하여 주세요.");
-	        return false;
-	    }
-	    if(objPwd.value==objId.value){ //패스워드와 ID가 동일한지 검사
-	        alert("Password는 ID와 동일하면 안됩니다.");
-	        return false;
-	    }
-	    
-	    if(objPwd2.value!=objPwd.value){ //비밀번호와 비밀번호확인이 동일한지 검사
-	        alert("비밀번호가 틀립니다. 다시 확인하여 입력해주세요.");
-	        return false;
-	    }
-	    
-	    // ================ email 유효성검사 ================ //
-	    if(e_RegExp.value == ''){ // 이메일 입력여부 검사
-	        alert("이메일을 입력해주세요.");
-	        return false;
-	    }
-	    
-	    if(!e_RegExp.test(objEmail.value)){ //이메일 유효성 검사
-	        alert("올바른 이메일 형식이 아닙니다.");
-	        return false;
-	    }
-	    
-	    // ================ 이름 유효성검사 ================ //        
-	    if(objName.value ==''){
-	        alert("이름을 입력해주세요.");
-	        return false;
-	    }
-	    if(!n_RegExp.test(objName.value)){
-	        alert("특수문자,영어,숫자는 사용할수 없습니다. 한글만 입력하여주세요.");
-	        return false;
-	    }
-	    
-	    // ================ 주민등록번호 유효성검사 ================ //
-	    if(objNum.value == ''){ // 주민번호입력 형식이 알맞은지 검사 
-	        alert("주민번호 형식이 올바르지 않습니다."); 
-	        
-	        return false;
-	    }
-	    
-	    for(var i = 0; i<objNum.value.length;i++){ // 입력받은 주민번호 jnumArr배열에 넣기
-	        jnumArr[i] = objNum.value.charAt(i);
-	    }
 	
-	    for(var i = 0; i<objNum.value.length-1;i++){ // 입력받은 주민번호 jnumArr배열에 넣기
-	        jnumSum+=jnumArr[i]*jnumplus[i];
-	    }
-	    jnumSum = (11-(jnumSum % 11)) % 10; //주민번호 계산
-	    
-	    if(jnumSum != jnumArr[12]){ // 계산되서 나온 결과값(jnumSum)과 입력한 주민번호의 마지막이 맞지 않으면 
-	        alert("주민번호가 올바르지 않습니다."); //alert 창 띄우기
-	        
-	        return false;
-	    } else{ //형식이 올바르면 생년월일 자동으로 입력하기
-	        
-	    }
-	} */
-
-
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -170,19 +77,74 @@
 					
 					var inputObj = $('#userInfo').find('input');
 					
-					$.each(inputObj, function(){
-						var inputData = $(this).val();
-						var inputId = $(this).attr('id');
-						var labelText = $('label[for=' + inputId + ']').text();
-						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){							
-							alert(labelText + ' 빈칸을 입력해주세요');
-							$(this).focus();
+					$.each(inputObj, function(i, obj){
+						var inputData = $(obj).val();
+						var inputId = $(obj).attr('data-input-label');
+						if(typeof inputData == 'undefined' || inputData == null || inputData == ''){	
+							alert(inputId + '를(을) 입력해주세요');
+							$(obj).focus();
 							submitCheck = false;
 							return false;
 						}
 					});
 					
 					if(submitCheck) $('#userInfo').submit();
+				});
+				
+				//모달
+				var modal = $('#busuinesModal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '#mainbusinesscode_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#k3ourcompanymodal').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/companymanagement/ourcompany/k3ourcompanymodal',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "mainBusinessCode"}
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="mainBusinessCode" name="mainBusinessCode" value="'+ row.mainBusinessCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.mainBusinessCode:checked');
+	 				var mainBusinessCode = $('#mainBusinessCode');
+					
+	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				mainBusinessCode.attr('value',mainBusinessCodeValue);
+
+					modal.addClass('hidden');
 				});
 				
 				$('#dupclicate_btn').click(function(){
@@ -245,61 +207,62 @@
 								<form id="userInfo" th:action="@{/team03/companymanagement/member/k3AddMemberUserList}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">직원ID</label>
-										<input class="inputBox" type="text" id="memberId" name="memberId"> 
-										<button type="button" id="dupclicate_btn">중복확인 </button> 
+										<input class="inputBox" type="text" data-input-label="아이디" id="memberId" name="memberId"> 
+										<button type="button" id="dupclicate_btn" class="btn btn-primary btn-sm">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="membersuserpasswordInput" class="inputName">직원PW</label>
-										<input class="inputBox" type="text" id="memberPassword" name="memberPassword" disabled="disabled"/>
+										<label for="memberPassword" class="inputName">직원PW</label>
+										<input class="inputBox" type="text" data-input-label="비밀번호" id="memberPassword" name="memberPassword" disabled="disabled"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="mainbusinesscodeInput" class="inputName">사업장별대표코드</label>
-										<input class="inputBox" type="text" id="mainBusinessCode" name="mainBusinessCode" value="물류센터A물류센터_전북_1" readonly style="background-color:#BDBDBD">
+										<label for="mainBusinessCode" class="inputName">사업장별대표코드</label>
+										<input class="inputBox" type="text" id="mainBusinessCode" data-input-label="사업장별대표코드" name="mainBusinessCode">
+										<button class="btn btn-primary btn-sm" type="button" id="mainbusinesscode_btn">사업장 선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="levelcodeInput" class="inputName">권한번호</label>
-										<input class="inputBox" type="text" id="levelMemberCodeInput" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
+										<label for="levelMemberCode" class="inputName">권한코드</label>
+										<input class="inputBox" type="text" id="levelMemberCode" data-input-label="권한코드" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="memberusernameInput" class="inputName">직원이름</label>
-										<input class="inputBox" type="text" id="memberName" name=memberName disabled="disabled"/>
+										<label for="memberName" class="inputName">직원이름</label>
+										<input class="inputBox" type="text" id="memberName" data-input-label="이름" name=memberName disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberusergenderInput" class="inputName">성별</label>
-										<input class="inputBox" type="text" id="memberGenderInput" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
+										<label for="memberGender" class="inputName">성별</label>
+										<input class="inputBox" type="text" id="memberGender" data-input-label="성별" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberuseremailInput" class="inputName">이메일</label>
-										<input class="inputBox" type="text" id="memberuseremail" name="memberEmail" disabled="disabled"/>
+										<label for="memberEmail" class="inputName">이메일</label>
+										<input class="inputBox" type="text" id="memberEmail" data-input-label="이메일" name="memberEmail" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
-										<input type="text" id="memberpostaladdress" name="memberpostaladdress" placeholder="우편번호" disabled="disabled"/>
+										<label for="memberpostaladdress" class="inputName">우편번호</label>								
+										<input type="text" id="memberpostaladdress" data-input-label="우편번호" name="memberpostaladdress" placeholder="우편번호" disabled="disabled"/>
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberstreetaddressInput" class="inputName">도로명주소</label>
-										<input type="text" id="memberstreetaddress" name="memberstreetaddress" placeholder="도로명주소" size="48" disabled="disabled"/><br>
+										<label for="memberstreetaddress" class="inputName">도로명 주소</label>
+										<input type="text" id="memberstreetaddress" data-input-label="도로명 주소" name="memberstreetaddress" placeholder="도로명주소" size="48" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="phoneInput" class="inputName">전화번호</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
+										<label for="memberPhone" class="inputName">전화번호</label>
+										<input class="inputBox" type="text" id="memberPhone" data-input-label="전화번호" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="registCodeInput" class="inputName">주민번호</label>
-										<input class="inputBox" type="text" id="memberResidentRegistrationNumber" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" disabled="disabled"/>
+										<label for="memberResidentRegistrationNumber" class="inputName">주민번호</label>
+										<input class="inputBox" type="text" id="memberResidentRegistrationNumber" data-input-label="주민번호" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberStateInput" class="inputName">직원계정상태</label>
-										<input class="inputBox" type="text" id="memberState" name="memberState" value="일반" readonly style="background-color:#BDBDBD">
+										<label for="memberState" class="inputName">직원계정 상태</label>
+										<input class="inputBox" type="text" id="memberState" data-input-label="직원계정 상태" name="memberState" value="일반" readonly style="background-color:#BDBDBD">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberRegDateInput" class="inputName">등록일자</label>
-										<input class="inputBox" type="date" id="memberRegDate" name="memberRegDate" disabled="disabled"/>
+										<label for="memberRegDate" class="inputName">등록일자</label>
+										<input class="inputBox" type="date" id="memberRegDate" data-input-label="등록일자" name="memberRegDate" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberHiredDateInput" class="inputName">입사일자</label>
-										<input class="inputBox" type="date" id="memberHiredDate" name="memberHiredDate" disabled="disabled"/>
+										<input class="inputBox" type="date" id="memberHiredDate" data-input-label="입사일자" name="memberHiredDate" disabled="disabled"/>
 									</div><br>							
 									<div class="d-flex justify-content-center">					
 										<button id="addBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
@@ -316,33 +279,31 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id="busuinesModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">카테고리 선택</div>
+					<div class="textTitle">사업장별대표코드 선택</div>
 					<button class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="k3membermodal" class="dataTable">
+						<table border="1" id="k3ourcompanymodal" class="dataTable">
 							<thead>
-								<tr bgcolor="#BDBDBD">
-									<th>선택</th>
-									<th>회원코드</th>
-									<th>회원명</th>
+								<tr bgcolor="#3F72AF">
+									<th>선택</th>	
+									<th>사업장별 대표코드</th>
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="checkmemberBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="memberConfirmBtn" class="btn btn-primary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
 		<!-- End 모달창 -->
 	</th:block>
-</head>

@@ -17,16 +17,22 @@
 	<!-- 현황 -->
 	<select id="getVehicleList" resultType="K3Vehicle">
 		SELECT
-			vehicleCode,
-			mainBusinessCode,
-			vehicleTonage,
-			vehicleType,
-			vehicleInspectionDate,
-			memberId,
-			vehicleManufacturer,
-			vehicleDriveAvailability
+			v.vehicleCode,
+			v.mainBusinessCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			m.memberName,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
 		FROM
-			k3_tb_vehicle;
+			k3_tb_vehicle AS v
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			v.memberId = m.memberId;
+		
 	</select>
 	
 	<!-- 등록 -->
@@ -57,22 +63,37 @@
 	<!-- 수정 -->
 	<select id="getModifyVehicle" resultType="K3Vehicle">
 		SELECT
-			vehicleCode,
-			mainBusinessCode,
-			vehicleTonage,
-			vehicleType,
-			vehicleInspectionDate,
-			memberId,
-			vehicleManufacturer,
-			vehicleDriveAvailability
+			v.vehicleCode,
+			v.mainBusinessCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
 		FROM
-			k3_tb_vehicle
+			k3_tb_vehicle AS v
+		
 		WHERE
 			vehicleCode = #{vehicleCode};
 	</select>
 	
-	<!-- 수정 -->
 	<update id="modifyVehicle" parameterType="K3Vehicle">
+		UPDATE k3_tb_vehicle
+			SET
+				vehicleCode = #{vehicleCode},
+				mainBusinessCode = "공장A공장_서울_1",
+				vehicleTonage = #{vehicleTonage},
+				vehicleInspectionDate = #{vehicleInspectionDate},
+				memberId = #{memberId},
+				vehicleManufacturer = #{vehicleManufacturer},
+				vehicleDriveAvailability = #{vehicleDriveAvailability}
+			WHERE
+				vehicleCode = #{vehicleCode};
+	</update>
+	
+	<!-- 수정 -->
+	<!-- <update id="modifyVehicle" parameterType="K3Vehicle">
 		UPDATE k3_tb_vehicle
 		<trim prefix="SET" prefixOverrides=",">
 			<if test="vehicleCode != null and vehicleCode != ''.toString()">
@@ -99,14 +120,26 @@
 		</trim>
 		WHERE
 			vehicleCode = #{vehicleCode};
-	</update>
+	</update> -->
 	
 	<!-- 검색 -->
 	<select id="k3SearchVehicleList" resultType="K3Vehicle">
 		SELECT
-			*
+			v.vehicleCode,
+			v.mainBusinessCode,
+			v.vehicleTonage,
+			v.vehicleType,
+			v.vehicleInspectionDate,
+			v.memberId,
+			m.memberName,
+			v.vehicleManufacturer,
+			v.vehicleDriveAvailability
 		FROM
-			k3_tb_vehicle
+			k3_tb_vehicle AS v
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			v.memberId = m.memberId;
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="vehicleValue != null and vehicleValue != ''.toString()">
 				${vehicleKey} LIKE CONCAT('%', #{vehicleValue}, '%');
@@ -114,11 +147,22 @@
 		</trim>
 	</select>
 	
-	<delete id="k3DeleteVehicle" parameterType="String">
+	<!-- <delete id="k3DeleteVehicle" parameterType="String">
 		DELETE FROM
 			k3_tb_vehicle
 		WHERE
 			vehicleCode = #{vehicleList};
+	</delete> -->
+	
+	<!-- 삭제 -->
+	<delete id="k3DeleteVehicle" parameterType="Integer">
+		DELETE
+			v
+		FROM
+			k3_tb_vehicle AS v
+		<foreach collection="list" item="deleteList" open= "WHERE 1=2">
+			or vehicleCode=#{deleteList}
+		</foreach>	
 	</delete>
 	
 	<!-- <select id="k3SelectVehicleMemberId" resultType="map" parameterType="map">

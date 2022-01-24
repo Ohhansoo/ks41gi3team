@@ -27,7 +27,6 @@ public interface K3MemberUserMapper {
 	
 	//06. 직원정보 삭제처리
 	public int k3RemoveMemberUser(List<String> removeList);
-		
 	
 	//07. 직원 검색 
 	public List<K3MemberUser> k3GetMemberUserSearchList(Map<String,Object> searchCondition);
@@ -53,6 +52,9 @@ public interface K3MemberUserMapper {
 
 	//10 모달창
 	public List<Map<String, Object>> k3GetModalList(Map<String, Object> paramMap);
+	
+	//11 모달창
+	public List<Map<String, Object>> k3GetOurCompanyModalList(Map<String, Object> paramMap);
 	
 	
 }

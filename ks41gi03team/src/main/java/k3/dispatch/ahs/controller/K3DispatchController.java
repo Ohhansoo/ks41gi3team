@@ -40,7 +40,8 @@ public class K3DispatchController {
 	@GetMapping("/k3DispatchList")
 	public String getDispatchList(Model model) {
 		List<K3Dispatch> dispatchList = k3DispatchService.getDispatchList();
-		model.addAttribute("title", "일일 배차 관리");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 현황");
 		model.addAttribute("dispatchList", dispatchList);
 		
 		return "team03/delivery/dispatch/k3DispatchList";
@@ -50,6 +51,8 @@ public class K3DispatchController {
 	//등록 화면
 	@GetMapping("/k3AddDispatch")
 	public String addDispatch(Model model) {
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 등록");
 		return "team03/delivery/dispatch/k3AddDispatch";
 	}
 
@@ -74,7 +77,8 @@ public class K3DispatchController {
 			K3Dispatch dispatchInfo = k3DispatchService.getModifyDispatch(dispatchCode);
 			model.addAttribute("dispatchInfo", dispatchInfo);
 		}
-		model.addAttribute("title", "배차수정화면");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 수정");
 		
 		return "team03/delivery/dispatch/k3ModifyDispatch";
 	}
@@ -96,7 +100,7 @@ public class K3DispatchController {
 										Model model) {
 		if(dispatchKey != null && "dispatch".equals(dispatchKey)) {
 			dispatchKey = "dispatchCode";
-		}else if(dispatchKey != null && "drive".equals(dispatchKey)) {
+		}else if(dispatchKey != null && "driver".equals(dispatchKey)) {
 			dispatchKey = "driverName";
 		}else if(dispatchKey != null && "vehicle".equals(dispatchKey)) {
 			dispatchKey = "vehicleCode";
@@ -104,13 +108,14 @@ public class K3DispatchController {
 		
 		List<K3Dispatch> dispatchList = k3DispatchService.k3SearchDispatchList(dispatchKey, dispatchValue);
 		
-		model.addAttribute("title", "배차 검색");
+		model.addAttribute("title", "일일배차 관리");
+		model.addAttribute("subtitle", "일일배차 검색");
 		model.addAttribute("dispatchList", dispatchList);
 		
 		return"team03/delivery/dispatch/k3DispatchList";
 	}
 	
-	//담당자 선택처리 (@ResponseBody 중요)
+	//모달1 (@ResponseBody 중요)
 	@PostMapping("/dispatchMemberId")
 	@ResponseBody
 		public List<Map<String, Object>> k3SelectDispatchMemberId(){
@@ -118,12 +123,21 @@ public class K3DispatchController {
 			return searchId;
 		}
 	
-	
+	//모달2
 	@PostMapping("/dispatchDriverName")
 	@ResponseBody 
 		public List<Map<String, Object>> k3SelectDispatchDriverName(){
 			List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList(); 
 			return searchName; 
+	}
+	
+	//체크 삭제
+	@PostMapping("/k3DeleteDispatch")
+	public String k3DeleteDispatch(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		
+		Integer result = k3DispatchService.k3DeleteDispatch(deleteList);
+		log.info("DeleteDipsatch" + result);
+		return "redirect:/team03/delivery/dispatch/k3DispatchList";
 	}
 	 
 }

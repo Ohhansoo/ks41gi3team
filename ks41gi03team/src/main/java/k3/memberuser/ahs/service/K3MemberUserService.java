@@ -146,6 +146,13 @@ public class K3MemberUserService {
 			List<Map<String, Object>> modalList = memberuserMapper.k3GetModalList(null);
 			return modalList;
 		}
+		//09 모달
+		public List<Map<String, Object>> k3GetOurCompanyModalList() {
+			List<Map<String, Object>> ocmodalList = memberuserMapper.k3GetOurCompanyModalList(null);
+			System.out.println("2022 01 24 "+ ocmodalList);
+			return ocmodalList;
+			
+		}
 	 
 	
 	

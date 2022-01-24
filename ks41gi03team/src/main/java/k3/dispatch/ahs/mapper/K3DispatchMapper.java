@@ -27,6 +27,9 @@ public interface K3DispatchMapper {
 	//검색
 	public List<K3Dispatch> k3SearchDispatchList(String dispatchKey, String dispatchValue);
 	
+	//체크 삭제
+	public Integer k3DeleteDispatch(List<String> deleteList);
+	
 	//모달
 	public List<Map<String, Object>> k3SelectDispatchMemberId(Map<String,Object> paraMap);
 	

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.release.ahs.mapper.K3ShipmentCheckMapper">
+	<resultMap id="releaseResultMap" type="K3Release">
+ 		<result column="releaseCode" property="releaseCode" />
+ 		<result column="contractorId" property="contractorId" />
+ 		<result column="productCode" property="productCode" />
+ 		<result column="releaseMergeCode" property="releaseMergeCode" />
+		<result column="releaseGoodsCount" property="releaseGoodsCount" />
+		<result column="contractorId" property="contractorId" />
+		<result column="acceptDate" property="acceptDate" />
+		<result column="releaseRequestDate" property="releaseRequestDate" />
+		<result column="releaseDate" property="releaseDate" />
+		<result column="recipientName" property="recipientName" />
+		<result column="shipmentCheckManager" property="shipmentCheckManager" />
+		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
+		<result column="shipmentCheckResult" property="shipmentCheckResult" />
+			<association property="k3Contractor" javaType="K3Contractor">
+				<id column="contractorId" property="contractorId"/>
+				<result column="contractorName" property="contractorName" />
+			</association>
+			<association property="k3Product" javaType="K3Product">
+				<id column="productCode" property="productCode"/>
+				<result column="productName" property="productName" />
+			</association>
+	</resultMap>
+	
+	<!-- 출하검수 등록하기 -->
+	<update id="k3AddShipmentCheck">
+		UPDATE
+			k3_tb_release
+		SET
+			releaseMergeCode = #{releaseMergeCode},
+			shipmentCheckResult = #{shipmentCheckResult},
+			shipmentCheckManager = #{shipmentCheckManager},
+			releaseDate = #{releaseDate},
+			shipmentCheckRegDate = #{shipmentCheckRegDate}
+		WHERE
+			releaseCode = #{releaseCode};
+	</update>	
+	
+	<!--출하검수 등록/수정 페이지 이동(물품명, 개수 세팅)  -->
+	<select id="k3GetShipmentCheckUpdateList" resultMap="releaseResultMap"> 
+		SELECT
+			r.releaseCode
+			,r.releaseMergeCode
+			,p.productName
+			,r.releaseGoodsCount
+			,cs.contractorName
+			<if test="type eq 'modify'.toString()">			
+				,r.shipmentCheckResult
+				,r.releaseDate
+				,r.shipmentCheckManager
+				,r.shipmentCheckRegDate
+			</if>
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			r.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			r.contractorId = cs.contractorId
+		WHERE
+			releaseCode = #{releaseCode};
+	</select>
+	
+	<!-- 출하현황  -->
+	<select id="k3GetShipmentCheckList" resultMap="releaseResultMap">
+		SELECT
+		   r.releaseCode,
+		   r.releaseMergeCode,
+		   p.productName,
+		   r.releaseGoodsCount,
+		   c.contractorName,
+		   r.releaseRequestDate
+		FROM
+		   k3_tb_release AS r
+		   INNER JOIN
+		   k3_tb_contractor_staff AS c
+		   on
+		   r.contractorId = c.contractorId
+		   INNER JOIN
+			k3_tb_product AS p
+			ON
+			r.productCode = p.productCode
+		WHERE
+			r.releaseAllow = 'Y' AND r.shipmentCheckResult IS NULL;
+	</select>
+	
+	<!-- 출하검수현황  -->
+	<select id="k3GetShipmentCheck" resultMap="releaseResultMap">
+		SELECT
+			r.releaseCode,
+			p.productName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.acceptDate,
+			r.releaseDate,
+			r.recipientName,
+			r.shipmentCheckManager,
+			r.shipmentCheckRegDate,
+			r.shipmentCheckResult
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN	
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+		WHERE
+			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL;
+	</select>
+
+</mapper>

@@ -2,8 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>ksmart41</title>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/release/k3ReleaseList';
+				});
+				$(document).on('click','#allowReleaseBtn', function(){
+					$('#YesOrNo').attr('value','Y');
+					$('#allowTable').submit();				
+				});
+				$(document).on('click','#rejectReleaseBtn', function(){
+					$('#YesOrNo').attr('value','R');
+					$('#allowTable').submit();				
+				});
+			});
+		</script>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div id="representative-button">
@@ -11,9 +25,19 @@
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid">
 					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">승인</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">취소</button>					
+					<div class="d-flex justify-content-end" style="margin:15px;">
+						<button id="allowReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-check"></i>
+							승인
+						</button>
+						<button id="rejectReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button">
+							<i class="bi bi-file-earmark-break"></i>
+							반려
+						</button>
+						<button id="cancelBtn" type="button" class="btn btn-outline-info ahsbtn4">
+							<i class="bi bi-box-arrow-left"></i>
+							돌아가기						
+						</button>					
 					</div>
 					<!--End 버튼 영역 -->
 					<!--하위 카드 영역 -->
@@ -25,41 +49,43 @@
 						<!-- End card header -->
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
-								<thead>
-									<tr>
-										<th>선택</th>
-										<th>출고통합코드</th>
-										<th>출고물품명</th>
-										<th>출고개수</th>
-										<th>회사명</th>
-										<th>배송지역</th>
-										<th>배송지</th>					
-										<th>배송지상세주소</th>									
-										<th>받는사람</th>													
-										<th>연락처</th>				
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:if="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
-										<td>
-											<input type="checkbox" value="선택">
-										</td>
-										<td th:text="${l.releaseCode}"></td>
-										<td th:text="${l.laydownGoodsName}"></td>
-										<td th:text="${l.releaseGoodsCount}"></td>
-										<td th:text="${l.contractorName}"></td>
-										<td th:text="${l.areaCode}"></td>
-										<td th:text="${l.shippingAddress}"></td>
-										<td th:text="${l.shippingDetailAddress}"></td>
-										<td th:text="${l.recipientName}"></td>
-										<td th:text="${l.recipientPhone}"></td>
-									</tr>
-									<tr th:unless="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
-										<td> 요청사항이 없습니다. </td>
-									</tr>
-								</tbody>						
-							</table>
+							<form id="allowTable" th:action="@{/team03/goodsManagement/release/k3AllowRelease}" method="post">
+								<table class="table table-head-fixed text-nowrap">
+									<thead>
+										<tr>
+											<th>선택
+												<input type="hidden" name="YesOrNo" id="YesOrNo">
+											</th>
+											<th>출고코드</th>
+											<th>출고통합코드</th>
+											<th>상품명</th>
+											<th>개수</th>
+											<th>회사명</th>
+											<th>배송지</th>					
+											<th>배송지상세주소</th>												
+											<th>출고요청일자</th>			
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
+											<td>
+												<input type="checkbox" th:value="${l.releaseCode}" name="allowList[]">
+											</td>
+											<td th:text="${l.releaseCode}"></td>
+											<td th:text="${l.releaseMergeCode}"></td>
+											<td th:text="${l.k3Product.productName}"></td>
+											<td th:text="${l.releaseGoodsCount}"></td>
+											<td th:text="${l.k3Contractor.contractorName}"></td>
+											<td th:text="${l.shippingAddress}"></td>
+											<td th:text="${l.shippingDetailAddress}"></td>
+											<td th:text="${l.releaseRequestDate}"></td>
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(RequestAllowRelease)}" th:each="l : ${RequestAllowRelease}">
+											<td> 요청사항이 없습니다. </td>
+										</tr>
+									</tbody>						
+								</table>
+							</form>
 						</div>
 						<!--End card body -->
 					</div>
@@ -69,4 +95,3 @@
 			</div>
 		</div>
 	</th:block>
-</head>

@@ -150,7 +150,7 @@ public class K3StockController {
 		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingCode);
 		//재고등록 정보 받아오기
 		String type = "add";
-		List<K3Warehousing> warehousingSort = k3CheckService.getLaydownCheckList(warehousingCode, type);
+		List<K3Warehousing> warehousingSort = k3CheckService.k3GetLaydownCheckUpdateList(warehousingCode, type);
 		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingSort);
 		model.addAttribute("warehousingSort", warehousingSort);
 		model.addAttribute("title", "재고관리");

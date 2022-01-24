@@ -5,6 +5,13 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+	</th:block>
+	
 	<th:block layout:fragment="customContents">
 		<script>
 			$(function(){
@@ -17,7 +24,7 @@
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
+				<div class="container-fluid d-flex justify-content-center">
 					
 					<!--카드 영역 -->
 					<div class="col-md-8">
@@ -42,21 +49,9 @@
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="areaCode" class="inputName">지역 코드</label>
-										<input class="inputBox" type="text" id="areaCode" name="areaCode" />
-									</div>
-									<div class="inputwrap col-md-12">
-										<label for="releaseMergeCode" class="inputName">상품출고 통합코드</label>
-										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode"/>
-									</div>								
-									<div class="inputwrap col-md-12">
-										<label for="shippingAddress" class="inputName">배송지</label>
-										<input class="inputBox" type="text" id="shippingAddress" name="shippingAddress"/>
-									</div>
-									<div class="inputwrap col-md-12">
-										<label for="shippingDetailAddress" class="inputName">배송지 상세주소</label>
-										<input class="inputBox" type="text" id="shippingDetailAddress" name="shippingDetailAddress"/>
-									</div>								
+										<label for="releaseCode" class="inputName">출고 코드</label>
+										<input class="inputBox" type="text" id="releaseCode" name="releaseCode"/>
+									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId"/>
