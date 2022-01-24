@@ -36,7 +36,7 @@
 							url: '/team03/finance/in/findEstimateInfo',
 		   					type: 'POST',
 		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
+		        				console.log(JSON.stringify(data)+"json.stringify");
 		        				return data;
 		        			}
 						},
@@ -113,8 +113,8 @@
 							<div class="row">
 								<form id="inInfo" th:action="@{/team03/finance/in/k3AddIn}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="inCodeInput" class="inputName">매출코드 자동완성</label>
-										<input class="inputBox" type="text" id="inCodeInput" name="inCode"> 
+										<label for="inCodeInput" class="inputName">매출코드</label>
+										<input class="inputBox" type="text" id="inCodeInput" name="inCode" placeholder="자동등록" readonly="readonly"> 
 									</div>
 									
 									
@@ -183,7 +183,7 @@
 									
 									<div class="inputwrap col-md-12">
 										<label for="inPayDateInput" class="inputName">결제일</label>
-										<input class="inputBox" type="text" id="inPayDateInput" name="inPayDate">
+										<input class="inputBox" type="text" id="inPayDateInput" name="inPayDate" placeholder="ex)2022-01-01">
 									</div>								
 										
 									<div class="d-flex justify-content-center">					

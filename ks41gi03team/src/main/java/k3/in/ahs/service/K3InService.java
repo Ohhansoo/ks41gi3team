@@ -88,11 +88,6 @@ public class K3InService {
 		}
 	
 	
-	
-	
-	
-	
-	
 	//견적번호 가져오기
 	public List<K3Estimate> getEstimateNum() {
 		return k3InMapper.getEstimateNum();
