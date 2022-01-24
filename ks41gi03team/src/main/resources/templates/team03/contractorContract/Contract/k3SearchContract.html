@@ -5,6 +5,10 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div class="container-fluid">
 			<!--버튼 영역 -->			
@@ -46,98 +50,234 @@
 											<option value="contractState" th:selected="${contractState} == contractState">계약상태</option>             
 											<option value="contractorId" th:selected="${contractorId} == contractorId">거래처 아이디</option>
 											<option value="memberId" th:selected="${memberId} == memberId">등록직원</option>
-	        								</select>
-	        							</div>
+	        							</select>
+	        						</div>
 									<input type="text" class="form-control" placeholder="계약정보입력">
 									<div class=" input-group-append ">
-										<button type="button" class="form-control ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
+										<button id="searchDetailContract" type="submit" class="btn btn-default searchContract">
+											<i class="fas fa-search icon"></i>
+										</button>
 									</div>
 								</div>
 							</form>
 						</div>
 						<!--End inputbox 1 -->
 						<!--inputbox 2 -->
-						<div class="col-sm-6" style="padding-left: 0px">
-							<div class="input-group">
-								<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-									<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						<div class="col-sm-7" style="padding-left: 0px">
+							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractList}" method="Get" id="contractSearchDate">
+								<div class="input-group d-flex justify-content-end">
+									<span class="input-group-text">체결날짜기간조회</span>
+									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+										<input name="contractSingningDateStart" value="contractSingningDateStart" th:value="${contractSingningDateStart}" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="yyyy-mm-dd" readonly>
+										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
 									</div>
-								</div>
-								<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-									<input type="text" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-									<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									<div style="margin:3px">
+										<b>~</b>
 									</div>
-								</div>
-								<button type="button" class="ahsbtn3 btn btn-outline-info">체결날짜조회</button>
-                   			</div>
+									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+										<input name="contractSingningDateEnd" value="contractSingningDateEnd" th:value="${contractSingningDateEnd}" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="yyyy-mm-dd" readonly>
+										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+									<div class=" input-group-append">
+										<button type="submit" class="searchContractDate btn btn-default">
+											<i class="fas fa-search icon"></i>
+										</button>
+									</div>
+                   				</div>
+							</form>
 						</div>
 						<!--End inputbox 2 -->
-						</div>
+					</div>
 				</div>					
-					<!--End card body 묶음 -->
+				<!--End card body 묶음 -->
 			</div>
 			<!--End 계약 검색 카드 영역 -->
-					<!--하위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							계약 목록
-						</div>
-						<!-- End card header -->
-						<!--card body -->
-						<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-							<table class="table table-head-fixed text-nowrap">
+			<!--조회 카드 영역 -->
+			<div class="card cardColor">
+				<!--card header -->
+				<nav>
+					<div class="nav nav-tabs card-header" id="result-nav-tab" role="tablist" style="padding:0px">
+						<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체 계약 목록</a>
+						<a class="nav-link" id="nav-profile1-tab" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile1" aria-selected="false">매출 계약 목록</a>
+						<a class="nav-link" id="nav-profile2-tab" data-toggle="tab" href="#nav-profile2" role="tab" aria-controls="nav-profile2" aria-selected="false">비용 계약 목록</a>
+					</div>
+				</nav>
+				<!-- End card header -->
+				<!--card body -->
+				<div class="card-body" style="text-align:center">
+					<div class="tab-content" id="nav-tabContent">
+						<!--전체 계약 목록-->
+						<div class="tab-pane fade show active table-responsive" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
 								<thead>
 								<tr>
-						            <th>선택</th>
+									<th>
+										<input type="checkbox" name="checkContract"/>
+									</th>
+									<th>상세정보</th>
+									<th>수정</th>
+									<th>삭제</th>
 						            <th>계약 대표코드</th>
 						            <th>거래처 상호명</th>
 						            <th>거래처 사업장 코드</th>
 						            <th>거래구분</th>
-						            <th>계약상태</th>
 						            <th>계약체결날짜</th>
 						            <th>거래처 아이디</th>
 						            <th>등록직원</th>
-									<th>수정</th>
-									<th>상세정보</th>
 								</tr>
 							</thead>
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(contractList)}" th:each="c:${contractList}">
 										<td>
-												<label>
-													<input id="removeContract" type="checkbox"/>&nbsp; &nbsp;
-												</label>
+											<label>
+												<input name="checkContract" type="checkbox"  th:value="${c.contractCode}"/>
+											</label>
+										</td>
+										<td>
+											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+												<i class="bi bi-eye"></i>
+											</a>
+										</td>										
+										<td>
+											<a id="modifyContract" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contract/k3ModifyContract(contractCode=${c.contractCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+											</a>
+										</td>
+										<td>
+											<button type="button" class="deleteContractBtn btn btn-default btn-sm" th:data-deleteContractCode="${c.contractCode}" >
+												<i class="bi bi-trash-fill"></i>
+											</button>
 										</td>
 										<td  th:text="${c.contractCode}"></td>
 										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorCode}"></td>
 										<td  th:text="${c.contractorDevision}"></td>
-										<td  th:text="${c.contractState}"></td>
 										<td  th:text="${c.contractSingningDate}"></td>
 										<td  th:text="${c.contractorId}"></td>
 										<td  th:text="${c.memberId}"></td>
-										<td>
-											<a id="modifyContract" th:href="@{/team03/contractorContract/Contract/modifyContract}">
-												수정
-											</a>
-										</td>
-										<td>
-											<a id="searchDetailContract" th:href="@{/team03/contractorContract/Contract/detailContract}">
-												상세조회
-											</a>
-										</td>
 									</tr>
 								</tbody>						
 							</table>
 						</div>
-						<!--End card body -->
+						<!--END 전체 계약 목록-->
+						<!-- 매출 계약 목록 -->
+						<div class="tab-pane fade table-responsive" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile1-tab">
+							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
+								<thead>
+								<tr>
+									<th>
+										<input type="checkbox" name="checkContract"/>
+									</th>
+									<th>상세</th>
+									<th>수정</th>
+									<th>삭제</th>
+						            <th>계약 대표코드</th>
+						            <th>거래처 상호명</th>
+						            <th>거래처 사업장 코드</th>
+						            <th>거래구분</th>
+						            <th>계약체결날짜</th>
+						            <th>거래처 아이디</th>
+						            <th>등록직원</th>
+								</tr>
+							</thead>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(contractList)}" th:each="c:${contractList}">
+										<td>
+											<label>
+												<input name="checkContract" type="checkbox"  th:value="${c.contractCode}"/>
+											</label>
+										</td>
+										<td>
+											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+												<i class="bi bi-eye"></i>
+											</a>
+										</td>										
+										<td>
+											<a id="modifyContract" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contract/k3ModifyContract(contractCode=${c.contractCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+											</a>
+										</td>
+										<td>
+											<button type="button" class="deleteContractBtn btn btn-default btn-sm" th:data-deleteContractCode="${c.contractCode}" >
+												<i class="bi bi-trash-fill"></i>
+											</button>
+										</td>
+										<td  th:text="${c.contractCode}"></td>
+										<td  th:text="${c.contractorName}"></td>
+										<td  th:text="${c.contractorCode}"></td>
+										<td  th:text="${c.contractorDevision}"></td>
+										<td  th:text="${c.contractSingningDate}"></td>
+										<td  th:text="${c.contractorId}"></td>
+										<td  th:text="${c.memberId}"></td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!-- END 매출 계약 목록 -->
+						<!-- 비용 계약 목록 -->
+						<div class="tab-pane fade table-responsive" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile1-tab">
+							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
+								<thead>
+								<tr>
+									<th>
+										<input type="checkbox" name="checkContract"/>
+									</th>
+									<th>상세정보</th>
+									<th>수정</th>
+									<th>삭제</th>
+						            <th>계약 대표코드</th>
+						            <th>거래처 상호명</th>
+						            <th>거래처 사업장 코드</th>
+						            <th>거래구분</th>
+						            <th>계약체결날짜</th>
+						            <th>거래처 아이디</th>
+						            <th>등록직원</th>
+								</tr>
+							</thead>
+								<tbody>
+									<tr th:if="${not #lists.isEmpty(contractList)}" th:each="c:${contractList}">
+										<td>
+											<label>
+												<input name="checkContract" type="checkbox"  th:value="${c.contractCode}"/>
+											</label>
+										</td>
+										<td>
+											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+												<i class="bi bi-eye"></i>
+											</a>
+										</td>										
+										<td>
+											<a id="modifyContract" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contract/k3ModifyContract(contractCode=${c.contractCode})}">
+												<i class="fas fa-pencil-alt icon"></i>
+											</a>
+										</td>
+										<td>
+											<button type="button" class="deleteContractBtn btn btn-default btn-sm" th:data-deleteContractCode="${c.contractCode}" >
+												<i class="bi bi-trash-fill"></i>
+											</button>
+										</td>
+										<td  th:text="${c.contractCode}"></td>
+										<td  th:text="${c.contractorName}"></td>
+										<td  th:text="${c.contractorCode}"></td>
+										<td  th:text="${c.contractorDevision}"></td>
+										<td  th:text="${c.contractSingningDate}"></td>
+										<td  th:text="${c.contractorId}"></td>
+										<td  th:text="${c.memberId}"></td>
+									</tr>
+								</tbody>						
+							</table>
+						</div>
+						<!-- END 비용 계약 목록 -->
 					</div>
-					<!--End 하위 카드 영역 -->
 				</div>
-				<!-- End 콘텐츠 콘테이너 -->
+				<!--End card body -->
+			</div>
+			<!--End 조회 카드 영역 -->
+		</div>
+		<!-- End 콘텐츠 콘테이너 -->
 	</th:block>
 </head>
