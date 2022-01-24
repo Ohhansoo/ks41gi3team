@@ -20,7 +20,7 @@
 			,cs.contractorName
 			,e.estimatePrice
 			,e.estimateMeasureDate
-			,e.memberId as memberIds
+			,e.memberId
 		FROM
 			k3_tb_estimate AS e
 			INNER join

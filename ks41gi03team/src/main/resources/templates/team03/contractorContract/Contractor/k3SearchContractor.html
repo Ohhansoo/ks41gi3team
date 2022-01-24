@@ -18,7 +18,7 @@
 	
 					var url = "/team03/contractorContract/Contractor/k3SearchContractor";
 					var removeContractorArr = new Array();
-					var list = $("input[name=checkContract]");
+					var list = $("input[name=checkContractor]");
 					
 					console.log("변수내부 확인  list : "+ list +"확인끝");
 					
@@ -403,9 +403,9 @@
 						<thead>
 						<tr>
 							<th>
-								<input type="checkbox" name="checkContract"/>
+								<input type="checkbox" name="checkContractor"/>
 							</th>
-							<th>상세정보</th>						            
+							<th>상세</th>						            
 							<th>수정</th>
 							<th>삭제</th>						            
 				            <th>거래처 사업장 코드</th>
@@ -424,7 +424,7 @@
 						<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
 							<td>
 								<label>
-									<input name="checkContract" type="checkbox"  th:value="${c.contractorCode}"/>
+									<input name="checkContractor" type="checkbox"  th:value="${c.contractorCode}"/>
 								</label>
 							</td>
 							<td>

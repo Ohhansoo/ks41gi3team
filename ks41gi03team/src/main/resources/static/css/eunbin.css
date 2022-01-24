@@ -5,12 +5,14 @@
 .page-link{
 	color:#3F72AF;
 }
-.input-group{
-	
-}
+
 .addGroup{
 	padding-top:15px;
 	padding-bottom:15px;
+}
+
+.card-body{
+	padding:20px;
 }
 
 .contractorLabel{
@@ -23,7 +25,4 @@
 }
 .ahsbtn2{
 	margin-left:0px;
-}
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
 }
