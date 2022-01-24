@@ -186,8 +186,8 @@
 	<insert id="addIn">
 	INSERT INTO k3_tb_in
 	(
-		 inCode
-		,mainBusinessCode
+		 
+		mainBusinessCode
 		,memberId
 		,estimateNum
 		,estimatePrice
@@ -196,7 +196,7 @@
 		)
 	VALUES
 	(
-	 	#{inCode},
+	 	
 		#{mainBusinessCode},
 		#{memberId},
 		#{estimateNum},
