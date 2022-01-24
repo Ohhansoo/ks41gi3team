@@ -265,8 +265,8 @@
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
 						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
-				 contractorRegistrationDate
-	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+				 c.contractorRegistrationDate
+	 			BETWEEN #{contractorRegistrationDateStart} AND #{contractorRegistrationDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
@@ -302,13 +302,12 @@
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
 						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
-				 contractorRegistrationDate
-	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+				 c.contractorRegistrationDate
+	 			BETWEEN #{contractorRegistrationDateStart} AND #{contractorRegistrationDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
-			
 			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
 				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
@@ -316,7 +315,7 @@
 		ORDER BY
 			c.contractorRegistrationDate DESC
 		<if test="paramMap.startNum != null">
-			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 		</if>
 	</select>
 

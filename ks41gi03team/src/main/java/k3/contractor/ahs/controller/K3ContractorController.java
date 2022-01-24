@@ -154,7 +154,7 @@ public class K3ContractorController {
 						  			@RequestParam(value="contractorRegistrationDateStart", required=false) String contractorRegistrationDateStart,
 						  			@RequestParam(value="contractorRegistrationDateEnd", required=false) String contractorRegistrationDateEnd, 
 						  			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, 
-										Model model) {
+									Model model) {
 
 		// model currentPage, lastPage, contractorList, startPageNum, endPageNum
 		
@@ -166,16 +166,19 @@ public class K3ContractorController {
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
 			model.addAttribute("searchKey", searchKey);
 			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("contractorRegistrationDateStart", contractorRegistrationDateStart);
+			model.addAttribute("contractorRegistrationDateEnd", contractorRegistrationDateEnd);
 			model.addAttribute("contractorList", resultMap.get("contractorList"));
 		}else if(contractorRegistrationDateStart != null && contractorRegistrationDateStart != "".toString() && contractorRegistrationDateEnd != null && contractorRegistrationDateEnd != "".toString()) {
 			Map<String, Object> resultMap = k3ContractorService.K3SearchContractorList(searchKey,contractorRegistrationDateStart, contractorRegistrationDateEnd, searchValue, currentPage);
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));
+			model.addAttribute("searchKey", searchKey);
+			model.addAttribute("searchValue", searchValue);
 			model.addAttribute("contractorRegistrationDateStart", contractorRegistrationDateStart);
 			model.addAttribute("contractorRegistrationDateEnd", contractorRegistrationDateEnd);
 			model.addAttribute("contractorList", resultMap.get("contractorList"));
-
 		}else{
 			Map<String, Object> resultMap = k3ContractorService.K3GetContractorList(currentPage);
 			model.addAttribute("lastPage", resultMap.get("lastPage"));

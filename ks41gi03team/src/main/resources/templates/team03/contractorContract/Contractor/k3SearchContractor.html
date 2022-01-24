@@ -84,7 +84,6 @@
 
 				<!-- 거래처 삭제처리(버튼) -->	
 				$('.deleteContractorBtn').on('click',function(){
-	
 					var url = "/team03/contractorContract/Contractor/k3SearchContractor";
 					var deleteContractorCode = $(this).attr('data-deleteContractorCode');
 					console.log("변수내부 확인 deleteContractorCode : " + deleteContractorCode + "확인끝");
@@ -160,7 +159,7 @@
 	
 				}
 				else if(contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
-					$('.searchDateForm').attr('action','k3SearchContractor?&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
+					$('.searchDateForm').attr('action','k3SearchContractor?contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
 				}
 				else if(searchValue != null && contractorRegistrationDateStart != null && contractorRegistrationDateEnd != null){
 					$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue +'&contractorRegistrationDateStart=' + contractorRegistrationDateStart + '&contractorRegistrationDateEnd=' + contractorRegistrationDateEnd);
@@ -357,14 +356,13 @@
 							</form>
 						</div>
 						<!--End inputbox 1 -->
-						<div  class="col-sm-1">
-						</div>
 						<!--inputbox 2 -->
-						<div class="col-sm-6" style="padding-left: 0px">
+						<div class="col-sm-7" style="padding-left: 0px">
 							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractorList}" method="Get" id="contractorSearchDate">
 								<div class="input-group d-flex justify-content-end">
+									<span class="input-group-text">등록날짜기간조회</span>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" type="number" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="yyyy-mm-dd" readonly>
+										<input name="contractorRegistrationDateStart" value="contractorRegistrationDateStart" th:value="${contractorRegistrationDateStart}" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="yyyy-mm-dd" readonly>
 										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -373,7 +371,7 @@
 										<b>~</b>
 									</div>
 									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="contractorRegistrationDateEnd" value="contractorRegistrationDateEnd" type="number" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="yyyy-mm-dd" readonly>
+										<input name="contractorRegistrationDateEnd" value="contractorRegistrationDateEnd" th:value="${contractorRegistrationDateEnd}" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="yyyy-mm-dd" readonly>
 										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
 											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 										</div>
@@ -475,6 +473,7 @@
 							</a>
 						</li>
 						<li class="paginate_button page-item" id="contractorList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+							<a  th:if="${num != currentPage} and ${searchValue} != null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 							<a  th:if="${num != currentPage} and ${contractorRegistrationDateStart} != null and ${contractorRegistrationDateEnd} != null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num},contractorRegistrationDateStart=${contractorRegistrationDateStart},contractorRegistrationDateEnd=${contractorRegistrationDateEnd})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 							<a  th:if="${num != currentPage} and ${searchValue} == null and ${contractorRegistrationDateStart} == null and ${contractorRegistrationDateEnd} == null" id="contractorListCurrentA" th:href="@{k3SearchContractor(currentPage=${num})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
 							<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="contractorList" class="page-link" th:text="${num}"></span>
