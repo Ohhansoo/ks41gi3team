@@ -92,7 +92,7 @@
 				});
 				
 				//모달
-				var modal = $('.modal');
+				var modal = $('#busuinesModal');
 				
 				$(".exitBtn").click(function(){
 						
@@ -101,15 +101,15 @@
 		
 				$(document).on('click', '#mainbusinesscode_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
-					$('#mainbusinesscode').DataTable({
+					$('#k3ourcompanymodal').DataTable({
 						destroy: true,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/companymanagement/ourcompany/mainbusinesscode',
+							url: '/team03/companymanagement/ourcompany/k3ourcompanymodal',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -138,7 +138,7 @@
 				});
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.mainBusinessCode:checked');
-	 				var memberId = $('#mainBusinessCode');
+	 				var mainBusinessCode = $('#mainBusinessCode');
 					
 	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(2).text();
 	 				
@@ -211,7 +211,7 @@
 										<button type="button" id="dupclicate_btn" class="btn btn-primary btn-sm">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="membersuserpasswordInput" class="inputName">직원PW</label>
+										<label for="memberPassword" class="inputName">직원PW</label>
 										<input class="inputBox" type="text" data-input-label="비밀번호" id="memberPassword" name="memberPassword" disabled="disabled"/>
 									</div>	
 									<div class="inputwrap col-md-12">
@@ -220,44 +220,44 @@
 										<button class="btn btn-primary btn-sm" type="button" id="mainbusinesscode_btn">사업장 선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="levelcodeInput" class="inputName">권한코드</label>
-										<input class="inputBox" type="text" id="levelMemberCodeInput" data-input-label="권한코드" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
+										<label for="levelMemberCode" class="inputName">권한코드</label>
+										<input class="inputBox" type="text" id="levelMemberCode" data-input-label="권한코드" name="levelMemberCode" value="ST" readonly style="background-color:#BDBDBD">
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="memberusernameInput" class="inputName">직원이름</label>
+										<label for="memberName" class="inputName">직원이름</label>
 										<input class="inputBox" type="text" id="memberName" data-input-label="이름" name=memberName disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberusergenderInput" class="inputName">성별</label>
-										<input class="inputBox" type="text" id="memberGenderInput" data-input-label="성별" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
+										<label for="memberGender" class="inputName">성별</label>
+										<input class="inputBox" type="text" id="memberGender" data-input-label="성별" name="memberGender" placeholder="예시) 남 /여/무응답" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberuseremailInput" class="inputName">이메일</label>
+										<label for="memberEmail" class="inputName">이메일</label>
 										<input class="inputBox" type="text" id="memberEmail" data-input-label="이메일" name="memberEmail" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberpostaladdressInput" class="inputName">우편번호</label>								
+										<label for="memberpostaladdress" class="inputName">우편번호</label>								
 										<input type="text" id="memberpostaladdress" data-input-label="우편번호" name="memberpostaladdress" placeholder="우편번호" disabled="disabled"/>
 										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberstreetaddressInput" class="inputName">도로명 주소</label>
+										<label for="memberstreetaddress" class="inputName">도로명 주소</label>
 										<input type="text" id="memberstreetaddress" data-input-label="도로명 주소" name="memberstreetaddress" placeholder="도로명주소" size="48" disabled="disabled"/><br>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="phoneInput" class="inputName">전화번호</label>
-										<input class="inputBox" type="text" id="ourCompanyWorkPlaceAddrInput" data-input-label="전화번호" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
+										<label for="memberPhone" class="inputName">전화번호</label>
+										<input class="inputBox" type="text" id="memberPhone" data-input-label="전화번호" name="memberPhone" placeholder=" 예시) 010-1234-4567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="registCodeInput" class="inputName">주민번호</label>
+										<label for="memberResidentRegistrationNumber" class="inputName">주민번호</label>
 										<input class="inputBox" type="text" id="memberResidentRegistrationNumber" data-input-label="주민번호" name="memberResidentRegistrationNumber" placeholder=" 예시) 001234-1234567" disabled="disabled"/>
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberStateInput" class="inputName">직원계정 상태</label>
+										<label for="memberState" class="inputName">직원계정 상태</label>
 										<input class="inputBox" type="text" id="memberState" data-input-label="직원계정 상태" name="memberState" value="일반" readonly style="background-color:#BDBDBD">
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberRegDateInput" class="inputName">등록일자</label>
+										<label for="memberRegDate" class="inputName">등록일자</label>
 										<input class="inputBox" type="date" id="memberRegDate" data-input-label="등록일자" name="memberRegDate" disabled="disabled"/>
 									</div>
 									<div class="inputwrap col-md-12">
@@ -279,7 +279,7 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div class="modal hidden">
+		<div id="busuinesModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
@@ -290,7 +290,7 @@
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="" id="mainbusinesscode" class="dataTable">
+						<table border="1" id="k3ourcompanymodal" class="dataTable">
 							<thead>
 								<tr bgcolor="#3F72AF">
 									<th>선택</th>	
@@ -307,4 +307,3 @@
 		</div>
 		<!-- End 모달창 -->
 	</th:block>
-</head>
