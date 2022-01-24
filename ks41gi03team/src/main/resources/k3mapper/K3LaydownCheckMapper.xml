@@ -51,42 +51,6 @@
 			</association>
 	</resultMap>
 	
-	
-	<!-- 출하검수현황  -->
-	<select id="k3GetShipmentCheckList" resultMap="releaseResultMap">
-		SELECT
-			r.releaseCode,
-			p.productName,
-			r.releaseGoodsCount,
-			cs.contractorName,
-			r.accepDate,
-			r.releaseDate,
-			r.recipientName,
-			r.shipmentCheckManager,
-			r.shipmentCheckRegDate,
-			r.shipmentCheckResult
-		FROM
-			k3_tb_release AS r
-			INNER JOIN
-			k3_tb_stock AS s
-			ON
-			r.stockCode = s.stockCode
-			INNER JOIN	
-			k3_tb_warehousing AS w
-			ON
-			s.warehousingCode = w.warehousingCode
-			INNER JOIN
-			k3_tb_contractor_staff AS cs
-			ON
-			w.contractorId = cs.contractorId
-			INNER JOIN
-			k3_tb_product AS p
-			ON
-			w.productCode = p.productCode
-		WHERE
-			r.releaseAllow = 'Y';
-	</select>
-	
 	                                                          <!--입하검수  -->
 	
 	<!--입하검수조회  -->
@@ -181,7 +145,7 @@
 	</select>
 	
 	<!--입하검수 등록/수정 페이지 이동(물품명, 개수 세팅)  -->
-	<select id="getLaydownCheckList" resultMap="warehousingResultMap"> 
+	<select id="k3GetLaydownCheckUpdateList" resultMap="warehousingResultMap"> 
 		SELECT
 			w.warehousingCode
 			,p.productName

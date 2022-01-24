@@ -34,12 +34,6 @@ public class K3CheckController {
 	public K3CheckController(K3CheckService k3CheckService) {
 		this.k3CheckService = k3CheckService;
 	}
-	//출하검수 등록이동
-	@GetMapping("/k3AddShipmentCheck")
-	public String k3AddShipmentCheck(){
-		
-		return "team03/goodsManagement/check/k3AddShipmentCheck";
-	}
 	
 	 //입하검수 수정폼이동
 	 @GetMapping("/k3ModifyLaydownCheck")
@@ -48,7 +42,7 @@ public class K3CheckController {
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동----->>>>>>>>>>", warehousingCode);
 		 //수정 관련 정보 받아오기
 		 String type = "modify";
-		 List<K3Warehousing> laydownModifyList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
+		 List<K3Warehousing> laydownModifyList = k3CheckService.k3GetLaydownCheckUpdateList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 수정페이지 이동 처리결과----->>>>>>>>>>", laydownModifyList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수수정");
@@ -81,7 +75,7 @@ public class K3CheckController {
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동----->>>>>>>>>>", warehousingCode);
 		 //등록 관련 정보 받아오기
 		 String type = "add";
-		 List<K3Warehousing> laydownCheckList = k3CheckService.getLaydownCheckList(warehousingCode, type);		
+		 List<K3Warehousing> laydownCheckList = k3CheckService.k3GetLaydownCheckUpdateList(warehousingCode, type);		
 		 log.info("K3CheckController/ 입하검수 등록페이지 이동 처리결과----->>>>>>>>>>", laydownCheckList);
 		 model.addAttribute("title", "입고관리");
 		 model.addAttribute("subtitle", "입하검수등록");

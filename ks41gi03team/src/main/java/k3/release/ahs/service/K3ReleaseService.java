@@ -1,5 +1,6 @@
 package k3.release.ahs.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,14 @@ public class K3ReleaseService {
 		List<Map<String, Object>> ProductNameList = k3ReleaseMapper.findProductNameList(null);
 		return ProductNameList;	
 	}
-	//출고승인
+	
+	//출고 승인/반려 처리
+	public int k3AllowRelease(Map<String, Object> releaseList) {
+		int result = k3ReleaseMapper.k3AllowRelease(releaseList);
+		return result;
+	}
+	
+	//출고승인폼 이동
 	public List<K3Release> k3RequestAllowRelease() {
 		List<K3Release>	RequestAllowRelease = k3ReleaseMapper.k3RequestAllowRelease();
 		return RequestAllowRelease;
@@ -36,5 +44,6 @@ public class K3ReleaseService {
 		List<K3Release>	releaseList = k3ReleaseMapper.k3GetReleaseList();
 		return releaseList;
 	}
+
 
 }
