@@ -3,15 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contractor.ahs.mapper.K3ContractorMapper">
-<!-- 	<resultMap type="K3Contract" id="contractResultMap">
-		<result column="contractCode"     property="contractCode"/>
-		<result column="contraactorCode"     property="contraactorCode"/>
-		<result column="contractorDevision"     property="contractorDevision"/>
-		<result column="contractState"     property="contractState"/>
-		<result column="contractSingningDate"     property="contractSingningDate"/>
-		<result column="contractorId"     property="contractorId"/>
-		<result column="memberId"     property="memberId"/>
-	</resultMap> -->
 
 	<!-- 거래처 삭제처리(체크박스) -->
 	<delete id="k3DeleteContractor">
@@ -263,10 +254,10 @@
 			on
 			c.contractorId = cs.contractorId
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
-						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
-				 contractorRegistrationDate
-	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateStart != ''.toString() 
+						and contractorRegistrationDateEnd != null and contractorRegistrationDateEnd != ''.toString()">
+				 c.contractorRegistrationDate
+	 			BETWEEN #{contractorRegistrationDateStart} AND #{contractorRegistrationDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
@@ -302,13 +293,12 @@
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
 						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
-				 contractorRegistrationDate
-	 			BETWEEN DATE('#{contractorRegistrationDateStart}') AND DATE('#{contractorRegistrationDateEnd}');
+				 c.contractorRegistrationDate
+	 			BETWEEN #{contractorRegistrationDateStart} AND #{contractorRegistrationDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
-			
 			<if test=' searchKey == "contractorId" or searchKey == "memberId"'>
 				AND c.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
@@ -316,7 +306,7 @@
 		ORDER BY
 			c.contractorRegistrationDate DESC
 		<if test="paramMap.startNum != null">
-			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage}
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 		</if>
 	</select>
 
@@ -396,5 +386,4 @@
 			LIMIT #{startNum}, #{rowPerPage};
 		</if>			
 	</select>
-
 </mapper>

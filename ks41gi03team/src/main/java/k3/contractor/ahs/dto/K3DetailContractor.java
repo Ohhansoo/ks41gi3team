@@ -32,6 +32,8 @@ public class K3DetailContractor {
 	private String contractorState;
 	private String memberId;
 	private String contractorRegistrationDate;
+	private String contractorRegistrationDateStart;
+	private String contractorRegistrationDateEnd;
 	private String contractorEmailAddr;
 	private String contractorSuperviserEmailAddr;
 	public String getContractorCode() {
@@ -214,6 +216,18 @@ public class K3DetailContractor {
 	public void setContractorRegistrationDate(String contractorRegistrationDate) {
 		this.contractorRegistrationDate = contractorRegistrationDate;
 	}
+	public String getContractorRegistrationDateStart() {
+		return contractorRegistrationDateStart;
+	}
+	public void setContractorRegistrationDateStart(String contractorRegistrationDateStart) {
+		this.contractorRegistrationDateStart = contractorRegistrationDateStart;
+	}
+	public String getContractorRegistrationDateEnd() {
+		return contractorRegistrationDateEnd;
+	}
+	public void setContractorRegistrationDateEnd(String contractorRegistrationDateEnd) {
+		this.contractorRegistrationDateEnd = contractorRegistrationDateEnd;
+	}
 	public String getContractorEmailAddr() {
 		return contractorEmailAddr;
 	}
@@ -289,6 +303,10 @@ public class K3DetailContractor {
 		builder.append(memberId);
 		builder.append(", contractorRegistrationDate=");
 		builder.append(contractorRegistrationDate);
+		builder.append(", contractorRegistrationDateStart=");
+		builder.append(contractorRegistrationDateStart);
+		builder.append(", contractorRegistrationDateEnd=");
+		builder.append(contractorRegistrationDateEnd);
 		builder.append(", contractorEmailAddr=");
 		builder.append(contractorEmailAddr);
 		builder.append(", contractorSuperviserEmailAddr=");
@@ -319,6 +337,10 @@ public class K3DetailContractor {
 		result = prime * result + ((contractorProfitBank == null) ? 0 : contractorProfitBank.hashCode());
 		result = prime * result + ((contractorPw == null) ? 0 : contractorPw.hashCode());
 		result = prime * result + ((contractorRegistrationDate == null) ? 0 : contractorRegistrationDate.hashCode());
+		result = prime * result
+				+ ((contractorRegistrationDateEnd == null) ? 0 : contractorRegistrationDateEnd.hashCode());
+		result = prime * result
+				+ ((contractorRegistrationDateStart == null) ? 0 : contractorRegistrationDateStart.hashCode());
 		result = prime * result + ((contractorRepresentative == null) ? 0 : contractorRepresentative.hashCode());
 		result = prime * result + ((contractorState == null) ? 0 : contractorState.hashCode());
 		result = prime * result + ((contractorStatus == null) ? 0 : contractorStatus.hashCode());
@@ -439,6 +461,16 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorRegistrationDate.equals(other.contractorRegistrationDate))
 			return false;
+		if (contractorRegistrationDateEnd == null) {
+			if (other.contractorRegistrationDateEnd != null)
+				return false;
+		} else if (!contractorRegistrationDateEnd.equals(other.contractorRegistrationDateEnd))
+			return false;
+		if (contractorRegistrationDateStart == null) {
+			if (other.contractorRegistrationDateStart != null)
+				return false;
+		} else if (!contractorRegistrationDateStart.equals(other.contractorRegistrationDateStart))
+			return false;
 		if (contractorRepresentative == null) {
 			if (other.contractorRepresentative != null)
 				return false;
@@ -507,6 +539,6 @@ public class K3DetailContractor {
 		return true;
 	}
 
-
+	
 
 }
