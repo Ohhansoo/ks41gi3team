@@ -53,5 +53,8 @@ public interface K3MemberUserMapper {
 	//10 모달창
 	public List<Map<String, Object>> k3GetModalList(Map<String, Object> paramMap);
 	
+	//11 모달창
+	public List<Map<String, Object>> k3GetOurCompanyModalList(Map<String, Object> paramMap);
+	
 	
 }
