@@ -30,44 +30,31 @@
   </select>
    
    <!-- 자사정보 수정처리 -->
-   
    <update id="k3ModifyOurCompanyInfo" parameterType="int">
 		UPDATE 
-			k3_tb_our_company AS oc
+			k0_sw_mainBusinessCodeManagement AS sw
 		<trim prefix="SET" suffixOverrides=",">
-			<if test="ourCompanyCode != null and ourCompanyCode != ''.toString()">
-			oc.ourCompanyCode = #{ourCompanyCode},
+			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+			sw.mainBusinessCode = #{mainBusinessCode},
 			</if>	
-			<if test="ourCompanyBusinessPlaceCode != null and ourCompanyBusinessPlaceCode != ''.toString()">
-			oc.ourCompanyBusinessPlaceCode = #{ourCompanyBusinessPlaceCode},
+			<if test="businessCode != null and businessCode != ''.toString()">
+			sw.businessCode = #{businessCode},
 			</if>	
-			<if test="ourCompanyBusinessName != null and ourCompanyBusinessName != ''.toString()">
-			oc.ourCompanyBusinessName = #{ourCompanyBusinessName},
+			<if test="businessLevelCode != null and businessLevelCode != ''.toString()">
+			sw.businessLevelCode = #{businessLevelCode},
 			</if>	
-			<if test="ourCompanyBusinessCheifName != null and ourCompanyBusinessCheifName != ''.toString()">
-			oc.ourCompanyBusinessCheifName = #{ourCompanyBusinessCheifName},
+			<if test="businessCodeRegistrationDate != null and businessCodeRegistrationDate != ''.toString()">
+			sw.businessCodeRegistrationDate = #{businessCodeRegistrationDate},
 			</if>	
-			<if test="ourCompanyStatus != null and ourCompanyStatus != ''.toString()">
-			oc.ourCompanyStatus = #{ourCompanyStatus},
+			<if test="businessManagementpostaladdress != null and businessManagementpostaladdress != ''.toString()">
+			sw.businessManagementpostaladdress = #{businessManagementpostaladdress},
 			</if>	
-			<if test="ourCompanyWorkType != null and ourCompanyWorkType != ''.toString()">
-			oc.ourCompanyWorkType = #{ourCompanyWorkType},
-			</if>	
-			<if test="ourCompanyEmail != null and ourCompanyEmail != ''.toString()">
-			oc.ourCompanyEmail = #{ourCompanyEmail},
-			</if>	
-			<if test="ourcompanypostaladdress != null and ourcompanypostaladdress != ''.toString()">
-			oc.ourcompanypostaladdress = #{ourcompanypostaladdress},
-			</if>	
-			<if test="ourcompanystreetaddress != null and ourcompanystreetaddress != ''.toString()">
-			oc.ourcompanystreetaddress = #{ourcompanystreetaddress},
-			</if>	
-			<if test="ourcompanydetailaddress != null and ourcompanydetailaddress != ''.toString()">
-			oc.ourcompanydetailaddress = #{ourcompanydetailaddress},
+			<if test="businessManagementstreetaddress != null and businessManagementstreetaddress != ''.toString()">
+			sw.businessManagementstreetaddress = #{businessManagementstreetaddress},
 			</if>	
 		</trim>		
 		WHERE 
-			oc.ourCompanyCode = #{ourCompanyCode};
+			sw.mainBusinessCode = #{mainBusinessCode};
 	</update>
    
    <!-- 자사정보 선택 (수정) -->
@@ -75,37 +62,29 @@
    	SELECT
 			*
 	FROM
-		k3_tb_our_company AS oc
+		k0_sw_mainBusinessCodeManagement AS sw
 	WHERE
-		oc.ourCompanyCode = #{ourCompanyCode};
+		sw.mainBusinessCode = #{mainBusinessCode};
    </select>
    
    <!-- 자사정보등록 -->
    <insert id="AddOurCompany" parameterType="K3OurCompany">
    	INSERT INTO 
-   		k3_tb_our_company
+   		k0_sw_mainBusinessCodeManagement
 		(
-		 ourCompanyCode
-		,ourCompanyBusinessPlaceCode
-		,ourCompanyBusinessName
-		,ourCompanyBusinessCheifName
-		,ourCompanyStatus
-		,ourCompanyWorkType
-		,ourCompanyEmail
-		,ourcompanypostaladdress
-		,ourcompanystreetaddress
-		,ourcompanydetailaddress
+		mainBusinessCode,
+		businessCode,
+		businessLevelCode,
+		businessCodeRegistrationDate,
+		businessManagementpostaladdress,
+		businessManagementstreetaddress
 	)VALUES(
-		 #{ourCompanyCode}
-		,#{ourCompanyBusinessPlaceCode}
-		,#{ourCompanyBusinessName}
-		,#{ourCompanyBusinessCheifName}
-		,#{ourCompanyStatus}
-		,#{ourCompanyWorkType}
-		,#{ourCompanyEmail}
-		,#{ourcompanypostaladdress}
-		,#{ourcompanystreetaddress}
-		,#{ourcompanydetailaddress}
+		 #{mainBusinessCode}
+		,#{businessCode}
+		,#{businessLevelCode}
+		,#{businessCodeRegistrationDate}
+		,#{businessManagementpostaladdress}
+		,#{businessManagementstreetaddress}
 	);
    </insert>
 	
