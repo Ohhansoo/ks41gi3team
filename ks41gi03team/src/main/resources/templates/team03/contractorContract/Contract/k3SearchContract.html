@@ -6,72 +6,80 @@
 		<title>ksmart41</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
-		<div id="representative-button">
-			<div id="representative-button">
-				<!-- 콘텐츠 콘테이너 시작 -->
-				<div class="container-fluid">
-					<!--버튼 영역 -->
-					<div style="margin:15px;">
-						<button type="button" class="ahsbtn2 btn btn-outline-info">삭제</button>
-						<button type="button" class="ahsbtn2 btn btn-outline-info">출력</button>					
-					</div>
-					<!--End 버튼 영역 -->
-					<!--상위 카드 영역 -->
-					<div class="card cardColor">
-						<!--card header -->
-						<div class="card-header">
-							계약 검색
-						</div>
-						<!--End card header -->
-						<!--card body -->
-						<div class="card-body">
-							<div class="row" style="margin: 12px">
-								<!--inputbox 1 -->
-								<div class="col-sm-6" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<select class="form-control">
-												<option disabled="true" selected>계약정보선택</option>
-												<option>계약 대표코드</option>
-												<option>거래처 상호명</option>
-												<option>거래처 사업장 코드</option>
-												<option>거래구분</option>
-												<option>계약상태</option>             
-												<option>거래처 아이디</option>
-												<option>등록직원</option>
-	         								</select>
-	         							</div>
-										<input type="text" class="form-control" placeholder="계약정보입력">
-										<div class=" input-group-append ">
-											<button type="button" class="form-control ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
-										</div>
+		<div class="container-fluid">
+			<!--버튼 영역 -->			
+			<div class="d-flex justify-content-end">					
+				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Contract/k3AddContract}">
+					<i class="bi bi-file-earmark-plus"></i>
+					등록
+				</a>			
+				<a class="btn btn-outline-info ahsbtn4" type="button">
+					<i class="bi bi-printer"></i>
+					출력
+				</a>						
+				<button id="checkDeleteContractor" class="btn btn-outline-info ahsbtn4" type="button">
+					<i class="bi bi-trash"></i>
+					삭제
+				</button>			
+			</div>	
+			<!--End 버튼 영역 -->
+			<!--계약 검색 카드 영역 -->
+			<div class="card cardColor">
+				<!--card header -->
+				<div class="card-header">
+					계약 검색
+				</div>
+				<!--End card header -->
+				<!--card body -->
+				<div class="card-body">
+					<div class="row" style="margin: 12px">
+						<!--inputbox 1 -->
+						<div class="col-sm-5" style="padding-left: 0px">
+							<form class="searchForm" th:action="@{/team03/contractorContract/Contract/k3SearchContract}" method="Get">
+								<div class="input-group d-flex justify-content-start">
+									<div class="input-group-prepend">
+										<select class="form-control" name="searchKey">
+											<option value="contractCode" selected th:selected="${contractCode} == contractCode">계약 대표코드</option>
+											<option value="contractorName" th:selected="${contractorName} == contractorName">거래처 상호명</option>
+											<option value="contractorCode" th:selected="${contractorCode} == contractorCode">거래처 사업장 코드</option>
+											<option value="contractorDevision" th:selected="${contractorDevision} == contractorDevision">거래구분</option>
+											<option value="contractState" th:selected="${contractState} == contractState">계약상태</option>             
+											<option value="contractorId" th:selected="${contractorId} == contractorId">거래처 아이디</option>
+											<option value="memberId" th:selected="${memberId} == memberId">등록직원</option>
+	        								</select>
+	        							</div>
+									<input type="text" class="form-control" placeholder="계약정보입력">
+									<div class=" input-group-append ">
+										<button type="button" class="form-control ahsbtn2 btn btn-outline-info" for="searchContract">검색</button>
 									</div>
 								</div>
-								<!--End inputbox 1 -->
-								<!--inputbox 2 -->
-								<div class="col-sm-6" style="padding-left: 0px">
-									<div class="input-group">
-										<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-											<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-											</div>
-										</div>
-										<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-											<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-											</div>
-										</div>
-										<button type="button" class="ahsbtn3 btn btn-outline-info">체결날짜조회</button>
-	                    			</div>
+							</form>
+						</div>
+						<!--End inputbox 1 -->
+						<!--inputbox 2 -->
+						<div class="col-sm-6" style="padding-left: 0px">
+							<div class="input-group">
+								<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+									<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
 								</div>
-								<!--End inputbox 2 -->
-	 						</div>
-						</div>					
-	 					<!--End card body 묶음 -->
-					</div>
-					<!--End 상위 카드 영역 -->
+								<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+									<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
+								<button type="button" class="ahsbtn3 btn btn-outline-info">체결날짜조회</button>
+                   			</div>
+						</div>
+						<!--End inputbox 2 -->
+						</div>
+				</div>					
+					<!--End card body 묶음 -->
+			</div>
+			<!--End 계약 검색 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
 						<!--card header -->
@@ -131,7 +139,5 @@
 					<!--End 하위 카드 영역 -->
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
-			</div>
-		</div>
 	</th:block>
 </head>
