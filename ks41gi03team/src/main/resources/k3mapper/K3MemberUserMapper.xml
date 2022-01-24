@@ -210,7 +210,7 @@
 			)VALUES (
 			#{memberId},
 			#{memberPassword},
-			'물류센터A물류센터_전북_1',
+			#{mainBusinessCode},
 			#{levelMemberCode},
 			#{memberName},
 			#{memberGender},

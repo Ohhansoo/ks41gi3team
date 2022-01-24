@@ -140,7 +140,7 @@
 					var checkedBox = $('.mainBusinessCode:checked');
 	 				var mainBusinessCode = $('#mainBusinessCode');
 					
-	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(2).text();
+	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(1).text();
 	 				
 	 				mainBusinessCode.attr('value',mainBusinessCodeValue);
 
@@ -216,8 +216,8 @@
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCode" class="inputName">사업장별대표코드</label>
-										<input class="inputBox" type="text" id="mainBusinessCode" data-input-label="사업장별대표코드" name="mainBusinessCode">
-										<button class="btn btn-primary btn-sm" type="button" id="mainbusinesscode_btn">사업장 선택</button> 
+										<input class="inputBox" type="text" id="mainBusinessCode" data-input-label="사업장별대표코드" name="mainBusinessCode" disabled="disabled"/>
+										<button class="btn btn-primary btn-sm" type="button" id="mainbusinesscode_btn" disabled="disabled"/>사업장 선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="levelMemberCode" class="inputName">권한코드</label>
@@ -292,7 +292,7 @@
 					<form>	
 						<table border="1" id="k3ourcompanymodal" class="dataTable">
 							<thead>
-								<tr bgcolor="#3F72AF">
+								<tr bgcolor="#3F72AF" style="color: white;">
 									<th>선택</th>	
 									<th>사업장별 대표코드</th>
 								</tr>
