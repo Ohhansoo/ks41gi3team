@@ -129,7 +129,8 @@ public class K3OurcompanyController {
 	  @ResponseBody
 	  public List<Map<String, Object>> k3GetOurCompanyModalList(){
 		  List<Map<String, Object>> ourcompanymodalList = ourcompanyService.k3GetOurCompanyModalList();
-				  return null;
+			System.out.println("2022 01 24 "+ ourcompanymodalList);
+				  return ourcompanymodalList;
 	  }
 }
 	
