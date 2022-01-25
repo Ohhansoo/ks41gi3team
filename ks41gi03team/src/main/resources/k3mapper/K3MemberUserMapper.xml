@@ -76,7 +76,7 @@
 	</delete>
 	
 	
-<!-- 직원삭제 -->
+<!-- 직원퇴사 -->
 	<update id="k3RemoveMemberUser" parameterType="map">
 		UPDATE 
 			k3_tb_member 
@@ -174,7 +174,7 @@
 			m.memberId = #{memberId};
 	</update>
 
-<!-- 직원선택 ?-->
+<!-- 직원선택 -->
 	<select id="K3MemberUserInfoBycode" resultType="K3MemberUser">
 		SELECT
 			*

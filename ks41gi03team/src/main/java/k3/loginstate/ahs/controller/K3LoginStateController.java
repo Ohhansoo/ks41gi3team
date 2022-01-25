@@ -24,7 +24,8 @@ public class K3LoginStateController {
 	public String getLoginStateList(Model model) {
 		List<K3LoginState> loginstateList = loginstateService.getLoginStateList();
 		System.out.println(loginstateList);
-		model.addAttribute("title","로그인정보 조회");
+		model.addAttribute("title","로그인 관리");
+		model.addAttribute("subtitle","로그인내역 조회");
 		model.addAttribute("loginstateList",loginstateList);
 		return "team03/companymanagement/loginstate/k3MemberUserLoginState";
 		
