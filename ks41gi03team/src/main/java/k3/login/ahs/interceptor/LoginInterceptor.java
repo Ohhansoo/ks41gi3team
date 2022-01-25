@@ -31,22 +31,6 @@ public class LoginInterceptor implements HandlerInterceptor{
 		}else {
 			requestUri = requestUri.trim();
 			
-			//GM	관리자
-			//TM	팀장
-			//ST	사원
-			//CT	거래처
-			
-			//TM
-			//권한수정 이외 가능  
-//		if("ST".equals(sessionLevel)) {
-//			if(requestUri.indexOf("k3MemberUserList") > -1 ||
-//				requestUri.indexOf("k3OurCompanyList") > -1 ||
-//				requestUri.indexOf("k3RetiredMemberUserList") > -1) {
-//				
-//				response.sendRedirect("/");
-//				return false;
-//			}
-//		}
 		//ST
 		//조회만 가능 
 		if("ST".equals(sessionLevel)) {

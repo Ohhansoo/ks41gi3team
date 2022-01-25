@@ -116,7 +116,7 @@ public class K3MemberUserController {
 			return "redirect:/team03/companymanagement/member/k3MemberUserList";
 	  }
 	  
-	  //07 직원정보 삭제처리
+	  //07 직원정보 퇴사처리
 	  @PostMapping("/k3RemoveMemberUser")
 	  	public String k3RemoveMemberUser(@RequestParam(value="removeList[]", required = false) List<String> removeList) {
 		  System.out.println("04 220106 k3DeleteMemberUser K3MemberUserController.java");
@@ -175,6 +175,10 @@ public class K3MemberUserController {
 	  }else if(memberuserDateKey != null && "memberuserHiredDate".equals(memberuserDateKey)) { 
 		  memberuserDateKey = "memberuserHiredDate"; 
 	  } 
+	  
+	  model.addAttribute("title","직원정보 관리");
+	  model.addAttribute("subtitle","직원정보 검색");
+	  
 	  searchCondition.put("memberuserKey", memberuserKey);
 	  searchCondition.put("memberuserValue", memberuserValue);
 	  searchCondition.put("searchStarDate", searchStartDate);
