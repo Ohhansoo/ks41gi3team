@@ -19,8 +19,8 @@ public class K3ProductService {
 	}
 	
 	//<모달> - 상품정보리스트
-	public List<K3Product> getModalProductList() {
-		List<K3Product> productList = k3ProductMapper.getModalProductList();
+	public List<K3Product> k3GetModalProductList() {
+		List<K3Product> productList = k3ProductMapper.k3GetModalProductList();
 		return productList;
 	}
 	

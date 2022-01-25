@@ -18,8 +18,8 @@ public class K3ReleaseService {
 		this.k3ReleaseMapper = k3ReleaseMapper;
 	}	
 	//<모달>-출하 상품명 리스트 가져오기
-	public List<Map<String, Object>> findProductNameList() {
-		List<Map<String, Object>> ProductNameList = k3ReleaseMapper.findProductNameList(null);
+	public List<Map<String, Object>> k3FindProductNameList() {
+		List<Map<String, Object>> ProductNameList = k3ReleaseMapper.k3FindProductNameList(null);
 		return ProductNameList;	
 	}
 	

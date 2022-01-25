@@ -11,6 +11,7 @@
 		<result column="smallCategory" property="smallCategory" />
 	</resultMap>
 	
+	<!-- 카테고리 조회처리  -->
 	<select id="k3GetCategorySearchList" resultType="K3Category">
 		SELECT
 			*
@@ -23,6 +24,7 @@
 		</trim>
 	</select>
 	
+	<!--카테고리 삭제처리  -->
 	<delete id="k3DeleteCategory" parameterType="list">
 		DELETE
 			c
@@ -32,7 +34,7 @@
 				 or categoryCode = #{deleteList}
 			</foreach>
 	</delete>
-	
+	<!-- 카테고리 수정처리  -->
 	<update id="K3ModifyLabel">
 		UPDATE
 			k3_tb_total_category AS c
@@ -51,7 +53,7 @@
 			c.categoryCode = #{categoryCode};
 	</update>
 	
-	
+	<!-- 카테고리 수정폼이동  -->
 	<select id="K3GetCategoryInfoBycode" resultType="K3Category">
 		SELECT
 			*
@@ -61,6 +63,7 @@
 			c.categoryCode = #{categoryCode};
 	</select>
 	
+	<!-- 카테고리 등록처리  -->
 	<insert id="AddCategory">
 		INSERT INTO
 		   k3_tb_total_category
@@ -74,8 +77,8 @@
 		   k3_tb_total_category;
 	</insert>
 	
-	
-	<select id="getCategoryList" resultType="K3Category">
+	<!-- 카테고리현황 -->
+	<select id="k3GetCategoryList" resultType="K3Category">
 		SELECT
 				c.categoryCode AS categoryCode,
 				c.mainBusinessCode AS mainBusinessCode,
@@ -86,7 +89,8 @@
 				k3_tb_total_category AS c;
 	</select>
 	
-	<select id="getCategoryListByMap" parameterType="map" resultType="map">
+	<!--모달 - 카테고리 리스트  -->
+	<select id="k3GetCategoryListByMap" parameterType="map" resultType="map">
 		SELECT
 				c.categoryCode AS categoryCode,
 				c.largeCategory AS largeCategory,

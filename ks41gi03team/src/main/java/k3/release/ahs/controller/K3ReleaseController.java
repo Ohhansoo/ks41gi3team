@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.check.ahs.dto.K3ShipmentCheck;
-import k3.check.ahs.service.K3CheckService;
+
 import k3.release.ahs.dto.K3Release;
 import k3.release.ahs.service.K3ReleaseService;
 import k3.release.ahs.service.K3ShipmentCheckService;
-import k3.warehousing.ahs.dto.K3Warehousing;
+
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/release")
@@ -40,8 +39,10 @@ public class K3ReleaseController {
 	//<모달>-출하 상품명 리스트 가져오기
 	@PostMapping("/findProductNameList")
 	@ResponseBody
-	public List<Map<String, Object>> findProductNameList(){
-		List<Map<String, Object>> ProductNameList = k3ReleaseService.findProductNameList();
+	public List<Map<String, Object>> k3FindProductNameList(){
+		log.info("모달 - 상품명 리스트 컨트롤러 시작");
+		List<Map<String, Object>> ProductNameList = k3ReleaseService.k3FindProductNameList();
+		log.info("모달 -출고관리 컨트롤러 출하 상품명 리스트 가져오기 결과-------------------> {}", ProductNameList);
 		 return ProductNameList;
 	}
 	

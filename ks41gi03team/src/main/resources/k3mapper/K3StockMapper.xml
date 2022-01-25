@@ -155,7 +155,7 @@
 	
 	<!--재고 수정폼으로 이동 -->
 	<select id="K3GetStockInfo" resultMap="stockResultMap">
-				SELECT
+		SELECT
 			s.stockCode,
 			p.productName,
 			s.stockQuantity,
@@ -198,7 +198,7 @@
 		locationCode = #{locationCode};
 	</update>
 	
-	<!--분류등록 입고테이블 업데이트  -->
+	<!--재고등록 입고테이블 업데이트  -->
 	<update id="k3UpdateSorting">
 	UPDATE 
 		k3_tb_warehousing
@@ -208,7 +208,7 @@
 		warehousingCode = #{warehousingCode};
 	</update>
 	
-	<!-- 분류등록 -->
+	<!-- 재고등록 -->
 	<insert id="k3AddStock">
 		INSERT INTO k3_tb_stock
 			(stockCode, 

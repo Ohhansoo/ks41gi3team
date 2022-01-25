@@ -62,7 +62,7 @@ public class K3CategoryController {
 	//카테고리 수정처리
 	@PostMapping("/k3ModifyCategory")
 	public String k3ModifyLabel(K3Category k3Category) {
-		int result = k3CategoryService.K3ModifyLabel(k3Category);
+		int result = k3CategoryService.k3ModifyCategory(k3Category);
 		log.info("AddCategory 메서드 인서트 결과 : " + k3Category);
 		return "redirect:/team03/goodsManagement/category/k3CategoryList";
 	}
@@ -73,7 +73,7 @@ public class K3CategoryController {
 	public String k3ModifyCategory(@RequestParam(value="categoryCode", required = false) String categoryCode, Model model) {
 		log.info("category code = {}", categoryCode );
 		
-		K3Category k3Category = k3CategoryService.K3GetCategoryInfoBycode(categoryCode);
+		K3Category k3Category = k3CategoryService.k3GetCategoryInfoBycode(categoryCode);
 		model.addAttribute("title", "카테고리관리");
 		model.addAttribute("subtitle", "카테고리 수정");
 		model.addAttribute("k3Category", k3Category);
@@ -84,7 +84,7 @@ public class K3CategoryController {
 	//카테고리 등록처리
 	@PostMapping("/k3AddCategory")
 	public String k3AddCategory(K3Category k3Category) {
-		int result = k3CategoryService.AddCategory(k3Category);
+		int result = k3CategoryService.k3AddCategory(k3Category);
 		log.info("AddCategory 메서드 인서트 결과 : " + result);
 		log.info("AddCategory 메서드 인서트 결과 : " + k3Category);
 		return "redirect:/team03/goodsManagement/category/k3CategoryList";
@@ -101,7 +101,7 @@ public class K3CategoryController {
 	//카테고리 현황(초기화면)
 	@GetMapping("/k3CategoryList")
 	public String k3GetCategoryList(Model model) {
-		List<K3Category> categoryList = k3CategoryService.getCategoryList();
+		List<K3Category> categoryList = k3CategoryService.k3GetCategoryList();
 		model.addAttribute("title", "카테고리 관리");
 		model.addAttribute("subtitle", "카테고리 현황");
 		model.addAttribute("categoryList", categoryList);
