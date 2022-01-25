@@ -10,7 +10,7 @@ import k3.product.ahs.dto.K3Product;
 @Mapper
 public interface K3ProductMapper {
 	//<모달> - 상품정보리스트
-	public List<K3Product> getModalProductList();
+	public List<K3Product> k3GetModalProductList();
 	//상품 수정 처리
 	public int k3ModifyProduct(K3Product k3Product);
 	//상품 수정폼 이동

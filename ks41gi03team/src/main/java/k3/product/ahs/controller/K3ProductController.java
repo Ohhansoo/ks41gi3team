@@ -34,8 +34,8 @@ public class K3ProductController {
 	//<모달> - 상품정보리스트
 	@PostMapping("/getModalProductList")
 	@ResponseBody
-	public List<K3Product> getModalProductList() {
-		List<K3Product> productList = k3ProductService.getModalProductList();
+	public List<K3Product> k3GetModalProductList() {
+		List<K3Product> productList = k3ProductService.k3GetModalProductList();
 		return productList;
 	}
 	

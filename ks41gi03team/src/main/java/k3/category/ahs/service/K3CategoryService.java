@@ -28,30 +28,30 @@ public class K3CategoryService {
 	}
 	
 	//수정 처리
-	public int K3ModifyLabel(K3Category k3Category) {
-		int result = k3CategoryMapper.K3ModifyLabel(k3Category);
+	public int k3ModifyCategory(K3Category k3Category) {
+		int result = k3CategoryMapper.k3ModifyCategory(k3Category);
 		return result;
 	}
 	//수정폼 이동
-	public K3Category K3GetCategoryInfoBycode(String categoryCode) {
-		K3Category k3Category = k3CategoryMapper.K3GetCategoryInfoBycode(categoryCode);
+	public K3Category k3GetCategoryInfoBycode(String categoryCode) {
+		K3Category k3Category = k3CategoryMapper.k3GetCategoryInfoBycode(categoryCode);
 		return k3Category;
 	}
 	
 	//카테고리 등록처리
-	public int AddCategory(K3Category k3Category) {
-		int result = k3CategoryMapper.AddCategory(k3Category);
+	public int k3AddCategory(K3Category k3Category) {
+		int result = k3CategoryMapper.k3AddCategory(k3Category);
 		return result;
 	}
 	
 	//카테고리 현황(초기화면)
-	public List<K3Category> getCategoryList(){		
-		List<K3Category> categoryList = k3CategoryMapper.getCategoryList();
+	public List<K3Category> k3GetCategoryList(){		
+		List<K3Category> categoryList = k3CategoryMapper.k3GetCategoryList();
 		return categoryList;
 	}
 	//카테고리 현황(초기화면2)
-	public List<Map<String, Object>> getCategoryListByMap(){		
-		List<Map<String, Object>> categoryList = k3CategoryMapper.getCategoryListByMap(null);
+	public List<Map<String, Object>> k3GetCategoryListByMap(){		
+		List<Map<String, Object>> categoryList = k3CategoryMapper.k3GetCategoryListByMap(null);
 		return categoryList;
 	}
 

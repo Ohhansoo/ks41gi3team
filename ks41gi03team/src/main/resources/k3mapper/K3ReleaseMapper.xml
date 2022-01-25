@@ -81,7 +81,7 @@
 	</insert>
 	
 	<!-- 모달  : 상품명 찾기-->
-	<select id="findProductNameList" parameterType="map" resultType="map">
+	<select id="k3FindProductNameList" parameterType="map" resultType="map">
 		SELECT
 			s.stockCode,
 			p.productName,

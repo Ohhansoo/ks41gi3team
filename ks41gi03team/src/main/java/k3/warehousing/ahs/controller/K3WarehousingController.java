@@ -118,7 +118,7 @@ public class K3WarehousingController {
 	//모달 로케이션 선택처리
 	@PostMapping("/locationList")
 	@ResponseBody
-	public List<Map<String, Object>> locationList() {
+	public List<Map<String, Object>> k3GetModalLocationList() {
 		List<Map<String, Object>> locationList = k3LocationServise.k3GetModalLocationList();
 		
 		return locationList;
@@ -127,7 +127,7 @@ public class K3WarehousingController {
 	//모달 담당자 선택처리
 	@PostMapping("/MemberList")
 	@ResponseBody
-	public List<Map<String, Object>> memberList() {
+	public List<Map<String, Object>> k3GetMemberUserModalList() {
 		List<Map<String, Object>> memberList = k3MemberUserService.k3GetMemberUserModalList();
 		
 		return memberList;
@@ -135,8 +135,8 @@ public class K3WarehousingController {
 	//모달 카테고리 선택처리
 	@PostMapping("/getCategoryList")
 	@ResponseBody
-	public List<Map<String, Object>> getCategoryList() {
-		List<Map<String, Object>> categoryList = k3CategoryService.getCategoryListByMap();
+	public List<Map<String, Object>> k3GetCategoryListByMap() {
+		List<Map<String, Object>> categoryList = k3CategoryService.k3GetCategoryListByMap();
 		return categoryList;
 	}
 	
@@ -153,8 +153,9 @@ public class K3WarehousingController {
 	@PostMapping("/findContractorName")
 	@ResponseBody
 	public List<Map<String, Object>> k3FindContractorName() {
+		log.info(" postMapping 입고청폼에서 모달 조회처리 결과  시작 ---------------------->>>>>>>>>{}");
 		List<Map<String, Object>> resultList = k3WarehousingService.k3FindContractorName();
-		log.info(" postMapping 입고청폼에서 모달 조회처리 결과  resultList ---------------------->>>>>>>>>", resultList);
+		log.info(" postMapping 입고청폼에서 모달 조회처리 결과  resultList ---------------------->>>>>>>>>{}", resultList);
 		return resultList;
 	}
 	

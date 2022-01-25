@@ -48,7 +48,7 @@
 		</trim>
 	</update>
 	
-	<!--계약처 아이디로 계약처 이름 찾기(map)  -->
+	<!--모달- 계약처 아이디로 계약처 이름 찾기(map)  -->
 	<select id="k3FindContractorName" parameterType="map" resultType="map">
 		SELECT
 			cs.contractorId,

@@ -11,7 +11,7 @@ import k3.release.ahs.dto.K3Release;
 public interface K3ReleaseMapper {
 	
 	//<모달>-출하 상품명 리스트 가져오기
-	public List<Map<String, Object>> findProductNameList(Map<String, Object> productMap);
+	public List<Map<String, Object>> k3FindProductNameList(Map<String, Object> productMap);
 	//출고 승인/반려 처리
 	public int k3AllowRelease(Map<String, Object> releaseList);
 	//출고 승인폼 이동
