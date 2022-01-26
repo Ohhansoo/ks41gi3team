@@ -42,7 +42,7 @@ public class K3ProductService {
 	//상품 등록 처리
 	public int k3AddProduct(K3Product k3Product) {
 		int result = k3ProductMapper.k3AddProduct(k3Product);
-		return 0;
+		return result;
 	}
 
 	//상품 조회 처리

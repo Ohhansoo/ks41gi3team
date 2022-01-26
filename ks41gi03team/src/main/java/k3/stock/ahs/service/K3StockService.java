@@ -134,13 +134,13 @@ public class K3StockService {
 		int locationStateResult = k3StockMapper.k3UpdateLocationState(k3Stock);
 		return locationStateResult;
 	}
-	//입고분류여부 업데이트
+	//재고등록 업데이트
 	public int k3UpdateSorting(K3Stock k3Stock) {
 		int soringResult = k3StockMapper.k3UpdateSorting(k3Stock);
 		return soringResult;
 	}
 	
-	//입고분류 등록처리
+	//재고 등록처리
 	public int k3AddStock(K3Stock k3Stock) {		
 		int result = k3StockMapper.k3AddStock(k3Stock);
 		return result;

@@ -29,6 +29,10 @@
 			<id column="productCode" property="productCode"/>
 			<result column="productName" property="productName" />
 			</association>
+			<association property="k3MemberUser" javaType="K3MemberUser">
+				<id column="memberId" property="memberId"/>
+				<result column="memberName" property="memberName" />
+			</association>
 	</resultMap>
 	
 	<resultMap id="releaseResultMap" type="K3Release">
@@ -49,6 +53,7 @@
 				<id column="productCode" property="productCode"/>
 				<result column="productName" property="productName" />
 			</association>
+
 	</resultMap>
 	
 	                                                          <!--입하검수  -->
@@ -157,6 +162,7 @@
 				,w.laydownCheckManager
 				,w.laydownCheckDate
 				,cs.contractorName
+				,m.memberName
 			</if>
 		FROM
 			k3_tb_warehousing AS w
@@ -169,6 +175,10 @@
 				k3_tb_contractor_staff AS cs
 				ON
 				w.contractorId = cs.contractorId
+				INNER JOIN
+				k3_tb_member AS m
+				ON
+				w.laydownCheckManager = m.memberId
 			</if>
 		WHERE
 			warehousingCode = #{warehousingCode};

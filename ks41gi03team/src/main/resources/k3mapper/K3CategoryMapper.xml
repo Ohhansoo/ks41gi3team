@@ -34,8 +34,9 @@
 				 or categoryCode = #{deleteList}
 			</foreach>
 	</delete>
+	
 	<!-- 카테고리 수정처리  -->
-	<update id="K3ModifyLabel">
+	<update id="k3ModifyCategory">
 		UPDATE
 			k3_tb_total_category AS c
 		<trim prefix="SET" suffixOverrides=",">
@@ -54,9 +55,11 @@
 	</update>
 	
 	<!-- 카테고리 수정폼이동  -->
-	<select id="K3GetCategoryInfoBycode" resultType="K3Category">
+	<select id="k3GetCategoryInfoBycode" resultType="K3Category">
 		SELECT
-			*
+				c.largeCategory AS largeCategory,
+				c.mediumCategory AS mediumCategory, 
+				c.smallCategory AS smallCategory
 		FROM
 			k3_tb_total_category AS c
 		WHERE
@@ -64,7 +67,7 @@
 	</select>
 	
 	<!-- 카테고리 등록처리  -->
-	<insert id="AddCategory">
+	<insert id="k3AddCategory">
 		INSERT INTO
 		   k3_tb_total_category
 		SELECT 
