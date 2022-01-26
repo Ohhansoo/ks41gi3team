@@ -62,14 +62,18 @@ public class K3WarehousingService {
 		paramMap.put("warehousingList", warehousingList);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
-		return paramMap;
-		
-
+		return paramMap;	
 	}
+	
 	//입고 승인/반려 처리
 	public int k3AllowWarehousing(Map<String, Object> warehousingList) {
 		int result = k3WarehousingMapper.k3AllowWarehousing(warehousingList);
 		return result;
+	}
+	//입고 요청 현황(씅인폼 이동)
+	public List<K3Warehousing> k3RequestAllowWarehousing() {
+		List<K3Warehousing> K3RequestAllow = k3WarehousingMapper.k3RequestAllowWarehousing();
+		return K3RequestAllow;
 	}
 	//입고 요청 등록 처리 
 	public int k3AddWarehousing(K3Warehousing k3Warehousing) {
@@ -87,11 +91,6 @@ public class K3WarehousingService {
 		return nameList;
 	}
 	
-	//입고 요청 현황
-	public List<K3Warehousing> k3RequestAllowWarehousing() {
-		List<K3Warehousing> K3RequestAllow = k3WarehousingMapper.k3RequestAllowWarehousing();
-		return K3RequestAllow;
-	}
 
 	//입고분류 등록폼 이동
 	/*

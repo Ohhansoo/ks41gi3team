@@ -31,22 +31,7 @@
 			</association>
 	</resultMap>
 	
-	<!--입고승인  -->
-	<update id="k3AllowWarehousing" parameterType="map">
-		UPDATE
-			k3_tb_warehousing
-		<trim prefix="SET" prefixOverrides=",">
-			,warehousingAllow = #{YesOrNo}
-			<if test="YesOrNo eq 'Y'.toString()">		   			
-				,acceptDate = CURDATE()	
-			</if>	
-		</trim>	
-		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<foreach collection="allowList" item="allowList">
-				OR warehousingCode = #{allowList}
-			</foreach>			
-		</trim>
-	</update>
+
 	
 	<!--모달- 계약처 아이디로 계약처 이름 찾기(map)  -->
 	<select id="k3FindContractorName" parameterType="map" resultType="map">
@@ -114,6 +99,46 @@
 				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
 			</if>		   
 	</select>
+	
+	<!--입고승인  -->
+	<update id="k3AllowWarehousing" parameterType="map">
+		UPDATE
+			k3_tb_warehousing
+		<trim prefix="SET" prefixOverrides=",">
+			,warehousingAllow = #{YesOrNo}
+			<if test="YesOrNo eq 'Y'.toString()">		   			
+				,acceptDate = CURDATE()	
+			</if>	
+		</trim>	
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<foreach collection="allowList" item="allowList">
+				OR warehousingCode = #{allowList}
+			</foreach>			
+		</trim>
+	</update>
+	
+	<!--입고요청 목록  -->
+	<select id="k3RequestAllowWarehousing" resultMap="warehousingResultMap">
+		SELECT
+			w.warehousingCode,
+			p.productName,
+			w.laydownGoodsCount,
+			cs.contractorName,
+			w.manufacturedDate,
+			w.expiratonDate
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE w.warehousingAllow = 'N'		
+	</select>
+	
 	<!--입고요청 등록처리  -->
 	<insert id="k3AddWarehousing">
 		INSERT INTO
@@ -144,27 +169,7 @@
 			k3_tb_contractor_staff AS cs;
 	</select>
 	
-	<!--입고요청 목록  -->
-	<select id="k3RequestAllowWarehousing" resultMap="warehousingResultMap">
-		SELECT
-			w.warehousingCode,
-			p.productName,
-			w.laydownGoodsCount,
-			cs.contractorName,
-			w.manufacturedDate,
-			w.expiratonDate
-		FROM
-			k3_tb_warehousing AS w
-			INNER JOIN
-			k3_tb_product AS p
-			ON
-			w.productCode = p.productCode
-			INNER JOIN
-			k3_tb_contractor_staff AS cs
-			ON
-			w.contractorId = cs.contractorId
-		WHERE w.warehousingAllow = 'N'		
-	</select>
+
 	
 	<!--입고 현황(초기화면) - 입고리스트  -->
 	<select id="k3GetWarehousingList" resultType="map" parameterType="map">

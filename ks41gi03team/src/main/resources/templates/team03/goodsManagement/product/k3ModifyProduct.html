@@ -43,8 +43,8 @@
 				
 				$(document).on('click', '#selectCategory', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#dataTableAjax').DataTable({
 						destroy: true,
@@ -122,7 +122,7 @@
 									<form id="productInfoForm" th:action="@{/team03/goodsManagement/product/k3ModifyProduct}" method="post" th:if="${not #lists.isEmpty(productInfo)}" th:each="l : ${productInfo}">
 										<div class="inputwrap col-md-12">
 											<label for="productCode" class="inputName">상품코드</label>
-											<input class="inputBox" type="text" id="productCode" name="productCode" th:value="${l.productCode}" readonly="readonly"/>
+											<input class="inputBox notUse" type="text" id="productCode" name="productCode" th:value="${l.productCode}" readonly="readonly"/>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="productName" class="inputName">상품명</label>
