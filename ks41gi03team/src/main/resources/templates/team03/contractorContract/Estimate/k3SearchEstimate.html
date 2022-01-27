@@ -9,6 +9,47 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
 	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script>
+		
+			<!-- 거래처 상세정보 모달창 스크립트 -->				
+			$(document).on('click','#unitModalBtn',function(){
+				console.log("모달창 클릭이벤트 확인");
+	
+				$.ajax({ 
+					url: "/team03/contractorContract/Contractor/k3UnitModalAjax", 
+					type:"GET", 
+					dataType:'json', 
+					success:function(response){ 
+						console.log(JSON.stringify(response));
+						showList(response); 
+					} 
+				});
+					
+			}); 
+			
+			function showList(data){ 
+				var tmodal = ''; 
+				console.log('data=>'+JSON.stringify(data))
+				$("#Umodal").empty();
+				Umodal += '<td>'+ data.UnitPriceCode +'</td>';
+				Umodal += '<td>'+ data.contractorName +'</td>';
+				
+				Umodal += '<td>'+ data.contractorBusinessNum +'</td>';
+				Umodal += '<td>'+ data.mainBusinessCode +'</td></tr>';
+				
+				Umodal += '<td>'+ data.contractorDevision +'</td>';
+				$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit?UnitPriceCode='+data.UnitPriceCode);
+				$("#Umodal").append(tmodal);
+				$('#unitModal').modal('show');
+			}
+			<!-- END 거래처 상세정보 모달창 스크립트 -->		
+		</script>
+	</th:block>	
+
+
 	<th:block layout:fragment="customContents"> 
 		<!-- 콘텐츠 콘테이너 시작 -->
 		<div class="container-fluid">
@@ -102,7 +143,7 @@
 							견적서 목록
 						</div>
 						<div style="float:right">
-							<a class="btn btn-outline-info" type="button">
+							<a id="unitModalBtn" class="btn btn-outline-info" type="button">
 								<i class="bi bi-card-list"></i>
 								단가표
 							</a>						
@@ -171,5 +212,49 @@
 				<!--End 조회 카드 영역 -->
 			</div>
 			<!-- End 콘텐츠 콘테이너 -->
+
+		<!-- 단가표 모달창 -->
+		<div class="modal" style="text-align: center" id="unitModal" tabindex="-1"  role="dialog" aria-labelledby="unitModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">AHS 단가표</h5>
+						<button type="button" class="close"  data-dismiss="modal">
+							<i class="bi bi-x-circle"></i>
+						</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class=" card card-body bg-light container-fluid">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+							            <th>단가코드</th>
+							            <th>구분단위</th>
+							            <th>계약단위</th>
+							            <th>최소기간</th>
+							            <th>단위 당 가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="Umodal">
+									
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="ahsbtn2 btn btn-outline-info modifyUnitModalBtn">
+							<i class="bi bi-pencil"></i>
+							수정
+						</a>
+						<button class="printDetailUnitModal ahsbtn2 btn btn-outline-info" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>               
+					</div>
+				</div>
+			</div>
+		</div>
+	   <!--END 단가표 모달창 -->
 	</th:block>
-</head>

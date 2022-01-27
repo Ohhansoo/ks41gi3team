@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>addContract</title>
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbinAddModify.css}">
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div class=" card container-fluid" id="modifyUnit">
+				<div class="modifyUnitLabel card-header">
+					<label>| AHS 단가표 수정 |</label>
+				</div>
+				<div class="card-body modifyUnitCont"  th:each="u : ${unitPrice}">
+					<table>
+						<thead>
+							<tr>
+					            <th>단가코드</th>
+					            <th>구분단위</th>
+					            <th>계약단위</th>
+					            <th>최소기간</th>
+					            <th>단위 당 가격</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="text" name="UnitPriceCode" th:value="${u.UnitPriceCode}"></input></td>
+								<td><input type="text" name="unitContractDevision" th:value="${u.unitContractDevision}"></input></td>
+								<td><input type="text" name="unitContract" th:value="${u.unitContract}"></input></td>
+								<td><input type="text" name="unitTerm" th:value="${u.unitTerm}"></input></td>
+								<td><input type="text" name="unitPay" th:value="${u.unitPay}"></input></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>						
+			
+		</div>
+	</th:block>
