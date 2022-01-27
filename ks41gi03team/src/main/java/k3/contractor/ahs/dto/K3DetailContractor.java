@@ -13,11 +13,13 @@ public class K3DetailContractor {
 	private String contractorRepresentative;
 	private String contractorBusinessClientNum;
 	private String contractorAddr;
+	private String contractorPhone;
 	private String contractorPhone1;
 	private String contractorPhone2;
 	private String contractorPhone3;
 	private String contractorEmail;
 	private String contractorSuperviser;
+	private String contractorSuperviserPhone;
 	private String contractorSuperviserPhone1;
 	private String contractorSuperviserPhone2;
 	private String contractorSuperviserPhone3;
@@ -102,6 +104,12 @@ public class K3DetailContractor {
 	public void setContractorAddr(String contractorAddr) {
 		this.contractorAddr = contractorAddr;
 	}
+	public String getContractorPhone() {
+		return contractorPhone;
+	}
+	public void setContractorPhone(String contractorPhone) {
+		this.contractorPhone = contractorPhone;
+	}
 	public String getContractorPhone1() {
 		return contractorPhone1;
 	}
@@ -131,6 +139,12 @@ public class K3DetailContractor {
 	}
 	public void setContractorSuperviser(String contractorSuperviser) {
 		this.contractorSuperviser = contractorSuperviser;
+	}
+	public String getContractorSuperviserPhone() {
+		return contractorSuperviserPhone;
+	}
+	public void setContractorSuperviserPhone(String contractorSuperviserPhone) {
+		this.contractorSuperviserPhone = contractorSuperviserPhone;
 	}
 	public String getContractorSuperviserPhone1() {
 		return contractorSuperviserPhone1;
@@ -265,6 +279,8 @@ public class K3DetailContractor {
 		builder.append(contractorBusinessClientNum);
 		builder.append(", contractorAddr=");
 		builder.append(contractorAddr);
+		builder.append(", contractorPhone=");
+		builder.append(contractorPhone);
 		builder.append(", contractorPhone1=");
 		builder.append(contractorPhone1);
 		builder.append(", contractorPhone2=");
@@ -275,6 +291,8 @@ public class K3DetailContractor {
 		builder.append(contractorEmail);
 		builder.append(", contractorSuperviser=");
 		builder.append(contractorSuperviser);
+		builder.append(", contractorSuperviserPhone=");
+		builder.append(contractorSuperviserPhone);
 		builder.append(", contractorSuperviserPhone1=");
 		builder.append(contractorSuperviserPhone1);
 		builder.append(", contractorSuperviserPhone2=");
@@ -311,6 +329,84 @@ public class K3DetailContractor {
 		builder.append(contractorEmailAddr);
 		builder.append(", contractorSuperviserEmailAddr=");
 		builder.append(contractorSuperviserEmailAddr);
+		builder.append(", getContractorCode()=");
+		builder.append(getContractorCode());
+		builder.append(", getContractorName()=");
+		builder.append(getContractorName());
+		builder.append(", getContractorBusinessNum()=");
+		builder.append(getContractorBusinessNum());
+		builder.append(", getMainBusinessCode()=");
+		builder.append(getMainBusinessCode());
+		builder.append(", getContractorDevision()=");
+		builder.append(getContractorDevision());
+		builder.append(", getContractorType()=");
+		builder.append(getContractorType());
+		builder.append(", getContractorItem()=");
+		builder.append(getContractorItem());
+		builder.append(", getContractorStatus()=");
+		builder.append(getContractorStatus());
+		builder.append(", getContractorRepresentative()=");
+		builder.append(getContractorRepresentative());
+		builder.append(", getContractorBusinessClientNum()=");
+		builder.append(getContractorBusinessClientNum());
+		builder.append(", getContractorAddr()=");
+		builder.append(getContractorAddr());
+		builder.append(", getContractorPhone()=");
+		builder.append(getContractorPhone());
+		builder.append(", getContractorPhone1()=");
+		builder.append(getContractorPhone1());
+		builder.append(", getContractorPhone2()=");
+		builder.append(getContractorPhone2());
+		builder.append(", getContractorPhone3()=");
+		builder.append(getContractorPhone3());
+		builder.append(", getContractorEmail()=");
+		builder.append(getContractorEmail());
+		builder.append(", getContractorSuperviser()=");
+		builder.append(getContractorSuperviser());
+		builder.append(", getContractorSuperviserPhone()=");
+		builder.append(getContractorSuperviserPhone());
+		builder.append(", getContractorSuperviserPhone1()=");
+		builder.append(getContractorSuperviserPhone1());
+		builder.append(", getContractorSuperviserPhone2()=");
+		builder.append(getContractorSuperviserPhone2());
+		builder.append(", getContractorSuperviserPhone3()=");
+		builder.append(getContractorSuperviserPhone3());
+		builder.append(", getContractorSuperviserEmail()=");
+		builder.append(getContractorSuperviserEmail());
+		builder.append(", getContractorFax()=");
+		builder.append(getContractorFax());
+		builder.append(", getContractorProfitBank()=");
+		builder.append(getContractorProfitBank());
+		builder.append(", getContractorProfitAccount()=");
+		builder.append(getContractorProfitAccount());
+		builder.append(", getContractorAccountHolder()=");
+		builder.append(getContractorAccountHolder());
+		builder.append(", getContractorId()=");
+		builder.append(getContractorId());
+		builder.append(", getContractorPw()=");
+		builder.append(getContractorPw());
+		builder.append(", getLevelCode()=");
+		builder.append(getLevelCode());
+		builder.append(", getContractorState()=");
+		builder.append(getContractorState());
+		builder.append(", getMemberId()=");
+		builder.append(getMemberId());
+		builder.append(", getContractorRegistrationDate()=");
+		builder.append(getContractorRegistrationDate());
+		builder.append(", getContractorRegistrationDateStart()=");
+		builder.append(getContractorRegistrationDateStart());
+		builder.append(", getContractorRegistrationDateEnd()=");
+		builder.append(getContractorRegistrationDateEnd());
+		builder.append(", getContractorEmailAddr()=");
+		builder.append(getContractorEmailAddr());
+		builder.append(", getContractorSuperviserEmailAddr()=");
+		builder.append(getContractorSuperviserEmailAddr());
+		builder.append(", getClass()=");
+		builder.append(getClass());
+		builder.append(", hashCode()=");
+		builder.append(hashCode());
+		builder.append(", toString()=");
+		builder.append(super.toString());
 		builder.append("]");
 		return builder.toString();
 	}
@@ -330,6 +426,7 @@ public class K3DetailContractor {
 		result = prime * result + ((contractorId == null) ? 0 : contractorId.hashCode());
 		result = prime * result + ((contractorItem == null) ? 0 : contractorItem.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
+		result = prime * result + ((contractorPhone == null) ? 0 : contractorPhone.hashCode());
 		result = prime * result + ((contractorPhone1 == null) ? 0 : contractorPhone1.hashCode());
 		result = prime * result + ((contractorPhone2 == null) ? 0 : contractorPhone2.hashCode());
 		result = prime * result + ((contractorPhone3 == null) ? 0 : contractorPhone3.hashCode());
@@ -348,6 +445,7 @@ public class K3DetailContractor {
 		result = prime * result + ((contractorSuperviserEmail == null) ? 0 : contractorSuperviserEmail.hashCode());
 		result = prime * result
 				+ ((contractorSuperviserEmailAddr == null) ? 0 : contractorSuperviserEmailAddr.hashCode());
+		result = prime * result + ((contractorSuperviserPhone == null) ? 0 : contractorSuperviserPhone.hashCode());
 		result = prime * result + ((contractorSuperviserPhone1 == null) ? 0 : contractorSuperviserPhone1.hashCode());
 		result = prime * result + ((contractorSuperviserPhone2 == null) ? 0 : contractorSuperviserPhone2.hashCode());
 		result = prime * result + ((contractorSuperviserPhone3 == null) ? 0 : contractorSuperviserPhone3.hashCode());
@@ -426,6 +524,11 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorName.equals(other.contractorName))
 			return false;
+		if (contractorPhone == null) {
+			if (other.contractorPhone != null)
+				return false;
+		} else if (!contractorPhone.equals(other.contractorPhone))
+			return false;
 		if (contractorPhone1 == null) {
 			if (other.contractorPhone1 != null)
 				return false;
@@ -501,6 +604,11 @@ public class K3DetailContractor {
 				return false;
 		} else if (!contractorSuperviserEmailAddr.equals(other.contractorSuperviserEmailAddr))
 			return false;
+		if (contractorSuperviserPhone == null) {
+			if (other.contractorSuperviserPhone != null)
+				return false;
+		} else if (!contractorSuperviserPhone.equals(other.contractorSuperviserPhone))
+			return false;
 		if (contractorSuperviserPhone1 == null) {
 			if (other.contractorSuperviserPhone1 != null)
 				return false;
@@ -538,6 +646,9 @@ public class K3DetailContractor {
 			return false;
 		return true;
 	}
+
+	
+	
 
 	
 

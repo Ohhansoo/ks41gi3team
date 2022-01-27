@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contractor.ahs.mapper.K3ContractorMapper">
 
-	<!-- 거래처 삭제처리(체크박스) -->
+	<!-- 거래처 삭제처리-->
 	<delete id="k3DeleteContractor">
 		DELETE 
 			c,cs

@@ -10,9 +10,28 @@
 		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
-		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" ></script>
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script>
 			$(function(){
+				
+			
+				<!-- 거래처 출력 -->			
+				$(document).on('click','#printContractor', function(){
+					var initBody = document.body.innerHTML;
+					
+					window.onbeforeprint = function(){
+						document.body.innerHTML =document.getElementById('contractorInfo').innerHTML;
+					}
+					window.onafterprint =function(){
+						document.body.innerHTML = initBody;
+					};
+					
+					setTimeout(function(){					
+						window.print();		
+					},1000);						
+				});
+				<!--END 거래처 출력-->
+				
 				<!-- 거래처 삭제처리(체크박스) -->
 				$('#checkDeleteContractor').on('click',function(){
 	
@@ -168,7 +187,7 @@
 				
 				
 				<!-- 거래처 상세정보 모달창 스크립트 -->				
-				$('.showDetailContractor').on('click',function(){
+				$(document).on('click','.showDetailContractor',function(){
 					console.log("모달창 클릭이벤트 확인");
 					var contractorCode = $(this).attr('data-contractorCode');
 					console.log("모달창 변수내부 확인 contractorCode : "+ contractorCode + "확인끝");
@@ -290,6 +309,28 @@
 						});
 					});
 					<!--END 거래처 삭제처리(모달버튼) -->	
+
+					<!--모달창 거래처 출력 -->
+					$('.printDetailContractor').on('click', function(){
+						var initBody = document.body.innerHTML;
+						
+						window.onbeforeprint = function(){
+							document.body.innerHTML =document.getElementById('modal-body').innerHTML;
+						}
+						window.onafterprint = function(){
+							document.body.innerHTML = initBody;
+						};
+						
+						setTimeout(function(){
+							window.print();
+						},1000);
+						$('#detailContractorModal').delegate('.close','click',function(){
+							$('#detailContractorModal').modal('hide');	 
+						 });
+						
+					});
+					<!--END 모달창 거래처 출력 -->
+
 					
 					$("#tmodal").append(tmodal);
 					$('#detailContractorModal').modal('show');
@@ -308,10 +349,10 @@
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
-				<a class="btn btn-outline-info ahsbtn4" type="button">
+				<button class="btn btn-outline-info ahsbtn4" id="printContractor" type="button">
 					<i class="bi bi-printer"></i>
 					출력
-				</a>						
+				</button>						
 				<button id="checkDeleteContractor" class="btn btn-outline-info ahsbtn4" type="button">
 					<i class="bi bi-trash"></i>
 					삭제
@@ -399,67 +440,69 @@
 				<!-- End card header -->
 				<!--card body -->
 				<div class="card-body"  style="text-align:center">
-					<table class="table table-head-fixed table-responsive table-hover text-nowrap" style="overflow: auto">
-						<thead>
-						<tr>
-							<th>
-								<input type="checkbox" name="checkContractor"/>
-							</th>
-							<th>상세</th>						            
-							<th>수정</th>
-							<th>삭제</th>						            
-				            <th>거래처 사업장 코드</th>
-				            <th>거래처 상호명</th>
-				            <th>거래처 업태</th>
-				            <th>거래처 종목</th>
-				            <th>거래 구분</th>
-				            <th>거래처 전화번호</th>
-				            <th>거래처 아이디</th>
-				            <th>거래처 계정 상태</th>
-				            <th>등록직원아이디</th>
-				            <th>등록일자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
-							<td>
-								<label>
-									<input name="checkContractor" type="checkbox"  th:value="${c.contractorCode}"/>
-								</label>
-							</td>
-							<td>
-								<a href="#"  type="button" class="btn btn-default btn-sm showDetailContractor" th:data-contractorCode="${c.contractorCode}">
-									<i class="bi bi-eye"></i>
-								</a>
-							</td>										
-							<td>
-								<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor(contractorCode=${c.contractorCode})}">
-									<i class="fas fa-pencil-alt icon"></i>
-								</a>
-							</td>
-							<td>
-								<button type="button" class="deleteContractorBtn btn btn-default btn-sm" th:data-deleteContractorCode="${c.contractorCode}" >
-									<i class="bi bi-trash-fill"></i>
-								</button>
-							</td>
-							<td name="contractorCode" rel="contractorCode" th:text="${c.contractorCode}"></td>
-							<td  th:text="${c.contractorName}"></td>
-							<td  th:text="${c.contractorStatus}"></td>
-							<td  th:text="${c.contractorItem}"></td>
-							<td  th:text="${c.contractorDevision}"></td>
-							<td  th:text="${c.contractorPhone}"></td>
-							<td  th:text="${c.contractorId}"></td>
-							<td  th:text="${c.contractorState}"></td>
-							<td  th:text="${c.memberId}"></td>
-							<td  th:text="${c.contractorRegistrationDate}"></td>
-						</tr>
-						<tr th:unless="${not #lists.isEmpty(contractorList)}">
-							<td colspan="4">
-								등록된 거래처가 없습니다.
-							</td>
-						</tr>							
-					</tbody>						
-					</table>
+					<div id="contractorInfo" >
+						<table class="table table-head-fixed table-responsive table-hover text-nowrap" style="overflow: auto">
+							<thead>
+							<tr>
+								<th>
+									<input type="checkbox" name="checkContractor"/>
+								</th>
+								<th>상세</th>						            
+								<th>수정</th>
+								<th>삭제</th>						            
+					            <th>거래처 사업장 코드</th>
+					            <th>거래처 상호명</th>
+					            <th>거래처 업태</th>
+					            <th>거래처 종목</th>
+					            <th>거래 구분</th>
+					            <th>거래처 전화번호</th>
+					            <th>거래처 아이디</th>
+					            <th>거래처 계정 상태</th>
+					            <th>등록직원아이디</th>
+					            <th>등록일자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(contractorList)}" th:each="c:${contractorList}">
+								<td>
+									<label>
+										<input name="checkContractor" type="checkbox"  th:value="${c.contractorCode}"/>
+									</label>
+								</td>
+								<td>
+									<button type="button" class="btn btn-default btn-sm showDetailContractor" th:data-contractorCode="${c.contractorCode}">
+										<i class="bi bi-eye"></i>
+									</button>
+								</td>										
+								<td>
+									<a id="modifyContractor" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Contractor/k3ModifyContractor(contractorCode=${c.contractorCode})}">
+										<i class="fas fa-pencil-alt icon"></i>
+									</a>
+								</td>
+								<td>
+									<button type="button" class="deleteContractorBtn btn btn-default btn-sm" th:data-deleteContractorCode="${c.contractorCode}" >
+										<i class="bi bi-trash-fill"></i>
+									</button>
+								</td>
+								<td name="contractorCode" rel="contractorCode" th:text="${c.contractorCode}"></td>
+								<td  th:text="${c.contractorName}"></td>
+								<td  th:text="${c.contractorStatus}"></td>
+								<td  th:text="${c.contractorItem}"></td>
+								<td  th:text="${c.contractorDevision}"></td>
+								<td  th:text="${c.contractorPhone}"></td>
+								<td  th:text="${c.contractorId}"></td>
+								<td  th:text="${c.contractorState}"></td>
+								<td  th:text="${c.memberId}"></td>
+								<td  th:text="${c.contractorRegistrationDate}"></td>
+							</tr>
+							<tr th:unless="${not #lists.isEmpty(contractorList)}">
+								<td colspan="4">
+									등록된 거래처가 없습니다.
+								</td>
+							</tr>							
+						</tbody>						
+						</table>
+					</div>
 					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
 						<li class="paginate_button page-item previous" id="contractorList_previous">
 							<a th:if="${currentPage > 1} and ${searchValue} != null" id="contractorListPreviousA" th:href="@{k3SearchContractor(currentPage=${currentPage-1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractorList" class="page-link">
@@ -503,12 +546,12 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">거래처 상세정보</h5>
-						<a type="button" class="btn-close" data-dismiss="modal"  aria-label="Close">
+						<button type="button" class="close"  data-dismiss="modal">
 							<i class="bi bi-x-circle"></i>
-						</a>
+						</button>
 					</div>
-					<div class="modal-body">
-						<div class=" card card-body bg-light container-fluid" id="modifyContractor">
+					<div class="modal-body" id="modal-body">
+						<div class=" card card-body bg-light container-fluid">
 							<table id="tmodal" class="table table-striped table-hover">
 	               
 							</table>
@@ -523,10 +566,10 @@
 							<i class="bi bi-trash"></i>
 							삭제
 						</a>
-						<a class="ahsbtn2 btn btn-outline-info">
+						<button class="printDetailContractor ahsbtn2 btn btn-outline-info" type="button">
 							<i class="bi bi-printer"></i>
 							출력
-						</a>               
+						</button>               
 					</div>
 				</div>
 			</div>
