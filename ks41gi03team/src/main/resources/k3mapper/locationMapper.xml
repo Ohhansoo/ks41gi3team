@@ -57,7 +57,7 @@
 		FROM
 			k3_tb_location AS l;	
 	</select>
-		<!-- 모달로 로케이션리스트 보내기  -->
+	<!-- 모달로 로케이션리스트 보내기  -->
 	<select id="k3GetModalLocationList" parameterType="map" resultType="map">
 		SELECT
 			 l.locationCode

@@ -120,10 +120,10 @@
 										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" th:value="${vehicleInfo.vehicleCode}"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberId" class="inputName">점검 담당자</label>
+										<label for="memberId" class="inputName">차량 등록 담당자</label>
 										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${vehicleInfo.memberId}"/>
 										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${vehicleInfo.memberName}"/>
-										<button class="vehicleMemberId_btn" type="button">담당자 수정</button> 
+										<button class="vehicleMemberId_btn" type="button">수정</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
@@ -190,4 +190,3 @@
 		<!-- End 모달창 -->
 
 	</th:block>
-</head>

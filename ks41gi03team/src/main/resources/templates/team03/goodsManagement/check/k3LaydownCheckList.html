@@ -11,14 +11,7 @@
 				
 				$(document).on('click', '#moveAddLaydownCheckBtn', function(){
 						var check = $('.laydownCheckList:checked');
-						//var ladonwCheckList = [];
-						console.log(check.val());
-						
-						/* $.each(check, function(){
-							ladonwCheckList.push($(this).val());
-						}); */
 
-						
 						if(check.length == 1){
 							$('#laydownCheckTable').submit();
 							
@@ -95,4 +88,3 @@
 			</div>
 		</div>
 	</th:block>
-</head>

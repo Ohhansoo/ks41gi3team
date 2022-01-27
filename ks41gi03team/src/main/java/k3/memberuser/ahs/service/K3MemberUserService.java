@@ -19,29 +19,7 @@ public class K3MemberUserService {
 	public K3MemberUserService(K3MemberUserMapper memberuserMapper) {
 		this.memberuserMapper = memberuserMapper;
 	}
-	/*//로그인
-		public List<K3MemberUser> MemberUserList(String searchKey, String searchValue) {
-			List<K3MemberUser> memberuserList = memberuserMapper.getMemberUserListBySearchKey(searchKey, searchValue);
-			
-			if(memberuserList != null) {
-				
-				for(K3MemberUser k3memberuser : memberuserList) {
-					String levelMemberCode = k3memberuser.getLevelMemberCode();
-					
-					if(levelMemberCode != null) {
-						if("GM".equals(levelMemberCode)) {
-							k3memberuser.setLevelMemberCode("관리자");
-						}else if("TM".equals(levelMemberCode)) {
-							k3memberuser.setLevelMemberCode("팀장");
-						}else if("ST".equals(levelMemberCode)) {
-							k3memberuser.setLevelMemberCode("사원");
-						}else if("CT".equals(levelMemberCode)) {
-							k3memberuser.setLevelMemberCode("거래처");
-						}
-					}
-				}
-			}
-			return memberuserList; */
+	
 		
 		//01 직원현황(초기화면)
 		public List<K3MemberUser> getMemberUserList() {
@@ -74,7 +52,7 @@ public class K3MemberUserService {
 			return result;
 		}
 		
-		//06 직원정보 삭제 처리
+		//06 직원정보 퇴사 처리
 		public int k3RemoveMemberUser(List<String> removeList) {
 			int result = memberuserMapper.k3RemoveMemberUser(removeList);
 			return result;

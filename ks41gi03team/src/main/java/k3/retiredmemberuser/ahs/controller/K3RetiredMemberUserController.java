@@ -82,6 +82,9 @@ public class K3RetiredMemberUserController {
 		  }else if(retiredmemberuserKey != null &&"memberResidentRegistrationNumber".equals(retiredmemberuserKey)) { 
 			  retiredmemberuserKey ="memberResidentRegistrationNumber";  
 		  }
+		  
+		  model.addAttribute("title", "퇴사직원 관리");
+		  model.addAttribute("subtitle", "퇴사직원 검색");
 		  searchCondition.put("retiredmemberuserKey", retiredmemberuserKey);
 		  searchCondition.put("retiredmemberuserValue", retiredmemberuserValue);
 		  

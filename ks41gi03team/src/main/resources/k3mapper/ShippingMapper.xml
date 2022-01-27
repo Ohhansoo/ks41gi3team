@@ -9,7 +9,6 @@
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
-			s.vehicleCheckpointCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
 			r.shippingDetailAddress,
@@ -33,7 +32,6 @@
 			(
 				shippingCode,
 				mainBusinessCode,
-				vehicleCheckpointCode,
 				releaseCode,
 				memberId,
 				shippingDetail,
@@ -42,7 +40,6 @@
 			)VALUES(
 				#{shippingCode}
 				,"공장A공장_서울_1"
-				,#{vehicleCheckpointCode}
 				,#{releaseCode}
 				,#{memberId}
 				,#{shippingDetail}
@@ -58,7 +55,6 @@
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
-			s.vehicleCheckpointCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
 			r.shippingDetailAddress,
@@ -86,9 +82,6 @@
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				mainBusinessCode = "공장A공장_서울_1",
 			</if>
-			<if test="shippingCode != null and shippingCode != ''.toString()">
-				vehicleCheckpointCode = #{vehicleCheckpointCode},
-			</if> 
 			<if test="shippingCode != null and shippingCode != ''.toString()">
 				memberId = #{memberId},
 			</if>

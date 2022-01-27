@@ -3,8 +3,8 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customJs">
-			<script>
-			$(function(){				
+		<script>
+			$(function(){
 				$('#addCategoryBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/category/k3AddCategory';
 				});
@@ -41,12 +41,8 @@
 						<button id="addCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
-						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
-							<i class="bi bi-printer"></i>
-							출력
-						</button>						
-						<button id="deleteCheckpointBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						</button>								
+						<button id="deleteCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>					
@@ -112,7 +108,9 @@
 												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.categoryCode}">
 											</td>
 											<td>
-												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">수정</a>
+												<a th:href="@{/team03/goodsManagement/category/k3ModifyCategory(categoryCode=${l.categoryCode})}">
+													<i class="fas fa-pencil-alt icon"></i>
+												</a>
 											</td>		
 											<td th:text="${l.largeCategory}"></td>
 											<td th:text="${l.mediumCategory}"></td>

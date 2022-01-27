@@ -6,7 +6,7 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
-			<script type="text/javascript">
+		<script type="text/javascript">
 			$(function(){
 				$('#moveAddStockBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/stock/k3AddStockList';
@@ -248,7 +248,9 @@
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
-													<a th:href="@{/team03/goodsManagement/stock/k3ModifyStock(stockCode=${l.stockCode})}">수정</a>
+													<a th:href="@{/team03/goodsManagement/stock/k3ModifyStock(stockCode=${l.stockCode})}">
+														<i class="fas fa-pencil-alt icon"></i>
+													</a>
 												</td>
 												<td th:text="${l.locationCode}"></td>
 												<td th:text="${l.productName}"></td>

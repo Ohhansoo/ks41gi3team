@@ -14,6 +14,17 @@
 		<result column="vehicleDriveAvailability" property="vehicleDriveAvailability"/>
 	</resultMap>
 	
+	<!-- 중복확인 -->
+	<select id="getOverlappedVehicleCode" parameterType="String"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_vehicle AS v
+		WHERE
+			v.vehicleCode = #{vehicleCode};
+		
+	</select>
+	
 	<!-- 현황 -->
 	<select id="getVehicleList" resultType="K3Vehicle">
 		SELECT

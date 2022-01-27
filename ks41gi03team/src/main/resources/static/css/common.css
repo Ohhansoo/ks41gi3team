@@ -228,3 +228,7 @@ td{
 	text-align: center;
 }
 
+.notUse{
+	background-color: #E6E6E6;
+	border:none;
+}

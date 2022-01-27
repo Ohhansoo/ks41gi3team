@@ -61,7 +61,7 @@ public class K3CategoryController {
 		
 	//카테고리 수정처리
 	@PostMapping("/k3ModifyCategory")
-	public String k3ModifyLabel(K3Category k3Category) {
+	public String k3ModifyCategory(K3Category k3Category) {
 		int result = k3CategoryService.k3ModifyCategory(k3Category);
 		log.info("AddCategory 메서드 인서트 결과 : " + k3Category);
 		return "redirect:/team03/goodsManagement/category/k3CategoryList";
