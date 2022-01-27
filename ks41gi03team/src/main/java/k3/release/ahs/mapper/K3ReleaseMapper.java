@@ -9,7 +9,12 @@ import k3.release.ahs.dto.K3Release;
 
 @Mapper
 public interface K3ReleaseMapper {
-	
+	//<ajax> 요청 리스트 개수 전달(요청 알림)
+	public int k3CountRequestReleaseList();
+	//<모달>-통합출고코드 생성코드 전달
+	public String k3CreateReleaseMergeCode();
+	//<모달>-통합출고코드 리스트 가져오기
+	public List<Map<String, Object>> k3FindReleaseMergeCode();
 	//<모달>-출하 상품명 리스트 가져오기
 	public List<Map<String, Object>> k3FindProductNameList(Map<String, Object> productMap);
 	//출고 승인/반려 처리
@@ -20,6 +25,9 @@ public interface K3ReleaseMapper {
 	public int k3AddRelease(K3Release k3Release);
 	//출고 현황
 	public List<K3Release> k3GetReleaseList();
+
+
+
 
 
 }

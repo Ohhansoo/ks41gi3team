@@ -1,6 +1,7 @@
 package k3.release.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,16 @@ public class K3ShipmentCheckService {
 	public K3ShipmentCheckService(K3ShipmentCheckMapper k3ShipmentCheckMapper) {
 		this.k3ShipmentCheckMapper = k3ShipmentCheckMapper;
 	}
+	
+
+	
+	
 	//출하검수 등록처리
 	public int k3AddShipmentCheck(K3Release k3Release) {
 		int result = k3ShipmentCheckMapper.k3AddShipmentCheck(k3Release);
 		return result;
 	}
+	
 	//출하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
 	public List<K3Release> k3GetShipmentCheckUpdateList(String releaseCode, String type) {
 		List<K3Release> shipmentCheck = k3ShipmentCheckMapper.k3GetShipmentCheckUpdateList(releaseCode, type);
@@ -35,4 +41,5 @@ public class K3ShipmentCheckService {
 		List<K3Release> shipmentCheck = k3ShipmentCheckMapper.k3GetShipmentCheck();
 		return shipmentCheck;
 	}
+
 }

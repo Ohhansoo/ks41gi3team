@@ -35,6 +35,37 @@ public class K3ReleaseController {
 		this.k3ReleaseService = k3ReleaseService;
 		this.k3ShipmentCheckService = k3ShipmentCheckService;
 	}
+	//<ajax> 요청 리스트 개수 전달(요청 알림)
+	@PostMapping("/countRequestReleaseList")	
+	@ResponseBody
+	public int k3CountRequestReleaseList(){
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 시작 전");
+		int requestCount = k3ReleaseService.k3CountRequestReleaseList();
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 결과 -----------{}", requestCount);
+		return requestCount;
+	}
+	
+	
+	//<ajax>-통합출고코드 생성코드 전달
+	@PostMapping("/createReleaseMergeCode")
+	@ResponseBody
+	public String k3CreateReleaseMergeCode(){
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 시작 전");
+		String releaseMergeCode = k3ReleaseService.k3CreateReleaseMergeCode();
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 결과 -----------{}", releaseMergeCode);
+		return releaseMergeCode;
+	}
+	
+	//<모달>-통합출고코드 리스트 가져오기
+	@PostMapping("/findReleaseMergeCode")
+	@ResponseBody
+	public List<Map<String, Object>> k3FindReleaseMergeCode(){
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 시작 전");
+		List<Map<String, Object>> releaseMergeCodeList = k3ReleaseService.k3FindReleaseMergeCode();
+		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 결과 -----------{}", releaseMergeCodeList);
+		return releaseMergeCodeList;
+	}
+	
 	
 	//<모달>-출하 상품명 리스트 가져오기
 	@PostMapping("/findProductNameList")
