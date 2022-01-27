@@ -21,10 +21,10 @@
   		SELECT
 			*
 		FROM
-			k3_tb_our_company
+			k0_sw_mainBusinessCodeManagement
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
-			<if test="ourcompanyValue != null and ourcompanyValue != ''.toString()">
-				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%')
+			<if test="mainBusinessCodeManagementValue != null and mainBusinessCodeManagementValue != ''.toString()">
+				${mainBusinessCodeManagementKey} LIKE CONCAT('%', #{mainBusinessCodeManagementValue}, '%')
 			</if>
 		</trim>
   </select>

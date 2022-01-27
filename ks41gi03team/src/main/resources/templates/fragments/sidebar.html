@@ -40,7 +40,7 @@
 						<!-- User Management Menu -->
 						
 				<!-- companymanagement Menu -->
-						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST'}">
+						<li class="nav-item" th:if="${session.SLEVEL == 'GM' or  session.SLEVEL == 'TM' or session.SLEVEL == 'ST' or session.SLEVEL == 'CT'}">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-angle-right"></i>
 								<p>회원관리</p>
