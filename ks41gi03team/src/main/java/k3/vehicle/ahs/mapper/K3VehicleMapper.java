@@ -10,6 +10,9 @@ import k3.vehicle.ahs.dto.K3Vehicle;
 @Mapper
 public interface K3VehicleMapper {
 	
+	//중복 확인
+	public Integer getOverlappedVehicleCode(String vehicleCode);
+		
 	//현황
 	public List<K3Vehicle> getVehicleList();
 	

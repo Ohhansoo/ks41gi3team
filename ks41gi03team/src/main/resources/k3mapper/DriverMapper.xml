@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.driver.ahs.mapper.K3DriverMapper">
 	
-	
+	<!-- 중복확인 -->
 	<select id="getOverlappedDriverId" parameterType="String"  resultType="Integer">
 		SELECT
 			COUNT(1)

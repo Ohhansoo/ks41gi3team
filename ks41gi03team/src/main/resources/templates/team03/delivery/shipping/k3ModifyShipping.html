@@ -35,20 +35,16 @@
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="vehicleCheckpointCode" class="inputName">입출차 기록 코드</label>
-										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${shippingInfo.vehicleCheckpointCode}"/>
-									</div>	
-									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
 										<input class="inputBox" type="text" id="memberId" name="memberId" th:value="${shippingInfo.memberId}"/>
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="shippingDetail" class="inputName">배송 세부유형</label>
-										<input class="inputBox" type="text" id="shippingDetail" name="shippingDetail" th:value="${shippingInfo.shippingDetail}"/>
-									</div>	
-									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
 										<input class="inputBox" type="text" id="driverId" name="driverId" th:value="${shippingInfo.driverId}"/>
+									</div>	
+									<div class="inputwrap col-md-12">
+										<label for="shippingDetail" class="inputName">배송 세부유형</label>
+										<input class="inputBox" type="text" id="shippingDetail" name="shippingDetail" th:value="${shippingInfo.shippingDetail}"/>
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="shippingTracking" class="inputName">배송 현황</label>
@@ -69,4 +65,3 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 	</th:block>
-</head>

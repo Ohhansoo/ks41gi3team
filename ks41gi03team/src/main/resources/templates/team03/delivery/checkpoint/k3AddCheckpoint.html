@@ -124,18 +124,18 @@
 							<form th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
-										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode"/>
+										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" placeholder="입출하 기록 코드를 등록해주세요 ex) check000"/>
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
 										<input class="inputBox" type="hidden" id="driverId" name="driverId"/>
-										<input class="inputBox" type="text" id="driverName" name="driverName"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" placeholder="차량 기사를 등록해주세요"/>
 										<button class="checkpointDriverName_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="memberName" class="inputName">차량 코드</label>
-										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" />
+										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" placeholder="차량 코드를 등록해주세요"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleArrivalDate" class="inputName">입하일</label>
@@ -193,4 +193,3 @@
 		</div>
 		<!-- End 모달창 -->
 	</th:block>
-</head>
