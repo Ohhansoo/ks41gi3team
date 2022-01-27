@@ -34,6 +34,58 @@
 		</association>
 	</resultMap>
 	
+	<select id="k3CountRequestReleaseList" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE
+			r.releaseAllow = 'N'
+	</select>
+	
+	<!--<모달>-통합출고코드 생성코드 전달  -->
+	<select id="k3CreateReleaseMergeCode" resultType="String">
+		SELECT
+			CONCAT(MAX(SUBSTRING(releaseMergeCode,1,13)),CAST(MAX(SUBSTRING(releaseMergeCode,14))AS DECIMAL) + 1) AS releaseMergeCode
+		FROM
+			k3_tb_release
+	</select>
+	
+	<!--<모달>-통합출고코드 리스트 가져오기  -->
+	<select id="k3FindReleaseMergeCode" resultType="map">
+		SELECT 
+			r.releaseCode,
+			r.releaseMergeCode,
+			p.productName,
+			s.pileupDate
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			r.productCode = p.productCode
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+	</select>
+	
 	<!-- 출고 요청 등록 -->
 	<insert id="k3AddRelease">
 		INSERT INTO k3_tb_release

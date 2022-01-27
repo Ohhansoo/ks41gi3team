@@ -32,10 +32,81 @@
 						});  						
 						if(submitCheck) $('#requestReleaseList').submit();
 					});
+				//mergeCode 새로생성
+				$(document).on('click', '#createReleaseMergeCode', function(){
+					$.ajax({
+					    url:'/team03/goodsManagement/release/createReleaseMergeCode',
+					    type:'post',
+					    success: function(data) {
+					    	var releaseMergeCode = $('#releaseMergeCode');
+			 				releaseMergeCode.attr('value', data);
+					    },
+					    error: function(err) {
+					        alert("관리자에게 문의해주세요.");
+					    }
+					});
+							
+				});
+				
 				//모달 공통
+				var mergeCodeModal = $('#releaseMergeCodeModal');
 				var contractorNameModal = $('#contractorNameModal');
 				var productNameModal = $('#productNameModal');
 
+				//출고통합코드 선택 모달
+				$(document).on('click', '#selectReleaseMergeCode', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#releaseMergeCodeTable').DataTable({
+						destroy: true,
+						autoWidth: false,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/release/findReleaseMergeCode',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "releaseCode"},
+							{ "data": "releaseMergeCode"},
+							{ "data": "productName"},								
+							{ "data": "pileupDate"}								
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="releaseMergeCode">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					mergeCodeModal.removeClass('hidden');
+						
+				});
+				$("#releaseMergeCodeExitBtn").click(function(){
+					
+					mergeCodeModal.addClass('hidden');
+				});
+				$(document).on('click', '#confirmReleaseMergeCodeBtn', function(){
+					var checkedBox = $('.releaseMergeCode:checked');
+	 				var releaseMergeCode = $('#releaseMergeCode');
+	 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(2).text();
+	 				releaseMergeCode.attr('value',releaseMergeCodeValue);
+					console.log(checkedBox);
+					mergeCodeModal.addClass('hidden');
+				});
 				//회사명 선택 모달
 				$(document).on('click', '#selectContractorName', function(){
 					var aLengthMenuArray = [];
@@ -99,6 +170,7 @@
 					
 					$('#productNameTable').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
@@ -212,8 +284,9 @@
 								<form id="requestReleaseList" th:action="@{/team03/goodsManagement/release/k3AddRelease}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="releaseMergeCode" class="inputName">통합코드</label>
-										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" placeholder="함께 출고시킬 품목이 있다면 작성해주세요">
-										<button id="selectReleaseMergeCode" class="findReleaseMergeCodeModal" type="button">코드선택</button>
+										<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" readonly="readonly">
+										<button id="selectReleaseMergeCode" class="findReleaseMergeCodeModal" type="button">기존코드선택</button>
+										<button id="createReleaseMergeCode" type="button">새코드선택</button>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="contractorName" class="inputName">회사명</label>
@@ -332,6 +405,37 @@
 				</div>
 				<div class="modal_fotter">
 					<button id="productNameConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		<!-- 모달창 -->
+		<div id="releaseMergeCodeModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">통합코드선택</div>
+					<button id="releaseMergeCodeExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="releaseMergeCodeTable" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>출고코드</th>
+									<th>통합코드</th>
+									<th>상품명</th>						
+									<th>재고일자</th>											
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="confirmReleaseMergeCodeBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
