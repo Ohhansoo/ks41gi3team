@@ -1,4 +1,4 @@
-   package k3.vehicle.ahs.service;
+package k3.vehicle.ahs.service;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +20,13 @@ public class K3VehicleService {
 	
 	public K3VehicleService(K3VehicleMapper k3VehicleMapper) {
 		this.k3VehicleMapper = k3VehicleMapper;
+	}
+	
+	//중복확인
+	public Integer getOverlappedVehicleCode(String vehicleCode) {
+		Integer result = 0;
+		result += k3VehicleMapper.getOverlappedVehicleCode(vehicleCode);
+		return result;
 	}
 	
 	//현황

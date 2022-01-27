@@ -101,13 +101,12 @@
 										<th>선택</th>
 										<th>수정</th>	
 										<th>배송 번호</th>
-										<th>입출차 기록 코드</th>
 										<th>상품출고 통합코드</th>
+										<th>확인 담당자</th>
+										<th>차량 기사</th>
 										<th>배송지</th>
 										<th>배송지 세부주소</th>
-										<th>확인 담당자</th>
 										<th>배송 세부유형</th>
-										<th>차량 기사</th>
 										<th>배송 현황</th>
 									</tr>
 								</thead>
@@ -122,13 +121,12 @@
 										</a>
 										</td>
 										<td th:text="${l.shippingCode}"></td>
-										<td th:text="${l.vehicleCheckpointCode}"></td>
 										<td th:text="${l.releaseMergeCode}"></td>
+										<td th:text="${l.memberId}"></td>
+										<td th:text="${l.driverId}"></td>
 										<td th:text="${l.shippingAddress}"></td>
 										<td th:text="${l.shippingDetailAddress}"></td>
-										<td th:text="${l.memberId}"></td>
 										<td th:text="${l.shippingDetail}"></td>
-										<td th:text="${l.driverId}"></td>
 										<td th:text="${l.shippingTracking}"></td>
    											
 										
@@ -145,4 +143,3 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 	</th:block>
-</head>

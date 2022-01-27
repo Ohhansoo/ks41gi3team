@@ -84,6 +84,7 @@
 					modal.removeClass('hidden');
 						
 				});
+				
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.memberId:checked');
 					var memberId = $('#memberId');
@@ -94,6 +95,47 @@
 	 				memberId.attr('value', checkedBox.val());	
 
 					modal.addClass('hidden');
+				});
+				
+				$('#overlapped_btn').click(function(){
+
+					var vehicleCode = $('#vehicleCode').val();
+					
+					if(typeof vehicleCode != 'undefined' && vehicleCode != null && vehicleCode != ''){
+						// ajax 호출
+						var request = $.ajax({
+							  url: '/team03/delivery/vehicle/vehicleCheck', 
+							  method: 'POST', 
+							  data: { 'vehicleCode' : vehicleCode },
+							  dataType: 'json' 
+							});				
+						request.done(function(data) {
+							// 중복여부 체크(true: 중복, false: 등록가능)
+							var idConfirm = data;
+							
+							if(idConfirm){
+								alert('이미 등록된 코드입니다.');
+		 						$('#userInfo input').not('#vehicleCode').prop('disabled', true);
+								$('#userInfo select').prop('disabled', true);
+								$('#userInfo button').not('#overlapped_btn').prop('disabled', true);
+							}else{
+								alert('등록이 가능한 코드입니다.');
+								$('#userInfo input').prop('disabled', false);
+								$('#userInfo select').prop('disabled', false);
+								$('#userInfo button').prop('disabled', false);
+							}
+							
+							
+						});				
+						request.fail(function( jqXHR, textStatus ) {
+						  alert( "Request failed: " + textStatus );
+						});
+					}else{
+						alert('코드를 입력해주세요')
+						return false;
+					}
+					
+					
 				});
 				
 			});
@@ -121,26 +163,26 @@
 								<form id="userInfo" th:action="@{/team03/delivery/vehicle/k3AddVehicle}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCode" class="inputName">차량 코드</label>
-										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" placeholder="차량 코드를 입력해주세요 ex) vehicle000"/>
-										<button type="button" id="vehicleCodeCheck" class="vehicleCodeCheck">중복확인 </button> 
+										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" placeholder="차량 코드를 등록해주세요 ex) vehicle000"/>
+										<button type="button" id="overlapped_btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="memberId" class="inputName">점검 담당자</label>
+										<label for="memberId" class="inputName">차량 등록 담당자</label>
 										<input class="inputBox" type="hidden" id="memberId" name="memberId"/>
 										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="이름을 등록해주세요"/>
-										<button class="vehicleMemberId_btn" type="button">담당자 등록</button> 
+										<button class="vehicleMemberId_btn" type="button">등록</button> 
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleManufacturer" class="inputName">차량 제조사</label>
-										<input class="inputBox" type="text" id="vehicleManufacturer" name="vehicleManufacturer" placeholder="차량 제조사를 입력해주세요"/>
+										<input class="inputBox" type="text" id="vehicleManufacturer" name="vehicleManufacturer" placeholder="차량 제조사를 등록해주세요"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleType" class="inputName">차종</label>
-										<input class="inputBox" type="text" id="vehicleType" name="vehicleType" placeholder="차량 종류를 입력해주세요 ex)탑차, 카고"/>
+										<input class="inputBox" type="text" id="vehicleType" name="vehicleType" placeholder="차량 종류를 등록해주세요 ex)탑차, 카고"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="vehicleTonage" class="inputName">톤수</label>
-										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage" placeholder="톤수를 입력해주세요 ex)5t, 2.5t"/>
+										<input class="inputBox" type="text" id="vehicleTonage" name="vehicleTonage" placeholder="톤수를 등록해주세요 ex)5t, 2.5t"/>
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="vehicleInspectionDate" class="inputName">점검일</label>
@@ -148,7 +190,7 @@
 									</div>								
 									<div class="inputwrap col-md-12">
 										<label for="vehicleDriveAvailability" class="inputName">운행 가능 여부</label>
-										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability" placeholder="운행 가능 여부를 입력해주세요"/>
+										<input class="inputBox" type="text" id="vehicleDriveAvailability" name="vehicleDriveAvailability" placeholder="운행 가능 여부를 등록해주세요"/>
 									</div>							
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
@@ -172,7 +214,7 @@
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
-					<div class="textTitle">거래처명 선택</div>
+					<div class="textTitle">차량 등록 담당자</div>
 					<button class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>

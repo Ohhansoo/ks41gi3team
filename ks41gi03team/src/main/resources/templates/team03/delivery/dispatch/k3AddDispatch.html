@@ -184,22 +184,22 @@
 								<form id="userInfo" th:action="@{/team03/delivery/dispatch/k3AddDispatch}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="dispatchCode" class="inputName">배차 코드</label>
-										<input class="inputBox" type="text" id="dispatchCode" name="dispatchCode"/>
+										<input class="inputBox" type="text" id="dispatchCode" name="dispatchCode" placeholder="배차 코드를 등록해주세요 ex) dispatch000"/>
 										<button type="button" id="btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="releaseCode" class="inputName">상품출고 코드</label>
-										<input class="inputBox" type="text" id="releaseCode" name="releaseCode"/>
+										<input class="inputBox" type="text" id="releaseCode" name="releaseCode" placeholder="상품출고 코드를 등록해주세요"/>
 									</div>									
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
 										<input class="inputBox" type="hidden" id="driverId" name="driverId"/>
-										<input class="inputBox" type="text" id="driverName" name="driverName"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" placeholder="차량 기사를 등록해주세요"/>
 										<button class="dispatchDriverName_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCode" class="inputName">차량 코드</label>
-										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode"/>
+										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" placeholder="차량 코드를 등록해주세요"/>
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="dispatchStartDate" class="inputName">배송 시작일</label>
@@ -213,17 +213,17 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">배차 담당자</label>
 										<input class="inputBox" type="hidden" id="memberId" name="memberId"/>
-										<input class="inputBox" type="text" id="memberName" name="memberName"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="배차 담당자를 등록해주세요"/>
 										<button class="dispatchMemberId_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="dispatchAcceptDate" class="inputName">담당자 승인일</label>
-										<input class="inputBox" type="date" id="dispatchAcceptDate" name="dispatchAcceptDate"/>
+										<input class="inputBox" type="date" id="dispatchAcceptDate" name="dispatchAcceptDate" placeholder="담당자 승인일을 등록해주세요"/>
 									</div>	
 									
 									<div class="inputwrap col-md-12">
 										<label for="dispatchConsignee" class="inputName">수취인</label>
-										<input class="inputBox" type="text" id="dispatchConsignee" name="dispatchConsignee"/>
+										<input class="inputBox" type="text" id="dispatchConsignee" name="dispatchConsignee" placeholder="수취인을 등록해주세요"/>
 									</div>								
 																
 

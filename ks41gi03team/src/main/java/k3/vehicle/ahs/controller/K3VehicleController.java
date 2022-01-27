@@ -32,6 +32,20 @@ public class K3VehicleController {
 		this.k3MemberUserService = k3MemberUserService;
 	}
 	
+	//중복확인 
+			@PostMapping("/vehicleCheck")
+			@ResponseBody
+			public boolean vehicleCheck(@RequestParam(value="vehicleCode", required = false) String vehicleCode) {
+				
+				boolean checkResult = false;
+				
+				Integer check = k3VehicleService.getOverlappedVehicleCode(vehicleCode);
+				
+				if(check > 0) checkResult = true;
+				
+				return checkResult;
+			}
+	
 	//현황
 	@GetMapping("/k3VehicleList")
 	public String getVehicleList(Model model) {
@@ -104,15 +118,16 @@ public class K3VehicleController {
 	}
 	
 	//단건 삭제
+	
 	/*
 	 * @GetMapping("/k3DeleteVehicle") public String
 	 * k3DeleteVehicle(@RequestParam(value="vehicleCode", required=false) String
-	 * vehicleCode, Model model) { System.out.println("k3DeleteVehicle");
-	 * 
-	 * Integer result = k3VehicleService.k3DeleteVehicle(vehicleCode);
+	 * vehicleCode, Model model) { System.out.println("k3DeleteVehicle"); Integer
+	 * result = k3VehicleService.k3DeleteVehicle(vehicleCode);
 	 * log.info("DeleteVehicle" + result); return
 	 * "redirect:/team03/delivery/vehicle/k3VehicleList"; }
 	 */
+	 
 	
 	//체크 삭제
 	@PostMapping("/k3DeleteVehicle")

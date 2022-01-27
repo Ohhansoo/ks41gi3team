@@ -3,8 +3,6 @@ package k3.shipping.ahs.dto;
 public class K3Shipping {
 	private String shippingCode;
 	private String mainBusinessCode;
-	private String contractorCode;
-	private String vehicleCheckpointCode;
 	private String releaseCode;
 	private String releaseMergeCode;
 	private String shippingAddress;
@@ -13,7 +11,6 @@ public class K3Shipping {
 	private String shippingDetail;
 	private String driverId;
 	private String shippingTracking;
-	
 	public String getShippingCode() {
 		return shippingCode;
 	}
@@ -25,18 +22,6 @@ public class K3Shipping {
 	}
 	public void setMainBusinessCode(String mainBusinessCode) {
 		this.mainBusinessCode = mainBusinessCode;
-	}
-	public String getContractorCode() {
-		return contractorCode;
-	}
-	public void setContractorCode(String contractorCode) {
-		this.contractorCode = contractorCode;
-	}
-	public String getVehicleCheckpointCode() {
-		return vehicleCheckpointCode;
-	}
-	public void setVehicleCheckpointCode(String vehicleCheckpointCode) {
-		this.vehicleCheckpointCode = vehicleCheckpointCode;
 	}
 	public String getReleaseCode() {
 		return releaseCode;
@@ -88,18 +73,15 @@ public class K3Shipping {
 	}
 	@Override
 	public String toString() {
-		return "K3Shipping [shippingCode=" + shippingCode + ", mainBusinessCode=" + mainBusinessCode
-				+ ", contractorCode=" + contractorCode + ", vehicleCheckpointCode=" + vehicleCheckpointCode
-				+ ", releaseCode=" + releaseCode + ", releaseMergeCode=" + releaseMergeCode
-				+ ", shippingAddress=" + shippingAddress + ", shippingDetailAddress=" + shippingDetailAddress
-				+ ", memberId=" + memberId + ", shippingDetail=" + shippingDetail + ", driverId=" + driverId
-				+ ", shippingTracking=" + shippingTracking + "]";
+		return "K3Shipping [shippingCode=" + shippingCode + ", mainBusinessCode=" + mainBusinessCode + ", releaseCode="
+				+ releaseCode + ", releaseMergeCode=" + releaseMergeCode + ", shippingAddress=" + shippingAddress
+				+ ", shippingDetailAddress=" + shippingDetailAddress + ", memberId=" + memberId + ", shippingDetail="
+				+ shippingDetail + ", driverId=" + driverId + ", shippingTracking=" + shippingTracking + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((driverId == null) ? 0 : driverId.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
@@ -110,7 +92,6 @@ public class K3Shipping {
 		result = prime * result + ((shippingDetail == null) ? 0 : shippingDetail.hashCode());
 		result = prime * result + ((shippingDetailAddress == null) ? 0 : shippingDetailAddress.hashCode());
 		result = prime * result + ((shippingTracking == null) ? 0 : shippingTracking.hashCode());
-		result = prime * result + ((vehicleCheckpointCode == null) ? 0 : vehicleCheckpointCode.hashCode());
 		return result;
 	}
 	@Override
@@ -122,11 +103,6 @@ public class K3Shipping {
 		if (getClass() != obj.getClass())
 			return false;
 		K3Shipping other = (K3Shipping) obj;
-		if (contractorCode == null) {
-			if (other.contractorCode != null)
-				return false;
-		} else if (!contractorCode.equals(other.contractorCode))
-			return false;
 		if (driverId == null) {
 			if (other.driverId != null)
 				return false;
@@ -177,14 +153,10 @@ public class K3Shipping {
 				return false;
 		} else if (!shippingTracking.equals(other.shippingTracking))
 			return false;
-		if (vehicleCheckpointCode == null) {
-			if (other.vehicleCheckpointCode != null)
-				return false;
-		} else if (!vehicleCheckpointCode.equals(other.vehicleCheckpointCode))
-			return false;
 		return true;
 	}
 	
 	
 	
+
 }
