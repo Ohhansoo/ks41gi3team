@@ -16,7 +16,26 @@ public class K3ReleaseService {
 	
 	public K3ReleaseService(K3ReleaseMapper k3ReleaseMapper){
 		this.k3ReleaseMapper = k3ReleaseMapper;
-	}	
+	}
+	
+	//<ajax> 요청 리스트 개수 전달(요청 알림)
+	public int k3CountRequestReleaseList() {
+		int requestCount = k3ReleaseMapper.k3CountRequestReleaseList();
+		return requestCount;
+	}
+	
+	//<모달>-통합출고코드 생성코드 전달
+	public String k3CreateReleaseMergeCode() {
+		String releaseMergeCode = k3ReleaseMapper.k3CreateReleaseMergeCode();
+		return releaseMergeCode;
+	}
+	
+	//<모달>-통합출고코드 리스트 가져오기
+	public List<Map<String, Object>> k3FindReleaseMergeCode() {
+		List<Map<String, Object>> releaseMergeCodeList = k3ReleaseMapper.k3FindReleaseMergeCode();
+		return releaseMergeCodeList;
+	}
+	
 	//<모달>-출하 상품명 리스트 가져오기
 	public List<Map<String, Object>> k3FindProductNameList() {
 		List<Map<String, Object>> ProductNameList = k3ReleaseMapper.k3FindProductNameList(null);
@@ -44,6 +63,8 @@ public class K3ReleaseService {
 		List<K3Release>	releaseList = k3ReleaseMapper.k3GetReleaseList();
 		return releaseList;
 	}
+
+
 
 
 }
