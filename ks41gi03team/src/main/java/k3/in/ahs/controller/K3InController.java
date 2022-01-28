@@ -34,21 +34,18 @@ public class K3InController {
 		}
 		
 		
-		
-		
-		
-
-		//결제 정보 모달 컨트롤러
-	/*
-	 * @PostMapping("/findInPayInfo")
-	 * 
-	 * @ResponseBody public List<Map<String, Object>> k3FindInPayInfo() {
-	 * 
-	 * List<Map<String, Object>> result = k3InService.findEstimateInfo();
-	 * System.out.println(result + "findPayInfo controller");
-	 * 
-	 * return result; }
-	 */
+		//결제 등록 데이터테이블 확인 버튼 컨트롤러
+		@PostMapping("/inPayCheck")
+		@ResponseBody
+		public List<Map<String, Object>> k3InPayCheck(	@RequestParam(value="inCode")String inCode,
+														@RequestParam(value="estimateNum")String estimateNum,
+														@RequestParam(value="estimatePrice")String estimatePrice,
+														@RequestParam(value="inPay")String inPay,
+														@RequestParam(value="inPayCheck")String inPayCheck) {
+			List<Map<String, Object>> inPayResult = k3InService.inPayCheck(inCode, estimateNum, estimatePrice, inPay, inPayCheck);
+			System.out.println(inPayResult + "<<inPayCheck, 데이터테이블 확인버튼 컨트롤러");
+			return inPayResult;
+		}
 		
 		//결제정보 등록 버튼 모달 컨트롤러
 		@PostMapping("/inPayInfo")
@@ -81,7 +78,6 @@ public class K3InController {
 			searchCondition.put("inKey", inKey);
 			searchCondition.put("inValue", inValue);
 		
-			
 			Map<String, Object> inListMap = k3InService.getSearchInList(searchCondition, currentPage);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("lastPage", inListMap.get("lastPage"));

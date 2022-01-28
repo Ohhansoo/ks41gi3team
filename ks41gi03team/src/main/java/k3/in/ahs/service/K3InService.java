@@ -25,6 +25,19 @@ public class K3InService {
 	}
 	
 	
+	//결제 등록 데이터테이블 확인 버튼 서비스
+	public List<Map<String, Object>> inPayCheck(String inCode, String estimateNum, String estimatePrice, String inPay, String inPayCheck) {
+		Map<String, Object> inPayMap = new HashMap<String, Object>();
+		inPayMap.put("inCode", inCode);
+		inPayMap.put("estimateNum", estimateNum);
+		inPayMap.put("estimatePrice", estimatePrice);
+		inPayMap.get("inPay");
+		inPayMap.get("inpayCheck");
+		
+		List<Map<String, Object>> result = k3InMapper.inPayCheck(inPayMap);
+		System.out.println(inPayMap + "<< inPayMap service");
+		return result;
+	}
 	
 	//결제정보 버튼 모달
 	public List<Map<String, Object>> inPayInfo(String inCode, String estimateNum, String estimatePrice) {

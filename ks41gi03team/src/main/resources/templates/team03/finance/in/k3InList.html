@@ -1,89 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="@{layout/default}">
-   	<th:block layout:fragment="customCss">
+   	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   	  layout:decorate="@{layout/default}">
+   	  
+	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
-		<link rel="stylesheet" th:href="@{/css/modal.css}">	
-	
+		<link rel="stylesheet" th:href="@{/css/modal.css}">		
 	</th:block>
    
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	 
-	 
-	 <th:block layout:fragment="customJs">
-	 
+	  
+	<th:block layout:fragment="customJs">
 		<script>
-			$(function(){				
-				$('#inBtn').on('click', function(){
-					location.href = '/team03/finance/in/k3AddIn';
+		$(function(){
+			
+			//
+			$('#inBtn').on('click', function(){
+				location.href = '/team03/finance/in/k3AddIn';
+			});
+			
+			//
+			$(document).on('click', '#deleteInBtn', function(){
+				var check = $('.deleteList:checked');
+				var deleteCheckList = [];
+				
+				$.each(check, function(){
+					deleteCheckList.push($(this).val());
 				});
 				
-				$(document).on('click', '#deleteInBtn', function(){
-					var check = $('.deleteList:checked');
-					var deleteCheckList = [];
-					
-					$.each(check, function(){
-						deleteCheckList.push($(this).val());
-					});
-					
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#inForm').submit();
-						}
-						
-					}else{
-						alert("삭제할 항목을 선택해주세요.");
+				if(check.length > 0){
+					if(confirm(check.length + "개 항목을 삭제합니다.")){
+						$('#inForm').submit();
 					}
-				});
+				}else{
+					alert("삭제할 항목을 선택해주세요.");
+				}
+			});
+		
+			//견적정보 관련 모달	
+			var modal = $('.modal');
+			
+			$(document).on('click','.exitBtn',function(){
+				$('.modal').hide();
+			});
 			
 			
-				//견적정보 관련 모달	
-				var modal = $('.modal');
+			//데이터테이블시작
+			$(document).on('click', '#inPayInfoBtn', function(){
+				var inCode = $(this).attr('data-inCode');
+				var estimateNum = $(this).attr('data-estimateNum');
+				var estimatePrice = $(this).attr('data-estimatePrice');
 				
-				$(".exitBtn").click(function(){
-						
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10,15,20,25,-1]);
+				aLengthMenuArray.push([5,10,15,20,'이십오','ALL']);
+				console.log(123)
+				$('#dataTableAjax').DataTable( {
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+			        ajax: {
+			        		url: '/team03/finance/in/inPayInfo',
+			        		type: 'POST',
+			        		data: {'inCode':inCode, 'estimateNum':estimateNum, 'estimatePrice':estimatePrice},
+			        		dataSrc: function(data){
+			        					console.table(data);
+			        					return data;
+			        				 }
+			        },
+			        columns: [
+			            { "data": "inCode" },
+			            { "data": "estimateNum" },
+			            { "data": "estimatePrice" }
+			        ],
+			        columnDefs: [
+						{
+							targets: [3],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<input type="text" class="inPay" name="inPay" />';
+								
+								return htmlbtn;
+							}
+						}
+					]
+			        
+			    } );
+				$('.modal').show();
+				
+				
+				$(document).on('click', '.confirmBtn', function(){
+	 				var estimatePrice = $('#estimatePriceInput');
+	 				var estimateNum = $('#estimateNumInput');
+	 				var estimateInPay = $('#estimateInPay');
+
+	 				
+	 				estimateNum.attr('value',checkedBox.val());
+	 				
+					console.log(checkedBox);
 					modal.addClass('hidden');
 				});
-				
-				$(document).on('click', '#inPayInfoBtn', function(){
-					var inCode = $(this).attr('data-inCode');
-					var estimateNum = $(this).attr('data-estimateNum');
-					var estimatePrice = $(this).attr('data-estimatePrice');
-					console.log(inCode +"data-inCode");
-					
-					//견적정보 가져오기
-					var request = $.ajax({
-						url: '/team03/finance/in/inPayInfo',
-						method: 'POST',
-						data: {'inCode' : inCode, 'estimateNum':estimateNum, 'estimatePrice' : estimatePrice},
-						dataType: 'json'
-					});	
-					request.done(function(data){
-						data[0].inCode;
-						data[0].estimateNum;
-						data[0].estimatePrice;
-						console.log("inCode>>>>>" +data[0].inCode);
-						console.log("estimateNum>>>>>" +data[0].estimateNum);
-						console.log("estimatePrice>>>>>" +data[0].estimatePrice);
-						 
-					});
-				});
-			
 			});
-				
-				
-			<!-- 견적정보 모달끝 -->
-				
+		});
+		<!-- 견적정보 모달끝 -->	
 	</script>
 				
 	</th:block>
 		
-		<!--  본문 시작 -->
-		<th:block layout:fragment="customContents">
+	<!--  본문 시작 -->
+	<th:block layout:fragment="customContents">
 		
 		<!--  page Start -->
 		<div id="representative-button">
@@ -211,7 +239,6 @@
 											<td th:text="${l.inPayDate}"></td>
 											<td th:text="${l.memberName}"></td>
 											
-											
 										</tr>
 									</tbody>						
 								</table>
@@ -240,41 +267,39 @@
 						</div>
 						<!-- 매출 조회 tab END -->
 						
-						
 						<!-- 결제 조회 tab -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-						<!-- 결제 조회 card body -->		
-						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-							<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
-								<table class="table table-head-fixed text-nowrap table-striped">
-									<thead>
-										<tr>
-										
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
-											<td>
-												<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
-											</td>
-											<td>
-											<a id="modifyIn" type="button" class="btn btn-default btn-sm" th:href="@{/team03/finance/in/k3ModifyIn(inCode=${l.inCode})}">
-													<i class="fas fa-pencil-alt icon"></i>
-											</a>
-											</td>
+							<!-- 결제 조회 card body -->		
+							<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
+								<form id="inForm" th:action="@{/team03/finance/in/k3DeleteIn}" method="post">
+									<table class="table table-head-fixed text-nowrap table-striped">
+										<thead>
+											<tr>
 											
-										</tr>
-									</tbody>							
-								</table>
-							</form>
-						<!-- 페이징  시작-->
-						<ul>
-						</ul>
-						<!-- END 페이징 -->									
-						
-						
-						</div>
-						<!-- 결제 조회 card body -->
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty(inList)}" th:each="l : ${inList}">
+												<td>
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.inCode}">
+												</td>
+												<td>
+													<a id="modifyIn" type="button" class="btn btn-default btn-sm" th:href="@{/team03/finance/in/k3ModifyIn(inCode=${l.inCode})}">
+															<i class="fas fa-pencil-alt icon"></i>
+													</a>
+												</td>
+											</tr>
+										</tbody>							
+									</table>
+								</form>
+							<!-- 페이징  시작-->
+							<ul>
+							</ul>
+							<!-- END 페이징 -->									
+							
+							
+							</div>
+							<!-- 결제 조회 card body -->
 						</div>
 						<!-- 결제 조회 tab end-->
 								
@@ -359,5 +384,5 @@
 			</div>
 		</div>
 		<!-- End 모달창 -->
-</th:block>
-<!-- 본문 End -->
+	</th:block>
+	<!-- 본문 End -->
