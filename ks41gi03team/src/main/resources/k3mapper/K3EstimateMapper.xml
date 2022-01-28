@@ -10,7 +10,7 @@
 			e.estimateNum
 			,e.contractorCode
 			,cs.contractorName
-			,e.estimatePrice
+			,FORMAT(estimatePrice, 0) as estimatePrice
 			,e.estimateMeasureDate
 			,e.memberId
 		FROM

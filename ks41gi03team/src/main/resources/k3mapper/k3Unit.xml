@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
+	<select id="k3GetUnit" resultType="K3Unit">
+		SELECT 
+			wup.UnitPriceCode,
+			wup.mainBusinessCode, 
+			wup.unitContractDevision, 
+			wup.unitContract, 
+			wup.unitTerm,
+			FORMAT(unitPay, 0) as unitPay
+		FROM 
+			k3_tb_warehouse_unit_price AS wup
+		where
+			wup.mainBusinessCode = "물류센터A물류센터_전북_1"
+		ORDER by
+			SUBSTRING(UnitPriceCode,7) *1;
+
+	</select>
+</mapper>
