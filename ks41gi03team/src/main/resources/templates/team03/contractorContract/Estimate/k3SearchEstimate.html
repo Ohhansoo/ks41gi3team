@@ -16,14 +16,11 @@
 		
 			<!-- 거래처 상세정보 모달창 스크립트 -->				
 			$(document).on('click','#unitModalBtn',function(){
-				console.log("모달창 클릭이벤트 확인");
-	
 				$.ajax({ 
-					url: "/team03/contractorContract/Contractor/k3UnitModalAjax", 
-					type:"GET", 
-					dataType:'json', 
+					url: "/team03/contractorContract/Estimate/k3UnitModalAjax", 
+					method:'GET', 
+					dataType:'JSON', 
 					success:function(response){ 
-						console.log(JSON.stringify(response));
 						showList(response); 
 					} 
 				});
@@ -31,18 +28,18 @@
 			}); 
 			
 			function showList(data){ 
-				var tmodal = ''; 
-				console.log('data=>'+JSON.stringify(data))
+				var Umodal = ''; 
+				console.log('data=>'+JSON.stringify(data));
 				$("#Umodal").empty();
-				Umodal += '<td>'+ data.UnitPriceCode +'</td>';
-				Umodal += '<td>'+ data.contractorName +'</td>';
-				
-				Umodal += '<td>'+ data.contractorBusinessNum +'</td>';
-				Umodal += '<td>'+ data.mainBusinessCode +'</td></tr>';
-				
-				Umodal += '<td>'+ data.contractorDevision +'</td>';
-				$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit?UnitPriceCode='+data.UnitPriceCode);
-				$("#Umodal").append(tmodal);
+				for(var i=0; i<data.length; i++){
+					Umodal += '<tr><td>'+ data[i].unitPriceCode +'</td>';
+					Umodal += '<td>'+ data[i].unitContractDevision +'</td>';
+					Umodal += '<td>'+ data[i].unitContract +'</td>';
+					Umodal += '<td>'+ data[i].unitTerm +'</td>';
+					Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
+				}
+				$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit');
+				$("#Umodal").append(Umodal);
 				$('#unitModal').modal('show');
 			}
 			<!-- END 거래처 상세정보 모달창 스크립트 -->		
@@ -235,10 +232,8 @@
 							            <th>단위 당 가격</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr id="Umodal">
-									
-									</tr>
+								<tbody id="Umodal">
+								
 								</tbody>
 							</table>
 						</div>

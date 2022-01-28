@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.estimate.ahs.dto.K3Estimate;
+import k3.estimate.ahs.dto.K3Unit;
 import k3.estimate.ahs.service.K3EstimateService;
 
 @Controller
@@ -19,6 +21,15 @@ public class K3EstimateController {
 	
 	public K3EstimateController(K3EstimateService k3EstimateService) {
 		this.k3EstimateService = k3EstimateService;
+	}
+	
+	//단가표 모달창
+	@GetMapping("/k3UnitModalAjax")
+	@ResponseBody
+	public List<K3Unit> k3GetUnit() {
+		List<K3Unit> k3Unit = k3EstimateService.k3GetUnit();
+		
+		return k3Unit;
 	}
 	
 	//견적서 등록

@@ -10,24 +10,15 @@
 		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		
 		<script>
 			$(function(){
 				
 				<!-- 거래처 출력 -->			
 				$(document).on('click','#printContractor', function(){
-					var initBody = document.body.innerHTML;
-					
-					window.onbeforeprint = function(){
-						document.body.innerHTML =document.getElementById('contractorInfo').innerHTML;
-					}
-					window.onafterprint =function(){
-						document.body.innerHTML = initBody;
-					};
-					
-					setTimeout(function(){					
-						window.print();		
-					},1000);						
+					$('#contractorInfo').printThis();
 				});
 				<!--END 거래처 출력-->
 				
@@ -311,22 +302,7 @@
 
 					<!--모달창 거래처 출력 -->
 					$('.printDetailContractor').on('click', function(){
-						var initBody = document.body.innerHTML;
-						
-						window.onbeforeprint = function(){
-							document.body.innerHTML =document.getElementById('modal-body').innerHTML;
-						}
-						window.onafterprint = function(){
-							document.body.innerHTML = initBody;
-						};
-						
-						setTimeout(function(){
-							window.print();
-						},1000);
-						$('#detailContractorModal').delegate('.close','click',function(){
-							$('#detailContractorModal').modal('hide');	 
-						 });
-						
+						$('.modal-body').printThis();
 					});
 					<!--END 모달창 거래처 출력 -->
 
