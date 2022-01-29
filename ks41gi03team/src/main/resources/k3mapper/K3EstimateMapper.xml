@@ -4,12 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
 
+	<!-- 견적서 투플 수(페이징) -->
+	<select id="K3GetEstimateCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_estimate AS e
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			e.memberId = cs.memberId;
+	</select>
+
+	<!-- 견적서 목록 간단 현황으로 불러오기(페이징) -->
 	
-	<select id="K3GetEstimateList" resultType="K3Estimate">
+	<select id="K3GetEstimateList" parameterType="map" resultType="map" >
 		SELECT
 			e.estimateNum
-			,e.contractorCode
-			,cs.contractorName
+			,e.contractorCode as estimateCode
+			,cs.contractorName as estimateName
 			,FORMAT(estimatePrice, 0) as estimatePrice
 			,e.estimateMeasureDate
 			,e.memberId
@@ -18,7 +31,13 @@
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			e.memberId = cs.memberId;
+			e.memberId = cs.memberId
+		ORDER BY
+			e.estimateMeasureDate DESC
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>			
+		
 	</select>
 
 </mapper>

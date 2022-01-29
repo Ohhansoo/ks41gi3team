@@ -12,37 +12,51 @@
 	
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<script>
-		
-			<!-- 거래처 상세정보 모달창 스크립트 -->				
-			$(document).on('click','#unitModalBtn',function(){
-				$.ajax({ 
-					url: "/team03/contractorContract/Estimate/k3UnitModalAjax", 
-					method:'GET', 
-					dataType:'JSON', 
-					success:function(response){ 
-						showList(response); 
-					} 
+		<script type="text/javascript">
+			$(function(){
+/* 				<!-- 데이터 테이블 -->
+			    $('#estimateDT').DataTable({
+			    	destroy: true,
+			    	// 표시 건수기능 숨기기
+			    	lengthChange: false,
+			    	// 검색 기능 숨기기
+			    	searching: false,
+			    	// 정보 표시 숨기기
+			    	info: false,
+			    	pageLength: 5
 				});
-					
-			}); 
-			
-			function showList(data){ 
-				var Umodal = ''; 
-				console.log('data=>'+JSON.stringify(data));
-				$("#Umodal").empty();
-				for(var i=0; i<data.length; i++){
-					Umodal += '<tr><td>'+ data[i].unitPriceCode +'</td>';
-					Umodal += '<td>'+ data[i].unitContractDevision +'</td>';
-					Umodal += '<td>'+ data[i].unitContract +'</td>';
-					Umodal += '<td>'+ data[i].unitTerm +'</td>';
-					Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
+				<!-- END 데이터 테이블 -->
+ */			
+				<!-- 거래처 상세정보 모달창 스크립트 -->				
+				$(document).on('click','#unitModalBtn',function(){
+					$.ajax({ 
+						url: "/team03/estimateContract/Estimate/k3UnitModalAjax", 
+						method:'GET', 
+						dataType:'JSON', 
+						success:function(response){ 
+							showList(response); 
+						} 
+					});
+						
+				}); 
+				
+				function showList(data){ 
+					var Umodal = ''; 
+					console.log('data=>'+JSON.stringify(data));
+					$("#Umodal").empty();
+					for(var i=0; i<data.length; i++){
+						Umodal += '<tr><td>'+ data[i].unitPriceCode +'</td>';
+						Umodal += '<td>'+ data[i].unitContractDevision +'</td>';
+						Umodal += '<td>'+ data[i].unitContract +'</td>';
+						Umodal += '<td>'+ data[i].unitTerm +'</td>';
+						Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
+					}
+					$('.modifyUnitModalBtn').attr('href','/team03/estimateContract/Estimate/k3ModifyUnit');
+					$("#Umodal").append(Umodal);
+					$('#unitModal').modal('show');
 				}
-				$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit');
-				$("#Umodal").append(Umodal);
-				$('#unitModal').modal('show');
-			}
-			<!-- END 거래처 상세정보 모달창 스크립트 -->		
+				<!-- END 거래처 상세정보 모달창 스크립트 -->		
+			});
 		</script>
 	</th:block>	
 
@@ -52,7 +66,7 @@
 		<div class="container-fluid">
 			<!--버튼 영역 -->			
 			<div class="d-flex justify-content-end">					
-				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Estimate/k3AddEstimate}">
+				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/estimateContract/Estimate/k3AddEstimate}">
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
@@ -78,13 +92,13 @@
 					<div class="row" style="margin: 12px">
 						<!--inputbox 1 -->
 						<div class="col-sm-5" style="padding-left: 0px">
-							<form action="searchForm" th:action="@{/team03/contractorContract/Estimate/k3SearchEstimate}" method="Get">
+							<form action="searchForm" th:action="@{/team03/estimateContract/Estimate/k3SearchEstimate}" method="Get">
 								<div class="input-group d-flex justify-content-start">
 									<div class="input-group-prepend">
 										<select class="form-control" name="searchKey">
 											<option value="estimateNum" th:selected="${estimateNum} == estimateNum" selected>견적번호</option>
-											<option value="contractorCode"  th:selected="${contractorCode} == contractorCode" >거래처 사업장 코드</option>
-											<option value="contractorName"  th:selected="${contractorName} == contractorName" >거래처 상호명</option>
+											<option value="estimateCode"  th:selected="${estimateCode} == estimateCode" >거래처 사업장 코드</option>
+											<option value="estimateName"  th:selected="${estimateName} == estimateName" >거래처 상호명</option>
 											<option value="memberId"  th:selected="${memberId} == memberId" >등록직원 아이디</option>
          								</select>
          							</div>
@@ -100,7 +114,7 @@
 						<!--End inputbox 1 -->
 						<!--inputbox 2 -->
 						<div class="col-sm-7" style="padding-left: 0px">
-							<form class="searchDateForm" th:action="@{/team03/contractorContract/Estimate/k3SearchEstimate}" method="Get">
+							<form class="searchDateForm" th:action="@{/team03/estimateContract/Estimate/k3SearchEstimate}" method="Get">
 								<div class="input-group  d-flex justify-content-end">
 									<span class="input-group-text">견적날짜기간조회</span>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
@@ -148,8 +162,8 @@
 					</div>
 					<!-- End card header -->
 					<!--card body -->
-					<div class="card-body table-responsive p-0" style="height: 300px">
-						<table class="table table-head-fixed text-nowrap table-hover" style="overflow: auto">
+					<div class="card-body table-responsive p-0">
+						<table id="estimateDT" class="dataTable table table-head-fixed text-nowrap table-hover " style="overflow: auto">
 							<thead>
 								<tr>
 									<th>
@@ -167,7 +181,7 @@
 						            <th>견적측정날짜</th>
 								</tr>
 							</thead>
-							<tbody>
+ 							<tbody>
 								<tr th:if="${not #lists.isEmpty(estimateList)}" th:each="e:${estimateList}">
 									<td>
 										<label>
@@ -175,17 +189,17 @@
 										</label>
 									</td>
 									<td>
-										<a href="#"  type="button" class="btn btn-default btn-sm showDetailEstimate" th:data-contractorCode="${e.estimateNum}">
+										<a href="#"  type="button" class="btn btn-default btn-sm showDetailEstimate" th:data-estimateCode="${e.estimateNum}">
 											<i class="bi bi-eye"></i>
 										</a>
 									</td>										
 									<td>
-										<a id="signEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Estimate/k3SignEstimate(estimateNum=${e.estimateNum})}">
+										<a id="signEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/estimateContract/Estimate/k3SignEstimate(estimateNum=${e.estimateNum})}">
 											<i class="bi bi-clipboard-check"></i>
 										</a>
 									</td>
 									<td>
-										<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Estimate/k3ModifyEstimate(estimateNum=${e.estimateNum})}">
+										<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/estimateContract/Estimate/k3ModifyEstimate(estimateNum=${e.estimateNum})}">
 											<i class="fas fa-pencil-alt icon"></i>
 										</a>
 									</td>
@@ -195,16 +209,48 @@
 										</button>
 									</td>
 									<td  th:text="${e.estimateNum}"></td>
-									<td  th:text="${e.contractorCode}"></td>
-									<td  th:text="${e.contractorName}"></td>
+									<td  th:text="${e.estimateCode}"></td>
+									<td  th:text="${e.estimateName}"></td>
 									<td  th:text="${e.estimatePrice}"></td>
 									<td  th:text="${e.memberId}"></td>
 									<td  th:text="${e.estimateMeasureDate}"></td>
 								</tr>
 							</tbody>						
 						</table>
-					</div>
+ 					</div>
 					<!--End card body -->
+					<!-- 페이징 -->
+					<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+						<li class="paginate_button page-item previous" id="estimateList_previous">
+							<a th:if="${currentPage > 1} and ${searchValue} != null" id="estimateListPreviousA" th:href="@{k3SearchEstimate(currentPage=${currentPage-1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="estimateList" class="page-link">
+								이전
+							</a>
+							<a th:if="${currentPage > 1} and ${estimateMeasureDateStart} != null and ${estimateMeasureDateEnd} != null" id="estimateListPreviousA" th:href="@{k3SearchEstimate(currentPage=${currentPage-1},estimateMeasureDateStart=${estimateMeasureDateStart},estimateMeasureDateEnd=${estimateMeasureDateEnd})}" aria-controls="estimateList" class="page-link">
+								이전
+							</a>
+							<a th:if="${currentPage > 1} and ${searchValue} == null and ${estimateMeasureDateStart} == null and ${estimateMeasureDateEnd} == null" id="estimateListPreviousA" th:href="@{k3SearchEstimate(currentPage=${currentPage-1})}" aria-controls="estimateList" class="page-link">
+								이전
+							</a>
+						</li>
+						<li class="paginate_button page-item" id="estimateList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+							<a  th:if="${num != currentPage} and ${searchValue} != null" id="estimateListCurrentA" th:href="@{k3SearchEstimate(currentPage=${num},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${num}"  aria-controls="estimateList" class="page-link"></a>
+							<a  th:if="${num != currentPage} and ${estimateMeasureDateStart} != null and ${estimateMeasureDateEnd} != null" id="estimateListCurrentA" th:href="@{k3SearchEstimate(currentPage=${num},estimateMeasureDateStart=${estimateMeasureDateStart},estimateMeasureDateEnd=${estimateMeasureDateEnd})}" th:text="${num}"  aria-controls="estimateList" class="page-link"></a>
+							<a  th:if="${num != currentPage} and ${searchValue} == null and ${estimateMeasureDateStart} == null and ${estimateMeasureDateEnd} == null" id="estimateListCurrentA" th:href="@{k3SearchEstimate(currentPage=${num})}" th:text="${num}"  aria-controls="estimateList" class="page-link"></a>
+							<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="estimateList" class="page-link" th:text="${num}"></span>
+						</li>
+					    <li class="paginate_button page-item next" id="estimateList_next">
+							<a th:if="${currentPage < lastPage} and ${searchValue} != null" id="estimateListNextA" th:href="@{k3SearchEstimate(currentPage=${currentPage+1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="estimateList" class="page-link">
+								다음
+							</a>
+							<a th:if="${currentPage < lastPage} and ${estimateMeasureDateStart} != null and ${estimateMeasureDateEnd} != null" id="estimateListNextA" th:href="@{k3SearchEstimate(currentPage=${currentPage+1},estimateMeasureDateStart=${estimateMeasureDateStart},estimateMeasureDateEnd=${estimateMeasureDateEnd})}" aria-controls="estimateList" class="page-link">
+								다음
+							</a>
+							<a th:if="${currentPage < lastPage} and ${searchValue} == null and ${estimateMeasureDateStart} == null and ${estimateMeasureDateEnd} == null" id="estimateListNextA" th:href="@{k3SearchEstimate(currentPage=${currentPage+1})}" aria-controls="estimateList" class="page-link">
+								다음
+							</a>
+					    </li>
+					</ul>
+					<!-- End 페이징 -->
 				</div>
 				<!--End 조회 카드 영역 -->
 			</div>
