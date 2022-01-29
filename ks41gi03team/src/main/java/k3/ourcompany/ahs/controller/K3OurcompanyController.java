@@ -90,26 +90,16 @@ public class K3OurcompanyController {
 	  
 	  Map<String, Object> searchCondition = new HashMap<String, Object>();
 	  
-	  if(ourcompanyKey != null && "ourCompanyCode".equals(ourcompanyKey)) { 
-		  ourcompanyKey = "ourCompanyCode"; 
-	  }else if(ourcompanyKey != null && "ourCompanyBusinessPlaceCode".equals(ourcompanyKey)) { 
-		  ourcompanyKey = "ourCompanyBusinessPlaceCode"; 
-	  }else if(ourcompanyKey != null && "ourCompanyBusinessName".equals(ourcompanyKey)) { 
-		  ourcompanyKey = "ourCompanyBusinessName"; 
-	  }else if(ourcompanyKey != null && "ourCompanyBusinessCheifName".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourCompanyBusinessCheifName";
-	  }else if(ourcompanyKey != null && "ourCompanyStatus".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourCompanyStatus";
-	  }else if(ourcompanyKey != null && "ourCompanyWorkType".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourCompanyWorkType";
-	  }else if(ourcompanyKey != null && "ourCompanyEmail".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourCompanyEmail";
-	  }else if(ourcompanyKey != null && "ourcompanypostaladdress".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourcompanypostaladdress";
-	  }else if(ourcompanyKey != null && "ourcompanystreetaddress".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourcompanystreetaddress";
-	  }else if(ourcompanyKey != null && "ourcompanydetailaddress".equals(ourcompanyKey)) {
-		  ourcompanyKey = "ourcompanydetailaddress";
+	  if(ourcompanyKey != null && "mainBussinessCode".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "mainBussinessCode"; 
+	  }else if(ourcompanyKey != null && "bussinessCode".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "bussinessCode"; 
+	  }else if(ourcompanyKey != null && "bussinessLevelCode".equals(ourcompanyKey)) { 
+		  ourcompanyKey = "bussinessLevelCode"; 
+	  }else if(ourcompanyKey != null && "businessManagementpostaladdress".equals(ourcompanyKey)) {
+		  ourcompanyKey = "businessManagementpostaladdress";
+	  }else if(ourcompanyKey != null && "businessManagementpostaladdress".equals(ourcompanyKey)) {
+		  ourcompanyKey = "businessManagementpostaladdress";
 	  }
 	 
 	  searchCondition.put("ourcompanyKey", ourcompanyKey);
