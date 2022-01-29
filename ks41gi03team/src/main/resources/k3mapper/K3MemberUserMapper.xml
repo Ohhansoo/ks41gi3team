@@ -53,7 +53,7 @@
 	</select>
 	
 <!--  직원검색 -->
-	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
+	<select id="k3GetOurCompanySearchList" resultType="K3MemberUser">
 		SELECT
 			*
 		FROM

@@ -3,74 +3,75 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.ourcompany.ahs.mapper.K3OurcompanyMapper">
- <!-- 
-  <resultMap type="K3OurCompany" id="ourCompanyResultMap">
-		<result column="ourCompanyCode" property="ourCompanyCode" />
-		<result column="ourCompanyBusinessPlaceCode" property="ourCompanyBusinessPlaceCode" />
-		<result column="ourCompanyBusinessName" property="ourCompanyBusinessName" />
-		<result column="ourCompanyBusinessCheifName" property="ourCompanyBusinessCheifName" />
-		<result column="ourCompanyWorkPlaceAddr" property="ourCompanyWorkPlaceAddr" />
-		<result column="ourCompanyStatus" property="ourCompanyStatus" />
-		<result column="ourCompanyWorkType" property="ourCompanyWorkType" />
-		<result column="ourCompanyEmail" property="ourCompanyEmail" />
-	</resultMap> 
-   -->
-   
-  <!-- 자사정보 검색 -->
-  <select id="k3GetOurCompanySearchList"  resultType="K3OurCompany">
-  		SELECT
-			*
+	<!-- <resultMap type="K3OurCompany" id="ourCompanyResultMap"> <result column="ourCompanyCode" 
+		property="ourCompanyCode" /> <result column="ourCompanyBusinessPlaceCode" 
+		property="ourCompanyBusinessPlaceCode" /> <result column="ourCompanyBusinessName" 
+		property="ourCompanyBusinessName" /> <result column="ourCompanyBusinessCheifName" 
+		property="ourCompanyBusinessCheifName" /> <result column="ourCompanyWorkPlaceAddr" 
+		property="ourCompanyWorkPlaceAddr" /> <result column="ourCompanyStatus" property="ourCompanyStatus" 
+		/> <result column="ourCompanyWorkType" property="ourCompanyWorkType" /> <result 
+		column="ourCompanyEmail" property="ourCompanyEmail" /> </resultMap> -->
+
+	<!-- 자사정보 검색 -->
+	<select id="k3GetOurCompanySearchList" resultType="K3OurCompany">
+		SELECT
+		*
 		FROM
 			k0_sw_mainBusinessCodeManagement
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
-			<if test="mainBusinessCodeManagementValue != null and mainBusinessCodeManagementValue != ''.toString()">
-				${mainBusinessCodeManagementKey} LIKE CONCAT('%', #{mainBusinessCodeManagementValue}, '%')
+			<if test="ourcompanyValue != null and ourcompanyValue != ''.toString()">
+				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%')
 			</if>
 		</trim>
-  </select>
-   
-   <!-- 자사정보 수정처리 -->
-   <update id="k3ModifyOurCompanyInfo" parameterType="int">
-		UPDATE 
-			k0_sw_mainBusinessCodeManagement AS sw
-		<trim prefix="SET" suffixOverrides=",">
-			<if test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
-			sw.mainBusinessCode = #{mainBusinessCode},
-			</if>	
-			<if test="businessCode != null and businessCode != ''.toString()">
-			sw.businessCode = #{businessCode},
-			</if>	
-			<if test="businessLevelCode != null and businessLevelCode != ''.toString()">
-			sw.businessLevelCode = #{businessLevelCode},
-			</if>	
-			<if test="businessCodeRegistrationDate != null and businessCodeRegistrationDate != ''.toString()">
-			sw.businessCodeRegistrationDate = #{businessCodeRegistrationDate},
-			</if>	
-			<if test="businessManagementpostaladdress != null and businessManagementpostaladdress != ''.toString()">
-			sw.businessManagementpostaladdress = #{businessManagementpostaladdress},
-			</if>	
-			<if test="businessManagementstreetaddress != null and businessManagementstreetaddress != ''.toString()">
-			sw.businessManagementstreetaddress = #{businessManagementstreetaddress},
-			</if>	
-		</trim>		
-		WHERE 
-			sw.mainBusinessCode = #{mainBusinessCode};
-	</update>
-   
-   <!-- 자사정보 선택 (수정) -->
-   <select id="K3OurCompanyInfoBycode" resultType="K3OurCompany">
-   	SELECT
-			*
-	FROM
+	</select>
+
+	<!-- 자사정보 수정처리 -->
+	<update id="k3ModifyOurCompanyInfo" parameterType="int">
+		UPDATE
 		k0_sw_mainBusinessCodeManagement AS sw
-	WHERE
+		<trim prefix="SET" suffixOverrides=",">
+			<if
+				test="mainBusinessCode != null and mainBusinessCode != ''.toString()">
+				sw.mainBusinessCode = #{mainBusinessCode},
+			</if>
+			<if test="businessCode != null and businessCode != ''.toString()">
+				sw.businessCode = #{businessCode},
+			</if>
+			<if
+				test="businessLevelCode != null and businessLevelCode != ''.toString()">
+				sw.businessLevelCode = #{businessLevelCode},
+			</if>
+			<if
+				test="businessCodeRegistrationDate != null and businessCodeRegistrationDate != ''.toString()">
+				sw.businessCodeRegistrationDate = #{businessCodeRegistrationDate},
+			</if>
+			<if
+				test="businessManagementpostaladdress != null and businessManagementpostaladdress != ''.toString()">
+				sw.businessManagementpostaladdress = #{businessManagementpostaladdress},
+			</if>
+			<if
+				test="businessManagementstreetaddress != null and businessManagementstreetaddress != ''.toString()">
+				sw.businessManagementstreetaddress = #{businessManagementstreetaddress},
+			</if>
+		</trim>
+		WHERE
 		sw.mainBusinessCode = #{mainBusinessCode};
-   </select>
-   
-   <!-- 자사정보등록 -->
-   <insert id="AddOurCompany" parameterType="K3OurCompany">
-   	INSERT INTO 
-   		k0_sw_mainBusinessCodeManagement
+	</update>
+
+	<!-- 자사정보 선택 (수정) -->
+	<select id="K3OurCompanyInfoBycode" resultType="K3OurCompany">
+		SELECT
+		*
+		FROM
+		k0_sw_mainBusinessCodeManagement AS sw
+		WHERE
+		sw.mainBusinessCode = #{mainBusinessCode};
+	</select>
+
+	<!-- 자사정보등록 -->
+	<insert id="AddOurCompany" parameterType="K3OurCompany">
+		INSERT INTO
+		k0_sw_mainBusinessCodeManagement
 		(
 		mainBusinessCode,
 		businessCode,
@@ -78,35 +79,36 @@
 		businessCodeRegistrationDate,
 		businessManagementpostaladdress,
 		businessManagementstreetaddress
-	)VALUES(
-		 #{mainBusinessCode}
+		)VALUES(
+		#{mainBusinessCode}
 		,#{businessCode}
 		,#{businessLevelCode}
 		,#{businessCodeRegistrationDate}
 		,#{businessManagementpostaladdress}
 		,#{businessManagementstreetaddress}
-	);
-   </insert>
-	
+		);
+	</insert>
+
 	<!-- 자사정보 전체 조회 -->
-	<select id="getOurCompanyList"  resultType="K3OurCompany">
-		SELECT 
-			mainBusinessCode,
-			businessCode,
-			businessLevelCode,
-			businessCodeRegistrationDate,
-			businessCodeDeleteDate,
-			businessManagementpostaladdress,
-			businessManagementstreetaddress
-		FROM 
-			k0_sw_mainBusinessCodeManagement;
+	<select id="getOurCompanyList" resultType="K3OurCompany">
+		SELECT
+		mainBusinessCode,
+		businessCode,
+		businessLevelCode,
+		businessCodeRegistrationDate,
+		businessCodeDeleteDate,
+		businessManagementpostaladdress,
+		businessManagementstreetaddress
+		FROM
+		k0_sw_mainBusinessCodeManagement;
 	</select>
-	
+
 	<!-- 모달 -->
-	<select id="k3GetOurCompanyModalList" resultType="map" parameterType="map">
-	SELECT 
+	<select id="k3GetOurCompanyModalList" resultType="map"
+		parameterType="map">
+		SELECT
 		sw.mainBusinessCode
-	FROM 
+		FROM
 		k0_sw_mainBusinessCodeManagement AS sw;
 	</select>
 </mapper>
