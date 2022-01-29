@@ -14,23 +14,14 @@
 				$('#moveShipmentCheckBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/release/k3ShipmentCheckList';
 				});
-				
-				//요청 개수 받아오기(요청 알림창 데이터)
-				$(document).on('click', '#text', function(){
-					$.ajax({
-					    url:'/team03/goodsManagement/release/countRequestReleaseList',
-					    type:'post',
-					    success: function(data) {
-					    	var releaseCount = $('#releaseCount');
-					    	releaseCount.text(data);
-					    	alert(data);
-					    },
-					    error: function(err) {
-					        alert("관리자에게 문의해주세요.");
-					    }
-					});
+				//sse
+				var sse = new EventSource('/team03/goodsManagement/release/sse');
+				sse.onmessage = function (evt) {
+				    var requestCount = document.getElementById('sse');
+				    requestCount.innerHTML = evt.data;
+
+				};
 						
-				});			
 				
 				/* $(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
@@ -70,13 +61,13 @@
 				<div class="container-fluid">
 					<!--버튼 영역 -->
 					<div class="d-flex justify-content-end">					
-						<button id="addReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="addReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button" style="position:relative;">
 							<i class="bi bi-cart"></i>
 							출고요청 
 						</button>
 						<button id="allowReleaseBtn" class="btn btn-outline-info ahsbtn4" type="button" style="position:relative;">
 							<i class="bi bi-cart-check"></i>
-							승인 <div id="releaseCount" style="position: absolute; top:0; right:0; color: white; width: 20px; background-color: red; border-radius: 60%" th:text="4"></div>
+							승인 <div id="sse" style="position: absolute; top:0; right:0; color: white; width: 20px; background-color: red; border-radius: 60%" th:text="4"></div>
 						</button>
 						<button id="moveShipmentCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-clipboard-check"></i>

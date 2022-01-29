@@ -22,6 +22,12 @@ public class K3WarehousingService {
 		this.k3WarehousingMapper = k3WarehousingMapper;
 	}
 	
+	//<sse> - 입고승인목록 개수 보내기
+	public int k3CountRequestWarehousingList() {
+		int requestCount = k3WarehousingMapper.k3CountRequestWarehousingList();
+		return requestCount;
+	}
+	
 	//입고 현황 조회 처리
 	public Map<String, Object> k3GetWarehousingSearchList(Map<String, Object> searchCondition, int currentPage){
 		// 보여줄 행의 개수
@@ -144,4 +150,5 @@ public class K3WarehousingService {
 		
 		return paramMap;
 	}
+
 }
