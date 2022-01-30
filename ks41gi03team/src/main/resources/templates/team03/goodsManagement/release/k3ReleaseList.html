@@ -99,23 +99,28 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{#}" method="post">
-											<div class="input-group">
-												<div class="input-group-prepend">
-													<select name="categoryKey" class="input-group-text">
-														<option value="large">상품명</option>
-														<option value="medium">회사명</option>
-														<option value="small">출고코드</option>
-														<option value="small">수령인</option>
-														<option value="small">주소</option>
-													</select>
-												</div>
-												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">
-							
+										<form id="releaseSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/release/k3ReleaseList}" method="post">
+											<!--inputbox 1 -->
+											<div class="input-group mb-3 p-2 bd-highlight">		
+												<select name="releaseKey" class="input-group-text">
+													<option value="productName">상품명</option>
+													<option value="contractorName">회사명</option>
+													<option value="releaseCode">출고코드</option>
+													<option value="recipientName">수령인</option>
+													<option value="area">지역</option>
+												</select>
+												<input type="text" name="releaseValue" class="form-control" placeholder="입력해주세요">
+												<input type="hidden" name="searchReleaseType" id="searchReleaseType">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="releaseSearchBtn" type="button" class="btn btn-outline-secondary">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
+												</div>											
 											</div>
+											<!--End inputbox 1 -->
 										</form>
-										<!--End inputbox 1 -->
 			 						</div>
 								</div>					
 			 					<!--End card body 묶음 -->								
@@ -124,20 +129,60 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<!--inputbox 1 -->
-										<form class="col-lg-6" th:action="@{#}" method="post">
-											<div class="input-group">
-												<div class="input-group-prepend">
-													<select name="categoryKey" class="input-group-text">
-														<option value="large">상품명</option>
-														<option value="medium">회사명</option>
-														<option value="small">검수코드</option>
-													</select>
-												</div>
-												<input type="text" name="categoryValue" class="form-control" placeholder="입력해주세요">							
+										<form id="shipmentCheckSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/release/k3ReleaseList}" method="post">
+											<!--inputbox 1 -->
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<select name="shipmentCheckKey" class="input-group-text">
+													<option value="productName">상품명</option>
+													<option value="contractorName">회사명</option>
+													<option value="releaseMergeCode">통합코드</option>
+													<option value="shipmentCheckResult">검수결과</option>
+												</select>
+												<input type="text" name="shipmentCheckValue" class="form-control" placeholder="입력해주세요">
+												<input type="hidden" id="searchShipmentCheckType" name="searchShipmentCheckType">
+												<div class="input-group-append">
+													<div class="btn btn-default" style="padding:0;">
+														<button id="laydownSearcchBtn" type="button">
+															<i class="fas fa-search icon"></i>
+														</button>
+													</div>
+												</div>							
 											</div>
+											<!--End inputbox 1 -->
+											<!--inputbox 2 -->
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<select name="shipmentCheckDateKey" class="input-group-text">
+													<option value="releaseDate">출고날짜</option>
+													<option value="shipmentCheckRegDate">검수날짜</option>
+												</select>
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--End inputbox 2 -->
+											<div style="margin-left: 10px;" class="p-2 bd-highlight"> <p>~</p> </div>
+											<!--inputbox 3 -->
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+															<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+															<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
+														</div>
+							                   		</div>
+												</div>
+											</div>
+											<!--End inputbox 3 -->
 										</form>
-										<!--End inputbox 1 -->
 			 						</div>
 								</div>					
 			 					<!--End card body 묶음 -->								
@@ -165,8 +210,7 @@
 									<table class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
-												<th>삭제</th>
-												<th>수정</th>	
+												<th>순번</th>
 												<th>출고통합코드</th>
 												<th>출고물품명</th>
 												<th>개수</th>
@@ -179,15 +223,8 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${not #lists.isEmpty(releaseList)}" th:each="l : ${releaseList}">
-												<td>
-													<input type="checkbox" value="선택">
-												</td>
-												<td>
-													<a th:href="@{#}">
-														<i class="fas fa-pencil-alt icon"></i>
-													</a>
-												</td>
+											<tr th:if="${not #lists.isEmpty(releaseList)}" th:each="l,i : ${releaseList}">
+												<td th:text="${i.index+1}"></td>
 												<td th:text="${l.releaseMergeCode}"></td>
 												<td th:text="${l.k3Product.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
@@ -233,7 +270,9 @@
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
-													<a th:href="@{#}">수정</a>
+													<a th:href="@{#}">
+														<i class="fas fa-pencil-alt icon"></i>
+													</a>
 												</td>
 												<td th:text="${l.releaseCode}"></td>
 												<td th:text="${l.k3Product.productName}"></td>
