@@ -135,17 +135,22 @@ public class K3ReleaseController {
 									   @RequestParam(value="shipmentDateKey", required = false) String shipmentDateKey,
 									   @RequestParam(value="searchShipmentType", required = false) String searchShipmentType,
 									   @RequestParam(value="searchReleaseType", required = false) String searchReleaseType,
+									   @RequestParam(value="searchStartDate", required = false) String searchStartDate,
+									   @RequestParam(value="searchEndDate", required = false) String searchEndDate,
 									   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 									   Model model) {
 		Map<String, Object> searchCondition = new HashMap<String, Object>();
+
 		searchCondition.put("releaseKey", releaseKey);
 		searchCondition.put("releaseValue", releaseValue);
 		searchCondition.put("shipmentKey", shipmentKey);
 		searchCondition.put("shipmentValue", shipmentValue);
 		searchCondition.put("shipmentDateKey", shipmentDateKey);
+		searchCondition.put("searchStartDate", searchStartDate);
+		searchCondition.put("searchEndDate", searchEndDate);
 		searchCondition.put("searchShipmentType", searchShipmentType);
 		searchCondition.put("searchReleaseType", searchReleaseType);
-		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
+		log.info(" post 출고현황 조회처리 searchCondition ----------------", searchCondition);
 		
 		Map<String, Object> releaseMap = k3ReleaseService.k3GetReleaseSearchList(searchCondition, currentPage);
 		Map<String, Object> shipmentCheckMap = k3ShipmentCheckService.k3GetShipmentSearchList(searchCondition, currentPage);
@@ -159,8 +164,8 @@ public class K3ReleaseController {
 		model.addAttribute("shipmentCheck", shipmentCheckMap.get("shipmentCheck"));
 		model.addAttribute("shipmentCheckStartPageNum", shipmentCheckMap.get("startPageNum"));
 		model.addAttribute("shipmentCheckEndPageNum", shipmentCheckMap.get("endPageNum"));
-		log.info(" post 입고현황 조회 리스트 releaseMap ----------------", releaseMap);
-		log.info(" post 입하검수현황 조회 리스트 shipmentCheckMap ----------------", shipmentCheckMap);
+		log.info(" post 출고현황 조회 리스트 releaseMap ----------------", releaseMap);
+		log.info(" post 출하검수현황 조회 리스트 shipmentCheckMap ----------------", shipmentCheckMap);
 		
 		return "team03/goodsManagement/release/k3ReleaseList";
 	}
@@ -173,8 +178,8 @@ public class K3ReleaseController {
 		Map<String, Object> shipmentCheckMap = k3ShipmentCheckService.k3GetShipmentCheck(currentPage);
 		//출고리스트
 		Map<String, Object>	releaseListMap = k3ReleaseService.k3GetReleaseList(currentPage);
-		log.info("입고 현황이동 컨트롤러 releaseMap------ {}" + shipmentCheckMap);
-		log.info("입하검수 현황이동 컨트롤러 shipmentCheckMap------ {}" + releaseListMap);
+		log.info("출고 현황이동 컨트롤러 releaseMap------ {}" + shipmentCheckMap);
+		log.info("출하검수 현황이동 컨트롤러 shipmentCheckMap------ {}" + releaseListMap);
 		//공통
 		model.addAttribute("title", "출고관리");
 		model.addAttribute("subtitle", "출고현황");

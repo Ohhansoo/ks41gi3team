@@ -72,7 +72,7 @@ public class K3ShipmentCheckService {
 		List<Map<String, Object>> shipemntCheck = k3ShipmentCheckMapper.k3GetShipmentSearchList(searchCondition, paramMap);
 		paramMap.clear();
 		paramMap.put("lastPage", lastPage);
-		paramMap.put("laydownCheck", shipemntCheck);
+		paramMap.put("shipmentCheck", shipemntCheck);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
 
@@ -117,7 +117,7 @@ public class K3ShipmentCheckService {
 		
 		paramMap.clear();
 		paramMap.put("lastPage", lastPage);
-		paramMap.put("laydownCheck", shipmentCheck);
+		paramMap.put("shipmentCheck", shipmentCheck);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
 		

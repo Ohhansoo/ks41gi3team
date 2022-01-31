@@ -179,7 +179,7 @@
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.AREA,
+			r.area,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.releaseRequestDate
@@ -206,14 +206,14 @@
 	</select>
 	
 	<!--출고조회  -->
-	<select id="k3GetShipmentSearchList" parameterType="Map" resultType="Map">
+	<select id="k3GetReleaseSearchList" parameterType="Map" resultType="Map">
 		SELECT
 			r.releaseCode,
 			r.releaseMergeCode,
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.AREA,
+			r.area,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.recipientName,
@@ -263,7 +263,7 @@
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.AREA,
+			r.area,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.recipientName,
@@ -318,7 +318,7 @@
 		WHERE
 			r.releaseAllow = 'Y'
 		<if	test="countType eq 'search'.toString()">
-		   <if test="searchCondition.searchReleaseType != null and searchCondition..searchReleaseType != ''.toString()">
+		   <if test="searchCondition.searchReleaseType != null and searchCondition.searchReleaseType != ''.toString()">
 				<if test="searchCondition.releaseValue != null and searchCondition.releaseValue != ''.toString()">
 		   			AND ${searchCondition.releaseKey} LIKE CONCAT('%',#{searchCondition.releaseValue},'%') 
 				</if>	

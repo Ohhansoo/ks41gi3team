@@ -96,7 +96,7 @@ public class K3ReleaseService {
 		List<Map<String, Object>> releaseList = k3ReleaseMapper.k3GetReleaseSearchList(searchCondition, paramMap);
 		paramMap.clear();
 		paramMap.put("lastPage", lastPage);
-		paramMap.put("warehousingList", releaseList);
+		paramMap.put("releaseList", releaseList);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
 		return paramMap;	
@@ -139,7 +139,7 @@ public class K3ReleaseService {
 		
 		paramMap.clear();
 		paramMap.put("lastPage", lastPage);
-		paramMap.put("warehousingList", releaseList);
+		paramMap.put("releaseList", releaseList);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
 		
