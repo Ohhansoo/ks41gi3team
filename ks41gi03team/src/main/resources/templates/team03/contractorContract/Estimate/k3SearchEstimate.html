@@ -14,23 +14,42 @@
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
-/* 				<!-- 데이터 테이블 -->
-			    $('#estimateDT').DataTable({
-			    	destroy: true,
-			    	// 표시 건수기능 숨기기
-			    	lengthChange: false,
-			    	// 검색 기능 숨기기
-			    	searching: false,
-			    	// 정보 표시 숨기기
-			    	info: false,
-			    	pageLength: 5
-				});
-				<!-- END 데이터 테이블 -->
- */			
-				<!-- 거래처 상세정보 모달창 스크립트 -->				
+				<!-- 견적서 검색 -->
+				
+				/*<![CDATA[*/
+				var searchKey = "[[${searchKey}]]";
+				var searchValue = "[[${searchValue}]]";
+				var estimateMeasureDateStart = "[[${estimateMeasureDateStart}]]";
+				var estimateMeasureDateEnd = "[[${estimateMeasureDateEnd}]]";
+				var num = "[[${num}]]";
+				num *= 1;
+				var currentPage = [[${currentPage}]];
+				var previous = [[${currentPage}]]-1;
+				var next = [[${currentPage}]]+1;
+				/*]]>*/
+				console.log("변수확인 num : " + num);
+				console.log("변수확인 previous : " + previous);
+				console.log("변수확인 next : " + next);
+				console.log("변수 확인 searchKey : " + searchKey);
+				console.log("변수 확인 searchValue : " + searchValue);
+					
+				if(searchValue != null){
+					$('.searchDateForm').attr('action','k3SearchEstimate?searchKey=' + searchKey + '&searchValue=' + searchValue);
+	
+				}
+				else if(estimateMeasureDateStart != null && estimateMeasureDateEnd != null){
+					$('.searchDateForm').attr('action','k3SearchEstimate?estimateMeasureDateStart=' + estimateMeasureDateStart + '&estimateMeasureDateEnd=' + estimateMeasureDateEnd);
+				}
+				else if(searchValue != null && estimateMeasureDateStart != null && estimateMeasureDateEnd != null){
+					$('.searchDateForm').attr('action','k3SearchEstimate?searchKey=' + searchKey + '&searchValue=' + searchValue +'&estimateMeasureDateStart=' + estimateMeasureDateStart + '&estimateMeasureDateEnd=' + estimateMeasureDateEnd);
+				}
+				
+				<!-- END견적서 검색 -->
+	
+				<!-- 단가표 상세정보 모달창 스크립트 -->				
 				$(document).on('click','#unitModalBtn',function(){
 					$.ajax({ 
-						url: "/team03/estimateContract/Estimate/k3UnitModalAjax", 
+						url: "/team03/contractorContract/Estimate/k3UnitModalAjax", 
 						method:'GET', 
 						dataType:'JSON', 
 						success:function(response){ 
@@ -51,11 +70,11 @@
 						Umodal += '<td>'+ data[i].unitTerm +'</td>';
 						Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
 					}
-					$('.modifyUnitModalBtn').attr('href','/team03/estimateContract/Estimate/k3ModifyUnit');
+					$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit');
 					$("#Umodal").append(Umodal);
 					$('#unitModal').modal('show');
 				}
-				<!-- END 거래처 상세정보 모달창 스크립트 -->		
+				<!-- END 단가표 상세정보 모달창 스크립트 -->		
 			});
 		</script>
 	</th:block>	
@@ -66,7 +85,7 @@
 		<div class="container-fluid">
 			<!--버튼 영역 -->			
 			<div class="d-flex justify-content-end">					
-				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/estimateContract/Estimate/k3AddEstimate}">
+				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Estimate/k3AddEstimate}">
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
@@ -92,17 +111,17 @@
 					<div class="row" style="margin: 12px">
 						<!--inputbox 1 -->
 						<div class="col-sm-5" style="padding-left: 0px">
-							<form action="searchForm" th:action="@{/team03/estimateContract/Estimate/k3SearchEstimate}" method="Get">
+							<form action="searchForm" th:action="@{/team03/contractorContract/Estimate/k3SearchEstimate}" method="Get">
 								<div class="input-group d-flex justify-content-start">
 									<div class="input-group-prepend">
 										<select class="form-control" name="searchKey">
 											<option value="estimateNum" th:selected="${estimateNum} == estimateNum" selected>견적번호</option>
-											<option value="estimateCode"  th:selected="${estimateCode} == estimateCode" >거래처 사업장 코드</option>
+											<option value="contractorCode"  th:selected="${contractorCode} == contractorCode" >거래처 사업장 코드</option>
 											<option value="estimateName"  th:selected="${estimateName} == estimateName" >거래처 상호명</option>
 											<option value="memberId"  th:selected="${memberId} == memberId" >등록직원 아이디</option>
          								</select>
          							</div>
-									<input type="text" class="form-control" placeholder="견적서정보입력">
+									<input type="text" class="form-control" placeholder="견적서정보입력" name="searchValue" th:value="${searchValue}">
 									<div class=" input-group-append">
 										<button id="searchDetailEstimate" type="submit" class="btn btn-default searchEstimate">
 											<i class="fas fa-search icon"></i>
@@ -114,7 +133,7 @@
 						<!--End inputbox 1 -->
 						<!--inputbox 2 -->
 						<div class="col-sm-7" style="padding-left: 0px">
-							<form class="searchDateForm" th:action="@{/team03/estimateContract/Estimate/k3SearchEstimate}" method="Get">
+							<form class="searchDateForm" th:action="@{/team03/contractorContract/Estimate/k3SearchEstimate}" method="Get">
 								<div class="input-group  d-flex justify-content-end">
 									<span class="input-group-text">견적날짜기간조회</span>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
@@ -194,12 +213,12 @@
 										</a>
 									</td>										
 									<td>
-										<a id="signEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/estimateContract/Estimate/k3SignEstimate(estimateNum=${e.estimateNum})}">
+										<a id="signEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Estimate/k3SignEstimate(estimateNum=${e.estimateNum})}">
 											<i class="bi bi-clipboard-check"></i>
 										</a>
 									</td>
 									<td>
-										<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/estimateContract/Estimate/k3ModifyEstimate(estimateNum=${e.estimateNum})}">
+										<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Estimate/k3ModifyEstimate(estimateNum=${e.estimateNum})}">
 											<i class="fas fa-pencil-alt icon"></i>
 										</a>
 									</td>
@@ -208,12 +227,17 @@
 											<i class="bi bi-trash-fill"></i>
 										</button>
 									</td>
-									<td  th:text="${e.estimateNum}"></td>
-									<td  th:text="${e.estimateCode}"></td>
-									<td  th:text="${e.estimateName}"></td>
+									<td name="estimateNum" rel="estimateNum" th:text="${e.estimateNum}"></td>
+									<td  th:text="${e.contractorCode}"></td>
+									<td  th:text="${e.contractorName}"></td>
 									<td  th:text="${e.estimatePrice}"></td>
 									<td  th:text="${e.memberId}"></td>
 									<td  th:text="${e.estimateMeasureDate}"></td>
+								</tr>
+								<tr th:unless="${not #lists.isEmpty(estimateList)}">
+									<td colspan="4">
+										등록된 견적서가 없습니다.
+									</td>
 								</tr>
 							</tbody>						
 						</table>

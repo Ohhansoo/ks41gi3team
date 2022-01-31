@@ -291,8 +291,8 @@
 			on
 			c.contractorId = cs.contractorId
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString() 
-						and contractorRegistrationDateStart != null and contractorRegistrationDateEnd != ''.toString()">
+			<if test="contractorRegistrationDateStart != null and contractorRegistrationDateStart != ''.toString() 
+						and contractorRegistrationDateEnd != null and contractorRegistrationDateEnd != ''.toString()">
 				 c.contractorRegistrationDate
 	 			BETWEEN #{contractorRegistrationDateStart} AND #{contractorRegistrationDateEnd}
 			</if>
