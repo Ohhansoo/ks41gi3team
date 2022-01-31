@@ -209,7 +209,7 @@
 			ON
 			w.productCode = p.productCode
 		WHERE
-			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL;
+			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL
 		<if	test="countType eq 'search'.toString()">
 		   	<if test="searchCondition.searchShipmentType != null and searchCondition.searchShipmentType != ''.toString()">
 				<if test="searchCondition.shipmentValue != null and searchCondition.shipmentValue != ''.toString()">

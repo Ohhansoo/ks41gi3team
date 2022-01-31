@@ -43,14 +43,14 @@
 					}
 				}); */
 				
-				/* $('#warehousingSearchBtn').on('click', function(){
-					$('#searchWarehousingType').attr('value', 'warehousing');
-					$('#warehousingSearchForm').submit();
+				$('#releaseSearchBtn').on('click', function(){
+					$('#searchReleaseType').attr('value', 'release');
+					$('#releaseSearchForm').submit();
 				});
-				$('#laydownSearcchBtn').on('click', function(){
-					$('#searchLaydownType').attr('value', 'laydown');
-					$('#laydownSearchForm').submit();
-				}); */
+				$('#shipmentSearchBtn').on('click', function(){
+					$('#searchShipmentType').attr('value', 'shipment');
+					$('#shipmentSearchForm').submit();
+				}); 
 			});
 		</script>
 	</th:block>
@@ -129,20 +129,20 @@
 								<!--card body -->
 								<div class="card-body">
 									<div class="row" style="margin: 12px">
-										<form id="shipmentCheckSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/release/k3ReleaseList}" method="post">
+										<form id="shipmentSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/release/k3ReleaseList}" method="post">
 											<!--inputbox 1 -->
 											<div class="input-group mb-3 p-2 bd-highlight">
-												<select name="shipmentCheckKey" class="input-group-text">
+												<select name="shipmentKey" class="input-group-text">
 													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="releaseMergeCode">통합코드</option>
 													<option value="shipmentCheckResult">검수결과</option>
 												</select>
-												<input type="text" name="shipmentCheckValue" class="form-control" placeholder="입력해주세요">
-												<input type="hidden" id="searchShipmentCheckType" name="searchShipmentCheckType">
+												<input type="text" name="shipmentValue" class="form-control" placeholder="입력해주세요">
+												<input type="hidden" id="searchShipmentType" name="searchShipmentType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="laydownSearcchBtn" type="button">
+														<button id="shipmentSearchBtn" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -151,7 +151,7 @@
 											<!--End inputbox 1 -->
 											<!--inputbox 2 -->
 											<div class="input-group mb-3 p-2 bd-highlight">
-												<select name="shipmentCheckDateKey" class="input-group-text">
+												<select name="shipmentDateKey" class="input-group-text">
 													<option value="releaseDate">출고날짜</option>
 													<option value="shipmentCheckRegDate">검수날짜</option>
 												</select>
@@ -226,9 +226,9 @@
 											<tr th:if="${not #lists.isEmpty(releaseList)}" th:each="l,i : ${releaseList}">
 												<td th:text="${i.index+1}"></td>
 												<td th:text="${l.releaseMergeCode}"></td>
-												<td th:text="${l.k3Product.productName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
-												<td th:text="${l.k3Contractor.contractorName}"></td>
+												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.area}"></td>
 												<td th:text="${l.shippingAddress}"></td>
 												<td th:text="${l.shippingDetailAddress}"></td>
@@ -293,9 +293,9 @@
 													</a>
 												</td>
 												<td th:text="${l.releaseCode}"></td>
-												<td th:text="${l.k3Product.productName}"></td>
+												<td th:text="${l.productName}"></td>
 												<td th:text="${l.releaseGoodsCount}"></td>
-												<td th:text="${l.k3Contractor.contractorName}"></td>
+												<td th:text="${l.contractorName}"></td>
 												<td th:text="${l.acceptDate}"></td>
 												<td th:text="${l.releaseDate}"></td>
 												<td th:text="${l.shipmentCheckManager}"></td>
