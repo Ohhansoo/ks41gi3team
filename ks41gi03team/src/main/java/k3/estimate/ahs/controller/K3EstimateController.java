@@ -51,7 +51,7 @@ public class K3EstimateController {
 		return "/team03/contractorContract/Estimate/k3ModifyEstimate";
 	}
 	
-	//견적서 현황
+	//견적서 현황+검색
 	@GetMapping("/k3SearchEstimate")
 	public String K3GetEstimateSearch(@RequestParam(value="searchKey", required=false, defaultValue="estimateNum") String searchKey,
 						  			@RequestParam(value="searchValue", required=false) String searchValue,
@@ -60,10 +60,11 @@ public class K3EstimateController {
 						  			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, 
 									Model model) {
 		// model currentPage, lastPage, estimateList, startPageNum, endPageNum
-		
+		System.out.println("호출 잘되었나 확인");
 		if(searchValue != null && searchValue != "".toString()) {
 			searchValue = searchValue.trim();
 			Map<String, Object> resultMap = k3EstimateService.K3SearchEstimateList(searchKey,estimateMeasureDateStart, estimateMeasureDateEnd, searchValue, currentPage);
+			System.out.println("resultMap.get(\"estimateList\") 잘되었나 확인 : " + resultMap.get("estimateList") );
 			model.addAttribute("lastPage", resultMap.get("lastPage"));
 			model.addAttribute("startPageNum", resultMap.get("startPageNum"));
 			model.addAttribute("endPageNum", resultMap.get("endPageNum"));

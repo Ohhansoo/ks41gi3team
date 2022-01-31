@@ -4,6 +4,75 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
 
+
+	<!-- 검색된 견적서 투플 수 -->
+	<select id="K3SearchEstimateCount" parameterType="map" resultType="map">
+		SELECT
+			e.estimateNum
+			,e.contractorCode
+			,cs.contractorName
+			,FORMAT(estimatePrice, 0) as estimatePrice
+			,e.estimateMeasureDate
+			,e.memberId
+		FROM
+			k3_tb_estimate AS e
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			e.memberId = cs.memberId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="estimateMeasureDateStart != null and estimateMeasureDateStart != ''.toString() 
+						and estimateMeasureDateEnd != null and estimateMeasureDateEnd != ''.toString()">
+				 e.estimateMeasureDate
+	 			BETWEEN #{estimateMeasureDateStart} AND #{estimateMeasureDateEnd}
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test='searchKey == "memberId" || searchKey == "contractorCode"'>
+				AND e.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+	</select>
+	<!-- END 검색된 견적서 투플 수 -->
+
+	<!-- 견적서 검색 (페이징)-->
+	<select id="K3SearchEstimateList" parameterType="map" resultType="map">
+		SELECT
+			e.estimateNum
+			,e.contractorCode
+			,cs.contractorName
+			,FORMAT(estimatePrice, 0) as estimatePrice
+			,e.estimateMeasureDate
+			,e.memberId
+		FROM
+			k3_tb_estimate AS e
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			e.memberId = cs.memberId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="estimateMeasureDateStart != null and estimateMeasureDateStart != ''.toString() 
+						and estimateMeasureDateEnd != null and estimateMeasureDateEnd != ''.toString()">
+				 e.estimateMeasureDate
+	 			BETWEEN #{estimateMeasureDateStart} AND #{estimateMeasureDateEnd}
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test='searchKey == "memberId" || searchKey == "contractorCode"'>
+				AND e.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			e.estimateMeasureDate DESC
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>
+	</select>
+	<!--END 견적서 검색 (페이징)-->
+
+
 	<!-- 견적서 투플 수(페이징) -->
 	<select id="K3GetEstimateCount" resultType="int" fetchSize="1000">
 		SELECT
@@ -21,8 +90,8 @@
 	<select id="K3GetEstimateList" parameterType="map" resultType="map" >
 		SELECT
 			e.estimateNum
-			,e.contractorCode as estimateCode
-			,cs.contractorName as estimateName
+			,e.contractorCode
+			,cs.contractorName
 			,FORMAT(estimatePrice, 0) as estimatePrice
 			,e.estimateMeasureDate
 			,e.memberId

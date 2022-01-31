@@ -8,7 +8,10 @@ public class K3Estimate {
 	private String contractorName;
 	private String estimatePrice;
 	private String estimateMeasureDate;
+	private String estimateMeasureDateEnd;
+	private String estimateMeasureDateStrat;
 	private String memberId;
+
 	public String getEstimateNum() {
 		return estimateNum;
 	}
@@ -39,6 +42,18 @@ public class K3Estimate {
 	public void setEstimateMeasureDate(String estimateMeasureDate) {
 		this.estimateMeasureDate = estimateMeasureDate;
 	}
+	public String getEstimateMeasureDateEnd() {
+		return estimateMeasureDateEnd;
+	}
+	public void setEstimateMeasureDateEnd(String estimateMeasureDateEnd) {
+		this.estimateMeasureDateEnd = estimateMeasureDateEnd;
+	}
+	public String getEstimateMeasureDateStrat() {
+		return estimateMeasureDateStrat;
+	}
+	public void setEstimateMeasureDateStrat(String estimateMeasureDateStrat) {
+		this.estimateMeasureDateStrat = estimateMeasureDateStrat;
+	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -58,6 +73,10 @@ public class K3Estimate {
 		builder.append(estimatePrice);
 		builder.append(", estimateMeasureDate=");
 		builder.append(estimateMeasureDate);
+		builder.append(", estimateMeasureDateEnd=");
+		builder.append(estimateMeasureDateEnd);
+		builder.append(", estimateMeasureDateStrat=");
+		builder.append(estimateMeasureDateStrat);
 		builder.append(", memberId=");
 		builder.append(memberId);
 		builder.append("]");
@@ -70,6 +89,8 @@ public class K3Estimate {
 		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((contractorName == null) ? 0 : contractorName.hashCode());
 		result = prime * result + ((estimateMeasureDate == null) ? 0 : estimateMeasureDate.hashCode());
+		result = prime * result + ((estimateMeasureDateEnd == null) ? 0 : estimateMeasureDateEnd.hashCode());
+		result = prime * result + ((estimateMeasureDateStrat == null) ? 0 : estimateMeasureDateStrat.hashCode());
 		result = prime * result + ((estimateNum == null) ? 0 : estimateNum.hashCode());
 		result = prime * result + ((estimatePrice == null) ? 0 : estimatePrice.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
@@ -99,6 +120,16 @@ public class K3Estimate {
 				return false;
 		} else if (!estimateMeasureDate.equals(other.estimateMeasureDate))
 			return false;
+		if (estimateMeasureDateEnd == null) {
+			if (other.estimateMeasureDateEnd != null)
+				return false;
+		} else if (!estimateMeasureDateEnd.equals(other.estimateMeasureDateEnd))
+			return false;
+		if (estimateMeasureDateStrat == null) {
+			if (other.estimateMeasureDateStrat != null)
+				return false;
+		} else if (!estimateMeasureDateStrat.equals(other.estimateMeasureDateStrat))
+			return false;
 		if (estimateNum == null) {
 			if (other.estimateNum != null)
 				return false;
@@ -118,9 +149,6 @@ public class K3Estimate {
 	}
 
 	
-	
-	
-	//견적서 상세조회
 	
 
 }

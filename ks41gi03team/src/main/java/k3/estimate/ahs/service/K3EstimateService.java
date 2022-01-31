@@ -88,7 +88,7 @@ public class K3EstimateService {
 		paramMap.clear();
 		
 		paramMap.put("lastPage", lastPage);
-		paramMap.put("contractorList", estimateList);
+		paramMap.put("estimateList", estimateList);
 		paramMap.put("startPageNum", startPageNum);
 		paramMap.put("endPageNum", endPageNum);
 		
