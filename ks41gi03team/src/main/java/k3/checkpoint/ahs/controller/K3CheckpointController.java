@@ -31,6 +31,20 @@ public class K3CheckpointController {
 		this.k3DriverService = k3DriverService;
 	}
 	
+	//중복확인 
+	@PostMapping("/checkpointCheck")
+	@ResponseBody
+	public boolean checkpointCheck(@RequestParam(value="vehicleCheckpointCode", required = false) String vehicleCheckpointCode) {
+		
+		boolean checkResult = false;
+		
+		Integer check = k3CheckpointService.getOverlappedCheckpointCode(vehicleCheckpointCode);
+		
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
+	}
+	
 	//현황
 	@GetMapping("/k3CheckpointList")
 	public String getCheckpointList(Model model) {

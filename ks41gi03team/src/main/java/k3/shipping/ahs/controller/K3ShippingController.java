@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.shipping.ahs.dto.K3Shipping;
 import k3.shipping.ahs.service.K3ShippingService;
@@ -26,6 +27,20 @@ public class K3ShippingController {
 	
 	public K3ShippingController(K3ShippingService k3ShippingService) {
 		this.k3ShippingService = k3ShippingService;
+	}
+	
+	//중복확인 
+	@PostMapping("/shippingCheck")
+	@ResponseBody
+	public boolean shippingCheck(@RequestParam(value="shippingCode", required = false) String shippingCode) {
+		
+		boolean checkResult = false;
+		
+		Integer check = k3ShippingService.getOverlappedShippingCode(shippingCode);
+		
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
 	}
 	
 	//현황

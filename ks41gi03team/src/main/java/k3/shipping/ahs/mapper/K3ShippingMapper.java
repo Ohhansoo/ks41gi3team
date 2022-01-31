@@ -9,6 +9,9 @@ import k3.shipping.ahs.dto.K3Shipping;
 @Mapper
 public interface K3ShippingMapper {
 	
+	//중복 확인
+	public Integer getOverlappedShippingCode(String shippingCode);
+	
 	//현황
 	public List<K3Shipping> getShippingList();
 	

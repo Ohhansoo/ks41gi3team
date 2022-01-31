@@ -17,6 +17,13 @@ public class K3ShippingService {
 		this.k3ShippingMapper = k3ShippingMapper;
 	}
 	
+	//중복확인
+	public Integer getOverlappedShippingCode(String shippingCode) {
+		Integer result = 0;
+		result += k3ShippingMapper.getOverlappedShippingCode(shippingCode);
+		return result;
+	}
+	
 	//현황
 	public List<K3Shipping> getShippingList(){
 		List<K3Shipping> shippingList = k3ShippingMapper.getShippingList();

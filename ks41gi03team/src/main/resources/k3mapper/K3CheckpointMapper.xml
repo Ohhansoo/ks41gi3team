@@ -11,6 +11,17 @@
 		<result column="vehicleShipmentDate" property="vehicleShipmentDate" />
 	</resultMap> -->
 	
+	<!-- 중복확인 -->
+	<select id="getOverlappedCheckpointCode" parameterType="String"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_vehicle_checkpoint AS c
+		WHERE
+			c.vehicleCheckpointCode = #{vehicleCheckpointCode};
+		
+	</select>
+	
 	<!-- 현황 -->
 	<select id="getCheckpointList" resultType="K3Checkpoint">
 		SELECT
