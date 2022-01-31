@@ -19,6 +19,13 @@ public class K3CheckpointService {
 		this.k3CheckpointMapper = k3CheckpointMapper;
 	}
 	
+	//중복확인
+	public Integer getOverlappedCheckpointCode(String vehicleCheckpointCode) {
+		Integer result = 0;
+		result += k3CheckpointMapper.getOverlappedCheckpointCode(vehicleCheckpointCode);
+		return result;
+	}
+	
 	//현황
 	public List<K3Checkpoint> getCheckpointList(){
 		List<K3Checkpoint> checkpointList = k3CheckpointMapper.getCheckpointList();

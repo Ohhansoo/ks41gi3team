@@ -20,6 +20,13 @@ public class K3DispatchService {
 		this.k3DispatchMapper = k3DispatchMapper;
 	}
 	
+	//중복확인
+	public Integer getOverlappedDispatchCode(String dispatchCode) {
+		Integer result = 0;
+		result += k3DispatchMapper.getOverlappedDispatchCode(dispatchCode);
+		return result;
+	}
+	
 	//현황
 	public List<K3Dispatch> getDispatchList(){
 		List<K3Dispatch> dispatchList = k3DispatchMapper.getDispatchList();

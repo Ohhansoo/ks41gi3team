@@ -33,18 +33,18 @@ public class K3VehicleController {
 	}
 	
 	//중복확인 
-			@PostMapping("/vehicleCheck")
-			@ResponseBody
-			public boolean vehicleCheck(@RequestParam(value="vehicleCode", required = false) String vehicleCode) {
-				
-				boolean checkResult = false;
-				
-				Integer check = k3VehicleService.getOverlappedVehicleCode(vehicleCode);
-				
-				if(check > 0) checkResult = true;
-				
-				return checkResult;
-			}
+	@PostMapping("/vehicleCheck")
+	@ResponseBody
+	public boolean vehicleCheck(@RequestParam(value="vehicleCode", required = false) String vehicleCode) {
+		
+		boolean checkResult = false;
+		
+		Integer check = k3VehicleService.getOverlappedVehicleCode(vehicleCode);
+		
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
+	}
 	
 	//현황
 	@GetMapping("/k3VehicleList")

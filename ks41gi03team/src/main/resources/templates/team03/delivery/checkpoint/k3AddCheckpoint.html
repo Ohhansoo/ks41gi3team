@@ -100,6 +100,47 @@
 				modal.addClass('hidden');
 
 			});
+			
+			$('#overlapped_btn').click(function(){
+
+				var vehicleCheckpointCode = $('#vehicleCheckpointCode').val();
+				
+				if(typeof vehicleCheckpointCode != 'undefined' && vehicleCheckpointCode != null && vehicleCheckpointCode != ''){
+					// ajax 호출
+					var request = $.ajax({
+						  url: '/team03/delivery/checkpoint/checkpointCheck', 
+						  method: 'POST', 
+						  data: { 'vehicleCheckpointCode' : vehicleCheckpointCode },
+						  dataType: 'json' 
+						});				
+					request.done(function(data) {
+						// 중복여부 체크(true: 중복, false: 등록가능)
+						var idConfirm = data;
+						
+						if(idConfirm){
+							alert('이미 등록된 코드입니다.');
+	 						$('#userInfo input').not('#vehicleCheckpointCode').prop('disabled', true);
+							$('#userInfo select').prop('disabled', true);
+							$('#userInfo button').not('#overlapped_btn').prop('disabled', true);
+						}else{
+							alert('등록이 가능한 코드입니다.');
+							$('#userInfo input').prop('disabled', false);
+							$('#userInfo select').prop('disabled', false);
+							$('#userInfo button').prop('disabled', false);
+						}
+						
+						
+					});				
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});
+				}else{
+					alert('코드를 입력해주세요')
+					return false;
+				}
+				
+				
+			});
 		});
 		</script>
 		</th:block>
@@ -121,11 +162,11 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-							<form th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
+							<form id="userInfo" th:action="@{/team03/delivery/checkpoint/k3AddCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
 										<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" placeholder="입출하 기록 코드를 등록해주세요 ex) check000"/>
-										<button type="button" id="btn">중복확인 </button> 
+										<button type="button" id="overlapped_btn">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
