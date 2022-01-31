@@ -68,9 +68,9 @@
 							<div class="row" style="margin: 12px">
 								<form id="searchForm" class="d-flex justify-content-around" th:action="@{/team03/goodsManagement/product/k3ProductList}" method="post">
 									<!--inputbox 1 상품 -->
-									<div class="input-group input-group-sm p-2 bd-highlight">
+									<div class="input-group mb-3 p-2 bd-highlight">
 										<input type="hidden" name="searchType" id="searchType">
-										<select name="productKey" class="input-group-text form-control-sm">
+										<select name="productKey" class="input-group-text">
 											<option value="productName">상품명</option>
 											<option value="manufacturer">제조사</option>
 											<option value="productCode">상품코드</option>
@@ -78,7 +78,7 @@
 										<input type="text" name="productValue" class="form-control">
 										<div class="input-group-append">
 											<div class="btn btn-default" style="padding:0;">
-												<button id="searchProductBtn" type="button">
+												<button id="searchProductBtn" class="btn btn-outline-secondary" type="button">
 													<i class="fas fa-search icon"></i>
 												</button>
 											</div>
@@ -86,8 +86,8 @@
 									</div>
 									<!--End inputbox 1 상품 -->
 									<!--inputbox 2 카테고리-->
-									<div class="input-group input-group-sm p-2 bd-highlight">
-										<select name="categoryKey" class="input-group-text form-control-sm">
+									<div class="input-group mb-3 p-2 bd-highlight">
+										<select name="categoryKey" class="input-group-text">
 											<option value="largeCategory">대분류</option>
 											<option value="mediumCategory">중분류</option>
 											<option value="smallCategory">소분류</option>
@@ -95,7 +95,7 @@
 										<input type="text" name="categoryValue" class="form-control">
 										<div class="input-group-append">
 											<div class="btn btn-default" style="padding:0;">
-												<button id="searchCategoryBtn" type="button">
+												<button id="searchCategoryBtn" class="btn btn-outline-secondary" type="button">
 													<i class="fas fa-search icon"></i>
 												</button>
 											</div>

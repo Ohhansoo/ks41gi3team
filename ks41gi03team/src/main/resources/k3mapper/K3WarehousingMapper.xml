@@ -31,7 +31,21 @@
 			</association>
 	</resultMap>
 	
-
+	<select id="k3CountRequestWarehousingList" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_warehousing AS w
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE w.warehousingAllow = 'N'	
+	</select>
 	
 	<!--모달- 계약처 아이디로 계약처 이름 찾기(map)  -->
 	<select id="k3FindContractorName" parameterType="map" resultType="map">

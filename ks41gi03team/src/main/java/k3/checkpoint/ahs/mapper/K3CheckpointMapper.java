@@ -10,6 +10,9 @@ import k3.checkpoint.ahs.dto.K3Checkpoint;
 @Mapper
 public interface K3CheckpointMapper {
 	
+	//중복 확인
+	public Integer getOverlappedCheckpointCode(String vehicleCheckpointCode);
+		
 	//현황
 	public List<K3Checkpoint> getCheckpointList();
 	

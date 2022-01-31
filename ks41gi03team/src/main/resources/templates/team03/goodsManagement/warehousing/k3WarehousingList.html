@@ -33,6 +33,14 @@
 						alert("삭제할 항목을 선택해주세요.");
 					}
 				});
+				//sse로 요청목록 개수 가져오기
+				var sse = new EventSource('/team03/goodsManagement/warehousing/sse');
+				sse.onmessage = function (evt) {
+				    var el = document.getElementById('sse');
+				    el.innerHTML = evt.data;
+
+				};
+				
 				
 				$('#warehousingSearchBtn').on('click', function(){
 					$('#searchWarehousingType').attr('value', 'warehousing');
@@ -56,9 +64,9 @@
 							<i class="bi bi-cart"></i>
 							입고요청
 						</button>
-						<button id="allowWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="allowWarehousingBtn" class="btn btn-outline-info ahsbtn4" type="button" style="position:relative;">
 							<i class="bi bi-cart-check"></i>
-							요청승인
+							승인 <div id="sse" style="position: absolute; top:0; right:0; color: white; width: 20px; background-color: red; border-radius: 60%" th:text="4"></div>
 						</button>
 						<button id="addlLaydownCheckBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-clipboard-check"></i>
@@ -92,8 +100,8 @@
 									<div class="row" style="margin: 12px">
 										<form id="warehousingSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
 											<!--inputbox 1 -->
-											<div class="input-group input-group-sm col-sm-5">
-												<select name="warehousingKey" class="input-group-text form-control-sm">
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<select name="warehousingKey" class="input-group-text">
 													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="warehousingCode">입고코드</option>
@@ -102,7 +110,7 @@
 												<input type="hidden" name="searchWarehousingType" id="searchWarehousingType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="warehousingSearchBtn" type="button">
+														<button id="warehousingSearchBtn" type="button" class="btn btn-outline-secondary">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -110,8 +118,8 @@
 											</div>
 											<!--End inputbox 1 -->
 											<!--inputbox 2 -->
-											<div class="input-group input-group-sm col-sm-4">
-												<select name="warehousingDateKey" class="input-group-text form-control-sm">
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<select name="warehousingDateKey" class="input-group-text">
 													<option value="manufacturedDate">제조일자</option>
 													<option value="expiratonDate">유통기한</option>
 													<option value="laydownCheckDate">검수날짜</option>
@@ -128,17 +136,19 @@
 												</div>
 											</div>
 											<!--End inputbox 2 -->
-											~
+											<div style="margin-left: 10px;" class="p-2 bd-highlight"> <p>~</p> </div>
 											<!--inputbox 3 -->
-											<div class="col-sm-3" style="padding-left: 0px">
-												<div class="input-group">
-													<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-														<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-														<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<div class="col-sm-3" style="padding-left: 0px">
+													<div class="input-group">
+														<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+															<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+															<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+															</div>
 														</div>
-													</div>
-						                   		</div>
+							                   		</div>
+												</div>
 											</div>
 											<!--End inputbox 3 -->
 										</form>
@@ -153,7 +163,7 @@
 										<form id="laydownSearchForm" class="d-flex align-items-center"  th:action="@{/team03/goodsManagement/warehousing/k3WarehousingList}" method="post">
 											<!--inputbox 1 -->
 											<div class="input-group input-group-sm col-sm-5">
-												<select name="laydownKey" class="input-group-text form-control-sm">
+												<select style="font-size: 14px;" name="laydownKey" class="input-group-text form-control-sm">
 													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 													<option value="laydownCheckCode">검수코드</option>

@@ -36,6 +36,20 @@ public class K3DispatchController {
 		this.k3DriverService = k3DriverService;
 	}
 	
+	//중복확인 
+	@PostMapping("/dispatchCheck")
+	@ResponseBody
+	public boolean dispatchCheck(@RequestParam(value="dispatchCode", required = false) String dispatchCode) {
+		
+		boolean checkResult = false;
+		
+		Integer check = k3DispatchService.getOverlappedDispatchCode(dispatchCode);
+		
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
+	}
+	
 	//현황
 	@GetMapping("/k3DispatchList")
 	public String getDispatchList(Model model) {

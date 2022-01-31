@@ -12,7 +12,8 @@ import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Mapper
 public interface K3WarehousingMapper {
-
+	//<sse> - 입고승인목록 개수 보내기
+	public int k3CountRequestWarehousingList();
 	//입고현황 조회처리
 	public List<Map<String,Object>> k3GetWarehousingSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
 	//입고 승인/반려 처리
@@ -31,6 +32,7 @@ public interface K3WarehousingMapper {
 	public List<Map<String,Object>> k3GetWarehousingList(Map<String,Object> paramMap);
 	//입고현황 튜플 수
 	public int k3GetWarehousingCount(String countType, Map<String, Object> searchCondition);
+
 
 
 

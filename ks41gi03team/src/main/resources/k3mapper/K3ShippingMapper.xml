@@ -4,6 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.shipping.ahs.mapper.K3ShippingMapper">
 	
+	<!-- 중복확인 -->
+	<select id="getOverlappedShippingCode" parameterType="String"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_shipping AS s
+		WHERE
+			s.shippingCode = #{shippingCode};
+		
+	</select>
+	
 	<!-- 현황 -->
 	<select id="getShippingList" resultType="K3Shipping">
 		SELECT

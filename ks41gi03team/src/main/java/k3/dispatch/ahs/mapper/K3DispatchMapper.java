@@ -11,7 +11,9 @@ import k3.dispatch.ahs.dto.K3Dispatch;
 @Mapper
 public interface K3DispatchMapper {
 	
-
+	//중복 확인
+	public Integer getOverlappedDispatchCode(String dispatchCode);
+		
 	//현황
 	public List<K3Dispatch> getDispatchList();
 	

@@ -1,8 +1,11 @@
 package k3.release.ahs.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import k3.release.ahs.dto.K3Release;
 import k3.release.ahs.service.K3ReleaseService;
@@ -30,21 +33,29 @@ public class K3ReleaseController {
 	
 	private final K3ReleaseService k3ReleaseService;
 	private final K3ShipmentCheckService k3ShipmentCheckService;
-	
+	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
+			
 	public K3ReleaseController(K3ReleaseService k3ReleaseService, K3ShipmentCheckService k3ShipmentCheckService){
 		this.k3ReleaseService = k3ReleaseService;
 		this.k3ShipmentCheckService = k3ShipmentCheckService;
 	}
-	//<ajax> 요청 리스트 개수 전달(요청 알림)
-	@PostMapping("/countRequestReleaseList")	
-	@ResponseBody
-	public int k3CountRequestReleaseList(){
-		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 시작 전");
-		int requestCount = k3ReleaseService.k3CountRequestReleaseList();
-		log.info("출고컨트롤러 --------- 모달 통합출고코드 리스트 결과 -----------{}", requestCount);
-		return requestCount;
-	}
 	
+    @GetMapping("/sse")
+    public SseEmitter handleSse() {
+         SseEmitter emitter = new SseEmitter();
+         int requestCount = k3ReleaseService.k3CountRequestReleaseList();
+         nonBlockingService.execute(() -> {
+             try {
+                 emitter.send(requestCount);
+                 // we could send more events
+                 emitter.complete();
+             } catch (Exception ex) {
+                 emitter.completeWithError(ex);
+             }
+         });
+         log.info("sse 로직결과--------{}", emitter);
+         return emitter;
+    }   
 	
 	//<ajax>-통합출고코드 생성코드 전달
 	@PostMapping("/createReleaseMergeCode")

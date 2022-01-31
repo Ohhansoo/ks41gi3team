@@ -3,6 +3,8 @@ package k3.warehousing.ahs.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import k3.category.ahs.service.K3CategoryService;
 import k3.check.ahs.dto.K3LaydownCheck;
@@ -38,6 +41,7 @@ public class K3WarehousingController {
 	private final K3CategoryService k3CategoryService;
 	private final K3MemberUserService k3MemberUserService;
 	private final K3LocationServise k3LocationServise;
+	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
 	
 	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService, K3MemberUserService k3MemberUserService, K3LocationServise k3LocationServise) {
 		this.k3WarehousingService = k3WarehousingService;
@@ -46,6 +50,25 @@ public class K3WarehousingController {
 		this.k3MemberUserService = k3MemberUserService;
 		this.k3LocationServise = k3LocationServise;
 	}
+	
+	//<sse> - 입고승인목록 개수 보내기
+    @GetMapping("/sse")
+    public SseEmitter handleSse() {
+         SseEmitter emitter = new SseEmitter();
+         int requestCount = k3WarehousingService.k3CountRequestWarehousingList();
+         nonBlockingService.execute(() -> {
+             try {
+                 emitter.send(requestCount);
+                 // we could send more events
+                 emitter.complete();
+             } catch (Exception ex) {
+                 emitter.completeWithError(ex);
+             }
+         });
+         log.info("sse 로직결과--------{}", emitter);
+         return emitter;
+    } 
+    
 	//입고 및 입하검수 현황 조회처리
 	@PostMapping("/k3WarehousingList")
 	public String k3GetWarehousingList(@RequestParam(value="warehousingKey", required = false) String warehousingKey,

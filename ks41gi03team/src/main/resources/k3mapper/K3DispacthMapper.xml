@@ -3,7 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.dispatch.ahs.mapper.K3DispatchMapper">
-
+	
+	<!-- 중복확인 -->
+	<select id="getOverlappedDispatchCode" parameterType="String"  resultType="Integer">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_dispatch_management AS d
+		WHERE
+			d.dispatchCode = #{dispatchCode};
+		
+	</select>
+	
 	<!-- 현황 -->
 	<select id="getDispatchList" resultType="K3Dispatch">
 		SELECT
