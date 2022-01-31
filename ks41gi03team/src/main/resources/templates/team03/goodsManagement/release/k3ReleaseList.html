@@ -240,6 +240,24 @@
 											</tr>
 										</tbody>						
 									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousLaydownList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${currentPage-1})}" aria-controls="releaseList" class="page-link">
+											이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentReleaseList" th:each="num : ${#numbers.sequence(releaseStartPageNum, releaseEndPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${num})}" th:text="${num}"  aria-controls="releaseList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="releaseList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextReleaseList">
+											<a th:if="${currentPage < releaseLastPage}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${currentPage+1})}"  aria-controls="releaseList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->
 								</div>
 								<!--End card body -->
 							</div>
@@ -289,6 +307,24 @@
 											</tr>
 										</tbody>						
 									</table>
+									<!-- 페이징  시작-->
+									<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+										<li class="paginate_button page-item previous" id="previousShipmentList">
+											<a th:if="${currentPage > 1}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${currentPage-1})}" aria-controls="shipmentList" class="page-link">
+												이전
+											</a>
+										</li>
+										<li class="paginate_button page-item" id="currentShipmentList" th:each="num : ${#numbers.sequence(shipmentCheckStartPageNum, shipmentCheckEndPageNum)}">
+											<a th:if="${num != currentPage}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${num})}" th:text="${num}"  aria-controls="shipmentList" class="page-link"></a>
+											<span th:unless="${num != currentPage}" th:text="${num}" style="background-color:#BDBDBD" aria-controls="shipmentList" class="page-link"></span>
+										</li>
+										<li class="paginate_button page-item next" id="nextLaydownList">
+											<a th:if="${currentPage < shipmentCheckLastPage}" th:href="@{/team03/goodsManagement/release/k3ReleaseList(currentPage=${currentPage + 1})}"  aria-controls="shipmentList" class="page-link">
+											다음
+											</a>
+										</li>
+									</ul>
+									<!-- END 페이징 -->
 								</div>
 								<!--End card body -->
 							</div>

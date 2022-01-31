@@ -92,8 +92,64 @@
 			r.releaseAllow = 'Y' AND r.shipmentCheckResult IS NULL;
 	</select>
 	
-	<!-- 출하검수현황  -->
-	<select id="k3GetShipmentCheck" resultMap="releaseResultMap">
+	<!--출하검수조회  -->
+	<select id="k3GetShipmentSearchList" parameterType="Map" resultType="Map">
+		SELECT
+			r.releaseCode,
+			p.productName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.acceptDate,
+			r.releaseDate,
+			r.recipientName,
+			r.shipmentCheckManager,
+			r.shipmentCheckRegDate,
+			r.shipmentCheckResult
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN	
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+			<choose>
+				<when test="searchCondition.searchShipmentType != null and searchCondition.searchShipmentType != ''.toString()">
+					<trim prefix="WHERE" prefixOverrides="AND |OR">
+						<if test="searchCondition.shipmentValue != null and searchCondition.shipmentValue != ''.toString()">
+							${searchCondition.shipmentKey} LIKE CONCAT('%',#{searchCondition.shipmentValue},'%') 
+						</if>	
+						<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+							AND ${searchCondition.shipmentDateKey} >= #{searchCondition.searchStartDate}
+						</if>	
+						<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+				   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.shipmentDateKey}
+						</if>
+							AND r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL
+					</trim>
+				</when>
+				<otherwise>
+					WHERE
+						r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL
+				</otherwise>
+			</choose>
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>
+	</select>
+
+	<!--입하검수 현황(초기화면) - 입하검수리스트  -->	
+	<select id="k3GetShipmentCheck" resultType="map" parameterType="map">
 		SELECT
 			r.releaseCode,
 			p.productName,
@@ -124,7 +180,48 @@
 			ON
 			w.productCode = p.productCode
 		WHERE
-			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL;
+			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
 	</select>
 
+	<!--출하검수 현황(초기화면) - 출하검수리스트 튜플 수  -->
+	<select id="k3GetShipmentCheckCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN	
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode
+		WHERE
+			r.releaseAllow = 'Y'  AND r.shipmentCheckResult IS NOT NULL;
+		<if	test="countType eq 'search'.toString()">
+		   	<if test="searchCondition.searchShipmentType != null and searchCondition.searchShipmentType != ''.toString()">
+				<if test="searchCondition.shipmentValue != null and searchCondition.shipmentValue != ''.toString()">
+		   			AND ${searchCondition.shipmentKey} LIKE CONCAT('%',#{searchCondition.shipmentValue},'%') 
+				</if>	
+				<if test="searchCondition.searchStartDate != null and searchCondition.searchStartDate != ''.toString()">
+		   			AND ${searchCondition.shipmentDateKey} >= #{searchCondition.searchStartDate}
+				</if>	
+				<if test="searchCondition.searchEndDate != null and searchCondition.searchEndDate != ''.toString()">
+		   			AND #{searchCondition.searchEndDate} >=  ${searchCondition.shipmentDateKey}
+				</if>
+			</if>		
+		</if>
+	</select>
 </mapper>
