@@ -126,17 +126,69 @@ public class K3ReleaseController {
 		
 		return "team03/goodsManagement/release/k3AddRelease";
 	}
+	//출고 및 출하검수 현황 조회처리
+	@PostMapping("/k3ReleaseList")
+	public String k3GetReleaseList(@RequestParam(value="releaseKey", required = false) String releaseKey,
+									   @RequestParam(value="releaseValue", required = false) String releaseValue,
+									   @RequestParam(value="shipmentKey", required = false) String shipmentKey,
+									   @RequestParam(value="shipmentValue", required = false) String shipmentValue,
+									   @RequestParam(value="shipmentDateKey", required = false) String shipmentDateKey,
+									   @RequestParam(value="searchShipmentType", required = false) String searchShipmentType,
+									   @RequestParam(value="searchReleaseType", required = false) String searchReleaseType,
+									   @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+									   Model model) {
+		Map<String, Object> searchCondition = new HashMap<String, Object>();
+		searchCondition.put("releaseKey", releaseKey);
+		searchCondition.put("releaseValue", releaseValue);
+		searchCondition.put("shipmentKey", shipmentKey);
+		searchCondition.put("shipmentValue", shipmentValue);
+		searchCondition.put("shipmentDateKey", shipmentDateKey);
+		searchCondition.put("searchShipmentType", searchShipmentType);
+		searchCondition.put("searchReleaseType", searchReleaseType);
+		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
+		
+		Map<String, Object> releaseMap = k3ReleaseService.k3GetReleaseSearchList(searchCondition, currentPage);
+		Map<String, Object> shipmentCheckMap = k3ShipmentCheckService.k3GetShipmentSearchList(searchCondition, currentPage);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("releaseLastPage", releaseMap.get("lastPage"));
+		model.addAttribute("releaseList", releaseMap.get("releaseList"));
+		model.addAttribute("releaseStartPageNum", releaseMap.get("startPageNum"));
+		model.addAttribute("releaseEndPageNum", releaseMap.get("endPageNum"));
+		
+		model.addAttribute("shipmentCheckLastPage", shipmentCheckMap.get("lastPage"));
+		model.addAttribute("shipmentCheck", shipmentCheckMap.get("shipmentCheck"));
+		model.addAttribute("shipmentCheckStartPageNum", shipmentCheckMap.get("startPageNum"));
+		model.addAttribute("shipmentCheckEndPageNum", shipmentCheckMap.get("endPageNum"));
+		log.info(" post 입고현황 조회 리스트 releaseMap ----------------", releaseMap);
+		log.info(" post 입하검수현황 조회 리스트 shipmentCheckMap ----------------", shipmentCheckMap);
+		
+		return "team03/goodsManagement/release/k3ReleaseList";
+	}
+	
 	//출고 현황이동
 	@GetMapping("/k3ReleaseList")
-	public String k3GetReleaseList(Model model) {
+	public String k3GetReleaseList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+								   Model model) {
 		//검수리스트
-		List<K3Release> shipmentCheck = k3ShipmentCheckService.k3GetShipmentCheck();
+		Map<String, Object> shipmentCheckMap = k3ShipmentCheckService.k3GetShipmentCheck(currentPage);
 		//출고리스트
-		List<K3Release>	releaseList = k3ReleaseService.k3GetReleaseList();
+		Map<String, Object>	releaseListMap = k3ReleaseService.k3GetReleaseList(currentPage);
+		log.info("입고 현황이동 컨트롤러 releaseMap------ {}" + shipmentCheckMap);
+		log.info("입하검수 현황이동 컨트롤러 shipmentCheckMap------ {}" + releaseListMap);
+		//공통
 		model.addAttribute("title", "출고관리");
 		model.addAttribute("subtitle", "출고현황");
-		model.addAttribute("shipmentCheck", shipmentCheck);
-		model.addAttribute("releaseList", releaseList);
+		model.addAttribute("currentPage", currentPage);
+		//검수현황 페이징 및 리스트
+		model.addAttribute("shipmentCheckLastPage", shipmentCheckMap.get("lastPage"));
+		model.addAttribute("shipmentCheck", shipmentCheckMap.get("shipmentCheck"));
+		model.addAttribute("shipmentCheckStartPageNum", shipmentCheckMap.get("startPageNum"));
+		model.addAttribute("shipmentCheckEndPageNum", shipmentCheckMap.get("endPageNum"));
+		//출고현황 페이징 및 리스트
+		model.addAttribute("releaseLastPage", releaseListMap.get("lastPage"));
+		model.addAttribute("releaseList", releaseListMap.get("releaseList"));
+		model.addAttribute("releaseStartPageNum", releaseListMap.get("startPageNum"));
+		model.addAttribute("releaseEndPageNum", releaseListMap.get("endPageNum"));
 		return "team03/goodsManagement/release/k3ReleaseList";
 	}
 }
