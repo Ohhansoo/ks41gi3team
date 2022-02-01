@@ -179,7 +179,7 @@
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.AREA,
+			r.area,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.releaseRequestDate
@@ -205,15 +205,65 @@
 			r.releaseAllow = 'N'
 	</select>
 	
-	<!-- 출고 현황 -->
-	<select id="k3GetReleaseList" resultMap="releaseResultMap">
+	<!--출고조회  -->
+	<select id="k3GetReleaseSearchList" parameterType="Map" resultType="Map">
 		SELECT
 			r.releaseCode,
 			r.releaseMergeCode,
 			p.productName,
 			r.releaseGoodsCount,
 			cs.contractorName,
-			r.AREA,
+			r.area,
+			r.shippingAddress,
+			r.shippingDetailAddress,
+			r.recipientName,
+			r.recipientPhone
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		   <choose>
+			   <when test="searchCondition.searchReleaseType != null and searchCondition.searchReleaseType != ''.toString()">
+				   <trim prefix="WHERE" prefixOverrides="AND |OR">
+						<if test="searchCondition.releaseValue != null and searchCondition.releaseValue != ''.toString()">
+				   			${searchCondition.releaseKey} LIKE CONCAT('%',#{searchCondition.releaseValue},'%') 
+						</if>	
+						And r.releaseAllow = 'Y'
+				   </trim>
+			   </when>
+			   <otherwise>
+				WHERE 
+					r.releaseAllow = 'Y'
+			   </otherwise>
+		   </choose>
+			<if test="paramMap.startNum != null">
+				LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+			</if>		   
+	</select>
+	
+	<!--출고 현황(초기화면) - 출고리스트  -->
+	<select id="k3GetReleaseList" resultType="map" parameterType="map">
+		SELECT
+			r.releaseCode,
+			r.releaseMergeCode,
+			p.productName,
+			r.releaseGoodsCount,
+			cs.contractorName,
+			r.area,
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			r.recipientName,
@@ -238,6 +288,42 @@
 			w.contractorId = cs.contractorId
 		WHERE
 			r.releaseAllow = 'Y'
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>
+	</select>
+	
+	<!--출고 현황(초기화면) - 출고리스트 튜플 수  -->
+	<select id="k3GetReleaseCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_release AS r
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
+			INNER JOIN
+			k3_tb_warehousing AS w
+			ON
+			s.warehousingCode = w.warehousingCode
+			INNER JOIN
+			k3_tb_product AS p
+			ON
+			w.productCode = p.productCode			
+			INNER JOIN
+			k3_tb_contractor_staff AS cs
+			ON
+			w.contractorId = cs.contractorId
+		WHERE
+			r.releaseAllow = 'Y'
+		<if	test="countType eq 'search'.toString()">
+		   <if test="searchCondition.searchReleaseType != null and searchCondition.searchReleaseType != ''.toString()">
+				<if test="searchCondition.releaseValue != null and searchCondition.releaseValue != ''.toString()">
+		   			AND ${searchCondition.releaseKey} LIKE CONCAT('%',#{searchCondition.releaseValue},'%') 
+				</if>	
+		   </if>		
+		</if>
 	</select>
 	
 

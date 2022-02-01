@@ -23,11 +23,12 @@ public interface K3ReleaseMapper {
 	public List<K3Release> k3RequestAllowRelease();
 	//출고 등록처리(출고 요청)
 	public int k3AddRelease(K3Release k3Release);
+	//출고 현황 조회처리
+	public List<Map<String, Object>> k3GetReleaseSearchList(Map<String, Object> searchCondition, Map<String, Object> paramMap);
 	//출고 현황
-	public List<K3Release> k3GetReleaseList();
-
-
-
+	public List<Map<String, Object>> k3GetReleaseList(Map<String, Object> paramMap);
+	//출고 현황 테이블 행의 개수
+	public int k3GetReleaseCount(String countType, Map<String, Object> searchCondition);
 
 
 }
