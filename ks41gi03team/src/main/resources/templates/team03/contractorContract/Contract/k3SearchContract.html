@@ -52,7 +52,7 @@
 											<option value="memberId" th:selected="${memberId} == memberId">등록직원</option>
 	        							</select>
 	        						</div>
-									<input type="text" class="form-control" placeholder="계약정보입력">
+									<input type="text" class="form-control" placeholder="계약정보입력" name="searchValue" th:value="${searchValue}">
 									<div class=" input-group-append ">
 										<button id="searchDetailContract" type="submit" class="btn btn-default searchContract">
 											<i class="fas fa-search icon"></i>
@@ -64,7 +64,7 @@
 						<!--End inputbox 1 -->
 						<!--inputbox 2 -->
 						<div class="col-sm-7" style="padding-left: 0px">
-							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contractor/k3SearchContractList}" method="Get" id="contractSearchDate">
+							<form class="searchDateForm" th:action="@{/team03/contractorContract/Contract/k3SearchContract}" method="Get">
 								<div class="input-group d-flex justify-content-end">
 									<span class="input-group-text">체결날짜기간조회</span>
 									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
@@ -152,13 +152,18 @@
 												<i class="bi bi-trash-fill"></i>
 											</button>
 										</td>
-										<td  th:text="${c.contractCode}"></td>
+										<td name="contractCode" rel="contractCode" th:text="${c.contractCode}"></td>
 										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorCode}"></td>
 										<td  th:text="${c.contractorDevision}"></td>
 										<td  th:text="${c.contractSingningDate}"></td>
 										<td  th:text="${c.contractorId}"></td>
 										<td  th:text="${c.memberId}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(contractList)}">
+										<td colspan="4">
+											등록된 거래처가 없습니다.
+										</td>
 									</tr>
 								</tbody>						
 							</table>
@@ -272,6 +277,38 @@
 							</table>
 						</div>
 						<!-- END 비용 계약 목록 -->
+						<!-- 페이징 -->
+						<ul class="pagination d-flex justify-content-center align-items-center"  style="margin-top:15px;">
+							<li class="paginate_button page-item previous" id="contractList_previous">
+								<a th:if="${currentPage > 1} and ${searchValue} != null" id="contractListPreviousA" th:href="@{k3SearchContract(currentPage=${currentPage-1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractList" class="page-link">
+									이전
+								</a>
+								<a th:if="${currentPage > 1} and ${contractSingningDateStart} != null and ${contractSingningDateEnd} != null" id="contractListPreviousA" th:href="@{k3SearchContract(currentPage=${currentPage-1},contractSingningDateStart=${contractSingningDateStart},contractSingningDateEnd=${contractSingningDateEnd})}" aria-controls="contractList" class="page-link">
+									이전
+								</a>
+								<a th:if="${currentPage > 1} and ${searchValue} == null and ${contractSingningDateStart} == null and ${contractSingningDateEnd} == null" id="contractListPreviousA" th:href="@{k3SearchContract(currentPage=${currentPage-1})}" aria-controls="contractList" class="page-link">
+									이전
+								</a>
+							</li>
+							<li class="paginate_button page-item" id="contractList_current" th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+								<a  th:if="${num != currentPage} and ${searchValue} != null" id="contractListCurrentA" th:href="@{k3SearchContract(currentPage=${num},searchKey=${searchKey},searchValue=${searchValue})}" th:text="${num}"  aria-controls="contractorList" class="page-link"></a>
+								<a  th:if="${num != currentPage} and ${contractSingningDateStart} != null and ${contractSingningDateEnd} != null" id="contractListCurrentA" th:href="@{k3SearchContract(currentPage=${num},contractSingningDateStart=${contractSingningDateStart},contractSingningDateEnd=${contractSingningDateEnd})}" th:text="${num}"  aria-controls="contractList" class="page-link"></a>
+								<a  th:if="${num != currentPage} and ${searchValue} == null and ${contractSingningDateStart} == null and ${contractSingningDateEnd} == null" id="contractListCurrentA" th:href="@{k3SearchContract(currentPage=${num})}" th:text="${num}"  aria-controls="contractList" class="page-link"></a>
+								<span  th:unless="${num != currentPage}" style="background-color:#BDBDBD" aria-controls="contractList" class="page-link" th:text="${num}"></span>
+							</li>
+						    <li class="paginate_button page-item next" id="contractList_next">
+								<a th:if="${currentPage < lastPage} and ${searchValue} != null" id="contractListNextA" th:href="@{k3SearchContract(currentPage=${currentPage+1},searchKey=${searchKey},searchValue=${searchValue})}" aria-controls="contractList" class="page-link">
+									다음
+								</a>
+								<a th:if="${currentPage < lastPage} and ${contractSingningDateStart} != null and ${contractSingningDateEnd} != null" id="contractListNextA" th:href="@{k3SearchContract(currentPage=${currentPage+1},contractSingningDateStart=${contractSingningDateStart},contractSingningDateEnd=${contractSingningDateEnd})}" aria-controls="contractList" class="page-link">
+									다음
+								</a>
+								<a th:if="${currentPage < lastPage} and ${searchValue} == null and ${contractSingningDateStart} == null and ${contractSingningDateEnd} == null" id="contractListNextA" th:href="@{k3SearchContract(currentPage=${currentPage+1})}" aria-controls="contractList" class="page-link">
+									다음
+								</a>
+						    </li>
+						</ul>
+						<!-- END 페이징 -->						
 					</div>
 				</div>
 				<!--End card body -->

@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
-
 	
-	<select id="k3GetContractList" resultType="K3Contract">
+	<!-- 검색된 계약 투플 수  -->
+	<select id="K3SearchContractCount" parameterType="map" resultType="map">
 		SELECT
 			cs.contractCode as contractCode,
 			csf.contractorName as contractorName,
@@ -20,7 +20,99 @@
 			Inner join
 			k3_tb_contractor_staff AS csf
 			on
+			cs.contractorId = csf.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractSingningDateStart != null and contractSingningDateStart != ''.toString() 
+						and contractSingningDateEnd != null and contractSingningDateEnd != ''.toString()">
+				 cs.contractSingningDate
+	 			BETWEEN #{contractSingningDateStart} AND #{contractSingningDateEnd}
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorName"'>
+				AND cs.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test='searchKey == "contractorName"'>
+				AND csf.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			cs.contractSingningDate DESC
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>		
+	</select>
+	
+	<!-- 계약 검색(페이징) -->
+	<select id="K3SearchContractList" parameterType="map" resultType="map">
+		SELECT
+			cs.contractCode as contractCode,
+			csf.contractorName as contractorName,
+			cs.contractorCode as contractorCode,
+			cs.contractorDevision as contractorDevision,
+			cs.contractState as contractState,
+			cs.contractSingningDate as contractSingningDate,
+			cs.contractorId as contractorId,
+			cs.memberId as memberId
+		FROM
+			k3_tb_contract_simple AS cs
+			Inner join
+			k3_tb_contractor_staff AS csf
+			on
+			cs.contractorId = csf.contractorId
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="contractSingningDateStart != null and contractSingningDateStart != ''.toString() 
+						and contractSingningDateEnd != null and contractSingningDateEnd != ''.toString()">
+				 cs.contractSingningDate
+	 			BETWEEN #{contractSingningDateStart} AND #{contractSingningDateEnd}
+			</if>
+			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorName"'>
+				AND cs.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test='searchKey == "contractorName"'>
+				AND csf.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>	
+		ORDER BY
+			cs.contractSingningDate DESC
+		<if test="paramMap.startNum != null">
+			LIMIT #{paramMap.startNum}, #{paramMap.rowPerPage};
+		</if>
+	</select>
+
+	<!-- 계약 투플 수 (페이징) -->
+	<select id="k3GetContractCount" resultType="int" fetchSize="1000">
+		SELECT
+			COUNT(1)
+		FROM
+			k3_tb_contract_simple AS cs
+			Inner join
+			k3_tb_contractor_staff AS csf
+			on
 			cs.contractorId = csf.contractorId;
+	</select>
+
+
+	<!-- 계약 목록 간단 현황으로 불러오기(페이징) -->
+	<select id="k3GetContractList" parameterType="map" resultType="map">
+		SELECT
+			cs.contractCode as contractCode,
+			csf.contractorName as contractorName,
+			cs.contractorCode as contractorCode,
+			cs.contractorDevision as contractorDevision,
+			cs.contractState as contractState,
+			cs.contractSingningDate as contractSingningDate,
+			cs.contractorId as contractorId,
+			cs.memberId as memberId
+		FROM
+			k3_tb_contract_simple AS cs
+			Inner join
+			k3_tb_contractor_staff AS csf
+			on
+			cs.contractorId = csf.contractorId
+		ORDER BY
+			cs.contractSingningDate DESC
+		<if test="startNum != null">
+			LIMIT #{startNum}, #{rowPerPage};
+		</if>			
 	</select>
 
 </mapper>

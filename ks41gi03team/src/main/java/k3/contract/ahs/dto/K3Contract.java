@@ -12,8 +12,11 @@ public class K3Contract {
 	private String contractorDevision;
 	private String contractState;
 	private String contractSingningDate;
+	private String contractSingningDateStart;
+	private String contractSingningDateEnd;
 	private String contractorId;
 	private String memberId;
+
 	public String getContractorType() {
 		return contractorType;
 	}
@@ -62,6 +65,18 @@ public class K3Contract {
 	public void setContractSingningDate(String contractSingningDate) {
 		this.contractSingningDate = contractSingningDate;
 	}
+	public String getContractSingningDateStart() {
+		return contractSingningDateStart;
+	}
+	public void setContractSingningDateStart(String contractSingningDateStart) {
+		this.contractSingningDateStart = contractSingningDateStart;
+	}
+	public String getContractSingningDateEnd() {
+		return contractSingningDateEnd;
+	}
+	public void setContractSingningDateEnd(String contractSingningDateEnd) {
+		this.contractSingningDateEnd = contractSingningDateEnd;
+	}
 	public String getContractorId() {
 		return contractorId;
 	}
@@ -76,11 +91,33 @@ public class K3Contract {
 	}
 	@Override
 	public String toString() {
-		return "K3Contract [contractorType=" + contractorType + ", contractorRepresentative=" + contractorRepresentative
-				+ ", contractCode=" + contractCode + ", contractorName=" + contractorName + ", contractorCode="
-				+ contractorCode + ", contractorDevision=" + contractorDevision + ", contractState=" + contractState
-				+ ", contractSingningDate=" + contractSingningDate + ", contractorId=" + contractorId + ", memberId="
-				+ memberId + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("K3Contract [contractorType=");
+		builder.append(contractorType);
+		builder.append(", contractorRepresentative=");
+		builder.append(contractorRepresentative);
+		builder.append(", contractCode=");
+		builder.append(contractCode);
+		builder.append(", contractorName=");
+		builder.append(contractorName);
+		builder.append(", contractorCode=");
+		builder.append(contractorCode);
+		builder.append(", contractorDevision=");
+		builder.append(contractorDevision);
+		builder.append(", contractState=");
+		builder.append(contractState);
+		builder.append(", contractSingningDate=");
+		builder.append(contractSingningDate);
+		builder.append(", contractSingningDateStart=");
+		builder.append(contractSingningDateStart);
+		builder.append(", contractSingningDateEnd=");
+		builder.append(contractSingningDateEnd);
+		builder.append(", contractorId=");
+		builder.append(contractorId);
+		builder.append(", memberId=");
+		builder.append(memberId);
+		builder.append("]");
+		return builder.toString();
 	}
 	@Override
 	public int hashCode() {
@@ -88,6 +125,8 @@ public class K3Contract {
 		int result = 1;
 		result = prime * result + ((contractCode == null) ? 0 : contractCode.hashCode());
 		result = prime * result + ((contractSingningDate == null) ? 0 : contractSingningDate.hashCode());
+		result = prime * result + ((contractSingningDateEnd == null) ? 0 : contractSingningDateEnd.hashCode());
+		result = prime * result + ((contractSingningDateStart == null) ? 0 : contractSingningDateStart.hashCode());
 		result = prime * result + ((contractState == null) ? 0 : contractState.hashCode());
 		result = prime * result + ((contractorCode == null) ? 0 : contractorCode.hashCode());
 		result = prime * result + ((contractorDevision == null) ? 0 : contractorDevision.hashCode());
@@ -116,6 +155,16 @@ public class K3Contract {
 			if (other.contractSingningDate != null)
 				return false;
 		} else if (!contractSingningDate.equals(other.contractSingningDate))
+			return false;
+		if (contractSingningDateEnd == null) {
+			if (other.contractSingningDateEnd != null)
+				return false;
+		} else if (!contractSingningDateEnd.equals(other.contractSingningDateEnd))
+			return false;
+		if (contractSingningDateStart == null) {
+			if (other.contractSingningDateStart != null)
+				return false;
+		} else if (!contractSingningDateStart.equals(other.contractSingningDateStart))
 			return false;
 		if (contractState == null) {
 			if (other.contractState != null)
@@ -160,6 +209,7 @@ public class K3Contract {
 		return true;
 	}
 	
+
 	
 
 }
