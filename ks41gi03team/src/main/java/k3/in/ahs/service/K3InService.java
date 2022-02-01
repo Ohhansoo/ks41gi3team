@@ -25,7 +25,7 @@ public class K3InService {
 	}
 	
 	
-	//결제 등록 데이터테이블 확인 버튼 서비스
+	//결제 등록 데이터테이블 확인 버튼 서비스 만드는중
 	public List<Map<String, Object>> inPayCheck(String inCode, String estimateNum, String estimatePrice, String inPay, String inPayCheck) {
 		Map<String, Object> inPayMap = new HashMap<String, Object>();
 		inPayMap.put("inCode", inCode);
