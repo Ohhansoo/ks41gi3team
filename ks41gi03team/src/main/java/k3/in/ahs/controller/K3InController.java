@@ -34,7 +34,7 @@ public class K3InController {
 		}
 		
 		
-		//결제 등록 데이터테이블 확인 버튼 컨트롤러
+		//결제 등록 데이터테이블 확인 버튼 컨트롤러 만드는 중
 		@PostMapping("/inPayCheck")
 		@ResponseBody
 		public List<Map<String, Object>> k3InPayCheck(	@RequestParam(value="inCode")String inCode,
