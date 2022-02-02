@@ -1,6 +1,7 @@
 package k3.shipping.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,5 +30,8 @@ public interface K3ShippingMapper {
 	
 	//체크 삭제
 	public Integer k3DeleteShipping(List<String> deleteList);
+	
+	//모달
+	public List<Map<String, Object>> k3SelectShippingMemberId(Map<String,Object> paraMap);
 }
 

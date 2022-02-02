@@ -101,6 +101,59 @@
 				modal.addClass('hidden');
 
 			});
+			
+			$(document).on('click', '.shippingMemberId_btn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10,-1]);
+				aLengthMenuArray.push([5,10,'ALL']);
+				
+				$('#shippingMemberId').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/team03/delivery/shipping/shippingMemberId',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ "data": "선택"},
+						{ "data": "memberId"},
+						{ "data": "memberName"}							
+					],
+					columnDefs: [
+						{
+							targets: [0],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+								return htmlbtn;
+							}
+						}
+					]
+				});
+				var overlay = $('.modal_overlay');
+				modal.removeClass('hidden');
+					
+			});
+			
+			$(document).on('click', '#memberConfirmBtn', function(){
+				var checkedBox = $('.memberId:checked');
+				var memberId = $('#memberId');
+ 				var memberName = $('#memberName');
+				
+ 				var dispatchMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+ 				memberName.attr('value', dispatchMemberIdValue);	
+ 				memberId.attr('value', checkedBox.val());	
+
+				modal.addClass('hidden');
+			});
+			
+			
 			$('#overlapped_btn').click(function(){
 
 				var shippingCode = $('#shippingCode').val();
@@ -173,7 +226,9 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
-										<input class="inputBox" type="text" id="memberId" name="memberId" placeholder="확인 담당자를 등록해주세요"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="확인 담당자를 등록해주세요"/>
+										<button class="shippingMemberId_btn" type="button">등록</button>
 									</div>			
 									<div class="inputwrap col-md-12">
 										<label for="releaseCode" class="inputName">출고 코드</label>
@@ -206,4 +261,33 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
+		<!-- 모달창 -->
+		<div id="shppingModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">확인 담당자</div>
+					<button class="shippingExitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="shippingMemberId" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>	
+									<th>회원코드</th>
+									<th>회원명</th>				
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 	</th:block>
