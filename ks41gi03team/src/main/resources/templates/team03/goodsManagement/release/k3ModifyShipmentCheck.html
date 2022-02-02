@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+   	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">	
+	</th:block>
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
+			$(function(){
+				$('#cancelBtn').on('click', function(){
+					location.href = '/team03/goodsManagement/release/k3ReleaseCheckList';
+				});
+				$(document).on('click', '#releaseCheckBtn', function(){
+					
+					var submitCheck = true;
+					
+						if(submitCheck) $('#addShipmentTable').submit();
+				});
+				//모달 시작
+				var modal = $('#laydownCheckCodeModal');
+				var memberModal = $('#memberModal');
+				///입하검수코드 모달
+				$("#laydownCheckCodeExitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+				
+				$(document).on('click', '#selectLaydownCheckCode', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#laydownCheckCodeTable').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/check/k3GetLaydownCheckCodeList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "laydownCheckCode"},
+							{ "data": "warehousingCode"},
+							{ "data": "productName"},								
+							{ "data": "contractorName"},								
+							{ "data": "laydownRequestDate"}					
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="laydownCheckCode" value="'+ row.laydownCheckCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#laydownCheckCodeconfirm', function(){
+					var checkedBox = $('.releaseCheckCode:checked');
+	 				var releaseCheckCode = $('#releaseCheckCode');
+
+
+	 				var releaseCheckCodeValue = checkedBox.parent().parent().children().eq(1).text();
+					
+	 				releaseCheckCode.attr('value',releaseCheckCodeValue);
+
+	 				
+					modal.addClass('hidden');
+				});
+				///멤버이름 모달
+				$(document).on('click', '#selectMember', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#memberCode').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/goodsManagement/warehousing/MemberList',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "memberId"},
+							{ "data": "memberName"}							
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					memberModal.removeClass('hidden');
+					
+				});
+				$("#memberExitBtn").click(function(){
+					
+					memberModal.addClass('hidden');
+				});
+				$(document).on('click', '#memberConfirmBtn', function(){
+					var checkedBox = $('.memberId:checked');
+	 				var shipmentCheckManager = $('#shipmentCheckManager');
+	 				var shipmentCheckManagerName = $('#shipmentCheckManagerName');
+
+	 				var shipmentCheckManagerValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var shipmentCheckManagerNameValue = checkedBox.parent().parent().children().eq(2).text();
+
+	 				shipmentCheckManager.attr('value',shipmentCheckManagerValue);
+	 				shipmentCheckManagerName.attr('value',shipmentCheckManagerNameValue);
+
+
+	 				memberModal.addClass('hidden');
+				});
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents">	 
+		<div id="representative-button">
+			<div id="representative-button">
+				<!-- 콘텐츠 콘테이너 시작 -->
+				<div class="container-fluid">
+					<!--카드 영역 -->
+					<div class="card cardColor">
+						<!-- 등록 영역 -->
+						<div class="addForm">
+							<!--card header -->
+							<div class="card-header cardHeadBorder">
+								<h4>출하검수</h4>
+							</div>
+							<!--End card header -->
+							<!--card body -->
+							<div class="card-body">
+								<div class="row">
+									<form id="addShipmentTable" th:action="@{/team03/goodsManagement/release/k3AddShipmentCheck}" method="post" th:if="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
+										<div class="inputwrap col-md-12">
+											<label for="releaseMergeCode" class="inputName">출고통합코드</label>
+											<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" th:value="${l.releaseMergeCode}"/>
+											<input type="hidden" id="releaseCode" name="releaseCode" th:value="${l.releaseCode}"/>
+											<button type="button" id="selectLaydownCheckCode">코드 변경</button>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="productName" class="inputName">물품명</label>
+											<input class="inputBox" type="text" id="productName" name="productName" th:value="${l.k3Product.productName}" disabled="disabled"/>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="contractorName" class="inputName">회사명</label>
+											<input class="inputBox" type="text" id="contractorName" name="contractorName" th:value="${l.k3Contractor.contractorName}" disabled="disabled"/>
+											<input type="hidden" id="contractorId" name="contractorId" th:value="${l.contractorId}"/>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="laydownGoodsCount" class="inputName">개수</label>
+											<input class="inputBox" type="text" id="releaseGoodsCount" name="releaseGoodsCount" th:value="${l.releaseGoodsCount}" disabled="disabled"/>
+										</div>
+										<div class="inputwrap col-md-12">
+											<label for="shipmentCheckResult" class="inputName">입하검수결과</label>
+											<select id="shipmentCheckResult" name="shipmentCheckResult">
+												<option value = "Y"> 정상 </option>
+												<option value ="damage"> 파손 </option>
+												<option value ="countError"> 수량오류 </option>
+												<option value ="etc"> 기타 </option>
+											</select>
+										</div>								
+										<div class="inputwrap col-md-12">
+											<label for="shipmentCheckManager" class="inputName">검수담당자</label>
+											<input class="inputBox" type="text" id="shipmentCheckManagerName" name="shipmentCheckManagerName" disabled="disabled"/>
+											<input class="inputBox" type="hidden" id="shipmentCheckManager" name="shipmentCheckManager" th:value="${l.k3MemberUser.memberName}" readonly="readonly"/>
+											<button type="button" id="selectMember">담당자 선택</button>
+										</div>	
+										<div class="inputwrap col-md-12">
+											<label for="releaseDate" class="inputName">입하일시</label>
+											<input class="inputBox" type="date" id="releaseDate" name="releaseDate" th:value="${l.releaseDate}"/>
+										</div>							
+										<div class="inputwrap col-md-12">
+											<label for="shipmentCheckRegDate" class="inputName">검수일시</label>
+											<input class="inputBox" type="date" id="shipmentCheckRegDate" name="shipmentCheckRegDate" th:value="${l.shipmentCheckRegDate}"/>
+										</div>								
+										<div class="d-flex justify-content-center">					
+											<button id="releaseCheckBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
+										</div>	
+									</form>
+		 						</div>
+							</div>					
+		 					<!--End card body 묶음 -->
+						</div>
+						<!-- END 등록 영역 -->
+					</div>	
+					<!--End 카드 영역 -->
+				</div>
+				<!-- End 콘텐츠 콘테이너 -->
+			</div>
+		</div>
+		<!-- 모달창 -->
+		<div id="laydownCheckCodeModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">카테고리 선택</div>
+					<button id="laydownCheckCodeExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="laydownCheckCodeTable" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>입하검수코드</th>
+									<th>입고코드</th>
+									<th>물품명</th>							
+									<th>회사명</th>							
+									<th>입하요청날짜</th>							
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="laydownCheckCodeconfirm" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		<!-- 모달창 -->
+		<div id="memberModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">거래처명 선택</div>
+					<button id="memberExitBtn" class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="memberCode" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>회원코드</th>
+									<th>회원명</th>						
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+	</th:block>

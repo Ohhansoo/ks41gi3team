@@ -25,6 +25,10 @@
 				<id column="productCode" property="productCode"/>
 				<result column="productName" property="productName" />
 			</association>
+			<association property="k3MemberUser" javaType="K3MemberUser">
+				<id column="memberId" property="memberId"/>
+				<result column="memberName" property="memberName" />
+			</association>
 	</resultMap>
 	
 	<!-- 출하검수 등록하기 -->
@@ -54,6 +58,7 @@
 				,r.releaseDate
 				,r.shipmentCheckManager
 				,r.shipmentCheckRegDate
+				,m.memberName
 			</if>
 		FROM
 			k3_tb_release AS r
@@ -65,6 +70,10 @@
 			k3_tb_contractor_staff AS cs
 			ON
 			r.contractorId = cs.contractorId
+			INNER JOIN
+			k3_tb_member AS m
+			ON
+			r.shipmentCheckManager = m.memberId
 		WHERE
 			releaseCode = #{releaseCode};
 	</select>
