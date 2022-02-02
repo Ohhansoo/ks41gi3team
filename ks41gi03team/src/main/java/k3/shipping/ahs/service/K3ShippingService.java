@@ -64,5 +64,11 @@ public class K3ShippingService {
 		List<Map<String, Object>> searchId = k3ShippingMapper.k3SelectShippingMemberId(null);
 		return searchId;
 	}
+	
+	//모달2
+	public List<Map<String, Object>> k3SelectShippingDriverName(){
+		List<Map<String, Object>> searchName = k3ShippingMapper.k3SelectShippingDriverName(null);
+		return searchName;
+	}
 		
 }
