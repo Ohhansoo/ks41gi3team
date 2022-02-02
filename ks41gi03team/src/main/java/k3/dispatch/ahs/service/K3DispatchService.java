@@ -75,5 +75,11 @@ public class K3DispatchService {
 		  List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null); 
 		  return searchName; 
 	  }
+	  
+	//모달(shipping)
+	public List<Map<String, Object>> k3GetShippingDVmodalList(){
+		List<Map<String, Object>> modalList = k3DispatchMapper.k3GetDVmodalList(null);
+		return modalList;
+	}
 	 
 }

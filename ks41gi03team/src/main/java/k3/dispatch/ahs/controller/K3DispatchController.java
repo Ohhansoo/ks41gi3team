@@ -145,6 +145,14 @@ public class K3DispatchController {
 			return searchName; 
 	}
 	
+	//모달(shipping)
+	@PostMapping("/k3DVmodal")
+	@ResponseBody
+	public List<Map<String, Object>> k3GetShippingDVmodalList(){
+		List<Map<String, Object>> modalList = k3DispatchService.k3GetShippingDVmodalList();
+		return modalList;
+	}
+	
 	//체크 삭제
 	@PostMapping("/k3DeleteDispatch")
 	public String k3DeleteDispatch(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
@@ -153,5 +161,6 @@ public class K3DispatchController {
 		log.info("DeleteDipsatch" + result);
 		return "redirect:/team03/delivery/dispatch/k3DispatchList";
 	}
-	 
+	
+	
 }
