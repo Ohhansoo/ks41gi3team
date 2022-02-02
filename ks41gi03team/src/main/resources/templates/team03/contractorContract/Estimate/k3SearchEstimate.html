@@ -46,7 +46,7 @@
 				
 				<!-- END견적서 검색 -->
 	
-				<!-- 단가표 상세정보 모달창 스크립트 -->				
+				<!-- 단가표 모달창 스크립트 -->				
 				$(document).on('click','#unitModalBtn',function(){
 					$.ajax({ 
 						url: "/team03/contractorContract/Estimate/k3UnitModalAjax", 
@@ -70,11 +70,56 @@
 						Umodal += '<td>'+ data[i].unitTerm +'</td>';
 						Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
 					}
-					$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3ModifyUnit');
+					$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3SearchEstimateAjax');
 					$("#Umodal").append(Umodal);
 					$('#unitModal').modal('show');
 				}
-				<!-- END 단가표 상세정보 모달창 스크립트 -->		
+				<!-- END 단가표 모달창 스크립트 -->
+				
+				<!-- 견적서 상세정보 모달창 -->
+				$(document).on('click','.showDetailEstimate',function(){
+					var	estimateNum = $(this).attr('data-estimateNum');	
+					
+					$.ajax({
+						url: "/team03/contractorContract/Estimate/k3SearchEstimateAjax",
+						type:"GET",
+						data: {"estimateNum": estimateNum},
+						dataType: 'json',
+						success:function(response){
+							showList2(response);
+						}
+					});
+				});
+				function showList2(data){
+					var Emodal = '';
+					$("#Emodal").empty();
+					Emodal += '<tr><th>견적상세번호</th><td>'+data.estimateDetailNum + '</td>';
+					Emodal += '<th>견적번호</th><td rel="estimateNum">'+data.estimateNum + '</td></tr>';
+					
+					Emodal += '<tr><th>거래처 사업장 코드</th><td>'+data.contractorCode + '</td>';
+					Emodal += '<th>거래처 상호명</th><td>'+data.contractorName + '</td></tr>';
+					
+					Emodal += '<tr><th>사업장별 대표코드</th><td>'+data.mainBusinessCode + '</td>';
+					Emodal += '<th>단가코드</th><td>'+data.UnitPriceCode + '</td></tr>';
+					
+					Emodal += '<tr><th>견적수량</th><td>'+data.unitContractDevisionAmount + '</td>';
+					Emodal += '<th>창고유형</th><td>'+data.unitContractWarehouseType + '</td></tr>';
+					
+					Emodal += '<tr><th>계약기간</th><td>'+data.estimateContractTerm + '</td>';
+					Emodal += '<th>단위별 견적금액</th><td>'+data.estimateUnitPrice + '</td></tr>';
+					
+					Emodal += '<tr><th>견적합계(세금포함)</th><td>'+data.estimatePrice + '</td>';
+					Emodal += '<th>선입금액견적</th><td>'+data.estimatePricePrepayment + '</td></tr>';
+					
+					Emodal += '<tr><th>월납입금액 견적</th><td>'+data.estimatePriceMonth + '</td>';
+					Emodal += '<th>견적측정날짜</th><td>'+data.estimateMeasureDate + '</td></tr>';
+					
+					Emodal += '<tr><th>견적서 등록직원 아이디</th><td>'+data.memberId + '</td></tr>';
+					
+					$('#Emodal').append(Emodal);
+					$('#detailEstimateModal').modal('show');
+				}
+				<!-- END견적서 상세정보 모달창 -->
 			});
 		</script>
 	</th:block>	
@@ -208,7 +253,7 @@
 										</label>
 									</td>
 									<td>
-										<a href="#"  type="button" class="btn btn-default btn-sm showDetailEstimate" th:data-estimateCode="${e.estimateNum}">
+										<a href="#"  type="button" class="btn btn-default btn-sm showDetailEstimate" th:data-estimateNum="${e.estimateNum}">
 											<i class="bi bi-eye"></i>
 										</a>
 									</td>										
@@ -322,4 +367,36 @@
 			</div>
 		</div>
 	   <!--END 단가표 모달창 -->
+	   
+		<!-- 견적서 상세정보 모달창 -->
+		<div class="modal" style="text-align: center" id="detailEstimateModal" tabindex="-1"  role="dialog" aria-labelledby="estimateModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">견적서 상세정보</h5>
+						<button type="button" class="close"  data-dismiss="modal">
+							<i class="bi bi-x-circle"></i>
+						</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class=" card card-body bg-light container-fluid">
+							<table class="table table-striped table-hover"id="Emodal">
+							
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="ahsbtn2 btn btn-outline-info modifyEstimateModalBtn">
+							<i class="bi bi-pencil"></i>
+							수정
+						</a>
+						<button class="printDetailEstimateModal ahsbtn2 btn btn-outline-info" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>               
+					</div>
+				</div>
+			</div>
+		</div>
+	   <!-- 견적서 상세정보 모달창 -->
 	</th:block>

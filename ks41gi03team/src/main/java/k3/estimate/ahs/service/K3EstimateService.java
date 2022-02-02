@@ -17,6 +17,14 @@ public class K3EstimateService {
 	
 	private K3EstimateMapper k3EstimateMapper;
 	
+	//견적서 상세정보 모달창
+	public List<K3Estimate> k3GetDetailEstimate(String estimateNum) {
+		
+		List<K3Estimate> k3DetailEstimate = k3EstimateMapper.k3GetDetailEstimate(estimateNum);
+		
+		return k3DetailEstimate;
+	}
+	
 	//단가표 모달창
 	public List<K3Unit> k3GetUnit() {
 		List<K3Unit> k3Unit = k3EstimateMapper.k3GetUnit();
