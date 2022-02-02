@@ -5,11 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import k3.estimate.ahs.dto.K3Estimate;
 import k3.estimate.ahs.dto.K3Unit;
 
 
 @Mapper
 public interface K3EstimateMapper {
+	
+	//견적서 상세정보 모달창
+	public List<K3Estimate> k3GetDetailEstimate(String estimateNum);
 	
 	//단가표 모달창
 	public List<K3Unit> k3GetUnit();

@@ -25,6 +25,16 @@ public class K3EstimateController {
 		this.k3EstimateService = k3EstimateService;
 	}
 	
+	//견적서 상세정보 모달창
+	@GetMapping("/k3SearchEstimateAjax")
+	@ResponseBody
+	public List<K3Estimate> k3GetDetailEstimate(
+										@RequestParam(value = "estimateNum", required = false) String estimateNum) {
+		List<K3Estimate> k3DetailEstimate = k3EstimateService.k3GetDetailEstimate(estimateNum);
+		
+		return k3DetailEstimate;
+	}
+	
 	//단가표 모달창
 	@GetMapping("/k3UnitModalAjax")
 	@ResponseBody

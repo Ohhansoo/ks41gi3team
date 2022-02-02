@@ -4,6 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
 
+	<!-- 견적서 상세정보 -->
+	<select id="k3GetDetailEstimate" parameterType="String" resultType="K3Estimate">
+		SELECT
+			e.estimateNum
+			,e.contractorCode
+			,FORMAT(estimatePrice, 0) as estimatePrice
+			,e.estimatePricePrepayment
+			,e.estimatePriceMonth
+			,e.estimateMeasureDate
+			,e.memberId
+			,es.estimateDetailNum
+			,es.mainBusinessCode
+			,es.UnitPriceCode
+			,es.unitContractDevisionAmount
+			,es.unitContractWarehouseType
+			,es.estimateContractTerm
+			,cs.contractorName
+		FROM
+			((k3_tb_estimate AS e
+			INNER join
+			k3_tb_estimate_detail AS es
+			on
+			e.memberId = es.memberId)
+			INNER join
+			k3_tb_contractor AS c
+			ON
+			e.contractorCode = c.contractorCode)
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId 
+		WHERE
+			e.estimateNum = #{estimateNum};
+	</select>
+
 
 	<!-- 검색된 견적서 투플 수 -->
 	<select id="K3SearchEstimateCount" parameterType="map" resultType="map">
