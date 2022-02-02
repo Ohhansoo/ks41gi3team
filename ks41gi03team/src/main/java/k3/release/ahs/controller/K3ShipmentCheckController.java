@@ -30,6 +30,22 @@ public class K3ShipmentCheckController {
 		this.k3ShipmentCheckService = k3ShipmentCheckService;
 	}
 	
+	 //출하검수 수정폼이동
+	 @GetMapping("/k3ModifyShipmentCheck")
+	 public String K3ModifyShipmentCheck(@RequestParam(value="releaseCode", required=false)String releaseCode, 
+			 Model model){
+		 log.info("K3CheckController/ 출하검수 수정페이지 이동----->>>>>>>>>>", releaseCode);
+		 //수정 관련 정보 받아오기
+		 String type = "modify";
+		 List<K3Release> shipmentModifyList = k3ShipmentCheckService.k3GetShipmentCheckUpdateList(releaseCode, type);		
+		 log.info("K3CheckController/ 출하검수 수정페이지 이동 처리결과----->>>>>>>>>>", shipmentModifyList);
+		 model.addAttribute("title", "출고관리");
+		 model.addAttribute("subtitle", "출하검수수정");
+		 model.addAttribute("shipmentModifyList", shipmentModifyList);
+		 System.out.println(shipmentModifyList);
+		 return "team03/goodsManagement/release/k3ModifyShipmentCheck";
+	 }
+	
 	//출하검수 등록처리
 	@PostMapping("/k3AddShipmentCheck") 
 	public String k3AddShipmentCheck(K3Release k3Release){
