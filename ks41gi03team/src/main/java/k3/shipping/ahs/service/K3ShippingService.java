@@ -1,6 +1,7 @@
 package k3.shipping.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -57,4 +58,11 @@ public class K3ShippingService {
 		Integer result = k3ShippingMapper.k3DeleteShipping(deleteList);
 		return result;
 	}
+	
+	//모달
+	public List<Map<String, Object>> k3SelectShippingMemberId() {
+		List<Map<String, Object>> searchId = k3ShippingMapper.k3SelectShippingMemberId(null);
+		return searchId;
+	}
+		
 }

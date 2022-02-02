@@ -1,6 +1,7 @@
 package k3.shipping.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import k3.memberuser.ahs.service.K3MemberUserService;
 import k3.shipping.ahs.dto.K3Shipping;
 import k3.shipping.ahs.service.K3ShippingService;
 
@@ -24,9 +26,11 @@ public class K3ShippingController {
 	private static final Logger log = LoggerFactory.getLogger(K3ShippingController.class);
 	
 	private K3ShippingService k3ShippingService;
+	private K3MemberUserService k3MemberUserService; //의존성 검사
 	
-	public K3ShippingController(K3ShippingService k3ShippingService) {
+	public K3ShippingController(K3ShippingService k3ShippingService, K3MemberUserService k3MemberUserService) {
 		this.k3ShippingService = k3ShippingService;
+		this.k3MemberUserService = k3MemberUserService;
 	}
 	
 	//중복확인 
@@ -126,6 +130,13 @@ public class K3ShippingController {
 		return "redirect:/team03/delivery/shipping/k3ShippingList";
 	}
 	
+	//모달 (@ResponseBody 중요)
+	@PostMapping("/shippingMemberId")
+	@ResponseBody
+	public List<Map<String, Object>> k3SelectShippingMemberId(){
+		List<Map<String, Object>> searchId = k3MemberUserService.k3GetMemberUserModalList();
+		return searchId;
+	}
 	
 	
 }
