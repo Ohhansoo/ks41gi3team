@@ -63,9 +63,9 @@
 						</button>				
 					</div>
 				<!--End 버튼 영역 -->
+					<div class="container-fluid">
 					<!--상위 카드 영역 -->
-					 <div id="card-box" class="cards-box">
-					<div class="card cardColor col-lg-6" >
+					<div class="card cardColor">
 						<!--card header -->
 						<div class="card-header">
 							조회
@@ -75,7 +75,7 @@
 						<div class="card-body">
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
-								<form class="col-lg-12" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
+								<form class="col-lg-6" th:action="@{/team03/delivery/vehicle/k3VehicleList}" method="post">
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="vehicleKey">
 										<option value="vehicle">차량 코드</option>

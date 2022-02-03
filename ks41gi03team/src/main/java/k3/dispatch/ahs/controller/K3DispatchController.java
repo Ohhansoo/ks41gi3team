@@ -145,13 +145,6 @@ public class K3DispatchController {
 			return searchName; 
 	}
 	
-	//모달(shipping)
-	@PostMapping("/k3DVmodal")
-	@ResponseBody
-	public List<Map<String, Object>> k3GetShippingDVmodalList(){
-		List<Map<String, Object>> modalList = k3DispatchService.k3GetShippingDVmodalList();
-		return modalList;
-	}
 	
 	//체크 삭제
 	@PostMapping("/k3DeleteDispatch")
