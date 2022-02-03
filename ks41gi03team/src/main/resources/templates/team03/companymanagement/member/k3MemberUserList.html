@@ -57,7 +57,6 @@
 						removeCheckList.push($(this).val());
 					});
 
-					
 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 퇴사처리 하시겠습니까?")){
 							
@@ -129,42 +128,10 @@
 								</div>
 								</form>
 								<!--End inputbox 1 -->
-								
-								<!-- inputbox 2
-							<div class="col-sm-6" style="padding-left: 0px">
-								<div class="input-group row">
-									<select name="warehousingDateKey" class="input-group-text form-control-sm">
-										<option value="memberRegDate">등록일자</option>
-										<option value="memberHiredDate">입사일자</option>
-									</select>
-									<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-										<input name="searchStarDate" value="memberuserRegDate" type="text" class="form-control datetimepicker-input"  data-target="#reservationdate" placeholder="시작날짜선택">
-										<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-										</div>
-									</div>
-									<div>
-										&nbsp~&nbsp
-									</div>
-									<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-										<input name="searchEndDate" value="memberuserHiredDate" type="text" class="form-control datetimepicker-input"   data-target="#reservationdate2" placeholder="종료날짜선택">
-										<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-										</div>
-									</div>
-									<div class=" input-group-append">
-										<button type="submit" class="memberRegDateDate btn btn-default">
-											<i class="fas fa-search icon"></i>
-										</button>
-									</div>
-                   				</div>
-							</form>
-						</div>
-						End inputbox 2 -->
-	 				</div>
+	 					</div>
 	 					<!--End card body 묶음 -->
-				</div>					
-			</div>
+					</div>					
+					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
 					<div class="card cardColor">
@@ -230,10 +197,10 @@
 
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}">
-									<td colspan="100%">
-										등록된 직원이 없습니다.
-									</td>
-						</tr>
+										<td colspan="100%">
+											등록된 정보가 없습니다.
+										</td>
+									</tr>
 									</tbody>						
 								</table>
 							</form>	

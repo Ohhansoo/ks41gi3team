@@ -12,6 +12,8 @@
 	<script>
 			$(function(){
 				
+				<!-- 유효성 검사 -->
+				
 				<!-- 숫자, 하이픈(-) 이외 입력 제한 기능-->
 				$(document).on("keyup", "input[telOnly]", function(){
 					$(this).val($(this).val().replace(/[^0-9-]/gi,"") );
@@ -33,23 +35,13 @@
 				});
 				
 				<!-- 선택값 입력 기능 -->
-				$("#contractorSuperviserEmailSelect").change(function(){
+				$("#memberEmailSelect").change(function(){
 					console.log("선택한 값확인 : "+ $(this).val());
-					$("#contractorSuperviserEmailAddr").val($(this).val());
-				});
-				
-				$("#contractorEmailSelect").change(function(){
-					console.log("선택한 값확인 : "+ $(this).val());
-					$("#contractorEmailAddr").val($(this).val());
-				});
-				
-				$("#contractorProfitBankSelect").change(function(){
-					console.log("선택한 값확인 contractorProfitBankSelect : "+ $(this).val());
-					$("#contractorProfitBanka").val($(this).val());
-					console.log("바뀐 값확인 contractorProfitBanka :"+ $("#contractorProfitBanka").val());
+					$("#memberEmailAddr").val($(this).val());
 				});
 				<!-- END 선택값 입력 기능 -->
 				
+				<!-- 입력값 확인 -->
 				$(document).on('click', '#addBtn', function(){
 					var submitCheck = true;
 					
@@ -114,6 +106,7 @@
 					modal.removeClass('hidden');
 						
 				});
+				
 				$(document).on('click', '#memberConfirmBtn', function(){
 					var checkedBox = $('.mainBusinessCode:checked');
 	 				var mainBusinessCode = $('#mainBusinessCode');
@@ -165,9 +158,8 @@
 				});
 			});
 		
-				
-				</script>
-<script>
+	</script>
+	<script>
 	
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -228,6 +220,7 @@
 </script>
 
 	</th:block>	
+	
 	<th:block layout:fragment="customContents">
 				<!-- 콘텐츠 콘테이너 시작 -->
 				<div class="container-fluid d-flex justify-content-center">
@@ -263,7 +256,7 @@
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="memberName" class="inputName">직원이름</label>
-										<input class="inputBox" type="text" id="memberName" data-input-label="이름" name="memberName" placeholder="홍길동" disabled="disabled"/>
+										<input class="inputBox" stringOnly type="text" id="memberName" data-input-label="이름" name="memberName" placeholder="홍길동" disabled="disabled"/>
 										<h6 style="position: relative; left: 205px; color: #EA3C3C; font-size: 15px;">* 정확한 형식의 이름을 입력하세요.</h6>
 									</div>								
 									<div class="inputwrap col-md-12">
@@ -273,9 +266,9 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberEmail" class="inputName">이메일</label>
-							  			<input class="inputBox" stringOnly type="text" name="memberEmail" id="memberEmail" data-input-label="이메일" placeholder="이메일 아이디" style="width: 120px; height: 30px;"/> @
-							  			<input class="inputBox" noSpecial type="text" name="contractorEmailAddr" id="contractorEmailAddr" placeholder="이메일 도메인" style="width: 120px; height: 30px;"/>
-							  			<select class="select" type="text" id="contractorEmailSelect" style="width: 120px;">
+							  			<input class="inputBox" noSpecial type="text" name="memberEmail" id="memberEmail" data-input-label="이메일" placeholder="이메일 아이디" style="width: 120px; height: 30px;"/> @
+							  			<input class="inputBox" noSpecial type="text" name="memberEmailAddr" id="memberEmailAddr" placeholder="이메일 도메인" style="width: 120px; height: 30px;"/>
+							  			<select class="select" type="text" id="memberEmailSelect" style="width: 120px;">
 							  				<option value="">직접입력</option>
 							  				<option value="daum.net">daum.net</option>
 							  				<option value="gmail.com">gmail.com</option>

@@ -75,7 +75,7 @@
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" method="post">
 									<div class="input-group">
 										<div class="input-group-prepend">
-											<select name="loginStateKey" class="input-group-text">
+											<select name="loginstateKey" class="input-group-text">
 												<option value="loginCode">로그인 코드</option>
 												<option value="mainBusinessCode">사업장별대표코드</option>
 												<option value="memberId">직원ID</option>
@@ -114,7 +114,7 @@
 						<!--card body -->
 						<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
 							<form id="searchForm" th:action="@{/team03/companymanagement/loginstate/k3MemberUserLoginState}" method="post">
-								<table class="table table-head-fixed text-nowrap">
+								<table class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
 											<th>로그인 코드</th>
@@ -142,8 +142,10 @@
 						   				<td th:text="${l.loginIpAddress}"></td>
 						   				<td th:text="${l.loginMacAddress}"></td>
 						   			</tr>
-						   			<tr th:unless="${not #lists.isEmpty(logingstateList)}" th:each="l : ${logingstateList}">		
-						   				<td colspan="9">등록된 직원이 없습니다.</td>
+						   			<tr th:unless="${not #lists.isEmpty(logingstateList)}">		
+						   				<td colspan="100%">
+											등록된 정보가 없습니다.
+										</td>
 						   			</tr>
 									</tbody>						
 								</table>
