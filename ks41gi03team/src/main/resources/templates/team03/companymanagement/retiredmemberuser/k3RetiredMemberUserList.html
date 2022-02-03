@@ -16,8 +16,8 @@
     </style> 
 	<script>
 			$(function(){				
-				$('#addmemberuserBtn').on('click', function(){
-					location.href = '/team03/companymanagement/member/k3AddMemberUserList';
+				$('#memberuserlistBtn').on('click', function(){
+					location.href = '/team03/companymanagement/member/k3MemberUserList';
 				});
 				$('#printretiredMemberUserBtn').on('click', function(){
 					 	let $container = $("#searchForm").clone()    // 프린트 할 특정 영역 복사
@@ -78,7 +78,11 @@
 				<div class="container-fluid">
 				<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">
-						<!-- <button type="button" id="checkbtn">직원선택</button>  -->					
+						<!-- <button type="button" id="checkbtn">직원선택</button>  -->	
+						<button id="memberuserlistBtn" class="btn btn-outline-info ahsbtn5" type="button">
+							<i class="bi bi-file-earmark-plus"></i>
+							일반직원현황
+						</button>				
 						<button id="printretiredMemberUserBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
@@ -175,10 +179,10 @@
 						   				<td th:text="${l.memberstreetaddress}"></td>
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(retiredmemberuserList)}">
-									<td colspan="100%">
-										등록된 직원이 없습니다.
-									</td>
-						</tr>
+										<td colspan="100%">
+											등록된 정보가 없습니다.
+										</td>
+									</tr>
 									</tbody>						
 								</table>
 							</form>	

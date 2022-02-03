@@ -25,4 +25,17 @@
 		FROM 
 			k3_tb_login AS l
 	</select> 
+	
+	<!--  직원검색 -->
+	<select id="k3GetLoginStateSearchList" resultType="K3LoginState">
+		SELECT
+			*
+		FROM
+			k3_tb_login
+		<trim prefix="WHERE" prefixOverrides="AND /OR">
+			<if test="loginstateValue != null and loginstateValue != ''.toString()">
+				${loginstateKey} LIKE CONCAT('%', #{loginstateValue}, '%') 
+			</if>
+		</trim>
+	</select>
 </mapper>

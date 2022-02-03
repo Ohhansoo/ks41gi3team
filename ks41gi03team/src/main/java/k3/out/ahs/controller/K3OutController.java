@@ -28,7 +28,7 @@ import k3.subject.ahs.dto.K3Subject;
 			this.k3OutService = k3OutService;
 	}
 	
-
+	
 	//비용 검색
 	@PostMapping("/k3SearchOutList")
 	public String searchOutList(@RequestParam(value="outKey", required = false) String outKey,
@@ -100,6 +100,10 @@ import k3.subject.ahs.dto.K3Subject;
 		System.out.println("-----메인지즈니스코드----");
 		System.out.println(getMainBusinessCodeList + "메인비즈니스코드");
 		model.addAttribute("getMainBusinessCodeList", getMainBusinessCodeList);
+		
+		List<K3Subject> getSubjectInfo = k3OutService.getSubjectInfo();
+		System.out.println("-----계정과목 정보 ----");
+		model.addAttribute("getSubjectInfo", getSubjectInfo);
 		
 		return "/team03/finance/out/k3AddOut";
 	}
