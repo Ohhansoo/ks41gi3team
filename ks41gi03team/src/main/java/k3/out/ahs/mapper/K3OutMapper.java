@@ -12,8 +12,8 @@ import k3.subject.ahs.dto.K3Subject;
 @Mapper
 public interface K3OutMapper {
 	
-	//계정과목 정보 가져오기
-	public List<K3Subject> getSubjectInfo();
+	//계정과목코드와 계정과목 이름가져오기
+	public List<Map<String, Object>> findSubjectInfo();
 	
 	//사업장별 대표코드 가져오기
 	public List<K3MainBusinessCode> getMainBusinessCodeList();

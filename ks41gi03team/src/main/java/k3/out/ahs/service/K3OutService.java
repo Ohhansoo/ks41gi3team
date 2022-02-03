@@ -1,6 +1,7 @@
 package k3.out.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,12 @@ public class K3OutService {
 			this.k3OutMapper=k3OutMapper;
 		}
 
-		//계정과목 정보 가져오기
-		public List<K3Subject> getSubjectInfo() {
-			return k3OutMapper.getSubjectInfo();
+		//계정과목 코드와 이름 가져오는 등록버튼 모달
+		public List<Map<String, Object>> findSubjectInfo() {
+			List<Map<String, Object>> result = k3OutMapper.findSubjectInfo();
+			return result;
 		}
+		
 		
 		//비용 내역 검색
 		public List<K3Out> searchOutList(String outKey, String outValue){

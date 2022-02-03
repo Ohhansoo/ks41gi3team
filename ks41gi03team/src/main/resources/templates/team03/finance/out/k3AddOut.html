@@ -2,17 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
-	<th:block layout:fragment="customTitle">
-		<title>비용 내역 등록</title>
+   <th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">	
 	</th:block>
-	<th:block layout:fragment="customContents">
+   
+	<th:block layout:fragment="customJs">
+		
+	
+	
 		<script>
+			//취소 버튼
 			$(function(){
 				$('#cancelBtn').on('click', function(){
 					history.back();
 				});
-			});
-		</script>	 
+				
+				//계정과목코드와 이름 전달 모달	
+				var modal = $('.modal');
+				
+				$(".exitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '#selectAsCode', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#dataTableAjax').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/finance/out/findSubjectInfo',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data)+"json.stringify");
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "asCode"},
+							{ "data": "asName"},
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="asCode" name="asCode" value="'+ row.asCode +'">'
+									
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				
+				$(document).on('click', '.confirmBtn', function(){
+					var checkedBox = $('.asCode:checked');
+	 				var asName = $('#asNameInput');
+	 				var asCode = $('#asCodeInput');
+	 				var checkedAsName = checkedBox.parent().parent().children().eq(2).text();
+	 				
+	 				asCode.attr('value', checkedBox.val());
+	 				asName.attr('value', checkedAsName);
+	 				console.log(checkedBox);
+					modal.addClass('hidden');
+				});
+			});	
+				
+				
+				
+			</script>	
+		</th:block> 
+		
+		<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -33,13 +105,18 @@
 										<input class="inputBox" type="text" id="outCodeInput" name="outCode" placeholder="자동등록"> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="asCodeInput" class="inputName">계정과목코드</label>
-										<input class="inputBox" type="text" id="asCodeInput" name="asCode">
+										<label for="asCode" class="inputName">계정과목코드</label>
+										<input type ="hidden" id ="asCodeInput" name ="asCode">
+										<input class="inputBox" type="text" id="asCodeInput" name="asCode" placeholder="계정과목코드" readonly="readonly">
+										<button id="selectAsCode" class="findContractorModal btn btn-outline-info ahsbtn" type="button">선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="asNameInput" class="inputName">계정과목이름</label>
-										<input class="inputBox" type="text" id="asNameInput" name="asName">
-									</div>								
+										<label for="asName" class="inputName">계정과목이름</label>
+										<input type="hidden" id="asNameInput" name="asName">
+										<input class="inputBox" type="text" id="asNameInput" name="asName" placeholder="계정과목이름" readonly="readonly">
+									</div>
+									
+																	
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
 										<select name ="mainBusinessCode">
@@ -90,5 +167,33 @@
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
 		</div>
-	</th:block>
-</head>
+		<!-- 모달창 -->
+		<div class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">계정과목 정보 선택</div>
+					<button class="exitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="dataTableAjax" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>계정과목 코드</th>
+									<th>계정과목 이름</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+</th:block>

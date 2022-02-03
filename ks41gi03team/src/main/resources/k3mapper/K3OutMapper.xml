@@ -15,13 +15,16 @@
 	</resultMap> -->
 
 	<!-- 계정과목코드와 계정과목 가져오기 -->
-	<select id ="getSubjectInfo" parameterType="map" resultType="map">
-		SELECT 
-		o.asCode
-		,o.asName
+	<select id ="findSubjectInfo" parameterType="map" resultType="map">
+	SELECT
+		a.asCode,
+		a.asName
 	FROM
-		k3_tb_out AS o;
-	
+		k3_tb_as AS a
+		INNER join
+		k3_tb_out AS o
+		on
+		a.asCode = o.asCode;
 	</select>
 
 	<!-- 사업장별 대표코드 가져오기 -->
