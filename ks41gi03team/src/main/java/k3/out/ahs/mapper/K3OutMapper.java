@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.out.ahs.dto.K3Out;
 import k3.subject.ahs.dto.K3Subject;
 
 @Mapper
 public interface K3OutMapper {
-	
+	//사업장별 대표코드 가져오기
+	public List<K3MainBusinessCode> getMainBusinessCodeList();
 	
 	//비용 검색
 	public List<K3Out> searchOutList(String outKey, String outValue);

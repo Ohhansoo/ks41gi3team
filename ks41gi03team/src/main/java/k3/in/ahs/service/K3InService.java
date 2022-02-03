@@ -36,6 +36,7 @@ public class K3InService {
 		
 		List<Map<String, Object>> result = k3InMapper.inPayCheck(inPayMap);
 		System.out.println(inPayMap + "<< inPayMap service");
+		//리턴없어도됨
 		return result;
 	}
 	

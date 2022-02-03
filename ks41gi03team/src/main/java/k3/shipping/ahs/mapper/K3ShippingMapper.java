@@ -33,5 +33,8 @@ public interface K3ShippingMapper {
 	
 	//모달
 	public List<Map<String, Object>> k3SelectShippingMemberId(Map<String,Object> paraMap);
+	
+	//모달2
+	public List<Map<String, Object>> k3SelectShippingDriverName(Map<String,Object> paraMap);
 }
 
