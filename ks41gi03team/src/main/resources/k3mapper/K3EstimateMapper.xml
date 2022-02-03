@@ -10,8 +10,9 @@
 			e.estimateNum
 			,e.contractorCode
 			,FORMAT(estimatePrice, 0) as estimatePrice
-			,e.estimatePricePrepayment
-			,e.estimatePriceMonth
+			,FORMAT(estimatePricePrepayment, 0) as estimatePricePrepayment
+			,FORMAT(estimatePriceMonth, 0) as estimatePriceMonth
+			,FORMAT(estimateUnitPrice, 0) as estimateUnitPrice
 			,e.estimateMeasureDate
 			,e.memberId
 			,es.estimateDetailNum
@@ -21,8 +22,10 @@
 			,es.unitContractWarehouseType
 			,es.estimateContractTerm
 			,cs.contractorName
+			,u.unitContract
+			,u.unitContractDevision
 		FROM
-			((k3_tb_estimate AS e
+			(((k3_tb_estimate AS e
 			INNER join
 			k3_tb_estimate_detail AS es
 			on
@@ -34,7 +37,11 @@
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			c.contractorId = cs.contractorId 
+			c.contractorId = cs.contractorId)
+			INNER join
+			k3_tb_warehouse_unit_price AS u
+			on
+			u.UnitPriceCode = es.UnitPriceCode			
 		WHERE
 			e.estimateNum = #{estimateNum};
 	</select>
@@ -50,15 +57,20 @@
 			,e.estimateMeasureDate
 			,e.memberId
 		FROM
-			k3_tb_estimate AS e
+			(k3_tb_contractor AS c
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			e.memberId = cs.memberId
+			c.contractorId = cs.contractorId)
+			INNER JOIN
+			k3_tb_estimate AS e
+			on
+			e.contractorCode = c.contractorCode
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			c.contractorDevision = '매출'
 			<if test="estimateMeasureDateStart != null and estimateMeasureDateStart != ''.toString() 
 						and estimateMeasureDateEnd != null and estimateMeasureDateEnd != ''.toString()">
-				 e.estimateMeasureDate
+				AND e.estimateMeasureDate
 	 			BETWEEN #{estimateMeasureDateStart} AND #{estimateMeasureDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
@@ -81,19 +93,24 @@
 			,e.estimateMeasureDate
 			,e.memberId
 		FROM
-			k3_tb_estimate AS e
+			(k3_tb_contractor AS c
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			e.memberId = cs.memberId
+			c.contractorId = cs.contractorId)
+			INNER JOIN
+			k3_tb_estimate AS e
+			on
+			e.contractorCode = c.contractorCode
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			c.contractorDevision = '매출'
 			<if test="estimateMeasureDateStart != null and estimateMeasureDateStart != ''.toString() 
 						and estimateMeasureDateEnd != null and estimateMeasureDateEnd != ''.toString()">
-				 e.estimateMeasureDate
+				AND e.estimateMeasureDate
 	 			BETWEEN #{estimateMeasureDateStart} AND #{estimateMeasureDateEnd}
 			</if>
 			<if test='searchValue != null and searchValue != "".toString() and searchKey != "contractorId" and searchKey != "memberId"'>
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				AND e.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
 			<if test='searchKey == "memberId" || searchKey == "contractorCode"'>
 				AND e.${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
@@ -113,11 +130,17 @@
 		SELECT
 			COUNT(1)
 		FROM
-			k3_tb_estimate AS e
+			(k3_tb_contractor AS c
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			e.memberId = cs.memberId;
+			c.contractorId = cs.contractorId)
+			INNER JOIN
+			k3_tb_estimate AS e
+			on
+			e.contractorCode = c.contractorCode
+		where
+			c.contractorDevision = '매출';
 	</select>
 
 	<!-- 견적서 목록 간단 현황으로 불러오기(페이징) -->
@@ -131,11 +154,17 @@
 			,e.estimateMeasureDate
 			,e.memberId
 		FROM
-			k3_tb_estimate AS e
+			(k3_tb_contractor AS c
 			INNER join
 			k3_tb_contractor_staff AS cs
 			on
-			e.memberId = cs.memberId
+			c.contractorId = cs.contractorId)
+			INNER JOIN
+			k3_tb_estimate AS e
+			on
+			e.contractorCode = c.contractorCode
+		where
+			c.contractorDevision = '매출'
 		ORDER BY
 			e.estimateMeasureDate DESC
 		<if test="startNum != null">

@@ -146,7 +146,6 @@
 				});			
 				<!--END 거래처 삭제처리(버튼) -->	
 				<!-- 검색된 거래처 경로설정 -->		
-				/*<![CDATA[*/
 				var searchKey = "[[${searchKey}]]";
 				var searchValue = "[[${searchValue}]]";
 				var contractorRegistrationDateStart = "[[${contractorRegistrationDateStart}]]";
@@ -156,12 +155,6 @@
 				var currentPage = [[${currentPage}]];
 				var previous = [[${currentPage}]]-1;
 				var next = [[${currentPage}]]+1;
-				/*]]>*/
-				console.log("변수확인 num : " + num);
-				console.log("변수확인 previous : " + previous);
-				console.log("변수확인 next : " + next);
-				console.log("변수 확인 searchKey : " + searchKey);
-				console.log("변수 확인 searchValue : " + searchValue);
 					
 				if(searchValue != null){
 					$('.searchDateForm').attr('action','k3SearchContractor?searchKey=' + searchKey + '&searchValue=' + searchValue);
@@ -203,7 +196,7 @@
 					tmodal += '<tr><th>거래처 사업장 코드</th><td rel="contractorCode">'+ data.contractorCode +'</td>';
 					tmodal += '<th>거래처 상호명</th><td>'+ data.contractorName +'</td></tr>';
 					
-					tmodal += '<tr><th>거래처 사업자등록번호</th><td>'+ data.contractorBusinessNum +'</td>';
+					tmodal += '<tr><th>거래처 사업자 등록번호</th><td>'+ data.contractorBusinessNum +'</td>';
 					tmodal += '<th>사업장별 대표코드</th><td>'+ data.mainBusinessCode +'</td></tr>';
 					
 					tmodal += '<tr><th>거래 구분</th><td>'+ data.contractorDevision +'</td>';
@@ -236,7 +229,7 @@
 					tmodal += '<tr><th>거래처 권한번호</th><td>'+ data.levelCode +'</td>';
 					tmodal += '<th>거래처 계정 상태</th><td>'+ data.contractorState +'</td></tr>';
 					
-					tmodal += '<tr><th>등록직원아이디</th><td>'+ data.memberId +'</td>';
+					tmodal += '<tr><th>등록직원 아이디</th><td>'+ data.memberId +'</td>';
 					tmodal += '<th>등록일자</th><td>'+ data.contractorRegistrationDate +'</td></tr>';
 					
 					
@@ -357,9 +350,9 @@
 											<option value="contractorStatus" th:selected="${searchKey} == contractorStatus">거래처 업태</option>
 											<option value="contractorDevision" th:selected="${searchKey} == contractorDevision">거래 구분</option>             
 											<option value="contractorPhone" th:selected="${searchKey} == contractorPhone">거래처 전화번호</option>
-											<option value="contractorId" th:selected="${searchKey} == contractorId">거래처아이디</option>
+											<option value="contractorId" th:selected="${searchKey} == contractorId">거래처 아이디</option>
 											<option value="contractorState" th:selected="${searchKey} == contractorState">거래처 계정상태</option>
-											<option value="memberId" th:selected="${searchKey} == memberId">등록직원</option>
+											<option value="memberId" th:selected="${searchKey} == memberId">등록직원 아이디</option>
 	        							</select>
 	        						</div>
 									<input type="text" class="form-control" placeholder="거래처정보입력" name="searchValue" th:value="${searchValue}">
@@ -433,7 +426,7 @@
 					            <th>거래처 전화번호</th>
 					            <th>거래처 아이디</th>
 					            <th>거래처 계정 상태</th>
-					            <th>등록직원아이디</th>
+					            <th>등록직원 아이디</th>
 					            <th>등록일자</th>
 							</tr>
 						</thead>

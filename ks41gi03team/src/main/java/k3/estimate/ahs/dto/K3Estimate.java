@@ -20,8 +20,12 @@ public class K3Estimate {
 	private String estimateUnitPrice;
 	private String estimatePricePrepayment;
 	private String estimatePriceMonth;
-	
-	
+
+	//단가표
+	private String unitContractDevision;
+	private String unitContract;
+	private String unitTerm;
+	private String unitPay;
 	public String getEstimateNum() {
 		return estimateNum;
 	}
@@ -124,6 +128,30 @@ public class K3Estimate {
 	public void setEstimatePriceMonth(String estimatePriceMonth) {
 		this.estimatePriceMonth = estimatePriceMonth;
 	}
+	public String getUnitContractDevision() {
+		return unitContractDevision;
+	}
+	public void setUnitContractDevision(String unitContractDevision) {
+		this.unitContractDevision = unitContractDevision;
+	}
+	public String getUnitContract() {
+		return unitContract;
+	}
+	public void setUnitContract(String unitContract) {
+		this.unitContract = unitContract;
+	}
+	public String getUnitTerm() {
+		return unitTerm;
+	}
+	public void setUnitTerm(String unitTerm) {
+		this.unitTerm = unitTerm;
+	}
+	public String getUnitPay() {
+		return unitPay;
+	}
+	public void setUnitPay(String unitPay) {
+		this.unitPay = unitPay;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -161,6 +189,14 @@ public class K3Estimate {
 		builder.append(estimatePricePrepayment);
 		builder.append(", estimatePriceMonth=");
 		builder.append(estimatePriceMonth);
+		builder.append(", unitContractDevision=");
+		builder.append(unitContractDevision);
+		builder.append(", unitContract=");
+		builder.append(unitContract);
+		builder.append(", unitTerm=");
+		builder.append(unitTerm);
+		builder.append(", unitPay=");
+		builder.append(unitPay);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -183,8 +219,12 @@ public class K3Estimate {
 		result = prime * result + ((estimateUnitPrice == null) ? 0 : estimateUnitPrice.hashCode());
 		result = prime * result + ((mainBusinessCode == null) ? 0 : mainBusinessCode.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((unitContract == null) ? 0 : unitContract.hashCode());
+		result = prime * result + ((unitContractDevision == null) ? 0 : unitContractDevision.hashCode());
 		result = prime * result + ((unitContractDevisionAmount == null) ? 0 : unitContractDevisionAmount.hashCode());
 		result = prime * result + ((unitContractWarehouseType == null) ? 0 : unitContractWarehouseType.hashCode());
+		result = prime * result + ((unitPay == null) ? 0 : unitPay.hashCode());
+		result = prime * result + ((unitTerm == null) ? 0 : unitTerm.hashCode());
 		return result;
 	}
 	@Override
@@ -271,6 +311,16 @@ public class K3Estimate {
 				return false;
 		} else if (!memberId.equals(other.memberId))
 			return false;
+		if (unitContract == null) {
+			if (other.unitContract != null)
+				return false;
+		} else if (!unitContract.equals(other.unitContract))
+			return false;
+		if (unitContractDevision == null) {
+			if (other.unitContractDevision != null)
+				return false;
+		} else if (!unitContractDevision.equals(other.unitContractDevision))
+			return false;
 		if (unitContractDevisionAmount == null) {
 			if (other.unitContractDevisionAmount != null)
 				return false;
@@ -281,10 +331,19 @@ public class K3Estimate {
 				return false;
 		} else if (!unitContractWarehouseType.equals(other.unitContractWarehouseType))
 			return false;
+		if (unitPay == null) {
+			if (other.unitPay != null)
+				return false;
+		} else if (!unitPay.equals(other.unitPay))
+			return false;
+		if (unitTerm == null) {
+			if (other.unitTerm != null)
+				return false;
+		} else if (!unitTerm.equals(other.unitTerm))
+			return false;
 		return true;
 	}
 
-	
 	
 
 }
