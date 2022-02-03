@@ -29,20 +29,28 @@ public class K3ShipmentCheckController {
 	public K3ShipmentCheckController(K3ShipmentCheckService k3ShipmentCheckService) {
 		this.k3ShipmentCheckService = k3ShipmentCheckService;
 	}
-	
+	 //출하검수 수정처리
+	 @PostMapping("/k3ModifyShipmentCheck")
+	 public String K3ModifyShipmentCheck(K3Release k3Release){
+		 log.info("K3CheckController/ 출하검수 수정처리 전----->>>>>>>>>>{}", k3Release);
+		 int result = k3ShipmentCheckService.k3AddShipmentCheck(k3Release);	
+		 log.info("K3CheckController/ 출하검수 수정페이지 이동 처리결과----->>>>>>>>>>{}", result);
+
+		 return "redirect:/team03/goodsManagement/release/k3ReleaseList";
+	 }
+	 
 	 //출하검수 수정폼이동
 	 @GetMapping("/k3ModifyShipmentCheck")
 	 public String K3ModifyShipmentCheck(@RequestParam(value="releaseCode", required=false)String releaseCode, 
 			 Model model){
-		 log.info("K3CheckController/ 출하검수 수정페이지 이동----->>>>>>>>>>", releaseCode);
+		 log.info("K3CheckController/ 출하검수 수정페이지 이동 전----->>>>>>>>>>{}", releaseCode);
 		 //수정 관련 정보 받아오기
 		 String type = "modify";
 		 List<K3Release> shipmentModifyList = k3ShipmentCheckService.k3GetShipmentCheckUpdateList(releaseCode, type);		
-		 log.info("K3CheckController/ 출하검수 수정페이지 이동 처리결과----->>>>>>>>>>", shipmentModifyList);
+		 log.info("K3CheckController/ 출하검수 수정페이지 이동 처리결과----->>>>>>>>>>{}", shipmentModifyList);
 		 model.addAttribute("title", "출고관리");
 		 model.addAttribute("subtitle", "출하검수수정");
 		 model.addAttribute("shipmentModifyList", shipmentModifyList);
-		 System.out.println(shipmentModifyList);
 		 return "team03/goodsManagement/release/k3ModifyShipmentCheck";
 	 }
 	
