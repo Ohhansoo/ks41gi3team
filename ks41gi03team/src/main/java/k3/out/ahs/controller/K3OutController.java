@@ -1,6 +1,7 @@
 package k3.out.ahs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.out.ahs.dto.K3Out;
@@ -28,7 +30,15 @@ import k3.subject.ahs.dto.K3Subject;
 			this.k3OutService = k3OutService;
 	}
 	
-	
+	//계정과목코드와 계정과목 이름 등록 버튼 모달 컨트롤러
+	@PostMapping("/findSubjectInfo")
+	@ResponseBody
+	public List<Map<String, Object>> k3FindSubjectInfo(){
+		List<Map<String, Object>> result = k3OutService.findSubjectInfo();
+		System.out.println(result + "findSubjectInfo result");
+		return result;
+	}
+		
 	//비용 검색
 	@PostMapping("/k3SearchOutList")
 	public String searchOutList(@RequestParam(value="outKey", required = false) String outKey,
@@ -100,10 +110,7 @@ import k3.subject.ahs.dto.K3Subject;
 		System.out.println("-----메인지즈니스코드----");
 		System.out.println(getMainBusinessCodeList + "메인비즈니스코드");
 		model.addAttribute("getMainBusinessCodeList", getMainBusinessCodeList);
-		
-		List<K3Subject> getSubjectInfo = k3OutService.getSubjectInfo();
-		System.out.println("-----계정과목 정보 ----");
-		model.addAttribute("getSubjectInfo", getSubjectInfo);
+
 		
 		return "/team03/finance/out/k3AddOut";
 	}
