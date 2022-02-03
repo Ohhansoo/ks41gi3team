@@ -29,10 +29,8 @@
 	<!-- 견적번호로 견적가격 찾기(map)  -->
 	<select id="findEstimateInfo" parameterType="map" resultType="map">
 		SELECT
-		
 			e.estimateNum,
 			e.estimatePrice
-			
 		FROM
 			k3_tb_in AS i
 			INNER join

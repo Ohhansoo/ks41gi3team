@@ -18,6 +18,11 @@ public class K3OutService {
 			this.k3OutMapper=k3OutMapper;
 		}
 
+		//계정과목 정보 가져오기
+		public List<K3Subject> getSubjectInfo() {
+			return k3OutMapper.getSubjectInfo();
+		}
+		
 		//비용 내역 검색
 		public List<K3Out> searchOutList(String outKey, String outValue){
 			List<K3Out> k3OutList = k3OutMapper.searchOutList(outKey, outValue);
