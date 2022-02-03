@@ -5,8 +5,15 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
+	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+   </th:block>
+   
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
 		$(function(){
 			$('#cancelBtn').on('click', function(){
 				location.href = '/team03/delivery/driver/k3DriverList';
@@ -79,7 +86,9 @@
 			});
 		});
 		</script>	
-	 
+		</th:block>
+	 	
+	 	<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -131,7 +140,7 @@
 									</div>							
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
 										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
-										<button type="button" class="ahsbtn5 btn btn-primary" id="cancleBtn">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>	
 								</form>
 	 						</div>

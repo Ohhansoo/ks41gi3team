@@ -48,8 +48,8 @@
 		
 				$(document).on('click', '.vehicleMemberId_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#vehicleMemberId').DataTable({
 						destroy: true,
@@ -96,6 +96,8 @@
 
 					modal.addClass('hidden');
 				});
+			
+			
 				
 				$('#overlapped_btn').click(function(){
 

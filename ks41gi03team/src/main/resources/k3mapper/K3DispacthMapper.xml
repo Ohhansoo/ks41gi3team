@@ -191,16 +191,7 @@
 		</foreach>
 	</delete>
 	
-	<!-- 모달 -->
-	<select id="k3GetDVmodalList" resultType="map" parameterType="map">
-		SELECT
-			d.driverId,
-			d.driverName,
-			d.vehicleCode
-		FROM
-			k3_tb_dispatch_management AS d;
-	</select>
-
+	
 	
 
 

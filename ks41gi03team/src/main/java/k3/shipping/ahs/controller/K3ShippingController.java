@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.dispatch.ahs.service.K3DispatchService;
+import k3.driver.ahs.service.K3DriverService;
 import k3.memberuser.ahs.service.K3MemberUserService;
 import k3.shipping.ahs.dto.K3Shipping;
 import k3.shipping.ahs.service.K3ShippingService;
@@ -28,12 +28,12 @@ public class K3ShippingController {
 	
 	private K3ShippingService k3ShippingService;
 	private K3MemberUserService k3MemberUserService; //의존성 검사
-	private K3DispatchService k3DispatchService;
+	private K3DriverService k3DriverService;
 	
-	public K3ShippingController(K3ShippingService k3ShippingService, K3MemberUserService k3MemberUserService, K3DispatchService k3DispatchService) {
+	public K3ShippingController(K3ShippingService k3ShippingService, K3MemberUserService k3MemberUserService, K3DriverService k3DriverService) {
 		this.k3ShippingService = k3ShippingService;
 		this.k3MemberUserService = k3MemberUserService;
-		this.k3DispatchService = k3DispatchService;
+		this.k3DriverService = k3DriverService;
 	}
 	
 	//중복확인 
@@ -145,7 +145,7 @@ public class K3ShippingController {
 	@PostMapping("/shippingDriverName")
 	@ResponseBody
 	public List<Map<String, Object>> k3SelectShippingDriverName(){
-		List<Map<String, Object>> searchName = k3DispatchService.k3GetShippingDVmodalList();
+		List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList();
 		return searchName;
 	}
 	

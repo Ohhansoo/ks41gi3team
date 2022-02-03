@@ -7,10 +7,156 @@
 	</th:block>
 	<th:block layout:fragment="customContents">
 		<script>
-				$(function(){
-					$('#cancelBtn').on('click', function(){
-						history.back();
+		$(function(){
+			$('#cancelBtn').on('click', function(){
+
+				location.href = '/team03/delivery/shipping/k3ShippingList';
+			});
+			$(document).on('click', '#submitBtn', function(){
+				
+					var submitCheck = true;
+					var inputObj = $('#userInfo').find('input');
+						
+					$.each(inputObj, function(){	
+   					var inputDate = $(this).val();
+   					var inputId = $(this).attr('id');
+   					var labelText = $('label[for=' + inputId + ']').text();
+						
+   					if(typeof inputDate == 'undefined' || inputDate == null || inputDate == ''){
+   						alert(labelText + ' 입력해주세요');
+   						$(this).focus();
+   						submitCheck = false;
+   						return false;
+   					}		
+					});  						
+					
+					if(submitCheck) $('#userInfo').submit();
+				});
+			
+			//모달1
+			var modal = $('#shppingModal');
+			
+			$(".shippingExitBtn").click(function(){
+					
+				modal.addClass('hidden');
+			});
+	
+		
+
+			$(document).on('click', '.shippingMemberId_btn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#shippingMemberId').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/team03/delivery/shipping/shippingMemberId',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ "data": "선택"},
+						{ "data": "memberId"},
+						{ "data": "memberName"}							
+					],
+					columnDefs: [
+						{
+							targets: [0],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<input type="radio" class="memberId" name="memberId" value="'+ row.memberId +'">'
+								return htmlbtn;
+							}
+						}
+					]
+				});
+				var overlay = $('.modal_overlay');
+				modal.removeClass('hidden');
+					
+			});
+			
+			$(document).on('click', '#memberConfirmBtn', function(){
+				var checkedBox = $('.memberId:checked');
+				var memberId = $('#memberId');
+ 				var memberName = $('#memberName');
+				
+ 				var dispatchMemberIdValue = checkedBox.parent().parent().children().eq(2).text();
+ 				memberName.attr('value', dispatchMemberIdValue);	
+ 				memberId.attr('value', checkedBox.val());	
+
+				modal.addClass('hidden');
+			});
+		
+		}); 
+			//모달2
+			$(function(){
+				
+				var modal = $('#driverModal');
+				
+				$(".driverExitBtn").click(function(){
+						
+					modal.addClass('hidden');
+				});
+		
+				$(document).on('click', '.shippingDriverName_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10,-1]);
+					aLengthMenuArray.push([5,10,'ALL']);
+					
+					$('#shippingDriverName').DataTable({
+						destroy: true,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/shipping/shippingDriverName',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "driverId"},
+							{ "data": "driverName"},
+							{ "data": "driverPhone"},
+							{ "data": "driverRegDate"}
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="driverId" name="driverId" value="'+ row.driverId +'">'
+									return htmlbtn;
+								}
+							}
+						]
 					});
+					var overlay = $('.modal_overlay');
+					modal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#driverConfirmBtn', function(){
+					var checkedBox = $('.driverId:checked');
+					var driverId = $('#driverId');
+	 				var driverName = $('#driverName');
+					
+	 				var shippingDriverNameValue = checkedBox.parent().parent().children().eq(2).text();
+	 				driverName.attr('value', shippingDriverNameValue);	
+	 				driverId.attr('value', checkedBox.val());
+
+					modal.addClass('hidden');
+
+				});
 				});
 			</script>	
 	
@@ -31,16 +177,19 @@
 	 							<form th:action="@{/team03/delivery/shipping/k3ModifyShipping}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="shippingCode" class="inputName">배송 번호</label>
-										<input class="inputBox" type="text" id="shippingCode" name="shippingCode" th:value="${shippingInfo.shippingCode}"/>
-										<button type="button" id="btn">중복확인 </button> 
+										<input class="inputBox" type="text" id="shippingCode" name="shippingCode" th:value="${shippingInfo.shippingCode}" readonly style="background-color:#BDBDBD"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
-										<input class="inputBox" type="text" id="memberId" name="memberId" th:value="${shippingInfo.memberId}"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${shippingInfo.memberId}"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${shippingInfo.memberName}"/>
+										<button class="shippingMemberId_btn" type="button">등록</button>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
-										<input class="inputBox" type="text" id="driverId" name="driverId" th:value="${shippingInfo.driverId}"/>
+										<input class="inputBox" type="hidden" id="driverId" name="driverId" th:value="${shippingInfo.driverId}"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${shippingInfo.driverName}"/>
+										<button class="shippingDriverName_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="shippingDetail" class="inputName">배송 세부유형</label>
@@ -51,8 +200,8 @@
 										<input class="inputBox" type="text" id="shippingTracking" name="shippingTracking" th:value="${shippingInfo.shippingTracking}"/>
 									</div>		
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
-										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
-										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
+										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>										
 								</form>
 	 						</div>
@@ -64,4 +213,65 @@
 				</div>
 				<!-- End 콘텐츠 콘테이너 -->
 			</div>
+			
+			<!-- 모달창 -->
+		<div id="shppingModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">확인 담당자</div>
+					<button class="shippingExitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="shippingMemberId" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>	
+									<th>회원코드</th>
+									<th>회원명</th>				
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="memberConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		
+		<!-- 모달창2 -->
+		<div id="driverModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">차량기사 선택</div>
+					<button class="driverExitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="shippingDriverName" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>	
+									<th>기사 이름</th>
+									<th>차량 코드</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="driverConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		
 	</th:block>

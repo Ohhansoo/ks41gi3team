@@ -50,8 +50,8 @@
 	
 			$(document).on('click', '.checkpointDriverName_btn', function(){
 				var aLengthMenuArray = [];
-				aLengthMenuArray.push([5,10,-1]);
-				aLengthMenuArray.push([5,10,'ALL']);
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
 				
 				$('#checkpointDriverName').DataTable({
 					destroy: true,
@@ -187,8 +187,8 @@
 										<input class="inputBox" type="date" id="vehicleShipmentDate" name="vehicleShipmentDate"/>
 									</div>	
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
-										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
-										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
+										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>		
 								</form>							
 	 						</div>

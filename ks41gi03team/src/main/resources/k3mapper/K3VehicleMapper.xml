@@ -150,7 +150,7 @@
 		INNER JOIN
 			k3_tb_member AS m
 		ON
-			v.memberId = m.memberId;
+			v.memberId = m.memberId
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
 			<if test="vehicleValue != null and vehicleValue != ''.toString()">
 				${vehicleKey} LIKE CONCAT('%', #{vehicleValue}, '%');

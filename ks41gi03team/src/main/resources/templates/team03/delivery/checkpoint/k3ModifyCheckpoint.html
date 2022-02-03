@@ -51,8 +51,8 @@
 	
 			$(document).on('click', '.checkpointDriverName_btn', function(){
 				var aLengthMenuArray = [];
-				aLengthMenuArray.push([5,10,-1]);
-				aLengthMenuArray.push([5,10,'ALL']);
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
 				
 				$('#checkpointDriverName').DataTable({
 					destroy: true,
@@ -124,8 +124,7 @@
 	 							<form th:action="@{/team03/delivery/checkpoint/k3ModifyCheckpoint}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="vehicleCheckpointCode" class="inputName">입출하 기록 코드</label>
-											<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${checkpointInfo.vehicleCheckpointCode}"/>
-										<button type="button" id="btn">중복확인 </button> 
+											<input class="inputBox" type="text" id="vehicleCheckpointCode" name="vehicleCheckpointCode" th:value="${checkpointInfo.vehicleCheckpointCode}" readonly style="background-color:#BDBDBD"/>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverName" class="inputName">차량 기사</label>
@@ -146,8 +145,8 @@
 										<input class="inputBox" type="date" id="vehicleShipmentDate" name="vehicleShipmentDate" th:value="${checkpointInfo.vehicleShipmentDate}"/>
 									</div>	
 									<div class="d-flex justify-content-center" style="margin-top:25px;">
-										<button type="submit" class="ahsbtn5 btn btn-outline-primary me-2">등록</button>
-										<button type="button" class="ahsbtn5 btn btn-primary">취소</button>
+										<button type="button" class="ahsbtn5 btn btn-outline-primary me-2" id="submitBtn">등록</button>
+										<button type="button" class="ahsbtn5 btn btn-primary" id="cancelBtn">취소</button>
 									</div>	
 								</form>							
 	 						</div>
