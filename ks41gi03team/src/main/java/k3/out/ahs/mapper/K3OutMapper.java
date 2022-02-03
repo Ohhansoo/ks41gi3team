@@ -1,6 +1,7 @@
 package k3.out.ahs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,6 +11,10 @@ import k3.subject.ahs.dto.K3Subject;
 
 @Mapper
 public interface K3OutMapper {
+	
+	//계정과목 정보 가져오기
+	public List<K3Subject> getSubjectInfo();
+	
 	//사업장별 대표코드 가져오기
 	public List<K3MainBusinessCode> getMainBusinessCodeList();
 	

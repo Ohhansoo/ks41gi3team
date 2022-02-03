@@ -14,6 +14,15 @@
 		<result column="applyYear" property="subjectApplyYear" />
 	</resultMap> -->
 
+	<!-- 계정과목코드와 계정과목 가져오기 -->
+	<select id ="getSubjectInfo" parameterType="map" resultType="map">
+		SELECT 
+		o.asCode
+		,o.asName
+	FROM
+		k3_tb_out AS o;
+	
+	</select>
 
 	<!-- 사업장별 대표코드 가져오기 -->
 	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
