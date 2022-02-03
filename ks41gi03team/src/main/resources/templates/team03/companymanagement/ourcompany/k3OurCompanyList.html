@@ -105,29 +105,29 @@
 							<div class="row" style="margin: 12px">
 								<!--inputbox 1 -->
 								<form class="col-lg-6" th:action="@{/team03/companymanagement/ourcompany/k3OurCompanyList}" method="post">
-									<div class="input-group input-group-sm">
+									<div class="input-group">
 										<div class="input-group-prepend">
-										<select name="ourCompanyKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
-											<option value="mainBusinessCode">사업장별 대표코드</option>
-											<option value="businessCode">거래처 구분코드</option>
-											<option value="businessLevelCode">사업장 권한</option>
-											<option value="businessCodeRegistrationDate">등록일자</option>
-											<option value="businessManagementpostaladdress">우편번호</option>
-											<option value="businessManagementstreetaddress">도로명주소</option>
-										</select>
-										</div>
-											<input type="text" class="form-control" placeholder="검색" name="retiredmemberuserValue" style="width: 300px; height: 38px; ">
-										<div class=" input-group-append">
-										<button id="retiredmemberuserInfoSearch" type="submit" class="btn btn-default retiredmemberuserInfoSearch">
-											<i class="fas fa-search icon"></i>
-										</button>
-										</div>
-									</div>	
+											<select name="ourcompanyKey" class="input-group-text form-control-sm" style="height: 38px; font-size: 15px;">
+												<option value="mainBusinessCode">사업장별 대표코드</option>
+												<option value="businessCode">거래처 구분코드</option>
+												<option value="businessLevelCode">사업장 권한</option>
+												<option value="businessCodeRegistrationDate">등록일자</option>
+												<option value="businessManagementpostaladdress">우편번호</option>
+												<option value="businessManagementstreetaddress">도로명주소</option>
+											</select>
+											<input type="text" class="form-control" placeholder="검색" name="ourcompanyValue" style="width: 250px; height: 38px; ">
+											<div class=" input-group-append">
+											<button id="ourcompanyInfoSearch" type="submit" class="btn btn-default ourcompanyInfoSearch">
+												<i class="fas fa-search icon"></i>
+											</button>
+											</div>
+										</div>	
+									</div>
 								</form>
 								<!--End inputbox 1 -->
-	 						</div>
-						</div>					
+	 					</div>
 	 					<!--End card body 묶음 -->
+					</div>					
 					</div>
 					<!--End 상위 카드 영역 -->
 					<!--하위 카드 영역 -->
@@ -143,8 +143,6 @@
 								<table id="table" class="table table-head-fixed text-nowrap table-striped">
 									<thead>
 										<tr>
-											<!-- <th>삭제</th> -->	
-											<!-- <th>수정</th> -->
 											<th>사업장별 대표코드</th>
 							                <th>거래처 구분코드</th>
 							                <th>사업장 권한</th>
@@ -155,15 +153,6 @@
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-						   				<!-- <td>
-											<input type="checkbox" class="deleteList" name="deleteList" th:value="${l.ourCompanyCode}">
-											<input type="hidden" class="deleteCheckList" name="deleteCheckList" th:value="${l.categoryCode}">
-										</td> -->
-						   				<!-- <td>
-										<a id="modifyOurCompany" type="button" class="btn btn-default btn-sm" th:href="@{/team03/companymanagement/ourcompany/k3ModifyOurCompanyList(ourCompanyCode=${l.mainBusinessCode})}">
-												<i class="fas fa-pencil-alt icon"></i>
-										</a>
-										</td>	 -->
 						   				<td th:text="${l.mainBusinessCode}"></td>
 								   		<td th:text="${l.businessCode}"></td>
 								   		<td th:text="${l.businessLevelCode}"></td>
@@ -171,9 +160,11 @@
 								   		<td th:text="${l.businessManagementpostaladdress}"></td>
 								   		<td th:text="${l.businessManagementstreetaddress}"></td>
 						   			</tr>
-						   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}" th:each="l : ${ourcompanyList}">		
-						   				<td colspan="9">등록된 정보가 없습니다.</td>
-						   			</tr>
+						   			<tr th:unless="${not #lists.isEmpty(ourcompanyList)}">		
+										<td colspan="100%">
+											등록된 정보가 없습니다.
+										</td>						   			
+									</tr>
 									</tbody>						
 								</table>
 							</form>	

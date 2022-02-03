@@ -81,12 +81,12 @@ public class K3OurcompanyController {
 		  
 		  return "redirect:/team03/companymanagement/ourcompany/k3OurCompanyList";
 	}
+	
 	  //06 자사 정보 검색
-	  
 	  @PostMapping("/k3OurCompanyList") 
 	  public String k3GetOurCompanySearchList(@RequestParam(value="ourcompanyKey", required = false) String ourcompanyKey,
-			  															  @RequestParam(value="ourcompanyValue", required = false) String ourcompanyValue, 
-			  															  Model model) {
+			  								  @RequestParam(value="ourcompanyValue", required = false) String ourcompanyValue, 
+			  								  Model model) {
 	  
 	  Map<String, Object> searchCondition = new HashMap<String, Object>();
 	  
@@ -102,11 +102,13 @@ public class K3OurcompanyController {
 		  ourcompanyKey = "businessManagementpostaladdress";
 	  }
 	 
+	  model.addAttribute("title","사업장정보 관리");
+	  model.addAttribute("subtitle","사업장정보 검색");
+	  
 	  searchCondition.put("ourcompanyKey", ourcompanyKey);
 	  searchCondition.put("ourcompanyValue", ourcompanyValue);
 	  System.out.println("01 20220122 k3GetOurCompanySearchList");
 	  
-	  //public method k3GetOurCompanySearchList(String ourcompanyKey, String ourcompanyValu() { }
 	  List<K3OurCompany> ourcompanyList = ourcompanyService.k3GetOurCompanySearchList(searchCondition);
 	  model.addAttribute("ourcompanyList",ourcompanyList);
 	  

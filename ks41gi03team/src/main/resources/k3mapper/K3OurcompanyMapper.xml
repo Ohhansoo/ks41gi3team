@@ -19,9 +19,7 @@
 		FROM
 			k0_sw_mainBusinessCodeManagement
 		<trim prefix="WHERE" prefixOverrides="AND /OR">
-			<if test="ourcompanyValue != null and ourcompanyValue != ''.toString()">
-				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%')
-			</if>
+				${ourcompanyKey} LIKE CONCAT('%', #{ourcompanyValue}, '%') 
 		</trim>
 	</select>
 

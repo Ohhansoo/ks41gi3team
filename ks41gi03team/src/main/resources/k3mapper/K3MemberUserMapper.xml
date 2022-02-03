@@ -53,7 +53,7 @@
 	</select>
 	
 <!--  직원검색 -->
-	<select id="k3GetOurCompanySearchList" resultType="K3MemberUser">
+	<select id="k3GetMemberUserSearchList" resultType="K3MemberUser">
 		SELECT
 			*
 		FROM
@@ -82,7 +82,7 @@
 			k3_tb_member 
 		SET
 			memberState = "퇴사"
-		<trim prefix="WHERE" prefixOverrides="AND |OR"> 
+		<trim prefix="WHERE" prefixOverrides="AND|OR"> 
 			<foreach collection="removeList" item="removeList">
 				OR memberId = #{removeList};
 			</foreach>
@@ -224,7 +224,7 @@
 			#{memberRetirementSignedDate},
 			#{memberpostaladdress},
 			#{memberstreetaddress},
-			#{memberEmail}
+			CONCAT(#{memberEmail},'@',#{memberEmailAddr})
 			);
 	</insert>
 	

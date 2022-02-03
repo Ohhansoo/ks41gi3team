@@ -1,6 +1,7 @@
 package k3.loginstate.ahs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,10 @@ public class K3LoginStateService {
 			return loginstateList;
 	}
 
+	//02 로그인 현황 검색
+	public List<K3LoginState> k3GetLoginStateSearchList(Map<String, Object> searchCondition){
+		List<K3LoginState> loginstateSearchList = loginstateMapper.k3GetLoginStateSearchList(searchCondition);
+		return loginstateSearchList;
+	}
 }
 
