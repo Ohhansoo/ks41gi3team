@@ -16,7 +16,7 @@
 					
 					var submitCheck = true;
 					
-						if(submitCheck) $('#addShipmentTable').submit();
+						if(submitCheck) $('#modifyShipmentTable').submit();
 				});
 				//모달 시작
 				var modal = $('#laydownCheckCodeModal');
@@ -157,7 +157,7 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="addShipmentTable" th:action="@{/team03/goodsManagement/release/k3AddShipmentCheck}" method="post" th:if="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
+									<form id="modifyShipmentTable" th:action="@{/team03/goodsManagement/release/k3ModifyShipmentCheck}" method="post" th:if="${not #lists.isEmpty(shipmentModifyList)}" th:each="l : ${shipmentModifyList}">
 										<div class="inputwrap col-md-12">
 											<label for="releaseMergeCode" class="inputName">출고통합코드</label>
 											<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" th:value="${l.releaseMergeCode}"/>
@@ -179,7 +179,7 @@
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="shipmentCheckResult" class="inputName">입하검수결과</label>
-											<select id="shipmentCheckResult" name="shipmentCheckResult">
+											<select id="shipmentCheckResult" name="shipmentCheckResult" th:selected="${l.shipmentCheckResult}">
 												<option value = "Y"> 정상 </option>
 												<option value ="damage"> 파손 </option>
 												<option value ="countError"> 수량오류 </option>
@@ -188,8 +188,8 @@
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="shipmentCheckManager" class="inputName">검수담당자</label>
-											<input class="inputBox" type="text" id="shipmentCheckManagerName" name="shipmentCheckManagerName" disabled="disabled"/>
-											<input class="inputBox" type="hidden" id="shipmentCheckManager" name="shipmentCheckManager" th:value="${l.k3MemberUser.memberName}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="shipmentCheckManagerName" name="shipmentCheckManagerName" th:value="${l.k3MemberUser.memberName}" disabled="disabled"/>
+											<input class="inputBox" type="hidden" id="shipmentCheckManager" name="shipmentCheckManager" th:value="${l.shipmentCheckManager}" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>	
 										<div class="inputwrap col-md-12">
@@ -201,7 +201,7 @@
 											<input class="inputBox" type="date" id="shipmentCheckRegDate" name="shipmentCheckRegDate" th:value="${l.shipmentCheckRegDate}"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
-											<button id="releaseCheckBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
+											<button id="releaseCheckBtn" class="ahsbtn4 btn btn-outline-info" type="button">수정</button>			
 											<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 										</div>	
 									</form>
