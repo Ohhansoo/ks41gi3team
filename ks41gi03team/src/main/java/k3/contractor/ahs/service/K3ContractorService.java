@@ -107,10 +107,10 @@ public class K3ContractorService {
 		
 		// 보여줄 행의 개수
 		int rowPerPage = 1;
-		if(rowCount < 5) {
+		if(rowCount < 4) {
 			rowPerPage = (int) rowCount;
 		}else {
-			rowPerPage = 5;
+			rowPerPage = 4;
 		}
 		System.out.println("몇개일까" + rowCount + "얼마나 보여줄까" + rowPerPage);
 		
@@ -177,10 +177,10 @@ public class K3ContractorService {
 		
 		// 보여줄 행의 개수
 		int rowPerPage = 0;
-		if(rowCount < 5) {
+		if(rowCount < 4) {
 			rowPerPage = (int) rowCount;
 		}else {
-			rowPerPage = 5;
+			rowPerPage = 4;
 		}
 		
 		

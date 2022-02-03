@@ -46,10 +46,10 @@
 											<option value="contractCode" selected th:selected="${contractCode} == contractCode">계약 대표코드</option>
 											<option value="contractorName" th:selected="${contractorName} == contractorName">거래처 상호명</option>
 											<option value="contractorCode" th:selected="${contractorCode} == contractorCode">거래처 사업장 코드</option>
-											<option value="contractorDevision" th:selected="${contractorDevision} == contractorDevision">거래구분</option>
-											<option value="contractState" th:selected="${contractState} == contractState">계약상태</option>             
+											<option value="contractorDevision" th:selected="${contractorDevision} == contractorDevision">거래 구분</option>
+											<option value="contractState" th:selected="${contractState} == contractState">계약 상태</option>             
 											<option value="contractorId" th:selected="${contractorId} == contractorId">거래처 아이디</option>
-											<option value="memberId" th:selected="${memberId} == memberId">등록직원</option>
+											<option value="memberId" th:selected="${memberId} == memberId">등록직원 아이디</option>
 	        							</select>
 	        						</div>
 									<input type="text" class="form-control" placeholder="계약정보입력" name="searchValue" th:value="${searchValue}">
@@ -122,12 +122,12 @@
 									<th>수정</th>
 									<th>삭제</th>
 						            <th>계약 대표코드</th>
-						            <th>거래처 상호명</th>
 						            <th>거래처 사업장 코드</th>
-						            <th>거래구분</th>
-						            <th>계약체결날짜</th>
+						            <th>거래처 상호명</th>
+						            <th>거래 구분</th>
 						            <th>거래처 아이디</th>
-						            <th>등록직원</th>
+						            <th>등록직원 아이디</th>
+						            <th>계약 체결 날짜</th>
 								</tr>
 							</thead>
 								<tbody>
@@ -153,12 +153,12 @@
 											</button>
 										</td>
 										<td name="contractCode" rel="contractCode" th:text="${c.contractCode}"></td>
-										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorCode}"></td>
+										<td  th:text="${c.contractorName}"></td>
 										<td  th:text="${c.contractorDevision}"></td>
-										<td  th:text="${c.contractSingningDate}"></td>
 										<td  th:text="${c.contractorId}"></td>
 										<td  th:text="${c.memberId}"></td>
+										<td  th:text="${c.contractSingningDate}"></td>
 									</tr>
 									<tr th:unless="${not #lists.isEmpty(contractList)}">
 										<td colspan="4">

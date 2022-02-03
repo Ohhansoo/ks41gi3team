@@ -93,28 +93,32 @@
 				function showList2(data){
 					var Emodal = '';
 					$("#Emodal").empty();
-					Emodal += '<tr><th>견적상세번호</th><td>'+data.estimateDetailNum + '</td>';
-					Emodal += '<th>견적번호</th><td rel="estimateNum">'+data.estimateNum + '</td></tr>';
-					
-					Emodal += '<tr><th>거래처 사업장 코드</th><td>'+data.contractorCode + '</td>';
-					Emodal += '<th>거래처 상호명</th><td>'+data.contractorName + '</td></tr>';
-					
-					Emodal += '<tr><th>사업장별 대표코드</th><td>'+data.mainBusinessCode + '</td>';
-					Emodal += '<th>단가코드</th><td>'+data.UnitPriceCode + '</td></tr>';
-					
-					Emodal += '<tr><th>견적수량</th><td>'+data.unitContractDevisionAmount + '</td>';
-					Emodal += '<th>창고유형</th><td>'+data.unitContractWarehouseType + '</td></tr>';
-					
-					Emodal += '<tr><th>계약기간</th><td>'+data.estimateContractTerm + '</td>';
-					Emodal += '<th>단위별 견적금액</th><td>'+data.estimateUnitPrice + '</td></tr>';
-					
-					Emodal += '<tr><th>견적합계(세금포함)</th><td>'+data.estimatePrice + '</td>';
-					Emodal += '<th>선입금액견적</th><td>'+data.estimatePricePrepayment + '</td></tr>';
-					
-					Emodal += '<tr><th>월납입금액 견적</th><td>'+data.estimatePriceMonth + '</td>';
-					Emodal += '<th>견적측정날짜</th><td>'+data.estimateMeasureDate + '</td></tr>';
-					
-					Emodal += '<tr><th>견적서 등록직원 아이디</th><td>'+data.memberId + '</td></tr>';
+
+					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >거래처 정보</th></tr>';
+					Emodal += '<tr><th>견적 번호</th><td rel="estimateNum">'+data[0].estimateNum + '</td>';
+					Emodal += '<th>거래처 사업장 코드</th><td>'+data[0].contractorCode + '</td></tr>';
+					Emodal += '<tr><th>거래처 상호명</th><td>'+data[0].contractorName + '</td><th></th><td></td></tr>';
+					for(var i = 0; i < data.length; i++){
+						Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >상세견적' + (i+1) + '번</th></tr>';
+						Emodal += '<tr><th>견적 상세번호</th><td>'+data[i].estimateDetailNum + '</td>';
+						Emodal += '<th>구분 단위</th><td>'+data[i].unitContractDevision + '</td></tr>';
+						Emodal += '<tr><th>계약 단위</th><td>'+data[i].unitContract + '</td>';
+						Emodal += '<th>견적 수량</th><td>'+data[i].unitContractDevisionAmount + '</td></tr>';
+						if(data[i].unitContractWarehouseType != ""){
+						Emodal += '<tr><th>창고 유형</th><td>'+data[i].unitContractWarehouseType + '</td>';
+						Emodal += '<th>계약 기간</th><td>'+data[i].estimateContractTerm + '</td></tr>';
+						Emodal += '<tr><th>단위별 견적금액</th><td>'+data[i].estimateUnitPrice + '</td><th></th><td></td></tr>';
+						}else{
+						Emodal += '<tr><th>계약 기간</th><td>'+data[i].estimateContractTerm + '</td>';
+						Emodal += '<th>단위별 견적금액</th><td>'+data[i].estimateUnitPrice + '</td></tr>';
+						}
+					}
+					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >견적 결과</th></tr>';
+					Emodal += '<tr><th>견적합계(세금포함)</th><td>'+data[0].estimatePrice + '</td>';
+					Emodal += '<th>선입금액 견적</th><td>'+data[0].estimatePricePrepayment + '</td></tr>';
+					Emodal += '<tr><th>월납입금액 견적</th><td>'+data[0].estimatePriceMonth + '</td>';
+					Emodal += '<th>견적 측정 날짜</th><td>'+data[0].estimateMeasureDate + '</td></tr>';
+					Emodal += '<tr><th>등록직원 아이디</th><td>'+data[0].memberId + '</td><th></th><td></td></tr>';
 					
 					$('#Emodal').append(Emodal);
 					$('#detailEstimateModal').modal('show');
@@ -160,7 +164,7 @@
 								<div class="input-group d-flex justify-content-start">
 									<div class="input-group-prepend">
 										<select class="form-control" name="searchKey">
-											<option value="estimateNum" th:selected="${estimateNum} == estimateNum" selected>견적번호</option>
+											<option value="estimateNum" th:selected="${estimateNum} == estimateNum" selected>견적 번호</option>
 											<option value="contractorCode"  th:selected="${contractorCode} == contractorCode" >거래처 사업장 코드</option>
 											<option value="estimateName"  th:selected="${estimateName} == estimateName" >거래처 상호명</option>
 											<option value="memberId"  th:selected="${memberId} == memberId" >등록직원 아이디</option>
@@ -237,12 +241,12 @@
 									<th>계약</th>
 									<th>수정</th>
 									<th>삭제</th>
-						            <th>견적번호</th>
+						            <th>견적 번호</th>
 						            <th>거래처 사업장 코드</th>
 						            <th>거래처 상호명</th>
 						            <th>견적합계(세금포함)</th>
-						            <th>등록직원 </th>
-						            <th>견적측정날짜</th>
+						            <th>등록직원 아이디</th>
+						            <th>견적 측정 날짜</th>
 								</tr>
 							</thead>
  							<tbody>
