@@ -5,9 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import k3.contract.ahs.dto.K3Contract;
+
 
 @Mapper
 public interface K3ContractMapper {
+	
+	//계약 상세정보 모달창
+	public List<K3Contract> k3GetDetailContract(String contractCode,String contractorDevision);
 
 	//검색된 계약 투플 수 (동적 페이징)
 	public List<Map<String, Object>> K3SearchContractCount(Map<String, Object> paramMap, String searchKey, String contractSingningDateStart, String contractSingningDateEnd, String searchValue);
