@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.out.ahs.dto.K3Out;
 import k3.out.ahs.service.K3OutService;
 import k3.subject.ahs.dto.K3Subject;
@@ -91,7 +92,15 @@ import k3.subject.ahs.dto.K3Subject;
 	//비용 등록화면(이동)
 	@GetMapping("/k3AddOut")
 	public String goToOutAddForm(Model model) {
+		model.addAttribute("title", "비용 내역 관리");
+		model.addAttribute("subtitle", "비용 내역 등록");
 		System.out.println("addOut 컨트롤러");
+		
+		List<K3MainBusinessCode>  getMainBusinessCodeList =	k3OutService.getMainBusinessCodeList();
+		System.out.println("-----메인지즈니스코드----");
+		System.out.println(getMainBusinessCodeList + "메인비즈니스코드");
+		model.addAttribute("getMainBusinessCodeList", getMainBusinessCodeList);
+		
 		return "/team03/finance/out/k3AddOut";
 	}
 	
