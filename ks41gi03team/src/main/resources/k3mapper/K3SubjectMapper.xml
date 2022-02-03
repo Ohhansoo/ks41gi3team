@@ -119,7 +119,7 @@
 		#{asGCode},
 		#{asUse},
 		#{asCorrect},
-		#{asName},
+		#{memberId},
 		#{asRegDate},
 		#{asYear}
 	);

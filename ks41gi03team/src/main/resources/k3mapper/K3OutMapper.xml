@@ -15,7 +15,16 @@
 	</resultMap> -->
 
 
-<!-- 비용 검색 -->	
+	<!-- 사업장별 대표코드 가져오기 -->
+	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
+		SELECT
+			mainBusinessCode
+		FROM 
+			k0tbSw_businessManagement;
+	</select>
+
+
+	<!-- 비용 검색 -->	
 	<select id="searchOutList" resultType="K3Out">
 			SELECT
 			outCode
@@ -117,7 +126,6 @@
 	<insert id="addOut">
 	INSERT INTO k3_tb_out
 	(
-		outCode,
 		asCode,
 		asName,
 		mainBusinessCode,
@@ -131,7 +139,6 @@
 		)
 	VALUES
 	(
-		#{outCode},
 		#{asCode},
 		#{asName},
 		#{mainBusinessCode},

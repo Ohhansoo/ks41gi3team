@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import k3.in.ahs.dto.K3MainBusinessCode;
 import k3.out.ahs.dto.K3Out;
 import k3.out.ahs.mapper.K3OutMapper;
 import k3.subject.ahs.dto.K3Subject;
@@ -41,7 +42,12 @@ public class K3OutService {
 			return k3OutMapper.getModifyOut(outCode);
 		}
 		
-		//비용 내역 등록
+		//사업장별 대표코드 가져오기
+		public List<K3MainBusinessCode> getMainBusinessCodeList() {
+			return k3OutMapper.getMainBusinessCodeList();
+		}
+		
+				//비용 내역 등록
 		public int addOut(K3Out k3Out) {
 			int result = k3OutMapper.addOut(k3Out);
 			System.out.println("등록처리 서비스");
