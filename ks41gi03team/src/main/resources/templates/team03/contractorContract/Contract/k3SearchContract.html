@@ -9,7 +9,131 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
 	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				
+				<!-- 계약 상세 모달 -->
+				$(document).on('click','#detailContractModal',function(){
+					var contractCode = $(this).attr('data-contractCode');
+					var contractorDevision = $(this).attr('data-contractorDevision');
+					$.ajax({
+						url: "/team03/contractorContract/Contract/k3SearchContractAjax",
+						type:"GET",
+						data: {"contractCode": contractCode, "contractorDevision": contractorDevision},
+						dataType:'JSON',
+						success: function(response){
+							showList(response);
+						}
+					});
+				});
+				function showList(data){
+					var Cmodal = '';
+					$("#Cmodal").empty();
+					
+					Cmodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">거래처 정보</th></tr>';
+					
+					Cmodal += '<tr><th>거래처 상호명</th><td>' + data[0].contractorName + '</td>';
+					Cmodal += '<th>계약 대표코드</th><td>' + data[0].contractCode + '</td></tr>';
+					
+					Cmodal += '<tr><th>사업장별 대표코드</th><td>' + data[0].mainBusinessCode + '</td>';
+					Cmodal += '<th>거래처 사업장 코드</th><td>' + data[0].contractorCode + '</td></tr>';
+					
+					Cmodal += '<tr><th>거래처 아이디</th><td>' + data[0].contractorId + '</td>';
+					Cmodal += '<th>거래구분</th><td>' + data[0].contractorDevision + '</td></tr>';
+					
+					if(data[0].contractorDevision == '매출'){
+						for(var i = 0; i < data.length; i++){
+							Cmodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >계약 상세 정보' + (i+1) + '번</th></tr>';						
+
+							Cmodal += '<tr><th>계약 상세코드</th><td>' + data[i].contractDetailCode + '</td>';
+							Cmodal += '<th>견적번호</th><td>' + data[i].estimateNum + '</td></tr>';
+							
+							Cmodal += '<tr><th>단가코드</th><td>' + data[i].unitPriceCode + '</td>';
+							Cmodal += '<th>로케이션코드</th><td>' + data[i].locationCode + '</td></tr>';
+							
+		
+						}
+							Cmodal += '<tr><th>계약금합계(세금포함)</th><td>' + data[0].contractPrice + '</td><th></th><td></td></tr>';
+							
+							Cmodal += '<tr><th>선입금액</th><td>' + data[0].contractPricePrepayment + '</td>';
+							Cmodal += '<th>월납입금액</th><td>' + data[0].contractPriceMonth + '</td></tr>';
+							
+							Cmodal += '<tr><th>거래처 계좌번호</th><td>' + data[0].contractorProfitAccount + '</td>';
+							Cmodal += '<th>거래처 은행명</th><td>' + data[0].contractorProfitBank + '</td></tr>';
+							
+							Cmodal += '<tr><th>계약시작날짜</th><td>' + data[0].contractProfitStartDate + '</td>';
+							Cmodal += '<th>계약종료날짜</th><td>' + data[0].contractProfitEndDate + '</td></tr>';
+
+					}else{
+						Cmodal += '<tr><th>계약 차량 톤수</th><td>' + data[0].contractLossTon + '</td>';
+						Cmodal += '<th>계약 배송기사 인원</th><td>' + data[0].contractLossDriverHeadcount + '</td></tr>';
+						
+						Cmodal += '<tr><th>계약기간</th><td>' + data[0].contractLossTerm + '</td>';
+						Cmodal += '<th>계약금합계(세금포함)</th><td>' + data[0].contractPrice + '</td></tr>';
+
+						Cmodal += '<tr><th>거래처 계좌번호</th><td>' + data[0].contractLossAccount + '</td>';
+						Cmodal += '<th>거래처 은행명</th><td>' + data[0].contractLossBank + '</td></tr>';
+
+						Cmodal += '<tr><th>계약시작날짜</th><td>' + data[0].contractLossAccount + '</td>';
+						Cmodal += '<th>계약종료날짜</th><td>' + data[0].contractLossEndDate + '</td></tr>';
+					}
+					
+					Cmodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">계약 기타 정보</th></tr>';
+					
+					Cmodal += '<tr><th>계약체결날짜</th><td>' + data[0].contractSingningDate + '</td>';
+					Cmodal += '<th>계약상태</th><td>' + data[0].contractState + '</td></tr>';
+
+					if(data[0].contractorDevision == '매출'){					
+						Cmodal += '<tr><th>거래처 계약 담당자</th><td>' + data[0].contractProfitManager + '</td>';
+						Cmodal += '<th>등록직원 아이디</th><td>' + data[0].memberId + '</td></tr>';
+					}else{
+						Cmodal += '<tr><th>등록직원 아이디</th><td>' + data[0].memberId + '</td><th></th><td></td></tr>';
+					}
+					$('#Cmodal').append(Cmodal);
+					$('#detailContractModal').modal('show');
+				}
+				<!-- END 계약 상세 모달 -->
+			});
+		</script>
+	</th:block>
+	
 	<th:block layout:fragment="customContents"> 
+		<!-- 계약 상세정보 모달창 -->
+		<div class="modal" style="text-align: center" id="detailContractModal" tabindex="-1"  role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">계약 상세정보</h5>
+						<button type="button" class="close"  data-dismiss="modal">
+							<i class="bi bi-x-circle"></i>
+						</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class=" card card-body bg-light container-fluid">
+							<table class="table table-striped table-hover" id="Cmodal">
+							
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="ahsbtn2 btn btn-outline-info modifyContractModalBtn">
+							<i class="bi bi-pencil"></i>
+							수정
+						</a>
+						<button class="printDetailContractModal ahsbtn2 btn btn-outline-info" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>               
+					</div>
+				</div>
+			</div>
+		</div>
+	   <!-- END 계약 상세정보 모달창 -->
+		
+		<!-- 콘텐츠 콘테이너  -->
 		<div class="container-fluid">
 			<!--버튼 영역 -->			
 			<div class="d-flex justify-content-end">					
@@ -102,8 +226,8 @@
 				<nav>
 					<div class="nav nav-tabs card-header" id="result-nav-tab" role="tablist" style="padding:0px">
 						<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">전체 계약 목록</a>
-						<a class="nav-link" id="nav-profile1-tab" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile1" aria-selected="false">매출 계약 목록</a>
-						<a class="nav-link" id="nav-profile2-tab" data-toggle="tab" href="#nav-profile2" role="tab" aria-controls="nav-profile2" aria-selected="false">비용 계약 목록</a>
+						<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">매출 계약 목록</a>
+						<a class="nav-link" id="nav-remain-tab" data-toggle="tab" href="#nav-remain" role="tab" aria-controls="nav-remain" aria-selected="false">비용 계약 목록</a>
 					</div>
 				</nav>
 				<!-- End card header -->
@@ -112,13 +236,13 @@
 					<div class="tab-content" id="nav-tabContent">
 						<!--전체 계약 목록-->
 						<div class="tab-pane fade show active table-responsive" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
+							<table class="table table-head-fixed table-hover text-nowrap" style="border-bottom: 1px solid #D8D8D8; overflow:auto">
 								<thead>
 								<tr>
 									<th>
 										<input type="checkbox" name="checkContract"/>
 									</th>
-									<th>상세정보</th>
+									<th>상세</th>
 									<th>수정</th>
 									<th>삭제</th>
 						            <th>계약 대표코드</th>
@@ -138,7 +262,7 @@
 											</label>
 										</td>
 										<td>
-											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+											<a href="#"  type="button" id="detailContractModal" class="btn btn-default btn-sm showDetailContract" th:data-contractCode="${c.contractCode}" th:data-contractorDevision="${c.contractorDevision}">
 												<i class="bi bi-eye"></i>
 											</a>
 										</td>										
@@ -153,16 +277,16 @@
 											</button>
 										</td>
 										<td name="contractCode" rel="contractCode" th:text="${c.contractCode}"></td>
-										<td  th:text="${c.contractorCode}"></td>
-										<td  th:text="${c.contractorName}"></td>
-										<td  th:text="${c.contractorDevision}"></td>
-										<td  th:text="${c.contractorId}"></td>
-										<td  th:text="${c.memberId}"></td>
-										<td  th:text="${c.contractSingningDate}"></td>
+										<td th:text="${c.contractorCode}"></td>
+										<td th:text="${c.contractorName}"></td>
+										<td th:text="${c.contractorDevision}"></td>
+										<td th:text="${c.contractorId}"></td>
+										<td th:text="${c.memberId}"></td>
+										<td th:text="${c.contractSingningDate}"></td>
 									</tr>
 									<tr th:unless="${not #lists.isEmpty(contractList)}">
 										<td colspan="4">
-											등록된 거래처가 없습니다.
+											등록된 계약이 없습니다.
 										</td>
 									</tr>
 								</tbody>						
@@ -170,7 +294,7 @@
 						</div>
 						<!--END 전체 계약 목록-->
 						<!-- 매출 계약 목록 -->
-						<div class="tab-pane fade table-responsive" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile1-tab">
+						<div class="tab-pane fade table-responsive" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
 								<thead>
 								<tr>
@@ -190,14 +314,14 @@
 								</tr>
 							</thead>
 								<tbody>
-									<tr th:if="${not #lists.isEmpty(contractList)}" th:each="c:${contractList}">
+									<tr th:if="${not #lists.isEmpty(contractList) and c.contractorDevision == '매출'}" th:each="c:${contractList}">
 										<td>
 											<label>
 												<input name="checkContract" type="checkbox"  th:value="${c.contractCode}"/>
 											</label>
 										</td>
 										<td>
-											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+											<a href="#"  type="button" id="detailContractModal" class="btn btn-default btn-sm showDetailContract" th:data-contractCode="${c.contractCode}" th:data-contractorDevision="${c.contractorDevision}">
 												<i class="bi bi-eye"></i>
 											</a>
 										</td>										
@@ -211,47 +335,52 @@
 												<i class="bi bi-trash-fill"></i>
 											</button>
 										</td>
-										<td  th:text="${c.contractCode}"></td>
-										<td  th:text="${c.contractorName}"></td>
-										<td  th:text="${c.contractorCode}"></td>
-										<td  th:text="${c.contractorDevision}"></td>
-										<td  th:text="${c.contractSingningDate}"></td>
-										<td  th:text="${c.contractorId}"></td>
-										<td  th:text="${c.memberId}"></td>
+										<td name="contractCode" rel="contractCode" th:text="${c.contractCode}"></td>
+										<td th:text="${c.contractorName}"></td>
+										<td th:text="${c.contractorCode}"></td>
+										<td th:text="${c.contractorDevision}"></td>
+										<td th:text="${c.contractSingningDate}"></td>
+										<td th:text="${c.contractorId}"></td>
+										<td th:text="${c.memberId}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(contractList)}">
+										<td colspan="4">
+											등록된 계약이 없습니다.
+										</td>
 									</tr>
 								</tbody>						
 							</table>
 						</div>
 						<!-- END 매출 계약 목록 -->
 						<!-- 비용 계약 목록 -->
-						<div class="tab-pane fade table-responsive" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile1-tab">
+						<div class="tab-pane fade table-responsive" id="nav-remain" role="tabpanel" aria-labelledby="nav-remain-tab">
 							<table class="table table-head-fixed table-hover text-nowrap" style="overflow:auto">
 								<thead>
-								<tr>
-									<th>
-										<input type="checkbox" name="checkContract"/>
-									</th>
-									<th>상세정보</th>
-									<th>수정</th>
-									<th>삭제</th>
-						            <th>계약 대표코드</th>
-						            <th>거래처 상호명</th>
-						            <th>거래처 사업장 코드</th>
-						            <th>거래구분</th>
-						            <th>계약체결날짜</th>
-						            <th>거래처 아이디</th>
-						            <th>등록직원</th>
-								</tr>
-							</thead>
+									<tr>
+										<th>
+											<input type="checkbox" name="checkContract"/>
+										</th>
+										<th>상세</th>
+										<th>수정</th>
+										<th>삭제</th>
+							            <th>계약 대표코드</th>
+							            <th>거래처 상호명</th>
+							            <th>거래처 사업장 코드</th>
+							            <th>거래구분</th>
+							            <th>계약체결날짜</th>
+							            <th>거래처 아이디</th>
+							            <th>등록직원</th>
+									</tr>
+								</thead>
 								<tbody>
-									<tr th:if="${not #lists.isEmpty(contractList)}" th:each="c:${contractList}">
+									<tr th:if="${not #lists.isEmpty(contractList)  and c.contractorDevision == '비용'}" th:each="c:${contractList}">
 										<td>
 											<label>
 												<input name="checkContract" type="checkbox"  th:value="${c.contractCode}"/>
 											</label>
 										</td>
 										<td>
-											<a href="#"  type="button" class="btn btn-default btn-sm showDetailContract" th:data-contractorCode="${c.contractCode}">
+											<a href="#"  type="button" id="detailContractModal" class="btn btn-default btn-sm showDetailContract" th:data-contractCode="${c.contractCode}" th:data-contractorDevision="${c.contractorDevision}">
 												<i class="bi bi-eye"></i>
 											</a>
 										</td>										
@@ -265,13 +394,18 @@
 												<i class="bi bi-trash-fill"></i>
 											</button>
 										</td>
-										<td  th:text="${c.contractCode}"></td>
-										<td  th:text="${c.contractorName}"></td>
-										<td  th:text="${c.contractorCode}"></td>
-										<td  th:text="${c.contractorDevision}"></td>
-										<td  th:text="${c.contractSingningDate}"></td>
-										<td  th:text="${c.contractorId}"></td>
-										<td  th:text="${c.memberId}"></td>
+										<td name="contractCode" rel="contractCode" th:text="${c.contractCode}"></td>
+										<td th:text="${c.contractorName}"></td>
+										<td th:text="${c.contractorCode}"></td>
+										<td th:text="${c.contractorDevision}"></td>
+										<td th:text="${c.contractSingningDate}"></td>
+										<td th:text="${c.contractorId}"></td>
+										<td th:text="${c.memberId}"></td>
+									</tr>
+									<tr th:unless="${not #lists.isEmpty(contractList)}">
+										<td colspan="4">
+											등록된 계약이 없습니다.
+										</td>
 									</tr>
 								</tbody>						
 							</table>
@@ -316,5 +450,6 @@
 			<!--End 조회 카드 영역 -->
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
+		
+
 	</th:block>
-</head>

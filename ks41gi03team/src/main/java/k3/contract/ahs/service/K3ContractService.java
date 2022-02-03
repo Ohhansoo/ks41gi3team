@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import k3.contract.ahs.dto.K3Contract;
 import k3.contract.ahs.mapper.K3ContractMapper;
 
 @Service
@@ -17,6 +18,14 @@ public class K3ContractService {
 	
 	public K3ContractService(K3ContractMapper k3ContractMapper) {
 		this.k3ContractMapper = k3ContractMapper;
+	}
+	
+	//계약 상세정보 모달창
+	public List<K3Contract> k3GetDetailContract(String contractCode, String contractorDevision) {
+			
+		List<K3Contract> k3DetailContract = k3ContractMapper.k3GetDetailContract(contractCode, contractorDevision);
+		
+		return k3DetailContract;
 	}
 
 	//계약 검색기능

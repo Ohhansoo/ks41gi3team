@@ -1,5 +1,6 @@
 package k3.contract.ahs.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -7,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import k3.contract.ahs.dto.K3Contract;
 import k3.contract.ahs.service.K3ContractService;
 
 @Controller
@@ -19,6 +22,18 @@ public class K3ContractController {
 	
 	public K3ContractController(K3ContractService k3ContractService) {
 		this.k3ContractService = k3ContractService;
+	}
+	
+	//계약 상세정보 모달창
+	@GetMapping("/k3SearchContractAjax")
+	@ResponseBody
+	public List<K3Contract> k3GetDetailContract(
+										@RequestParam(value = "contractCode", required = false) String contractCode,
+										@RequestParam(value = "contractorDevision", required = false) String contractorDevision) {
+		
+		List<K3Contract> k3DetailContract = k3ContractService.k3GetDetailContract(contractCode,contractorDevision);
+		
+		return k3DetailContract;
 	}
 	
 	//계약
