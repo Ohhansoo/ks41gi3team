@@ -32,6 +32,33 @@
 					alert("삭제할 항목을 선택해주세요.");
 				}
 			});
+			
+			$('#printDriverBtn').on('click', function(){
+			 	let $container = $("#driverForm").clone()    // 프린트 할 특정 영역 복사
+			    let cssText = ""                            // 스타일 복사
+			    for (const node of $("style")) {
+			        cssText += node.innerHTML
+			    }
+			    /** 팝업 */
+			    let innerHtml = $container[0].innerHTML
+			    let popupWindow = window.open("", "_blank", "width=700,height=800")
+			    popupWindow.document.write("<!DOCTYPE html>"+
+			      "<html>"+
+			        "<head>"+
+			        "<style>"+cssText+"</style>"+
+			        "</head>"+
+			        "<body>"+innerHtml+"</body>"+
+			      "</html>")
+			   
+			    popupWindow.document.close()
+			    popupWindow.focus()
+			
+			    /** 1초 지연 */
+			    setTimeout(() => {
+			        popupWindow.print()         // 팝업의 프린트 도구 시작
+			        popupWindow.close()         // 프린트 도구 닫혔을 경우 팝업 닫기
+			    }, 1000)
+			});
 		});
 			
 			
@@ -47,7 +74,7 @@
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>			
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button class="btn btn-outline-info ahsbtn4" id="printDriverBtn" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>					
