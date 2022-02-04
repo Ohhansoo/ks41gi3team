@@ -10,7 +10,10 @@ import k3.warehousing.ahs.dto.K3WarehousingSort;
 
 @Mapper
 public interface K3StockMapper {
-	
+	//출고에 따른 재고 업데이트 하기
+	public int k3SubtractStock(String stockCode, int stockQuantity);
+	//기존 재고 확인하기
+	public int checkStockQuantity(String stockCode);
 	//간단조회 재고현황 조회처리
 	public List<Map<String, Object>> k3GetSimpleStockSearchList(Map<String, Object> searchCondition, Map<String, Object> paramMap);
 	//상세조회 재고현황 조회처리
@@ -39,5 +42,8 @@ public interface K3StockMapper {
 	public List<Map<String,Object>> k3GetStockByStockName(Map<String,Object> paramMap);
 	//재고현황 상세조회 테이블 튜플 수(초기화면)
 	public int k3GetSimpleCount(String countType, Map<String, Object> searchCondition);
+
+
+
 	
 }
