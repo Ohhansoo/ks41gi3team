@@ -6,49 +6,95 @@
 		<title>addContract</title>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
-	<div class=" card card-body container-fluid" id="addContractor">
-	<h4>견적서 정보입력</h4>
-
-			<div id="contractorId">
-   				<label for="contractorId">거래처아이디</label>
-   					<input type="text" id="contractorId" name="contractorId"/>
-   					<button type="button" id="btn">중복확인 </button> 
-   			</div>
-   			<div id="contractorCode">
-   				<label for="contractorCode">거래처사업장코드</label>
-   					<input type="text" id="contractorCode" name="contractorCode"/>
-   			</div>
-   			<div id="mainBusinessCode">
-   				<label for="mainBusinessCode">사업장별 대표코드</label>
-   					<input type="text" id="mainBusinessCode" name="mainBusinessCode"/>
-   			</div>
-   			<div id="contractorPw">
-   				<label for="contractorPw">거래처 비밀번호</label>
-   					<input type="text" id="contractorPw" name="contractorPw"/>
-   			</div>
-   			<div id="memberId">
-   				<label for="memberId">거래처 등록직원 아이디</label>
-   					<input type="text" id="memberId" name="memberId"/>
-   			</div>
-   			<div id="levelCode">
-   				<label for="levelCode">거래처 권한번호</label>
-   					<input type="text" id="levelCode" name="levelCode"/>
-   			</div>
-   			<div id="contractorType">
-   				<label for="contractorType">거래처 유형</label>
-   					<input type="text" id="contractorType" name="contractorType"/>
-   			</div>
-   			<div id="contractorName">
-   				<label for="contractorName">거래처 상호명</label>
-   					<input type="text" id="contractorName" name="contractorName"/>
-   			</div>
-   			<div id="contractorPhone">
-   				<label for="contractorPhone">거래처 전화번호</label>
-   					<input type="text" id="contractorPhone" name="contractorPhone"/>
-   			</div>
-
-   			</tr>
-   			</tr>
-	</table>
-	<button class="ahsbtn3" type="submit">등록</button>
-	</div>
+		<!--카드 영역 -->
+		<div class="container container-fluid ">
+			<form id="addEstimateForm" th:action="@{/team03/contractorContract/Estimate/k3AddEstimate}" method="post">
+				<div class="d-flex">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+						<div class="estimateLabel">
+							<label>| 거래처 정보 |</label>
+						</div>						
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 사업장 코드</span>
+				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" style="background-color:#BDBDBD"/>
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 상호명</span>
+				  			<input class="form-control" type="text" name="contractorName" id="contractorName" value="일반" readonly style="background-color:#BDBDBD"/>
+				  		</div>
+					</div>	
+				</div>
+				<div class="d-flex">	
+					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
+						<div class="contractorLabel">
+							<label>| 상세 견적 |</label>							
+						</div>					  	
+						<div class="input-group">
+				  			<span class="input-group-text">견적 번호</span>
+				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum" readonly style="background-color:#BDBDBD"/>
+				  		</div>
+						<div class="input-group">
+							<span class="input-group-text">견적 상세 번호</span>
+				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum"  placeholder="견적 상세 번호"/>
+				 			<button type="button" id="CheckEstimateDetailNum" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="codeCheck" disabled style="border:none"/></button> 
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">구분 단위</span>
+				  			<input  class="form-control" telOnly type="text" name="unitContractDevision" placeholder="구분 단위"/>
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">계약 단위</span>
+				  			<input class="form-control" numOnly type="text" name="unitContract" id="unitContract" placeholder="계약 단위"  maxLength="4"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">견적 수량</span>
+				  			<input  class="form-control" type="text" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">창고 유형</span>
+				  			<input class="form-control" stringOnly type="text" name="unitContractWarehouseType" id="unitContractWarehouseType" placeholder="창고 유형"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 기간</span>
+				  			<input class="form-control" stringOnly type="text" name="estimateContractTerm" id="estimateContractTerm" placeholder="계약 기간"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 견적 금엑</span>
+				  			<input class="form-control" stringOnly type="text" name="estimateUnitPrice" id="estimateUnitPrice" placeholder="창고 유형"/>
+				  		</div>
+					</div>
+				</div>
+				<div class="d-flex">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+						<div class="estimateLabel">
+							<label>| 견적 기타 정보 |</label>							
+						</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">견적합계(세금 포함)</span>
+				  			<input class="form-control" stringOnly type="text" name="estimatePrice" id="estimatePrice" placeholder="견적합계(세금 포함)"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">선입금액 견적</span>
+				 			<input class="form-control" numOnly type="text" name="estimatePricePrepayment" id="estimatePricePrepayment" maxLength="3"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">월납입금액 견적</span>
+				 			<input class="form-control" numOnly type="text" name="estimatePriceMonth" id="estimatePriceMonth" maxLength="3"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">견적 측정 일자</span>
+				 			<input class="form-control" numOnly type="text" name="estimateMeasureDate" id="estimateMeasureDate" maxLength="3"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">등록 직원 아이디</span>
+				 			<input class="form-control" numOnly type="text" name="memberId" id="memberId" maxLength="3"/>
+				  		</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
+					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddEstimateBtn" type="button" th:href="@{k3SearchEstimate}">등록취소</a>
+					<button class="ahsbtn4 btn btn-outline-info" id="addEstimateBtn" type="submit">등록</button>
+				</div>
+			</form>
+		</div>
+	</th:block>
