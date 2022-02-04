@@ -29,6 +29,10 @@
 				<id column="memberId" property="memberId"/>
 				<result column="memberName" property="memberName" />
 			</association>
+			<association property="k3Stock" javaType="K3Stock">
+				<id column="stockCode" property="stockCode"/>
+				<result column="stockQuantity" property="stockQuantity" />
+			</association>
 	</resultMap>
 	
 	<!-- 출하검수 등록하기 -->
@@ -53,6 +57,8 @@
 			,p.productName
 			,r.releaseGoodsCount
 			,cs.contractorName
+			,r.stockCode
+			,s.stockQuantity		
 			<if test="type eq 'modify'.toString()">			
 				,r.shipmentCheckResult
 				,r.releaseDate
@@ -66,6 +72,10 @@
 			k3_tb_product AS p
 			ON
 			r.productCode = p.productCode
+			INNER JOIN
+			k3_tb_stock AS s
+			ON
+			r.stockCode = s.stockCode
 			INNER JOIN
 			k3_tb_contractor_staff AS cs
 			ON
