@@ -21,6 +21,15 @@
 	font-size: 20px; 
 	text-align: center;
 }
+.estimateLabel{
+	padding-top:15px;
+	padding-bottom:10px;
+	border-bottom: 1px solid #D8D8D8;	
+	border-top: 1px solid #D8D8D8;
+	font-size: 20px; 
+	text-align: center;
+
+}
 .ahsbtn2{
 	margin-left:0px;
 }

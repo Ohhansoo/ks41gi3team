@@ -108,7 +108,8 @@
 						})
 						.then(function (value){
 							if(value){
-									$('#modifyContractorForm').submit();
+								swal("수정 성공:)","거래처 정보가 성공적으로 수정 되었습니다.","success");
+								setTimeout(function(){$('#modifyContractorForm').submit();},1000);
 							}else{
 								swal("수정 취소!","거래처 수정이 취소되었습니다.","error");
 								return false;
@@ -277,7 +278,7 @@
 				</div>
 				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
 					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleModifyContractorBtn" type="button" th:href="@{k3SearchContractor}">수정취소</a>
-					<button class="ahsbtn4 btn btn-outline-info" id="modifyContractorBtn" type="submit">수정</button>
+					<button class="ahsbtn4 btn btn-outline-info" id="modifyContractorBtn" type="button">수정</button>
 				</div>
 			</form>
 		</div>
