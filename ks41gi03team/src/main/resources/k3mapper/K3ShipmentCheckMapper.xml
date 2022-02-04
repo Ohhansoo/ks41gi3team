@@ -80,10 +80,12 @@
 			k3_tb_contractor_staff AS cs
 			ON
 			r.contractorId = cs.contractorId
+			<if test="type eq 'modify'.toString()">	
 			INNER JOIN
 			k3_tb_member AS m
 			ON
 			r.shipmentCheckManager = m.memberId
+			</if>
 		WHERE
 			releaseCode = #{releaseCode};
 	</select>
