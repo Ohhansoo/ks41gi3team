@@ -5,91 +5,168 @@
 	<th:block layout:fragment="customTitle">
 		<title>addContract</title>
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbinAddModify.css}">
+	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<!--카드 영역 -->
 		<div class="container container-fluid ">
 			<form id="addEstimateForm" th:action="@{/team03/contractorContract/Estimate/k3AddEstimate}" method="post">
 				<div class="d-flex">
-					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
 						<div class="estimateLabel">
-							<label>| 거래처 정보 |</label>
-						</div>						
-				  		<div class="input-group">
-				  			<span class="input-group-text">거래처 사업장 코드</span>
-				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" style="background-color:#BDBDBD"/>
-				  		</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">거래처 상호명</span>
-				  			<input class="form-control" type="text" name="contractorName" id="contractorName" value="일반" readonly style="background-color:#BDBDBD"/>
-				  		</div>
-					</div>	
-				</div>
-				<div class="d-flex">	
-					<div class="justify-content-end addForm card cardColor input-group" style="margin:10px">
-						<div class="contractorLabel">
-							<label>| 상세 견적 |</label>							
+							<label>| 창고 견적 |</label>							
 						</div>					  	
 						<div class="input-group">
-				  			<span class="input-group-text">견적 번호</span>
-				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum" readonly style="background-color:#BDBDBD"/>
-				  		</div>
-						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum"  placeholder="견적 상세 번호"/>
-				 			<button type="button" id="CheckEstimateDetailNum" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="codeCheck" disabled style="border:none"/></button> 
+				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">구분 단위</span>
-				  			<input  class="form-control" telOnly type="text" name="unitContractDevision" placeholder="구분 단위"/>
+				  			<input  class="form-control" telOnly type="text" name="unitContractDevision" placeholder="불러온 값 지정" readonly/>
+				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" numOnly type="text" name="unitContract" id="unitContract" placeholder="계약 단위"  maxLength="4"/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">견적 수량</span>
-				  			<input  class="form-control" type="text" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+				  			<input class="form-control" numOnly type="text" name="unitContract" id="unitContract" placeholder="불러온 값 지정"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">창고 유형</span>
-				  			<input class="form-control" stringOnly type="text" name="unitContractWarehouseType" id="unitContractWarehouseType" placeholder="창고 유형"/>
+				  			<input class="form-control" stringOnly type="text" name="unitContractWarehouseType" id="unitContractWarehouseType" placeholder="창고 유형" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">창고 유형</span>
+				  			<input class="form-control" stringOnly type="text" name="unitContractWarehouseType" id="unitContractWarehouseType" placeholder="창고 유형" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 견적금액</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input  class="form-control" type="number" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" type="number" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" stringOnly type="text" name="estimateUnitPrice" id="estimateUnitPrice" placeholder="단위별 견적금액" readonly/>
+				  			</div>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 기간</span>
-				  			<input class="form-control" stringOnly type="text" name="estimateContractTerm" id="estimateContractTerm" placeholder="계약 기간"/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">단위별 견적 금엑</span>
-				  			<input class="form-control" stringOnly type="text" name="estimateUnitPrice" id="estimateUnitPrice" placeholder="창고 유형"/>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input class="form-control" stringOnly type="text" name="unitTerm" id="unitTerm" placeholder="최소 기간(월)"/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input class="form-control" stringOnly type="text" name="estimateTermMulti" id="estimateTermMulti" placeholder="기간곱"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" stringOnly type="text" name="estimateContractTerm" id="estimateContractTerm" placeholder="계약 기간"/>
+							</div>
 				  		</div>
 					</div>
-				</div>
-				<div class="d-flex">
 					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
 						<div class="estimateLabel">
-							<label>| 견적 기타 정보 |</label>							
+							<label>| 배송 차량 견적 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">견적 상세 번호</span>
+				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">배송 차량 단위</span>
+				  			<input  class="form-control" telOnly type="text" name="unitContractDevision" placeholder="불러온 값 지정" readonly/>
+				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">배송 거리 단위</span>
+				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="불러온 값 지정"  readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 견적금액</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input  class="form-control" type="number" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" type="number" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" stringOnly type="text" name="estimateUnitPrice" id="estimateUnitPrice" placeholder="단위별 견적금액" readonly/>
+				  			</div>
+				  		</div>
+						<div class="estimateLabel">
+							<label>| 배송 거리 견적 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">견적 상세 번호</span>
+				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">배송 거리 단위</span>
+				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="불러온 값 지정"  readonly/>
+				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 견적금액</span>
+				  			<div class="input-group" style="padding-bottom:0px">
+					  			<input  class="form-control" type="number" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" type="number" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" stringOnly type="text" name="estimateUnitPrice" id="estimateUnitPrice" placeholder="단위별 견적금액" readonly/>
+				  			</div>
+				  		</div>
+					</div>
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+						<div class="estimateLabel">
+							<label>| 견적 정보 |</label>
+						</div>						
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 사업장 코드</span>
+				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" readonly/>
+				 			<button type="button" id="contractorBtn" class="ahsbtn2 btn btn-outline-info">거래처</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 상호명</span>
+				  			<input class="form-control" type="text" name="contractorName" id="contractorName" readonly/>
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">견적 번호</span>
+				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum" placeholder="자동 지정" readonly/>
+				  		</div>
+						<div class="estimateLabel">
+							<label>| 견적 결과 |</label>							
 						</div>
 				  		<div class=" input-group">
-				  			<span class="input-group-text">견적합계(세금 포함)</span>
-				  			<input class="form-control" stringOnly type="text" name="estimatePrice" id="estimatePrice" placeholder="견적합계(세금 포함)"/>
+				  			<span class="input-group-text">견적합계(VAT)</span>
+				  			<input class="form-control" stringOnly type="text" name="estimatePrice" placeholder="상세견적의 총합" id="estimatePrice" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">선입금액 견적</span>
-				 			<input class="form-control" numOnly type="text" name="estimatePricePrepayment" id="estimatePricePrepayment" maxLength="3"/>
+				 			<input class="form-control" numOnly type="text" name="estimatePricePrepayment" placeholder="견적합계의 10%" id="estimatePricePrepayment" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">월납입금액 견적</span>
-				 			<input class="form-control" numOnly type="text" name="estimatePriceMonth" id="estimatePriceMonth" maxLength="3"/>
+					 		<input class="form-control" numOnly type="text" name="estimatePriceMonth" id="estimatePriceMonth" placeholder="(견적합계-선입금액)/계약 기간" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">견적 측정 일자</span>
-				 			<input class="form-control" numOnly type="text" name="estimateMeasureDate" id="estimateMeasureDate" maxLength="3"/>
+				 			<input class="form-control" numOnly type="text" name="estimateMeasureDate" id="estimateMeasureDate" maxLength="3" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">등록 직원 아이디</span>
-				 			<input class="form-control" numOnly type="text" name="memberId" id="memberId" maxLength="3"/>
-				  		</div>
-					</div>
+				 			<input class="form-control" numOnly type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				  		</div>				  		
+					</div>	
 				</div>
 				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
 					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddEstimateBtn" type="button" th:href="@{k3SearchEstimate}">등록취소</a>

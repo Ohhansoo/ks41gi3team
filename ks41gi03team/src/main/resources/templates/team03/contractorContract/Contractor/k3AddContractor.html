@@ -151,36 +151,37 @@
 						submitCheck = false;
 					}
 				}
-				if(submitCheck) {
-					swal({
-						title: "등록 하시겠습니까?",
-						text: "등록하신 거래처 정보는 데이터에 저장됩니다.",
-						icon: "warning",
-						buttons: {
-							confirm: {
-								text: "네",
-								value: true,
-								visible: true,
-								className: "btn btn-outline-info ",
-								closeModal: true,
-							},
-							cancel: {
-								text: "아니요",
-								value: null,
-								visible: true,
-								className: "btn btn-outline-info ",
-								closeModal: true
+				if(submitCheck){
+						swal({
+							title: "등록 하시겠습니까?",
+							text: "등록하신 거래처 정보는 데이터에 저장됩니다.",
+							icon: "warning",
+							buttons: {
+								confirm: {
+									text: "네",
+									value: true,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true,
+								},
+								cancel: {
+									text: "아니요",
+									value: null,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true
+								}
 							}
-						}
-					})
-					.then(function (value){
-						if(value){
-								$('#addContractorForm').submit();
-						}else{
-							swal("등록 취소!","거래처 등록이 취소되었습니다.","error");
-							return false;
-						}
-					});	
+						})
+						.then(function(value){
+							if(value){
+								swal("등록 성공:)","거래처 정보가 성공적으로 등록되었습니다.","success");
+								setTimeout(function(){$('#addContractorForm').submit();},1000);
+							}else{
+								swal("등록 취소!","거래처 등록이 취소되었습니다.","error");
+								return false;
+							}
+						});	
 				}else if(!$('input[name=codeCheck]').is(":checked") || !$('input[name=businessNumCheck]').is(":checked")){
 					swal("등록 실패!","등록정보 중복체크를 해주세요","error");
 					return false;
@@ -301,7 +302,7 @@
 				 		</div>
 				 		<div class="input-group">
 				  			<span class="input-group-text">거래처 이메일</span>
-				  			<input class="form-control" stringOnly type="text" name="contractorEmail" id="contractorEmail" placeholder="이메일 아이디"/>
+				  			<input class="form-control" noSpecial type="text" name="contractorEmail" id="contractorEmail" placeholder="이메일 아이디"/>
 				  			<div style="margin:3px">
 				  				<b>@</b>
 				  			</div>
@@ -399,7 +400,7 @@
 				</div>
 				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
 					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddContractorBtn" type="button" th:href="@{k3SearchContractor}">등록취소</a>
-					<button class="ahsbtn4 btn btn-outline-info" id="addContractorBtn" type="submit">등록</button>
+					<button class="ahsbtn4 btn btn-outline-info" id="addContractorBtn" type="button">등록</button>
 				</div>
 			</form>
 		</div>
