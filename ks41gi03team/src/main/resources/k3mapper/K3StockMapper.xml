@@ -31,6 +31,25 @@
 			<result column="laydownDate" property="laydownDate"/>
 		</association>
 	</resultMap>
+	<!--출고에 따른 재고 업데이트  -->
+	<update id="k3SubtractStock">
+		UPDATE 
+			k3_tb_stock
+		SET
+			stockQuantity = #{stockQuantity}
+		WHERE
+			stockCode = #{stockCode};
+	</update>
+	
+	<!--기존 재고확인  -->
+	<select id="checkStockQuantity" resultType="int">
+	SELECT
+	 	s.stockQuantity
+	FROM
+		k3_tb_stock AS s
+	WHERE
+		s.stockCode = #{stockCode};
+	</select>
 	
 	<!--상세재고현황 조회처리  -->
 	<select id="k3GetDetailStockSearchList" resultType="map" parameterType="map">
@@ -125,7 +144,8 @@
 	
 	<!-- 재고수정처리 로케이션 상태 바꾸기(비었음 -> 사용중) -->
 	<update id="K3InputLocationState">
-		UPDATE k3_tb_stock
+		UPDATE
+			k3_tb_location
 		SET
 			locationState = "사용중"
 		WHERE
@@ -134,7 +154,8 @@
 	
 	<!-- 재고수정처리 //로케이션 상태 바꾸기(사용중 -> 비었음) -->
 	<update id="K3ReturnLocationState">
-		UPDATE k3_tb_stock
+		UPDATE 
+			k3_tb_location
 		SET
 			locationState = "비었음"
 		WHERE

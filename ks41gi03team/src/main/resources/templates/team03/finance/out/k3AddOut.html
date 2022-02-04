@@ -71,10 +71,12 @@
 	 				var asName = $('#asNameInput');
 	 				var asCode = $('#asCodeInput');
 	 				var checkedAsName = checkedBox.parent().parent().children().eq(2).text();
+	 				console.log("체크된 행:" + checkedBox);
+	 				console.log("계정과목  이름:" + checkedAsName);
 	 				
 	 				asCode.attr('value', checkedBox.val());
 	 				asName.attr('value', checkedAsName);
-	 				console.log(checkedBox);
+
 					modal.addClass('hidden');
 				});
 			});	
@@ -106,25 +108,25 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="asCode" class="inputName">계정과목코드</label>
-										<input type ="hidden" id ="asCodeInput" name ="asCode">
 										<input class="inputBox" type="text" id="asCodeInput" name="asCode" placeholder="계정과목코드" readonly="readonly">
 										<button id="selectAsCode" class="findContractorModal btn btn-outline-info ahsbtn" type="button">선택</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="asName" class="inputName">계정과목이름</label>
-										<input type="hidden" id="asNameInput" name="asName">
 										<input class="inputBox" type="text" id="asNameInput" name="asName" placeholder="계정과목이름" readonly="readonly">
 									</div>
 									
 																	
+									<!-- selectBox size = width:400px, height:300px -->								
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
-										<select name ="mainBusinessCode">
+										<select name ="mainBusinessCode" style="width:400px; height:30px;">
 											<th:block th:if="${not #lists.isEmpty(getMainBusinessCodeList)}" th:each="l : ${getMainBusinessCodeList}">							
 												<option th:text="${l.mainBusinessCode}" th:value="${l.mainBusinessCode}"> </option>
 											</th:block>	
 										</select>
 									</div>					
+									
 									<div class="inputwrap col-md-12">
 										<label for="outNameInput" class="inputName">거래처 상호명</label>
 										<input class="inputBox" type="text" id="outNameInput" name="outName">

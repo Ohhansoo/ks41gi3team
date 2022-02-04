@@ -17,6 +17,28 @@ public class K3StockService {
 	public K3StockService(K3StockMapper k3StockMapper) {
 		this.k3StockMapper = k3StockMapper;
 	}
+	//출고로 인한 재고 감소
+	public int k3SubtractStock(String stockCode, String type, int modifyGoodsCount, int releaseGoodsCount) {
+			//기존 재고 확인하기
+			int stockQuantity = k3StockMapper.checkStockQuantity(stockCode);
+			int result = 0;
+			if(type != null && "modify".equals(type)) {
+				if(modifyGoodsCount != releaseGoodsCount) {
+					stockQuantity = stockQuantity + releaseGoodsCount - modifyGoodsCount;
+					//재고 업데이트 하기
+					result = k3StockMapper.k3SubtractStock(stockCode, stockQuantity);
+				}
+				return 1;
+			}else if(type != null && "add".equals(type)) {
+				stockQuantity = stockQuantity - modifyGoodsCount;
+				//재고 업데이트 하기
+				result = k3StockMapper.k3SubtractStock(stockCode, stockQuantity);
+			}
+
+		
+		return result;
+	}
+	
 	//간단재고 현황 조회처리
 	public Map<String, Object> k3GetSimpleStockSearchList(Map<String, Object> searchCondition, int currentPage) {
 		// 보여줄 행의 개수

@@ -10,7 +10,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/release/k3ReleaseCheckList';
+					location.href = '/team03/goodsManagement/release/k3ReleaseList';
 				});
 				$(document).on('click', '#releaseCheckBtn', function(){
 					
@@ -18,6 +18,15 @@
 					
 						if(submitCheck) $('#modifyShipmentTable').submit();
 				});
+				$(document).on('keyup', '#modifyGoodsCount', function(){
+					const stockQuantity = $('#guideMessage').val();
+					console.log(stockQuantity)
+					if($(this).val() > stockQuantity){
+						alert(stockQuantity + "보다 적게 입력해주세요");
+						return false;
+					}
+				});
+				
 				//모달 시작
 				var modal = $('#laydownCheckCodeModal');
 				var memberModal = $('#memberModal');
@@ -175,7 +184,10 @@
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="laydownGoodsCount" class="inputName">개수</label>
-											<input class="inputBox" type="text" id="releaseGoodsCount" name="releaseGoodsCount" th:value="${l.releaseGoodsCount}" disabled="disabled"/>
+											<input class="inputBox" type="hidden" id="releaseGoodsCount" name="releaseGoodsCount" th:value="${l.releaseGoodsCount}"/>
+											<input class="inputBox" type="hidden" id="stockCode" name="stockCode" th:value="${l.k3Stock.stockCode}"/>
+											<input class="inputBox" style="display: inline-block;" type="number" id="modifyGoodsCount" name="modifyGoodsCount" th:value="${l.releaseGoodsCount}"/>
+											<p style="font-size: 11px; color: red; display: inline-block;" th:value="${l.k3Stock.stockQuantity}"> ※ 최대 개수는 [[${l.k3Stock.stockQuantity}]] 개 입니다. </p>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="shipmentCheckResult" class="inputName">입하검수결과</label>

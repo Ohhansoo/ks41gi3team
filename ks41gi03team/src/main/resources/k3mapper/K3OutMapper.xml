@@ -21,17 +21,17 @@
 		a.asName
 	FROM
 		k3_tb_as AS a
-		INNER join
+	INNER join
 		k3_tb_out AS o
-		on
-		a.asCode = o.asCode;
+	on
+		a.memberId = o.memberId;
 	</select>
 
 	<!-- 사업장별 대표코드 가져오기 -->
 	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
 		SELECT
 			mainBusinessCode
-		FROM 
+		FROM
 			k0tbSw_businessManagement;
 	</select>
 
