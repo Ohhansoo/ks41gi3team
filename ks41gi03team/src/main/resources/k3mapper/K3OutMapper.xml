@@ -31,7 +31,7 @@
 	<select id="getMainBusinessCodeList" resultType="K3MainBusinessCode">
 		SELECT
 			mainBusinessCode
-		FROM 
+		FROM
 			k0tbSw_businessManagement;
 	</select>
 

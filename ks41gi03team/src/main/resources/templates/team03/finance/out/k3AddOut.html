@@ -117,14 +117,16 @@
 									</div>
 									
 																	
+									<!-- selectBox size = width:400px, height:300px -->								
 									<div class="inputwrap col-md-12">
 										<label for="mainBusinessCodeInput" class="inputName">사업장별대표코드</label>
-										<select name ="mainBusinessCode">
+										<select name ="mainBusinessCode" style="width:400px; height:30px;">
 											<th:block th:if="${not #lists.isEmpty(getMainBusinessCodeList)}" th:each="l : ${getMainBusinessCodeList}">							
 												<option th:text="${l.mainBusinessCode}" th:value="${l.mainBusinessCode}"> </option>
 											</th:block>	
 										</select>
 									</div>					
+									
 									<div class="inputwrap col-md-12">
 										<label for="outNameInput" class="inputName">거래처 상호명</label>
 										<input class="inputBox" type="text" id="outNameInput" name="outName">
