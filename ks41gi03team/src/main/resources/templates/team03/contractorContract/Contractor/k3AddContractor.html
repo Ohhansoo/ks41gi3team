@@ -71,19 +71,15 @@
 				
 				<!-- 선택값 입력 기능 -->
 				$("#contractorSuperviserEmailSelect").change(function(){
-					console.log("선택한 값확인 : "+ $(this).val());
 					$("#contractorSuperviserEmailAddr").val($(this).val());
 				});
 				
 				$("#contractorEmailSelect").change(function(){
-					console.log("선택한 값확인 : "+ $(this).val());
 					$("#contractorEmailAddr").val($(this).val());
 				});
 				
 				$("#contractorProfitBankSelect").change(function(){
-					console.log("선택한 값확인 contractorProfitBankSelect : "+ $(this).val());
 					$("#contractorProfitBank").val($(this).val());
-					console.log("바뀐 값확인 contractorProfitBank :"+ $("#contractorProfitBank").val());
 				});
 				<!-- END 선택값 입력 기능 -->
 			<!-- 중복 검사 기능 -->

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import k3.contractor.ahs.dto.K3Contractor;
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.estimate.ahs.dto.K3Unit;
 import k3.estimate.ahs.mapper.K3EstimateMapper;
@@ -16,6 +17,15 @@ import k3.estimate.ahs.mapper.K3EstimateMapper;
 public class K3EstimateService {
 	
 	private K3EstimateMapper k3EstimateMapper;
+	
+	//견적서 등록페이지 거래처 모달창
+	public List<K3Contractor> K3GetContractor(){
+		
+		List<K3Contractor> K3Contractor = k3EstimateMapper.K3GetContractor();
+		
+		return K3Contractor;
+		
+	}
 	
 	//견적서 상세정보 모달창
 	public List<K3Estimate> k3GetDetailEstimate(String estimateNum) {
