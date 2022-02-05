@@ -8,13 +8,23 @@
 				$('#cancelBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
+				//클릭한 체크박스 개수 구하기
+				var checkCount= $('input:checked').length;
 				$(document).on('click','#allowWarehousingBtn', function(){
+					if(checkCount > 0){
 					$('#YesOrNo').attr('value','Y');
-					$('#allowTable').submit();				
+					$('#allowTable').submit();										
+					}else{
+						alert("승인할 항목을 선택해주세요.");
+					}
 				});
 				$(document).on('click','#rejectWarehousingBtn', function(){
-					$('#YesOrNo').attr('value','R');
-					$('#allowTable').submit();				
+					if(checkCount > 0){
+						$('#YesOrNo').attr('value','R');
+						$('#allowTable').submit();										
+					}else{
+						alert("반려할 항목을 선택해주세요.");
+					}			
 				});
 			});
 		</script>
