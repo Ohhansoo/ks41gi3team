@@ -81,8 +81,10 @@
 			r.shippingAddress,
 			r.shippingDetailAddress,
 			s.memberId,
+			m.memberName,
 			s.shippingDetail,
 			s.driverId,
+			d.driverName,
 			s.shippingTracking
 		FROM
 			k3_tb_shipping AS s
@@ -90,6 +92,14 @@
 			k3_tb_release AS r
 		ON
 			s.releaseCode = r.releaseCode
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			s.memberId = m.memberId
+		INNER JOIN
+			k3_tb_driver AS d
+		ON
+			s.driverId = d.driverId
 		WHERE
 			shippingCode = #{shippingCode};
 	</select>
