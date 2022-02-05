@@ -85,17 +85,32 @@
 			m.dispatchCode,
 			m.mainBusinessCode,
 			m.releaseCode,
+			r.releaseMergeCode,
+			r.shippingAddress,
+			r.shippingDetailAddress,
 			m.driverId,
+			d.driverName,
 			m.vehicleCode,
 			m.dispatchStartDate,
 			m.dispatchDueDate,
 			m.dispatchAcceptDate,
 			m.memberId,
+			t.memberName,
 			m.dispatchConsignee
-
 		FROM
 			k3_tb_dispatch_management AS m
-
+		INNER JOIN
+			k3_tb_release AS r
+		ON
+			m.releaseCode = r.releaseCode
+		INNER JOIN
+			k3_tb_member AS t
+		ON
+			m.memberId = t.memberId
+		INNER JOIN
+			k3_tb_driver as d
+		ON
+			m.driverId = d.driverId
 		WHERE
 			dispatchCode = #{dispatchCode};
 	</select>

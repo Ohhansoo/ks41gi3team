@@ -128,8 +128,8 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverName" class="inputName">차량 기사</label>
-										<input class="inputBox" type="hidden" id="driverId" name="driverId" th:value="${checkpointInfo.driverId}"/>
-										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${checkpointInfo.driverName}"/>
+										<input class="inputBox" type="hidden" id="driverId" name="driverId" th:value="${checkpointInfo.driverId}" readonly="readonly"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${checkpointInfo.driverName}" disabled="disabled"/>
 										<button class="checkpointDriverName_btn" type="button">등록</button>
 									</div>	
 									<div class="inputwrap col-md-12">

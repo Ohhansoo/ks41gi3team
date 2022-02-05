@@ -80,11 +80,15 @@
 			v.vehicleType,
 			v.vehicleInspectionDate,
 			v.memberId,
+			m.memberName,
 			v.vehicleManufacturer,
 			v.vehicleDriveAvailability
 		FROM
 			k3_tb_vehicle AS v
-		
+		INNER JOIN
+			k3_tb_member AS m
+		ON
+			v.memberId = m.memberId
 		WHERE
 			vehicleCode = #{vehicleCode};
 	</select>
