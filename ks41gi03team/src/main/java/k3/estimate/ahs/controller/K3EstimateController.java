@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import k3.contractor.ahs.dto.K3Contractor;
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.estimate.ahs.dto.K3Unit;
 import k3.estimate.ahs.service.K3EstimateService;
@@ -23,6 +25,17 @@ public class K3EstimateController {
 	
 	public K3EstimateController(K3EstimateService k3EstimateService) {
 		this.k3EstimateService = k3EstimateService;
+	}
+	
+	//견적서 등록페이지 거래처 모달창
+	@GetMapping("/contractorModalAjax")
+	@ResponseBody
+	public List<K3Contractor> K3GetContractor(){
+		
+		List<K3Contractor> K3Contractor = k3EstimateService.K3GetContractor();
+		
+		return K3Contractor;
+		
 	}
 	
 	//견적서 상세정보 모달창

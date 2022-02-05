@@ -94,12 +94,20 @@
 					var Emodal = '';
 					$("#Emodal").empty();
 
-					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >거래처 정보</th></tr>';
+					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >견적 정보</th></tr>';
 					Emodal += '<tr><th>견적 번호</th><td rel="estimateNum">'+data[0].estimateNum + '</td>';
 					Emodal += '<th>거래처 사업장 코드</th><td>'+data[0].contractorCode + '</td></tr>';
 					Emodal += '<tr><th>거래처 상호명</th><td>'+data[0].contractorName + '</td><th></th><td></td></tr>';
 					for(var i = 0; i < data.length; i++){
-						Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >상세견적' + (i+1) + '번</th></tr>';
+						if(data[i].unitContractDevision == '창고'){
+							Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">창고 견적</th></tr>';
+						}else if(data[i].unitContractDevision == '거리'){
+							Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">배송 거리 견적</th></tr>';
+						}else if(data[i].unitContractDevision == '송장'){
+							Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">송장 견적</th></tr>';
+						}else{
+							Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px">배송 차량 견적</th></tr>';
+						}
 						Emodal += '<tr><th>견적 상세번호</th><td>'+data[i].estimateDetailNum + '</td>';
 						Emodal += '<th>구분 단위</th><td>'+data[i].unitContractDevision + '</td></tr>';
 						Emodal += '<tr><th>계약 단위</th><td>'+data[i].unitContract + '</td>';
@@ -114,7 +122,7 @@
 						}
 					}
 					
-					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >견적 기타 정보</th></tr>';
+					Emodal += '<tr><th colspan="4" style="color:#3F72AF; font-size:17px" >견적 결과</th></tr>';
 					
 					Emodal += '<tr><th>견적합계(세금포함)</th><td>'+data[0].estimatePrice + '</td>';
 					Emodal += '<th>선입금액 견적</th><td>'+data[0].estimatePricePrepayment + '</td></tr>';
@@ -240,9 +248,7 @@
 							<table class="table table-head-fixed text-nowrap table-hover " style="border-bottom: 1px solid #D8D8D8; overflow: auto">
 								<thead>
 									<tr>
-										<th>
-											<input type="checkbox" name="checkEstimate"/>
-										</th>
+										<th>선택</th>
 										<th>상세</th>
 										<th>계약</th>
 										<th>수정</th>
