@@ -23,7 +23,14 @@ public class K3CategoryService {
 	}
 	//카테고리 삭제처리
 	public int k3DeleteCategory(List<String> deleteList) {
-		int result = k3CategoryMapper.k3DeleteCategory(deleteList);
+		int result;
+		try {
+			result = k3CategoryMapper.k3DeleteCategory(deleteList);
+			
+		} catch (Exception e) {
+			return 0;
+		}
+		
 		return result;
 	}
 	

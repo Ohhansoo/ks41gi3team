@@ -5,7 +5,7 @@
 	<th:block layout:fragment="customJs">
 		<script>
 			$(function(){				
-				$('#addCategoryBtn').on('click', function(){
+				$('#addProductBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/product/k3AddProduct';
 				});
 				$('#searchProductBtn').on('click', function(){
@@ -17,24 +17,36 @@
 					$('#searchForm').submit();
 				});
 				
-				$(document).on('click', '#deleteCategoryBtn', function(){
+				$(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
-					if(check.length > 0){
+ 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
+							$.ajax({
+								  url: '/team03/goodsManagement/product/k3DeleteProduct',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 상품이 사용중입니다.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
 						}
-						
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
-					}
+					} 
 				});
 			});
 		</script>
@@ -46,11 +58,11 @@
 				<div class="container-fluid">
 					<!--버튼 영역 -->			
 					<div class="d-flex justify-content-end">					
-						<button id="addCategoryBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="addProductBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>								
-						<button id="deleteCheckpointBtn" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>					

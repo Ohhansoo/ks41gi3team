@@ -31,6 +31,38 @@
 					}
 				});
 				<!--END 프린트 출력-->
+				
+				$(document).on('click', '#deleteBtn', function(){
+					var check = $('.deleteList:checked');
+					var deleteCheckList = [];
+					
+					$.each(check, function(){
+						deleteCheckList.push($(this).val());
+					});
+					
+ 					if(check.length > 0){
+						if(confirm(check.length + "개 항목을 삭제합니다.")){
+							$.ajax({
+								  url: '/team03/goodsManagement/stock/k3DeleteStock',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 상품이 사용중입니다.\n 먼저 출고 삭제해주세요.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
+						}
+					}else{
+						alert("삭제할 항목을 선택해주세요.");
+					} 
+				});
 			});
 		</script>
 	</th:block>
@@ -257,7 +289,7 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(detailStockList)}" th:each="l : ${detailStockList}">
 												<td>
-													<input type="checkbox" value="선택">
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.stockCode}">
 												</td>
 												<td>
 													<a th:href="@{/team03/goodsManagement/stock/k3ModifyStock(stockCode=${l.stockCode})}">

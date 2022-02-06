@@ -30,9 +30,11 @@
 			c
 		FROM
 			k3_tb_total_category AS c
-			<foreach collection="list" item="deleteList" open= "WHERE 1=2">
-				 or categoryCode = #{deleteList}
-			</foreach>
+			<trim prefix="WHERE" prefixOverrides="AND |OR">
+				<foreach collection="list" item="deleteList">
+					 or categoryCode = #{deleteList}
+				</foreach>
+			</trim>
 	</delete>
 	
 	<!-- 카테고리 수정처리  -->

@@ -17,7 +17,19 @@ public class K3ShipmentCheckService {
 	public K3ShipmentCheckService(K3ShipmentCheckMapper k3ShipmentCheckMapper) {
 		this.k3ShipmentCheckMapper = k3ShipmentCheckMapper;
 	}
-
+	//출하검수 삭제처리
+	public int k3DeleteShipment(List<String> deleteList) {
+		int result;
+		try {
+			result = k3ShipmentCheckMapper.k3DeleteShipment(deleteList);
+			
+		} catch (Exception e) {
+			return 0;
+		}
+		
+		return result;
+	}
+	
 	//출하검수 등록처리
 	public int k3AddShipmentCheck(K3Release k3Release) {
 		int result = k3ShipmentCheckMapper.k3AddShipmentCheck(k3Release);

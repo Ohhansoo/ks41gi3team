@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.stock.ahs.dto.K3Stock;
 import k3.stock.ahs.service.K3StockService;
@@ -33,6 +34,14 @@ public class K3StockController {
 	public K3StockController(K3StockService k3StockService, K3LaydownCheckService k3LaydownCheckService) {
 		this.k3StockService = k3StockService;
 		this.k3LaydownCheckService = k3LaydownCheckService;	
+	}
+	//재고 삭제처리
+	@PostMapping("/k3DeleteStock")
+	@ResponseBody
+	public int k3DeleteStock(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3StockService.k3DeleteStock(deleteList);
+		log.info("DeleteCategory 전송결과 : " + result);
+		return result;
 	}
 	
 	//재고현황 조회 처리

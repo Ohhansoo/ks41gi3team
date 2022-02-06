@@ -9,6 +9,8 @@ import k3.warehousing.ahs.dto.K3Warehousing;
 
 @Mapper
 public interface K3LaydownCheckMapper {
+	//입하검수 삭제처리
+	public int k3DeleteLaydown(List<String> deleteList);
 	//입하검수현황 조회처리
 	public List<Map<String,Object>> k3GetLaydownSearchList(Map<String, Object> searchCondition, Map<String,Object> paramMap);
 	//입하검수 등록하기

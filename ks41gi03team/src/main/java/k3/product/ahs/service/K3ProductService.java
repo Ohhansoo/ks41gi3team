@@ -17,6 +17,18 @@ public class K3ProductService {
 	public K3ProductService(K3ProductMapper k3ProductMapper) {
 		this.k3ProductMapper = k3ProductMapper;
 	}
+	//상품 삭제처리
+	public int k3DeleteProduct(List<String> deleteList) {
+		int result;
+		try {
+			result = k3ProductMapper.k3DeleteProduct(deleteList);
+			
+		} catch (Exception e) {
+			return 0;
+		}
+		
+		return result;
+	}
 	
 	//<모달> - 상품정보리스트
 	public List<K3Product> k3GetModalProductList() {

@@ -16,6 +16,18 @@ public class K3LaydownCheckService {
 	public K3LaydownCheckService(K3LaydownCheckMapper k3LaydownCheckMapper) {
 		this.k3LaydownCheckMapper = k3LaydownCheckMapper;
 	}
+	//입하검수 삭제처리
+	public int k3DeleteLaydown(List<String> deleteList) {
+		int result;
+		try {
+			result = k3LaydownCheckMapper.k3DeleteLaydown(deleteList);
+			
+		} catch (Exception e) {
+			return 0;
+		}
+		
+		return result;
+	}
 	
 	//입하검수현황 조회 처리
 	public Map<String, Object> k3GetLaydownSearchList(Map<String, Object> searchCondition, int currentPage) {

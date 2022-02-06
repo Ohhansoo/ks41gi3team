@@ -34,25 +34,37 @@
 				};
 						
 				
-				/* $(document).on('click', '#deleteBtn', function(){
+				$(document).on('click', '#deleteCategoryBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
-					if(check.length > 0){
+ 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
+							$.ajax({
+								  url: '/team03/goodsManagement/release/k3DeleteShipment',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 카테고리가 사용중입니다.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
 						}
-						
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
-					}
-				}); */
+					} 
+				});
 				
 				$('#releaseSearchBtn').on('click', function(){
 					$('#searchReleaseType').attr('value', 'release');
@@ -296,7 +308,7 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
 												<td>
-													<input type="checkbox" value="선택">
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.releaseCode}">
 												</td>
 												<td>
 													<a th:href="@{/team03/goodsManagement/release/k3ModifyShipmentCheck(releaseCode=${l.releaseCode})}">
