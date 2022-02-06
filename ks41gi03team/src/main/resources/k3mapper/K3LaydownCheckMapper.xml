@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="k3.check.ahs.mapper.K3CheckMapper">
+<mapper namespace="k3.warehousing.ahs.mapper.K3LaydownCheckMapper">
 	<resultMap id="warehousingResultMap" type="K3Warehousing" >
  		<id column="warehousingCode" property="warehousingCode" />
 		<result column="mainBusinessCode" property="mainBusinessCode" />
@@ -34,29 +34,6 @@
 				<result column="memberName" property="memberName" />
 			</association>
 	</resultMap>
-	
-	<resultMap id="releaseResultMap" type="K3Release">
- 		<result column="releaseCode" property="releaseCode" />
-		<result column="releaseGoodsCount" property="releaseGoodsCount" />
-		<result column="contractorId" property="contractorId" />
-		<result column="accepDate" property="accepDate" />
-		<result column="releaseDate" property="releaseDate" />
-		<result column="recipientName" property="recipientName" />
-		<result column="shipmentCheckManager" property="shipmentCheckManager" />
-		<result column="shipmentCheckRegDate" property="shipmentCheckRegDate" />
-		<result column="shipmentCheckResult" property="shipmentCheckResult" />
-			<association property="k3Contractor" javaType="K3Contractor">
-				<id column="contractorId" property="contractorId"/>
-				<result column="contractorName" property="contractorName" />
-			</association>
-			<association property="k3Product" javaType="K3Product">
-				<id column="productCode" property="productCode"/>
-				<result column="productName" property="productName" />
-			</association>
-
-	</resultMap>
-	
-	                                                          <!--입하검수  -->
 	
 	<!--입하검수조회  -->
 	<select id="k3GetLaydownSearchList" parameterType="Map" resultType="Map">

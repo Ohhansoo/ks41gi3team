@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import k3.check.ahs.controller.K3CheckController;
 import k3.release.ahs.dto.K3Release;
 import k3.release.ahs.service.K3ShipmentCheckService;
 import k3.stock.ahs.service.K3StockService;
@@ -21,9 +20,9 @@ import k3.stock.ahs.service.K3StockService;
 @RequestMapping(value="/team03/goodsManagement/release")
 public class K3ShipmentCheckController {
 
-	private static final Logger log = LoggerFactory.getLogger(K3CheckController.class);
-
 	
+	private static final Logger log = LoggerFactory.getLogger(K3ShipmentCheckController.class);
+
 	private final K3ShipmentCheckService k3ShipmentCheckService;
 	private final K3StockService k3StockService;
 

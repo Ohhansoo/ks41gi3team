@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import k3.check.ahs.dto.K3LaydownCheck;
 import k3.contract.ahs.dto.K3Contract;
 import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
