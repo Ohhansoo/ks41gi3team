@@ -13,6 +13,24 @@ import k3.estimate.ahs.dto.K3Unit;
 @Mapper
 public interface K3EstimateMapper {
 	
+	//견적서 등록 k3_tb_estimate
+	public int k3AddEstimate(K3Estimate k3Estimate);
+	
+	//견적서 창고 등록 k3_tb_estimate_detail
+	public int k3AddWareEstimate(K3Estimate k3Estimate);
+	
+	//견적서 송장 등록 k3_tb_estimate_detail
+	public int k3AddInvoiceilEstimate(K3Estimate k3Estimate);
+	
+	//견적서 차량 등록 k3_tb_estimate_detail
+	public int k3AddCarEstimate(K3Estimate k3Estimate);
+	
+	//견적서 거리 등록 k3_tb_estimate_detail
+	public int k3AddDistanceEstimate(K3Estimate k3Estimate);
+	
+	//등록페이지 값 정해주기
+	public List<Map<String, Object>> getEstimateDef();
+	
 	//견적서 등록페이지 거래처 모달창
 	public List<K3Contractor> K3GetContractor();
 	

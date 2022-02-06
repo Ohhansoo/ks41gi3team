@@ -27,6 +27,25 @@ public class K3EstimateController {
 		this.k3EstimateService = k3EstimateService;
 	}
 	
+	//견적서 등록처리
+	@PostMapping("/k3AddEstimate")
+	public String k3AddEstimate(@RequestParam(name = "invoiceUnitPrice", required = false) String invoiceUnitPrice
+								,@RequestParam(name = "carPrice", required = false) String carPrice
+								,@RequestParam(name = "unitPrice", required = false) String unitPrice
+								,K3Estimate k3Estimate) {
+		if(invoiceUnitPrice != null && invoiceUnitPrice != "".toString()) {
+			k3EstimateService.k3AddEstimate(k3Estimate);
+			k3EstimateService.k3AddWareEstimate(k3Estimate);
+			k3EstimateService.k3AddInvoiceilEstimate(k3Estimate);
+		}else if(carPrice != null && carPrice != "".toString() && unitPrice != null && unitPrice != "".toString()) {
+			k3EstimateService.k3AddEstimate(k3Estimate);
+			k3EstimateService.k3AddWareEstimate(k3Estimate);
+			k3EstimateService.k3AddCarEstimate(k3Estimate);
+			k3EstimateService.k3AddDistanceEstimate(k3Estimate);
+		}
+		return "redirect:/team03/contractorContract/Estimate/k3SearchEstimate";
+	}
+	
 	//견적서 등록페이지 거래처 모달창
 	@GetMapping("/contractorModalAjax")
 	@ResponseBody
@@ -57,12 +76,16 @@ public class K3EstimateController {
 		return k3Unit;
 	}
 	
-	//견적서 등록
+	//견적서 등록 페이지로 이동
 	@GetMapping("/k3AddEstimate")
 	public String K3GetAddEstimate(Model model) {
+		//직접 값 정해주기
+		List<Map<String, Object>> estimateDef = k3EstimateService.getEstimateDef();
 		
 		model.addAttribute("title", "견적서 관리");
 		model.addAttribute("subtitle", "견적서 등록");
+		model.addAttribute("estimateDef", estimateDef);
+
 		return "/team03/contractorContract/Estimate/k3AddEstimate";
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import k3.contractor.ahs.dto.K3Contractor;
+import k3.contractor.ahs.dto.K3DetailContractor;
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.estimate.ahs.dto.K3Unit;
 import k3.estimate.ahs.mapper.K3EstimateMapper;
@@ -17,6 +18,50 @@ import k3.estimate.ahs.mapper.K3EstimateMapper;
 public class K3EstimateService {
 	
 	private K3EstimateMapper k3EstimateMapper;
+	
+	//견적서 등록 k3_tb_estimate
+	public int k3AddEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3AddEstimate(k3Estimate);
+		
+		return result;
+	}
+	
+	//견적서 창고 등록 k3_tb_estimate_detail
+	public int k3AddWareEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3AddWareEstimate(k3Estimate);
+				
+		return result;
+	}
+	
+	//견적서 송장 등록 k3_tb_estimate_detail
+	public int k3AddInvoiceilEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3AddInvoiceilEstimate(k3Estimate);
+		
+		return result;
+	}
+	
+	//견적서 차량 등록 k3_tb_estimate_detail
+	public int k3AddCarEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3AddCarEstimate(k3Estimate);
+		
+		return result;
+	}
+	
+	//견적서 거리 등록 k3_tb_estimate_detail
+	public int k3AddDistanceEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3AddDistanceEstimate(k3Estimate);
+		
+		return result;
+	}
+	
+	//등록페이지 값 정해주기
+	public List<Map<String, Object>> getEstimateDef(){
+		
+		List<Map<String, Object>> estimateDef = k3EstimateMapper.getEstimateDef(); 
+		
+		return estimateDef;
+		
+	}
 	
 	//견적서 등록페이지 거래처 모달창
 	public List<K3Contractor> K3GetContractor(){

@@ -12,6 +12,7 @@
 	
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:inline="javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>		
 		<script>
 			$(function(){
 				<!-- 배송방식 선택 -->
@@ -36,18 +37,19 @@
 					$('#addEstimateBtn').prop('disabled', false);
 				});
 				$(document).on('click','#otherSelectBtn',function(){
+					$('#estimatePrice').val("");
 					$('#invoiceEstimate').hide();
 					$('#carEstimate').hide();
 					$('#devisionBtn').show();
 					$('#invoiceEstimate').prop('disabled', true);
 					$('#carEstimate').prop('disabled', true);
 					$('#addEstimateBtn').prop('disabled', true);
-					$('#estimatePrice').val() = "";
 				});
 				<!--END 배송방식 선택 -->
 				
 				<!-- 창고 단가 모달창 -->
 				$(document).on('click','#wareUnitBtn',function(){
+					
 					$('#Umodal').empty();
 					$.ajax({
 						url:"/team03/contractorContract/Estimate/k3UnitModalAjax",
@@ -66,7 +68,7 @@
 								Umodal += '<td>'+ data[i].unitContract +'</td>';
 								Umodal += '<td>'+ data[i].unitTerm +'</td>';
 								Umodal += '<td>'+ data[i].unitPay +'</td>';
-								Umodal += '<td><button type="submit" class="btn btn-outline-info selectWare"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
+								Umodal += '<td><button type="submit" class="selectWare"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
 							}
 						}
 						$('#Umodal').append(Umodal);
@@ -78,6 +80,15 @@
 
 				<!-- 선택한 창고 정보 가져오기 -->
 				$(document).on('click','.selectWare',function(){
+					$('#wareAmount').val(0);
+					$('#wareUnitPrice').val("");
+					$('#wareTermMulti').val(0);
+					$('#wareContractTerm').val("");
+					$('#wareUnitMulti').val("");
+					$('#estimatePrice').val("");
+					$('#estimatePricePrepayment').val("");
+					$('#estimatePriceMonth').val("");
+					
 					$('#unitModal').modal('hide');
 					var selectWare = $(this);
 					var tr = selectWare.parent().parent();
@@ -89,77 +100,80 @@
 					$('#wareTerm').val(td.eq(3).text());
 					$('#warePay').val(td.eq(4).text());
 
-					
-					
-
 				});
 				<!-- END 선택한 창고 정보 가져오기 -->
 				
-					<!-- 창고 계산 -->
-					if($('#warePay').val() != null){
-						$('#wareAmount').click(function(){
-							var warePayV = $('#warePay').val().replace(/,/g,"");
-							warePayV = warePayV * 1;
-							var wareAmountV = $('#wareAmount').val();
-							var wareUnitPriceV = warePayV * wareAmountV;
-							wareUnitPriceV = wareUnitPriceV.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-							$('#wareUnitPrice').val(wareUnitPriceV);
-							
-						});
-						$('#wareAmount').keyup(function(){
-							var warePayV = $('#warePay').val().replace(/,/g,"");
-							warePayV = warePayV * 1;
-							var wareAmountV = $('#wareAmount').val();
-							var wareUnitPriceV = warePayV * wareAmountV;
-							wareUnitPriceV = wareUnitPriceV.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-							$('#wareUnitPrice').val(wareUnitPriceV);
-						});
+				<!-- 창고 계산 -->
+				$('#wareAmount').click(function(){
+					if($('#warePay').val() != ""){
+						var warePayV = $('#warePay').val().replace(/,/g,"");
+						warePayV = warePayV * 1;
+						var wareAmountV = $('#wareAmount').val();
+						var wareUnitPriceV = (warePayV * wareAmountV).toString();
+						wareUnitPriceV = wareUnitPriceV.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#wareUnitPrice').val(wareUnitPriceV);
 					}
-					<!-- END 창고 계산 -->
+				});
+				$('#wareAmount').keyup(function(){
+					if($('#warePay').val() != ""){
+						var warePayV = $('#warePay').val().replace(/,/g,"");
+						warePayV = warePayV * 1;
+						var wareAmountV = $('#wareAmount').val();
+						var wareUnitPriceV = (warePayV * wareAmountV).toString();
+						wareUnitPriceV = wareUnitPriceV.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#wareUnitPrice').val(wareUnitPriceV);
+					}
+				});
+				<!-- END 창고 계산 -->
+			
+				<!-- 계약기간 계산 -->
+				$('#wareTermMulti').click(function(){
+					if($('#wareTerm').val() != ""){
+						var wareTermV = $('#wareTerm').val().replace("개월","");
+						wareTermV = wareTermV * 1;
+						var wareTermMultiV = $('#wareTermMulti').val();
+						var wareContractTermV = (wareTermV * wareTermMultiV).toString();
+						wareContractTermV += "개월";
+						$('#wareContractTerm').val(wareContractTermV);
+					}
+				});
+				$('#wareTermMulti').keyup(function(){
+					if($('#wareTerm').val() != ""){
+						var wareTermV = $('#wareTerm').val().replace("개월","");
+						wareTermV = wareTermV * 1;
+						var wareTermMultiV = $('#wareTermMulti').val();
+						var wareContractTermV = (wareTermV * wareTermMultiV).toString();
+						wareContractTermV += "개월";
+						$('#wareContractTerm').val(wareContractTermV);
+					}
+				});
+				<!-- END 계약기간 계산 -->
 				
-					<!-- 계약기간 계산 -->
-					if($('#wareTerm').val() != null){
-						$('#wareTermMulti').click(function(){
-							var wareTermV = $('#wareTerm').val().replace("개월","");
-							wareTermV = wareTermV * 1;
-							var wareTermMultiV = $('#wareTermMulti').val();
-							var wareContractTermV = (wareTermV * wareTermMultiV).toString();
-							wareContractTermV += "개월";
-							$('#wareContractTerm').val(wareContractTermV);
-						});
-						$('#wareTermMulti').keyup(function(){
-							var wareTermV = $('#wareTerm').val().replace("개월","");
-							wareTermV = wareTermV * 1;
-							var wareTermMultiV = $('#wareTermMulti').val();
-							var wareContractTermV = (wareTermV * wareTermMultiV).toString();
-							wareContractTermV += "개월";
-							$('#wareContractTerm').val(wareContractTermV);
-						});
-					}
-					<!-- END 계약기간 계산 -->
+				<!-- 총 창고 견적금액 -->
 					
-					<!-- 총 창고 견적금액 -->
-					if($('#wareTerm').val() != null &&  $('#warePay').val() != null){
-						$(document).click(function(){
-							var wareContractTerm = $('#wareContractTerm').val().replace("개월","");
-							wareContractTerm = wareContractTerm * 1;
-							var wareUnitPrice = $('#wareUnitPrice').val().replace(/,/g ,"");
-							wareUnitPrice = wareUnitPrice * 1;
-							var wareUnitMulti = (wareContractTerm*wareUnitPrice).toString();
-							wareUnitMulti = wareUnitMulti.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-							$('#wareUnitMulti').val(wareUnitMulti);
-						});
-						$(document).keyup(function(){
-							var wareContractTerm = $('#wareContractTerm').val().replace("개월","");
-							wareContractTerm = wareContractTerm * 1;
-							var wareUnitPrice = $('#wareUnitPrice').val().replace(/,/g ,"");
-							wareUnitPrice = wareUnitPrice * 1;
-							var wareUnitMulti = (wareContractTerm*wareUnitPrice).toString();
-							wareUnitMulti = wareUnitMulti.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-							$('#wareUnitMulti').val(wareUnitMulti);
-						});
+				$(document).click(function(){
+					if($('#wareTerm').val() != "" && $('#warePay').val() != ""){
+						var wareContractTerm = $('#wareContractTerm').val().replace("개월","");
+						wareContractTerm = wareContractTerm * 1;
+						var wareUnitPrice = $('#wareUnitPrice').val().replace(/,/g ,"");
+						wareUnitPrice = wareUnitPrice * 1;
+						var wareUnitMulti = (wareContractTerm*wareUnitPrice).toString();
+						wareUnitMulti = wareUnitMulti.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#wareUnitMulti').val(wareUnitMulti);
 					}
-					<!-- END 총 창고 견적금액 -->
+				});
+				$(document).keyup(function(){
+					if($('#wareTerm').val() != "" && $('#warePay').val() != ""){
+						var wareContractTerm = $('#wareContractTerm').val().replace("개월","");
+						wareContractTerm = wareContractTerm * 1;
+						var wareUnitPrice = $('#wareUnitPrice').val().replace(/,/g ,"");
+						wareUnitPrice = wareUnitPrice * 1;
+						var wareUnitMulti = (wareContractTerm*wareUnitPrice).toString();
+						wareUnitMulti = wareUnitMulti.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#wareUnitMulti').val(wareUnitMulti);
+					}
+				});
+				<!-- END 총 창고 견적금액 -->
 				
 				<!-- 송장 단가 모달창 -->
 				$(document).on('click','#inovoiceUnitBtn',function(){
@@ -181,7 +195,7 @@
 								Umodal += '<td>'+ data[i].unitContract +'</td>';
 								Umodal += '<td></td>';
 								Umodal += '<td>'+ data[i].unitPay +'</td>';
-								Umodal += '<td><button type="submit" class="btn btn-outline-info selectInvoice"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
+								Umodal += '<td><button type="submit" class="selectInvoice"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
 							}
 						}
 						$('#Umodal').append(Umodal);
@@ -192,6 +206,13 @@
 
 				<!-- 선택한 송장 정보 가져오기 -->
 				$(document).on('click','.selectInvoice',function(){
+					
+					$('#invoiceAmount').val(0);
+					$('#invoiceUnitPrice').val("");
+					$('#estimatePrice').val("");
+					$('#estimatePricePrepayment').val("");
+					$('#estimatePriceMonth').val("");
+
 					$('#unitModal').modal('hide');
 					var selectInvoice = $(this);
 					var tr = selectInvoice.parent().parent();
@@ -246,7 +267,7 @@
 								Umodal += '<td>'+ data[i].unitContract +'</td>';
 								Umodal += '<td></td>';
 								Umodal += '<td>'+ data[i].unitPay +'</td>';
-								Umodal += '<td><button type="submit" class="btn btn-outline-info selectCar"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
+								Umodal += '<td><button type="submit" class="selectCar"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
 							}
 						}
 						$('#Umodal').append(Umodal);
@@ -257,6 +278,13 @@
 
 				<!-- 선택한 배송차량 정보 가져오기 -->
 				$(document).on('click','.selectCar',function(){
+					
+					$('#carAmount').val(0);
+					$('#carPrice').val("");
+					$('#estimatePrice').val("");
+					$('#estimatePricePrepayment').val("");
+					$('#estimatePriceMonth').val("");
+
 					$('#unitModal').modal('hide');
 					var selectCar = $(this);
 					var tr = selectCar.parent().parent();
@@ -312,7 +340,7 @@
 								Umodal += '<td>'+ data[i].unitContract +'</td>';
 								Umodal += '<td></td>';
 								Umodal += '<td>'+ data[i].unitPay +'</td>';
-								Umodal += '<td><button type="submit" class="btn btn-outline-info selectUnit"><i class="bi bi-arrow-down-square"></i></button><td></tr>';
+								Umodal += '<td><button type="submit" class="selectUnit"><i class="bi bi-arrow-down-square"></i></button><td></tr>';
 							}
 						}
 						$('#Umodal').append(Umodal);
@@ -323,6 +351,13 @@
 
 				<!-- 선택한 배송거리 정보 가져오기 -->
 				$(document).on('click','.selectUnit',function(){
+					
+					$('#unitAmount').val(0);
+					$('#unitPrice').val("");
+					$('#estimatePrice').val("");
+					$('#estimatePricePrepayment').val("");
+					$('#estimatePriceMonth').val("");
+					
 					$('#unitModal').modal('hide');
 					var selectCar = $(this);
 					var tr = selectCar.parent().parent();
@@ -356,35 +391,63 @@
 				});
 				<!-- END 거리 계산 -->
 				
-				<!-- 차량 계산 -->
-				if(!$('#carEstimate').is(':disabled') && $('#unitPrice').val() != ''.toString && $('#carPrice').val() != ''.toString && $('#wareUnitMulti').val() != ''.toString){
-					$(document).click(function(){
+				<!-- 견적(차량) 결과 -->
+				$(document).click(function(){
+					if($('#carEstimate').prop('disabled') == false && $('#unitPrice').val() != "" && $('#carPrice').val() !="" && $('#wareUnitMulti').val() != ""){
 						var unitPrice = $('#unitPrice').val().replace(/,/g,"");
 						unitPrice = unitPrice*1;
 						var carPrice = $('#carPrice').val().replace(/,/g,"");
 						carPrice = carPrice*1;
 						var wareUnitMulti = $('#wareUnitMulti').val().replace(/,/g,"");
 						wareUnitMulti = wareUnitMulti*1;
-						var estimatePrice = (unitPrice + carPrice + wareUnitMulti).toString();
-						estimatePrice = estimatePrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						<!-- 총합계-->
+						var estimatePrice = (unitPrice + carPrice + wareUnitMulti);
+						<!-- 선입금액-->
+						var estimatePricePrepayment = (estimatePrice/10);
+						<!-- 월납입금액-->
+						var wareContractTerm = $('#wareContractTerm').val().replace("개월","")*1;
+						var estimatePriceMonth = Math.ceil((estimatePrice-estimatePricePrepayment)/wareContractTerm);
+						
+						estimatePrice = estimatePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 						$('#estimatePrice').val(estimatePrice);
-					});
-				}
-				<!-- END 차량 계산 -->
+						
+						estimatePricePrepayment = estimatePricePrepayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#estimatePricePrepayment').val(estimatePricePrepayment);
+						
+						estimatePriceMonth = estimatePriceMonth.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#estimatePriceMonth').val(estimatePriceMonth);
+					}
+				});
+				<!-- END 견적(차량) 결과 -->
 			
-				<!-- 송장 계산 -->
-				if(!$('#invoiceEstimate').is(':disabled') == false && $('#invoiceUnitPrice').val() != ''.toString && $('#wareUnitMulti').val() != ''.toString){
-					$(document).click(function(){
+				<!-- 견적(송장) 결과 -->
+				$(document).click(function(){
+					if($('#invoiceEstimate').prop('disabled') == false && $('#invoiceUnitPrice').val() !="" && $('#wareUnitMulti').val() != ""){
 						var invoiceUnitPrice = $('#invoiceUnitPrice').val().replace(/,/g,"");
 						invoiceUnitPrice = invoiceUnitPrice*1;
 						var wareUnitMulti = $('#wareUnitMulti').val().replace(/,/g,"");
 						wareUnitMulti = wareUnitMulti*1;
-						var estimatePrice = (invoiceUnitPrice + wareUnitMulti).toString();
-						estimatePrice = estimatePrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						
+						<!-- 총합계-->
+						var estimatePrice = (invoiceUnitPrice + wareUnitMulti);
+						<!-- 선입금액-->
+						var estimatePricePrepayment = (estimatePrice/10);
+						<!-- 월납입금액-->
+						var wareContractTerm = $('#wareContractTerm').val().replace("개월","")*1;
+						var estimatePriceMonth = Math.ceil((estimatePrice-estimatePricePrepayment)/wareContractTerm);
+						
+						estimatePrice = estimatePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 						$('#estimatePrice').val(estimatePrice);
-					});
-				}
-				<!-- END 송장 계산 -->
+						
+						estimatePricePrepayment = estimatePricePrepayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#estimatePricePrepayment').val(estimatePricePrepayment);
+						
+						estimatePriceMonth = estimatePriceMonth.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$('#estimatePriceMonth').val(estimatePriceMonth);
+						
+					}
+				});
+				<!-- END 견적(송장) 결과 -->
 			
 				
 				<!-- 거래처 목록 모달창 -->
@@ -416,7 +479,7 @@
 								orderable : false,
 								searchable : false,
 								render :function (data, type, row){
-									var Cmodal ='<button type="submit" class="btn btn-outline-info selectContractor"><i class="bi bi-arrow-down-square"></i></button>';
+									var Cmodal ='<button type="submit" class="selectContractor"><i class="bi bi-arrow-down-square"></i></button>';
 									return Cmodal
 								}
 							}
@@ -437,6 +500,53 @@
 										
 				});
 				<!-- END 선택한 거래처 정보 가져오기 -->
+				
+				<!-- 빈칸 검사 기능 -->
+				$(document).on('click', '#addEstimateBtn', function(){
+
+					if($('#carEstimate').prop('disabled') || $('#invoiceEstimate').prop('disabled')){
+						if($('#estimatePrice').val() != "" && $('#contractorCode').val() !=""){
+							swal({
+								title: "등록 하시겠습니까?",
+								text: "등록하신 견적서는 데이터에 저장됩니다.",
+								icon: "warning",
+								buttons: {
+									confirm: {
+										text: "네",
+										value: true,
+										visible: true,
+										className: "btn btn-outline-info ",
+										closeModal: true,
+									},
+									cancel: {
+										text: "아니요",
+										value: null,
+										visible: true,
+										className: "btn btn-outline-info ",
+										closeModal: true
+									}
+								}
+							})
+							.then(function(value){
+								if(value){
+									swal("등록 성공:)","견적서가 성공적으로 등록되었습니다.","success");
+									setTimeout(function(){$('#addEstimateBtn').submit();},1000);
+								}else{
+									swal("등록 취소!","견적서 등록이 취소되었습니다.","error");
+									return false;
+								}
+							});	
+						}else if($('#contractorCode').val() ==""){
+							swal("거래처를 선택하세요!", "거래처 버튼을 누르면 거래처를 선택할 수 있는 목록이 나타납니다." ,"error");
+							return false
+						}
+						else{
+							swal("견적 계산을 끝내주세요!", "단가표에서 단가를 선택하고 수량을 입력하면 자동으로 계산됩니다." ,"error");
+							return false
+						}
+					}
+				});
+				<!-- END 빈칸 검사 기능 -->				
 			});
 		</script>
 	</th:block>	
@@ -445,25 +555,25 @@
 		<!--카드 영역 -->
 		<div class="container container-fluid ">
 			<form id="addEstimateForm" th:action="@{/team03/contractorContract/Estimate/k3AddEstimate}" method="post">
-				<div class="d-flex">
+				<div class="d-flex" th:each="ed : ${estimateDef}">
 					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
 						<div class="estimateLabel">
 							<label>| 창고 견적 |</label>							
 						</div>					  	
 						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+				 			<input  class="form-control" type="text" name="estimateDetailNum1" th:value="${ed.estimateDetailNum1}" id="estimateDetailNum" placeholder="자동 지정" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" id="wareCode" type="text" name="UnitPriceCode" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control" id="wareCode" type="text" name="wareCode" placeholder="단가코드" readonly/>
 				 			<button type="button" id="wareUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">구분 단위</span>
-				  			<input  class="form-control" id="wareDevision" type="text" name="unitContractDevision" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control" id="wareDevision" type="text" name="wareDevision" placeholder="구분" readonly/>
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" id="wareContract" type="text" name="unitContract" placeholder="불러온 값 지정"  readonly/>
+				  			<input class="form-control" id="wareContract" type="text" name="wareContract" placeholder="계약단위"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">창고 유형</span>
@@ -477,29 +587,29 @@
 				  		<div class=" input-group">
 				  			<span class="input-group-text">단위별 견적금액</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" id="warePay" type="text" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<input  class="form-control" id="warePay" type="text" name="warePay" placeholder="단위 가격" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input  class="form-control" id="wareAmount" type="number" min="0" name="unitContractDevisionAmount" value="0" placeholder="견적 수량"/>
+					  			<input  class="form-control" id="wareAmount" type="number" min="0" name="wareAmount" value="0" placeholder="견적 수량"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" name="estimateUnitPrice" id="wareUnitPrice" placeholder="단위별 견적금액" readonly/>
+					  			<input class="form-control" type="text" name="wareUnitPrice" id="wareUnitPrice" placeholder="견적금액" readonly/>
 				  			</div>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 기간</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input class="form-control" id="wareTerm" type="text" name="unitTerm" placeholder="최소 기간(월)" readonly/>
+					  			<input class="form-control" id="wareTerm" type="text" name="wareTerm" placeholder="최소 기간(월)" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input class="form-control" value="0" min="0" type="number" name="estimateTermMulti" id="wareTermMulti" placeholder="기간곱"/>
+					  			<input class="form-control" value="0" min="0" type="number" name="wareTermMulti" id="wareTermMulti" placeholder="기간곱"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" name="estimateContractTerm" id="wareContractTerm" placeholder="계약 기간(월)" readonly/>
+					  			<input class="form-control" type="text" name="wareContractTerm" id="wareContractTerm" placeholder="계약 기간(월)" readonly/>
 							</div>
 				  		</div>
 				  		<div class="input-group">
@@ -522,31 +632,31 @@
 						</div>					  	
 						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+				 			<input  class="form-control" type="text" name="estimateDetailNum2" th:value="${ed.estimateDetailNum2}"  id="estimateDetailNum" placeholder="자동 지정" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" type="text" id="invoiceCode" name="UnitPriceCode" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control" type="text" id="invoiceCode" name="invoiceCode" placeholder="단가코드" readonly/>
 				 			<button type="button" id="inovoiceUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">구분 단위</span>
-				  			<input  class="form-control" type="text" id="invoiceDevision" name="unitContractDevision" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control" type="text" id="invoiceDevision" name="invoiceDevision" placeholder="구분" readonly/>
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" type="text" name="unitContract" id="inovoiceContract" placeholder="불러온 값 지정"  readonly/>
+				  			<input class="form-control" type="text" name="inovoiceContract" id="inovoiceContract" placeholder="계약단위"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">단위별 견적금액</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" id="invoicePay" type="text" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<input  class="form-control" id="invoicePay" type="text" name="invoicePay" placeholder="단위 가격" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input  class="form-control" type="number" id="invoiceAmount" value="0" min="0"  name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<input  class="form-control" type="number" id="invoiceAmount" value="0" min="0"  name="invoiceAmount"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" name="estimateUnitPrice" id="invoiceUnitPrice" placeholder="단위별 견적금액" readonly/>
+					  			<input class="form-control" type="text" name="invoiceUnitPrice" id="invoiceUnitPrice" placeholder="견적금액" readonly/>
 				  			</div>
 				  		</div>
 			  			<div class="input-group" style="padding-bottom:0px">
@@ -559,31 +669,31 @@
 						</div>					  	
 						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+				 			<input  class="form-control" type="text" name="estimateDetailNum3" th:value="${ed.estimateDetailNum3}" id="estimateDetailNum3" placeholder="자동 지정" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" type="text" id="carCode" name="UnitPriceCode" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control" type="text" id="carCode" name="carCode" placeholder="단가코드" readonly/>
 				 			<button type="button" id="carUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">배송 단위</span>
-				  			<input  class="form-control"  type="text" id="carDevision" name="unitContractDevision" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control"  type="text" id="carDevision" name="carDevision" placeholder="배송" readonly/>
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input  class="form-control"  type="text" id="carContract" name="unitContract" placeholder="불러온 값 지정" readonly/>
+				  			<input  class="form-control"  type="text" id="carContract" name="carContract" placeholder="계약단위" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">단위별 견적금액</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" type="text" id="carPay" name="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<input  class="form-control" type="text" id="carPay" name="carPay" placeholder="단위 가격" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input  class="form-control" type="number" id="carAmount" value="0" min="0" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<input  class="form-control" type="number" id="carAmount" value="0" min="0" name="carAmount"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" id="carPrice" name="estimateUnitPrice" placeholder="단위별 견적금액" readonly/>
+					  			<input class="form-control" type="text" id="carPrice" name="carPrice" placeholder="견적금액" readonly/>
 				  			</div>
 				  		</div>
 						<div class="estimateLabel">
@@ -591,31 +701,31 @@
 						</div>					  	
 						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+				 			<input  class="form-control" type="text" name="estimateDetailNum4" th:value="${ed.estimateDetailNum4}" id="estimateDetailNum4" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">단가 코드</span>
-				  			<input class="form-control" type="text" name="UnitPriceCode" id="UnitPriceCode" placeholder="불러온 값 지정"  readonly/>
+				  			<input class="form-control" type="text" name="UnitPriceCode" id="UnitPriceCode" placeholder="단가 코드"  readonly/>
 				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">배송 단위</span>
-				  			<input class="form-control" type="text" name="unitContractDevision" id="unitContractDevision" placeholder="불러온 값 지정"  readonly/>
+				  			<input class="form-control" type="text" name="unitContractDevision" id="unitContractDevision" placeholder="배송"  readonly/>
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="불러온 값 지정"  readonly/>
+				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="계약단위"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">단위별 견적금액</span>
 				  			<div class="input-group" style="padding-bottom:0px">
-					  			<input  class="form-control" type="text" name="unitPay" id="unitPay" placeholder="단위 당 가격" readonly/>
+					  			<input  class="form-control" type="text" name="unitPay" id="unitPay" placeholder="단위 가격" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input  class="form-control" value="0" min="0" id="unitAmount" type="number" name="unitContractDevisionAmount" placeholder="견적 수량"/>
+					  			<input  class="form-control" value="0" min="0" id="unitAmount" type="number" name="unitContractDevisionAmount"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" name="estimateUnitPrice" id="unitPrice" placeholder="단위별 견적금액" readonly/>
+					  			<input class="form-control" type="text" name="unitPrice" id="unitPrice" placeholder="견적금액" readonly/>
 				  			</div>
 				  		</div>
 			  			<div class="input-group" style="padding-bottom:0px">
@@ -633,30 +743,30 @@
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">견적 번호</span>
-				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum" placeholder="자동 지정" readonly/>
+				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum"  th:value="${ed.estimateNum}" readonly/>
 				  		</div>
 						<div class="estimateLabel">
 							<label>| 견적 결과 |</label>							
 						</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">견적합계(VAT)</span>
-				  			<input class="form-control" id="estimatePrice" type="text" name="estimatePrice" placeholder="상세견적의 총합" readonly/>
+				  			<input class="form-control" id="estimatePrice" type="text" name="estimatePrice" placeholder="단위별 견적의 총합" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">선입금액 견적</span>
-				 			<input class="form-control" numOnly type="text" name="estimatePricePrepayment" placeholder="견적합계의 10%" id="estimatePricePrepayment" readonly/>
+				 			<input class="form-control" id="estimatePricePrepayment" type="text" name="estimatePricePrepayment" placeholder="견적합계의 10%"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">월납입금액 견적</span>
-					 		<input class="form-control" numOnly type="text" name="estimatePriceMonth" id="estimatePriceMonth" placeholder="(견적합계-선입금액)/계약 기간" readonly/>
+					 		<input class="form-control" id="estimatePriceMonth" type="text" name="estimatePriceMonth"  placeholder="(견적합계-선입금액)/계약 기간" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">견적 측정 일자</span>
-				 			<input class="form-control" numOnly type="text" name="estimateMeasureDate" id="estimateMeasureDate" maxLength="3" readonly/>
+				 			<input class="form-control" type="text" name="estimateMeasureDate" id="estimateMeasureDate" th:value="${ed.estimateMeasureDate}" maxLength="3" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">등록 직원 아이디</span>
-				 			<input class="form-control" numOnly type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" maxLength="3" readonly/>
 				  		</div>				  		
 					</div>	
 				</div>
