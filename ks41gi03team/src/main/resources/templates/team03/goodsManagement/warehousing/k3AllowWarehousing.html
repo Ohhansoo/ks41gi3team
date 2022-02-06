@@ -8,9 +8,9 @@
 				$('#cancelBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3WarehousingList';
 				});
+				$(document).on('click','#allowWarehousingBtn', function(){
 				//클릭한 체크박스 개수 구하기
 				var checkCount= $('input:checked').length;
-				$(document).on('click','#allowWarehousingBtn', function(){
 					if(checkCount > 0){
 					$('#YesOrNo').attr('value','Y');
 					$('#allowTable').submit();										
@@ -19,6 +19,8 @@
 					}
 				});
 				$(document).on('click','#rejectWarehousingBtn', function(){
+					//클릭한 체크박스 개수 구하기
+					var checkCount= $('input:checked').length;
 					if(checkCount > 0){
 						$('#YesOrNo').attr('value','R');
 						$('#allowTable').submit();										
