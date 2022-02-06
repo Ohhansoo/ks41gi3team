@@ -62,64 +62,6 @@
 					if(submitCheck) $('#userInfo').submit();
 				});
 				
-			 //모달
-				var modal = $('#busuinesModal');
-				
-				$(".exitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-		
-				$(document).on('click', '#mainbusinesscode_btn', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10]);
-					aLengthMenuArray.push([5,10]);
-					
-					$('#k3ourcompanymodal').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/companymanagement/ourcompany/k3ourcompanymodal',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "mainBusinessCode"}
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="mainBusinessCode" name="mainBusinessCode" value="'+ row.mainBusinessCode +'">'
-									return htmlbtn;
-								}
-							}
-						]
-					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
-				
-				$(document).on('click', '#ourcompanyConfirmBtn', function(){
-					var checkedBox = $('.mainBusinessCode:checked');
-	 				var mainBusinessCode = $('#mainBusinessCode');
-					
-	 				var mainBusinessCodeValue = checkedBox.parent().parent().children().eq(1).text();
-	 				
-	 				mainBusinessCode.attr('value',mainBusinessCodeValue);
-
-					modal.addClass('hidden');
-				});
-				//모달 끝
-				
 				//중복검사
 				$('#dupclicate_btn').click(function(){
 
@@ -148,7 +90,6 @@
 								$('#userInfo select').prop('disabled', false);
 								$('#userInfo button').prop('disabled', false);
 							}
-							
 						});				
 						request.fail(function( jqXHR, textStatus ) {
 						  alert( "Request failed: " + textStatus );
@@ -236,19 +177,20 @@
 							<div class="row">
 								<form id="ourCompanyInfo" th:action="@{/team03/companymanagement/ourcompany/k3AddOurCompanyList}" method="post">
 									<div class="inputwrap col-md-12">
-										<label for="largeCategoryInput" class="inputName">사업장별 대표코드</label>
-										<input class="inputBox" type="text" data-input-label="사업장별 대표코드" id="mainBusinessCode" name="mainBusinessCode" placeholder="예시)  물류센터_A물류센터_경남_1"> 
+										<label for="mainBusinessCodeInput" class="inputName">사업장별 대표코드</label>
+										<input class="inputBox" type="text" data-input-label="사업장별 대표코드" id="mainBusinessCode" name="mainBusinessCode" placeholder="예시)  물류센터_A물류센터_경남_1">
+										<button type="button" id="dupclicate_btn" class="btn btn-primary btn-sm">중복확인 </button> 
 									</div>
 									<div class="inputwrap col-md-12">
-										<label for="mediumCategoryInput" class="inputName">거래처 구분코드</label>
+										<label for="businessCodeInput" class="inputName">거래처 구분코드</label>
 										<input class="inputBox" type="text" id="businessCode" name="businessCode" placeholder="예시) merge_ware">
 									</div>	
 									<div class="inputwrap col-md-12">
-										<label for="smallCategoryInput" class="inputName">사업장 권한</label>
+										<label for="businessLevelCodeInput" class="inputName">사업장 권한</label>
 										<input class="inputBox" type="text" id="businessLevelCode" name=businessLevelCode placeholder="예시) ware4">
 									</div>								
 									<div class="inputwrap col-md-12">
-										<label for="memberRegDate" class="inputName">사업장코드 등록일자</label>
+										<label for="businessCodeRegistrationDate" class="inputName">사업장코드 등록일자</label>
 										<input class="inputBox" type="date" id="businessCodeRegistrationDate" data-input-label="등록일자" name="businessCodeRegistrationDate">
 									</div>
 									<div class="inputwrap col-md-12">
