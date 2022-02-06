@@ -112,8 +112,8 @@
 		
 				$(document).on('click', '.dispatchDriverName_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#dispatchDriverName').DataTable({
 						destroy: true,
@@ -254,8 +254,8 @@
 				
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">배차 담당자</label>
-										<input class="inputBox" type="hidden" id="memberId" name="memberId"/>
-										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="배차 담당자를 등록해주세요"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId" readonly="readonly"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="배차 담당자를 등록해주세요" disabled="disabled"/>
 										<button class="dispatchMemberId_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
