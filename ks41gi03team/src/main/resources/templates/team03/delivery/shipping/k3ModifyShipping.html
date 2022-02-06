@@ -5,8 +5,15 @@
 	<th:block layout:fragment="customTitle">
 		<title>ksmart41</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script>
+	
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/jiwonee.css}">
+		<link rel="stylesheet" th:href="@{/css/modal.css}">
+	</th:block>
+	
+	<th:block layout:fragment="customJs">
+		<script type="text/javascript">
 		$(function(){
 			$('#cancelBtn').on('click', function(){
 
@@ -107,8 +114,8 @@
 		
 				$(document).on('click', '.shippingDriverName_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#shippingDriverName').DataTable({
 						destroy: true,
@@ -159,8 +166,9 @@
 				});
 				});
 			</script>	
-	
+		</th:block>
 		
+		<th:block layout:fragment="customContents">
 		<div id="representative-button">
 			<div id="representative-button">
 				<!-- 콘텐츠 콘테이너 시작 -->
@@ -174,7 +182,7 @@
 						<!--End card header -->
 						<!--card body -->
 						<div class="card-body">
-	 							<form th:action="@{/team03/delivery/shipping/k3ModifyShipping}" method="post">
+	 							<form id="userInfo" th:action="@{/team03/delivery/shipping/k3ModifyShipping}" method="post">
 									<div class="inputwrap col-md-12">
 										<label for="shippingCode" class="inputName">배송 번호</label>
 										<input class="inputBox" type="text" id="shippingCode" name="shippingCode" th:value="${shippingInfo.shippingCode}" readonly style="background-color:#BDBDBD"/>
@@ -260,8 +268,10 @@
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>	
+									<th>기사 아이디</th>
 									<th>기사 이름</th>
-									<th>차량 코드</th>
+									<th>기사 전화번호</th>
+									<th>등록일자</th>
 								</tr>
 							</thead>
 						</table>				
