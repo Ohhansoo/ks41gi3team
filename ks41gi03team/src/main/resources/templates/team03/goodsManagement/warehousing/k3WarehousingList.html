@@ -5,7 +5,8 @@
 	<th:block layout:fragment="customJs">
 		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript">
-			$(function(){				
+			$(function(){
+
 				$('#addWarehousingBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
 				});
@@ -35,15 +36,28 @@
 						deleteCheckList.push($(this).val());
 					});
 					
-					if(check.length > 0){
+ 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
+							$.ajax({
+								  url: '/team03/goodsManagement/warehousing/k3DeleteLaydown',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 상품이 사용중입니다.\n 먼저 재고/출고 삭제해주세요.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
 						}
-						
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
-					}
+					} 
 				});
 				//sse로 요청목록 개수 가져오기
 				var sse = new EventSource('/team03/goodsManagement/warehousing/sse');
@@ -326,7 +340,7 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
 												<td>
-													<input type="checkbox" value="선택">
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.warehousingCode}">
 												</td>
 												<td>
 													<a th:href="@{/team03/goodsManagement/warehousing/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">

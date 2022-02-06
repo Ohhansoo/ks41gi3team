@@ -31,6 +31,19 @@
 			<result column="laydownDate" property="laydownDate"/>
 		</association>
 	</resultMap>
+	<!--재고 삭제처리  -->
+	<delete id="k3DeleteStock" parameterType="list">
+		DELETE
+			s
+		FROM
+			k3_tb_stock AS s
+			<trim prefix="WHERE" prefixOverrides="AND |OR">
+				<foreach collection="list" item="deleteList">
+					 or stockCode = #{deleteList}
+				</foreach>
+			</trim>
+	</delete>
+	
 	<!--출고에 따른 재고 업데이트  -->
 	<update id="k3SubtractStock">
 		UPDATE 

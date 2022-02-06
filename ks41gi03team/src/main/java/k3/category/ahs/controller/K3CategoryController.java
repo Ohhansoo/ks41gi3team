@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.category.ahs.dto.K3Category;
 import k3.category.ahs.service.K3CategoryService;
@@ -49,13 +50,14 @@ public class K3CategoryController {
 	}
 	//카테고리 삭제처리
 	@PostMapping("/k3DeleteCategory")
-	public String k3DeleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+	@ResponseBody
+	public int k3DeleteCategory(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
 		int result = k3CategoryService.k3DeleteCategory(deleteList);
 		//Map<String, List<String>> map = new HashMap<String, List<String>>();
 		//map.put("deleteList", deleteList);
 		//log.info("DeleteCategory 전송결과 : " + map.values());
 		log.info("DeleteCategory 전송결과 : " + result);
-		return "redirect:/team03/goodsManagement/category/k3CategoryList";
+		return result;
 	}
 
 		

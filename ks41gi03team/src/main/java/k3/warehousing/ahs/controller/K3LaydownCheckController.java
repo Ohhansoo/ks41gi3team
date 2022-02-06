@@ -29,6 +29,17 @@ public class K3LaydownCheckController {
 	public K3LaydownCheckController(K3LaydownCheckService k3LaydownCheckService) {
 		this.k3LaydownCheckService = k3LaydownCheckService;
 	}
+	//입하검수 삭제처리
+	@PostMapping("/k3DeleteLaydown")
+	@ResponseBody
+	public int k3DeleteLaydown(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3LaydownCheckService.k3DeleteLaydown(deleteList);
+		//Map<String, List<String>> map = new HashMap<String, List<String>>();
+		//map.put("deleteList", deleteList);
+		//log.info("DeleteCategory 전송결과 : " + map.values());
+		log.info("DeleteCategory 전송결과 : " + result);
+		return result;
+	}
 	
 	//입하검수 수정처리
 	@PostMapping("/k3ModifyLaydownCheck") 

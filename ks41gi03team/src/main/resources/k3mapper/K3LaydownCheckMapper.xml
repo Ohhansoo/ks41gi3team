@@ -35,6 +35,19 @@
 			</association>
 	</resultMap>
 	
+	<!--입하검수 삭제처리  -->
+	<delete id="k3DeleteLaydown" parameterType="list">
+		DELETE
+			w
+		FROM
+			k3_tb_warehousing AS w
+			<trim prefix="WHERE" prefixOverrides="AND |OR">
+				<foreach collection="list" item="deleteList">
+					 or warehousingCode = #{deleteList}
+				</foreach>
+			</trim>
+	</delete>
+	
 	<!--입하검수조회  -->
 	<select id="k3GetLaydownSearchList" parameterType="Map" resultType="Map">
 		SELECT

@@ -17,6 +17,19 @@ public class K3StockService {
 	public K3StockService(K3StockMapper k3StockMapper) {
 		this.k3StockMapper = k3StockMapper;
 	}
+	//카테고리 삭제처리
+	public int k3DeleteStock(List<String> deleteList) {
+		int result;
+		try {
+			result = k3StockMapper.k3DeleteStock(deleteList);
+			
+		} catch (Exception e) {
+			return 0;
+		}
+		
+		return result;
+	}
+	
 	//출고로 인한 재고 감소
 	public int k3SubtractStock(String stockCode, String type, int modifyGoodsCount, int releaseGoodsCount) {
 			//기존 재고 확인하기

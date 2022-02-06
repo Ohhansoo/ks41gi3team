@@ -35,6 +35,19 @@
 			</association>
 	</resultMap>
 	
+	<!--출하검수 삭제처리  -->
+	<delete id="k3DeleteShipment" parameterType="list">
+		DELETE
+			r
+		FROM
+			k3_tb_release AS r
+			<trim prefix="WHERE" prefixOverrides="AND |OR">
+				<foreach collection="list" item="deleteList">
+					 or releaseCode = #{deleteList}
+				</foreach>
+			</trim>
+	</delete>
+	
 	<!-- 출하검수 등록하기 -->
 	<update id="k3AddShipmentCheck">
 		UPDATE

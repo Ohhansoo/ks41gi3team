@@ -9,7 +9,8 @@ import k3.release.ahs.dto.K3Release;
 
 @Mapper
 public interface K3ShipmentCheckMapper {
-
+	//출하검수 삭제처리
+	public int k3DeleteShipment(List<String> deleteList);
 	//출하검수 등록처리
 	public int k3AddShipmentCheck(K3Release k3Release);
 	//출하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
@@ -22,5 +23,6 @@ public interface K3ShipmentCheckMapper {
 	public List<Map<String, Object>> k3GetShipmentCheck(Map<String, Object> paramMap);
 	//검수현황 테이블 행의 개수(튜플 수)
 	public int k3GetShipmentCheckCount(String countType, Map<String, Object> searchCondition);
+
 
 }

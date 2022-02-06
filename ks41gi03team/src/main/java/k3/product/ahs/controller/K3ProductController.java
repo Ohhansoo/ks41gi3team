@@ -30,6 +30,18 @@ public class K3ProductController {
 	public K3ProductController(K3ProductService k3ProductService) {
 		this.k3ProductService = k3ProductService;
 	}
+	//상품 삭제처리
+	@PostMapping("/k3DeleteProduct")
+	@ResponseBody
+	public int k3DeleteProduct(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3ProductService.k3DeleteProduct(deleteList);
+		//Map<String, List<String>> map = new HashMap<String, List<String>>();
+		//map.put("deleteList", deleteList);
+		//log.info("DeleteCategory 전송결과 : " + map.values());
+		log.info("DeleteCategory 전송결과 : " + result);
+		return result;
+	}
+	
 	//<모달> - 상품정보리스트
 	@PostMapping("/getModalProductList")
 	@ResponseBody
