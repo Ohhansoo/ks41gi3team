@@ -6,6 +6,7 @@
 		<link rel="stylesheet" th:href="@{/css/common.css}">
 	</th:block>
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript">
 			$(function(){
 				$('#moveAddStockBtn').on('click', function(){
@@ -19,6 +20,17 @@
 					$('#searchDetailStockType').attr('value', 'detailStock');
 					$('#detailStockSearchForm').submit();
 				});
+				<!-- 프린트 출력 -->			
+				$(document).on('click','#printBtn', function(){
+					var checkPrintDetail = $('#nav-profile-tab').hasClass('active');
+					var checkPrintSimple = $('#nav-home-tab').hasClass('active');
+					if(checkPrintDetail){
+						$('#detailTable').printThis();						
+					}else if(checkPrintSimple){
+						$('#simpleTable').printThis();
+					}
+				});
+				<!--END 프린트 출력-->
 			});
 		</script>
 	</th:block>
@@ -34,7 +46,7 @@
 							<i class="bi bi-file-earmark-plus"></i>
 							등록
 						</button>												
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
@@ -179,7 +191,7 @@
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="simpleTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>순번</th>
@@ -226,7 +238,7 @@
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="detailTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>삭제</th>

@@ -3,6 +3,7 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript">
 			$(function(){				
 				$('#addWarehousingBtn').on('click', function(){
@@ -12,9 +13,20 @@
 					location.href = '/team03/goodsManagement/warehousing/k3AllowWarehousing';
 				});
 				$('#addlLaydownCheckBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
+					location.href = '/team03/goodsManagement/warehousing/k3LaydownCheckList';
 				});
-				
+				<!-- 프린트 출력 -->			
+				$(document).on('click','#printBtn', function(){
+					var checkPrintLaydown = $('#nav-profile-tab').hasClass('active');
+					var checkPrintWarehousing = $('#nav-home-tab').hasClass('active');
+					if(checkPrintLaydown){
+						$('#laydownTable').printThis();						
+					}else if(checkPrintWarehousing){
+						$('#warehousingTable').printThis();
+					}
+				});
+				<!--END 프린트 출력-->
+							
 				$(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
@@ -70,7 +82,7 @@
 							<i class="bi bi-clipboard-check"></i>
 							검수등록
 						</button>						
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
@@ -235,7 +247,7 @@
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="warehousingTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>순번</th>
@@ -296,7 +308,7 @@
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="laydownTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>삭제</th>
@@ -317,7 +329,7 @@
 													<input type="checkbox" value="선택">
 												</td>
 												<td>
-													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">
+													<a th:href="@{/team03/goodsManagement/warehousing/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">
 														<i class="fas fa-pencil-alt icon"></i>
 													</a>
 												</td>

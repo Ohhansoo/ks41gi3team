@@ -10,7 +10,7 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
+					location.href = '/team03/goodsManagement/warehousing/k3LaydownCheckList';
 				});
 				$(document).on('click', '#laydownCheckBtn', function(){
 					
@@ -50,7 +50,7 @@
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/goodsManagement/check/k3GetLaydownCheckCodeList',
+							url: '/team03/goodsManagement/warehousing/k3GetLaydownCheckCodeList',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -170,7 +170,7 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="modifyLaydownTable" th:action="@{/team03/goodsManagement/check/k3ModifyLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
+									<form id="modifyLaydownTable" th:action="@{/team03/goodsManagement/warehousing/k3ModifyLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckCode" class="inputName">입하검수코드</label>
 											<input class="inputBox" type="text" id="laydownCheckCode" name="laydownCheckCode" th:value="${l.laydownCheckCode}"/>
