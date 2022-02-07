@@ -3,8 +3,10 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript">
-			$(function(){				
+			$(function(){
+
 				$('#addWarehousingBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/warehousing/k3AddWarehousing';
 				});
@@ -12,9 +14,20 @@
 					location.href = '/team03/goodsManagement/warehousing/k3AllowWarehousing';
 				});
 				$('#addlLaydownCheckBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
+					location.href = '/team03/goodsManagement/warehousing/k3LaydownCheckList';
 				});
-				
+				<!-- 프린트 출력 -->			
+				$(document).on('click','#printBtn', function(){
+					var checkPrintLaydown = $('#nav-profile-tab').hasClass('active');
+					var checkPrintWarehousing = $('#nav-home-tab').hasClass('active');
+					if(checkPrintLaydown){
+						$('#laydownTable').printThis();						
+					}else if(checkPrintWarehousing){
+						$('#warehousingTable').printThis();
+					}
+				});
+				<!--END 프린트 출력-->
+							
 				$(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
@@ -23,15 +36,28 @@
 						deleteCheckList.push($(this).val());
 					});
 					
-					if(check.length > 0){
+ 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
+							$.ajax({
+								  url: '/team03/goodsManagement/warehousing/k3DeleteLaydown',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 상품이 사용중입니다.\n 먼저 재고/출고 삭제해주세요.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
 						}
-						
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
-					}
+					} 
 				});
 				//sse로 요청목록 개수 가져오기
 				var sse = new EventSource('/team03/goodsManagement/warehousing/sse');
@@ -70,7 +96,7 @@
 							<i class="bi bi-clipboard-check"></i>
 							검수등록
 						</button>						
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
@@ -235,7 +261,7 @@
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="warehousingTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>순번</th>
@@ -296,7 +322,7 @@
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="laydownTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>삭제</th>
@@ -314,10 +340,10 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(laydownCheck)}" th:each="l : ${laydownCheck}">
 												<td>
-													<input type="checkbox" value="선택">
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.warehousingCode}">
 												</td>
 												<td>
-													<a th:href="@{/team03/goodsManagement/check/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">
+													<a th:href="@{/team03/goodsManagement/warehousing/k3ModifyLaydownCheck(warehousingCode=${l.warehousingCode})}">
 														<i class="fas fa-pencil-alt icon"></i>
 													</a>
 												</td>

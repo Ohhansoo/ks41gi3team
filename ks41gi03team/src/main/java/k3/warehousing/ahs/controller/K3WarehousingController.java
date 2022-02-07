@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import k3.category.ahs.service.K3CategoryService;
-import k3.check.ahs.dto.K3LaydownCheck;
-import k3.check.ahs.service.K3CheckService;
 import k3.contract.ahs.dto.K3Contract;
 import k3.location.ahs.service.K3LocationServise;
 import k3.memberuser.ahs.service.K3MemberUserService;
 import k3.stock.ahs.dto.K3Stock;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
+import k3.warehousing.ahs.service.K3LaydownCheckService;
 import k3.warehousing.ahs.service.K3WarehousingService;
 
 @Controller
@@ -37,15 +36,15 @@ public class K3WarehousingController {
 	private static final Logger log = LoggerFactory.getLogger(K3WarehousingController.class);
 
 	private final K3WarehousingService k3WarehousingService;
-	private final K3CheckService k3CheckService;
+	private final K3LaydownCheckService k3LaydownCheckService;
 	private final K3CategoryService k3CategoryService;
 	private final K3MemberUserService k3MemberUserService;
 	private final K3LocationServise k3LocationServise;
 	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
 	
-	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3CheckService k3CheckService, K3CategoryService k3CategoryService, K3MemberUserService k3MemberUserService, K3LocationServise k3LocationServise) {
+	public K3WarehousingController(K3WarehousingService k3WarehousingService, K3LaydownCheckService k3LaydownCheckService, K3CategoryService k3CategoryService, K3MemberUserService k3MemberUserService, K3LocationServise k3LocationServise) {
 		this.k3WarehousingService = k3WarehousingService;
-		this.k3CheckService = k3CheckService;
+		this.k3LaydownCheckService = k3LaydownCheckService;
 		this.k3CategoryService = k3CategoryService;
 		this.k3MemberUserService = k3MemberUserService;
 		this.k3LocationServise = k3LocationServise;
@@ -97,7 +96,7 @@ public class K3WarehousingController {
 		log.info(" post 입고현황 조회처리 searchCondition ----------------", searchCondition);
 		
 		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingSearchList(searchCondition, currentPage);
-		Map<String, Object> laydownCheckMap = k3CheckService.k3GetLaydownSearchList(searchCondition, currentPage);
+		Map<String, Object> laydownCheckMap = k3LaydownCheckService.k3GetLaydownSearchList(searchCondition, currentPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("warehousingLastPage", warehousingMap.get("lastPage"));
 		model.addAttribute("warehousingList", warehousingMap.get("warehousingList"));
@@ -198,7 +197,7 @@ public class K3WarehousingController {
 		//입고현황(초기화면)
 		Map<String, Object> warehousingMap = k3WarehousingService.k3GetWarehousingList(currentPage);
 		//입하검수현황(초기화면)
-		Map<String, Object> laydownCheckMap = k3CheckService.k3GetLaydownCheck(currentPage);
+		Map<String, Object> laydownCheckMap = k3LaydownCheckService.k3GetLaydownCheck(currentPage);
 		log.info("입고 현황이동 컨트롤러 warehousingMap------ {}" + warehousingMap);
 		log.info("입하검수 현황이동 컨트롤러 laydownCheckMap------ {}" + laydownCheckMap);
 		model.addAttribute("title", "입고관리");

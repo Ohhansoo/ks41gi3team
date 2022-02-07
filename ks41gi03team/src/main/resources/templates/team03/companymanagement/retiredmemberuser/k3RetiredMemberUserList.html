@@ -161,9 +161,6 @@
 									</thead>
 									<tbody>								
 										<tr th:if="${not #lists.isEmpty(retiredmemberuserList)}" th:each="l : ${retiredmemberuserList}">		
-										<!-- <td>
-											<a th:href="@{/team03/companymanagement/member/k3DeleteMemberUser(memberId=${l.memberId})}">삭제</a>
-										</td> -->
 						   				<td th:text="${l.memberId}"></td>
 						   				<td th:text="${l.memberPassword}"></td>
 						   				<td th:text="${l.mainBusinessCode}"></td>

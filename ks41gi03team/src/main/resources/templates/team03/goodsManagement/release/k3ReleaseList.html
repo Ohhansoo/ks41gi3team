@@ -14,6 +14,17 @@
 				$('#moveShipmentCheckBtn').on('click', function(){
 					location.href = '/team03/goodsManagement/release/k3ShipmentCheckList';
 				});
+				<!-- 프린트 출력 -->			
+				$(document).on('click','#printBtn', function(){
+					var checkPrintShipment = $('#nav-profile-tab').hasClass('active');
+					var checkPrintRelease = $('#nav-home-tab').hasClass('active');
+					if(checkPrintShipment){
+						$('#shipmentTable').printThis();						
+					}else if(checkPrintRelease){
+						$('#releaseTable').printThis();
+					}
+				});
+				<!--END 프린트 출력-->
 				//sse
 				var sse = new EventSource('/team03/goodsManagement/release/sse');
 				sse.onmessage = function (evt) {
@@ -23,25 +34,37 @@
 				};
 						
 				
-				/* $(document).on('click', '#deleteBtn', function(){
+				$(document).on('click', '#deleteCategoryBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
 					$.each(check, function(){
 						deleteCheckList.push($(this).val());
 					});
-
 					
-					if(check.length > 0){
+ 					if(check.length > 0){
 						if(confirm(check.length + "개 항목을 삭제합니다.")){
-							
-							$('#searchForm').submit();
+							$.ajax({
+								  url: '/team03/goodsManagement/release/k3DeleteShipment',
+								  data: {'deleteList[]':deleteCheckList},
+								  type: 'post',
+								  success: function(data){
+									  if(data > 0){
+										  alert("삭제 완료되었습니다.");
+										  location.reload();
+									  }else{
+										  alert("해당 카테고리가 사용중입니다.");
+									  }
+								  },
+								  error: function(err){
+									  alert(err + "에러 발생. 관리자에게 문의해주세요.");
+								  }
+								});
 						}
-						
 					}else{
 						alert("삭제할 항목을 선택해주세요.");
-					}
-				}); */
+					} 
+				});
 				
 				$('#releaseSearchBtn').on('click', function(){
 					$('#searchReleaseType').attr('value', 'release');
@@ -73,7 +96,7 @@
 							<i class="bi bi-clipboard-check"></i>
 							검수등록
 						</button>						
-						<button class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="printBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
@@ -207,7 +230,7 @@
 							<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 450px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="releaseTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>순번</th>
@@ -266,7 +289,7 @@
 							<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!--card body -->
 								<div class="card-body table-responsive p-0 table-hover" style="height: 300px;">
-									<table class="table table-head-fixed text-nowrap">
+									<table id="shipmentTable" class="table table-head-fixed text-nowrap">
 										<thead>
 											<tr>
 												<th>삭제</th>
@@ -285,7 +308,7 @@
 										<tbody>
 											<tr th:if="${not #lists.isEmpty(shipmentCheck)}" th:each="l : ${shipmentCheck}">
 												<td>
-													<input type="checkbox" value="선택">
+													<input type="checkbox" class="deleteList" name="deleteList[]" th:value="${l.releaseCode}">
 												</td>
 												<td>
 													<a th:href="@{/team03/goodsManagement/release/k3ModifyShipmentCheck(releaseCode=${l.releaseCode})}">

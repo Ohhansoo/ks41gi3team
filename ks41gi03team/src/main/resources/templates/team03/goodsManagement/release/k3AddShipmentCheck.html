@@ -34,10 +34,11 @@
 					
 					$('#laydownCheckCodeTable').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/goodsManagement/check/k3GetLaydownCheckCodeList',
+							url: '/team03/goodsManagement/warehousing/k3GetLaydownCheckCodeList',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -88,6 +89,7 @@
 					
 					$('#memberCode').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {

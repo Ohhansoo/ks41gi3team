@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.check.ahs.service.K3CheckService;
 import k3.stock.ahs.dto.K3Stock;
 import k3.stock.ahs.service.K3StockService;
 import k3.warehousing.ahs.dto.K3Warehousing;
 import k3.warehousing.ahs.dto.K3WarehousingSort;
+import k3.warehousing.ahs.service.K3LaydownCheckService;
 
 @Controller
 @RequestMapping(value="/team03/goodsManagement/stock")
@@ -28,11 +29,19 @@ public class K3StockController {
 
 	
 	private K3StockService k3StockService;
-	private K3CheckService k3CheckService;
+	private K3LaydownCheckService k3LaydownCheckService;
 	
-	public K3StockController(K3StockService k3StockService, K3CheckService k3CheckService) {
+	public K3StockController(K3StockService k3StockService, K3LaydownCheckService k3LaydownCheckService) {
 		this.k3StockService = k3StockService;
-		this.k3CheckService = k3CheckService;	
+		this.k3LaydownCheckService = k3LaydownCheckService;	
+	}
+	//재고 삭제처리
+	@PostMapping("/k3DeleteStock")
+	@ResponseBody
+	public int k3DeleteStock(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3StockService.k3DeleteStock(deleteList);
+		log.info("DeleteCategory 전송결과 : " + result);
+		return result;
 	}
 	
 	//재고현황 조회 처리
@@ -150,7 +159,7 @@ public class K3StockController {
 		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingCode);
 		//재고등록 정보 받아오기
 		String type = "add";
-		List<K3Warehousing> warehousingSort = k3CheckService.k3GetLaydownCheckUpdateList(warehousingCode, type);
+		List<K3Warehousing> warehousingSort = k3LaydownCheckService.k3GetLaydownCheckUpdateList(warehousingCode, type);
 		log.info("재고 등록폼 이동 warehousingCode ------.>>>>{}", warehousingSort);
 		model.addAttribute("warehousingSort", warehousingSort);
 		model.addAttribute("title", "재고관리");

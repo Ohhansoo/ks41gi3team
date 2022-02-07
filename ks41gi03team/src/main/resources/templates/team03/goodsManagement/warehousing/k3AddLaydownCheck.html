@@ -10,12 +10,12 @@
 		<script type="text/javascript">
 			$(function(){
 				$('#cancelBtn').on('click', function(){
-					location.href = '/team03/goodsManagement/check/k3LaydownCheckList';
+					location.href = '/team03/goodsManagement/warehousing/k3LaydownCheckList';
 				});
 				$(document).on('click', '#laydownCheckBtn', function(){
 					
 					var submitCheck = true;
-					var inputObj = $('#modifyLaydownTable').find('input');
+					var inputObj = $('#assorList').find('input');
 							
 					$.each(inputObj, function(){
 		   				var inputDate = $(this).val();
@@ -29,7 +29,7 @@
 		   					return false;
 		   				}		
 					});  						
-						if(submitCheck) $('#modifyLaydownTable').submit();
+						if(submitCheck) $('#addLaydownTable').submit();
 				});
 				//모달 시작
 				var modal = $('#laydownCheckCodeModal');
@@ -47,10 +47,11 @@
 					
 					$('#laydownCheckCodeTable').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/goodsManagement/check/k3GetLaydownCheckCodeList',
+							url: '/team03/goodsManagement/warehousing/k3GetLaydownCheckCodeList',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -101,6 +102,7 @@
 					
 					$('#memberCode').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
@@ -170,10 +172,10 @@
 							<!--card body -->
 							<div class="card-body">
 								<div class="row">
-									<form id="modifyLaydownTable" th:action="@{/team03/goodsManagement/check/k3ModifyLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
+									<form id="addLaydownTable" th:action="@{/team03/goodsManagement/warehousing/k3AddLaydownCheck}" method="post" th:if="${not #lists.isEmpty(laydownCheckList)}" th:each="l : ${laydownCheckList}">
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckCode" class="inputName">입하검수코드</label>
-											<input class="inputBox" type="text" id="laydownCheckCode" name="laydownCheckCode" th:value="${l.laydownCheckCode}"/>
+											<input class="inputBox" type="text" id="laydownCheckCode" name="laydownCheckCode"/>
 											<input type="hidden" id="warehousingCode" name="warehousingCode" th:value="${l.warehousingCode}"/>
 											<button type="button" id="selectLaydownCheckCode">기존코드 사용</button>
 										</div>
@@ -186,37 +188,32 @@
 											<input class="inputBox" type="text" id="laydownGoodsCount" name="laydownGoodsCount" th:value="${l.laydownGoodsCount}" disabled="disabled"/>
 										</div>
 										<div class="inputwrap col-md-12">
-											<label for="laydownCheckResult" class="inputName" >입하검수결과</label>
+											<label for="laydownCheckResult" class="inputName">입하검수결과</label>
 											<select id="laydownCheckResult" name="laydownCheckResult">
-												<option value = "Y" th:selected="${l.laydownCheckResult} == 'Y'"> 정상 </option>
-												<option value ="damage" th:selected="${l.laydownCheckResult} == 'damage'"> 파손 </option>
-												<option value ="countError" th:selected="${l.laydownCheckResult} == 'countError'"> 수량오류 </option>
-												<option value ="etc" th:selected="${l.laydownCheckResult} == 'etc'"> 기타 </option>
+												<option value = "Y"> 정상 </option>
+												<option value ="damage"> 파손 </option>
+												<option value ="countError"> 수량오류 </option>
+												<option value ="etc"> 기타 </option>
 											</select>
 										</div>								
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckManager" class="inputName">검수담당자</label>
-											<input class="inputBox" type="text" id="laydownCheckManagerName" name="laydownCheckManagerName" th:value="${l.k3MemberUser.memberName}" disabled="disabled"/>
-											<input class="inputBox" type="hidden" id="laydownCheckManager" name="laydownCheckManager" th:value="${l.laydownCheckManager}" readonly="readonly"/>
+											<input class="inputBox" type="text" id="laydownCheckManagerName" name="laydownCheckManagerName" disabled="disabled"/>
+											<input class="inputBox" type="hidden" id="laydownCheckManager" name="laydownCheckManager" readonly="readonly"/>
 											<button type="button" id="selectMember">담당자 선택</button>
 										</div>	
 										<div class="inputwrap col-md-12">
 											<label for="laydownDate" class="inputName">입하일시</label>
-											<input class="inputBox" type="date" id="laydownDate" name="laydownDate" th:value="${l.laydownDate}"/>
-										</div>
+											<input class="inputBox" type="date" id="laydownDate" name="laydownDate"/>
+										</div>							
 										<div class="inputwrap col-md-12">
 											<label for="laydownCheckDate" class="inputName">검수일시</label>
-											<input class="inputBox" type="date" id="laydownCheckDate" name="laydownCheckDate" th:value="${l.laydownCheckDate}"/>
+											<input class="inputBox" type="date" id="laydownCheckDate" name="laydownCheckDate"/>
 										</div>								
 										<div class="d-flex justify-content-center">					
 											<button id="laydownCheckBtn" class="ahsbtn4 btn btn-outline-info" type="button">등록</button>			
 											<button id="cancelBtn" class="ahsbtn4 btn btn-block bg-gradient-warning" type="button">취소</button>			
 										</div>	
-									</form>
-									<form id="modifyLaydownTable" th:unless="${not #lists.isEmpty(laydownModifyList)}" th:each="l : ${laydownModifyList}">
-										<div>
-											<h2>조회 결과가 없습니다.</h2>
-										</div>
 									</form>
 		 						</div>
 							</div>					

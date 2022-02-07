@@ -111,8 +111,8 @@
 		
 				$(document).on('click', '.dispatchDriverName_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#dispatchDriverName').DataTable({
 						destroy: true,
@@ -192,8 +192,8 @@
 								
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
-										<input class="inputBox" type="hidden" id="driverId" name="driverId" th:value="${dispatchInfo.driverId}"/>
-										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${dispatchInfo.driverName}"/>
+										<input class="inputBox" type="hidden" id="driverId" name="driverId" th:value="${dispatchInfo.driverId}" readonly="readonly"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" th:value="${dispatchInfo.driverName}" disabled="disabled"/>
 										<button class="dispatchDriverName_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">
@@ -210,8 +210,8 @@
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">배차 담당자</label>
-										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${dispatchInfo.memberId}"/>
-										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${dispatchInfo.memberName}"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${dispatchInfo.memberId}" readonly="readonly"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${dispatchInfo.memberName}" disabled="disabled"/>
 										<button class="dispatchMemberId_btn" type="button">등록</button> 
 									</div>	
 									<div class="inputwrap col-md-12">

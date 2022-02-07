@@ -57,14 +57,14 @@
 						removeCheckList.push($(this).val());
 					});
 
-					if(check.length > 0){
-						if(confirm(check.length + "개 항목을 퇴사처리 하시겠습니까?")){
+					if(check.length == 1){
+						if(confirm(check.length + "항목을 퇴사처리 하시겠습니까?")){
 							
 							$('#searchForm').submit();
 						}
 						
 					}else{
-						alert("항목을 선택해주세요.");
+						alert("안전을 위해 1개의 정보만 선택해주세요.");
 					}
 				});
 			});
@@ -163,7 +163,6 @@
 						                     <th>직원계정상태</th>
 						                     <th>등록일자</th>
 						                     <th>입사일자</th>	
-						                     
 										</tr>
 									</thead>
 									<tbody>								
@@ -194,7 +193,6 @@
 						   				<td th:text="${l.memberState}"></td>
 						   				<td th:text="${l.memberRegDate}"></td>
 						   				<td th:text="${l.memberHiredDate}"></td>
-
 						   			</tr>
 						   			<tr th:unless="${not #lists.isEmpty(memberuserList)}">
 										<td colspan="100%">

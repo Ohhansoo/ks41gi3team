@@ -9,6 +9,8 @@ import k3.product.ahs.dto.K3Product;
 
 @Mapper
 public interface K3ProductMapper {
+	//상품 삭제처리
+	public int k3DeleteProduct(List<String> deleteList);
 	//<모달> - 상품정보리스트
 	public List<K3Product> k3GetModalProductList();
 	//상품 수정 처리
@@ -23,6 +25,7 @@ public interface K3ProductMapper {
 	public List<Map<String, Object>> k3GetProductList(Map<String, Object> paramMap);
 	//상품 테이블 튜플 수
 	public int k3GetProductCount(String countType, Map<String, Object> searchCondition);
+
 
 
 }

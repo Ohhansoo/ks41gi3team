@@ -117,8 +117,8 @@
 		
 				$(document).on('click', '.shippingDriverName_btn', function(){
 					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10,-1]);
-					aLengthMenuArray.push([5,10,'ALL']);
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
 					
 					$('#shippingDriverName').DataTable({
 						destroy: true,
@@ -241,8 +241,8 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="memberId" class="inputName">확인 담당자</label>
-										<input class="inputBox" type="hidden" id="memberId" name="memberId"/>
-										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="확인 담당자를 등록해주세요"/>
+										<input class="inputBox" type="hidden" id="memberId" name="memberId" readonly="readonly"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" placeholder="확인 담당자를 등록해주세요" disabled="disabled"/>
 										<button class="shippingMemberId_btn" type="button">등록</button>
 									</div>			
 									<div class="inputwrap col-md-12">
@@ -251,8 +251,8 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
-										<input class="inputBox" type="hidden" id="driverId" name="driverId"/>
-										<input class="inputBox" type="text" id="driverName" name="driverName" placeholder="차량 기사를 등록해주세요"/>
+										<input class="inputBox" type="hidden" id="driverId" name="driverId" readonly="readonly"/>
+										<input class="inputBox" type="text" id="driverName" name="driverName" placeholder="차량 기사를 등록해주세요" disabled="disabled"/>
 										<button class="shippingDriverName_btn" type="button">등록</button> 
 									</div>
 									<div class="inputwrap col-md-12">
@@ -324,8 +324,10 @@
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>	
+									<th>기사 아이디</th>
 									<th>기사 이름</th>
-									<th>차량 코드</th>
+									<th>기사 전화번호</th>
+									<th>등록일자</th>
 								</tr>
 							</thead>
 						</table>				

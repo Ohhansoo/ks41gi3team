@@ -115,7 +115,7 @@
 						<!--card body -->
 						<div class="card-body">
 							<div class="row">
-	 							<form id="userInfo" th:action="@{/team03/delivery/vehicle/k3ModifyVehicle}" method="post">
+	 							<form id="userInfo" th:action="@{/team03/delivery/vehicle/k3ModifyVehicle}" method="post" >
 	 								<div class="inputwrap col-md-12">
 										<label for="vehicleCode" class="inputName">차량 코드</label>
 										<input class="inputBox" type="text" id="vehicleCode" name="vehicleCode" th:value="${vehicleInfo.vehicleCode}" readonly style="background-color:#BDBDBD"/>
@@ -123,7 +123,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="memberName" class="inputName">차량 등록 담당자</label>
 										<input class="inputBox" type="hidden" id="memberId" name="memberId" th:value="${vehicleInfo.memberId}" readonly="readonly"/>
-										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${vehicleInfo.memberName}" readonly="readonly"/>
+										<input class="inputBox" type="text" id="memberName" name="memberName" th:value="${vehicleInfo.memberName}" disabled="disabled"/>
 										<button class="vehicleMemberId_btn" type="button">수정</button> 
 									</div>	
 									<div class="inputwrap col-md-12">

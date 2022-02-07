@@ -37,7 +37,7 @@
 		INNER JOIN
 			k3_tb_driver as d
 		ON 
-			c.driverId = d.driverId
+			c.driverId = d.driverId;
 	
 	</select>
 	
@@ -75,6 +75,8 @@
 			k3_tb_vehicle_checkpoint as c
 		INNER JOIN
 			k3_tb_driver as d
+		ON 
+			c.driverId = d.driverId
 		WHERE
 			vehicleCheckpointCode = #{vehicleCheckpointCode}
 		GROUP BY

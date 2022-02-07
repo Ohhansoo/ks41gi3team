@@ -146,7 +146,6 @@
 								$('#userInfo button').prop('disabled', false);
 							}
 							
-							
 						});				
 						request.fail(function( jqXHR, textStatus ) {
 						  alert( "Request failed: " + textStatus );
@@ -157,8 +156,8 @@
 					}
 				});
 			});
-		
 	</script>
+	
 	<script>
 	
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -189,7 +188,6 @@
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('memberpostaladdress').value = data.zonecode;
                 document.getElementById("memberstreetaddress").value = roadAddr;
-                document.getElementById("memberdetailaddress").value = data.jibunAddress;
          
                        
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.

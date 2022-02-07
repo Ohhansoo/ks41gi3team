@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import k3.check.ahs.controller.K3CheckController;
 import k3.release.ahs.dto.K3Release;
 import k3.release.ahs.service.K3ShipmentCheckService;
 import k3.stock.ahs.service.K3StockService;
@@ -21,15 +21,24 @@ import k3.stock.ahs.service.K3StockService;
 @RequestMapping(value="/team03/goodsManagement/release")
 public class K3ShipmentCheckController {
 
-	private static final Logger log = LoggerFactory.getLogger(K3CheckController.class);
-
 	
+	private static final Logger log = LoggerFactory.getLogger(K3ShipmentCheckController.class);
+
 	private final K3ShipmentCheckService k3ShipmentCheckService;
 	private final K3StockService k3StockService;
 
 	public K3ShipmentCheckController(K3ShipmentCheckService k3ShipmentCheckService, K3StockService k3StockService) {
 		this.k3ShipmentCheckService = k3ShipmentCheckService;
 		this.k3StockService = k3StockService;
+	}
+	
+	//출하검수 삭제처리
+	@PostMapping("/k3DeleteShipment")
+	@ResponseBody
+	public int k3DeleteShipment(@RequestParam(value="deleteList[]", required = false) List<String> deleteList) {
+		int result = k3ShipmentCheckService.k3DeleteShipment(deleteList);
+		log.info("DeleteCategory 전송결과 : " + result);
+		return result;
 	}
 	 //출하검수 수정처리
 	 @PostMapping("/k3ModifyShipmentCheck")
