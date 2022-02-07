@@ -15,6 +15,7 @@ public interface K3EstimateMapper {
 
 	//견적서 삭제처리
 	public void k3DeleteEstimate(String estimateNum);
+	public void k3DeleteDetailEstimate(String estimateNum);
 	
 	//견적서 수정처리
 	public int k3ModifyEstimate(K3Estimate k3Estimate);

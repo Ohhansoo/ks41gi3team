@@ -27,6 +27,7 @@ public class K3EstimateService {
 	//견적서 삭제처리
 	public void k3DeleteEstimate(String estimateNum) {
 		k3EstimateMapper.k3DeleteEstimate(estimateNum);
+		k3EstimateMapper.k3DeleteDetailEstimate(estimateNum);
 	}
 	
 	//견적서 수정처리
