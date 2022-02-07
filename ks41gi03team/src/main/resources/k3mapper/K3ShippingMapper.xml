@@ -20,6 +20,7 @@
 		SELECT
 			s.shippingCode,
 			s.mainBusinessCode,
+			s.releaseCode,
 			r.releaseMergeCode,
 			r.shippingAddress,
 			r.shippingDetailAddress,
