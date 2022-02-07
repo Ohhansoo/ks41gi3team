@@ -27,8 +27,7 @@
 					        <a th:href="@{/team03/companymanagement/member/k3AddMemberUserList}" th:if="${session.SID == null}" style="color: white;">| 직원등록</a>
 						<div>
 							<a th:href="@{/team03/companymanagement/login/k3MemberUserLogout}" th:if="${session.SID != null}" style="color: white;">로그아웃</a>&nbsp;
-							<span style="color: white;">|</span>
-							<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${session.SID})}" class="link" th:if="${session.SID != null}"> 정보변경</a>
+							<a th:href="@{/team03/companymanagement/member/k3ModifyMemberUserList(memberId=${session.SID})}" class="link" th:if="${session.SID != null}">| 정보변경</a>
 						</div>
 					</div>
 					<!-- End User Info -->	
