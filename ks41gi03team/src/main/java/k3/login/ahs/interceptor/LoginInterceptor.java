@@ -34,9 +34,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 		//ST
 		//조회만 가능 
 		if("ST".equals(sessionLevel)) {
-			if(requestUri.indexOf("k3MemberUserList") > -1 ||
-					requestUri.indexOf("k3OurCompanyList") > -1 ||
-					requestUri.indexOf("k3RetiredMemberUserList") > -1) {
+			if(requestUri.indexOf("/k3AddMemberUserList") > -1 ||
+					requestUri.indexOf("/k3AddOurCompanyList") > -1) {
 				
 				response.sendRedirect("/");
 				return false;
@@ -44,18 +43,17 @@ public class LoginInterceptor implements HandlerInterceptor{
 		}
 		
 		//CT	거래처
-		if("CT".equals(sessionLevel)) {
-			if(requestUri.indexOf("k3SearchContractor") > -1 ||
-					requestUri.indexOf("k3SearchContract") > -1 ||
-					requestUri.indexOf("k3SearchEstimate") > -1) {
+		/*if("CT".equals(sessionLevel)) {
+			if(requestUri.indexOf("/k3SearchContractor") > -1 ||
+					requestUri.indexOf("/k3SearchContract") > -1 ||
+					requestUri.indexOf("/k3SearchEstimate") > -1) {
 					
 					response.sendRedirect("/");
 					return false;
-			}
+			}*/
 		}
 		return true;
 		
 	}
-}
 }
 
