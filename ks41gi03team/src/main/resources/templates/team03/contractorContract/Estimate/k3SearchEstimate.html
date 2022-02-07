@@ -11,10 +11,18 @@
 	</th:block>
 	
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				<!-- 견적서 검색 -->
+
+				<!-- 견적서 출력 -->			
+				$(document).on('click','#printEstimate', function(){
+					$('#estimateInfo').printThis();
+				});
+				<!--END 견적서 출력-->
+				
 				
 				/*<![CDATA[*/
 				var searchKey = "[[${searchKey}]]";
@@ -70,6 +78,14 @@
 						Umodal += '<td>'+ data[i].unitTerm +'</td>';
 						Umodal += '<td>'+ data[i].unitPay +'</td></tr>';
 					}
+
+					<!--모달창 단가표 출력 -->
+					$('.printDetailUnitModal').on('click', function(){
+						$('.modal-body').printThis();
+					});
+					<!--END 모달창 단가표 출력 -->
+					
+					
 					$('.modifyUnitModalBtn').attr('href','/team03/contractorContract/Estimate/k3SearchEstimateAjax');
 					$("#Umodal").append(Umodal);
 					$('#unitModal').modal('show');
@@ -199,6 +215,13 @@
 						});
 					});
 					<!--END 견적서 삭제처리(모달버튼) -->						
+
+					<!--견적서 단가표 출력 -->
+					$('.printDetailEstimateModal').on('click', function(){
+						$('#modalEstimate-body').printThis();
+					});
+					<!--END 견적서 단가표 출력 -->
+					
 					
 					$('#Emodal').append(Emodal);
 					$('#detailEstimateModal').modal('show');
@@ -368,7 +391,7 @@
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
-				<a class="btn btn-outline-info ahsbtn4" type="button">
+				<a class="btn btn-outline-info ahsbtn4" type="button" id="printEstimate">
 					<i class="bi bi-printer"></i>
 					출력
 				</a>						
@@ -614,7 +637,7 @@
 							<i class="bi bi-x-circle"></i>
 						</button>
 					</div>
-					<div class="modal-body" id="modal-body">
+					<div class="modal-body" id="modalEstimate-body">
 						<div class=" card card-body bg-light container-fluid">
 							<table class="table table-striped table-hover"id="Emodal">
 							
