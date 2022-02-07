@@ -106,8 +106,8 @@
 									<div class="row" style="margin: 12px">
 										<form id="simpleStockSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/stock/k3StockList}" method="post">
 											<!--inputbox 1 -->
-											<div class="input-group input-group-sm col-sm-12">
-												<select name="simpleStockKey" class="input-group-text form-control-sm">
+											<div class="input-group mb-3 p-2 bd-highlight">
+												<select name="simpleStockKey" class="input-group-text">
 													<option value="productName">상품명</option>
 													<option value="contractorName">회사명</option>
 												</select>
@@ -115,7 +115,7 @@
 												<input type="hidden" name="searchSimpleStockType" id="searchSimpleStockType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="simpleStockSearchBtn" type="button">
+														<button id="simpleStockSearchBtn" type="button" class="btn btn-outline-secondary">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
@@ -130,76 +130,78 @@
 							<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 								<!--card body -->
 								<div class="card-body">
-									<div class="row">
-										<form id="detailStockSearchForm" class="d-flex align-items-center" th:action="@{/team03/goodsManagement/stock/k3StockList}" method="post">
-											<!--inputbox 1 -->
-											<div class="input-group input-group-sm col-sm-4">
-												<select name="detailStockKey" class="input-group-text form-control-sm">
-													<option value="productName">상품명</option>
-													<option value="contractorName">회사명</option>
-													<option value="stockCode">재고코드</option>
-												</select>
-												<input type="text" name="detailStockValue" class="form-control">
-												<input type="hidden" name="searchDetailStockType" id="searchDetailStockType">
-												<div class="input-group-append">
-													<div class="btn btn-default" style="padding:0;">
-														<button class="detailStockSearchBtn" type="button">
-															<i class="fas fa-search icon"></i>
-														</button>
-													</div>
+									<form id="detailStockSearchForm" th:action="@{/team03/goodsManagement/stock/k3StockList}" method="post">
+										<div class="row">
+										<!--inputbox 1 -->
+										<div class="input-group col">
+											<select name="detailStockKey" class="input-group-text">
+												<option value="productName">상품명</option>
+												<option value="contractorName">회사명</option>
+												<option value="stockCode">재고코드</option>
+											</select>
+											<input type="text" name="detailStockValue" class="form-control">
+											<input type="hidden" name="searchDetailStockType" id="searchDetailStockType">
+											<div class="input-group-append">
+												<div class="btn btn-default" style="padding:0;">
+													<button class="detailStockSearchBtn btn btn-outline-secondary" type="button">
+														<i class="fas fa-search icon"></i>
+													</button>
 												</div>
 											</div>
-											<!--End inputbox 1 -->
-											<!--inputbox 2 -->
-											<div class="input-group input-group-sm col-sm-4">
-												<select name="categoryKey" class="input-group-text form-control-sm">
-													<option value="largeCategory">대분류</option>
-													<option value="mediumCategory">중분류</option>
-													<option value="smallCategory">소분류</option>
-												</select>
+										</div>
+										<!--End inputbox 1 -->
+										<!--inputbox 2 -->
+										<div class="input-group col">
+											<select name="categoryKey" class="input-group-text">
+												<option value="largeCategory">대분류</option>
+												<option value="mediumCategory">중분류</option>
+												<option value="smallCategory">소분류</option>
+											</select>
 												<input type="text" name="categoryValue" class="form-control">
 												<input type="hidden" name="searchcategoryType" id="searchWarehousingType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button class="detailStockSearchBtn" type="button">
+														<button class="detailStockSearchBtn btn btn-outline-secondary" type="button">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>
 												</div>
-											</div>
-											<!--End inputbox 2 -->
-											<!--inputbox 3 -->
-											<div class="input-group input-group-sm col-sm-6">
-												<select name="stockDateKey" class="input-group-text form-control-sm">
-													<option value="manufacturedDate">제조일자</option>
-													<option value="expiratonDate">유통기한</option>
-													<option value="pileupDate">재고일시</option>
-												</select>
-												<div class="col-sm-4" style="padding-left: 0px;">
-													<div class="input-group">
-														<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
-															<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
-															<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-															</div>
+										</div>
+										<!--End inputbox 2 -->
+										</div>
+										<div class="row">
+										<!--inputbox 3 -->
+										<div class="input-group col">
+											<select name="stockDateKey" class="input-group-text">
+												<option value="manufacturedDate">제조일자</option>
+												<option value="expiratonDate">유통기한</option>
+												<option value="pileupDate">재고일시</option>
+											</select>
+											<div style="padding-left: 0px;">
+												<div class="input-group">
+													<div class="input-group-prepend date" id="reservationdate" data-target-input="nearest">
+														<input type="text" name="searchStartDate" class="form-control datetimepicker-input" style="width:130px" data-target="#reservationdate" placeholder="시작날짜선택">
+														<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+															<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 														</div>
 													</div>
 												</div>
-											~
-												<div class="col-sm-4" style="padding-left: 0px">
-													<div class="input-group">
-														<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
-															<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
-															<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
-																<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-															</div>
-														</div>
-							                   		</div>
+											</div>
+											<!--End inputbox 3 -->
+											<div style="margin-left: 10px;"> <p>~</p> </div>
+											<!--inputbox 4 -->
+											<div style="padding-left: 10px">
+												<div class="input-group-prepend date" id="reservationdate2" data-target-input="nearest">
+													<input type="text" name="searchEndDate" class="form-control datetimepicker-input"  style="width:130px"  data-target="#reservationdate2" placeholder="종료날짜선택">
+													<div class="input-group-append" data-target="#reservationdate2" data-toggle="datetimepicker">
+														<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+													</div>
 												</div>
 											</div>
-											<!--End inputbox 3-->
-										</form>
-			 						</div>
+										</div>
+										<!--End inputbox 4-->
+										</div>
+									</form>
 								</div>					
 			 					<!--End card body 묶음 -->								
 							</div>
