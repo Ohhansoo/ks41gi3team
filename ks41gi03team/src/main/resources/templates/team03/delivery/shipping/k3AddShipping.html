@@ -60,6 +60,7 @@
 				
 				$('#shippingMemberId').DataTable({
 					destroy: true,
+					autoWidth: false,
 					pageLength: 5,
 					aLengthMenu: aLengthMenuArray,
 					ajax: {
@@ -120,6 +121,7 @@
 						
 						$('#shippingDriverName').DataTable({
 							destroy: true,
+							autoWidth: false,
 							pageLength: 5,
 							aLengthMenu: aLengthMenuArray,
 							ajax: {
@@ -182,6 +184,7 @@
 						
 						$('#releaseCodeName').DataTable({
 							destroy: true,
+							autoWidth: false,
 							pageLength: 5,
 							aLengthMenu: aLengthMenuArray,
 							ajax: {
@@ -205,7 +208,7 @@
 									orderable : false,
 									searchable : false,
 									render : function(data, type, row){
-										var htmlbtn = '<input type="radio" class="releaseMergeCode" name="releaseMergeCode" value="'+ row.releaseMergeCode +'">'
+										var htmlbtn = '<input type="radio" class="releaseCode" name="releaseCode" value="'+ row.releaseCode +'">'
 										return htmlbtn;
 									}
 								}
@@ -216,13 +219,12 @@
 							
 					});
 					$(document).on('click', '#releaseConfirmBtn', function(){
-						var checkedBox = $('.releaseMergeCode:checked');
-						var releaseMergeCode = $('#releaseMergeCode');
+						var checkedBox = $('.releaseCode:checked');
+						var releaseCode = $('#releaseCode');
 
 						
-		 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(2).text();
-		 				driverName.attr('value', releaseMergeCodeValue);	
-		 				driverId.attr('value', checkedBox.val());
+		 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(1).text();
+		 				releaseCode.attr('value', releaseMergeCodeValue);	
 
 		 				releaseModal.addClass('hidden');
 
