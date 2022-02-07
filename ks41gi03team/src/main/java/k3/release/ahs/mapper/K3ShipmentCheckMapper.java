@@ -11,8 +11,8 @@ import k3.release.ahs.dto.K3Release;
 public interface K3ShipmentCheckMapper {
 	//출하검수 삭제처리
 	public int k3DeleteShipment(List<String> deleteList);
-	//출하검수 등록처리
-	public int k3AddShipmentCheck(K3Release k3Release);
+	//출하검수 등록/수정처리
+	public int k3AddShipmentCheck(K3Release k3Release, int modifyGoodsCount);
 	//출하검수 등록/수정 페이지 이동(물품명, 개수 세팅)
 	public List<K3Release> k3GetShipmentCheckUpdateList(String releaseCode, String type);
 	//출하현황 이동(출하검수 할 목록)

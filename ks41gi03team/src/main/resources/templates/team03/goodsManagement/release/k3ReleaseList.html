@@ -34,7 +34,7 @@
 				};
 						
 				
-				$(document).on('click', '#deleteCategoryBtn', function(){
+				$(document).on('click', '#deleteBtn', function(){
 					var check = $('.deleteList:checked');
 					var deleteCheckList = [];
 					
@@ -100,7 +100,7 @@
 							<i class="bi bi-printer"></i>
 							출력
 						</button>						
-						<button id="text" class="btn btn-outline-info ahsbtn4" type="button">
+						<button id="deleteBtn" class="btn btn-outline-info ahsbtn4" type="button">
 							<i class="bi bi-trash"></i>
 							삭제
 						</button>					
@@ -165,7 +165,7 @@
 												<input type="hidden" id="searchShipmentType" name="searchShipmentType">
 												<div class="input-group-append">
 													<div class="btn btn-default" style="padding:0;">
-														<button id="shipmentSearchBtn" type="button">
+														<button id="shipmentSearchBtn" type="button" class="btn btn-outline-secondary">
 															<i class="fas fa-search icon"></i>
 														</button>
 													</div>

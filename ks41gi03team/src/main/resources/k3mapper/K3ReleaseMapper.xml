@@ -33,7 +33,7 @@
 			<result column="productName" property="productName" />
 		</association>
 	</resultMap>
-	
+	<!-- <ajax> 요청 리스트 개수 전달(요청 알림) -->
 	<select id="k3CountRequestReleaseList" resultType="int">
 		SELECT
 			COUNT(1)
@@ -95,11 +95,7 @@
 				#{stockCode},
 				(SELECT DISTINCT w.contractorId
 				 FROM
-					k3_tb_release AS r
-					INNER JOIN
 					k3_tb_stock AS s
-					ON
-					r.stockCode = s.stockCode
 					INNER JOIN
 					k3_tb_warehousing AS w
 					ON
@@ -108,11 +104,7 @@
 				 	s.stockCode = #{stockCode}) AS contractorId,				 
 				(SELECT DISTINCT w.productCode
 				 FROM
-					k3_tb_release AS r
-					INNER JOIN
 					k3_tb_stock AS s
-					ON
-					r.stockCode = s.stockCode
 					INNER JOIN
 					k3_tb_warehousing AS w
 					ON
@@ -242,7 +234,7 @@
 						<if test="searchCondition.releaseValue != null and searchCondition.releaseValue != ''.toString()">
 				   			${searchCondition.releaseKey} LIKE CONCAT('%',#{searchCondition.releaseValue},'%') 
 						</if>	
-						And r.releaseAllow = 'Y'
+						And r.shipmentCheckResult = 'Y'
 				   </trim>
 			   </when>
 			   <otherwise>
@@ -287,7 +279,7 @@
 			ON
 			w.contractorId = cs.contractorId
 		WHERE
-			r.releaseAllow = 'Y'
+			r.shipmentCheckResult = 'Y'
 		<if test="startNum != null">
 			LIMIT #{startNum}, #{rowPerPage};
 		</if>
@@ -316,7 +308,7 @@
 			ON
 			w.contractorId = cs.contractorId
 		WHERE
-			r.releaseAllow = 'Y'
+			r.shipmentCheckResult = 'Y'
 		<if	test="countType eq 'search'.toString()">
 		   <if test="searchCondition.searchReleaseType != null and searchCondition.searchReleaseType != ''.toString()">
 				<if test="searchCondition.releaseValue != null and searchCondition.releaseValue != ''.toString()">
