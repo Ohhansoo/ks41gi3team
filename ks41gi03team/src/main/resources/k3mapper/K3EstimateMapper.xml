@@ -7,15 +7,17 @@
 	<!-- 견적서 삭제처리 -->
 	<delete id="k3DeleteEstimate">
 		DELETE
-			ed,e
 		FROM
-			k3_tb_estimate_detail AS ed
-			INNER join
-			k3_tb_estimate AS e
-			on
-			ed.contractorCode = e.contractorCode
+			k3_tb_estimate_detail
 		WHERE
-			ed.estimateNum = #{estimateNum};
+			estimateNum = #{estimateNum};
+	</delete>
+	<delete id="k3DeleteDetailEstimate">
+		DELETE
+		FROM
+			k3_tb_estimate
+		WHERE
+			estimateNum = #{estimateNum};
 	</delete>
 
 	<!-- 견적서 수정처리 -->
