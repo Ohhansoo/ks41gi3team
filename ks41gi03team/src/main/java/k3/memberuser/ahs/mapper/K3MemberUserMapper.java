@@ -44,10 +44,10 @@ public interface K3MemberUserMapper {
 	//08. 직원중복체크
 	public int getMemberByMemberId(String memberId);
 	
-	// 직원조회 로그인?
+	// 직원조회 로그인
 	public K3MemberUser K3MemberUserInfoBycode(String memberId);
 
-	//09. 회원조회(중복체크?)
+	//09. 회원정보조회
 	public int getMemberInfoByMemberId(String memberId);
 
 	//10 모달창
