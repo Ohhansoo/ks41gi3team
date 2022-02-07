@@ -39,9 +39,7 @@ public class WebConfig implements WebMvcConfigurer{
 						.excludePathPatterns("/favicon.ico")
 						.excludePathPatterns("/")
 				        .excludePathPatterns("/team03/companymanagement/login/k3MemberUserLogin")
-				        .excludePathPatterns("/team03/companymanagement/login/k3logout")
-				        .excludePathPatterns("/team03/companymanagement/member/k3AddMemberUserList");
-			
+				        .excludePathPatterns("/team03/companymanagement/login/k3logout");			
 			
 			WebMvcConfigurer.super.addInterceptors(registry);
 		}
