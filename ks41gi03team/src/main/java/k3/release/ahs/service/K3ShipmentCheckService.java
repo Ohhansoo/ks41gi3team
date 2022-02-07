@@ -31,8 +31,8 @@ public class K3ShipmentCheckService {
 	}
 	
 	//출하검수 등록처리
-	public int k3AddShipmentCheck(K3Release k3Release) {
-		int result = k3ShipmentCheckMapper.k3AddShipmentCheck(k3Release);
+	public int k3AddShipmentCheck(K3Release k3Release, int modifyGoodsCount) {
+		int result = k3ShipmentCheckMapper.k3AddShipmentCheck(k3Release, modifyGoodsCount);
 		return result;
 	}
 	

@@ -53,13 +53,14 @@
 		UPDATE
 			k3_tb_release
 		SET
-			releaseMergeCode = #{releaseMergeCode},
-			shipmentCheckResult = #{shipmentCheckResult},
-			shipmentCheckManager = #{shipmentCheckManager},
-			releaseDate = #{releaseDate},
-			shipmentCheckRegDate = #{shipmentCheckRegDate}
+			releaseMergeCode = #{k3Release.releaseMergeCode},
+			shipmentCheckResult = #{k3Release.shipmentCheckResult},
+			shipmentCheckManager = #{k3Release.shipmentCheckManager},
+			releaseDate = #{k3Release.releaseDate},
+			shipmentCheckRegDate = #{k3Release.shipmentCheckRegDate},
+			releaseGoodsCount = #{modifyGoodsCount}
 		WHERE
-			releaseCode = #{releaseCode};
+			releaseCode = #{k3Release.releaseCode};
 	</update>	
 	
 	<!--출하검수 등록/수정 페이지 이동(물품명, 개수 세팅)  -->

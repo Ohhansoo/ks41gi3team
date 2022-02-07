@@ -46,7 +46,7 @@ public class K3ShipmentCheckController {
 			 							 @RequestParam(value="stockCode", required=false)String stockCode,
 			 							 K3Release k3Release){
 		 log.info("K3CheckController/ 출하검수 수정처리 전----->>>>>>>>>>{}", k3Release);
-		 int modifyResult = k3ShipmentCheckService.k3AddShipmentCheck(k3Release);	
+		 int modifyResult = k3ShipmentCheckService.k3AddShipmentCheck(k3Release, modifyGoodsCount);	
 		 log.info("K3CheckController/ 출하검수 수정페이지 이동 처리결과----->>>>>>>>>>{}", modifyResult);
 			if(modifyResult > 0) {
 				String type = "modify";
@@ -79,7 +79,7 @@ public class K3ShipmentCheckController {
 									 @RequestParam(value="stockCode", required=false)String stockCode,
 									 K3Release k3Release){
 		log.info("K3ShipmentCheckController---- 출하검수 등록페이지 이동----->>>>>>>>>>", k3Release);
-		int addResult = k3ShipmentCheckService.k3AddShipmentCheck(k3Release);
+		int addResult = k3ShipmentCheckService.k3AddShipmentCheck(k3Release, modifyGoodsCount);
 		if(addResult > 0) {
 			String type = "add";
 			int releaseGoodCount = Integer.parseInt(k3Release.getReleaseGoodsCount());
