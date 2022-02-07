@@ -131,11 +131,229 @@
 					Emodal += '<th>견적 측정 날짜</th><td>'+data[0].estimateMeasureDate + '</td></tr>';
 					
 					Emodal += '<tr><th>등록직원 아이디</th><td>'+data[0].memberId + '</td><th></th><td></td></tr>';
+
+					$(document).on('click','.modifyEstimateModalBtn',function(){
+						for(var i = 0; i < data.length; i++){
+							if(data[i].unitContractDevision == '송장'){
+								location.href = "/team03/contractorContract/Estimate/k3ModifyInvoiceEstimate?estimateNum=" + data[0].estimateNum;
+							}else{
+								location.href = "/team03/contractorContract/Estimate/k3ModifyCarEstimate?estimateNum=" + data[0].estimateNum;
+							}
+						}
+					});
+	
+					<!-- 견적서 삭제처리(모달버튼) -->	
+					$('.deleteEstimateModalBtn').on('click',function(){
+						var url = "/team03/contractorContract/Estimate/k3SearchEstimate";
+						var estimateNum = data[0].estimateNum;
+						console.log("변수내부 확인 estimateNum : " + estimateNum + "확인끝");
+						swal({
+							title: "정말 삭제하시겠습니까?",
+							text: "한번 삭제한 견적서 정보는 복구할 수 없습니다.",
+							icon: "warning",
+							buttons: {
+								confirm: {
+									text: "네.삭제할게요",
+									value: true,
+									visible: true,
+									className: "btn btn-outline-info",
+									closeModal: true,
+								},
+								cancel: {
+									text: "아니요",
+									value: null,
+									visible: true,
+									className: "btn btn-outline-info",
+									closeModal: true
+								}
+							}
+						})
+						.then(function (value){
+							if(value){						
+								$.ajax({
+									url : url,
+									type : 'POST',
+									traditional : true,
+									data : { "estimateNum" : estimateNum },
+									success : function(data){
+										if(data){
+											swal("삭제 성공:)","선택하신 견적서가 삭제되었습니다.","success");
+		 									$('td[rel=estimateNum]').each(function() {
+		 										if($.trim($(this).text()) == estimateNum) {
+		 											$(this).parents('tr').remove();
+		 										}
+		 									
+		 									})
+		 									
+		 									// hide modal
+		 									$('#detailEstimateModal').modal('hide');	 									
+										}
+										else{
+											swal("삭제 실패TT","선택하신 견적서를 삭제하는데 실패하였습니다.","error");
+										}
+									}
+								});
+							}else{
+								swal("삭제 취소","정상적으로 취소 되었습니다..","error");
+							}
+						});
+					});
+					<!--END 견적서 삭제처리(모달버튼) -->						
 					
 					$('#Emodal').append(Emodal);
 					$('#detailEstimateModal').modal('show');
 				}
 				<!-- END견적서 상세정보 모달창 -->
+				
+				<!-- 견적서 수정페이지 이동-->
+				$(document).on('click','#modifyEstimate',function(){
+					var	estimateNum = $(this).attr('data-estimateNum');	
+					$.ajax({
+						url: "/team03/contractorContract/Estimate/k3SearchEstimateAjax",
+						type:"GET",
+						data: {"estimateNum": estimateNum},
+						dataType: 'json',
+						success:function(response){
+							modifyEstimate(response);
+						}
+					});
+					function modifyEstimate(data){
+						for(var i = 0; i < data.length; i++){
+							if(data[i].unitContractDevision == '송장'){
+								location.href = "/team03/contractorContract/Estimate/k3ModifyInvoiceEstimate?estimateNum=" + data[0].estimateNum;
+							}else{
+								location.href = "/team03/contractorContract/Estimate/k3ModifyCarEstimate?estimateNum=" + data[0].estimateNum;
+							}
+						}
+					}
+				});
+				<!--END 견적서 수정페이지 이동-->
+				
+				<!--견적서 삭제-->
+				
+				<!-- 거래처 삭제처리(체크박스) -->
+				$('#checkDeleteEstimate').on('click',function(){
+					var url = "/team03/contractorContract/Estimate/k3SearchEstimate";
+					var removeEstimateArr = new Array();
+					var list = $("input[name=checkEstimate]");
+					
+					console.log("변수내부 확인  list : "+ list +"확인끝");
+					
+					for(var i = 0; i < list.length; i++){
+						if(list[i].checked){
+							removeEstimateArr.push(list[i].value);
+						}
+					}
+					if(removeEstimateArr.length == 0){
+						swal("선택한 글이 없습니다.","삭제를 원하는 견적서 정보에 체크해주세요!","error");
+					}else{
+						swal({
+							title: "정말 삭제하시겠습니까?",
+							text: "한번 삭제한 견적서 정보는 복구할 수 없습니다.",
+							icon: "warning",
+							buttons: {
+								confirm: {
+									text: "네.삭제할게요",
+									value: true,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true,
+								},
+								cancel: {
+									text: "아니요",
+									value: null,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true
+								}
+							}
+						})
+						.then(function (value){
+							if(value){
+								$.ajax({
+									url : url,
+									type : 'POST',
+									traditional : true,
+									data : { removeEstimateArr : removeEstimateArr },
+									success : function(data){
+										if(data){
+											swal("삭제 성공:)","선택하신 견적서가 삭제되었습니다.","success");
+		 									// delete row that deleted
+		 									$('td[rel=estimateNum]').each(function() {
+		 										if($.trim($(this).text()) == removeEstimateArr) {
+		 											$(this).parents('tr').remove();
+		 										}
+		 									
+		 									})
+										}
+										else{
+											swal("삭제 실패TT","선택하신 견적서를 삭제하는데 실패하였습니다.","error");
+										}
+									}
+								});
+							}else{
+								swal("삭제 취소","정상적으로 취소 되었습니다.","error");
+							}
+						})
+					}
+				});
+				<!--END 견적서 삭제처리(체크박스) -->						
+
+				<!-- 견적서 삭제처리(버튼) -->	
+				$('.deleteEstimateBtn').on('click',function(){
+					var url = "/team03/contractorContract/Estimate/k3SearchEstimate";
+					var estimateNum = $(this).attr('data-estimateNum');
+					console.log("변수내부 확인 estimateNum : " + estimateNum + "확인끝");
+					swal({
+						title: "정말 삭제하시겠습니까?",
+						text: "한번 삭제한 견적서는 복구할 수 없습니다.",
+						icon: "warning",
+						buttons: {
+							confirm: {
+								text: "네.삭제할게요",
+								value: true,
+								visible: true,
+								className: "btn btn-outline-info",
+								closeModal: true,
+							},
+							cancel: {
+								text: "아니요",
+								value: null,
+								visible: true,
+								className: "btn btn-outline-info",
+								closeModal: true
+							}
+						}
+					})
+					.then(function (value){
+						if(value){
+							$.ajax({
+								url : url,
+								type : 'POST',
+								traditional : true,
+								data : { "estimateNum" : estimateNum },
+								success : function(data){
+									if(data){
+										swal("삭제 성공:)","선택하신 견적서가 삭제되었습니다.","success");
+	 									$('td[rel=estimateNum]').each(function() {
+	 										if($.trim($(this).text()) == estimateNum) {
+	 											$(this).parents('tr').remove();
+	 										}
+	 									
+	 									})
+									}
+									else{
+										swal("삭제 실패TT","선택하신 견적서를 삭제하는데 실패하였습니다.","error");
+									}
+								}
+							});
+						}else{
+							swal("삭제 취소","정상적으로 취소 되었습니다.","error");
+						}
+					});
+				});			
+				<!--END 견적서 삭제처리(버튼) -->					
+				<!-- END 견적서 삭제-->
 			});
 		</script>
 	</th:block>	
@@ -279,12 +497,12 @@
 											</a>
 										</td>
 										<td>
-											<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:href="@{/team03/contractorContract/Estimate/k3ModifyEstimate(estimateNum=${e.estimateNum})}">
+											<a id="modifyEstimate" type="button"  class="btn btn-default btn-sm" th:data-estimateNum="${e.estimateNum}">
 												<i class="fas fa-pencil-alt icon"></i>
 											</a>
 										</td>
 										<td>
-											<button type="button" class="deleteEstimateBtn btn btn-default btn-sm" th:data-deleteContractCode="${e.estimateNum}" >
+											<button type="button" class="deleteEstimateBtn btn btn-default btn-sm" th:data-estimateNum="${e.estimateNum}" >
 												<i class="bi bi-trash-fill"></i>
 											</button>
 										</td>
@@ -372,10 +590,10 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<a class="ahsbtn2 btn btn-outline-info modifyUnitModalBtn">
+						<!-- <a class="ahsbtn2 btn btn-outline-info modifyUnitModalBtn">
 							<i class="bi bi-pencil"></i>
 							수정
-						</a>
+						</a> -->
 						<button class="printDetailUnitModal ahsbtn2 btn btn-outline-info" type="button">
 							<i class="bi bi-printer"></i>
 							출력
@@ -407,6 +625,10 @@
 						<a class="ahsbtn2 btn btn-outline-info modifyEstimateModalBtn">
 							<i class="bi bi-pencil"></i>
 							수정
+						</a>
+						<a class="ahsbtn2 btn btn-outline-info deleteEstimateModalBtn">
+							<i class="bi bi-trash"></i>
+							삭제
 						</a>
 						<button class="printDetailEstimateModal ahsbtn2 btn btn-outline-info" type="button">
 							<i class="bi bi-printer"></i>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import k3.contractor.ahs.dto.K3Contractor;
 import k3.contractor.ahs.dto.K3DetailContractor;
+import k3.contractor.ahs.mapper.K3ContractorMapper;
 import k3.estimate.ahs.dto.K3Estimate;
 import k3.estimate.ahs.dto.K3Unit;
 import k3.estimate.ahs.mapper.K3EstimateMapper;
@@ -17,7 +18,55 @@ import k3.estimate.ahs.mapper.K3EstimateMapper;
 @Transactional
 public class K3EstimateService {
 	
-	private K3EstimateMapper k3EstimateMapper;
+	private final K3EstimateMapper k3EstimateMapper;
+
+	public K3EstimateService(K3EstimateMapper k3EstimateMapper) {
+		this.k3EstimateMapper = k3EstimateMapper;
+	}
+	
+	//견적서 삭제처리
+	public void k3DeleteEstimate(String estimateNum) {
+		k3EstimateMapper.k3DeleteEstimate(estimateNum);
+	}
+	
+	//견적서 수정처리
+	public int k3ModifyEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3ModifyEstimate(k3Estimate);
+		return result;
+	}
+	
+	//견적서 송장 수정처리
+	public int k3ModifyInvoiceDetailEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3ModifyWareDetailEstimate(k3Estimate);
+		result += k3EstimateMapper.k3ModifyInvoiceDetailEstimate(k3Estimate);
+		return result;
+	}
+	
+	//견적서 차량 수정처리
+	public int k3ModifyCarDetailEstimate(K3Estimate k3Estimate) {
+		int result = k3EstimateMapper.k3ModifyWareDetailEstimate(k3Estimate);
+		result += k3EstimateMapper.k3ModifyCarDetailEstimate(k3Estimate);
+		result += k3EstimateMapper.k3ModifyDistanceDetailEstimate(k3Estimate);
+		return result;
+	}
+	
+	//견적서 송장 수정 페이지로 이동
+	public List<K3Estimate> k3GetModifyInvoiceEstimate(String estimateNum) {
+		
+		List<K3Estimate> k3Estimate = k3EstimateMapper.k3GetModifyInvoiceEstimate(estimateNum);
+		
+		return k3Estimate;
+		
+	}
+	
+	//견적서 차량 수정 페이지로 이동
+	public List<K3Estimate> k3GetModifyCarEstimate(String estimateNum) {
+		
+		List<K3Estimate> k3Estimate = k3EstimateMapper.k3GetModifyCarEstimate(estimateNum);
+		
+		return k3Estimate;
+		
+	}
 	
 	//견적서 등록 k3_tb_estimate
 	public int k3AddEstimate(K3Estimate k3Estimate) {
@@ -85,10 +134,6 @@ public class K3EstimateService {
 		List<K3Unit> k3Unit = k3EstimateMapper.k3GetUnit();
 		
 		return k3Unit;
-	}
-	
-	public K3EstimateService(K3EstimateMapper k3EstimateMapper) {
-		this.k3EstimateMapper = k3EstimateMapper;
 	}
 	
 	//견적서 검색기능

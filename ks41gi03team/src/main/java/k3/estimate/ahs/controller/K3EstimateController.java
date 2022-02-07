@@ -4,6 +4,8 @@ package k3.estimate.ahs.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,75 @@ public class K3EstimateController {
 	public K3EstimateController(K3EstimateService k3EstimateService) {
 		this.k3EstimateService = k3EstimateService;
 	}
+	
+	//견적서 삭제
+	@PostMapping("/k3SearchEstimate")
+	public String k3DeleteEstimate(HttpServletRequest request) {
+		//체크박스
+		if(request.getParameter("removeEstimateArr") != null) {
+			
+			String[] removeEstimateArr = request.getParameterValues("removeEstimateArr");
+			
+			int size = removeEstimateArr.length;
+			for(int i=0; i < size; i++) {
+				k3EstimateService.k3DeleteEstimate(removeEstimateArr[i]);
+			}
+		//버튼 
+		}else if(request.getParameter("estimateNum") != null){
+			String estimateNum = request.getParameter("estimateNum");
+			k3EstimateService.k3DeleteEstimate(estimateNum);
+		}
+			return "redirect:/team03/contractorContract/Estimate/k3SearchEstimate";		
+	}
+	
+	//견적서 차량 수정 처리
+	@PostMapping("/k3ModifyCarEstimate")
+	public String k3ModifyCarEstimate(K3Estimate k3Estimate) {
+		
+		k3EstimateService.k3ModifyEstimate(k3Estimate);
+		k3EstimateService.k3ModifyCarDetailEstimate(k3Estimate);
+		
+		return "redirect:/team03/contractorContract/Estimate/k3SearchEstimate";
+	}
+	
+	//견적서 송장 수정 처리
+	@PostMapping("/k3ModifyInvoiceEstimate")
+	public String k3ModifyInvoiceEstimate(K3Estimate k3Estimate) {
+		
+		k3EstimateService.k3ModifyEstimate(k3Estimate);
+		k3EstimateService.k3ModifyInvoiceDetailEstimate(k3Estimate);
+		
+		return "redirect:/team03/contractorContract/Estimate/k3SearchEstimate";
+	}
+
+	//견적서 송장 수정 페이지로 이동
+	@GetMapping("/k3ModifyInvoiceEstimate")
+	public String k3GetModifyInvoiceEstimate(@RequestParam(value = "estimateNum",required = false)String estimateNum,
+											Model model) {
+		
+		List<K3Estimate> k3Estimate = k3EstimateService.k3GetModifyInvoiceEstimate(estimateNum);
+		
+		model.addAttribute("title", "견적서 관리");
+		model.addAttribute("subtitle", "견적서 수정");
+		model.addAttribute("k3Estimate", k3Estimate);
+
+		return "/team03/contractorContract/Estimate/k3ModifyInvoiceEstimate";
+	}
+	
+	//견적서 차량 수정 페이지로 이동
+	@GetMapping("/k3ModifyCarEstimate")
+	public String k3GetModifyCarEstimate(@RequestParam(value = "estimateNum",required = false)String estimateNum,
+										Model model) {
+		
+		List<K3Estimate> k3Estimate = k3EstimateService.k3GetModifyInvoiceEstimate(estimateNum);
+		
+		model.addAttribute("title", "견적서 관리");
+		model.addAttribute("subtitle", "견적서 수정");
+		model.addAttribute("k3Estimate", k3Estimate);
+
+		return "/team03/contractorContract/Estimate/k3ModifyCarEstimate";
+	}
+
 	
 	//견적서 등록처리
 	@PostMapping("/k3AddEstimate")
@@ -87,14 +158,6 @@ public class K3EstimateController {
 		model.addAttribute("estimateDef", estimateDef);
 
 		return "/team03/contractorContract/Estimate/k3AddEstimate";
-	}
-
-	//견적서 수정
-	@GetMapping("/k3ModifyEstimate")
-	public String k3GetModifyEstimate(Model model) {
-		model.addAttribute("title", "견적서 관리");
-		model.addAttribute("subtitle", "견적서 수정");
-		return "/team03/contractorContract/Estimate/k3ModifyEstimate";
 	}
 	
 	//견적서 현황+검색

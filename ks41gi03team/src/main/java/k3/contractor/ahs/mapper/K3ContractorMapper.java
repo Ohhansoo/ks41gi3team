@@ -10,7 +10,7 @@ import k3.contractor.ahs.dto.K3DetailContractor;
 @Mapper
 public interface K3ContractorMapper {
 	
-	//거래처 삭제처리(체크박스)
+	//거래처 삭제처리
 	public void k3DeleteContractor(String contractorCode);
 
 	//거래처 사업장 코드 중복확인
