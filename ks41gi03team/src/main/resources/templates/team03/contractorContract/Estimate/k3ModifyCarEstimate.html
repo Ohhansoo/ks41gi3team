@@ -3,7 +3,7 @@
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="@{layout/default}">
 	<th:block layout:fragment="customTitle">
-		<title>addContract</title>
+		<title>modifyEstimate</title>
 	</th:block>
 	<th:block layout:fragment="customCss">
 		<link rel="stylesheet" th:href="@{/css/common.css}">
@@ -15,38 +15,6 @@
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>		
 		<script>
 			$(function(){
-				<!-- 배송방식 선택 -->
-				$('#invoiceEstimate').hide();
-				$('#carEstimate').hide();
-				$('#invoiceEstimate').prop('disabled', true);
-				$('#carEstimate').prop('disabled', true);
-				$('#addEstimateBtn').prop('disabled', true);
-				
-				$(document).on('click','#invoiceEstimateBtn',function(){
-					$('#devisionBtn').hide();
-					$('#invoiceEstimate').show();
-					$('#carEstimate').prop('disabled', true);
-					$('#invoiceEstimate').prop('disabled', false);
-					$('#addEstimateBtn').prop('disabled', false);
-				});
-				$(document).on('click','#carEstimateBtn',function(){
-					$('#devisionBtn').hide();
-					$('#carEstimate').show();
-					$('#invoiceEstimate').prop('disabled', true);
-					$('#carEstimate').prop('disabled', false);
-					$('#addEstimateBtn').prop('disabled', false);
-				});
-				$(document).on('click','#otherSelectBtn',function(){
-					$('#estimatePrice').val("");
-					$('#invoiceEstimate').hide();
-					$('#carEstimate').hide();
-					$('#devisionBtn').show();
-					$('#invoiceEstimate').prop('disabled', true);
-					$('#carEstimate').prop('disabled', true);
-					$('#addEstimateBtn').prop('disabled', true);
-				});
-				<!--END 배송방식 선택 -->
-				
 				<!-- 창고 단가 모달창 -->
 				$(document).on('click','#wareUnitBtn',function(){
 					
@@ -175,77 +143,6 @@
 				});
 				<!-- END 총 창고 견적금액 -->
 				
-				<!-- 송장 단가 모달창 -->
-				$(document).on('click','#inovoiceUnitBtn',function(){
-					$('#Umodal').empty();
-					$.ajax({
-						url:"/team03/contractorContract/Estimate/k3UnitModalAjax",
-						method:'GET',
-						dataType:'JSON',
-						success:function(response){
-							showList(response);
-						}
-					});
-					function showList(data){
-						var Umodal = '';
-						for(var i = 0; i<data.length; i++){
-							if(data[i].unitContractDevision == '송장'){
-								Umodal += '<tr><td>'+ data[i].unitPriceCode +'</td>';
-								Umodal += '<td>'+ data[i].unitContractDevision +'</td>';
-								Umodal += '<td>'+ data[i].unitContract +'</td>';
-								Umodal += '<td></td>';
-								Umodal += '<td>'+ data[i].unitPay +'</td>';
-								Umodal += '<td><button type="submit" class="selectInvoice"><i class="bi bi-arrow-down-square"></i></button></td></tr>';
-							}
-						}
-						$('#Umodal').append(Umodal);
-					}
-					
-					$('#unitModal').modal('show');
-				});
-
-				<!-- 선택한 송장 정보 가져오기 -->
-				$(document).on('click','.selectInvoice',function(){
-					
-					$('#invoiceAmount').val(0);
-					$('#invoiceUnitPrice').val("");
-					$('#estimatePrice').val("");
-					$('#estimatePricePrepayment').val("");
-					$('#estimatePriceMonth').val("");
-
-					$('#unitModal').modal('hide');
-					var selectInvoice = $(this);
-					var tr = selectInvoice.parent().parent();
-					var td = tr.children();
-					
-					$('#invoiceCode').val(td.eq(0).text());
-					$('#invoiceDevision').val(td.eq(1).text());
-					$('#inovoiceContract').val(td.eq(2).text());
-					$('#invoicePay').val(td.eq(4).text());
-										
-				});
-				<!-- END 선택한 송장 정보 가져오기 -->
-				<!-- END 송장 단가 모달창 -->
-				
-				<!-- 송장 계산 -->
-				$('#invoiceAmount').click(function(){
-					var invoicePayV = $('#invoicePay').val().replace(/,/g,"");
-					invoicePayV = invoicePayV * 1;
-					var invoiceAmountV = $('#invoiceAmount').val();
-					var invoiceUnitPriceV = invoicePayV * invoiceAmountV;
-					invoiceUnitPriceV = invoiceUnitPriceV.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-					$('#invoiceUnitPrice').val(invoiceUnitPriceV);
-				});
-				$('#invoiceAmount').keyup(function(){
-					var invoicePayV = $('#invoicePay').val().replace(/,/g,"");
-					invoicePayV = warePayV * 1;
-					var invoiceAmountV = $('#invoiceAmount').val();
-					var invoiceUnitPriceV = invoicePayV * invoiceAmountV;
-					invoiceUnitPriceV = invoiceUnitPriceV.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-					$('#invoiceUnitPrice').val(invoiceUnitPriceV);
-				});
-				<!-- END 송장 계산 -->
-			
 				
 				<!-- 배송 차량 단가 모달창 -->
 				$(document).on('click','#carUnitBtn',function(){
@@ -393,7 +290,7 @@
 				
 				<!-- 견적(차량) 결과 -->
 				$(document).click(function(){
-					if($('#carEstimate').prop('disabled') == false && $('#unitPrice').val() != "" && $('#carPrice').val() !="" && $('#wareUnitMulti').val() != ""){
+					if( $('#unitPrice').val() != "" && $('#carPrice').val() !="" && $('#wareUnitMulti').val() != ""){
 						var unitPrice = $('#unitPrice').val().replace(/,/g,"");
 						unitPrice = unitPrice*1;
 						var carPrice = $('#carPrice').val().replace(/,/g,"");
@@ -419,36 +316,6 @@
 					}
 				});
 				<!-- END 견적(차량) 결과 -->
-			
-				<!-- 견적(송장) 결과 -->
-				$(document).click(function(){
-					if($('#invoiceEstimate').prop('disabled') == false && $('#invoiceUnitPrice').val() !="" && $('#wareUnitMulti').val() != ""){
-						var invoiceUnitPrice = $('#invoiceUnitPrice').val().replace(/,/g,"");
-						invoiceUnitPrice = invoiceUnitPrice*1;
-						var wareUnitMulti = $('#wareUnitMulti').val().replace(/,/g,"");
-						wareUnitMulti = wareUnitMulti*1;
-						
-						<!-- 총합계-->
-						var estimatePrice = (invoiceUnitPrice + wareUnitMulti);
-						<!-- 선입금액-->
-						var estimatePricePrepayment = (estimatePrice/10);
-						<!-- 월납입금액-->
-						var wareContractTerm = $('#wareContractTerm').val().replace("개월","")*1;
-						var estimatePriceMonth = Math.ceil((estimatePrice-estimatePricePrepayment)/wareContractTerm);
-						
-						estimatePrice = estimatePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						$('#estimatePrice').val(estimatePrice);
-						
-						estimatePricePrepayment = estimatePricePrepayment.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						$('#estimatePricePrepayment').val(estimatePricePrepayment);
-						
-						estimatePriceMonth = estimatePriceMonth.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						$('#estimatePriceMonth').val(estimatePriceMonth);
-						
-					}
-				});
-				<!-- END 견적(송장) 결과 -->
-			
 				
 				<!-- 거래처 목록 모달창 -->
 				$(document).on('click','#contractorBtn',function(){
@@ -502,13 +369,11 @@
 				<!-- END 선택한 거래처 정보 가져오기 -->
 				
 				<!-- 빈칸 검사 기능 -->
-				$(document).on('click', '#addEstimateBtn', function(){
-
-					if($('#carEstimate').prop('disabled') || $('#invoiceEstimate').prop('disabled')){
+				$(document).on('click', '#modifyEstimateBtn', function(){
 						if($('#estimatePrice').val() != "" && $('#estimatePrice').val() != "0" && $('#contractorCode').val() !=""){
 							swal({
-								title: "등록 하시겠습니까?",
-								text: "등록하신 견적서는 데이터에 저장됩니다.",
+								title: "수정 하시겠습니까?",
+								text: "수정하신 견적서는 데이터에 저장됩니다.",
 								icon: "warning",
 								buttons: {
 									confirm: {
@@ -529,10 +394,10 @@
 							})
 							.then(function(value){
 								if(value){
-									swal("등록 성공:)","견적서가 성공적으로 등록되었습니다.","success");
-									setTimeout(function(){$('#addEstimateForm').submit();},1000);
+									swal("수정 성공:)","견적서가 성공적으로 수정되었습니다.","success");
+									setTimeout(function(){$('#modifyEstimateForm').submit();},1000);
 								}else{
-									swal("등록 취소!","견적서 등록이 취소되었습니다.","error");
+									swal("수정 취소!","견적서 수정이 취소되었습니다.","error");
 									return false;
 								}
 							});	
@@ -544,7 +409,6 @@
 							swal("견적 계산을 끝내주세요!", "단가표에서 단가를 선택하고 수량을 입력하면 자동으로 계산됩니다." ,"error");
 							return false
 						}
-					}
 				});
 				<!-- END 빈칸 검사 기능 -->				
 			});
@@ -554,44 +418,44 @@
 	<th:block layout:fragment="customContents"> 
 		<!--카드 영역 -->
 		<div class="container container-fluid ">
-			<form id="addEstimateForm" th:action="@{/team03/contractorContract/Estimate/k3AddEstimate}" method="post">
-				<div class="d-flex" th:each="ed : ${estimateDef}">
-					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+			<form id="modifyEstimateForm" th:action="@{/team03/contractorContract/Estimate/k3ModifyCarEstimate}" method="post">
+				<div class="d-flex" >
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" th:each="e: ${k3Estimate[0]}">
 						<div class="estimateLabel">
 							<label>| 창고 견적 |</label>							
 						</div>					  	
 						<div class="input-group">
 							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum1" th:value="${ed.estimateDetailNum1}" id="estimateDetailNum" placeholder="자동 지정" readonly/>
+				 			<input  class="form-control" type="text" name="estimateDetailNum1"  id="estimateDetailNum" th:value="${e.estimateDetailNum}" readonly/>
 						</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" id="wareCode" type="text" name="wareCode" placeholder="단가코드" readonly/>
+				  			<input  class="form-control" id="wareCode" type="text" name="wareCode" th:value="${e.UnitPriceCode}" placeholder="단가코드" readonly/>
 				 			<button type="button" id="wareUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">구분 단위</span>
-				  			<input  class="form-control" id="wareDevision" type="text" name="wareDevision" placeholder="구분" readonly/>
+				  			<input  class="form-control" id="wareDevision" type="text" name="wareDevision" th:value="${e.unitContractDevision}" placeholder="구분" readonly/>
 				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" id="wareContract" type="text" name="wareContract" placeholder="계약단위"  readonly/>
+				  			<input class="form-control" id="wareContract" type="text" name="wareContract" th:value="${e.unitContract}" placeholder="계약단위"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">창고 유형</span>
-				  			<select class="form-control" name="unitContractWarehouseType" id="unitContractWarehouseType">
-				  				<option value="일반" selected>일반</option>
-				  				<option value="냉장" >냉장</option>
-				  				<option value="냉동" >냉동</option>
-				  				<option value="고급" >고급</option>
+				  			<select class="form-control" name="unitContractWarehouseType" id="unitContractWarehouseType" th:value="${e.unitContractWarehouseType}">
+				  				<option value="일반" th:selected="${e.unitContractWarehouseType} == 일반">일반</option>
+				  				<option value="냉장" th:selected="${e.unitContractWarehouseType} == 냉장">냉장</option>
+				  				<option value="냉동" th:selected="${e.unitContractWarehouseType} == 냉동">냉동</option>
+				  				<option value="고급" th:selected="${e.unitContractWarehouseType} == 고급">고급</option>
 				  			</select>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">단위별 견적금액</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" id="warePay" type="text" name="warePay" placeholder="단위 가격" readonly/>
+					  			<input  class="form-control" id="warePay" type="text" name="warePay" th:value="${e.unitPay}" placeholder="단위 가격" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input  class="form-control" id="wareAmount" type="number" min="0" name="wareAmount" value="0" placeholder="견적 수량"/>
+					  			<input  class="form-control" id="wareAmount" type="number" min="0" name="wareAmount" th:value="${e.unitContractDevisionAmount}" value="0" placeholder="견적 수량"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
@@ -601,178 +465,133 @@
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 기간</span>
 				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input class="form-control" id="wareTerm" type="text" name="wareTerm" placeholder="최소 기간(월)" readonly/>
+					  			<input class="form-control" id="wareTerm" type="text" name="wareTerm" th:value="${e.unitTerm}" placeholder="최소 기간(월)" readonly/>
 					  			<div style="margin:3px">
 					  				<b>X</b>
 					  			</div>
-					  			<input class="form-control" value="0" min="0" type="number" name="wareTermMulti" id="wareTermMulti" placeholder="기간곱"/>
+					  			<input class="form-control" value="0" min="0" type="number" name="wareTermMulti"  id="wareTermMulti" placeholder="기간곱"/>
 					  			<div style="margin:3px">
 					  				<b>=</b>
 					  			</div>
-					  			<input class="form-control" type="text" name="wareContractTerm" id="wareContractTerm" placeholder="계약 기간(월)" readonly/>
+					  			<input class="form-control" type="text" name="wareContractTerm" id="wareContractTerm" th:value="${e.estimateContractTerm}" placeholder="계약 기간(월)" readonly/>
 							</div>
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">창고 견적 합계</span>
-				  			<input class="form-control" id="wareUnitMulti" type="text" name="wareUnitMulti" placeholder="창고 견적 합계" readonly/>
+				  			<input class="form-control" id="wareUnitMulti" type="text" name="wareUnitMulti" th:value="${e.estimateUnitPrice}" placeholder="창고 견적 합계" readonly/>
 				  		</div>
 					</div>
-					<div class="justify-content-center addForm card cardColor input-group" id="devisionBtn" style="margin:10px;">
-						<div class="estimateLabel">						
-							<label style="color:red">※ 배송 방식을 선택하세요 ※</label>
-						</div>
-						<div class="d-flex justify-content-center" style="margin:10px">
-							<div><button id="invoiceEstimateBtn" class=" btn btn-light btn-outline-info" type="button" style="font-size:25px; margin:10px">송장</button></div>
-							<div><button id="carEstimateBtn" class=" btn btn-info " type="button" style="font-size:25px; margin:10px">차량</button></div>
-						</div>
+					<div class="justify-content-start addForm card cardColor input-group" id="carEstimate" style="margin:10px" >
+					<div th:each="e: ${k3Estimate[1]}">
+							<div class="estimateLabel">
+								<label>| 배송 차량 견적 |</label>							
+							</div>					  	
+							<div class="input-group">
+								<span class="input-group-text">견적 상세 번호</span>
+					 			<input  class="form-control" type="text" name="estimateDetailNum3" id="estimateDetailNum3" th:value="${e.estimateDetailNum}" placeholder="자동 지정" readonly/>
+							</div>
+					  		<div class="input-group">
+					  			<span class="input-group-text">단가코드</span>
+					  			<input  class="form-control" type="text" id="carCode" name="carCode" th:value="${e.UnitPriceCode}"  placeholder="단가코드" readonly/>
+					 			<button type="button" id="carUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+					  		</div>
+					  		<div class="input-group">
+					  			<span class="input-group-text">배송 단위</span>
+					  			<input  class="form-control"  type="text" id="carDevision" name="carDevision" th:value="${e.unitContractDevision}" placeholder="배송" readonly/>
+					  			<span class="input-group-text">계약 단위</span>
+					  			<input  class="form-control"  type="text" id="carContract" name="carContract" th:value="${e.unitContract}" placeholder="계약단위" readonly/>
+					  		</div>
+					  		<div class=" input-group">
+					  			<span class="input-group-text">단위별 견적금액</span>
+					  			<div class="input-group" style=" padding-bottom:0px">
+						  			<input  class="form-control" type="text" id="carPay" name="carPay" placeholder="단위 가격" readonly/>
+						  			<div style="margin:3px">
+						  				<b>X</b>
+						  			</div>
+						  			<input  class="form-control" type="number" id="carAmount" value="0" min="0" name="carAmount" />
+						  			<div style="margin:3px">
+						  				<b>=</b>
+						  			</div>
+						  			<input class="form-control" type="text" id="carPrice" name="carPrice" th:value="${e.estimateUnitPrice}" placeholder="견적금액" readonly/>
+					  			</div>
+					  		</div>
+					  	</div>
+					  	<div th:each="e: ${k3Estimate[2]}">
+							<div class="estimateLabel">
+								<label>| 배송 거리 견적 |</label>							
+							</div>					  	
+							<div class="input-group">
+								<span class="input-group-text">견적 상세 번호</span>
+					 			<input  class="form-control" type="text" name="estimateDetailNum4" th:value="${e.estimateDetailNum}" id="estimateDetailNum4" readonly/>
+							</div>
+					  		<div class="input-group">
+					  			<span class="input-group-text">단가 코드</span>
+					  			<input class="form-control" type="text" name="UnitPriceCode" th:value="${e.UnitPriceCode}" id="UnitPriceCode" placeholder="단가 코드"  readonly/>
+					 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+					  		</div>
+					  		<div class="input-group">
+					  			<span class="input-group-text">배송 단위</span>
+					  			<input class="form-control" type="text" name="unitContractDevision" th:value="${e.unitContractDevision}" id="unitContractDevision" placeholder="배송"  readonly/>
+					  			<span class="input-group-text">계약 단위</span>
+					  			<input class="form-control" type="text" name="unitContract" id="unitContract" th:value="${e.unitContract}" placeholder="계약단위"  readonly/>
+					  		</div>
+					  		<div class=" input-group">
+					  			<span class="input-group-text">단위별 견적금액</span>
+					  			<div class="input-group" style="padding-bottom:0px">
+						  			<input  class="form-control" type="text" name="unitPay" id="unitPay" th:value="${e.unitPay}" placeholder="단위 가격" readonly/>
+						  			<div style="margin:3px">
+						  				<b>X</b>
+						  			</div>
+						  			<input  class="form-control" value="0" min="0" id="unitAmount" th:value="${e.unitContractDevisionAmount}" type="number" name="unitContractDevisionAmount"/>
+						  			<div style="margin:3px">
+						  				<b>=</b>
+						  			</div>
+						  			<input class="form-control" type="text" name="unitPrice" id="unitPrice" th:value="${e.estimateUnitPrice}" placeholder="견적금액" readonly/>
+					  			</div>
+					  		</div>
+				  		</div>
 					</div>
-					<div class="justify-content-start addForm card cardColor input-group" id="invoiceEstimate" style="margin:10px">
-						<div class="estimateLabel">
-							<label>| 배송 송장 견적 |</label>							
-						</div>					  	
-						<div class="input-group">
-							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum2" th:value="${ed.estimateDetailNum2}"  id="estimateDetailNum" placeholder="자동 지정" readonly/>
-						</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" type="text" id="invoiceCode" name="invoiceCode" placeholder="단가코드" readonly/>
-				 			<button type="button" id="inovoiceUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
-				  		</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">구분 단위</span>
-				  			<input  class="form-control" type="text" id="invoiceDevision" name="invoiceDevision" placeholder="구분" readonly/>
-				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" type="text" name="inovoiceContract" id="inovoiceContract" placeholder="계약단위"  readonly/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">단위별 견적금액</span>
-				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" id="invoicePay" type="text" name="invoicePay" placeholder="단위 가격" readonly/>
-					  			<div style="margin:3px">
-					  				<b>X</b>
-					  			</div>
-					  			<input  class="form-control" type="number" id="invoiceAmount" value="0" min="0"  name="invoiceAmount"/>
-					  			<div style="margin:3px">
-					  				<b>=</b>
-					  			</div>
-					  			<input class="form-control" type="text" name="invoiceUnitPrice" id="invoiceUnitPrice" placeholder="견적금액" readonly/>
-				  			</div>
-				  		</div>
-			  			<div class="input-group" style="padding-bottom:0px">
-			  				<button id="otherSelectBtn" type="button" class="btn btn-outline-warning">배송방식 다시선택</button>
-			  			</div>
-				  	</div>
-					<div class="justify-content-start addForm card cardColor input-group" id="carEstimate" style="margin:10px">
-						<div class="estimateLabel">
-							<label>| 배송 차량 견적 |</label>							
-						</div>					  	
-						<div class="input-group">
-							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum3" th:value="${ed.estimateDetailNum3}" id="estimateDetailNum3" placeholder="자동 지정" readonly/>
-						</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">단가코드</span>
-				  			<input  class="form-control" type="text" id="carCode" name="carCode" placeholder="단가코드" readonly/>
-				 			<button type="button" id="carUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
-				  		</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">배송 단위</span>
-				  			<input  class="form-control"  type="text" id="carDevision" name="carDevision" placeholder="배송" readonly/>
-				  			<span class="input-group-text">계약 단위</span>
-				  			<input  class="form-control"  type="text" id="carContract" name="carContract" placeholder="계약단위" readonly/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">단위별 견적금액</span>
-				  			<div class="input-group" style=" padding-bottom:0px">
-					  			<input  class="form-control" type="text" id="carPay" name="carPay" placeholder="단위 가격" readonly/>
-					  			<div style="margin:3px">
-					  				<b>X</b>
-					  			</div>
-					  			<input  class="form-control" type="number" id="carAmount" value="0" min="0" name="carAmount"/>
-					  			<div style="margin:3px">
-					  				<b>=</b>
-					  			</div>
-					  			<input class="form-control" type="text" id="carPrice" name="carPrice" placeholder="견적금액" readonly/>
-				  			</div>
-				  		</div>
-						<div class="estimateLabel">
-							<label>| 배송 거리 견적 |</label>							
-						</div>					  	
-						<div class="input-group">
-							<span class="input-group-text">견적 상세 번호</span>
-				 			<input  class="form-control" type="text" name="estimateDetailNum4" th:value="${ed.estimateDetailNum4}" id="estimateDetailNum4" readonly/>
-						</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">단가 코드</span>
-				  			<input class="form-control" type="text" name="UnitPriceCode" id="UnitPriceCode" placeholder="단가 코드"  readonly/>
-				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
-				  		</div>
-				  		<div class="input-group">
-				  			<span class="input-group-text">배송 단위</span>
-				  			<input class="form-control" type="text" name="unitContractDevision" id="unitContractDevision" placeholder="배송"  readonly/>
-				  			<span class="input-group-text">계약 단위</span>
-				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="계약단위"  readonly/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">단위별 견적금액</span>
-				  			<div class="input-group" style="padding-bottom:0px">
-					  			<input  class="form-control" type="text" name="unitPay" id="unitPay" placeholder="단위 가격" readonly/>
-					  			<div style="margin:3px">
-					  				<b>X</b>
-					  			</div>
-					  			<input  class="form-control" value="0" min="0" id="unitAmount" type="number" name="unitAmount"/>
-					  			<div style="margin:3px">
-					  				<b>=</b>
-					  			</div>
-					  			<input class="form-control" type="text" name="unitPrice" id="unitPrice" placeholder="견적금액" readonly/>
-				  			</div>
-				  		</div>
-			  			<div class="input-group" style="padding-bottom:0px">
-			  				<button id="otherSelectBtn" type="button" class="btn btn-outline-warning">배송방식 다시선택</button>
-			  			</div>
-					</div>
-					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" th:each="e: ${k3Estimate[2]}" >
 						<div class="estimateLabel">
 							<label>| 견적 정보 |</label>
 						</div>						
 				  		<div class="input-group">
 				  			<span class="input-group-text">거래처 사업장 코드</span>
-				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" readonly/>
+				  			<input class="form-control" type="text" name="contractorCode" th:value="${e.contractorCode}" id="contractorCode" readonly/>
 				 			<button type="button" id="contractorBtn" class="ahsbtn2 btn btn-outline-info">거래처</button> 
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">견적 번호</span>
-				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum"  th:value="${ed.estimateNum}" readonly/>
+				  			<input class="form-control" type="text" name="estimateNum" id="estimateNum" th:value="${e.estimateNum}" readonly/>
 				  		</div>
 						<div class="estimateLabel">
 							<label>| 견적 결과 |</label>							
 						</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">견적합계(VAT)</span>
-				  			<input class="form-control" id="estimatePrice" type="text" name="estimatePrice" placeholder="단위별 견적의 총합" readonly/>
+				  			<input class="form-control" id="estimatePrice" type="text" name="estimatePrice" th:value="${e.estimatePrice}" placeholder="단위별 견적의 총합" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">선입금액 견적</span>
-				 			<input class="form-control" id="estimatePricePrepayment" type="text" name="estimatePricePrepayment" placeholder="견적합계의 10%"  readonly/>
+				 			<input class="form-control" id="estimatePricePrepayment" type="text" name="estimatePricePrepayment" th:value="${e.estimatePricePrepayment}" placeholder="견적합계의 10%"  readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">월납입금액 견적</span>
-					 		<input class="form-control" id="estimatePriceMonth" type="text" name="estimatePriceMonth"  placeholder="(견적합계-선입금액)/계약 기간" readonly/>
+					 		<input class="form-control" id="estimatePriceMonth" type="text" name="estimatePriceMonth" th:value="${e.estimatePriceMonth}" placeholder="(견적합계-선입금액)/계약 기간" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">견적 측정 일자</span>
-				 			<input class="form-control" type="text" name="estimateMeasureDate" id="estimateMeasureDate" th:value="${ed.estimateMeasureDate}" maxLength="3" readonly/>
+				 			<input class="form-control" type="text" name="estimateMeasureDate" id="estimateMeasureDate" th:value="${e.estimateMeasureDate}" maxLength="3" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">등록 직원 아이디</span>
-				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				 			<input class="form-control" value="m_c01" type="text" name="memberId" th:value="${e.memberId}" id="memberId" maxLength="3" readonly/>
 				  		</div>				  		
 					</div>	
 				</div>
 				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
-					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddEstimateBtn" type="button" th:href="@{k3SearchEstimate}">등록취소</a>
-					<button class="ahsbtn4 btn btn-outline-info" id="addEstimateBtn" type="submit">등록</button>
+					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleModifyEstimateBtn" type="button" th:href="@{k3SearchEstimate}">수정취소</a>
+					<button class="ahsbtn4 btn btn-outline-info" id="modifyEstimateBtn" type="submit">수정</button>
 				</div>
 			</form>
 		</div>

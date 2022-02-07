@@ -4,6 +4,171 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.estimate.ahs.mapper.K3EstimateMapper">
 
+	<!-- 견적서 삭제처리 -->
+	<delete id="k3DeleteEstimate">
+		DELETE
+			ed,e
+		FROM
+			k3_tb_estimate_detail AS ed
+			INNER join
+			k3_tb_estimate AS e
+			on
+			ed.contractorCode = e.contractorCode
+		WHERE
+			ed.estimateNum = #{estimateNum};
+	</delete>
+
+	<!-- 견적서 수정처리 -->
+	<update id="k3ModifyEstimate" parameterType="K3Estimate">
+		UPDATE k3_tb_estimate
+			SET
+				estimateNum= #{estimateNum},
+				mainBusinessCode='물류센터A물류센터_전북_1',
+				contractorCode=#{contractorCode},
+				estimatePrice= CAST(REPLACE(#{estimatePrice}, ',' , '')AS INT),
+				estimatePricePrepayment= CAST(REPLACE(#{estimatePricePrepayment}, ',' , '')AS INT), 
+				estimatePriceMonth= CAST(REPLACE(#{estimatePriceMonth}, ',' , '')AS INT), 
+				memberId=#{memberId}, 
+				estimateMeasureDate=curdate()
+			WHERE estimateNum=#{estimateNum};	
+	</update>
+	<!-- 견적서 창고 수정처리 -->
+	<update id="k3ModifyWareDetailEstimate" parameterType="K3Estimate">
+		UPDATE k3_tb_estimate_detail
+			SET
+				estimateDetailNum=#{estimateDetailNum1},
+				estimateNum=#{estimateNum},
+				mainBusinessCode='물류센터A물류센터_전북_1',
+				contractorCode=#{contractorCode},
+				UnitPriceCode=#{wareCode},
+				unitContractDevisionAmount=#{wareAmount},
+				unitContractWarehouseType=#{unitContractWarehouseType},
+				estimateContractTerm=#{wareContractTerm},
+				estimateUnitPrice=CAST(REPLACE(#{wareUnitMulti}, ',' , '')AS INT), 
+				memberId=#{memberId}
+			WHERE estimateDetailNum = #{estimateDetailNum1};	
+	</update>
+	<!-- 견적서 송장 수정처리 -->
+	<update id="k3ModifyInvoiceDetailEstimate" parameterType="K3Estimate">
+		UPDATE k3_tb_estimate_detail
+			SET
+				estimateDetailNum=#{estimateDetailNum2},
+				estimateNum=#{estimateNum},
+				mainBusinessCode='물류센터A물류센터_전북_1',
+				contractorCode=#{contractorCode},
+				UnitPriceCode=#{invoiceCode},
+				unitContractDevisionAmount=#{invoiceAmount},
+				unitContractWarehouseType='',
+				estimateContractTerm='',
+				estimateUnitPrice=CAST(REPLACE(#{invoiceUnitPrice}, ',' , '')AS INT), 
+				memberId=#{memberId}
+			WHERE estimateDetailNum = #{estimateDetailNum2};	
+	</update>
+
+	<!-- 견적서 차량 수정처리 -->
+	<update id="k3ModifyCarDetailEstimate" parameterType="K3Estimate">
+		UPDATE k3_tb_estimate_detail
+			SET
+				estimateDetailNum=#{estimateDetailNum3},
+				estimateNum=#{estimateNum},
+				mainBusinessCode='물류센터A물류센터_전북_1',
+				contractorCode=#{contractorCode},
+				UnitPriceCode=#{carCode},
+				unitContractDevisionAmount=#{carAmount},
+				unitContractWarehouseType='',
+				estimateContractTerm='',
+				estimateUnitPrice=CAST(REPLACE(#{carPrice}, ',' , '')AS INT), 
+				memberId=#{memberId}
+			WHERE estimateDetailNum = #{estimateDetailNum3};	
+	</update>
+	
+	<!-- 견적서 거리 수정처리 -->
+	<update id="k3ModifyDistanceDetailEstimate" parameterType="K3Estimate">
+		UPDATE k3_tb_estimate_detail
+			SET
+				estimateDetailNum=#{estimateDetailNum4},
+				estimateNum=#{estimateNum},
+				mainBusinessCode='물류센터A물류센터_전북_1',
+				contractorCode=#{contractorCode},
+				UnitPriceCode=#{UnitPriceCode},
+				unitContractDevisionAmount=#{unitAmount},
+				unitContractWarehouseType='',
+				estimateContractTerm='',
+				estimateUnitPrice=CAST(REPLACE(#{unitPrice}, ',' , '')AS INT), 
+				memberId=#{memberId}
+			WHERE estimateDetailNum = #{estimateDetailNum4};	
+	</update>
+
+	<!-- 견적서 송장 수정 페이지로 화면전환 -->
+	<select id="k3GetModifyInvoiceEstimate" parameterType="String" resultType="K3Estimate">
+		SELECT 
+			estimatePricePrepayment,
+			estimatePriceMonth,
+			estimateMeasureDate,
+			ed.estimateDetailNum, 
+			ed.estimateNum, 
+			ed.mainBusinessCode, 
+			ed.contractorCode, 
+			ed.UnitPriceCode, 
+			ed.unitContractDevisionAmount, 
+			ed.unitContractWarehouseType,
+			ed.estimateContractTerm, 
+			ed.estimateUnitPrice, 
+			ed.memberId,
+			wup.unitContractDevision,
+			wup.unitContract,
+			wup.unitTerm,
+			wup.unitPay
+		FROM 
+			k3_tb_estimate AS e
+			INNER JOIN 
+			k3_tb_estimate_detail AS ed
+			on
+			e.estimateNum = ed.estimateNum
+			INNER join
+			k3_tb_warehouse_unit_price AS wup
+			on
+			wup.UnitPriceCode = ed.UnitPriceCode
+		WHERE
+			e.estimateNum = #{estimateNum};		
+	</select>
+
+	<!-- 견적서 차량 수정 페이지로 화면전환 -->
+	<select id="k3GetModifyCarEstimate" parameterType="String" resultType="K3Estimate">
+		SELECT 
+			estimatePrice,
+			estimatePricePrepayment,
+			estimatePriceMonth,
+			estimateMeasureDate,
+			ed.estimateDetailNum, 
+			ed.estimateNum, 
+			ed.mainBusinessCode, 
+			ed.contractorCode, 
+			ed.UnitPriceCode, 
+			ed.unitContractDevisionAmount, 
+			ed.unitContractWarehouseType,
+			ed.estimateContractTerm, 
+			ed.estimateUnitPrice, 
+			ed.memberId,
+			wup.unitContractDevision,
+			wup.unitContract,
+			wup.unitTerm,
+			wup.unitPay
+		FROM 
+			k3_tb_estimate AS e
+			INNER JOIN 
+			k3_tb_estimate_detail AS ed
+			on
+			e.estimateNum = ed.estimateNum
+			INNER join
+			k3_tb_warehouse_unit_price AS wup
+			on
+			wup.UnitPriceCode = ed.UnitPriceCode
+		WHERE
+			e.estimateNum = #{estimateNum};		
+	</select>
+	
+
 	<!-- 견적서 등록 k3_tb_estimate -->
 	<insert id="k3AddEstimate" parameterType="K3Estimate">
 		INSERT INTO k3_tb_estimate
@@ -196,7 +361,7 @@
 			INNER join
 			k3_tb_estimate_detail AS es
 			on
-			e.memberId = es.memberId)
+			e.estimateNum = es.estimateNum)
 			INNER join
 			k3_tb_contractor AS c
 			ON

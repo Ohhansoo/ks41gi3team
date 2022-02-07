@@ -12,6 +12,30 @@ import k3.estimate.ahs.dto.K3Unit;
 
 @Mapper
 public interface K3EstimateMapper {
+
+	//견적서 삭제처리
+	public void k3DeleteEstimate(String estimateNum);
+	
+	//견적서 수정처리
+	public int k3ModifyEstimate(K3Estimate k3Estimate);
+	
+	//견적서 창고 수정처리
+	public int k3ModifyWareDetailEstimate(K3Estimate k3Estimate);
+	
+	//견적서 송장 수정처리
+	public int k3ModifyInvoiceDetailEstimate(K3Estimate k3Estimate);
+	
+	//견적서 차량 수정처리
+	public int k3ModifyCarDetailEstimate(K3Estimate k3Estimate);
+	
+	//견적서 거리 수정처리
+	public int k3ModifyDistanceDetailEstimate(K3Estimate k3Estimate);
+	
+	//견적서 송장 수정 페이지로 이동
+	public List<K3Estimate> k3GetModifyInvoiceEstimate(String estimateNum);
+
+	//견적서 차량 수정 페이지로 이동
+	public List<K3Estimate> k3GetModifyCarEstimate(String estimateNum);
 	
 	//견적서 등록 k3_tb_estimate
 	public int k3AddEstimate(K3Estimate k3Estimate);
