@@ -106,8 +106,15 @@ public class K3VehicleController {
 										Model model) {
 		if(vehicleKey != null && "vehicle".equals(vehicleKey)) {
 			vehicleKey = "vehicleCode";
+		}else if(vehicleKey != null && "manufacturer".equals(vehicleKey)) {
+			vehicleKey = "vehicleManufacturer";
+		}else if(vehicleKey != null && "type".equals(vehicleKey)) {
+			vehicleKey = "vehicleType";
+		}else if(vehicleKey != null && "tonage".equals(vehicleKey)) {
+			vehicleKey = "vehicleTonage";
+		}else if(vehicleKey != null && "availability".equals(vehicleKey)) {
+			vehicleKey = "vehicleDriveAvailability";	
 		}
-		
 		List<K3Vehicle> vehicleList = k3VehicleService.k3SearchVehicleList(vehicleKey, vehicleValue);
 		
 		model.addAttribute("title", "차량 관리");

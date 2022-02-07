@@ -98,8 +98,10 @@
 								<form class="col-lg-6" th:action="@{/team03/delivery/driver/k3DriverList}" method="post">
 								<div class="input-group input-group-sm">
 									<select class="form-control-sm" name="driverKey">
-												<option value="driver">기사 아이디</option>
-												<option value="dname">기사 이름</option>
+												<option value="name">기사 이름</option>
+												<option value="grade">성과 등급</option>
+												<option value="license">자격 유형</option>
+												<option value="qualification">계약 유형</option>
 											</select>
 										<input type="text" class="form-control" placeholder="검색" name="driverValue">
 										<button type="submit">검색</button>
