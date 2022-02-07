@@ -113,10 +113,14 @@ public class K3DriverController {
 	public String k3SearchDriverList(@RequestParam(value="driverKey", required = false) String driverKey,
 										@RequestParam(value="driverValue", required = false) String driverValue,
 										Model model) {
-		if(driverKey != null && "driver".equals(driverKey)) {
-			driverKey = "driverId";
-		}else if(driverKey != null && "dname".equals(driverKey)) {
+		if(driverKey != null && "name".equals(driverKey)) {
 			driverKey = "driverName";
+		}else if(driverKey != null && "grade".equals(driverKey)) {
+			driverKey = "driverPerformanceGrade";
+		}else if(driverKey != null && "license".equals(driverKey)) {
+			driverKey = "driverLicenseType";
+		}else if(driverKey != null && "qualification".equals(driverKey)) {
+			driverKey = "driverQualificationType";
 		}
 		List<K3Driver> driverList = k3DriverService.k3SearchDriverList(driverKey, driverValue);
 		
