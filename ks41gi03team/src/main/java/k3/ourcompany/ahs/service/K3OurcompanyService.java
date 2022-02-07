@@ -62,5 +62,11 @@ public class K3OurcompanyService {
 		return ourcompanymodalList;
 	}
 	
+	//사업장별 대표코드 여부 체크(중복확인)
+	public int getOurcompanyByMainBusinessCode(String mainBusinessCode) {
+		int result = 0;
+		result += ourcompanyMapper.getOurcompanyByMainBusinessCode(mainBusinessCode);
+		return result;
+	}
 
 }

@@ -12,6 +12,16 @@
 		/> <result column="ourCompanyWorkType" property="ourCompanyWorkType" /> <result 
 		column="ourCompanyEmail" property="ourCompanyEmail" /> </resultMap> -->
 
+	<!--  중복검사  -->
+	<select id="getOurcompanyByMainBusinessCode" parameterType="String"  resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			k0_sw_mainBusinessCodeManagement AS sw
+		WHERE
+			sw.mainBusinessCode = #{mainBusinessCode};
+	</select>
+
 	<!-- 자사정보 검색 -->
 	<select id="k3GetOurCompanySearchList" resultType="K3OurCompany">
 		SELECT

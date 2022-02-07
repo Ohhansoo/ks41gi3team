@@ -35,13 +35,6 @@
 					$(this).val( $(this).val().replace(/[^가-힣a-zA-Z0-9]/gi,"") );
 				});
 				
-				<!-- 선택값 입력 기능 -->
-				$("#memberEmailSelect").change(function(){
-					console.log("선택한 값확인 : "+ $(this).val());
-					$("#memberEmailAddr").val($(this).val());
-				});
-				<!-- END 선택값 입력 기능 -->
-				
 				<!-- 입력값 확인 -->
 				$(document).on('click', '#addBtn', function(){
 					var submitCheck = true;
@@ -65,14 +58,14 @@
 				//중복검사
 				$('#dupclicate_btn').click(function(){
 
-					var memberId = $('#memberId').val();
+					var memberId = $('#mainBusinessCode').val();
 					
 					if(typeof memberId != 'undefined' && memberId != null && memberId != ''){
 						// ajax 호출
 						var request = $.ajax({
-							  url: '/team03/companymanagement/member/idCheck', 
+							  url: '/team03/companymanagement/ourcompany/mainBusinessCodeCheck', 
 							  method: 'POST', 
-							  data: { 'memberId' : memberId },
+							  data: { 'mainBusinessCode' : memberId },
 							  dataType: 'json' 
 							});				
 						request.done(function(data) {
@@ -80,12 +73,12 @@
 							var idConfirm = data;
 							
 							if(idConfirm){
-								alert('중복된 아이디입니다.');
-		 						$('#userInfo input').not('#memberId').prop('disabled', true);
+								alert('중복된 코드입니다.');
+		 						$('#userInfo input').not('#mainBusinessCode').prop('disabled', true);
 								$('#userInfo select').prop('disabled', true);
 								$('#userInfo button').not('#dupclicate_btn').prop('disabled', true);
 							}else{
-								alert('등록이 가능한 아이디입니다.');
+								alert('등록이 가능한 코드입니다.');
 								$('#userInfo input').prop('disabled', false);
 								$('#userInfo select').prop('disabled', false);
 								$('#userInfo button').prop('disabled', false);
@@ -95,7 +88,7 @@
 						  alert( "Request failed: " + textStatus );
 						});
 					}else{
-						alert('아이디를 입력해주세요')
+						alert('코드를 입력해주세요')
 						return false;
 					}
 				});
@@ -187,7 +180,7 @@
 									</div>	
 									<div class="inputwrap col-md-12">
 										<label for="businessLevelCodeInput" class="inputName">사업장 권한</label>
-										<input class="inputBox" type="text" id="businessLevelCode" name=businessLevelCode placeholder="예시) ware4">
+										<input class="inputBox" noSpecial type="text" id="businessLevelCode" name=businessLevelCode placeholder="예시) ware4">
 									</div>								
 									<div class="inputwrap col-md-12">
 										<label for="businessCodeRegistrationDate" class="inputName">사업장코드 등록일자</label>

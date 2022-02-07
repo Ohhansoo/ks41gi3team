@@ -28,7 +28,8 @@ public interface K3OurcompanyMapper {
 	//모달
 	public List<Map<String, Object>> k3GetOurCompanyModalList(Map<String, Object> paramMap);
 	
-	
+	// 사업장별 대표코드 조회(중복코드)
+	public int getOurcompanyByMainBusinessCode(String mainBusinessCode);
 	/*
 	 * //자사정보 수정처리 public int K3OurCompanyInfoBycode(K3OurCompany k3ourcompany);
 	 * 

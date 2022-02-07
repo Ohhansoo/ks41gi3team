@@ -124,5 +124,22 @@ public class K3OurcompanyController {
 			System.out.println("2022 01 24 "+ ourcompanymodalList);
 				  return ourcompanymodalList;
 	  }
+	  
+	  //중복확인
+	  @PostMapping("mainBusinessCodeCheck")
+	  @ResponseBody
+	  public boolean mainBusinessCodeCheck(@RequestParam(value="mainBusinessCode", required = false) String mainBusinessCode) {
+			System.out.println("ajax 통신으로 요청 받은 파라미터 mainBusinessCode : " + mainBusinessCode);
+			
+			boolean checkResult = false;
+			
+			int check = ourcompanyService.getOurcompanyByMainBusinessCode(mainBusinessCode);
+			
+			if(check > 0) checkResult = true;
+			
+			return checkResult;
+
+	  }
+	  
 }
 	
