@@ -44,11 +44,11 @@
 			
 			
 			//모달1
-			var modal = $('#shppingModal');
+			var shppingModal = $('#shppingModal');
 			
 			$(".shippingExitBtn").click(function(){
 					
-				modal.addClass('hidden');
+				shppingModal.addClass('hidden');
 			});
 	
 		
@@ -88,7 +88,7 @@
 					]
 				});
 				var overlay = $('.modal_overlay');
-				modal.removeClass('hidden');
+				shppingModal.removeClass('hidden');
 					
 			});
 			
@@ -101,115 +101,176 @@
  				memberName.attr('value', dispatchMemberIdValue);	
  				memberId.attr('value', checkedBox.val());	
 
-				modal.addClass('hidden');
+ 				shppingModal.addClass('hidden');
 			});
 		
-		}); 
-			//모달2
-			$(function(){
-				
-				var modal = $('#driverModal');
-				
-				$(".driverExitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-		
-				$(document).on('click', '.shippingDriverName_btn', function(){
-					var aLengthMenuArray = [];
-					aLengthMenuArray.push([5,10]);
-					aLengthMenuArray.push([5,10]);
+				//모달2
 					
-					$('#shippingDriverName').DataTable({
-						destroy: true,
-						pageLength: 5,
-						aLengthMenu: aLengthMenuArray,
-						ajax: {
-							url: '/team03/delivery/shipping/shippingDriverName',
-		   					type: 'POST',
-		   					dataSrc: function(data){
-		        				console.log(JSON.stringify(data));
-		        				return data;
-		        			}
-						},
-						columns: [
-							{ "data": "선택"},
-							{ "data": "driverId"},
-							{ "data": "driverName"},
-							{ "data": "driverPhone"},
-							{ "data": "driverRegDate"}
-						],
-						columnDefs: [
-							{
-								targets: [0],
-								orderable : false,
-								searchable : false,
-								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="driverId" name="driverId" value="'+ row.driverId +'">'
-									return htmlbtn;
-								}
-							}
-						]
+					var driverModal = $('#driverModal');
+					
+					$(".driverExitBtn").click(function(){
+							
+						driverModal.addClass('hidden');
 					});
-					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
-						
-				});
-				$(document).on('click', '#driverConfirmBtn', function(){
-					var checkedBox = $('.driverId:checked');
-					var driverId = $('#driverId');
-	 				var driverName = $('#driverName');
-					
-	 				var shippingDriverNameValue = checkedBox.parent().parent().children().eq(2).text();
-	 				driverName.attr('value', shippingDriverNameValue);	
-	 				driverId.attr('value', checkedBox.val());
-
-					modal.addClass('hidden');
-
-				});
 			
-			//중복확인
-			$('#overlapped_btn').click(function(){
-
-				var shippingCode = $('#shippingCode').val();
-				
-				if(typeof shippingCode != 'undefined' && shippingCode != null && shippingCode != ''){
-					// ajax 호출
-					var request = $.ajax({
-						  url: '/team03/delivery/shipping/shippingCheck', 
-						  method: 'POST', 
-						  data: { 'shippingCode' : shippingCode },
-						  dataType: 'json' 
-						});				
-					request.done(function(data) {
-						// 중복여부 체크(true: 중복, false: 등록가능)
-						var idConfirm = data;
+					$(document).on('click', '.shippingDriverName_btn', function(){
+						var aLengthMenuArray = [];
+						aLengthMenuArray.push([5,10]);
+						aLengthMenuArray.push([5,10]);
 						
-						if(idConfirm){
-							alert('이미 등록된 배송번호입니다.');
-	 						$('#userInfo input').not('#shippingCode').prop('disabled', true);
-							$('#userInfo select').prop('disabled', true);
-							$('#userInfo button').not('#overlapped_btn').prop('disabled', true);
-						}else{
-							alert('등록이 가능한 배송번호입니다.');
-							$('#userInfo input').prop('disabled', false);
-							$('#userInfo select').prop('disabled', false);
-							$('#userInfo button').prop('disabled', false);
-						}
-						
-						
-					});				
-					request.fail(function( jqXHR, textStatus ) {
-					  alert( "Request failed: " + textStatus );
+						$('#shippingDriverName').DataTable({
+							destroy: true,
+							pageLength: 5,
+							aLengthMenu: aLengthMenuArray,
+							ajax: {
+								url: '/team03/delivery/shipping/shippingDriverName',
+			   					type: 'POST',
+			   					dataSrc: function(data){
+			        				console.log(JSON.stringify(data));
+			        				return data;
+			        			}
+							},
+							columns: [
+								{ "data": "선택"},
+								{ "data": "driverId"},
+								{ "data": "driverName"},
+								{ "data": "driverPhone"},
+								{ "data": "driverRegDate"}
+							],
+							columnDefs: [
+								{
+									targets: [0],
+									orderable : false,
+									searchable : false,
+									render : function(data, type, row){
+										var htmlbtn = '<input type="radio" class="driverId" name="driverId" value="'+ row.driverId +'">'
+										return htmlbtn;
+									}
+								}
+							]
+						});
+						var overlay = $('.modal_overlay');
+						driverModal.removeClass('hidden');
+							
 					});
-				}else{
-					alert('배송번호를 입력해주세요')
-					return false;
-				}
+					$(document).on('click', '#driverConfirmBtn', function(){
+						var checkedBox = $('.driverId:checked');
+						var driverId = $('#driverId');
+		 				var driverName = $('#driverName');
+						
+		 				var shippingDriverNameValue = checkedBox.parent().parent().children().eq(2).text();
+		 				driverName.attr('value', shippingDriverNameValue);	
+		 				driverId.attr('value', checkedBox.val());
+
+		 				driverModal.addClass('hidden');
+
+					});
+					
+			
+					//모달3
+					var releaseModal = $('#releaseModal');
+					
+					$(".releaseExitBtn").click(function(){
+							
+						releaseModal.addClass('hidden');
+					});
+			
+					$(document).on('click', '.releaseCodeName_btn', function(){
+						var aLengthMenuArray = [];
+						aLengthMenuArray.push([5,10]);
+						aLengthMenuArray.push([5,10]);
+						
+						$('#releaseCodeName').DataTable({
+							destroy: true,
+							pageLength: 5,
+							aLengthMenu: aLengthMenuArray,
+							ajax: {
+								url: '/team03/delivery/shipping/shippingReleaseCode',
+			   					type: 'POST',
+			   					dataSrc: function(data){
+			        				console.log(JSON.stringify(data));
+			        				return data;
+			        			}
+							},
+							columns: [
+								{ "data": "선택"},
+								{ "data": "releaseCode"},
+								{ "data": "releaseMergeCode"},
+								{ "data": "productName"},								
+								{ "data": "pileupDate"}	
+							],
+							columnDefs: [
+								{
+									targets: [0],
+									orderable : false,
+									searchable : false,
+									render : function(data, type, row){
+										var htmlbtn = '<input type="radio" class="releaseMergeCode" name="releaseMergeCode" value="'+ row.releaseMergeCode +'">'
+										return htmlbtn;
+									}
+								}
+							]
+						});
+						var overlay = $('.modal_overlay');
+						releaseModal.removeClass('hidden');
+							
+					});
+					$(document).on('click', '#releaseConfirmBtn', function(){
+						var checkedBox = $('.releaseMergeCode:checked');
+						var releaseMergeCode = $('#releaseMergeCode');
+
+						
+		 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(2).text();
+		 				driverName.attr('value', releaseMergeCodeValue);	
+		 				driverId.attr('value', checkedBox.val());
+
+		 				releaseModal.addClass('hidden');
+
+					});
 				
-				
+						
+				//중복확인
+				$('#overlapped_btn').click(function(){
+	
+					var shippingCode = $('#shippingCode').val();
+					
+					if(typeof shippingCode != 'undefined' && shippingCode != null && shippingCode != ''){
+						// ajax 호출
+						var request = $.ajax({
+							  url: '/team03/delivery/shipping/shippingCheck', 
+							  method: 'POST', 
+							  data: { 'shippingCode' : shippingCode },
+							  dataType: 'json' 
+							});				
+						request.done(function(data) {
+							// 중복여부 체크(true: 중복, false: 등록가능)
+							var idConfirm = data;
+							
+							if(idConfirm){
+								alert('이미 등록된 배송번호입니다.');
+		 						$('#userInfo input').not('#shippingCode').prop('disabled', true);
+								$('#userInfo select').prop('disabled', true);
+								$('#userInfo button').not('#overlapped_btn').prop('disabled', true);
+							}else{
+								alert('등록이 가능한 배송번호입니다.');
+								$('#userInfo input').prop('disabled', false);
+								$('#userInfo select').prop('disabled', false);
+								$('#userInfo button').prop('disabled', false);
+							}
+							
+							
+						});				
+						request.fail(function( jqXHR, textStatus ) {
+						  alert( "Request failed: " + textStatus );
+						});
+					}else{
+						alert('배송번호를 입력해주세요')
+						return false;
+					}
+					
+					
+				});
 			});
-		});
 		</script>
 		</th:block>
 		
@@ -248,6 +309,7 @@
 									<div class="inputwrap col-md-12">
 										<label for="releaseCode" class="inputName">출고 코드</label>
 										<input class="inputBox" type="text" id="releaseCode" name="releaseCode" placeholder="출고 코드를 등록해주세요"/>
+										<button class="releaseCodeName_btn" type="button">등록</button>
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
@@ -335,6 +397,38 @@
 				</div>
 				<div class="modal_fotter">
 					<button id="driverConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
+		
+		<!-- 모달창3 -->
+		<div id="releaseModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">통합코드 선택</div>
+					<button class="releaseExitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="releaseCodeName" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>출고코드</th>
+									<th>통합코드</th>
+									<th>상품명</th>						
+									<th>재고일자</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="releaseConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>

@@ -36,5 +36,8 @@ public interface K3ShippingMapper {
 	
 	//모달2
 	public List<Map<String, Object>> k3SelectShippingDriverName(Map<String,Object> paraMap);
+	
+	//모달3
+	public List<Map<String, Object>> k3SelectShippingReleaseCode(Map<String, Object> paraMap);
 }
 
