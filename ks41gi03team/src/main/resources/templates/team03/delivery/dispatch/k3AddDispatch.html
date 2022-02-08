@@ -55,6 +55,7 @@
 					
 					$('#dispatchMemberId').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
@@ -117,6 +118,7 @@
 					
 					$('#dispatchDriverName').DataTable({
 						destroy: true,
+						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
@@ -160,6 +162,67 @@
 	 				driverId.attr('value', checkedBox.val());	
 
 					modal.addClass('hidden');
+
+				});
+				
+				//모달3
+				var releaseModal = $('#releaseModal');
+				
+				$(".releaseExitBtn").click(function(){
+						
+					releaseModal.addClass('hidden');
+				});
+		
+				$(document).on('click', '.releaseCodeName_btn', function(){
+					var aLengthMenuArray = [];
+					aLengthMenuArray.push([5,10]);
+					aLengthMenuArray.push([5,10]);
+					
+					$('#releaseCodeName').DataTable({
+						destroy: true,
+						autoWidth: false,
+						pageLength: 5,
+						aLengthMenu: aLengthMenuArray,
+						ajax: {
+							url: '/team03/delivery/dispatch/dispatchReleaseCode',
+		   					type: 'POST',
+		   					dataSrc: function(data){
+		        				console.log(JSON.stringify(data));
+		        				return data;
+		        			}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "releaseCode"},
+							{ "data": "releaseMergeCode"},
+							{ "data": "productName"},								
+							{ "data": "pileupDate"}	
+						],
+						columnDefs: [
+							{
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render : function(data, type, row){
+									var htmlbtn = '<input type="radio" class="releaseCode" name="releaseCode" value="'+ row.releaseCode +'">'
+									return htmlbtn;
+								}
+							}
+						]
+					});
+					var overlay = $('.modal_overlay');
+					releaseModal.removeClass('hidden');
+						
+				});
+				$(document).on('click', '#releaseConfirmBtn', function(){
+					var checkedBox = $('.releaseCode:checked');
+					var releaseCode = $('#releaseCode');
+
+					
+	 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(1).text();
+	 				releaseCode.attr('value', releaseMergeCodeValue);	
+
+	 				releaseModal.addClass('hidden');
 
 				});
 				
@@ -231,7 +294,8 @@
 									</div>
 									<div class="inputwrap col-md-12">
 										<label for="releaseCode" class="inputName">상품출고 코드</label>
-										<input class="inputBox" type="text" id="releaseCode" name="releaseCode" placeholder="상품출고 코드를 등록해주세요"/>
+										<input class="inputBox" type="text" id="releaseCode" name="releaseCode" placeholder="상품출고 코드를 등록해주세요" readonly="readonly" disabled="disabled"/>
+										<button class="releaseCodeName_btn" type="button">등록</button>
 									</div>									
 									<div class="inputwrap col-md-12">
 										<label for="driverId" class="inputName">차량 기사</label>
@@ -346,5 +410,36 @@
 		</div>
 		<!-- End 모달창 -->
 		
+		<!-- 모달창2 -->
+		<div id="releaseModal" class="modal hidden">
+			<div class="modal_overlay"></div>		
+			<div class="modal_content">
+				<div class="modal_header d-flex justify-content-between">
+					<div class="textTitle">통합코드 선택</div>
+					<button class="releaseExitBtn" type="button">
+						<i class="fas fa-times-circle"></i>
+					</button>
+				</div>
+				<div class="modal_body">
+					<form>	
+						<table border="1" id="releaseCodeName" class="dataTable">
+							<thead>
+								<tr bgcolor="#BDBDBD">
+									<th>선택</th>
+									<th>출고코드</th>
+									<th>통합코드</th>
+									<th>상품명</th>						
+									<th>재고일자</th>
+								</tr>
+							</thead>
+						</table>				
+					</form>
+				</div>
+				<div class="modal_fotter">
+					<button id="releaseConfirmBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
+				</div>			
+			</div>
+		</div>
+		<!-- End 모달창 -->
 		
 	</th:block>
