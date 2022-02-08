@@ -69,13 +69,16 @@ public class K3DispatchService {
 		return searchId;
 	}
 
-	//모달2
-	
-	  public List<Map<String, Object>> k3SelectDispatchDriverName(){
-		  List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null); 
-		  return searchName; 
-	  }
+	//모달2	
+	public List<Map<String, Object>> k3SelectDispatchDriverName(){
+		List<Map<String, Object>> searchName = k3DispatchMapper.k3SelectDispatchDriverName(null); 
+		return searchName; 
+	}
 	  
-
+	//모달3
+	public List<Map<String, Object>> k3SelectDispatchReleaseCode(){
+		List<Map<String, Object>> searchCode = k3DispatchMapper.k3SelectDispatchReleaseCode(null);
+		return searchCode;
+	}
 	 
 }

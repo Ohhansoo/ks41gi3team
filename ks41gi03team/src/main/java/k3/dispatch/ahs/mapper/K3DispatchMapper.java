@@ -38,5 +38,7 @@ public interface K3DispatchMapper {
 	//모달2
 	public List<Map<String, Object>> k3SelectDispatchDriverName(Map<String, Object> paraMap);
 	
+	//모달3
+	public List<Map<String, Object>> k3SelectDispatchReleaseCode(Map<String, Object> paraMap);
 
 }

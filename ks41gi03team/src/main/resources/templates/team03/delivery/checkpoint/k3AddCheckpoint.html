@@ -41,11 +41,12 @@
 					if(submitCheck) $('#userInfo').submit();
 				});
 			
+			//모달1
 			var modal = $('#driverModal');
 			
 			$(".driverExitBtn").click(function(){
 					
-				modal.addClass('hidden');
+				driverModal.addClass('hidden');
 			});
 	
 			$(document).on('click', '.checkpointDriverName_btn', function(){
@@ -55,6 +56,7 @@
 				
 				$('#checkpointDriverName').DataTable({
 					destroy: true,
+					autoWidth: false,
 					pageLength: 5,
 					aLengthMenu: aLengthMenuArray,
 					ajax: {
@@ -85,7 +87,7 @@
 					]
 				});
 				var overlay = $('.modal_overlay');
-				modal.removeClass('hidden');
+				driverModal.removeClass('hidden');
 					
 			});
 			$(document).on('click', '#driverConfirmBtn', function(){
@@ -97,10 +99,13 @@
  				driverName.attr('value', checkpointMemberIdValue);	
  				driverId.attr('value', checkedBox.val());	
 
-				modal.addClass('hidden');
+ 				driverModal.addClass('hidden');
 
 			});
 			
+			
+			
+			//중복 확인
 			$('#overlapped_btn').click(function(){
 
 				var vehicleCheckpointCode = $('#vehicleCheckpointCode').val();
@@ -233,4 +238,6 @@
 			</div>
 		</div>
 		<!-- End 모달창 -->
+		
+		
 	</th:block>

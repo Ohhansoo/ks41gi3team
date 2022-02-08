@@ -18,6 +18,7 @@ import k3.dispatch.ahs.dto.K3Dispatch;
 import k3.dispatch.ahs.service.K3DispatchService;
 import k3.driver.ahs.service.K3DriverService;
 import k3.memberuser.ahs.service.K3MemberUserService;
+import k3.release.ahs.service.K3ReleaseService;
 
 
 @Controller
@@ -29,11 +30,13 @@ public class K3DispatchController {
 	private K3DispatchService k3DispatchService;
 	private K3MemberUserService k3MemberUserService; //의존성 검사
 	private K3DriverService k3DriverService;
+	private K3ReleaseService k3ReleaseService;
 	
-	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService, K3DriverService k3DriverService) {
+	public K3DispatchController(K3DispatchService k3DispatchService, K3MemberUserService k3MemberUserService, K3DriverService k3DriverService, K3ReleaseService k3ReleaseService) {
 		this.k3DispatchService = k3DispatchService;
 		this.k3MemberUserService = k3MemberUserService;
 		this.k3DriverService = k3DriverService;
+		this.k3ReleaseService = k3ReleaseService;
 	}
 	
 	//중복확인 
@@ -143,6 +146,14 @@ public class K3DispatchController {
 		public List<Map<String, Object>> k3SelectDispatchDriverName(){
 			List<Map<String, Object>> searchName = k3DriverService.k3GetDriverNameModalList(); 
 			return searchName; 
+	}
+	
+	//모달3
+	@PostMapping("/dispatchReleaseCode")
+	@ResponseBody
+		public List<Map<String, Object>> k3SelectDispatchReleaseCode(){
+			List<Map<String, Object>> searchCode = k3ReleaseService.k3FindReleaseMergeCode();
+			return searchCode;
 	}
 	
 	
