@@ -11,6 +11,7 @@
 	</th:block>
 	
 	<th:block layout:fragment="customJs">
+		<script type="text/javascript" th:src="@{/js/printThis.js}"></script>
 		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
@@ -92,46 +93,31 @@
 					}else{
 						Cmodal += '<tr><th>등록직원 아이디</th><td>' + data[0].memberId + '</td><th></th><td></td></tr>';
 					}
+
+					<!-- 계약 모달창 출력 -->
+					$(document).on('click','.printDetailContractModal',function(){
+						$('#modal-body').printThis();
+					});
+					<!-- END 계약 모달창 출력 -->
+					
 					$('#Cmodal').append(Cmodal);
-					$('#detailContractModal').modal('show');
+
+					$('.detailContractModal').modal('show');
+
 				}
 				<!-- END 계약 상세 모달 -->
+				
+				<!-- 계약 출력 -->
+				$(document).on('click','#printContract',function(){
+					$('#contractInfo').printThis();
+				});
+				<!-- END 계약 출력 -->
+
 			});
 		</script>
 	</th:block>
 	
 	<th:block layout:fragment="customContents"> 
-		<!-- 계약 상세정보 모달창 -->
-		<div class="modal" style="text-align: center" id="detailContractModal" tabindex="-1"  role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">계약 상세정보</h5>
-						<button type="button" class="close"  data-dismiss="modal">
-							<i class="bi bi-x-circle"></i>
-						</button>
-					</div>
-					<div class="modal-body" id="modal-body">
-						<div class=" card card-body bg-light container-fluid">
-							<table class="table table-striped table-hover" id="Cmodal">
-							
-							</table>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<a class="ahsbtn2 btn btn-outline-info modifyContractModalBtn">
-							<i class="bi bi-pencil"></i>
-							수정
-						</a>
-						<button class="printDetailContractModal ahsbtn2 btn btn-outline-info" type="button">
-							<i class="bi bi-printer"></i>
-							출력
-						</button>               
-					</div>
-				</div>
-			</div>
-		</div>
-	   <!-- END 계약 상세정보 모달창 -->
 		
 		<!-- 콘텐츠 콘테이너  -->
 		<div class="container-fluid">
@@ -141,7 +127,7 @@
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
-				<a class="btn btn-outline-info ahsbtn4" type="button">
+				<a class="btn btn-outline-info ahsbtn4" id="printContract" type="button">
 					<i class="bi bi-printer"></i>
 					출력
 				</a>						
@@ -233,7 +219,7 @@
 				<!-- End card header -->
 				<!--card body -->
 				<div class="card-body" style="text-align:center">
-					<div class="tab-content" id="nav-tabContent">
+					<div class="tab-content" id="contractInfo">
 						<!--전체 계약 목록-->
 						<div class="tab-pane fade show active table-responsive" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 							<table class="table table-head-fixed table-hover text-nowrap" style="border-bottom: 1px solid #D8D8D8; overflow:auto">
@@ -448,6 +434,35 @@
 			<!--End 조회 카드 영역 -->
 		</div>
 		<!-- End 콘텐츠 콘테이너 -->
-		
-
+		<!-- 계약 상세정보 모달창 -->
+		<div class="modal detailContractModal" style="text-align: center" tabindex="-1"  role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">계약 상세정보</h5>
+						<button type="button" class="close"  data-dismiss="modal">
+							<i class="bi bi-x-circle"></i>
+						</button>
+					</div>
+					<div class="modal-body" id="modal-body">
+						<div class=" card card-body bg-light container-fluid">
+							<table class="table table-striped table-hover" id="Cmodal">
+							
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a class="ahsbtn2 btn btn-outline-info modifyContractModalBtn">
+							<i class="bi bi-pencil"></i>
+							수정
+						</a>
+						<button class="printDetailContractModal ahsbtn2 btn btn-outline-info" type="button">
+							<i class="bi bi-printer"></i>
+							출력
+						</button>               
+					</div>
+				</div>
+			</div>
+		</div>
+	   <!-- END 계약 상세정보 모달창 -->
 	</th:block>
