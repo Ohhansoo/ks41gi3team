@@ -24,6 +24,16 @@ public class K3ContractController {
 		this.k3ContractService = k3ContractService;
 	}
 	
+	
+	//비용 계약 등록
+	@GetMapping("/k3AddLossContract")
+	public String K3GetAddContract(Model model) {
+		
+		model.addAttribute("title", "계약 관리");
+		model.addAttribute("subtitle", "비용 계약 등록");
+		return "/team03/contractorContract/Contract/k3AddLossContract";
+	}
+
 	//계약 상세정보 모달창
 	@GetMapping("/k3SearchContractAjax")
 	@ResponseBody
@@ -34,15 +44,6 @@ public class K3ContractController {
 		List<K3Contract> k3DetailContract = k3ContractService.k3GetDetailContract(contractCode,contractorDevision);
 		
 		return k3DetailContract;
-	}
-	
-	//계약
-	@GetMapping("/k3AddContract")
-	public String K3GetAddContract(Model model) {
-		
-		model.addAttribute("title", "계약 관리");
-		model.addAttribute("subtitle", "계약 등록");
-		return "/team03/contractorContract/Contract/k3AddContract";
 	}
 	
 	//계약현황 + 검색

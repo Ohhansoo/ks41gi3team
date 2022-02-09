@@ -112,6 +112,39 @@
 					$('#contractInfo').printThis();
 				});
 				<!-- END 계약 출력 -->
+				
+				<!-- 계약 비용 페이지로 이동-->
+				$('#AddLossContract').on('click',function(){
+					swal({
+						title: "비용 관련 계약등록 입니다!",
+						text: "매출 관련 계약 등록은 견적서 관리 페이지에서 진행해주세요.",
+						icon: "warning",
+						buttons: {
+							confirm: {
+								text: "확인",
+								value: true,
+								visible: true,
+								className: "btn btn-outline-info ",
+								closeModal: true,
+							},
+							cancel: {
+								text: "취소",
+								value: null,
+								visible: true,
+								className: "btn btn-outline-info ",
+								closeModal: true
+							}
+						}
+					})
+					.then(function(value){
+						if(value){
+							setTimeout(function(){location.href="/team03/contractorContract/Contract/k3AddLossContract"},1000);
+						}else{
+							return false;
+						}
+					});						
+				});
+				<!-- END 계약 비용 페이지로 이동-->
 
 			});
 		</script>
@@ -123,7 +156,7 @@
 		<div class="container-fluid">
 			<!--버튼 영역 -->			
 			<div class="d-flex justify-content-end">					
-				<a class="btn btn-outline-info ahsbtn4" type="button" th:href="@{/team03/contractorContract/Contract/k3AddContract}">
+				<a class="btn btn-outline-info ahsbtn4" id="AddLossContract" type="button">
 					<i class="bi bi-file-earmark-plus"></i>
 					등록
 				</a>			
