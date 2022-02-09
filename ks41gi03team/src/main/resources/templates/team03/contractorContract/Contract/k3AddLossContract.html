@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>addLossContract</title>
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbinAddModify.css}">
+	</th:block>
+   
+   <th:block layout:fragment="customJs">
+		<script type="text/javascript" th:inline="javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<script>
+			$(function(){
+
+				<!-- 숫자 이외 입력 제한 기능-->
+				$(document).on("keyup", "input[numOnly]", function(){
+					$(this).val($(this).val().replace(/[^0-9]/gi,"") );
+				});
+				<!-- END 숫자 이외 입력 제한 기능-->
+			});
+		</script>
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div class="container container-fluid ">
+			<form id="addLossContractForm" th:action="@{/team03/lossContractorLossContract/LossContract/k3AddLossContract}" method="post">
+				<div class="d-flex" >
+					<div class="justify-content-start addForm card cardColor input-group" id="carLossContract" style="margin:10px">
+						<div class="lossContractLabel">
+							<label>| 계약 내용 |</label>							
+						</div>					  	
+						<div class="input-group">
+				  			<span class="input-group-text">계약 번호</span>
+				  			<input class="form-control" type="text" name="lossContractNum" id="contractCode" readonly/>
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">계약 차량 톤수</span>
+				  			<input  class="form-control"  type="number" min='0' id="contractLossTon" name="contractLossTon" placeholder="톤"/>
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">계약 배송기사 인원</span>
+				  			<input  class="form-control"  type="number" min='0' id="carLossContract" name="carLossContract" placeholder="배송기사"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 기간</span>
+					  		<input  class="form-control" type="text" id="contractLossTerm" name="contractLossTerm" placeholder="계약 기간"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 기간</span>
+				  		</div>
+				  		<div class=" input-group" style="padding-top:0px">
+					  		<input  class="form-control" type="date" id="contractLossManager" name="contractLossManager" placeholder="계약 시작 날짜"/>
+					  		<input  class="form-control" type="date" id="contractLossEndDate" name="contractLossEndDate" placeholder="계약 종료 날짜"/>
+				  		</div>
+				  	</div>
+				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+						<div class="lossContractLabel">
+							<label>| 계약 결과 |</label>							
+						</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약금 합계(VAT)</span>
+				  			<input class="form-control" numOnly id="contractPrice" type="text" name="contractPrice" placeholder="계약금 합계(VAT)"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">선입금액 계약</span>
+				 			<input class="form-control" numOnly id="contractPricePrepayment" type="text" name="contractPricePrepayment" placeholder="선택 입력" />
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">월납입금액 계약</span>
+					 		<input class="form-control" numOnly id="contractPriceMonth" type="text" name="contractPriceMonth"  placeholder="선택 입력"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 체결 일자</span>
+				 			<input class="form-control" type="text" name="contractSingningDate" id="contractSingningDate" maxLength="3" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">등록 직원 아이디</span>
+				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				  		</div>				  		
+					</div>	
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+						<div class="lossContractLabel">
+							<label>| 거래처 정보 |</label>
+						</div>						
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 사업장 코드</span>
+				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" readonly/>
+				 			<button type="button" id="lossContractorBtn" class="ahsbtn2 btn btn-outline-info">거래처</button> 
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">거래처 아이디</span>
+				  			<input class="form-control" type="text" name="contractId" id="contractId" readonly/>
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">거래 구분</span>
+				  			<input class="form-control" type="text" name="contractorDevision" id="contractorDevision" readonly/>
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">거래처 계약 담당자</span>
+				  			<input class="form-control" type="text" name="contractLossManager" id="contractLossManager" readonly/>
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">거래처 은행명</span>
+				  			<input class="form-control" type="text" name="contractLossBank" id="contractLossBank" readonly/>
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">거래처 계좌번호</span>
+				  			<input class="form-control" type="text" name="contractLossAccount" id="contractLossAccount" readonly/>
+				  		</div>
+				  	</div>
+				</div>
+				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
+					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddLossContractBtn" type="button" th:href="@{k3SearchContract}">등록취소</a>
+					<button class="ahsbtn4 btn btn-outline-info" id="addLossContractBtn" type="submit">등록</button>
+				</div>
+			</form>
+		</div>
+	</th:block>

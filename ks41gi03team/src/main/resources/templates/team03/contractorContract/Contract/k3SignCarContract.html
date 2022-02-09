@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>addContract</title>
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/eunbin.css}">
+	</th:block>
+	<th:block layout:fragment="customContents"> 
+		<div class="container container-fluid ">
+			<form id="addContractForm" th:action="@{/team03/contractorContract/Contract/k3AddLossContract}" method="post">
+				<div class="d-flex" th:each="ed : ${contractDef}">
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px">
+						<div class="contractLabel">
+							<label>| 창고 계약 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">계약 상세 번호</span>
+				 			<input  class="form-control" type="text" name="contractDetailNum1" th:value="${ed.contractDetailNum1}" id="contractDetailNum" placeholder="자동 지정" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">단가코드</span>
+				  			<input  class="form-control" id="wareCode" type="text" name="wareCode" placeholder="단가코드" readonly/>
+				 			<button type="button" id="wareUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">구분 단위</span>
+				  			<input  class="form-control" id="wareDevision" type="text" name="wareDevision" placeholder="구분" readonly/>
+				  			<span class="input-group-text">계약 단위</span>
+				  			<input class="form-control" id="wareContract" type="text" name="wareContract" placeholder="계약단위"  readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">창고 유형</span>
+				  			<select class="form-control" name="unitContractWarehouseType" id="unitContractWarehouseType">
+				  				<option value="일반" selected>일반</option>
+				  				<option value="냉장" >냉장</option>
+				  				<option value="냉동" >냉동</option>
+				  				<option value="고급" >고급</option>
+				  			</select>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 계약금액</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input  class="form-control" id="warePay" type="text" name="warePay" placeholder="단위 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" id="wareAmount" type="number" min="0" name="wareAmount" value="0" placeholder="계약 수량"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" type="text" name="wareUnitPrice" id="wareUnitPrice" placeholder="계약금액" readonly/>
+				  			</div>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 기간</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input class="form-control" id="wareTerm" type="text" name="wareTerm" placeholder="최소 기간(월)" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input class="form-control" value="0" min="0" type="number" name="wareTermMulti" id="wareTermMulti" placeholder="기간곱"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" type="text" name="wareContractTerm" id="wareContractTerm" placeholder="계약 기간(월)" readonly/>
+							</div>
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">창고 계약 합계</span>
+				  			<input class="form-control" id="wareUnitMulti" type="text" name="wareUnitMulti" placeholder="창고 계약 합계" readonly/>
+				  		</div>
+					</div>
+					<div class="justify-content-start addForm card cardColor input-group" id="invoiceContract" style="margin:10px">
+						<div class="contractLabel">
+							<label>| 배송 송장 계약 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">계약 상세 번호</span>
+				 			<input  class="form-control" type="text" name="contractDetailNum2" th:value="${ed.contractDetailNum2}"  id="contractDetailNum" placeholder="자동 지정" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">단가코드</span>
+				  			<input  class="form-control" type="text" id="invoiceCode" name="invoiceCode" placeholder="단가코드" readonly/>
+				 			<button type="button" id="inovoiceUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">구분 단위</span>
+				  			<input  class="form-control" type="text" id="invoiceDevision" name="invoiceDevision" placeholder="구분" readonly/>
+				  			<span class="input-group-text">계약 단위</span>
+				  			<input class="form-control" type="text" name="inovoiceContract" id="inovoiceContract" placeholder="계약단위"  readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 계약금액</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input  class="form-control" id="invoicePay" type="text" name="invoicePay" placeholder="단위 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" type="number" id="invoiceAmount" value="0" min="0"  name="invoiceAmount"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" type="text" name="invoiceUnitPrice" id="invoiceUnitPrice" placeholder="계약금액" readonly/>
+				  			</div>
+				  		</div>
+			  			<div class="input-group" style="padding-bottom:0px">
+			  				<button id="otherSelectBtn" type="button" class="btn btn-outline-warning">배송방식 다시선택</button>
+			  			</div>
+				  	</div>
+					<div class="justify-content-start addForm card cardColor input-group" id="carContract" style="margin:10px">
+						<div class="contractLabel">
+							<label>| 배송 차량 계약 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">계약 상세 번호</span>
+				 			<input  class="form-control" type="text" name="contractDetailNum3" th:value="${ed.contractDetailNum3}" id="contractDetailNum3" placeholder="자동 지정" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">단가코드</span>
+				  			<input  class="form-control" type="text" id="carCode" name="carCode" placeholder="단가코드" readonly/>
+				 			<button type="button" id="carUnitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">배송 단위</span>
+				  			<input  class="form-control"  type="text" id="carDevision" name="carDevision" placeholder="배송" readonly/>
+				  			<span class="input-group-text">계약 단위</span>
+				  			<input  class="form-control"  type="text" id="carContract" name="carContract" placeholder="계약단위" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 계약금액</span>
+				  			<div class="input-group" style=" padding-bottom:0px">
+					  			<input  class="form-control" type="text" id="carPay" name="carPay" placeholder="단위 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" type="number" id="carAmount" value="0" min="0" name="carAmount"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" type="text" id="carPrice" name="carPrice" placeholder="계약금액" readonly/>
+				  			</div>
+				  		</div>
+						<div class="contractLabel">
+							<label>| 배송 거리 계약 |</label>							
+						</div>					  	
+						<div class="input-group">
+							<span class="input-group-text">계약 상세 번호</span>
+				 			<input  class="form-control" type="text" name="contractDetailNum4" th:value="${ed.contractDetailNum4}" id="contractDetailNum4" readonly/>
+						</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">단가 코드</span>
+				  			<input class="form-control" type="text" name="UnitPriceCode" id="UnitPriceCode" placeholder="단가 코드"  readonly/>
+				 			<button type="button" id="unitBtn" class="ahsbtn2 btn btn-outline-info">단가표</button> 
+				  		</div>
+				  		<div class="input-group">
+				  			<span class="input-group-text">배송 단위</span>
+				  			<input class="form-control" type="text" name="unitContractDevision" id="unitContractDevision" placeholder="배송"  readonly/>
+				  			<span class="input-group-text">계약 단위</span>
+				  			<input class="form-control" type="text" name="unitContract" id="unitContract" placeholder="계약단위"  readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">단위별 계약금액</span>
+				  			<div class="input-group" style="padding-bottom:0px">
+					  			<input  class="form-control" type="text" name="unitPay" id="unitPay" placeholder="단위 가격" readonly/>
+					  			<div style="margin:3px">
+					  				<b>X</b>
+					  			</div>
+					  			<input  class="form-control" value="0" min="0" id="unitAmount" type="number" name="unitAmount"/>
+					  			<div style="margin:3px">
+					  				<b>=</b>
+					  			</div>
+					  			<input class="form-control" type="text" name="unitPrice" id="unitPrice" placeholder="계약금액" readonly/>
+				  			</div>
+				  		</div>
+			  			<div class="input-group" style="padding-bottom:0px">
+			  				<button id="otherSelectBtn" type="button" class="btn btn-outline-warning">배송방식 다시선택</button>
+			  			</div>
+					</div>
+					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+						<div class="contractLabel">
+							<label>| 계약 정보 |</label>
+						</div>						
+				  		<div class="input-group">
+				  			<span class="input-group-text">거래처 사업장 코드</span>
+				  			<input class="form-control" type="text" name="contractorCode" id="contractorCode" readonly/>
+				 			<button type="button" id="contractorBtn" class="ahsbtn2 btn btn-outline-info">거래처</button> 
+				  		</div>
+						<div class="input-group">
+				  			<span class="input-group-text">계약 번호</span>
+				  			<input class="form-control" type="text" name="contractNum" id="contractNum"  th:value="${ed.contractNum}" readonly/>
+				  		</div>
+						<div class="contractLabel">
+							<label>| 계약 결과 |</label>							
+						</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약금 합계(VAT)</span>
+				  			<input class="form-control" id="contractPrice" type="text" name="contractPrice" placeholder="단위별 계약의 총합" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">선입금액 계약</span>
+				 			<input class="form-control" id="contractPricePrepayment" type="text" name="contractPricePrepayment" placeholder="계약금 합계의 10%"  readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">월납입금액 계약</span>
+					 		<input class="form-control" id="contractPriceMonth" type="text" name="contractPriceMonth"  placeholder="(계약금 합계-선입금액)/계약 기간" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">계약 체결 일자</span>
+				 			<input class="form-control" type="text" name="contractMeasureDate" id="contractMeasureDate" th:value="${ed.contractMeasureDate}" maxLength="3" readonly/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">등록 직원 아이디</span>
+				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				  		</div>				  		
+					</div>	
+				</div>
+				<div class="d-flex justify-content-center" style="padding-top:20px; border-top: 1px solid #D8D8D8">
+					<a class="ahsbtn4 btn btn-block bg-gradient-warning" id="cancleAddContractBtn" type="button" th:href="@{k3SearchContract}">등록취소</a>
+					<button class="ahsbtn4 btn btn-outline-info" id="addContractBtn" type="submit">등록</button>
+				</div>
+			</form>
+		</div>
+	</th:block>
