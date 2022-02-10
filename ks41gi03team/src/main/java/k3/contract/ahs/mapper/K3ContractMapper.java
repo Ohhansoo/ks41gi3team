@@ -6,10 +6,17 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import k3.contract.ahs.dto.K3Contract;
+import k3.contractor.ahs.dto.K3Contractor;
 
 
 @Mapper
 public interface K3ContractMapper {
+
+	//비용 등록페이지 거래처 모달창
+	public List<K3Contractor> K3GetContractor();
+	
+	//비용 체결날짜 정해주기
+	public List<Map<String, Object>> contractSingningDate();
 	
 	//계약 상세정보 모달창
 	public List<K3Contract> k3GetDetailContract(String contractCode,String contractorDevision);

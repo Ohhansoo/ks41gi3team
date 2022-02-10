@@ -21,6 +21,67 @@
 					$(this).val($(this).val().replace(/[^0-9]/gi,"") );
 				});
 				<!-- END 숫자 이외 입력 제한 기능-->
+				
+				<!-- 거래처 목록 모달창 -->
+				$(document).on('click','#lossContractorBtn',function(){
+					$('#contractorDT').DataTable({
+						destroy: true,
+						pageLength: 5,
+						// 표시 건수기능 숨기기
+						lengthChange: false,
+						// 정렬 기능 숨기기
+						ordering: false,
+						// 정보 표시 숨기기
+						info: false,
+						ajax : {
+							url:"/team03/contractorContract/Contract/contractorModalAjax",
+							type:'GET',
+							dataSrc: function(data){
+								return data;
+							}
+						},
+						columns: [
+							{ "data": "선택"},
+							{ "data": "contractorCode"},
+							{ "data": "contractorDevision"},
+							{ "data": "contractorId"},
+							{ "data": "contractorSuperviser"},
+							{ "data": "contractorProfitBank"},
+							{ "data": "contractorProfitAccount"}
+						],
+						columnDefs: [
+							{ 
+								targets: [0],
+								orderable : false,
+								searchable : false,
+								render :function (data, type, row){
+									var Cmodal ='<button type="submit" class="selectContractor"><i class="bi bi-arrow-down-square"></i></button>';
+									return Cmodal
+								}
+							}
+						]
+					});
+					$('#contractorModal').modal('show');
+				});
+				<!-- END 거래처 목록 모달창 -->		
+				
+				<!-- 선택한 거래처 정보 가져오기 -->
+				$(document).on('click','.selectContractor',function(){
+					$('#contractorModal').modal('hide');
+					var selectContractor = $(this);
+					var tr = selectContractor.parent().parent();
+					var td = tr.children();
+					
+					$('#contractorCode').val(td.eq(1).text());
+					$('#contractorDevision').val(td.eq(2).text());
+					$('#contractorId').val(td.eq(3).text());
+					$('#contractorSuperviser').val(td.eq(4).text());
+					$('#contractorProfitBank').val(td.eq(5).text());
+					$('#contractorProfitAccount').val(td.eq(6).text());
+										
+				});
+				<!-- END 선택한 거래처 정보 가져오기 -->
+				
 			});
 		</script>
 	</th:block>
@@ -34,7 +95,8 @@
 						</div>					  	
 						<div class="input-group">
 				  			<span class="input-group-text">계약 번호</span>
-				  			<input class="form-control" type="text" name="lossContractNum" id="contractCode" readonly/>
+				  			<input class="form-control" type="text" name="lossContractNum" id="contractCode" placeholder="계약 번호"/>
+				  			<button type="button" id="contractCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="contractCodeCheck" disabled style="border:none"></button>
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">계약 차량 톤수</span>
@@ -56,29 +118,29 @@
 					  		<input  class="form-control" type="date" id="contractLossEndDate" name="contractLossEndDate" placeholder="계약 종료 날짜"/>
 				  		</div>
 				  	</div>
-				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
+				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" th:each="cd : ${contractSingningDate}">
 						<div class="lossContractLabel">
 							<label>| 계약 결과 |</label>							
 						</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약금 합계(VAT)</span>
-				  			<input class="form-control" numOnly id="contractPrice" type="text" name="contractPrice" placeholder="계약금 합계(VAT)"/>
+				  			<input class="form-control" numOnly id="contractPrice" type="number" name="contractPrice" placeholder="계약금 합계(VAT)"/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">선입금액 계약</span>
-				 			<input class="form-control" numOnly id="contractPricePrepayment" type="text" name="contractPricePrepayment" placeholder="선택 입력" />
+				 			<input class="form-control" numOnly id="contractPricePrepayment" type="number" name="contractPricePrepayment" placeholder="선택 입력" />
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">월납입금액 계약</span>
-					 		<input class="form-control" numOnly id="contractPriceMonth" type="text" name="contractPriceMonth"  placeholder="선택 입력"/>
+					 		<input class="form-control" numOnly id="contractPriceMonth" type="number" name="contractPriceMonth"  placeholder="선택 입력"/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 체결 일자</span>
-				 			<input class="form-control" type="text" name="contractSingningDate" id="contractSingningDate" maxLength="3" readonly/>
+				 			<input class="form-control" type="text" name="contractSingningDate" id="contractSingningDate" th:value="${ed.contractSingningDate}" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">등록 직원 아이디</span>
-				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" maxLength="3" readonly/>
+				 			<input class="form-control" value="m_c01" type="text" name="memberId" id="memberId" readonly/>
 				  		</div>				  		
 					</div>	
 					<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
@@ -100,15 +162,15 @@
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">거래처 계약 담당자</span>
-				  			<input class="form-control" type="text" name="contractLossManager" id="contractLossManager" readonly/>
+				  			<input class="form-control" type="text" name="contractLossManager" id="contractorSuperviser" readonly/>
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">거래처 은행명</span>
-				  			<input class="form-control" type="text" name="contractLossBank" id="contractLossBank" readonly/>
+				  			<input class="form-control" type="text" name="contractLossBank" id="contractorProfitBank" readonly/>
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">거래처 계좌번호</span>
-				  			<input class="form-control" type="text" name="contractLossAccount" id="contractLossAccount" readonly/>
+				  			<input class="form-control" type="text" name="contractLossAccount" id="contractorProfitAccount" readonly/>
 				  		</div>
 				  	</div>
 				</div>
@@ -118,4 +180,35 @@
 				</div>
 			</form>
 		</div>
+		<!-- 거래처 모달창 -->
+		<div class="modal" style="text-align: center" id="contractorModal" tabindex="-1"  role="dialog" aria-labelledby="unitModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title font-weight-bold" style="color:#3F72AF">AHS 거래처</h5>
+						<button type="button" class="close"  data-dismiss="modal">
+							<i class="bi bi-x-circle"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class=" card card-body bg-light container-fluid">
+							<table  id="contractorDT" class="dataTable table table-striped table-hover" >
+								<thead>
+									<tr>
+							            <th>선택</th>
+							            <th>거래처 사업장 코드</th>
+							            <th>거래처 아이디</th>
+							            <th>거래 구분</th>
+							            <th>거래처 계약 담당자</th>
+							            <th>거래처 은행명</th>
+							            <th>거래처 계좌번호</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	   <!--END 거래처 모달창 -->
 	</th:block>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k3.contract.ahs.dto.K3Contract;
 import k3.contract.ahs.service.K3ContractService;
+import k3.contractor.ahs.dto.K3Contractor;
 
 @Controller
 @RequestMapping(value="/team03/contractorContract/Contract")
@@ -24,13 +25,28 @@ public class K3ContractController {
 		this.k3ContractService = k3ContractService;
 	}
 	
+	//비용 계약 등록페이지 거래처 모달창
+	@GetMapping("/contractorModalAjax")
+	@ResponseBody
+	public List<K3Contractor> K3GetContractor(){
+		
+		List<K3Contractor> K3Contractor = k3ContractService.K3GetContractor();
+		
+		return K3Contractor;
+		
+	}
 	
-	//비용 계약 등록
+	
+	//비용 계약 등록페이지
 	@GetMapping("/k3AddLossContract")
-	public String K3GetAddContract(Model model) {
+	public String k3AddLossContract(Model model) {
+		
+		List<Map<String, Object>> contractSingningDate = k3ContractService.contractSingningDate();
 		
 		model.addAttribute("title", "계약 관리");
 		model.addAttribute("subtitle", "비용 계약 등록");
+		model.addAttribute("contractSingningDate", contractSingningDate);
+		
 		return "/team03/contractorContract/Contract/k3AddLossContract";
 	}
 
