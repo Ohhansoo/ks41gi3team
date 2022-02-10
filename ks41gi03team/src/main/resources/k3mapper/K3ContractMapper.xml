@@ -4,6 +4,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
 
+	<!-- 비용 등록페이지 거래처 모달창 -->
+	<select id="K3GetContractor" resultType="K3Contractor">
+		SELECT 
+			c.contractorDevision,
+			c.contractorCode,
+			c.contractorId,
+			cs.contractorSuperviser,
+			c.contractorProfitBank,
+			c.contractorProfitAccount
+		FROM 
+			k3_tb_contractor AS c
+			INNER join
+			k3_tb_contractor_staff AS cs
+			on
+			c.contractorId = cs.contractorId
+		WHERE
+			 cs.mainBusinessCode = '물류센터A물류센터_전북_1'
+			 and
+			 c.contractorDevision = '비용';
+	</select>
+
+	<!-- 비용 체결날짜 정해주기 -->
+	<select id="contractSingningDate" resultType="map">
+		SELECT 
+			CURDATE() as contractSingningDate
+		FROM 
+			k3_tb_contract_simple;
+	</select>
+	<!-- END 비용 등록페이지 체결날짜 정해주기 -->
+
 	<!-- 계약 상세정보 -->
 	<select id="k3GetDetailContract" parameterType="String" resultType="K3Contract">
 		<if test="contractorDevision == '매출'">

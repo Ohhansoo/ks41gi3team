@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import k3.contract.ahs.dto.K3Contract;
 import k3.contract.ahs.mapper.K3ContractMapper;
+import k3.contractor.ahs.dto.K3Contractor;
 
 @Service
 @Transactional
@@ -18,6 +19,24 @@ public class K3ContractService {
 	
 	public K3ContractService(K3ContractMapper k3ContractMapper) {
 		this.k3ContractMapper = k3ContractMapper;
+	}
+
+	//비용 등록페이지 거래처 모달창
+	public List<K3Contractor> K3GetContractor(){
+		
+		List<K3Contractor> K3Contractor = k3ContractMapper.K3GetContractor();
+		
+		return K3Contractor;
+		
+	}
+	
+	//비용 체결날짜 정해주기
+	public List<Map<String, Object>> contractSingningDate(){
+		
+		List<Map<String, Object>> contractSingningDate = k3ContractMapper.contractSingningDate();
+		
+		return contractSingningDate;
+		
 	}
 	
 	//계약 상세정보 모달창
