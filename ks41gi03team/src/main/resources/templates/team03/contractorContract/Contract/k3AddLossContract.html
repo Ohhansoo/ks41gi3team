@@ -43,8 +43,8 @@
 						columns: [
 							{ "data": "선택"},
 							{ "data": "contractorCode"},
-							{ "data": "contractorDevision"},
 							{ "data": "contractorId"},
+							{ "data": "contractorDevision"},
 							{ "data": "contractorSuperviser"},
 							{ "data": "contractorProfitBank"},
 							{ "data": "contractorProfitAccount"}
@@ -73,12 +73,11 @@
 					var td = tr.children();
 					
 					$('#contractorCode').val(td.eq(1).text());
-					$('#contractorDevision').val(td.eq(2).text());
-					$('#contractorId').val(td.eq(3).text());
+					$('#contractorId').val(td.eq(2).text());
+					$('#contractorDevision').val(td.eq(3).text());
 					$('#contractorSuperviser').val(td.eq(4).text());
 					$('#contractorProfitBank').val(td.eq(5).text());
 					$('#contractorProfitAccount').val(td.eq(6).text());
-										
 				});
 				<!-- END 선택한 거래처 정보 가져오기 -->
 				
@@ -118,7 +117,7 @@
 					  		<input  class="form-control" type="date" id="contractLossEndDate" name="contractLossEndDate" placeholder="계약 종료 날짜"/>
 				  		</div>
 				  	</div>
-				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" th:each="cd : ${contractSingningDate}">
+				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
 						<div class="lossContractLabel">
 							<label>| 계약 결과 |</label>							
 						</div>
@@ -132,11 +131,11 @@
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">월납입금액 계약</span>
-					 		<input class="form-control" numOnly id="contractPriceMonth" type="number" name="contractPriceMonth"  placeholder="선택 입력"/>
+					 		<input class="form-control" numberOnly id="contractPriceMonth" type="number" min="0" name="contractPriceMonth"  placeholder="선택 입력"/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 체결 일자</span>
-				 			<input class="form-control" type="text" name="contractSingningDate" id="contractSingningDate" th:value="${ed.contractSingningDate}" readonly/>
+				 			<input class="form-control" type="text" name="contractSingningDate" id="contractSingningDate" th:value="${contractSingningDate[0]}" readonly/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">등록 직원 아이디</span>
@@ -154,7 +153,7 @@
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">거래처 아이디</span>
-				  			<input class="form-control" type="text" name="contractId" id="contractId" readonly/>
+				  			<input class="form-control" type="text" name="contractorId" id="contractorId" readonly/>
 				  		</div>
 						<div class="input-group">
 				  			<span class="input-group-text">거래 구분</span>
@@ -192,7 +191,7 @@
 					</div>
 					<div class="modal-body">
 						<div class=" card card-body bg-light container-fluid">
-							<table  id="contractorDT" class="dataTable table table-striped table-hover" >
+							<table id="contractorDT" class="dataTable table table-striped table-hover" >
 								<thead>
 									<tr>
 							            <th>선택</th>
