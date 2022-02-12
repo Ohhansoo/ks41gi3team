@@ -11,8 +11,10 @@
 <a href="https://blog.naver.com/girlish_1" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
 - 김지원(배송통합관리) : 
 <a href="https://blog.naver.com/dnjsrlawl_" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
-- 오한수(상품관리) : 
-<a href="https://blog.naver.com/zhdnrk124" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
+- 오한수(
+<a href="https://tidy-ship-234.notion.site/Hansoo-Oh-32e36f118afe43e7b2634f1c59865c37" target="_blank"><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/></a><br>
+) : 
+
 
 > __프로젝트 목적
 
