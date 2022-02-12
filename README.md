@@ -1,6 +1,6 @@
 ## ⊙ 물류 최적화 프로그램(ERP)
 
-> __팀원
+> #### 팀원
 - 김재홍(공간사업관리) :
 <a href="https://blog.daum.net/eeetaa" target="_blank"><img src="https://img.shields.io/badge/Tistory-009FD9?style=flat-square&logo=Thumbtack&logoColor=white"/></a>   
 - 이상현(재무관리) :
@@ -12,22 +12,22 @@
 - 김지원(배송통합관리) : 
 <a href="https://blog.naver.com/dnjsrlawl_" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
 - 오한수(
-<a href="https://tidy-ship-234.notion.site/Hansoo-Oh-32e36f118afe43e7b2634f1c59865c37" target="_blank"><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/></a><br>) : 상품관리
+<a href="https://tidy-ship-234.notion.site/Hansoo-Oh-32e36f118afe43e7b2634f1c59865c37" target="_blank"><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/></a>) : 상품관리
 
 > #### 프로젝트 목적
 
 : 물류 자동화로 변해가는 시장흐름에 맞춰, 중소기업들이 변화된 물류 환경에 적응해 나가기 위한 프로세스를 제공함
 
-> __프로젝트 기대효과 
+> #### 프로젝트 기대효과 
 - 입출고 검수 강화를 통해 재고 오차범위를 최소화한다
 - 체계적이고 안정적인 물류 시스템을 통해 유통업체의 경쟁력 확보 및 운영비 절감
 - 직관적인 UI 사용으로 접근성 향상
 
-> __개발과정
+> #### 개발과정
 
 : 시스템 구조도 작성, 기능 정의, 상세자료입력, 테이블 스키마, ERD 작성, UI 설계, 네이밍 규칙, 구현, 배포
 
-> __프로젝트 기능   
+> #### 프로젝트 기능   
 
 
 ▶오한수
@@ -67,7 +67,7 @@
   - 출고
     - 출고와 관련된 상품들을 조회하는 기능
 
-> __개발환경 
+> #### 개발환경 
 - Language : Java, JavaScript(JQuery : jquery-3.6.0), HTML, CSS<br>
 - DB : MySQL<br>
 - DB관리툴 : HeidiSQL 10.1.0.5464<br>
