@@ -1,16 +1,12 @@
 ## ⊙ 물류 최적화 프로그램(ERP)
 
 > #### 팀원
-- 김재홍(공간사업관리) :
-<a href="https://blog.daum.net/eeetaa" target="_blank"><img src="https://img.shields.io/badge/Tistory-009FD9?style=flat-square&logo=Thumbtack&logoColor=white"/></a>   
-- 이상현(재무관리) :
-<a href="https://deww.tistory.com" target="_blank"><img src="https://img.shields.io/badge/Tistory-009FD9?style=flat-square&logo=Thumbtack&logoColor=white"/></a>  
-- 이은빈(계약관리) :
-<a href="https://blog.naver.com/leb4610" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a> 
-- 송아현(회원관리) : 
-<a href="https://blog.naver.com/girlish_1" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
-- 김지원(배송통합관리) : 
-<a href="https://blog.naver.com/dnjsrlawl_" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>
+- 김재홍(<a href="https://blog.daum.net/eeetaa" target="_blank"><img src="https://img.shields.io/badge/Duam-003E54?style=flat-square&logo=Devpost&logoColor=white"/></a>) : 공간사업관리 
+- 이상현(<a target="_blank"  href="https://deww.tistory.com"><img src="https://img.shields.io/badge/Tistory-F64935?style=flat-square&amp;logo=Thumbtack&amp;logoColor=white"/></a>) : 재무관리
+- 이은빈(<a href="https://blog.naver.com/leb4610" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>) : 계약관리
+- 송아현(<a href="https://blog.naver.com/girlish_1" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>) : 회원관리
+- 김지원(
+<a href="https://blog.naver.com/dnjsrlawl_" target="_blank"><img src="https://img.shields.io/badge/Naver-03C75A?style=flat-square&logo=Naver&logoColor=white"/></a>) : 배송통합관리
 - 오한수(
 <a href="https://tidy-ship-234.notion.site/Hansoo-Oh-32e36f118afe43e7b2634f1c59865c37" target="_blank"><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/></a>) : 상품관리
 
