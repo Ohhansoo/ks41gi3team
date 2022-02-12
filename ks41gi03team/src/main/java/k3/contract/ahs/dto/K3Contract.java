@@ -41,204 +41,281 @@ public class K3Contract {
 	private String contractLossBank;
 	private String contractLossStartDate;
 	private String contractLossEndDate;
+	
+	private String contractorSuperviser;
+
 	public String getContractorType() {
 		return contractorType;
 	}
+
 	public void setContractorType(String contractorType) {
 		this.contractorType = contractorType;
 	}
+
 	public String getContractorRepresentative() {
 		return contractorRepresentative;
 	}
+
 	public void setContractorRepresentative(String contractorRepresentative) {
 		this.contractorRepresentative = contractorRepresentative;
 	}
+
 	public String getContractCode() {
 		return contractCode;
 	}
+
 	public void setContractCode(String contractCode) {
 		this.contractCode = contractCode;
 	}
+
 	public String getContractorName() {
 		return contractorName;
 	}
+
 	public void setContractorName(String contractorName) {
 		this.contractorName = contractorName;
 	}
+
 	public String getContractorCode() {
 		return contractorCode;
 	}
+
 	public void setContractorCode(String contractorCode) {
 		this.contractorCode = contractorCode;
 	}
+
 	public String getContractorDevision() {
 		return contractorDevision;
 	}
+
 	public void setContractorDevision(String contractorDevision) {
 		this.contractorDevision = contractorDevision;
 	}
+
 	public String getContractState() {
 		return contractState;
 	}
+
 	public void setContractState(String contractState) {
 		this.contractState = contractState;
 	}
+
 	public String getContractSingningDate() {
 		return contractSingningDate;
 	}
+
 	public void setContractSingningDate(String contractSingningDate) {
 		this.contractSingningDate = contractSingningDate;
 	}
+
 	public String getContractSingningDateStart() {
 		return contractSingningDateStart;
 	}
+
 	public void setContractSingningDateStart(String contractSingningDateStart) {
 		this.contractSingningDateStart = contractSingningDateStart;
 	}
+
 	public String getContractSingningDateEnd() {
 		return contractSingningDateEnd;
 	}
+
 	public void setContractSingningDateEnd(String contractSingningDateEnd) {
 		this.contractSingningDateEnd = contractSingningDateEnd;
 	}
+
 	public String getContractorId() {
 		return contractorId;
 	}
+
 	public void setContractorId(String contractorId) {
 		this.contractorId = contractorId;
 	}
+
 	public String getMemberId() {
 		return memberId;
 	}
+
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
 	public String getContractDetailCode() {
 		return contractDetailCode;
 	}
+
 	public void setContractDetailCode(String contractDetailCode) {
 		this.contractDetailCode = contractDetailCode;
 	}
+
 	public String getMainBusinessCode() {
 		return mainBusinessCode;
 	}
+
 	public void setMainBusinessCode(String mainBusinessCode) {
 		this.mainBusinessCode = mainBusinessCode;
 	}
+
 	public String getEstimateDetailNum() {
 		return estimateDetailNum;
 	}
+
 	public void setEstimateDetailNum(String estimateDetailNum) {
 		this.estimateDetailNum = estimateDetailNum;
 	}
+
 	public String getEstimateNum() {
 		return estimateNum;
 	}
+
 	public void setEstimateNum(String estimateNum) {
 		this.estimateNum = estimateNum;
 	}
+
 	public String getUnitPriceCode() {
 		return unitPriceCode;
 	}
+
 	public void setUnitPriceCode(String unitPriceCode) {
 		this.unitPriceCode = unitPriceCode;
 	}
+
 	public String getContractPrice() {
 		return contractPrice;
 	}
+
 	public void setContractPrice(String contractPrice) {
 		this.contractPrice = contractPrice;
 	}
+
 	public String getContractPricePrepayment() {
 		return contractPricePrepayment;
 	}
+
 	public void setContractPricePrepayment(String contractPricePrepayment) {
 		this.contractPricePrepayment = contractPricePrepayment;
 	}
+
 	public String getContractPriceMonth() {
 		return contractPriceMonth;
 	}
+
 	public void setContractPriceMonth(String contractPriceMonth) {
 		this.contractPriceMonth = contractPriceMonth;
 	}
+
 	public String getLocationCode() {
 		return locationCode;
 	}
+
 	public void setLocationCode(String locationCode) {
 		this.locationCode = locationCode;
 	}
+
 	public String getContractorProfitAccount() {
 		return contractorProfitAccount;
 	}
+
 	public void setContractorProfitAccount(String contractorProfitAccount) {
 		this.contractorProfitAccount = contractorProfitAccount;
 	}
+
 	public String getContractorProfitBank() {
 		return contractorProfitBank;
 	}
+
 	public void setContractorProfitBank(String contractorProfitBank) {
 		this.contractorProfitBank = contractorProfitBank;
 	}
+
 	public String getContractProfitStartDate() {
 		return contractProfitStartDate;
 	}
+
 	public void setContractProfitStartDate(String contractProfitStartDate) {
 		this.contractProfitStartDate = contractProfitStartDate;
 	}
+
 	public String getContractProfitEndDate() {
 		return contractProfitEndDate;
 	}
+
 	public void setContractProfitEndDate(String contractProfitEndDate) {
 		this.contractProfitEndDate = contractProfitEndDate;
 	}
+
 	public String getContractProfitManager() {
 		return contractProfitManager;
 	}
+
 	public void setContractProfitManager(String contractProfitManager) {
 		this.contractProfitManager = contractProfitManager;
 	}
+
 	public String getContractLossTon() {
 		return contractLossTon;
 	}
+
 	public void setContractLossTon(String contractLossTon) {
 		this.contractLossTon = contractLossTon;
 	}
+
 	public String getContractLossDriverHeadcount() {
 		return contractLossDriverHeadcount;
 	}
+
 	public void setContractLossDriverHeadcount(String contractLossDriverHeadcount) {
 		this.contractLossDriverHeadcount = contractLossDriverHeadcount;
 	}
+
 	public String getContractLossTerm() {
 		return contractLossTerm;
 	}
+
 	public void setContractLossTerm(String contractLossTerm) {
 		this.contractLossTerm = contractLossTerm;
 	}
+
 	public String getContractLossAccount() {
 		return contractLossAccount;
 	}
+
 	public void setContractLossAccount(String contractLossAccount) {
 		this.contractLossAccount = contractLossAccount;
 	}
+
 	public String getContractLossBank() {
 		return contractLossBank;
 	}
+
 	public void setContractLossBank(String contractLossBank) {
 		this.contractLossBank = contractLossBank;
 	}
+
 	public String getContractLossStartDate() {
 		return contractLossStartDate;
 	}
+
 	public void setContractLossStartDate(String contractLossStartDate) {
 		this.contractLossStartDate = contractLossStartDate;
 	}
+
 	public String getContractLossEndDate() {
 		return contractLossEndDate;
 	}
+
 	public void setContractLossEndDate(String contractLossEndDate) {
 		this.contractLossEndDate = contractLossEndDate;
 	}
+
+	public String getContractorSuperviser() {
+		return contractorSuperviser;
+	}
+
+	public void setContractorSuperviser(String contractorSuperviser) {
+		this.contractorSuperviser = contractorSuperviser;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -308,9 +385,12 @@ public class K3Contract {
 		builder.append(contractLossStartDate);
 		builder.append(", contractLossEndDate=");
 		builder.append(contractLossEndDate);
+		builder.append(", contractorSuperviser=");
+		builder.append(contractorSuperviser);
 		builder.append("]");
 		return builder.toString();
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -341,6 +421,7 @@ public class K3Contract {
 		result = prime * result + ((contractorProfitAccount == null) ? 0 : contractorProfitAccount.hashCode());
 		result = prime * result + ((contractorProfitBank == null) ? 0 : contractorProfitBank.hashCode());
 		result = prime * result + ((contractorRepresentative == null) ? 0 : contractorRepresentative.hashCode());
+		result = prime * result + ((contractorSuperviser == null) ? 0 : contractorSuperviser.hashCode());
 		result = prime * result + ((contractorType == null) ? 0 : contractorType.hashCode());
 		result = prime * result + ((estimateDetailNum == null) ? 0 : estimateDetailNum.hashCode());
 		result = prime * result + ((estimateNum == null) ? 0 : estimateNum.hashCode());
@@ -350,6 +431,7 @@ public class K3Contract {
 		result = prime * result + ((unitPriceCode == null) ? 0 : unitPriceCode.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -489,6 +571,11 @@ public class K3Contract {
 				return false;
 		} else if (!contractorRepresentative.equals(other.contractorRepresentative))
 			return false;
+		if (contractorSuperviser == null) {
+			if (other.contractorSuperviser != null)
+				return false;
+		} else if (!contractorSuperviser.equals(other.contractorSuperviser))
+			return false;
 		if (contractorType == null) {
 			if (other.contractorType != null)
 				return false;
@@ -526,8 +613,7 @@ public class K3Contract {
 			return false;
 		return true;
 	}
-	
-	
+
 
 	
 
