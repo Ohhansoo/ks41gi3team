@@ -15,10 +15,40 @@
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script>
 			$(function(){
+				
+				<!-- 계약 대표코드 중복검사-->
+				$(document).on('click','#contractCodeCheck',function(){
+					var contractCode = $("input[name=contractCode]").val();
+					console.log("contractCode 변수 값 확인 : " + contractCode);
+ 					if(typeof contractCode != 'undefined' && contractCode != null && contractCode != ''){
+						//ajax 호출
+						var request = $.ajax({
+							url : 'contractCodeCheck',
+							method : 'POST',
+							data : {'contractCode' : contractCode},
+							dataType : 'json'
+						});
+						request.done(function(data){
+							//중복여부 체크 (true : 중복, false : 등록가능)
+							var contractCode = data;
+							if(contractCode){
+								swal('중복된 계약 대표코드','다른 계약 대표코드를 입력해주세요.','error');
+							}else{
+								swal('등록 가능','등록이 가능한 계약 대표코드 입니다.','success');
+								$('input[name=contractCodeCheck]').attr("checked",true);
+								$("input[name=contractCode]").attr("readonly",true);
+							}
+						});
+ 					}else{
+ 						swal('계약 대표코드를 입력하세요!','입력 후 다시 중복확인을 해주세요.','error');
+ 					}
+					
+				});
+				<!-- END 계약 대표코드 중복검사-->
 
 				<!-- 숫자 이외 입력 제한 기능-->
 				$(document).on("keyup", "input[numOnly]", function(){
-					$(this).val($(this).val().replace(/[^0-9]/gi,"") );
+					$(this).val($(this).val().replace(/[^0-9]/gi,""));
 				});
 				<!-- END 숫자 이외 입력 제한 기능-->
 				
@@ -93,9 +123,9 @@
 							<label>| 계약 내용 |</label>							
 						</div>					  	
 						<div class="input-group">
-				  			<span class="input-group-text">계약 번호</span>
-				  			<input class="form-control" type="text" name="lossContractNum" id="contractCode" placeholder="계약 번호"/>
-				  			<button type="button" id="contractCodeCheckBtn" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="contractCodeCheck" disabled style="border:none"></button>
+				  			<span class="input-group-text">계약 대표코드</span>
+				  			<input class="form-control" type="text" name="contractCode" id="contractCode" placeholder="계약 대표코드"/>
+				  			<button type="button" id="contractCodeCheck" class="ahsbtn2 btn btn-outline-info">중복확인<input type="checkbox" name="contractCodeCheck" disabled style="border:none"></button>
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">계약 차량 톤수</span>
@@ -107,14 +137,14 @@
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 기간</span>
-					  		<input  class="form-control" type="text" id="contractLossTerm" name="contractLossTerm" placeholder="계약 기간"/>
-				  		</div>
-				  		<div class=" input-group">
-				  			<span class="input-group-text">계약 기간</span>
 				  		</div>
 				  		<div class=" input-group" style="padding-top:0px">
 					  		<input  class="form-control" type="date" id="contractLossManager" name="contractLossManager" placeholder="계약 시작 날짜"/>
 					  		<input  class="form-control" type="date" id="contractLossEndDate" name="contractLossEndDate" placeholder="계약 종료 날짜"/>
+				  		</div>
+				  		<div class=" input-group">
+				  			<span class="input-group-text">총 계약 기간</span>
+					  		<input  class="form-control" type="text" id="contractLossTerm" name="contractLossTerm" placeholder="총 계약 기간"/>
 				  		</div>
 				  	</div>
 				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
@@ -126,11 +156,11 @@
 				  			<input class="form-control" numOnly id="contractPrice" type="number" name="contractPrice" placeholder="계약금 합계(VAT)"/>
 				  		</div>
 				  		<div class=" input-group">
-				  			<span class="input-group-text">선입금액 계약</span>
+				  			<span class="input-group-text">선입금액</span>
 				 			<input class="form-control" numOnly id="contractPricePrepayment" type="number" name="contractPricePrepayment" placeholder="선택 입력" />
 				  		</div>
 				  		<div class=" input-group">
-				  			<span class="input-group-text">월납입금액 계약</span>
+				  			<span class="input-group-text">월납입금액</span>
 					 		<input class="form-control" numberOnly id="contractPriceMonth" type="number" min="0" name="contractPriceMonth"  placeholder="선택 입력"/>
 				  		</div>
 				  		<div class=" input-group">
