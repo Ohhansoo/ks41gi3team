@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
 
+	<!-- 계약 대표코드 중복검사 -->
+	<select id="contractCodeCheck" parameterType="String" resultType="int">
+	SELECT
+		COUNT(1)
+	FROM 
+		k3_tb_contract_loss_detail
+	WHERE 
+		contractCode = #{contractCode};	
+	</select>
+
 	<!-- 비용 등록페이지 거래처 모달창 -->
 	<select id="K3GetContractor" resultType="K3Contractor">
 		SELECT 

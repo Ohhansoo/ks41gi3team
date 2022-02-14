@@ -12,6 +12,10 @@ import k3.contractor.ahs.dto.K3Contractor;
 @Mapper
 public interface K3ContractMapper {
 
+	
+	//계약 대표코드 중복검사
+	public int contractCodeCheck(String contractCode);
+	
 	//비용 등록페이지 거래처 모달창
 	public List<K3Contractor> K3GetContractor();
 	

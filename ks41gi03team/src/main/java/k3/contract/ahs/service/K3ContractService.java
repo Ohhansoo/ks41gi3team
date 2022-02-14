@@ -20,6 +20,14 @@ public class K3ContractService {
 	public K3ContractService(K3ContractMapper k3ContractMapper) {
 		this.k3ContractMapper = k3ContractMapper;
 	}
+	
+	//계약 대표코드 중복검사
+	public int contractCodeCheck(String contractCode) {
+		int result = 0;
+		result += k3ContractMapper.contractCodeCheck(contractCode);
+		
+		return result;
+	}
 
 	//비용 등록페이지 거래처 모달창
 	public List<K3Contractor> K3GetContractor(){

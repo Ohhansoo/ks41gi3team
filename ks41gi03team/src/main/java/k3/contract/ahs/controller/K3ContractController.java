@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,23 @@ public class K3ContractController {
 	public K3ContractController(K3ContractService k3ContractService) {
 		this.k3ContractService = k3ContractService;
 	}
+	
+	//계약 대표코드 중복검사
+	@PostMapping("/contractCodeCheck")
+	@ResponseBody
+	public boolean contractCodeCheck(@RequestParam(value="contractCode",required = false)String contractCode) {
+		
+		boolean checkResult = false;
+		
+		if(contractCode != "undefined" && contractCode != null && contractCode != "".toString()) {
+			int check = k3ContractService.contractCodeCheck(contractCode);
+			if(check > 0) checkResult = true;
+		}
+		
+		return checkResult;
+		
+	}
+	
 	
 	//비용 계약 등록페이지 거래처 모달창
 	@GetMapping("/contractorModalAjax")
