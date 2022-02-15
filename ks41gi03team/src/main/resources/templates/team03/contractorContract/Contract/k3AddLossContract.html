@@ -111,12 +111,62 @@
 				});
 				<!-- END 선택한 거래처 정보 가져오기 -->
 				
+				<!-- 빈칸 검사 기능 -->
+				$('#addLossContractBtn').on('click',function(){
+					var submitCheck = true;
+					var input = $('#addLossContractForm').find('input');
+					for(i=0; i<input.length; i++){
+						if(input[i].value == null || input[i].value == "" || input[i].value == 'undefined'){
+							submitCheck = false;
+						}
+					}
+					if(submitCheck){
+						swal({
+							title: "계약을 체결 하시겠습니까?",
+							text: "체결하신 계약 정보는 데이터에 등록됩니다.",
+							icon: "warning",
+							buttons: {
+								confirm: {
+									text: "네",
+									value: true,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true,
+								},
+								cancel: {
+									text: "아니요",
+									value: null,
+									visible: true,
+									className: "btn btn-outline-info ",
+									closeModal: true
+								}
+							}
+						})
+						.then(function(value){
+							if(value){
+								swal("등록 성공:)","계약 정보가 성공적으로 등록되었습니다.","success");
+								setTimeout(function(){$('#addLossContractForm').submit();},1000);
+							}else{
+								swal("등록 취소!","계약 등록이 취소되었습니다.","error");
+								return false;
+							}
+						});							
+					}else if(!$('input[name=contractCodeCheck]').is(":checked")){
+						swal("등록 실패!","계약대표코드 중복체크를 해주세요","error");
+						return false;
+					}else{
+						swal('계약 정보를 모두 입력해주세요!','선택사항을 제외한 모든정보를 입력해주세요','warning');
+					}
+				});
+				
+				<!-- END 빈칸 검사 기능 -->
+				
 			});
 		</script>
 	</th:block>
 	<th:block layout:fragment="customContents"> 
 		<div class="container container-fluid ">
-			<form id="addLossContractForm" th:action="@{/team03/lossContractorLossContract/LossContract/k3AddLossContract}" method="post">
+			<form id="addLossContractForm" th:action="@{/team03/contractorContract/Contract/k3AddLossContract}" method="post">
 				<div class="d-flex" >
 					<div class="justify-content-start addForm card cardColor input-group" id="carLossContract" style="margin:10px">
 						<div class="lossContractLabel">
@@ -133,18 +183,18 @@
 				  		</div>
 				  		<div class="input-group">
 				  			<span class="input-group-text">계약 배송기사 인원</span>
-				  			<input  class="form-control"  type="number" min='0' id="carLossContract" name="carLossContract" placeholder="배송기사"/>
+				  			<input  class="form-control"  type="number" min='0' id="contractLossDriverHeadcount" name="contractLossDriverHeadcount" placeholder="배송기사"/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 기간</span>
 				  		</div>
 				  		<div class=" input-group" style="padding-top:0px">
-					  		<input  class="form-control" type="date" id="contractLossManager" name="contractLossManager" placeholder="계약 시작 날짜"/>
+					  		<input  class="form-control" type="date" id="contractLossStartDate" name="contractLossStartDate" placeholder="계약 시작 날짜"/>
 					  		<input  class="form-control" type="date" id="contractLossEndDate" name="contractLossEndDate" placeholder="계약 종료 날짜"/>
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">총 계약 기간</span>
-					  		<input  class="form-control" type="text" id="contractLossTerm" name="contractLossTerm" placeholder="총 계약 기간"/>
+					  		<input  class="form-control" type="number" min="1" id="contractLossTerm" name="contractLossTerm" placeholder="총 계약 기간(개월)"/>
 				  		</div>
 				  	</div>
 				  	<div class="justify-content-start addForm card cardColor input-group" style="margin:10px" >
@@ -156,12 +206,12 @@
 				  			<input class="form-control" numOnly id="contractPrice" type="number" name="contractPrice" placeholder="계약금 합계(VAT)"/>
 				  		</div>
 				  		<div class=" input-group">
-				  			<span class="input-group-text">선입금액</span>
-				 			<input class="form-control" numOnly id="contractPricePrepayment" type="number" name="contractPricePrepayment" placeholder="선택 입력" />
+				  			<span class="input-group-text">선입금액(선택)</span>
+				 			<input class="form-control" numOnly id="contractPricePrepayment" type="number" name="contractPricePrepayment" value="0" />
 				  		</div>
 				  		<div class=" input-group">
-				  			<span class="input-group-text">월납입금액</span>
-					 		<input class="form-control" numberOnly id="contractPriceMonth" type="number" min="0" name="contractPriceMonth"  placeholder="선택 입력"/>
+				  			<span class="input-group-text">월납입금액(선택)</span>
+					 		<input class="form-control" numberOnly id="contractPriceMonth" type="number" min="0" name="contractPriceMonth" value="0" />
 				  		</div>
 				  		<div class=" input-group">
 				  			<span class="input-group-text">계약 체결 일자</span>

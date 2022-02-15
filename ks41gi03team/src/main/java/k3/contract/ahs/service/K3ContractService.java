@@ -21,6 +21,20 @@ public class K3ContractService {
 		this.k3ContractMapper = k3ContractMapper;
 	}
 	
+	//계약 비용 등록(간단)
+	public int k3AddContract(K3Contract k3Contract) {
+		int result = k3ContractMapper.k3AddContract(k3Contract);
+		
+		return result;
+	}
+	
+	//계약 비용 등록(비용)
+	public int k3AddLossContract(K3Contract k3Contract) {
+		int result = k3ContractMapper.k3AddLossContract(k3Contract);
+		
+		return result;
+	}
+	
 	//계약 대표코드 중복검사
 	public int contractCodeCheck(String contractCode) {
 		int result = 0;

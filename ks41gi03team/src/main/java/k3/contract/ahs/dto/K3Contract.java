@@ -41,6 +41,7 @@ public class K3Contract {
 	private String contractLossBank;
 	private String contractLossStartDate;
 	private String contractLossEndDate;
+	private String contractLossManager;
 	
 	private String contractorSuperviser;
 

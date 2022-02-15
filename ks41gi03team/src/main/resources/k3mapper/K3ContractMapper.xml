@@ -4,6 +4,39 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k3.contract.ahs.mapper.K3ContractMapper">
 
+
+	<!-- 계약 비용 등록(간단) -->
+	<insert id="k3AddContract" parameterType="K3Contract" >
+		INSERT INTO 
+			k3_tb_contract_simple
+				(contractCode, contractorCode, mainBusinessCode
+				, contractorId, contractorDevision, contractPrice
+				, contractPricePrepayment, contractPriceMonth, contractSingningDate
+				, contractState, memberId)
+			VALUES 
+				(#{contractCode}, #{contractorCode}, '물류센터A물류센터_전북_1'
+				, #{contractorId}, #{contractorDevision}, #{contractPrice}
+				, #{contractPricePrepayment}, #{contractPriceMonth}, curdate()
+				, '계약중', 'm_c01');
+	</insert>
+	
+	<!-- 계약 비용 등록(비용) -->
+	<insert id="k3AddLossContract" parameterType="K3Contract" >
+	INSERT INTO 
+		k3_tb_contract_loss_detail
+			(contractCode, contractorCode, mainBusinessCode
+			, contractorId, contractLossTon, contractLossDriverHeadcount
+			, contractLossTerm, contractLossAccount, contractLossBank
+			, contractLossManager, contractLossStartDate, contractLossEndDate
+			, memberId)
+		VALUES 
+			(#{contractCode}, #{contractorCode}, '물류센터A물류센터_전북_1'
+			, #{contractorId}, #{contractLossTon}, #{contractLossDriverHeadcount}
+			, CONCAT(#{contractLossTerm},'개월'), #{contractLossAccount}, #{contractLossBank}
+			, #{contractLossManager}, #{contractLossStartDate}, #{contractLossEndDate}
+			, 'm_c01')
+	</insert>
+
 	<!-- 계약 대표코드 중복검사 -->
 	<select id="contractCodeCheck" parameterType="String" resultType="int">
 	SELECT

@@ -26,6 +26,17 @@ public class K3ContractController {
 		this.k3ContractService = k3ContractService;
 	}
 	
+	//비용 게약 등록
+	@PostMapping("/k3AddLossContract")
+	public String k3AddLossContract(K3Contract k3Contract) {
+		
+		k3ContractService.k3AddContract(k3Contract);
+		k3ContractService.k3AddLossContract(k3Contract);
+		
+		return "redirect:/team03/contractorContract/Contract/k3SearchContract";
+		
+	}
+	
 	//계약 대표코드 중복검사
 	@PostMapping("/contractCodeCheck")
 	@ResponseBody

@@ -229,7 +229,7 @@
 					#{contractorAddr}, CONCAT(#{contractorEmail},'@',#{contractorEmailAddr}), CONCAT(#{contractorSuperviserEmail},'@',#{contractorSuperviserEmailAddr}), 
 					#{contractorItem}, #{contractorStatus}, #{contractorProfitBank}, 
 					#{contractorProfitAccount}, #{contractorAccountHolder}, #{contractorId}, 
-					'm_c02', curdate(), #{contractorBusinessClientNum}, 
+					'm_c01', curdate(), #{contractorBusinessClientNum}, 
 					#{contractorDevision}, #{contractorFax}, #{contractorState});
 	</insert>
 	
