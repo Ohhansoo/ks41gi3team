@@ -183,7 +183,7 @@
 		</if>
 	</select>
 
-	<!--입하검수 현황(초기화면) - 입하검수리스트  -->	
+	<!-- 출하검수 현황(초기화면) - 입하검수리스트  -->	
 	<select id="k3GetShipmentCheck" resultType="map" parameterType="map">
 		SELECT
 			r.releaseCode,
