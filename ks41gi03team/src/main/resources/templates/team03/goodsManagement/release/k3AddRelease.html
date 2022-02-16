@@ -102,7 +102,7 @@
 				$(document).on('click', '#confirmReleaseMergeCodeBtn', function(){
 					var checkedBox = $('.releaseMergeCode:checked');
 	 				var releaseMergeCode = $('#releaseMergeCode');
-	 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(1).text();
+	 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(2).text();
 	 				releaseMergeCode.attr('value',releaseMergeCodeValue);
 					console.log(checkedBox);
 					mergeCodeModal.addClass('hidden');
