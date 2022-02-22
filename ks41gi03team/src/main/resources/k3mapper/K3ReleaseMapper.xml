@@ -32,6 +32,10 @@
 			<id column="productCode" property="productCode" />
 			<result column="productName" property="productName" />
 		</association>
+		<association property="k3Stock" javaType="K3Stock">
+			<id column="stockCode" property="stockCode"/>
+			<result column="stockQuantity" property="stockQuantity" />
+		</association>
 	</resultMap>
 	<!-- <ajax> 요청 리스트 개수 전달(요청 알림) -->
 	<select id="k3CountRequestReleaseList" resultType="int">

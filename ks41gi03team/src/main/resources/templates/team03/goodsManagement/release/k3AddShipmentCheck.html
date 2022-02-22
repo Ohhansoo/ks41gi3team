@@ -19,26 +19,21 @@
 						if(submitCheck) $('#addShipmentTable').submit();
 				});
 				//모달 시작
-				var modal = $('#laydownCheckCodeModal');
+				var mergeCodeModal = $('#releaseMergeCodeModal');
 				var memberModal = $('#memberModal');
-				///입하검수코드 모달
-				$("#laydownCheckCodeExitBtn").click(function(){
-						
-					modal.addClass('hidden');
-				});
-				
-				$(document).on('click', '#selectLaydownCheckCode', function(){
+				//출고통합코드 선택 모달
+				$(document).on('click', '#selectReleaseMergeCode', function(){
 					var aLengthMenuArray = [];
 					aLengthMenuArray.push([5,10]);
 					aLengthMenuArray.push([5,10]);
 					
-					$('#laydownCheckCodeTable').DataTable({
+					$('#releaseMergeCodeTable').DataTable({
 						destroy: true,
 						autoWidth: false,
 						pageLength: 5,
 						aLengthMenu: aLengthMenuArray,
 						ajax: {
-							url: '/team03/goodsManagement/warehousing/k3GetLaydownCheckCodeList',
+							url: '/team03/goodsManagement/release/findReleaseMergeCode',
 		   					type: 'POST',
 		   					dataSrc: function(data){
 		        				console.log(JSON.stringify(data));
@@ -47,11 +42,10 @@
 						},
 						columns: [
 							{ "data": "선택"},
-							{ "data": "laydownCheckCode"},
-							{ "data": "warehousingCode"},
+							{ "data": "releaseCode"},
+							{ "data": "releaseMergeCode"},
 							{ "data": "productName"},								
-							{ "data": "contractorName"},								
-							{ "data": "laydownRequestDate"}					
+							{ "data": "pileupDate"}								
 						],
 						columnDefs: [
 							{
@@ -59,28 +53,29 @@
 								orderable : false,
 								searchable : false,
 								render : function(data, type, row){
-									var htmlbtn = '<input type="radio" class="laydownCheckCode" value="'+ row.laydownCheckCode +'">'
+									var htmlbtn = '<input type="radio" class="releaseMergeCode">'
 									return htmlbtn;
 								}
 							}
 						]
 					});
 					var overlay = $('.modal_overlay');
-					modal.removeClass('hidden');
+					mergeCodeModal.removeClass('hidden');
 						
 				});
-				$(document).on('click', '#laydownCheckCodeconfirm', function(){
-					var checkedBox = $('.releaseCheckCode:checked');
-	 				var releaseCheckCode = $('#releaseCheckCode');
-
-
-	 				var releaseCheckCodeValue = checkedBox.parent().parent().children().eq(1).text();
+				$("#releaseMergeCodeExitBtn").click(function(){
 					
-	 				releaseCheckCode.attr('value',releaseCheckCodeValue);
-
-	 				
-					modal.addClass('hidden');
+					mergeCodeModal.addClass('hidden');
 				});
+				$(document).on('click', '#confirmReleaseMergeCodeBtn', function(){
+					var checkedBox = $('.releaseMergeCode:checked');
+	 				var releaseMergeCode = $('#releaseMergeCode');
+	 				var releaseMergeCodeValue = checkedBox.parent().parent().children().eq(2).text();
+	 				releaseMergeCode.attr('value',releaseMergeCodeValue);
+					console.log(checkedBox);
+					mergeCodeModal.addClass('hidden');
+				});
+				
 				///멤버이름 모달
 				$(document).on('click', '#selectMember', function(){
 					var aLengthMenuArray = [];
@@ -164,7 +159,7 @@
 											<label for="releaseMergeCode" class="inputName">출고통합코드</label>
 											<input class="inputBox" type="text" id="releaseMergeCode" name="releaseMergeCode" th:value="${l.releaseMergeCode}"/>
 											<input type="hidden" id="releaseCode" name="releaseCode" th:value="${l.releaseCode}"/>
-											<button type="button" id="selectLaydownCheckCode">코드 변경</button>
+											<button type="button" id="selectReleaseMergeCode">코드 변경</button>
 										</div>
 										<div class="inputwrap col-md-12">
 											<label for="productName" class="inputName">물품명</label>
@@ -222,33 +217,32 @@
 			</div>
 		</div>
 		<!-- 모달창 -->
-		<div id="laydownCheckCodeModal" class="modal hidden">
+		<div id="releaseMergeCodeModal" class="modal hidden">
 			<div class="modal_overlay"></div>		
 			<div class="modal_content">
 				<div class="modal_header d-flex justify-content-between">
 					<div class="textTitle">카테고리 선택</div>
-					<button id="laydownCheckCodeExitBtn" class="exitBtn" type="button">
+					<button id="releaseMergeCodeExitBtn" class="exitBtn" type="button">
 						<i class="fas fa-times-circle"></i>
 					</button>
 				</div>
 				<div class="modal_body">
 					<form>	
-						<table border="1" id="laydownCheckCodeTable" class="dataTable">
+						<table border="1" id="releaseMergeCodeTable" class="dataTable">
 							<thead>
 								<tr bgcolor="#BDBDBD">
 									<th>선택</th>
-									<th>입하검수코드</th>
-									<th>입고코드</th>
-									<th>물품명</th>							
-									<th>회사명</th>							
-									<th>입하요청날짜</th>							
+									<th>출고코드</th>
+									<th>통합코드</th>
+									<th>상품명</th>						
+									<th>재고일자</th>							
 								</tr>
 							</thead>
 						</table>				
 					</form>
 				</div>
 				<div class="modal_fotter">
-					<button id="laydownCheckCodeconfirm" class="btn btn-secondary confirmBtn" type="button">확인</button>
+					<button id="confirmReleaseMergeCodeBtn" class="btn btn-secondary confirmBtn" type="button">확인</button>
 				</div>			
 			</div>
 		</div>
