@@ -309,6 +309,14 @@ public class K3Contract {
 		this.contractLossEndDate = contractLossEndDate;
 	}
 
+	public String getContractLossManager() {
+		return contractLossManager;
+	}
+
+	public void setContractLossManager(String contractLossManager) {
+		this.contractLossManager = contractLossManager;
+	}
+
 	public String getContractorSuperviser() {
 		return contractorSuperviser;
 	}
@@ -386,6 +394,8 @@ public class K3Contract {
 		builder.append(contractLossStartDate);
 		builder.append(", contractLossEndDate=");
 		builder.append(contractLossEndDate);
+		builder.append(", contractLossManager=");
+		builder.append(contractLossManager);
 		builder.append(", contractorSuperviser=");
 		builder.append(contractorSuperviser);
 		builder.append("]");
@@ -402,6 +412,7 @@ public class K3Contract {
 		result = prime * result + ((contractLossBank == null) ? 0 : contractLossBank.hashCode());
 		result = prime * result + ((contractLossDriverHeadcount == null) ? 0 : contractLossDriverHeadcount.hashCode());
 		result = prime * result + ((contractLossEndDate == null) ? 0 : contractLossEndDate.hashCode());
+		result = prime * result + ((contractLossManager == null) ? 0 : contractLossManager.hashCode());
 		result = prime * result + ((contractLossStartDate == null) ? 0 : contractLossStartDate.hashCode());
 		result = prime * result + ((contractLossTerm == null) ? 0 : contractLossTerm.hashCode());
 		result = prime * result + ((contractLossTon == null) ? 0 : contractLossTon.hashCode());
@@ -471,6 +482,11 @@ public class K3Contract {
 			if (other.contractLossEndDate != null)
 				return false;
 		} else if (!contractLossEndDate.equals(other.contractLossEndDate))
+			return false;
+		if (contractLossManager == null) {
+			if (other.contractLossManager != null)
+				return false;
+		} else if (!contractLossManager.equals(other.contractLossManager))
 			return false;
 		if (contractLossStartDate == null) {
 			if (other.contractLossStartDate != null)
@@ -615,7 +631,8 @@ public class K3Contract {
 		return true;
 	}
 
-
+	
+	
 	
 
 }
